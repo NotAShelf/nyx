@@ -12,6 +12,7 @@
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
+    sudo.execWheelOnly = true;
     rtkit.enable = true;
     apparmor = {
       enable = true;
@@ -26,7 +27,26 @@
         '';
       };
     };
-    sudo.execWheelOnly = true;
+
+    acme = {
+      acceptTerms = true;
+      defaults.email = "itsashelf@gmail.com";
+    };
+
+    tpm2 = {
+      enable = true;
+      abrmd.enable = true;
+    };
+
+    # sudo.enable = false;
+    # doas = {
+    #   enable = true;
+    #   extraRules = [{
+    #     users = [ "notashelf" ];
+    #     keepEnv = true;
+    #     persist = true;
+    #   }];
+    # };
   };
 
   # kernel module to improve Linux internet speeds
@@ -119,15 +139,15 @@
     "sysv"
   ];
 
-  # So we don't have to do this later...
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "itsashelf@gmail.com";
-  };
+  # # So we don't have to do this later...
+  # security.acme = {
+  #   acceptTerms = true;
+  #   defaults.email = "itsashelf@gmail.com";
+  # };
 
-  security.tpm2 = {
-    enable = true;
-    abrmd.enable = true;
-  };
+  # security.tpm2 = {
+  #   enable = true;
+  #   abrmd.enable = true;
+  # };
 
 }
