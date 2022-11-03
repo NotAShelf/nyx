@@ -6,11 +6,15 @@
   networking = {
     # dns
     nameservers = ["1.1.1.1" "1.0.0.1"];
+    
     networkmanager = {
       enable = true;
       unmanaged = ["docker0" "rndis0"];
-      wifi.macAddress = "random";
+      wifi = {
+        macAddress = "random";
+        powersave = true;
     };
+    
     firewall = {
       enable = true;
       # if your minecraft server is not worky
