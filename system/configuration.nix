@@ -32,7 +32,6 @@ with lib; let
     '';
   };
 in {
-  
   # disabledModules = [ "services/hardware/udev.nix" ];
   imports = [
     ./nvidia.nix
@@ -44,13 +43,13 @@ in {
     ./blocker.nix
     ./gamemode.nix
   ];
-  
+
   environment.variables = {
     EDITOR = "nvim";
     TERMINAL = "kitty";
     BROWSER = "firefox";
   };
-  
+
   nix = {
     gc = {
       automatic = true;
@@ -95,7 +94,7 @@ in {
       ];
 
       trusted-users = [
-        "root" 
+        "root"
         "@wheel"
       ];
     };
@@ -169,13 +168,12 @@ in {
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
       "nix/flake-channels/home-manager".source = inputs.hm;
       "greetd/environments".text = ''
-      Hyprland
-      sway
-      zsh
+        Hyprland
+        sway
+        zsh
       '';
-    }
+    };
   };
-
 
   # Set timezone
   time.timeZone = "Europe/Istanbul";
