@@ -62,7 +62,7 @@
     nixosConfigurations = {
       # host                               # arch         # hostname
       pavillion = mkSystem inputs.nixpkgs "x86_64-linux" "pavillion";
-      icarus    = mkSystem inputs.nixpkgs "x86_64-linux" "icarus";
+      icarus = mkSystem inputs.nixpkgs "x86_64-linux" "icarus";
     };
 
     packages.${system} = {

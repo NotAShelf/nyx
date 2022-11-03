@@ -51,7 +51,6 @@
 
     resolved.enable = true;
 
-
     # enable and secure ssh
     openssh = {
       enable = false;

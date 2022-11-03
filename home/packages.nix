@@ -12,7 +12,6 @@
       sha256 = "sha256-6qbv34ysNQbI/zff6rAnVW4z6yfm2t/XL/PF7D/tjv4=";
     };
   });
-  
 in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [

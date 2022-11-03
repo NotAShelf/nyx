@@ -4,10 +4,7 @@
   lib,
   inputs,
   ...
-}: 
-
-{
-
+}: {
   environment.variables = {
     BROWSER = "firefox";
   };

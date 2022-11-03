@@ -6,7 +6,6 @@
 }: {
   # Don't wait for network startup
   # https://old.reddit.com/r/NixOS/comments/vdz86j/how_to_remove_boot_dependency_on_network_for_a
-  
 
   #location.provider = "geoclue2";
   #geoclue2 = {
@@ -55,7 +54,6 @@
       gnome-keyring.enable = true;
     };
 
-    
     lorri.enable = true;
     udisks2.enable = true;
     fstrim.enable = true;
