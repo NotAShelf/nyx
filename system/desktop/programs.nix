@@ -6,7 +6,7 @@
   ...
 }: 
 
-in {
+{
 
   environment.variables = {
     BROWSER = "firefox";
