@@ -48,6 +48,7 @@ in {
       name = "Catppuccin-Frappe-Dark";
       size = 16;
     };
+    
     home.pointerCursor.gtk.enable = true;
 
     xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
