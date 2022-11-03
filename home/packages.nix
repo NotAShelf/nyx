@@ -15,16 +15,39 @@
 in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
-    todo mpv-unwrapped pavucontrol
-    imv hyperfine fzf
-    gum unzip gnupg
-    ripgrep rsync nano
-    imagemagick unrar killall
-    bandwhich grex fd
-    xfce.thunar xh jq
-    figlet lm_sensors keepassxc
-    dconf gcc rustc cargo
-    thunderbird acpi tlp
-    discord powertop
+    todo
+    mpv-unwrapped
+    pavucontrol
+    imv
+    hyperfine
+    fzf
+    gum
+    unzip
+    gnupg
+    ripgrep
+    rsync
+    nano
+    imagemagick
+    unrar
+    killall
+    bandwhich
+    grex
+    fd
+    xfce.thunar
+    xh
+    jq
+    figlet
+    lm_sensors
+    keepassxc
+    dconf
+    gcc
+    rustc
+    cargo
+    thunderbird
+    acpi
+    tlp
+    discord
+    powertop
+    geoclue2
   ];
 }

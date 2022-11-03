@@ -2,11 +2,7 @@
   config,
   pkgs,
   ...
-}: 
-
-{
-
-
+}: {
   # Don't wait for network startup
   # https://old.reddit.com/r/NixOS/comments/vdz86j/how_to_remove_boot_dependency_on_network_for_a
   systemd = {
@@ -14,14 +10,14 @@
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
   };
 
-  location.provider = "geoclue2";
-  geoclue2 = {
-      enable = true;
-      appConfig.gammastep = {
-        isAllowed = true;
-        isSystem = false;
-      };
-    };
+  #location.provider = "geoclue2";
+  #geoclue2 = {
+  #  enable = false;
+  #  appConfig.gammastep = {
+  #    isAllowed = true;
+  #    isSystem = false;
+  #  };
+  #};
 
   systemd.services = {
     seatd = {
@@ -40,7 +36,7 @@
   services.journald.extraConfig = ''
     SystemMaxUse=50M
     RuntimeMaxUse=10M
-    '';
+  '';
 
   services = {
     syncthing = {
@@ -53,9 +49,8 @@
       systemService = true;
     };
 
-    location.provider = "geoclue2";
     resolved.enable = true;
-    
+
     greetd = {
       enable = true;
       settings = rec {
@@ -71,7 +66,7 @@
       glib-networking.enable = true;
       gnome-keyring.enable = true;
     };
-    
+
     logind = {
       lidSwitch = "suspend-then-hibernate";
       lidSwitchExternalPower = "lock";
@@ -104,7 +99,7 @@
       jack.enable = true;
     };
 
-     btrfs.autoScrub.enable = true;
+    btrfs.autoScrub.enable = true;
 
     printing.enable = true;
 
@@ -117,6 +112,5 @@
         NMI_WATCHDOG = 0;
       };
     };
-    
   };
 }

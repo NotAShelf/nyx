@@ -59,7 +59,7 @@ in {
 
     package = pkgs.nixUnstable;
     extraOptions = ''
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
     '';
@@ -192,8 +192,6 @@ in {
     shell = pkgs.zsh;
   };
 
-  enableRedistributableFirmware = true;
-
   hardware = {
     bluetooth = {
       enable = true;
@@ -207,7 +205,7 @@ in {
     algorithm = "zstd";
   };
 
-  upower.enable = true;
+  #upower.enable = true;
 
   system.stateVersion = "22.05"; # DONT TOUCH THIS
 }
