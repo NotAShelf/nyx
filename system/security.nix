@@ -26,6 +26,10 @@
     sudo.execWheelOnly = true;
   };
 
+  # kernel module to improve Linux internet speeds
+  # https://www.cyberciti.biz/cloud-computing/increase-your-linux-server-internet-speed-with-tcp-bbr-congestion-control/
+  # boot.kernelModules = ["tcp_bbr"];
+
   boot.kernel.sysctl = {
     # The Magic SysRq key is a key combo that allows users connected to the
     # system console of a Linux kernel to perform some low-level commands.
