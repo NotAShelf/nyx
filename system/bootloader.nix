@@ -12,7 +12,7 @@
       "randomize_kstack_offset=on"
       "vsyscall=none"
       "slab_nomerge"
-      "debugfs=off"
+      "debugfs=on" # needs to be on for powertop
       "module.sig_enforce=1"
       "lockdown=confidentiality"
       "page_poison=1"
@@ -39,19 +39,8 @@
 
     # Change default bootloader to grub
     loader = {
-      systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
       timeout = 1;
-      grub = {
-        enable = false;
-        useOSProber = true;
-        efiSupport = true;
-        enableCryptodisk = false;
-        device = "nodev";
-        theme = null;
-        backgroundColor = null;
-        splashImage = null;
-      };
     };
 
     initrd = {

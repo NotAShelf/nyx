@@ -5,7 +5,10 @@
 }: {
   # Don't wait for network startup
   # https://old.reddit.com/r/NixOS/comments/vdz86j/how_to_remove_boot_dependency_on_network_for_a
-  
+  systemd = {
+    targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
+    services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
+  };
 
   #location.provider = "geoclue2";
   #geoclue2 = {
@@ -36,34 +39,22 @@
   '';
 
   services = {
+    syncthing = {
+      enable = false;
+      openDefaultPorts = true;
+      user = "notashelf";
+      group = "wheel";
+      dataDir = "$HOME/syncthing";
+      configDir = "$HOME/.config/syncthing/";
+      systemService = true;
+    };
+
     resolved.enable = true;
 
-    greetd = {
-      enable = true;
-      settings = rec {
-        initial_session = {
-          command = "Hyprland";
-          user = "notashelf";
-        };
-        default_session = initial_session;
-      };
-    };
-
-    gnome = {
-      glib-networking.enable = true;
-      gnome-keyring.enable = true;
-    };
-
-    
-    lorri.enable = true;
-    udisks2.enable = true;
-    fstrim.enable = true;
 
     # enable and secure ssh
     openssh = {
-      enable = lib.mkDefault true;
-      permitRootLogin = "no";
-      passwordAuthentication = true;
+      enable = false;
     };
 
     # Use pipewire instead of soyaudio
@@ -78,6 +69,16 @@
       jack.enable = true;
     };
 
-    btrfs.autoScrub.enable = true;
+    printing.enable = true;
+
+    # Try to save as much battery as possible
+    tlp = {
+      enable = true;
+      settings = {
+        PCIE_ASPM_ON_BAT = "powersupersave";
+        DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
+        NMI_WATCHDOG = 0;
+      };
+    };
   };
 }

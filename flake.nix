@@ -42,7 +42,8 @@
         modules = [
           {networking.hostName = hostname;}
           (./. + "/hosts/${hostname}/hardware-configuration.nix")
-          ./system/configuration.nix
+          (./. + "/hosts/${hostname}/system.nix")
+          ./system/common.nix
           inputs.hyprland.nixosModules.default
           home-manager.nixosModules.home-manager
           {
@@ -59,8 +60,9 @@
       };
   in {
     nixosConfigurations = {
-      # host                                # arch          # hostname
+      # host                               # arch         # hostname
       pavillion = mkSystem inputs.nixpkgs "x86_64-linux" "pavillion";
+      icarus    = mkSystem inputs.nixpkgs "x86_64-linux" "icarus";
     };
 
     packages.${system} = {
