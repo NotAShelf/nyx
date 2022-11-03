@@ -7,6 +7,7 @@
     cleanTmpDir = true;
     # some kernel parameters, i dont remember what half of this shit does but who cares
     kernelParams = [
+      acpi_call
       "pti=on"
       "randomize_kstack_offset=on"
       "vsyscall=none"
@@ -32,6 +33,8 @@
     initrd.verbose = false;
     # switch from old ass lts kernel
     kernelPackages = pkgs.linuxPackages_latest;
+
+    extraModulePackages = with config.boot.kernelPackages; [acpi_call];
     extraModprobeConfig = "options hid_apple fnmode=1";
 
     # Change default bootloader to grub
@@ -50,5 +53,25 @@
         splashImage = null;
       };
     };
+
+    initrd = {
+      availableKernelModules = [
+        "nvme"
+        "usbhid"
+        "sd_mod"
+        "dm_mod"
+        "tpm"
+      ];
+      kernelModules = [
+        "xhci_pci"
+        "ahci"
+        "btrfs"
+        "kvm-intel"
+        "sd_mod"
+        "dm_mod"
+        "usb_storage"
+        "rtsx_pci_sdmmc"
+      ];
+      
   };
 }
