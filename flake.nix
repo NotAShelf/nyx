@@ -7,13 +7,9 @@
     webcord.url = "github:fufexan/webcord-flake";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
-<<<<<<< HEAD
-=======
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
     alejandra.inputs.nixpkgs.follows = "nixpkgs";
-  };
     
->>>>>>> a46869f4718d96e453f6fd0079f7c73cb8fbf64e
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
