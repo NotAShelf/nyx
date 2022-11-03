@@ -6,9 +6,6 @@
 # this makes our system more secure
 # note that it might break some stuff, eg webcam
 {
-
-  
-
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
@@ -62,7 +59,7 @@
     "kernel.kptr_restrict" = 2;
     "net.core.bpf_jit_enable" = false;
     "kernel.ftrace_enabled" = false;
-    
+
     ## TCP hardening
     # Prevent bogus ICMP errors from filling up logs.
     "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
@@ -73,7 +70,7 @@
     # Do not accept IP source route packets (we're not a router)
     "net.ipv4.conf.all.accept_source_route" = 0;
     "net.ipv6.conf.all.accept_source_route" = 0;
-     # Don't send ICMP redirects (again, we're on a router)
+    # Don't send ICMP redirects (again, we're on a router)
     "net.ipv4.conf.all.send_redirects" = 0;
     "net.ipv4.conf.default.send_redirects" = 0;
     # Refuse ICMP redirects (MITM mitigations)
@@ -149,5 +146,4 @@
   #   enable = true;
   #   abrmd.enable = true;
   # };
-
 }

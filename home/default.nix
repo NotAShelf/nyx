@@ -4,7 +4,6 @@
   config,
   ...
 }:
-
 # glue all configs together
 {
   home.stateVersion = "22.05";

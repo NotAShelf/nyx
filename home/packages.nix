@@ -49,7 +49,7 @@ in {
     discord
     powertop
     geoclue2
-    steam 
+    steam
     nextcloud-client
   ];
 }
