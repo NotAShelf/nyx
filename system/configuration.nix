@@ -32,6 +32,7 @@ with lib; let
     '';
   };
 in {
+  
   # disabledModules = [ "services/hardware/udev.nix" ];
   imports = [
     ./nvidia.nix
@@ -42,11 +43,13 @@ in {
     ./services.nix
     ./blocker.nix
   ];
+  
   environment.variables = {
     EDITOR = "nvim";
     TERMINAL = "kitty";
     BROWSER = "firefox";
   };
+  
   nix = {
     gc = {
       automatic = true;
@@ -97,16 +100,20 @@ in {
     gnome.adwaita-icon-theme
     dbus-hyprland-environment
     configure-gtk
+    git
     #cryptsetup
   ];
 
   environment.defaultPackages = []; # this removes bloat (not really)
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
+  system.autoUpgrade.enable = false;
 
-  time.timeZone = "Europe/Istanbul";
-
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    # saves space
+    supportedLocales = ["en_US.UTF-8/UTF-8" "ja_JP.UTF-8/UTF-8" "ro_RO.UTF-8/UTF-8"];
+  };
 
   console = {
     font = "Lat2-Terminus16";
@@ -144,19 +151,9 @@ in {
   environment.etc."greetd/environments".text = ''
     Hyprland
   '';
-  systemd.services = {
-    seatd = {
-      enable = true;
-      description = "Seat management daemon";
-      script = "${pkgs.seatd}/bin/seatd -g wheel";
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "1";
-      };
-      wantedBy = ["multi-user.target"];
-    };
-  };
+
+  # Set timezone
+  time.timeZone = "Europe/Istanbul";
 
   users.users.notashelf = {
     isNormalUser = true;
@@ -174,7 +171,10 @@ in {
     shell = pkgs.zsh;
   };
 
-  system.autoUpgrade.enable = false;
+   zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
 
   system.stateVersion = "22.05"; # DONT TOUCH THIS
 }
