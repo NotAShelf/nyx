@@ -2,7 +2,9 @@
   config,
   pkgs,
   ...
-}: {
+}: 
+
+{
   networking = {
     # dns
     nameservers = ["1.1.1.1" "1.0.0.1"];
@@ -13,6 +15,7 @@
       wifi = {
         macAddress = "random";
         powersave = true;
+      };
     };
     
     firewall = {
@@ -24,5 +27,6 @@
       allowPing = false;
       logReversePathDrops = true;
     };
+
   };
 }
