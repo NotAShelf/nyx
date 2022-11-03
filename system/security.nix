@@ -135,15 +135,4 @@
     "qnx6"
     "sysv"
   ];
-
-  # # So we don't have to do this later...
-  # security.acme = {
-  #   acceptTerms = true;
-  #   defaults.email = "itsashelf@gmail.com";
-  # };
-
-  # security.tpm2 = {
-  #   enable = true;
-  #   abrmd.enable = true;
-  # };
 }
