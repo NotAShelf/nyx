@@ -5,8 +5,14 @@
 }: {
   fonts = {
     fonts = with pkgs; [
+      # icon fonts
       material-icons
       material-design-icons
+
+      # normal fonts
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
       roboto
       work-sans
       comic-neue
@@ -17,9 +23,6 @@
       lato
       dejavu_fonts
       iosevka-bin
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
       jetbrains-mono
       (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
     ];

@@ -42,6 +42,7 @@ in {
     ./security.nix
     ./services.nix
     ./blocker.nix
+    ./gamemode.nix
   ];
   
   environment.variables = {
@@ -56,12 +57,21 @@ in {
       dates = "daily";
       options = "--delete-older-than 4d";
     };
+
     package = pkgs.nixUnstable;
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = ["nix-command" "flakes"];
       keep-outputs = true
       keep-derivations = true
     '';
+
+    registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
+
+    nixPath = [
+      "nixpkgs=/etc/nix/flake-channels/nixpkgs"
+      "home-manager=/etc/nix/flake-channels/home-manager"
+    ];
+
     settings = {
       auto-optimise-store = true;
       allowed-users = ["notashelf"];
@@ -72,6 +82,7 @@ in {
         "https://nixpkgs-wayland.cachix.org"
         "https://nix-community.cachix.org"
         "https://hyprland.cachix.org"
+        "https://nix-gaming.cachix.org"
       ];
 
       trusted-public-keys = [
@@ -80,19 +91,21 @@ in {
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      ];
+
+      trusted-users = [
+        "root" 
+        "@wheel"
       ];
     };
   };
 
+  nixpkgs.pkgs = inputs.self.pkgs.${config.nixpkgs.system};
+
   documentation.enable = false; # its trash anyways
 
-  services.journald.extraConfig = ''
-    SystemMaxUse=50M
-    RuntimeMaxUse=10M
-  '';
-
   services.dbus.enable = true;
-
   services.dbus.packages = with pkgs; [dconf];
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
@@ -101,6 +114,7 @@ in {
     dbus-hyprland-environment
     configure-gtk
     git
+    glib
     #cryptsetup
   ];
 
@@ -127,6 +141,7 @@ in {
 
   programs = {
     ccache.enable = true;
+    less.enable = true;
     hyprland = {
       enable = true;
       # credits to IceDBorn and fufexan for this patch <3
@@ -148,9 +163,19 @@ in {
     };
   };
 
-  environment.etc."greetd/environments".text = ''
-    Hyprland
-  '';
+  environment = {
+    etc = {
+      "nix/flake-channels/system".source = inputs.self;
+      "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
+      "nix/flake-channels/home-manager".source = inputs.hm;
+      "greetd/environments".text = ''
+      Hyprland
+      sway
+      zsh
+      '';
+    }
+  };
+
 
   # Set timezone
   time.timeZone = "Europe/Istanbul";
@@ -171,10 +196,22 @@ in {
     shell = pkgs.zsh;
   };
 
-   zramSwap = {
+  enableRedistributableFirmware = true;
+
+  hardware = {
+    bluetooth = {
+      enable = true;
+      package = pkgs.bluez5-experimental;
+      hsphfpd.enable = true;
+    };
+  };
+
+  zramSwap = {
     enable = true;
     algorithm = "zstd";
   };
+
+  upower.enable = true;
 
   system.stateVersion = "22.05"; # DONT TOUCH THIS
 }
