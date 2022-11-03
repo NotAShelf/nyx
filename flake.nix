@@ -1,12 +1,19 @@
 {
   description = "My NixOS configuration";
-  # https://github.com/sioodmy/dotfiles
+  # https://github.com/notashelf/dotfiles
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     webcord.url = "github:fufexan/webcord-flake";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
+<<<<<<< HEAD
+=======
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
+    alejandra.inputs.nixpkgs.follows = "nixpkgs";
+  };
+    
+>>>>>>> a46869f4718d96e453f6fd0079f7c73cb8fbf64e
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
@@ -32,6 +39,7 @@
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     lib = nixpkgs.lib;
+    alejandra = 
 
     mkSystem = pkgs: system: hostname:
       pkgs.lib.nixosSystem {
@@ -56,6 +64,7 @@
       };
   in {
     nixosConfigurations = {
+    # host                                # arch          # hostname
       pavillion = mkSystem inputs.nixpkgs "x86_64-linux" "pavillion";
     };
 
