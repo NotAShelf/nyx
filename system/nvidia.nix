@@ -38,6 +38,10 @@
   # xdg portal is required for screenshare
   xdg.portal = {
     enable = true;
+    settings.screencast = {
+      chooser_type = "simple";
+      chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+    };
     wlr.enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };

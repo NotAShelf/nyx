@@ -6,6 +6,9 @@
 # this makes our system more secure
 # note that it might break some stuff, eg webcam
 {
+
+  
+
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
@@ -104,7 +107,6 @@
     "hfsplus"
     "squashfs"
     "udf"
-    "bluetooth"
     "btusb"
     "uvcvideo" # thats why your webcam not worky
     "hpfs"
@@ -116,4 +118,16 @@
     "qnx6"
     "sysv"
   ];
+
+  # So we don't have to do this later...
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "itsashelf@gmail.com";
+  };
+
+  security.tpm2 = {
+    enable = true;
+    abrmd.enable = true;
+  };
+
 }

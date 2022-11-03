@@ -5,6 +5,24 @@
 }: 
 
 {
+
+
+  # Don't wait for network startup
+  # https://old.reddit.com/r/NixOS/comments/vdz86j/how_to_remove_boot_dependency_on_network_for_a
+  systemd = {
+    targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
+    services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
+  };
+
+  location.provider = "geoclue2";
+  geoclue2 = {
+      enable = true;
+      appConfig.gammastep = {
+        isAllowed = true;
+        isSystem = false;
+      };
+    };
+
   systemd.services = {
     seatd = {
       enable = true;
@@ -19,6 +37,11 @@
     };
   };
 
+  services.journald.extraConfig = ''
+    SystemMaxUse=50M
+    RuntimeMaxUse=10M
+    '';
+
   services = {
     syncthing = {
       enable = false;
@@ -29,6 +52,9 @@
       configDir = "$HOME/.config/syncthing/";
       systemService = true;
     };
+
+    location.provider = "geoclue2";
+    resolved.enable = true;
     
     greetd = {
       enable = true;
@@ -57,7 +83,6 @@
 
     lorri.enable = true;
     udisks2.enable = true;
-    printing.enable = true;
     fstrim.enable = true;
 
     # enable and secure ssh
@@ -79,6 +104,10 @@
       jack.enable = true;
     };
 
+     btrfs.autoScrub.enable = true;
+
+    printing.enable = true;
+
     # Try to save as much battery as possible
     tlp = {
       enable = true;
@@ -88,5 +117,6 @@
         NMI_WATCHDOG = 0;
       };
     };
+    
   };
 }
