@@ -9,7 +9,7 @@
 
     alejandra.url = "github:kamadorueda/alejandra/3.0.0";
     alejandra.inputs.nixpkgs.follows = "nixpkgs";
-    
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
@@ -35,7 +35,6 @@
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     lib = nixpkgs.lib;
-    alejandra = 
 
     mkSystem = pkgs: system: hostname:
       pkgs.lib.nixosSystem {
@@ -60,7 +59,7 @@
       };
   in {
     nixosConfigurations = {
-    # host                                # arch          # hostname
+      # host                                # arch          # hostname
       pavillion = mkSystem inputs.nixpkgs "x86_64-linux" "pavillion";
     };
 
