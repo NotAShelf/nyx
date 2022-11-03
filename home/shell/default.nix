@@ -73,11 +73,12 @@ in {
     };
 
     dirHashes = {
-      docs = "$HOME/docs";
-      notes = "$HOME/docs/notes";
-      dl = "$HOME/download";
-      vids = "$HOME/vids";
-      music = "$HOME/music";
+      dl = "$HOME/Downloads";
+      docs = "$HOME/Documents";
+      code = "$HOME/Dev";
+      dots = "$HOME/Dev/dotfiles";
+      pics = "$HOME/Pictures";
+      vids = "$HOME/Videos";
       media = "/run/media/$USER";
     };
 
@@ -116,8 +117,8 @@ in {
 
   programs.git = {
     enable = true;
-    userName = "sioodmy";
-    userEmail = "sioodmy@tuta.io";
+    userName = "NotAShelf";
+    userEmail = "itsashelf@gmail.com";
     extraConfig = {
       init = {defaultBranch = "main";};
       delta = {
