@@ -5,20 +5,21 @@
 }: {
   services = {
     syncthing = {
-      enable = true;
+      enable = false;
       openDefaultPorts = true;
-      user = "sioodmy";
+      user = "notashelf";
       group = "wheel";
-      dataDir = "/home/sioodmy/syncthing";
-      configDir = "/home/sioodmy/.config/syncthing/";
+      dataDir = "$HOME/syncthing";
+      configDir = "$HOME/.config/syncthing/";
       systemService = true;
     };
+    
     greetd = {
       enable = true;
       settings = rec {
         initial_session = {
           command = "Hyprland";
-          user = "sioodmy";
+          user = "notashelf";
         };
         default_session = initial_session;
       };
@@ -28,6 +29,7 @@
       glib-networking.enable = true;
       gnome-keyring.enable = true;
     };
+    
     logind = {
       lidSwitch = "suspend-then-hibernate";
       lidSwitchExternalPower = "lock";
@@ -59,6 +61,16 @@
       wireplumber.enable = true;
       pulse.enable = true;
       jack.enable = true;
+    };
+
+    # Try to save as much battery as possible
+    tlp = {
+      enable = true;
+      settings = {
+        PCIE_ASPM_ON_BAT = "powersupersave";
+        DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
+        NMI_WATCHDOG = 0;
+      };
     };
   };
 }

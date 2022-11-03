@@ -38,7 +38,7 @@ in {
     ./bootloader.nix
     ./fonts.nix
     ./network.nix
-    ./schizo.nix
+    ./security.nix
     ./services.nix
     ./blocker.nix
   ];
@@ -61,7 +61,7 @@ in {
     '';
     settings = {
       auto-optimise-store = true;
-      allowed-users = ["sioodmy"];
+      allowed-users = ["notashelf"];
       # use binary cache, its not gentoo
       substituters = [
         "https://cache.nixos.org"
@@ -97,20 +97,20 @@ in {
     gnome.adwaita-icon-theme
     dbus-hyprland-environment
     configure-gtk
-    cryptsetup
+    #cryptsetup
   ];
 
   environment.defaultPackages = []; # this removes bloat (not really)
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
-  time.timeZone = "Europe/Warsaw";
+  time.timeZone = "Europe/Istanbul";
 
   i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "pl";
+    keyMap = "trq";
   };
 
   sound = {
@@ -158,7 +158,7 @@ in {
     };
   };
 
-  users.users.sioodmy = {
+  users.users.notashelf = {
     isNormalUser = true;
     # Enable ‘sudo’ for the user.
     extraGroups = [
@@ -170,7 +170,7 @@ in {
       "lp"
       "networkmanager"
     ];
-    uid = 1000;
+    uid = 1001;
     shell = pkgs.zsh;
   };
 
