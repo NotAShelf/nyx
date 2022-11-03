@@ -100,8 +100,6 @@ in {
     };
   };
 
-  nixpkgs.pkgs = inputs.self.pkgs.${config.nixpkgs.system};
-
   documentation.enable = false; # its trash anyways
 
   services.dbus.enable = true;
@@ -164,9 +162,9 @@ in {
 
   environment = {
     etc = {
-      "nix/flake-channels/system".source = inputs.self;
-      "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
-      "nix/flake-channels/home-manager".source = inputs.hm;
+      # "nix/flake-channels/system".source = inputs.self;
+      # "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
+      # "nix/flake-channels/home-manager".source = inputs.hm;
       "greetd/environments".text = ''
         Hyprland
         sway
