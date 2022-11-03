@@ -46,7 +46,6 @@
       };
   in {
     nixosConfigurations = {
-      graphene = mkSystem inputs.nixpkgs "x86_64-linux" "graphene";
       pavillion = mkSystem inputs.nixpkgs "x86_64-linux" "pavillion";
     };
 
