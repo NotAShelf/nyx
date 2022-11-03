@@ -10,14 +10,14 @@
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
   };
 
-  #location.provider = "geoclue2";
-  #geoclue2 = {
-  #  enable = false;
-  #  appConfig.gammastep = {
-  #    isAllowed = true;
-  #    isSystem = false;
-  #  };
-  #};
+  location.provider = "geoclue2";
+  services.geoclue2 = {
+    enable = true;
+    appConfig.gammastep = {
+      isAllowed = true;
+      isSystem = false;
+    };
+  };
 
   systemd.services = {
     seatd = {
