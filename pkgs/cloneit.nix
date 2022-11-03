@@ -1,26 +1,32 @@
 {
   lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
   stdenv,
-  fetchzip,
-  pkgs,
-  ...
+  openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cloneit";
-  version = "unstable";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "alok8bb";
     repo = "cloneit";
-    hash = "62c433f0b1c54a977d585f3b84b8c43213095474"; # testing
+    rev = version;
+    sha256 = "CyR/vdg6xqlxmv8jOXka3JIBhi8zafHiBOL67XLf5KM=";
   };
 
-  meta = {
-    description = "A cli tool to download specific GitHub directories or files.";
+  cargoSha256 = "zhsFIU7gmP4gR5NhrFslFSvYIXH1fxJLZU8nV67PluQ=";
+
+  nativeBuildInputs = [pkg-config];
+
+  buildInputs = [openssl];
+  meta = with lib; {
+    description = "A cli tool to download specific GitHub directories or files ";
     homepage = "https://github.com/alok8bb/cloneit";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.unix;
-    maintainers = [lib.maintainers.notashelf];
+    license = licenses.mit;
+    maintainers = with maintainers; [sioodmy];
+    mainProgram = "cloneit";
   };
 }
