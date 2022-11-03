@@ -11,7 +11,6 @@
     programs = {
       btm.enable = true;
       neofetch.enable = true;
-      steam.enable = true;
       schizofox = {
         enable = true;
         translate = {
@@ -24,4 +23,3 @@
     };
   };
 }
-
