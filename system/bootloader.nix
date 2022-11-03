@@ -36,14 +36,14 @@
 
     # Change default bootloader to grub
     loader = {
-      systemd-boot.enable = false;
+      systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
       timeout = 1;
       grub = {
-        enable = true;
+        enable = false;
         useOSProber = true;
         efiSupport = true;
-        enableCryptodisk = true;
+        enableCryptodisk = false;
         device = "nodev";
         theme = null;
         backgroundColor = null;

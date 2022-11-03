@@ -4,6 +4,7 @@
   config,
   ...
 }:
+
 # glue all configs together
 {
   home.stateVersion = "22.05";
@@ -19,7 +20,6 @@
     ./tmux
     ./tools
     ./waybar
-    ./zathura
     ./zathura
   ];
 }

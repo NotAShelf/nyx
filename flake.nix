@@ -37,7 +37,7 @@
               useUserPackages = true;
               useGlobalPkgs = true;
               extraSpecialArgs = {inherit inputs;};
-              users.sioodmy = ./. + "/hosts/${hostname}/user.nix";
+              users.notashelf = ./. + "/hosts/${hostname}/user.nix";
             };
             nixpkgs.overlays = [inputs.nixpkgs-wayland.overlay];
           }
@@ -47,7 +47,7 @@
   in {
     nixosConfigurations = {
       graphene = mkSystem inputs.nixpkgs "x86_64-linux" "graphene";
-      thinkpad = mkSystem inputs.nixpkgs "x86_64-linux" "thinkpad";
+      pavillion = mkSystem inputs.nixpkgs "x86_64-linux" "pavillion";
     };
 
     packages.${system} = {

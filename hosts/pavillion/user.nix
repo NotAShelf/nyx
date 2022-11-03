@@ -15,7 +15,7 @@
         translate = {
           enable = true;
           sourceLang = "en";
-          targetLang = "pl";
+          targetLang = "tr";
         };
       };
       vimuwu.enable = true;
