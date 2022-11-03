@@ -53,6 +53,7 @@
       catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};
       catppuccin-gtk = pkgs.callPackage ./pkgs/catppuccin-gtk.nix {};
       catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors.nix {};
+      cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
     };
 
     devShells.${system}.default =
