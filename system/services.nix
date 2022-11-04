@@ -54,16 +54,6 @@
       gnome-keyring.enable = true;
     };
 
-    logind = {
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "lock";
-      extraConfig = ''
-        HandlePowerKey=suspend-then-hibernate
-        HibernateDelaySec=3600
-      '';
-    };
-
-    lorri.enable = true;
     udisks2.enable = true;
     fstrim.enable = true;
 
@@ -81,7 +71,6 @@
         enable = true;
         support32Bit = true;
       };
-      wireplumber.enable = true;
       pulse.enable = true;
       jack.enable = true;
     };

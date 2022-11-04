@@ -10,15 +10,6 @@
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
   };
 
-  #location.provider = "geoclue2";
-  #geoclue2 = {
-  #  enable = false;
-  #  appConfig.gammastep = {
-  #    isAllowed = true;
-  #    isSystem = false;
-  #  };
-  #};
-
   systemd.services = {
     seatd = {
       enable = true;
@@ -38,7 +29,17 @@
     RuntimeMaxUse=10M
   '';
 
+  location.provider = "geoclue2";
+
   services = {
+    geoclue2 = {
+      enable = true;
+      appConfig.gammastep = {
+        isAllowed = true;
+        isSystem = false;
+      };
+    };
+
     syncthing = {
       enable = false;
       openDefaultPorts = true;
@@ -49,25 +50,7 @@
       systemService = true;
     };
 
-    greetd = {
-      enable = true;
-      settings = rec {
-        initial_session = {
-          command = "Hyprland";
-          user = "notashelf";
-        };
-        default_session = initial_session;
-      };
-    };
-
-    logind = {
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "lock";
-      extraConfig = ''
-        HandlePowerKey=suspend-then-hibernate
-        HibernateDelaySec=3600
-      '';
-    };
+    resolved.enable = true;
 
     # enable and secure ssh
     openssh = {
@@ -81,7 +64,6 @@
         enable = true;
         support32Bit = true;
       };
-      wireplumber.enable = true;
       pulse.enable = true;
       jack.enable = true;
     };

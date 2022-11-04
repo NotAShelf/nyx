@@ -3,8 +3,7 @@
   pkgs,
   ...
 }: {
-  # Change default bootloader to grub
-  loader = {
+  boot.loader = {
     systemd-boot.enable = false;
     grub = {
       enable = true;
