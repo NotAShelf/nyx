@@ -56,14 +56,14 @@ in {
   xdg = {
     userDirs = {
       enable = true;
-      documents = "$HOME/other";
-      download = "$HOME/download";
-      videos = "$HOME/vids";
-      music = "$HOME/music";
-      pictures = "$HOME/pics";
-      desktop = "$HOME/other";
-      publicShare = "$HOME/other";
-      templates = "$HOME/other";
+      documents = "$HOME/Documents";
+      download = "$HOME/Downloads";
+      videos = "$HOME/Media/Videos";
+      music = "$HOME/Media/Music";
+      pictures = "$HOME/Media/Photos";
+      desktop = "$HOME/Desktop";
+      publicShare = "$HOME/Public/Share";
+      templates = "$HOME/Public/Templates";
     };
 
     mimeApps.enable = true;

@@ -50,11 +50,6 @@ in {
 
     xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
 
-    services.gammastep = {
-      enable = true;
-      provider = "geoclue2";
-    };
-
     systemd.user.services = {
       swaybg = mkService {
         Unit.Description = "Wallpaper chooser";
