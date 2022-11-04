@@ -14,7 +14,7 @@ in {
     xdg.configFile."nvim".source = ./nvim;
 
     home.packages = with pkgs; [
-      rnix-lsp
+      nil
       sumneko-lua-language-server
       stylua # Lua
       uncrustify

@@ -171,5 +171,7 @@ in {
     algorithm = "zstd";
   };
 
+  programs.light.enable = true;
+
   system.stateVersion = "22.05"; # DONT TOUCH THIS
 }
