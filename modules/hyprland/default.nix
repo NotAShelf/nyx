@@ -25,9 +25,6 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      xdg-desktop-portal
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
       libnotify
       wf-recorder
       brightnessctl

@@ -2,30 +2,6 @@
   description = "My NixOS configuration";
   # https://github.com/notashelf/dotfiles
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    webcord.url = "github:fufexan/webcord-flake";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-
-    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
-    alejandra.inputs.nixpkgs.follows = "nixpkgs";
-
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
   outputs = inputs @ {
     self,
     nixpkgs,
@@ -34,7 +10,6 @@
   }: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-    lib = nixpkgs.lib;
 
     mkSystem = pkgs: system: hostname:
       pkgs.lib.nixosSystem {
@@ -60,7 +35,7 @@
       };
   in {
     nixosConfigurations = {
-      # host                               # arch         # hostname
+      # host                              # arch         # hostname
       pavillion = mkSystem inputs.nixpkgs "x86_64-linux" "pavillion";
       icarus = mkSystem inputs.nixpkgs "x86_64-linux" "icarus";
     };
@@ -72,7 +47,30 @@
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
     };
 
-    devShells.${system}.default =
-      pkgs.mkShell {packages = [pkgs.alejandra];};
+    devShells.${system}.default = pkgs.mkShell {packages = [pkgs.alejandra];};
+
+    formatter.${system} = pkgs.alejandra;
+  };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    webcord.url = "github:fufexan/webcord-flake";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

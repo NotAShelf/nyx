@@ -60,6 +60,5 @@
         nvidia-vaapi-driver
       ];
     };
-    pulseaudio.support32Bit = true;
   };
 }

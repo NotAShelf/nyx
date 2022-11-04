@@ -18,19 +18,16 @@ with lib; let
       systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
     '';
   };
-  configure-gtk = pkgs.writeTextFile {
-    name = "configure-gtk";
-    destination = "/bin/configure-gtk";
-    executable = true;
-    text = let
-      schema = pkgs.gsettings-desktop-schemas;
-      datadir = "${schema}/share/gesettings/schemas/${schema.name}";
-    in ''
+
+  configure-gtk = let
+    schema = pkgs.gsettings-desktop-schemas;
+    datadir = "${schema}/share/gesettings/schemas/${schema.name}";
+  in
+    pkgs.writeShellScriptBin "configure-gtk" ''
       export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
       gnome_schema=org.gnome.desktop.interface
       gesettings set $gnome_schema gtk-theme 'Adwaita'
     '';
-  };
 in {
   # disabledModules = [ "services/hardware/udev.nix" ];
   imports = [
@@ -54,13 +51,6 @@ in {
       options = "--delete-older-than 4d";
     };
 
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
-    '';
-
     registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
 
     nixPath = [
@@ -69,6 +59,9 @@ in {
     ];
 
     settings = {
+      experimental-features = "nix-command flakes";
+      keep-outputs = true;
+      keep-derivations = true;
       auto-optimise-store = true;
       allowed-users = ["notashelf"];
       # use binary cache, its not gentoo
@@ -99,9 +92,11 @@ in {
 
   documentation.enable = false; # its trash anyways
 
-  services.dbus.enable = true;
-  services.dbus.packages = with pkgs; [dconf];
-  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
+  services.dbus = {
+    enable = true;
+    packages = [pkgs.dconf];
+  };
+  services.udev.packages = [pkgs.gnome.gnome-settings-daemon];
 
   environment.systemPackages = with pkgs; [
     gnome.adwaita-icon-theme
@@ -115,12 +110,11 @@ in {
   environment.defaultPackages = []; # this removes bloat (not really)
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
-  system.autoUpgrade.enable = false;
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
     # saves space
-    supportedLocales = ["en_US.UTF-8/UTF-8" "ja_JP.UTF-8/UTF-8" "ro_RO.UTF-8/UTF-8"];
+    supportedLocales = ["en_US.UTF-8/UTF-8"];
   };
 
   console = {
@@ -160,13 +154,13 @@ in {
   users.users.notashelf = {
     isNormalUser = true;
     extraGroups = [
-      "wheel"
-      "systemd-journal"
       "audio"
-      "video"
       "input"
       "lp"
       "networkmanager"
+      "systemd-journal"
+      "video"
+      "wheel"
     ];
     uid = 1001;
     shell = pkgs.zsh;

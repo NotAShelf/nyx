@@ -101,7 +101,7 @@ in {
       http = "${pkgs.python3}/bin/python3 -m http.server";
     };
 
-    plugins = with pkgs; [
+    plugins = [
       {
         name = "zsh-nix-shell";
         src = pkgs.zsh-nix-shell;

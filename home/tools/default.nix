@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-with lib; let
+}: let
   browser = ["firefox.desktop"];
 
   associations = {
@@ -36,6 +35,7 @@ in {
     pinentryFlavor = "gnome3";
     enableZshIntegration = true;
   };
+
   programs = {
     bat = {
       enable = true;
@@ -52,6 +52,7 @@ in {
     };
     gpg.enable = true;
   };
+
   xdg = {
     userDirs = {
       enable = true;
@@ -64,6 +65,7 @@ in {
       publicShare = "$HOME/other";
       templates = "$HOME/other";
     };
+
     mimeApps.enable = true;
     mimeApps.associations.added = associations;
     mimeApps.defaultApplications = associations;
