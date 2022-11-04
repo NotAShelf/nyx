@@ -17,6 +17,7 @@ in {
   home.packages = with pkgs; [
     inputs.self.packages.${pkgs.system}.cloneit
     todo
+    upower
     mpv-unwrapped
     pavucontrol
     imv
@@ -37,7 +38,7 @@ in {
     xfce.thunar
     xh
     jq
-    figlet
+    iglet
     lm_sensors
     keepassxc
     dconf
@@ -52,5 +53,6 @@ in {
     geoclue2
     steam
     nextcloud-client
+    gtkgreet
   ];
 }
