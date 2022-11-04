@@ -10,20 +10,6 @@
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
   };
 
-  systemd.services = {
-    seatd = {
-      enable = true;
-      description = "Seat management daemon";
-      script = "${pkgs.seatd}/bin/seatd -g wheel";
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "1";
-      };
-      wantedBy = ["multi-user.target"];
-    };
-  };
-
   services.journald.extraConfig = ''
     SystemMaxUse=50M
     RuntimeMaxUse=10M
@@ -37,6 +23,17 @@
       appConfig.gammastep = {
         isAllowed = true;
         isSystem = false;
+      };
+    };
+
+     greetd = {
+      enable = true;
+      settings = rec {
+        initial_session = {
+          command = "Hyprland";
+          user = "sioodmy";
+        };
+        default_session = initial_session;
       };
     };
 
