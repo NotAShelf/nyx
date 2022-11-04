@@ -137,9 +137,9 @@ in {
 
   environment = {
     etc = {
-      # "nix/flake-channels/system".source = inputs.self;
-      # "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
-      # "nix/flake-channels/home-manager".source = inputs.hm;
+      "nix/flake-channels/system".source = inputs.self;
+      "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
+      "nix/flake-channels/home-manager".source = inputs.home-manager;
       "greetd/environments".text = ''
         Hyprland
         sway

@@ -26,12 +26,12 @@
       };
     };
 
-     greetd = {
+    greetd = {
       enable = true;
       settings = rec {
         initial_session = {
           command = "Hyprland";
-          user = "sioodmy";
+          user = "notashelf";
         };
         default_session = initial_session;
       };
