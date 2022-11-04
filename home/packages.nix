@@ -52,6 +52,6 @@ in {
     powertop
     geoclue2
     nextcloud-client
-    gtkgreet
+    #gtkgreet
   ];
 }
