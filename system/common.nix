@@ -159,7 +159,6 @@ in {
 
   users.users.notashelf = {
     isNormalUser = true;
-    # Enable ‘sudo’ for the user.
     extraGroups = [
       "wheel"
       "systemd-journal"
@@ -171,14 +170,6 @@ in {
     ];
     uid = 1001;
     shell = pkgs.zsh;
-  };
-
-  hardware = {
-    bluetooth = {
-      enable = true;
-      package = pkgs.bluez5-experimental;
-      hsphfpd.enable = true;
-    };
   };
 
   zramSwap = {

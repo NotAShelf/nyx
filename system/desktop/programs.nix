@@ -32,5 +32,13 @@
     };
   };
 
+  hardware = {
+    bluetooth = {
+      enable = true;
+      package = pkgs.bluez5-experimental;
+      hsphfpd.enable = true;
+    };
+  };
+
   #upower.enable = true;
 }

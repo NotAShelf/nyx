@@ -49,7 +49,25 @@
       systemService = true;
     };
 
-    resolved.enable = true;
+    greetd = {
+      enable = true;
+      settings = rec {
+        initial_session = {
+          command = "Hyprland";
+          user = "notashelf";
+        };
+        default_session = initial_session;
+      };
+    };
+
+    logind = {
+      lidSwitch = "suspend-then-hibernate";
+      lidSwitchExternalPower = "lock";
+      extraConfig = ''
+        HandlePowerKey=suspend-then-hibernate
+        HibernateDelaySec=3600
+      '';
+    };
 
     # enable and secure ssh
     openssh = {
