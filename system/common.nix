@@ -171,7 +171,5 @@ in {
     algorithm = "zstd";
   };
 
-  #upower.enable = true;
-
   system.stateVersion = "22.05"; # DONT TOUCH THIS
 }

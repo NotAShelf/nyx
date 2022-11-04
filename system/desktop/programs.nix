@@ -9,7 +9,16 @@
     BROWSER = "firefox";
   };
 
+  hardware = {
+      bluetooth = {
+        enable = true;
+        package = pkgs.bluez5-experimental;
+        hsphfpd.enable = true;
+      };
+    };
+
   programs = {
+    steam.enable = true;
     hyprland = {
       # credits to IceDBorn and fufexan for this patch <3
       package = inputs.hyprland.packages.${pkgs.system}.default.override {
@@ -26,15 +35,5 @@
         });
       };
     };
-
-    hardware = {
-      bluetooth = {
-        enable = true;
-        package = pkgs.bluez5-experimental;
-        hsphfpd.enable = true;
-      };
-    };
-
-    steam.enable = true;
   };
 }
