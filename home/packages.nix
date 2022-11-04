@@ -38,7 +38,7 @@ in {
     xfce.thunar
     xh
     jq
-    iglet
+    figlet
     lm_sensors
     keepassxc
     dconf
