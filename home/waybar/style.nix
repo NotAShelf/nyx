@@ -128,7 +128,6 @@
 
       #battery.critical:not(.charging) {
         color: #e78284;
-  <<<<<<< HEAD
     }
 
     #custom-lock {
