@@ -23,7 +23,7 @@
       disable-history = true;
       show-icons = true;
 
-     display-drun = " Run";
+      display-drun = " Run";
       display-run = " Run";
       display-filebrowser = " Files";
       display-calc = " Calculator";

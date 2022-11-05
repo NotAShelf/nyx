@@ -10,7 +10,7 @@
   libnotify,
   rofi-wayland-unwrapped,
   wl-clipboard,
-  wtype
+  wtype,
 }:
 stdenv.mkDerivation rec {
   pname = "rofi-emoji-wayland";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     # Look for plugin-related files in $out/lib/rofi
-    ./0001-Patch-plugindir-to-output.patch
+    ./patches/0001-Patch-plugindir-to-output.patch
   ];
 
   postPatch = ''
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     libnotify
     rofi-wayland-unwrapped
     wl-clipboard
-    wtype,
+    wtype
   ];
 
   meta = with lib; {
