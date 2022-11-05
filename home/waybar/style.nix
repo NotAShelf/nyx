@@ -94,12 +94,12 @@
     padding: 10px 0px 10px 0px;
   }
 
-#custom-swallow {
+  #custom-swallow {
     color: #ca9ee6;
-    padding-left: 7px;
+    padding-right: 3px;
   }
 
-#custom-power {
+  #custom-power {
     margin-bottom: 7px;
   }
   #custom-search {
