@@ -9,7 +9,12 @@
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
-    sudo.execWheelOnly = true;
+    sudo = {
+      execWheelOnly = true;
+      extraConfig = ''
+        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/shutdown
+        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/reboot '';
+    };
     rtkit.enable = true;
     apparmor = {
       enable = true;
@@ -34,16 +39,6 @@
       enable = true;
       abrmd.enable = true;
     };
-
-    # sudo.enable = false;
-    # doas = {
-    #   enable = true;
-    #   extraRules = [{
-    #     users = [ "notashelf" ];
-    #     keepEnv = true;
-    #     persist = true;
-    #   }];
-    # };
   };
 
   # kernel module to improve Linux internet speeds

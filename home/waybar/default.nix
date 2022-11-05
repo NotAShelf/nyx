@@ -19,7 +19,6 @@
   };
 in {
   xdg.configFile."waybar/style.css".text = import ./style.nix;
-  home.packages = [waybar-wttr];
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -64,7 +63,7 @@ in {
         "custom/search" = {
           format = " ";
           tooltip = false;
-          on-click = "killall rofi || rofi -show drun";
+          on-click = "killall rofi || ${pkgs.rofi}/bin/rofi -show drun";
         };
         "custom/todo" = {
           format = "{}";
@@ -78,31 +77,22 @@ in {
           format = "{}";
           tooltip = true;
           interval = 3600;
-          exec = "waybar-wttr";
+          exec = "${waybar-wttr}";
           return-type = "json";
         };
         "custom/lock" = {
           tooltip = false;
-          on-click = "sh -c '(sleep 0.5s; swaylock --grace 0)' & disown";
+          on-click = "sh -c '(sleep 0.5s; ${pkgs.swaylock}/bin/swaylock --grace 0)' & disown";
           format = "";
         };
         "custom/swallow" = {
           tooltip = false;
-          on-click = "${pkgs.writeShellScript "waybar-swallow" ''
-            #!/bin/sh
-            if hyprctl getoption misc:enable_swallow | rg -q "int: 1"; then
-            	hyprctl keyword misc:enable_swallow false >/dev/null &&
-            	notify-send "Hyprland" "Turned off swallowing"
-            else
-            	hyprctl keyword misc:enable_swallow true >/dev/null &&
-            	notify-send "Hyprland" "Turned on swallowing"
-            fi
-          ''}";
-          format = " 綠 ";
+          oon-click = "${./waybar-swallow.sh}";
+          format = "";
         };
         "custom/power" = {
           tooltip = false;
-          on-click = "wlogout &";
+          on-click = "${./shutdown.sh} &";
           format = "襤";
         };
         clock = {
@@ -140,7 +130,7 @@ in {
           tooltip = false;
           format = "{icon}";
           format-icons = {default = ["" "" "墳"];};
-          on-click = "killall pavucontrol || pavucontrol";
+          on-click = "${pkgs.killall}/bin/killall pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
         };
       };
     };

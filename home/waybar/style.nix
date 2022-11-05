@@ -26,10 +26,6 @@
     color: #a6d189;
   }
 
-  #custom-swallow {
-    color: #ca9ee6;
-    padding-left: 7px;
-  }
   #network {
     color: #8caaee;
   }
@@ -98,7 +94,12 @@
     padding: 10px 0px 10px 0px;
   }
 
-  #custom-power {
+#custom-swallow {
+    color: #ca9ee6;
+    padding-left: 7px;
+  }
+
+#custom-power {
     margin-bottom: 7px;
   }
   #custom-search {
