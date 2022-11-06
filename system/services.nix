@@ -55,7 +55,6 @@
       passwordAuthentication = true;
     };
 
-
     btrfs.autoScrub.enable = true;
 
     upower.enable = true;
