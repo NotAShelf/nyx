@@ -46,7 +46,7 @@
       catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors.nix {};
       rofi-calc-wayland = pkgs.callPackage ./pkgs/rofi-calc-wayland.nix {};
       rofi-emoji-wayland = pkgs.callPackage ./pkgs/rofi-emoji-wayland.nix {};
-      cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
+      #cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
     };
 
     devShells.${system}.default = pkgs.mkShell {packages = [pkgs.alejandra];};

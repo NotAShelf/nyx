@@ -15,7 +15,7 @@
 in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
-    inputs.self.packages.${pkgs.system}.cloneit
+    #inputs.self.packages.${pkgs.system}.cloneit
     todo
     upower
     mpv-unwrapped
