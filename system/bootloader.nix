@@ -7,19 +7,19 @@
   boot = {
     plymouth = {
       enable = true;
-      boot.plymouth.theme="breeze";
+      theme = "breeze";
     };
     loader = {
-      systemd-boot.enable = lib.mkDefault false;
+      systemd-boot.enable = lib.mkDefault true;
       grub = {
-        enable = lib.mkDefault true;
-        # useOSProber = true;
-        # efiSupport = true;
-        # enableCryptodisk = false;
-        # device = "nodev";
-        # theme = null;
-        # backgroundColor = null;
-        # splashImage = null;
+        enable = lib.mkDefault false;
+        useOSProber = true;
+        efiSupport = true;
+        enableCryptodisk = false;
+        device = "nodev";
+        theme = null;
+        backgroundColor = null;
+        splashImage = null;
       };
     };
 
