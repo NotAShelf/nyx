@@ -14,7 +14,6 @@
   # Keep systemd-boot as the default bootloader
   boot = {
     loader = {
-      systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
       timeout = 1;
     };
