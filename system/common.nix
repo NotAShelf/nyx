@@ -6,19 +6,6 @@
   ...
 }:
 with lib; let
-  # this is required for wayland stuff
-  dbus-hyprland-environment = pkgs.writeTextFile {
-    name = "dbus-hyprland-environment";
-    destination = "/bin/dbus-hyprland-environment";
-    executable = true;
-
-    text = ''
-      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland
-      systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-      systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-    '';
-  };
-
   configure-gtk = let
     schema = pkgs.gsettings-desktop-schemas;
     datadir = "${schema}/share/gesettings/schemas/${schema.name}";
@@ -100,7 +87,6 @@ in {
 
   environment.systemPackages = with pkgs; [
     gnome.adwaita-icon-theme
-    dbus-hyprland-environment
     configure-gtk
     git
     glib

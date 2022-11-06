@@ -80,7 +80,7 @@
     tlp = {
       enable = true;
       settings = {
-        PCIE_ASPM_ON_BAT = "powersupersave";
+        PCIE_ASPM_ON_BAT = "power$MODsave";
         DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
         NMI_WATCHDOG = 0;
       };

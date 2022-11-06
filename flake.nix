@@ -35,8 +35,8 @@
       };
   in {
     nixosConfigurations = {
-      # host                              # arch         # hostname
-      pavillion = mkSystem inputs.nixpkgs "x86_64-linux" "pavillion";
+      # host                               # arch         # hostname
+      prometheus = mkSystem inputs.nixpkgs "x86_64-linux" "prometheus";
       icarus = mkSystem inputs.nixpkgs "x86_64-linux" "icarus";
     };
 
