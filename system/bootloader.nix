@@ -4,7 +4,23 @@
   ...
 }: {
   boot = {
+    systemd-boot.enable = lib.mkDefault false;
+    grub = {
+      enable = lib.mkDefault true;
+      useOSProber = true;
+      efiSupport = true;
+      enableCryptodisk = false;
+      device = "nodev";
+      theme = null;
+      backgroundColor = null;
+      splashImage = null;
+    };
+  };
+    };
+    plymouth.enable = true;
+
     cleanTmpDir = true;
+    
     # some kernel parameters, i dont remember what half of this shit does but who cares
     kernelParams = [
       "acpi_call"
@@ -29,8 +45,10 @@
       "loglevel=7"
       "rd.udev.log_priority=3"
     ];
+    
     consoleLogLevel = 0;
-    initrd.verbose = false;
+
+    
     # switch from old ass lts kernel
     kernelPackages = pkgs.linuxPackages_latest;
 
@@ -43,6 +61,7 @@
       timeout = 1;
     };
 
+    initrd.verbose = false;
     initrd = {
       availableKernelModules = [
         "nvme"

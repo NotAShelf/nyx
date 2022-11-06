@@ -4,16 +4,9 @@
   ...
 }: {
   boot.loader = {
-    systemd-boot.enable = false;
+    systemd-boot.enable = true;
     grub = {
-      enable = true;
-      useOSProber = true;
-      efiSupport = true;
-      enableCryptodisk = false;
-      device = "nodev";
-      theme = null;
-      backgroundColor = null;
-      splashImage = null;
+      enable = false;
     };
   };
 }
