@@ -1,65 +1,54 @@
 {
-  stdenv,
   lib,
+  stdenv,
   fetchFromGitHub,
-  makeWrapper,
   autoreconfHook,
   pkg-config,
-  cairo,
-  glib,
-  libnotify,
   rofi-wayland-unwrapped,
-  wl-clipboard,
-  xclip,
-  xsel,
+  libqalculate,
+  glib,
+  cairo,
+  gobject-introspection,
+  wrapGAppsHook,
 }:
 stdenv.mkDerivation rec {
-  pname = "rofi-emoji-wayland";
-  version = "3.1.0";
+  pname = "rofi-calc-wayland";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
-    owner = "Mange";
+    owner = "svenstaro";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-YMQG0XO6zVei6GfBdgI7jtB7px12e+xvOMxZ1QHf5kQ=";
+    sha256 = "sha256-sfUcBSUYf/+neBAhEd5LAtMOfIbdXM/ieUOztjk8Pwg=";
   };
-
-  patches = [
-    # Look for plugin-related files in $out/lib/rofi
-    ./patches/0001-Patch-plugindir-to-output.patch
-  ];
-
-  postPatch = ''
-    patchShebangs clipboard-adapter.sh
-  '';
-
-  postFixup = ''
-    chmod +x $out/share/rofi-emoji/clipboard-adapter.sh
-    wrapProgram $out/share/rofi-emoji/clipboard-adapter.sh \
-      --prefix PATH ":" ${lib.makeBinPath [libnotify wl-clipboard xclip xsel]}
-  '';
 
   nativeBuildInputs = [
     autoreconfHook
     pkg-config
-    makeWrapper
+    gobject-introspection
+    wrapGAppsHook
   ];
 
   buildInputs = [
-    cairo
-    glib
-    libnotify
     rofi-wayland-unwrapped
-    wl-clipboard
-    xclip
-    xsel
+    libqalculate
+    glib
+    cairo
   ];
 
+  patches = [
+    ./patches/0001-Patch-plugindir-to-output.patch
+  ];
+
+  postPatch = ''
+    sed "s|qalc_binary = \"qalc\"|qalc_binary = \"${libqalculate}/bin/qalc\"|" -i src/calc.c
+  '';
+
   meta = with lib; {
-    description = "An emoji selector plugin for Rofi";
-    homepage = "https://github.com/Mange/rofi-emoji";
+    description = "Do live calculations in rofi!";
+    homepage = "https://github.com/svenstaro/rofi-calc";
     license = licenses.mit;
-    maintainers = with maintainers; [cole-h sioodmy];
-    platforms = platforms.linux;
+    maintainers = with maintainers; [luc65r albakham sioodmy];
+    platforms = with platforms; linux;
   };
 }
