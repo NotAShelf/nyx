@@ -4,7 +4,6 @@
   lib,
   ...
 }: {
-
   # Propetheus Exporter
   services.prometheus.exporters.node = {
     enable = true;

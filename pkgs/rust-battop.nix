@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
-
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "battop";
   version = "0.2.4";
@@ -12,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   # https://github.com/svartalf/rust-battop/issues/11
-  cargoPatches = [ ./patches/battery.patch ];
+  cargoPatches = [./patches/battery.patch];
 
   cargoSha256 = "0ipmnrn6lmf6rqzsqmaxzy9lblrxyrxzkji968356nxxmwzfbfvh";
 
@@ -20,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     description = "An interactive battery viewer";
     homepage = "https://github.com/svartalf/rust-battop";
     license = licenses.asl20;
-    maintainers = with maintainers; [ notashelf ];
+    maintainers = with maintainers; [notashelf];
   };
 }

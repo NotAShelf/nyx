@@ -15,10 +15,9 @@
 in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
-    inputs.self.packages.${pkgs.system} = [
-      cloneit
-      battop
-    ];
+    # needs to be streamlined, but can't remember the syntax
+    inputs.self.packages.${pkgs.system}.cloneit
+    inputs.self.packages.${pkgs.system}.battop
     todo
     upower
     mpv-unwrapped
