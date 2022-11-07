@@ -5,7 +5,7 @@
   pkg-config,
   stdenv,
   openssl,
-  Security,
+  # Security,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "cloneit";
@@ -22,11 +22,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [pkg-config];
 
-  buildInputs =
-    [openssl]
-    ++ lib.optionals stdenv.isDarwin [
-      Security
-    ];
+  #  buildInputs =
+  #    [openssl]
+  #    ++ lib.optionals stdenv.isDarwin [
+  #      Security
+  #    ];
+
   meta = with lib; {
     description = "CLI tool to download specific GitHub directories or files";
     homepage = "https://github.com/alok8bb/cloneit";

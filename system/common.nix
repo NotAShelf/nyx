@@ -90,6 +90,7 @@ in {
     configure-gtk
     git
     glib
+    greetd.gtkgreet
     #cryptsetup
   ];
 

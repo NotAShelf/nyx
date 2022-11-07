@@ -16,7 +16,7 @@ in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     # needs to be streamlined, but can't remember the syntax
-    inputs.self.packages.${pkgs.system}.cloneit
+    #inputs.self.packages.${pkgs.system}.cloneit
     inputs.self.packages.${pkgs.system}.battop
     todo
     upower
@@ -54,6 +54,6 @@ in {
     powertop
     geoclue2
     nextcloud-client
-    gtkgreet
+    #gtkgreet
   ];
 }

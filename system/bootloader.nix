@@ -7,8 +7,9 @@
   boot = {
     plymouth = {
       enable = true;
-      theme = "breeze";
+      #theme = "breeze";
     };
+
     loader = {
       systemd-boot.enable = lib.mkDefault true;
       grub = {
