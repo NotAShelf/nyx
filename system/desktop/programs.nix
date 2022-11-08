@@ -18,7 +18,12 @@
   };
 
   programs = {
-    steam.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
+    java.enable = true;
     hyprland = {
       # credits to IceDBorn and fufexan for this patch <3
       package = inputs.hyprland.packages.${pkgs.system}.default.override {

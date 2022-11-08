@@ -54,6 +54,7 @@ in {
     powertop
     geoclue2
     nextcloud-client
+    libgdiplus
     #gtkgreet
   ];
 }
