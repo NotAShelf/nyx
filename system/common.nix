@@ -24,7 +24,7 @@ in {
     ./security.nix
     ./blocker.nix
     ./services.nix
-    ./nixos.nix
+    ./nix.nix
   ];
 
   environment.variables = {

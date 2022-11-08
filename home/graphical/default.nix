@@ -16,5 +16,4 @@
     ./zathura
     ./hyprland
   ];
-
 }
