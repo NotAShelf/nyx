@@ -51,7 +51,7 @@
     events = [
       {
         event = "before-sleep";
-        command = "${pkgs.swaylock-effects}/bin/swaylock";
+        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
       }
       {
         event = "lock";
@@ -61,12 +61,12 @@
     timeouts = [
       {
         timeout = 300;
-        command = "${inputs.hyprland.packages.${pkgs.system}.default}/bin/hyprctl dispatch dpms off";
-        resumeCommand = "${inputs.hyprland.packages.${pkgs.system}.default}/bin/hyprctl dispatch dpms on";
+        command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
+        resumeCommand = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
       }
       {
         timeout = 310;
-        command = "loginctl lock-session";
+        command = "${pkgs.systemd}/bin/loginctl lock-session";
       }
     ];
   };

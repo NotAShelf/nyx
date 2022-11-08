@@ -7,7 +7,6 @@
 }: {
   imports = [../../modules/default.nix ../../home];
   config.modules = {
-    desktop.hyprland.enable = true;
     programs = {
       btm.enable = true;
       neofetch.enable = true;
