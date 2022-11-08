@@ -75,5 +75,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Flake Utility Functions
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
   };
 }
