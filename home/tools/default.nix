@@ -50,24 +50,48 @@ in {
       };
       config.theme = "Catppuccin-frappe";
     };
-    gpg.enable = true;
+    programs.gpg = {
+      settings = mkIf (cfg.key != "") {
+        default-key = cfg.key;
+        default-recipient-self = true;
+        auto-key-locate = "local,wkd,keyserver";
+        keyserver = "hkps://keys.openpgp.org";
+        auto-key-retrieve = true;
+        auto-key-import = true;
+        keyserver-options = "honor-keyserver-url";
+      };
+
+      publicKeys = map (source: {
+        inherit source;
+        trust = "ultimate";
+      }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
+    };
   };
 
   xdg = {
     userDirs = {
       enable = true;
+      createDirectories = true;
       documents = "$HOME/Documents";
       download = "$HOME/Downloads";
       videos = "$HOME/Media/Videos";
       music = "$HOME/Media/Music";
-      pictures = "$HOME/Media/Photos";
+      pictures = "$HOME/Media/Pictures";
       desktop = "$HOME/Desktop";
       publicShare = "$HOME/Public/Share";
       templates = "$HOME/Public/Templates";
+
+      # Custom Directories
+      extraConfig = {
+        XDG_DEV_DIR = "$HOME/Dev";
+        XDG_SCREENSHOTS_DIR = "$HOME/Media/Pictures/Screenshots";
+      };
     };
 
+    mime.enable = true;
     mimeApps.enable = true;
     mimeApps.associations.added = associations;
     mimeApps.defaultApplications = associations;
+    configFile."mimeapps.list".force = true;
   };
 }
