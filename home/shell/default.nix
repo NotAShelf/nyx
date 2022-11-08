@@ -9,9 +9,9 @@
   '';
 in {
   home.packages = [cht];
-  
+
   programs.exa.enable = true;
- 
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;

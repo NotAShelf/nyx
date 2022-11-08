@@ -50,22 +50,22 @@ in {
       };
       config.theme = "Catppuccin-frappe";
     };
-    programs.gpg = {
-      settings = mkIf (cfg.key != "") {
-        default-key = cfg.key;
-        default-recipient-self = true;
-        auto-key-locate = "local,wkd,keyserver";
-        keyserver = "hkps://keys.openpgp.org";
-        auto-key-retrieve = true;
-        auto-key-import = true;
-        keyserver-options = "honor-keyserver-url";
-      };
+    #programs.gpg = {
+    #  settings = mkIf (cfg.key != "") {
+    #   default-key = cfg.key;
+    #   default-recipient-self = true;
+    #   auto-key-locate = "local,wkd,keyserver";
+    #   keyserver = "hkps://keys.openpgp.org";
+    #   auto-key-retrieve = true;
+    #   auto-key-import = true;
+    #   keyserver-options = "honor-keyserver-url";
+    #};
 
-      # publicKeys = map (source: {
-      #   inherit source;
-      #   trust = "ultimate";
-      # }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
-    };
+    # publicKeys = map (source: {
+    #   inherit source;
+    #   trust = "ultimate";
+    # }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
+    #};
   };
 
   xdg = {

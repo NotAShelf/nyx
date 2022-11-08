@@ -21,10 +21,10 @@
     ./zathura
     ./hyprland
   ];
-  
+
   home = {
     username = "notashelf";
-    stateVersion = "22.09";
+    stateVersion = "22.11";
     homeDirectory = "/home/notashelf";
     extraOutputsToInstall = ["doc" "devdoc"];
   };
@@ -35,6 +35,6 @@
     manpages.enable = false;
   };
 
-    # let HM manage itself when in standalone mode
+  # let HM manage itself when in standalone mode
   programs.home-manager.enable = true;
 }
