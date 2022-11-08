@@ -8,18 +8,9 @@
 {
   imports = [
     inputs.hyprland.homeManagerModules.default
+    ./graphical
+    ./terminal
     ./packages.nix
-    ./gtk
-    ./kitty
-    ./mako
-    ./rofi
-    ./shell
-    ./swaylock
-    ./tmux
-    ./tools
-    ./waybar
-    ./zathura
-    ./hyprland
   ];
 
   home = {

@@ -55,6 +55,6 @@ in {
     geoclue2
     nextcloud-client
     libgdiplus
-    #gtkgreet
+    gtkgreet
   ];
 }
