@@ -5,6 +5,9 @@
   inputs,
   ...
 }: {
+  # disable the docs, it sucks anyway
+  documentation.enable = false;
+
   nix = {
     gc = {
       automatic = true;
@@ -50,8 +53,6 @@
         "root"
         "@wheel"
       ];
-
-      documentation.enable = false; # its trash anyways
     };
   };
 }

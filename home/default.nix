@@ -7,7 +7,6 @@
 # glue all configs together
 {
   imports = [
-    inputs.hyprland.homeManagerModules.default
     ./graphical
     ./terminal
     ./packages.nix
