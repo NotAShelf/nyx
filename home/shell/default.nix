@@ -9,7 +9,9 @@
   '';
 in {
   home.packages = [cht];
+  
   programs.exa.enable = true;
+ 
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
@@ -144,5 +146,11 @@ in {
         log --graph --name-status --pretty=format:"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset" --date=relative'';
       edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`";
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
   };
 }

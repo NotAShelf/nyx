@@ -61,10 +61,10 @@ in {
         keyserver-options = "honor-keyserver-url";
       };
 
-      publicKeys = map (source: {
-        inherit source;
-        trust = "ultimate";
-      }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
+      # publicKeys = map (source: {
+      #   inherit source;
+      #   trust = "ultimate";
+      # }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
     };
   };
 

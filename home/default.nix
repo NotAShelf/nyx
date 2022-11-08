@@ -6,8 +6,8 @@
 }:
 # glue all configs together
 {
-  home.stateVersion = "22.09";
   imports = [
+    inputs.hyprland.homeManagerModules.default
     ./packages.nix
     ./gtk
     ./kitty
@@ -20,6 +20,21 @@
     ./waybar
     ./zathura
     ./hyprland
-    inputs.hyprland.homeManagerModules.default
   ];
+  
+  home = {
+    username = "notashelf";
+    stateVersion = "22.09";
+    homeDirectory = "/home/notashelf";
+    extraOutputsToInstall = ["doc" "devdoc"];
+  };
+
+  manual = {
+    html.enable = false;
+    json.enable = false;
+    manpages.enable = false;
+  };
+
+    # let HM manage itself when in standalone mode
+  programs.home-manager.enable = true;
 }
