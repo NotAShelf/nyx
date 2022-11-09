@@ -1,6 +1,4 @@
-{
-  pkgs ? import <nixpkgs> {}
-}:
+{pkgs ? import <nixpkgs> {}}:
 pkgs.stdenv.mkDerivation rec {
   pname = "adi1090x-plymouth";
   version = "0.0.1";
@@ -14,14 +12,14 @@ pkgs.stdenv.mkDerivation rec {
   ];
 
   configurePhase = ''
-mkdir -p $out/share/plymouth/themes/
+    mkdir -p $out/share/plymouth/themes/
   '';
 
   buildPhase = ''
   '';
 
   installPhase = ''
-  cp -r pack_3/lone $out/share/plymouth/themes
-cat pack_3/lone/lone.plymouth | sed  "s@\/usr\/@$out\/@" > $out/share/plymouth/themes/lone/lone.plymouth
+      cp -r pack_3/lone $out/share/plymouth/themes
+    cat pack_3/lone/lone.plymouth | sed  "s@\/usr\/@$out\/@" > $out/share/plymouth/themes/lone/lone.plymouth
   '';
 }
