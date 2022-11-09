@@ -56,5 +56,6 @@ in {
     geoclue2
     nextcloud-client
     libgdiplus
+    wireshark
   ];
 }
