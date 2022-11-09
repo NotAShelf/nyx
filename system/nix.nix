@@ -23,7 +23,7 @@
     ];
 
     settings = {
-      experimental-features = "nix-command flakes";
+      experimental-features = "recursive-nix nix-command flakes";
       keep-outputs = true;
       keep-derivations = true;
       auto-optimise-store = true;
@@ -57,8 +57,8 @@
         "@wheel"
       ];
 
-      #useSandbox = true;
-      #systemFeatures = ["kvm" "recursive-nix"];
+      sandbox = true;
+      system-features = ["kvm" "recursive-nix"];
       #extraOptions = ''
       #  accept-flake-config = true
       #  warn-dirty = false
@@ -67,5 +67,9 @@
       #  max-free = ${toString (10 * 1024 * 1024 * 1024)}
       #'';
     };
+    extraOptions = ''
+      accept-flake-config = true
+      warn-dirty = false
+    '';
   };
 }
