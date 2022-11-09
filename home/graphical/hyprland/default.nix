@@ -36,6 +36,7 @@ in {
     screenshot
     wl-clipboard
     pngquant
+    swaybg
   ];
 
   # xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;

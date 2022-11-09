@@ -5,10 +5,23 @@
   ...
 }: {
   # Set required env variables from hyprland's wiki
-  environment = {
-    systemPackages = with pkgs; [
-      steam
-    ];
+  config.packageOverrides = pkgs: {
+    steam = pkgs.steam.override {
+      extraPkgs = pkgs:
+        with pkgs; [
+          keyutils
+          libkrb5
+          libpng
+          libpulseaudio
+          libvorbis
+          stdenv.cc.cc.lib
+          xorg.libXcursor
+          xorg.libXi
+          xorg.Libxinerama
+          xorg.libXScrnSaver
+        ];
+      extraProfile = "export GDK_SCALE=2";
+    };
   };
 
   # xdg portal is required for screenshare

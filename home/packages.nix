@@ -15,8 +15,9 @@
 in {
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
-    # needs to be streamlined, but can't remember the syntax
-    #inputs.self.packages.${pkgs.system}.cloneit
+    # needs to be streamlined as a list
+    # but can't remember the syntax
+    inputs.self.packages.${pkgs.system}.cloneit
     inputs.self.packages.${pkgs.system}.battop
     todo
     upower

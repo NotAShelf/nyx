@@ -7,7 +7,6 @@
 # glue all configs together
 {
   imports = [
-    inputs.hyprland.homeManagerModules.default
     ./gtk
     ./mako
     ./rofi
@@ -15,5 +14,6 @@
     ./waybar
     ./zathura
     ./hyprland
+    inputs.hyprland.homeManagerModules.default
   ];
 }
