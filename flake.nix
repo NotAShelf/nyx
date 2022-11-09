@@ -23,12 +23,15 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
+              nixpkgs.overlays = [
+                inputs.nixpkgs-wayland.overlay
+                (import ./overlays)
+              ];
               useUserPackages = true;
               useGlobalPkgs = true;
               extraSpecialArgs = {inherit inputs;};
               users.notashelf = ./. + "/hosts/${hostname}/user.nix";
             };
-            nixpkgs.overlays = [inputs.nixpkgs-wayland.overlay];
           }
         ];
         specialArgs = {inherit inputs;};
@@ -51,7 +54,6 @@
     };
 
     devShells.${system}.default = pkgs.mkShell {packages = [pkgs.alejandra];};
-
     formatter.${system} = pkgs.alejandra;
   };
 
