@@ -52,5 +52,8 @@
     url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Frappe-Pink/Catppuccin-Frappe-Pink.svg";
     sha256 = "1b92j0gb65l2pvrf90inskr507a1kwin1zy0grwcsdyjmrm5yjrv";
   };
-  xdg.configFile."Kvantum/kvantum.kvconfig".text = "theme=catppuccin";
+  xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
+    theme=catppuccin
+    catpuccin=Dolphin, dolphin, Nextcloud, nextcloud, qt5ct, org.kde.dolphin, org.kde.kalendar, kalendar, Kalendar, qbittorrent, org.qbittorrent.qBittorrent
+    '';
 }

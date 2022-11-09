@@ -10,14 +10,15 @@
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
   };
 
-  services.journald.extraConfig = ''
-    SystemMaxUse=50M
-    RuntimeMaxUse=10M
-  '';
-
   location.provider = "geoclue2";
 
   services = {
+
+    journald.extraConfig = ''
+      SystemMaxUse=50M
+      RuntimeMaxUse=10M
+    '';
+
     geoclue2 = {
       enable = true;
       appConfig.gammastep = {
@@ -46,14 +47,24 @@
       '';
     };
 
-    syncthing = {
-      enable = false;
-      openDefaultPorts = true;
-      user = "notashelf";
-      group = "wheel";
-      dataDir = "$HOME/syncthing";
-      configDir = "$HOME/.config/syncthing/";
-      systemService = true;
+    nextcloud-autosync = {
+      Unit = {
+        Description = "Auto sync Nextcloud";
+        After = "network-online.target"; 
+      };
+      Service = {
+        Type = "simple";
+        ExecStart= "${pkgs.nextcloud-client}/bin/nextcloudcmd -h -n --path /music /home/myuser/music https://nextcloud.example.org"; 
+        TimeoutStopSec = "180";
+        KillMode = "process";
+        KillSignal = "SIGINT";
+      };
+      Install.WantedBy = ["multi-user.target"];
+    };
+    timers.nextcloud-autosync = {
+      Unit.Description = "Automatic sync files with Nextcloud when booted up after 5 minutes then rerun every 60 minutes";
+      Timer.OnUnitActiveSec = "60min";
+      Install.WantedBy = ["multi-user.target" "timers.target"];
     };
 
     resolved.enable = true;
@@ -86,4 +97,5 @@
       };
     };
   };
+  startServices = true;
 }
