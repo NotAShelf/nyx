@@ -51,7 +51,7 @@ in {
     thunderbird
     acpi
     tlp
-    discordOverlay
+    discord-canary
     powertop
     geoclue2
     nextcloud-client

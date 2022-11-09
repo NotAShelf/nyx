@@ -8,29 +8,6 @@
   systemd = {
     targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
-    user = {
-      services = {
-        nextcloud-autosync = {
-          Unit = {
-            Description = "Auto sync Nextcloud";
-            After = "network-online.target"; 
-          };
-          Service = {
-            Type = "simple";
-            ExecStart= "${pkgs.nextcloud-client}/bin/nextcloudcmd -h -n --path /music /home/myuser/music https://nextcloud.example.org"; 
-            TimeoutStopSec = "180";
-            KillMode = "process";
-            KillSignal = "SIGINT";
-          };
-          Install.WantedBy = ["multi-user.target"];
-        };
-        timers.nextcloud-autosync = {
-          Unit.Description = "Automatic sync files with Nextcloud when booted up after 5 minutes then rerun every 60 minutes";
-          Timer.OnUnitActiveSec = "60min";
-          Install.WantedBy = ["multi-user.target" "timers.target"];
-        };
-      };
-    };
   };
 
   services.journald.extraConfig = ''
@@ -40,12 +17,10 @@
 
   location.provider = "geoclue2";
 
-
   services = {
-
     printing.enable = true;
     resolved.enable = true;
-    
+
     geoclue2 = {
       enable = true;
       appConfig.gammastep = {
@@ -73,7 +48,6 @@
         HibernateDelaySec=3600
       '';
     };
-
 
     # enable and secure ssh
     openssh = {
