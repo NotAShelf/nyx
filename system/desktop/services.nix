@@ -10,16 +10,18 @@
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
   };
 
-  services.journald.extraConfig = ''
-    SystemMaxUse=50M
-    RuntimeMaxUse=10M
-  '';
-
   location.provider = "geoclue2";
 
   services = {
     printing.enable = true;
     resolved.enable = true;
+
+    journald = {
+      extraConfig = ''
+        SystemMaxUse=50M
+        RuntimeMaxUse=10M
+      '';
+    };
 
     geoclue2 = {
       enable = true;
@@ -48,7 +50,7 @@
         HibernateDelaySec=3600
       '';
     };
-R
+    
     # enable and secure ssh
     openssh = {
       enable = false;

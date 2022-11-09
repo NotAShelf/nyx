@@ -1,4 +1,5 @@
 self: super:
 {
-    discord = super.callPackage ./discord { };
+    discord-oa = import ./discord super;
+    plymouth-theme = super.callPackage ./plymouth-theme;
 }
