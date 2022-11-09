@@ -1,3 +1,2 @@
 super:
-
-super.discord.override {withOpenASAR = true; }
+super.discord-canary.override {withOpenASAR = true;}

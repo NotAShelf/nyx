@@ -13,7 +13,10 @@
     };
   });
 in {
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    #overlays = [(import ../overlays)];
+  };
   home.packages = with pkgs; [
     # needs to be streamlined as a list
     # but can't remember the syntax
@@ -51,7 +54,8 @@ in {
     thunderbird
     acpi
     tlp
-    discord-canary
+    #discord-canary
+    discord-oa
     powertop
     geoclue2
     nextcloud-client

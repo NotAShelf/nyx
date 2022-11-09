@@ -22,11 +22,14 @@
           inputs.hyprland.nixosModules.default
           home-manager.nixosModules.home-manager
           {
+            # this does NOT go inside the home-manager section
+            # you fucking moron
+            # - past raf to future raf
+            nixpkgs.overlays = [
+              inputs.nixpkgs-wayland.overlay
+              (import ./overlays)
+            ];
             home-manager = {
-              nixpkgs.overlays = [
-                inputs.nixpkgs-wayland.overlay
-                (import ./overlays)
-              ];
               useUserPackages = true;
               useGlobalPkgs = true;
               extraSpecialArgs = {inherit inputs;};

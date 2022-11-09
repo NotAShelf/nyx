@@ -50,7 +50,7 @@
         HibernateDelaySec=3600
       '';
     };
-    
+
     # enable and secure ssh
     openssh = {
       enable = false;
