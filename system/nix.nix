@@ -27,7 +27,10 @@
       keep-outputs = true;
       keep-derivations = true;
       auto-optimise-store = true;
-      allowed-users = ["notashelf"];
+      allowed-users = [
+        "root"
+        "@wheel"
+      ];
       # use binary cache, its not gentoo
       substituters = [
         "https://cache.nixos.org"
@@ -53,6 +56,16 @@
         "root"
         "@wheel"
       ];
+
+      #useSandbox = true;
+      #systemFeatures = ["kvm" "recursive-nix"];
+      #extraOptions = ''
+      #  accept-flake-config = true
+      #  warn-dirty = false
+      #  experimental-features = nix-command flakes recursive-nix
+      #  min-free = ${toString (1024 * 1024 * 1024)}
+      #  max-free = ${toString (10 * 1024 * 1024 * 1024)}
+      #'';
     };
   };
 }
