@@ -9,6 +9,7 @@
   imports = [
     ./graphical
     ./terminal
+    ./office
     ./packages.nix
   ];
 
