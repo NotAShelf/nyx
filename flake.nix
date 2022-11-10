@@ -27,6 +27,7 @@
             # - past raf to future raf
             nixpkgs.overlays = [
               inputs.nixpkgs-wayland.overlay
+              inputs.emacs-overlay.overlay
               (import ./overlays)
             ];
             home-manager = {
@@ -83,5 +84,8 @@
 
     # Flake Utility Functions
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+
+    # Emacs overlay
+    inputs.emacs-overlay.url = "github:nix-community/emacs-overlay/da2f552d133497abd434006e0cae996c0a282394";
   };
 }
