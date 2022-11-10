@@ -54,9 +54,8 @@ in {
     thunderbird
     acpi
     tlp
-    #discord-canary
-    discord-oa
-    pkgs.emacs-ov
+    discord-overlay
+    emacs
     powertop
     geoclue2
     nextcloud-client
