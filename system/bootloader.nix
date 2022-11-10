@@ -11,7 +11,7 @@
       theme = "connect";
     in {
       enable = true;
-      themePackages = [(pkgs.callPackage pkgs.plymouth-themes {inherit pack theme;})];
+      themePackages = [(pkgs.plymouth-themes.override {inherit pack theme;})];
     };
     loader = {
       systemd-boot.enable = lib.mkDefault true;
