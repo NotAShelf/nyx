@@ -7,7 +7,9 @@
   boot = {
     plymouth = {
       enable = true;
-      #theme = "breeze";
+      #themePackages = [ pkgs.plymouth-themes ];
+      theme = "breeze";
+      #theme = "lone";
     };
 
     loader = {

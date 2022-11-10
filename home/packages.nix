@@ -54,12 +54,14 @@ in {
     thunderbird
     acpi
     tlp
-    discord-overlay
-    emacs
     powertop
     geoclue2
     nextcloud-client
     libgdiplus
     wireshark
+
+    # overlay packages
+    emacs
+    discord-openasar
   ];
 }
