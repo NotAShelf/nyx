@@ -56,6 +56,7 @@ in {
     tlp
     #discord-canary
     discord-oa
+    pkgs.emacs-ov
     powertop
     geoclue2
     nextcloud-client
