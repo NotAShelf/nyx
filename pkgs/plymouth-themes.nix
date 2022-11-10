@@ -7,7 +7,7 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "adi1090x-plymouth-themes";
+  pname = "plymouth-themes";
   version = "1.0.0";
 
   strictDeps = true;
