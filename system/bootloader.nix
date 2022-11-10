@@ -2,16 +2,17 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   boot = {
-    plymouth = {
+    plymouth = let
+      pack = 1;
+      theme = "connect";
+    in {
       enable = true;
-      #themePackages = [ pkgs.plymouth-themes ];
-      theme = "breeze";
-      #theme = "lone";
+      themePackages = [(pkgs.callPackage inputs.self.packages.${pkgs.system}.plymouth-themes {inherit pack theme;})];
     };
-
     loader = {
       systemd-boot.enable = lib.mkDefault true;
       grub = {

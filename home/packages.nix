@@ -15,7 +15,6 @@
 in {
   nixpkgs = {
     config.allowUnfree = true;
-    #overlays = [(import ../overlays)];
   };
   home.packages = with pkgs; [
     # needs to be streamlined as a list
