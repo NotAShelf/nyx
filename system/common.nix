@@ -30,6 +30,7 @@ in {
   environment.variables = {
     EDITOR = "nvim";
     TERMINAL = "kitty";
+    QT_STYLE_OVERRIDE = "kvantum";
   };
 
   services.dbus = {
