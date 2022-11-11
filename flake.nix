@@ -41,5 +41,8 @@
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
       battop = pkgs.callPackage ./pkgs/rust-battop.nix {};
     };
+
+    devShells.${system}.default = pkgs.mkShell {packages = [pkgs.alejandra];};
+    formatter.${system} = pkgs.alejandra;
   };
 }
