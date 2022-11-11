@@ -17,6 +17,7 @@
     };
   };
 
+  nixpkgs.overlays = [(import ../overlays)];
   programs = {
     wireshark.enable = true;
     steam = {

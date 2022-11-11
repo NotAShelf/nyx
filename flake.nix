@@ -24,12 +24,6 @@
 
     # Emacs overlay
     emacs-overlay.url = "github:nix-community/emacs-overlay/da2f552d133497abd434006e0cae996c0a282394";
-
-    doom-emacs = {                                                        # Nix-community Doom Emacs
-      url = "github:nix-community/nix-doom-emacs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.emacs-overlay.follows = "emacs-overlay";
-    };
   };
 
   outputs = {self, ...} @ inputs: let
