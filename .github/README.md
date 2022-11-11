@@ -1,22 +1,22 @@
 <h1 align="center">
   <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
   
-  sioodmy's dotfiles <br>
+  dotfiles <br>
   <img src="./colors.png" width="600px" /> <br>
   <div align="center">
 
   <div align="center">
    <p></p>
    <a href="">
-      <img src="https://img.shields.io/github/issues/sioodmy/dotfiles?color=fab387&labelColor=1e1e2e&style=for-the-badge">
+      <img src="https://img.shields.io/github/issues/notashelf/dotfiles?color=fab387&labelColor=1e1e2e&style=for-the-badge">
    </a>
-   <a href="https://github.com/sioodmy/dotfiles/stargazers">
+   <a href="https://github.com/notashelf/dotfiles/stargazers">
       <img src="https://img.shields.io/github/stars/sioodmy/dotfiles?color=cba6f7&labelColor=1e1e2e&style=for-the-badge">
    </a>
-   <a href="https://github.com/sioodmy/dotfiles/">
+   <a href="https://github.com/notashelf/dotfiles/">
       <img src="https://img.shields.io/github/repo-size/sioodmy/dotfiles?color=eba0ac&labelColor=1e1e2e&style=for-the-badge">
    </a>
-   <a href="https://github.com/sioodmy/dotfiles/blob/main/LICENSE">
+   <a href="https://github.com/notashelf/dotfiles/blob/main/LICENSE">
     <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&logoColor=d9e0ee&colorA=313244&colorB=cba6f7"/>
    </a>
 
@@ -32,36 +32,12 @@
 <img src="https://media.discordapp.net/attachments/1020403449092911186/1024341925630844939/unknown.png?width=1122&height=631" width="700" alt="" />
 </p>
 
-```
-.
-├── home          # my home-manager configuration
-├── modules       # home-manager modules
-│   ├── vimuwu    # ide-like nvim config
-│   ├── schizofox # privacy-oriented firefox esr configuration
-├── system        # basically configuration.nix split into pieces
-├── hosts         # per host configuration
-│   ├── anthe     # desktop (amd/nvidia)
-│   ├── iapetus   # pi home server
-│   └── io        # thinkpad t440 (currently dead)
-└──  pkgs         # extracted packages
-```
 
 ```
-My workflow / setup / rice
-
-- wayland compositor (its not wm): hyprland
-- terminal: kitty
-- font: Iosevka
-- theme: Catppuccin
-- editor/ide: vimuwu
-- browser: schizofox
-- launcher: rofi
-- bar: waybar
-```
+If you like those dotfiles, modified or not, you could (and you probably should) donate to the _original_ author I stole those from.
+His crypto addresses are below:
 
 ```
-If you would like to support my work, you can donate me in crypto <3
-
 ETH: 0x430de39c494E40808F9d8A50958Eec622C3B5577
 XMR: 84XFcVUGNg5HDGuJqWsu7uD9TGhJFyfE2VfHEN5EWHfFL6HB4nDrP4ThWyNtQfFnNQhn58kRsie1mNx25aAU81D2TeFQwDk
 BTC: 1781yHtiPrNd9yAqq4rhvhTuYBgbgQQFYy
