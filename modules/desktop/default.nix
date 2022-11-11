@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
@@ -10,4 +11,5 @@
     #./steam.nix
     ./xserver.nix
   ];
+  nixpkgs.overlays = [(import ../overlays)];
 }
