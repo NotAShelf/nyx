@@ -11,7 +11,7 @@
       theme = "lone";
     in {
       enable = true;
-      themePackages = [(pkgs.plymouth-themes.override {inherit pack theme;})];
+      #themePackages = [(pkgs.plymouth-themes.override {inherit pack theme;})];
     };
     loader = {
       systemd-boot.enable = lib.mkDefault true;

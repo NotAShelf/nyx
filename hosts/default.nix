@@ -20,7 +20,6 @@
     };
     users.notashelf = ../modules/home;
   };
-
 in {
   # HP Pavillion
   prometheus = nixpkgs.lib.nixosSystem {
