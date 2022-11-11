@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   config,
+  self,
   ...
 }: let
   mpv-unwrapped = pkgs.mpv-unwrapped.overrideAttrs (o: {
@@ -12,11 +13,17 @@
       sha256 = "sha256-6qbv34ysNQbI/zff6rAnVW4z6yfm2t/XL/PF7D/tjv4=";
     };
   });
+
+  # My own packages
+  cloneit = self.packages.${pkgs.system}.cloneit;
+  battop = self.packages.${pkgs.system}.battop;
 in {
   nixpkgs = {
     config.allowUnfree = true;
   };
   home.packages = with pkgs; [
+    cloneit
+    battop
     todo
     upower
     mpv-unwrapped
