@@ -2,8 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pack ? 2,
-  theme ? "green_blocks",
+  pack ? 1,
+  theme ? "lone",
   ...
 }:
 stdenv.mkDerivation rec {
