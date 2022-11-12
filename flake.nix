@@ -45,7 +45,7 @@
       # Misc
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
       battop = pkgs.callPackage ./pkgs/rust-battop.nix {};
-      proton = pkgs.callPackage ./pkgs/proton.nix {};
+      #proton = pkgs.callPackage ./pkgs/proton.nix {};
     };
 
     devShells.${system}.default = pkgs.mkShell {packages = [pkgs.alejandra];};
