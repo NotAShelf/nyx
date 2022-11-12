@@ -65,7 +65,7 @@ in {
     wireshark
 
     # overlay packages
-    #emacs
-    #discord-openasar
+    emacs
+    discord-openasar
   ];
 }

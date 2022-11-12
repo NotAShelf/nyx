@@ -5,9 +5,19 @@
   inputs,
   ...
 }: {
-  environment.defaultPackages = [];
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
+  environment = {
+    defaultPackages = [pkgs.git];
+    etc = {
+      #"nix/flake-channels/system".source = inputs.self;
+      "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
+      "nix/flake-channels/home-manager".source = inputs.home-manager;
+    };
+  };
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
 
   # faster rebuilding
   documentation = {
