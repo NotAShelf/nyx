@@ -7,8 +7,12 @@
 }:
 with lib; let
   mkService = lib.recursiveUpdate {
-    Unit.PartOf = ["graphical-session.target"];
-    Unit.After = ["graphical-session.target"];
+    Unit = {
+      Description = "Wayland wallpaper daemon";
+      PartOf = ["graphical-session.target"];
+    };
+    #Unit.PartOf = ["graphical-session.target"];
+    #Unit.After = ["graphical-session.target"];
     Install.WantedBy = ["graphical-session.target"];
   };
   ocr = pkgs.writeShellScriptBin "ocr" ''
@@ -70,8 +74,10 @@ in {
 
   systemd.user.services = {
     swaybg = mkService {
-      Unit.Description = "Wallpaper chooser";
-      Service.ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${./wall.png}";
+      Service = {
+        ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${./wall.png}";
+        Restart = "on-failure";
+      };
     };
   };
 }
