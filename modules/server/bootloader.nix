@@ -10,15 +10,15 @@
       pack = 1;
       theme = "lone";
     in {
-      enable = lib.mkDefault true;
+      enable = false;
       #themePackages = [(pkgs.plymouth-themes.override {inherit pack theme;})];
     };
     loader = {
-      systemd-boot.enable = lib.mkDefault true;
+      systemd-boot.enable = lib.mkDefault false;
       efi.canTouchEfiVariables = true;
       timeout = 2;
       grub = {
-        enable = lib.mkDefault false;
+        enable = lib.mkDefault true;
         useOSProber = true;
         efiSupport = true;
         enableCryptodisk = false;

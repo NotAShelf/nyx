@@ -4,6 +4,7 @@
   ...
 }: let
   inputs = self.inputs;
+  bootloader = ../modules/server/bootloader.nix;
   core = ../modules/core;
   desktop = ../modules/desktop;
   server = ../modules/server;
@@ -60,6 +61,7 @@ in {
       {networking.hostName = "atlas";}
       ./atlas/hardware-configuration.nix
       core
+      bootloader
       server
       hmModule
       {inherit home-manager;}

@@ -77,7 +77,7 @@
       ];
 
       sandbox = true;
-      system-features = ["kvm" "recursive-nix"];
+      system-features = ["kvm" "recursive-nix" "big-parallel"];
       #extraOptions = ''
       #  accept-flake-config = true
       #  warn-dirty = false
