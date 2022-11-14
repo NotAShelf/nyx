@@ -33,7 +33,6 @@
 </p>
 
 
-```
 If you like those dotfiles, modified or not, you could (and you probably should) donate to the _original_ author I stole those from.
 His crypto addresses are below:
 
