@@ -1,3 +1,4 @@
+
 {
   config,
   lib,
@@ -14,7 +15,8 @@
   # this is actually quite useful on servers
   systemd.services.NetworkManager-wait-online.enable = lib.mkOverride 900 true;
 
-  #nixpkgs.localSystem.system = "aarch64-linux";
+#   #333333333333333333333333333333333333333333333333333333333333333
+nixpkgs.localSystem.system = "aarch64-linux";
 
   boot = {
     # Use mainline kernel, vendor kernel has some issues compiling due to
