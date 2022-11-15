@@ -5,8 +5,9 @@
   inputs,
   ...
 }: {
+  system.autoUpgrade.enable = false;
   environment = {
-    defaultPackages = [pkgs.git];
+    defaultPackages = [];
     etc = {
       #"nix/flake-channels/system".source = inputs.self;
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;

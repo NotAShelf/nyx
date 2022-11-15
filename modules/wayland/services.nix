@@ -23,15 +23,6 @@
       gnome-keyring.enable = true;
     };
 
-    logind = {
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "lock";
-      extraConfig = ''
-        HandlePowerKey=suspend-then-hibernate
-        HibernateDelaySec=3600
-      '';
-    };
-
     lorri.enable = true;
     udisks2.enable = true;
     printing.enable = true;

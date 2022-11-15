@@ -1,13 +1,12 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: {
-  # Set required env variables from hyprland's wiki
-  config.packageOverrides = pkgs: {
+  programs.steam.enable = true;
+
+  nixpkgs.config.packageOverrides = pkgs: {
     steam = pkgs.steam.override {
-      withJava = true;
       extraPkgs = pkgs:
         with pkgs; [
           libgdiplus
@@ -19,7 +18,7 @@
           stdenv.cc.cc.lib
           xorg.libXcursor
           xorg.libXi
-          xorg.Libxinerama
+          xorg.libXinerama
           xorg.libXScrnSaver
         ];
       extraProfile = "export GDK_SCALE=2";

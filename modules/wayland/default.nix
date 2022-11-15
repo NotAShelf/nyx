@@ -46,7 +46,6 @@
         intel-compute-runtime
         vaapiVdpau
         libvdpau-va-gl
-        nvidia-vaapi-driver
       ];
     };
     pulseaudio.support32Bit = true;

@@ -7,7 +7,7 @@
     ./gamemode.nix
     ./programs.nix
     ./services.nix
-    #./steam.nix
+    ./steam.nix
     ./xserver.nix
   ];
 }

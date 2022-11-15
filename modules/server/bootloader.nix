@@ -6,19 +6,10 @@
   ...
 }: {
   boot = {
-    plymouth = let
-      pack = 1;
-      theme = "lone";
-    in {
-      enable = false;
-      #themePackages = [(pkgs.plymouth-themes.override {inherit pack theme;})];
-    };
     loader = {
-      systemd-boot.enable = lib.mkDefault false;
-      efi.canTouchEfiVariables = true;
-      timeout = 2;
+      systemd-boot.enable = false;
       grub = {
-        enable = lib.mkDefault true;
+        enable = true;
         useOSProber = true;
         efiSupport = true;
         enableCryptodisk = false;

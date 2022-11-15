@@ -33,7 +33,6 @@
     openssh = {
       enable = lib.mkDefault true;
       permitRootLogin = "no";
-      passwordAuthentication = true;
     };
 
     btrfs.autoScrub.enable = true;

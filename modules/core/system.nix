@@ -13,6 +13,13 @@
     keyMap = "trq";
   };
 
+  environment.systemPackages = with pkgs; [
+    neovim
+    git
+    wget
+    curl
+  ];
+
   # Set timezone
   time.timeZone = "Europe/Istanbul";
 
