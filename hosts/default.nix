@@ -11,6 +11,7 @@
   nvidia = ../modules/nvidia;
   wayland = ../modules/wayland;
   hmModule = inputs.home-manager.nixosModules.home-manager;
+  hw = inputs.nixos-hardware.nixosModules;
 
   home-manager = {
     useUserPackages = true;
@@ -56,15 +57,13 @@ in {
 
   # Raspberry Pi 400
   atlas = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
+    system = "aarch64-linux";
     modules = [
       {networking.hostName = "atlas";}
-      ./atlas/hardware-configuration.nix
+      hw.raspberry-pi-4
+      ./atlas
       core
-      bootloader
       server
-      hmModule
-      {inherit home-manager;}
     ];
     specialArgs = {inherit inputs;};
   };

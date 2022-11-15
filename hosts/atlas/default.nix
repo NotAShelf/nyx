@@ -1,20 +1,23 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: {
-  networking = {
-    hostName = "atlas";
+  nixpkgs.localSystem.system = "aarch64-linux";
+
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/NIXOS_SD";
+      fsType = "ext4";
+      options = ["noatime"];
+    };
   };
 
-  # use bash on the server
-  users.users.sioodmy.shell = lib.mkOverride 900 pkgs.bash;
+  environment.systemPackages = with pkgs; [vim];
 
-  # this is actually quite useful on servers
-  systemd.services.NetworkManager-wait-online.enable = lib.mkOverride 900 true;
-
-  #nixpkgs.localSystem.system = "aarch64-linux";
+  # Enable GPU acceleration
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
 
   boot = {
     # Use mainline kernel, vendor kernel has some issues compiling due to
@@ -25,8 +28,10 @@
     supportedFilesystems = lib.mkForce ["btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" "ext4" "vfat"];
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXOS_SD";
-    fsType = "ext4";
+  # this will be disabled once I have SSH keys set up and working *properly*
+  services.xserver = {
+    enable = true;
+    displayManager.lightdm.enable = true;
+    desktopManager.xfce.enable = true;
   };
 }
