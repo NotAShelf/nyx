@@ -122,6 +122,11 @@ in {
     enable = true;
     userName = "NotAShelf";
     userEmail = "itsashelf@gmail.com";
+    signing = {
+      signByDefault = true;
+      key = "5AD2E2E8F503AE95";
+    };
+    delta.enable = true;
     extraConfig = {
       init = {defaultBranch = "main";};
       delta = {
@@ -130,7 +135,6 @@ in {
       };
     };
     lfs.enable = true;
-    delta.enable = true;
     aliases = {
       co = "checkout";
       fuck = "commit --amend -m";
