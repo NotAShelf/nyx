@@ -66,6 +66,6 @@ in {
 
     # overlay packages
     emacs
-    discord
+    discord-oa
   ];
 }

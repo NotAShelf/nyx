@@ -16,6 +16,7 @@
     ./waybar
     ./hyprland
     ./schizofox
+    ./zathura
     inputs.hyprland.homeManagerModules.default
   ];
   config.modules = {

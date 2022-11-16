@@ -45,6 +45,7 @@
     };
 
     btrfs.autoScrub.enable = true;
+    upower.enable = true;
 
     # Use pipewire instead of soyaudio
     pipewire = {

@@ -34,7 +34,5 @@
       enable = lib.mkDefault true;
       permitRootLogin = "no";
     };
-
-    upower.enable = true;
   };
 }
