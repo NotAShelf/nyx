@@ -29,9 +29,21 @@
   };
 
   # this will be disabled once I have SSH keys set up and working *properly*
-  services.xserver = {
-    enable = true;
-    displayManager.lightdm.enable = true;
-    desktopManager.xfce.enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.lightdm.enable = true;
+      desktopManager.xfce.enable = true;
+    };
+
+    create_ap = {
+      enable = false;
+      settings = {
+        INTERNET_IFACE = "eth0";
+        WIFI_IFACE = "wlan0";
+        SSID = "Pizone";
+        PASSPHRASE = "12345678";
+      };
+    };
   };
 }

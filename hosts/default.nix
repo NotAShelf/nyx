@@ -4,7 +4,6 @@
   ...
 }: let
   inputs = self.inputs;
-  bootloader = ../modules/server/bootloader.nix;
   core = ../modules/core;
   desktop = ../modules/desktop;
   server = ../modules/server;
@@ -60,8 +59,8 @@ in {
     system = "aarch64-linux";
     modules = [
       {networking.hostName = "atlas";}
-      hw.raspberry-pi-4
       ./atlas
+      hw.raspberry-pi-4
       core
       server
     ];
