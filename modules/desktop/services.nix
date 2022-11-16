@@ -44,6 +44,8 @@
       '';
     };
 
+    btrfs.autoScrub.enable = true;
+
     # Use pipewire instead of soyaudio
     pipewire = {
       enable = true;

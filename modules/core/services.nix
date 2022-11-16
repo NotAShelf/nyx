@@ -35,8 +35,6 @@
       permitRootLogin = "no";
     };
 
-    btrfs.autoScrub.enable = true;
-
     upower.enable = true;
   };
 }

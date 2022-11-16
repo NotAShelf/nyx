@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 # this makes our system more secure
@@ -34,7 +35,7 @@
 
     acme = {
       acceptTerms = true;
-      defaults.email = "itsashelf@gmail.com";
+      defaults.email = lib.mkDefault "itsashelf@gmail.com";
     };
 
     tpm2 = {

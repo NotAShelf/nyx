@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
   imports = [
@@ -10,6 +9,6 @@
     ./security.nix
     ./bootloader.nix
     ./users.nix
+    ./programs.nix
   ];
-  nixpkgs.overlays = [inputs.emacs-overlay.overlay];
 }
