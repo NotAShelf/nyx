@@ -4,7 +4,9 @@
   ...
 }: {
   users.users.notashelf = {
+    createHome = true;
     isNormalUser = true;
+    group = "users";
     extraGroups = [
       "audio"
       "input"
