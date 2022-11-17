@@ -12,6 +12,7 @@
     ./tmux
     ./tools
     ./vimuwu
+    ./mpd
   ];
   config.modules = {
     programs = {
