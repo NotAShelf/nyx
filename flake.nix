@@ -25,6 +25,9 @@
 
     # Emacs overlay
     emacs-overlay.url = "github:nix-community/emacs-overlay/da2f552d133497abd434006e0cae996c0a282394";
+
+    # agenix replacement
+    ragenix.url = "github:yaxitech/ragenix";
   };
 
   outputs = {self, ...} @ inputs: let
