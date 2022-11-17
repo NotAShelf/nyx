@@ -22,4 +22,6 @@
     wireshark.enable = true;
     java.enable = true;
   };
+  # enable polkit
+  security.polkit.enable = true;
 }

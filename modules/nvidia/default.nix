@@ -24,14 +24,25 @@ in {
   };
 
   services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.screenSection = ''
+    Option         "UseNvKmsCompositionPipeline" "false"
+    Option         "metamodes" "nvidia-auto-select +0+0 {ForceCompositionPipeline=On,AllowGSYNCCompatible=On}"
+  '';
   environment.systemPackages = with pkgs; [
     nvidia-offload
     glxinfo
     nvidia-vaapi-driver
+    nvtop
   ];
 
   hardware = {
     nvidia = {
+      package = let
+        nv = config.boot.kernelPackages.nvidiaPackages;
+      in
+        if lib.versionAtLeast nv.stable.version nv.beta.version
+        then nv.stable
+        else nv.beta;
       open = true;
       powerManagement.enable = true;
       modesetting.enable = true;

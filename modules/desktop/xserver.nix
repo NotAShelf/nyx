@@ -1,6 +1,6 @@
 {
   services.xserver = {
-    enable = false;
+    enable = true;
     #displayManager.gdm.enable = false;
 
     libinput = {
@@ -11,6 +11,10 @@
       mouse.middleEmulation = false;
       # touchpad settings
       touchpad.naturalScrolling = true;
+      touchpad.tapping = true;
+      touchpad.clickMethod = "clickfinger";
+      touchpad.horizontalScrolling = false;
+      touchpad.disableWhileTyping = true;
     };
   };
 }

@@ -39,6 +39,7 @@ in {
     wl-clipboard
     pngquant
     swaybg
+    wayland
   ];
 
   wayland.windowManager.hyprland = {
