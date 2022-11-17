@@ -11,8 +11,6 @@ with lib; let
       Description = "Wayland wallpaper daemon";
       PartOf = ["graphical-session.target"];
     };
-    #Unit.PartOf = ["graphical-session.target"];
-    #Unit.After = ["graphical-session.target"];
     Install.WantedBy = ["graphical-session.target"];
   };
   ocr = pkgs.writeShellScriptBin "ocr" ''
@@ -42,9 +40,6 @@ in {
     pngquant
     swaybg
   ];
-
-  # xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
-  # systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
 
   wayland.windowManager.hyprland = {
     enable = true;

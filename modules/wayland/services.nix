@@ -23,6 +23,7 @@
       gnome-keyring.enable = true;
     };
 
+
     lorri.enable = true;
     udisks2.enable = true;
     printing.enable = true;

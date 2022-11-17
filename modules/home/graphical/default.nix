@@ -10,13 +10,14 @@
 {
   imports = [
     ./gtk
+    ./hyprland
     ./mako
     ./rofi
     ./swaylock
     ./waybar
-    ./hyprland
     ./schizofox
     ./zathura
+    ./newsboat
     inputs.hyprland.homeManagerModules.default
   ];
   config.modules = {
