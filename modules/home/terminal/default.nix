@@ -11,7 +11,7 @@
     ./shell
     ./tmux
     ./tools
-    ./vimuwu
+    ./neovim
     ./mpd
   ];
   config.modules = {

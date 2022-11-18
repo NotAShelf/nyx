@@ -15,7 +15,7 @@
     ./rofi
     ./swaylock
     ./waybar
-    ./schizofox
+    ./firefox
     ./zathura
     ./newsboat
     inputs.hyprland.homeManagerModules.default
