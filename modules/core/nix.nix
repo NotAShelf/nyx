@@ -42,6 +42,11 @@
       "home-manager=/etc/nix/flake-channels/home-manager"
     ];
 
+    registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+      nixos-hardware.flake = inputs.nixos-hardware;
+    };
+
     settings = {
       experimental-features = "recursive-nix nix-command flakes";
       keep-outputs = true;
@@ -79,13 +84,6 @@
 
       sandbox = true;
       system-features = ["kvm" "recursive-nix" "big-parallel"];
-      #extraOptions = ''
-      #  accept-flake-config = true
-      #  warn-dirty = false
-      #  experimental-features = nix-command flakes recursive-nix
-      #  min-free = ${toString (1024 * 1024 * 1024)}
-      #  max-free = ${toString (10 * 1024 * 1024 * 1024)}
-      #'';
     };
     extraOptions = ''
       accept-flake-config = true

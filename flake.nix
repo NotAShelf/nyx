@@ -28,6 +28,9 @@
 
     # agenix replacement
     ragenix.url = "github:yaxitech/ragenix";
+
+    # firefox nightly
+    nightly-ff.url = "github:colemickens/flake-firefox-nightly";
   };
 
   outputs = {self, ...} @ inputs: let
