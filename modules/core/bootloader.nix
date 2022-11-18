@@ -16,8 +16,8 @@
     loader = {
       # Fix a security hole in place for backwards compatibility. See desc in
       # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
-      boot.loader.systemd-boot.editor = false;
-      
+      systemd-boot.editor = false;
+
       systemd-boot.enable = lib.mkDefault true;
       efi.canTouchEfiVariables = true;
       timeout = 2;
@@ -34,7 +34,7 @@
     };
 
     tmpOnTmpfs = lib.mkDefault true;
-    
+
     # If not using tmpfs, which is naturally purged on reboot, we must clean it
     # /tmp ourselves. /tmp should be volatile storage!
     cleanTmpDir = lib.mkDefault (!config.boot.tmpOnTmpfs);
