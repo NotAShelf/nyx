@@ -63,9 +63,13 @@ in {
     nextcloud-client
     libgdiplus
     wireshark
+    xdg-utils
 
     # overlay packages
     emacs
-    discord-oa
+
+    # currently broken
+    # (discord-canary.override {withOpenASAR = true;})
+    (discord-canary.override {nss = pkgs.nss_latest;})
   ];
 }

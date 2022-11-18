@@ -29,7 +29,11 @@
       };
     };
 
-    cleanTmpDir = true;
+    tmpOnTmpfs = lib.mkDefault true;
+
+    # If not using tmpfs, which is naturally purged on reboot, we must clean it
+    # /tmp ourselves. /tmp should be volatile storage!
+    cleanTmpDir = lib.mkDefault (!config.boot.tmpOnTmpfs);
 
     # some kernel parameters, i dont remember what half of this shit does but who cares
     kernelParams = [

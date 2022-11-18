@@ -24,10 +24,13 @@
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     # Emacs overlay
-    emacs-overlay.url = "github:nix-community/emacs-overlay/da2f552d133497abd434006e0cae996c0a282394";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     # agenix replacement
-    ragenix.url = "github:yaxitech/ragenix";
+    ragenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # firefox nightly
     nightly-ff.url = "github:colemickens/flake-firefox-nightly";
