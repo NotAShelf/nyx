@@ -19,6 +19,7 @@
   };
 in {
   xdg.configFile."waybar/style.css".text = import ./style.nix;
+  home.packages = [waybar-wttr];
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -76,8 +77,8 @@ in {
         "custom/weather" = {
           format = "{}";
           tooltip = true;
-          interval = 3600;
-          exec = "${waybar-wttr}";
+          interval = 30;
+          exec = "waybar-wttr";
           return-type = "json";
         };
         "custom/lock" = {
@@ -87,7 +88,7 @@ in {
         };
         "custom/swallow" = {
           tooltip = false;
-          oon-click = "${./scripts/waybar-swallow.sh}";
+          on-click = "${./scripts/waybar-swallow.sh}";
           format = "";
         };
         "custom/power" = {

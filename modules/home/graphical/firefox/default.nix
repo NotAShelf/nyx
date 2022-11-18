@@ -10,7 +10,7 @@ in {
   options.modules.programs.schizofox = {
     enable =
       mkEnableOption
-      "Schizo firefox esr setup with vim bindings, discord screenshare works tho. Inspired by ArkenFox.";
+      "Firefox esr setup with vim bindings, discord screenshare works tho. Inspired by ArkenFox.";
     userAgent = mkOption {
       type = types.str;
       example = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0";
@@ -241,6 +241,7 @@ in {
             "browser.discovery.enabled" = false;
             "datareporting.policy.dataSubmissionEnabled" = false;
             "datareporting.healthreport.uploadEnabled" = false;
+            "reader.parse-on-load.enabled" = false;
             "toolkit.telemetry.unified" = false;
             "toolkit.telemetry.enabled" = false;
             "toolkit.telemetry.server" = "data: =";
@@ -279,6 +280,7 @@ in {
             "keyword.enabled" = true;
             "browser.fixup.alternate.enabled" = false;
             "browser.search.suggest.enabled" = false;
+            "browser.urlbar.unifiedcomplete" = false;
             "browser.urlbar.suggest.searches" = false;
             "browser.urlbar.speculativeConnect.enabled" = false;
             "browser.urlbar.dnsResolveSingleWordsAfterSearch" = 0;
@@ -332,7 +334,10 @@ in {
             "permissions.manager.defaultsUrl" = "";
             "webchannel.allowObject.urlWhitelist" = "";
             "network.IDN_show_punycode" = true;
-            "pdfjs.disabled" = false;
+            "pdfjs.disabled" = true;
+            "dom.webnotifications.serviceworker.enabled" = false;
+            "dom.webnotifications.enabled" = false;
+            "dom.ipc.plugins.flash.subprocess.crashreporter.enabled" = false;
             "pdfjs.enableScripting" = false;
             "network.protocol-handler.external.ms-windows-store" = false;
             "permissions.delegation.enabled" = false;
