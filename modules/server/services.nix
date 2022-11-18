@@ -56,10 +56,10 @@
 
       appName = "The Secret Shelf";
       domain = "git.notashelf.dev";
-      rootUrl = "https://git.sioodmy.dev";
+      rootUrl = "https://git.notashelf.dev";
       httpPort = 7000;
       settings = {
-        repository.PREFERRED_LICENSES = "GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
+        repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
         server = {
           START_SSH_SERVER = false;
           BUILTIN_SSH_SERVER_USER = "git";
