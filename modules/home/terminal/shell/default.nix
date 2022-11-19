@@ -124,7 +124,7 @@ in {
     userEmail = "itsashelf@gmail.com";
     signing = {
       signByDefault = true;
-      key = "5AD2E2E8F503AE95";
+      key = "9F925E596282620D";
     };
     delta.enable = true;
     extraConfig = {

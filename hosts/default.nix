@@ -31,7 +31,7 @@ in {
     modules =
       [
         {networking.hostName = "prometheus";}
-        ./prometheus/hardware-configuration.nix
+        ./prometheus
         desktop
         nvidia
         wayland
