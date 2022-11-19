@@ -4,10 +4,9 @@
   lib,
   ...
 }: {
-   fileSystems = {
+  fileSystems = {
     "/".options = ["noatime"];
     "/home".options = ["compress=zstd"];
-    "/nix".options = [ "compress=zstd" "noatime" ];
+    "/nix".options = ["compress=zstd" "noatime"];
   };
 }
-
