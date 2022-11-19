@@ -47,9 +47,10 @@ in {
       viAlias = true;
       vimdiffAlias = true;
       withRuby = false;
-      withNodeJs = false;
-      withPython3 = false;
+      withNodeJs = true;
+      withPython3 = true;
       plugins = with pkgs.vimPlugins; [
+        nvim-whichkey-setup-lua
         lsp_lines-nvim
         vim-nix
         nvim-ts-autotag
