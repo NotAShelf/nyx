@@ -11,6 +11,7 @@
     ./terminal
     ./office
     ./packages.nix
+    ./proton-ge.nix
   ];
 
   home = {

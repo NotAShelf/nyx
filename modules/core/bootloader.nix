@@ -11,7 +11,7 @@
       theme = "lone";
     in {
       enable = lib.mkDefault true;
-      #themePackages = [(pkgs.plymouth-themes.override {inherit pack theme;})];
+      themePackages = [(pkgs.plymouth-themes.override {inherit pack theme;})];
     };
     loader = {
       # Fix a security hole in place for backwards compatibility. See desc in

@@ -9,7 +9,7 @@
     sha256 = "0mz4032pd3ky51h9q3fxm581naal241wjh9gnvkh72s1jgymka3y";
   };
 in {
-  home.file.proton = rec {
+  home.file.proton-ge = rec {
     inherit source;
     recursive = true;
     target = ".steam/root/compatibilitytools.d/GE-Proton${version}/";
