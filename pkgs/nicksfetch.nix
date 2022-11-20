@@ -27,8 +27,6 @@ stdenvNoCC.mkDerivation rec {
       name = "avoid_overwriting_gio_extra_modules_env_var.patch";
     })
     ./patches/neofetch-01.patch
-    ./patches/neofetch-02.patch
-    #./patches/neofetch-03.patch
   ];
 
   outputs = ["out" "man"];
