@@ -53,6 +53,8 @@ in {
     keepassxc
     dconf
     gcc
+    # Rust nightly
+    (rust-bin.selectLatestNightlyWith(toolchain: toolchain.default))
     rustc
     cargo
     thunderbird
