@@ -1,18 +1,30 @@
-From c4eb4ec7783bb94cca0dbdc96db45a4d965956d2 Mon Sep 17 00:00:00 2001
-From: Izorkin <izorkin@elven.pw>
-Date: Tue, 17 May 2022 21:08:51 +0300
-Subject: [PATCH] update old nixos logo
-
----
- neofetch | 47 ++++++++++++++++++++++++++++-------------------
- 1 file changed, 28 insertions(+), 19 deletions(-)
-
-diff --git a/neofetch b/neofetch
-index 48b96d215..cef2704ee 100755
---- a/neofetch
-+++ b/neofetch
-@@ -8951,25 +8951,34 @@ EOF
-         "Nick's OS_old"*)
+--- neofetch	2022-11-20 11:01:19.790687392 +0300
++++ nicksfetch	2022-11-20 12:36:26.165338062 +0300
+@@ -46,7 +46,7 @@
+ LANG=C
+ 
+ # Fix issues with gsettings.
+-export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules/
++[[ -z $GIO_EXTRA_MODULES ]] && export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules/
+ 
+ # Neofetch default config.
+ read -rd '' config <<'EOF'
+@@ -999,6 +999,13 @@
+                     *) distro="OS Elbrus $(< /etc/mcst_version)"
+                 esac
+ 
++            elif [[ -f /etc/NIXOS ]]; then
++                case $distro_shorthand in
++                    on) distro="Nick's OS $(nixos-version | awk '{print substr($1,0,5),$2}')" ;;
++                    tiny) distro="NixOS" ;;
++                    *) distro="Nick's OS $(nixos-version)" ;;
++                esac
++
+             elif type -p pveversion >/dev/null; then
+                 case $distro_shorthand in
+                     on|tiny) distro="Proxmox VE" ;;
+@@ -8951,25 +8958,34 @@
+         "nixos_old"*)
              set_colors 4 6
              read -rd '' ascii_data <<'EOF'
 -${c1}          ::::.    ${c2}':::::     ::::'
