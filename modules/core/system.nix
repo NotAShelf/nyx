@@ -14,16 +14,11 @@
     keyMap = "trq";
   };
 
-  nixpkgs.overlays = with inputs; [
-    emacs-overlay.overlay
-  ];
-
   environment.systemPackages = with pkgs; [
     neovim
     git
     wget
     curl
-    pkgs.emacs-overlay
   ];
 
   # Set timezone

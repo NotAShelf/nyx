@@ -56,7 +56,7 @@
       # Misc
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
       battop = pkgs.callPackage ./pkgs/rust-battop.nix {};
-      nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
+      #nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
     };
 
     devShells.${system}.default = pkgs.mkShell {packages = [pkgs.alejandra];};

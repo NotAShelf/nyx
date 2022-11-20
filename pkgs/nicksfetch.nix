@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     })
     ./patches/neofetch-01.patch
     ./patches/neofetch-02.patch
-    ./patches/neofetch-03.patch
+    #./patches/neofetch-03.patch
   ];
 
   outputs = ["out" "man"];
