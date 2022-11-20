@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 stdenv.mkDerivation rec {
-  pname = "nixos-wallpapers";
+  pname = "notashelf-wallpapers";
   version = "0.0.1";
 
   src = fetchFromGitHub {

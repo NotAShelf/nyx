@@ -40,6 +40,7 @@ in {
     pngquant
     swaybg
     wayland
+    #notashelf-wallpapers
   ];
 
   wayland.windowManager.hyprland = {
@@ -71,6 +72,8 @@ in {
   systemd.user.services = {
     swaybg = mkService {
       Service = {
+        # TODO: use swww instead of swaybg to cycle wallpapers dynamically based on my wallpaper script
+        # ExecStart = "${pkgs.swww}/bin/swww -s ${pkgs.notashelf-wallpapers}/$IMAGE";
         ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${./wall.png}";
         Restart = "on-failure";
       };

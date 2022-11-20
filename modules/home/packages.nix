@@ -54,6 +54,7 @@ in {
     dconf
     gcc
     rustc
+    (rust-bin.selectLatestNightlyWith(toolchain: toolchain.default))
     cargo
     thunderbird
     acpi
