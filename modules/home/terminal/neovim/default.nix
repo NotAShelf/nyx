@@ -19,8 +19,9 @@ in {
       stylua # Lua
       uncrustify
       shellcheck
-      rust-analyzer
-      rustfmt
+      # Rust nightly
+      (rust-bin.selectLatestNightlyWith
+        (toolchain: toolchain.default))
       alejandra # Nix
       gopls # go
       asmfmt
@@ -47,10 +48,9 @@ in {
       viAlias = true;
       vimdiffAlias = true;
       withRuby = false;
-      withNodeJs = true;
-      withPython3 = true;
+      withNodeJs = false;
+      withPython3 = false;
       plugins = with pkgs.vimPlugins; [
-        nvim-whichkey-setup-lua
         lsp_lines-nvim
         vim-nix
         nvim-ts-autotag
@@ -89,7 +89,6 @@ in {
             tree-sitter-toml
             tree-sitter-json
             tree-sitter-lua
-            tree-sitter-bash
             tree-sitter-go
             tree-sitter-java
             tree-sitter-typescript
