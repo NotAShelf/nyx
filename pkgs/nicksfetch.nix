@@ -10,7 +10,7 @@
   fetchpatch,
 }:
 stdenvNoCC.mkDerivation rec {
-  pname = "neofetch";
+  pname = "nicksfetch";
   version = "unstable-2021-12-10";
 
   src = fetchFromGitHub {

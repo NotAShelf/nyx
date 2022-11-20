@@ -1,7 +1,7 @@
-diff --git a/neofetch b/neofetch
+diff --git a/nicksfetch b/nicksfetch
 index 48b96d21..a2270c9a 100755
---- a/neofetch
-+++ b/neofetch
+--- a/nicksfetch
++++ b/nicksfetch
 @@ -46,7 +46,7 @@ LC_ALL=C
  LANG=C
  
