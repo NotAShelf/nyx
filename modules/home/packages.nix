@@ -17,8 +17,7 @@
   # My own packages
   cloneit = self.packages.${pkgs.system}.cloneit;
   battop = self.packages.${pkgs.system}.battop;
-  #nicksfetch = self.packages.${pkgs.system}.nicksfetch;
-  #proton-ge = self.packages.${pkgs.system}.proton;
+  nicksfetch = self.packages.${pkgs.system}.nicksfetch;
 in {
   nixpkgs = {
     config.allowUnfree = true;
@@ -26,6 +25,7 @@ in {
   home.packages = with pkgs; [
     cloneit
     battop
+    nicksfetch
     todo
     upower
     mpv-unwrapped
