@@ -1,6 +1,8 @@
---- a/nicksfetch
-+++ b/nicksfetch
-@@ -46,7 +46,7 @@
+diff --git a/neofetch b/neofetch
+index 48b96d21..a2270c9a 100755
+--- a/neofetch
++++ b/neofetch
+@@ -46,7 +46,7 @@ LC_ALL=C
  LANG=C
  
  # Fix issues with gsettings.
@@ -9,7 +11,7 @@
  
  # Neofetch default config.
  read -rd '' config <<'EOF'
-@@ -999,6 +999,13 @@
+@@ -999,6 +999,13 @@ get_distro() {
                      *) distro="OS Elbrus $(< /etc/mcst_version)"
                  esac
  
@@ -23,7 +25,7 @@
              elif type -p pveversion >/dev/null; then
                  case $distro_shorthand in
                      on|tiny) distro="Proxmox VE" ;;
-@@ -8951,25 +8958,34 @@
+@@ -8951,29 +8958,38 @@ EOF
          "nixos_old"*)
              set_colors 4 6
              read -rd '' ascii_data <<'EOF'
@@ -46,6 +48,10 @@
 -${c1}           .::::''::::.     ${c2}'::::.
 -${c1}          .::::'   ::::.     ${c2}'::::.
 -${c1}         .::::      ::::      ${c2}'::::.
+-EOF
+-        ;;
+-
+-        "NixOS"*)
 +${c1}              ____       ${c2}_______        ____
 +${c1}             /####\      ${c2}\######\      /####\
 +${c1}             ######\      ${c2}\######\    /#####/
@@ -74,6 +80,10 @@
 +${c1}              ${c1}/#####/    \######\${c2}      \######
 +${c1}              ${c1}\####/      \######\${c2}      \####/
 +${c1}               ${c1}¯¯¯¯        ¯¯¯¯¯¯¯${c2}       ¯¯¯¯
- EOF
-         ;;
- 
++EOF
++        ;;
++
++        "Nicks OS"*)
+             set_colors 4 6
+             read -rd '' ascii_data <<'EOF'
+ ${c1}          ▗▄▄▄       ${c2}▗▄▄▄▄    ▄▄▄▖
