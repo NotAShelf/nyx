@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   i18n = {
@@ -12,6 +13,10 @@
     font = "Lat2-Terminus16";
     keyMap = "trq";
   };
+
+  nixpkgs.overlays = with inputs; [
+    emacs-overlay.overlay
+  ];
 
   environment.systemPackages = with pkgs; [
     neovim

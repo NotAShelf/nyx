@@ -19,12 +19,6 @@
     allowBroken = true;
   };
 
-  nixpkgs.overlays = with inputs; [
-    emacs-overlay.overlay
-    nixpkgs-wayland.overlay
-    (import ../overlays)
-  ];
-
   # faster rebuilding
   documentation = {
     enable = false;
