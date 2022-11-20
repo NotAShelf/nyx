@@ -20,6 +20,10 @@
     allowBroken = true;
   };
 
+  nixpkgs.overlays = with inputs; [
+    rust-overlay.overlays.default
+  ];
+
   # faster rebuilding
   documentation = {
     enable = false;

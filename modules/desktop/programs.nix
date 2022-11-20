@@ -7,6 +7,7 @@
 }: {
   environment.variables = {
     BROWSER = "firefox";
+    EDITOR = "nvim";
   };
 
   hardware = {

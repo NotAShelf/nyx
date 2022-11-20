@@ -53,9 +53,7 @@ in {
     keepassxc
     dconf
     gcc
-    rustc
-    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default))
-    cargo
+    rust-bin.stable.latest.default
     thunderbird
     acpi
     tlp

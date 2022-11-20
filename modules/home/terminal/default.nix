@@ -16,7 +16,7 @@
   ];
   config.modules = {
     programs = {
-      vimuwu.enable = true;
+      neovim.enable = true;
     };
   };
 }

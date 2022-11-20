@@ -34,6 +34,12 @@
 
     # firefox nightly
     nightly-ff.url = "github:colemickens/flake-firefox-nightly";
+
+    # Rust Overlay
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {self, ...} @ inputs: let
