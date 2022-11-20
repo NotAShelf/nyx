@@ -10,7 +10,7 @@
   fetchpatch,
 }:
 stdenvNoCC.mkDerivation rec {
-  pname = "neofetch";
+  pname = "nicksfetch";
   version = "unstable-2021-12-10";
 
   src = fetchFromGitHub {
@@ -59,7 +59,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/dylanaraps/neofetch";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [alibabzo konimex];
+    maintainers = with maintainers; [alibabzo konimex notashelf];
     mainProgram = "neofetch";
   };
 }

@@ -19,7 +19,7 @@ in {
       stylua # Lua
       uncrustify
       shellcheck
-      rust-bin.stable.latest.default
+      #rust-bin.stable.latest.default
       alejandra # Nix
       gopls # go
       asmfmt
