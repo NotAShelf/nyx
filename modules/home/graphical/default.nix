@@ -5,9 +5,7 @@
   lib,
   self,
   ...
-}:
-# glue all configs together
-{
+}: {
   imports = [
     ./gtk
     ./hyprland

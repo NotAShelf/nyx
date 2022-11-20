@@ -18,10 +18,10 @@
     };
   };
 
-  nixpkgs.overlays = [(import ../overlays)];
   programs = {
     wireshark.enable = true;
     java.enable = true;
+    steam.enable = true;
   };
   # enable polkit
   security.polkit.enable = true;

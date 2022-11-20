@@ -10,8 +10,8 @@
     ./graphical
     ./terminal
     ./office
+    ./gaming
     ./packages.nix
-    ./proton-ge.nix
   ];
 
   home = {

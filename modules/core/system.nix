@@ -18,6 +18,7 @@
     git
     wget
     curl
+    pkgs.emacs-overlay
   ];
 
   # Set timezone

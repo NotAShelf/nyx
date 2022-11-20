@@ -9,7 +9,6 @@
   environment = {
     defaultPackages = [];
     etc = {
-      #"nix/flake-channels/system".source = inputs.self;
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
       "nix/flake-channels/home-manager".source = inputs.home-manager;
     };
@@ -21,7 +20,9 @@
   };
 
   nixpkgs.overlays = with inputs; [
-    rust-overlay.overlays.default
+    emacs-overlay.overlay
+    nixpkgs-wayland.overlay
+    (import ../overlays)
   ];
 
   # faster rebuilding

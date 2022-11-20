@@ -3,9 +3,7 @@
   pkgs,
   config,
   ...
-}:
-# glue all configs together
-{
+}: {
   imports = [
     ./kitty
     ./shell
@@ -13,6 +11,7 @@
     ./tools
     ./neovim
     ./mpd
+    ./emacs
   ];
   config.modules = {
     programs = {

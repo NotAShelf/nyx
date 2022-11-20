@@ -54,7 +54,6 @@ in {
     keepassxc
     dconf
     gcc
-    #rust-bin.stable.latest.default
     thunderbird
     acpi
     tlp
@@ -64,9 +63,6 @@ in {
     libgdiplus
     wireshark
     xdg-utils
-
-    # overlay packages
-    emacs
 
     # currently broken
     # (discord-canary.override {withOpenASAR = true;})

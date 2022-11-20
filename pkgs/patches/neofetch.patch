@@ -19,7 +19,7 @@ index 48b96d215..39192937e 100755
 +                case $distro_shorthand in
 +                    on) distro="Nick's OS $(nixos-version | awk '{print substr($1,0,5),$2}')" ;;
 +                    tiny) distro="Nick's OS" ;;
-+                    *) distro="NixOS $(nixos-version)" ;;
++                    *) distro="Nick's OS $(nixos-version)" ;;
 +                esac
 +
              elif type -p pveversion >/dev/null; then
