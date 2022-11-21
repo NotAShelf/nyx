@@ -48,7 +48,7 @@
       };
     };
     gitea = {
-      enable = false;
+      enable = true;
       lfs.enable = true;
 
       user = "git";
