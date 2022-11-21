@@ -10,7 +10,7 @@
       pack = 1;
       theme = "lone";
     in {
-      enable = lib.mkDefault true;
+      enable = lib.mkDefault false;
       #themePackages = [(../../packages/plymouth-themes.override {inherit pack theme;})];
     };
     loader = {
