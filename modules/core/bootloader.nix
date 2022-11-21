@@ -33,7 +33,7 @@
       };
     };
 
-    tmpOnTmpfs = lib.mkDefault true;
+    tmpOnTmpfs = lib.mkDefault false;
 
     # If not using tmpfs, which is naturally purged on reboot, we must clean it
     # /tmp ourselves. /tmp should be volatile storage!
