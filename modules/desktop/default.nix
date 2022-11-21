@@ -8,6 +8,6 @@
     ./programs.nix
     ./services.nix
     ./steam.nix
-    #./xserver.nix
+    ./xserver.nix
   ];
 }

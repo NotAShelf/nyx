@@ -5,7 +5,6 @@
 }: {
   imports = [
     ./blocker.nix
-    ./bootloader.nix
     ./network.nix
     ./nix.nix
     ./security.nix

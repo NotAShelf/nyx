@@ -4,11 +4,19 @@
   ...
 }: let
   inputs = self.inputs;
+
+  # my modules
   core = ../modules/core;
   desktop = ../modules/desktop;
   server = ../modules/server;
   nvidia = ../modules/nvidia;
   wayland = ../modules/wayland;
+
+  # individual bootloaders
+  bl-core = ../modules/bootloaders/common.nix;
+  bl-server = ../modules/bootloaders/server.nix;
+
+  # flake inputs
   hmModule = inputs.home-manager.nixosModules.home-manager;
   hw = inputs.nixos-hardware.nixosModules;
   ragenix = inputs.ragenix.nixosModules.age;
@@ -32,6 +40,7 @@ in {
       [
         {networking.hostName = "prometheus";}
         ./prometheus
+        bl-core
         desktop
         nvidia
         wayland
@@ -50,6 +59,7 @@ in {
       [
         {networking.hostName = "icarus";}
         ./icarus/hardware-configuration.nix
+        bl-server
         server
         wayland
         hmModule
