@@ -4,15 +4,15 @@
   lib,
   ...
 }: {
-  nixpkgs.localSystem.system = "aarch64-linux";
+  #nixpkgs.localSystem.system = "aarch64-linux";
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-      options = ["noatime"];
-    };
-  };
+  #fileSystems = {
+  #  "/" = {
+  #    device = "/dev/disk/by-label/NIXOS_SD";
+  #    fsType = "ext4";
+  #    options = ["noatime"];
+  #  };
+  #};
 
   environment.systemPackages = with pkgs; [vim];
 
