@@ -31,24 +31,24 @@
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
       virtualHosts = {
-        "notashelf.dev" = {
-          addSSL = true;
-          serverAliases = ["www.notashelf.dev"];
-          enableACME = true;
-          root = "/srv/www/notashelf.dev";
-        };
+        #"notashelf.dev" = {
+        #  addSSL = true;
+        #  serverAliases = ["www.notashelf.dev"];
+        #  enableACME = true;
+        #  root = "/srv/www/notashelf.dev";
+        #};
 
-        "git.notashelf.dev" = {
-          addSSL = true;
-          enableACME = true;
-          locations."/" = {
-            proxyPass = "http://localhost:7000/";
-          };
-        };
+        #"git.notashelf.dev" = {
+        #  addSSL = true;
+        #  enableACME = true;
+        #  locations."/" = {
+        #    proxyPass = "http://localhost:7000/";
+        #  };
+        #};
       };
     };
     gitea = {
-      enable = true;
+      enable = false;
       lfs.enable = true;
 
       user = "git";
