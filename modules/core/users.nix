@@ -21,7 +21,7 @@
     shell = pkgs.zsh;
     initialPassword = "changeme";
     openssh.authorizedKeys.keys = [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDEv2abP11prPhH45NjKKqyldtnFpPFiagLFOslvPsYvjJPD1rLL/LsmBQYbRlcPi8uvQksGsY3KJE3MDIMc8d8uFmn5E12HoNbWy/jZanbQWA+6FADUf6D+tTlzcHM+iIRRGQpZLrh796BVabMgkduV2e3FiqUNsAqfZNEWL3ryUSI265lZkobn24wx2Sxn8rSVtQcsWbVkmmbGxcZ2sZpPb4dUNvm9Kb14kllLw13PxgxNyPuq77bCuSGuBRNYJASQIT++ePL2eUc43OgciB3MOkt9hMkcI6BHpPSg7lvCbl/Xv18Lw2tx9ohi+TfYL1p1DH3Yi3ZJMEQ/XUdsuWv0eJ84Mysg1OMb4FdLe1Uc0LdGF65tl54cbAqKl7u5ic1tILDk9q97Akhb0PV4q9wm+av8qczVwfElnCIIKfYFPRBqKFFe6hv5rYhU8xqKPHalEBMTtEw0jMbyigmJGPaKi+pRPu2R94BTIKqUc/ciJhUqGrzPX2ugGv5ZvfUPM0= notashelf@pavillion"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8PoV2sELn2vm+LxdHq056t47dtD6d/phS7KPzjkwpufb+/z9U2l9ZJPMm3VpkTi/YUBYbsaoSuEp034GeP2L4sbeRziMX/Pu5YoZJsFRs4xjHLdmc/IAjRtlyCE1WO0upoKDQyhmj6izSSqncVNu54Vc8LUfm9qtaxsITNtgPKdkOVcAraxCMUtPCVmYnS3UWuHrW8R7kevNny0bNxn8DiOaE5N8x9OoV+plJbKl1lSEFtpgSIKinOtiLnUnU76ubeQB/QXZbt+rqw06j14dyVlUnEH2D+bEmOw3q+JfEixdF8SfUbxhhY0foeqJtWKz/3hxT9Wf/xP27PIhidducN8e8gRKwUS5NFPtb2Je6Q82K3dGTgF1zQvGsTcy7/QFwDLnKu38QTRo7CL6K1llZHA5A9YVMZAgEWGBrgKMMf2wAPTil45Gddpl+YumkhMTgXmmG/1oHocfTO2hjGN3pGleKOxmPnEFgKJBMBQMy0Ayqbou+USmWf5hZlgb1bs0= notashelf@prometheus"
       # TODO: add desktop pubkey here
     ];
   };
