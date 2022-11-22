@@ -24,13 +24,13 @@
   shared = [core ragenix];
 
   home-manager = {
+    users.notashelf = ../modules/home;
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = {
       inherit inputs;
       inherit self;
     };
-    users.notashelf = ../modules/home;
   };
 in {
   # HP Pavillion
@@ -58,7 +58,7 @@ in {
     modules =
       [
         {networking.hostName = "icarus";}
-        ./icarus/hardware-configuration.nix
+        ./icarus
         bl-server
         server
         wayland

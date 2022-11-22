@@ -11,10 +11,12 @@
 
   location.provider = "geoclue2";
 
+  programs.dconf.enable = true;
+
   services = {
     dbus = {
       enable = true;
-      packages = [pkgs.dconf];
+      packages = [pkgs.dconf pkgs.gcr];
     };
 
     printing.enable = true;

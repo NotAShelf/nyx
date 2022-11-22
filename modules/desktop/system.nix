@@ -4,16 +4,19 @@
   inputs,
   ...
 }: {
+  environment.systemPackages = with pkgs; [gnome.adwaita-icon-theme];
+
   zramSwap = {
     enable = true;
     algorithm = "zstd";
   };
 
-  gnome = {
-    glib-networking.enable = true;
-    gnome-keyring.enable = true;
+  services = {
+    udev.packages = with pkgs; [gnome.gnome-settings-daemon];
+    gnome = {
+      glib-networking.enable = true;
+      #gnome-keyring.enable = true;
+    };
+    gvfs.enable = true;
   };
-
-  gvfs.enable = true;
-  udev.packages = [pkgs.gnome.gnome-settings-daemon];
 }
