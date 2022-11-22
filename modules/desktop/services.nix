@@ -12,8 +12,16 @@
   location.provider = "geoclue2";
 
   services = {
+    dbus = {
+      enable = true;
+      packages = [pkgs.dconf];
+    };
+
     printing.enable = true;
     resolved.enable = true;
+
+    udisks2.enable = true;
+    fstrim.enable = true;
 
     geoclue2 = {
       enable = true;

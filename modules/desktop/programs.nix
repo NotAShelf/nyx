@@ -8,6 +8,7 @@
   environment.variables = {
     BROWSER = "firefox";
     EDITOR = "nvim";
+    GTK_THEME = "Catppuccin-Frappe-Pink";
   };
 
   hardware = {
