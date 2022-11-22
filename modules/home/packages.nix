@@ -63,8 +63,9 @@ in {
     wireshark
     xdg-utils
 
-    # currently broken
-    # (discord-canary.override {withOpenASAR = true;})
-    (discord-canary.override {nss = pkgs.nss_latest;})
+    (discord-canary.override {
+      nss = pkgs.nss_latest;
+      withOpenASAR = true;
+    })
   ];
 }
