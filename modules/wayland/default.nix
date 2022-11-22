@@ -33,12 +33,12 @@
       SDL_VIDEODRIVER = "wayland";
       WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
     };
-    #loginShellInit = ''
-    #  dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    #  eval $(ssh-agent)
-    #  eval $(gnome-keyring-daemon --start)
-    #  export GPG_TTY=$TTY
-    #'';
+    loginShellInit = ''
+      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+      eval $(ssh-agent)
+      eval $(gnome-keyring-daemon --start)
+      export GPG_TTY=$TTY
+    '';
   };
 
   hardware = {
