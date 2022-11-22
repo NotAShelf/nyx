@@ -3,9 +3,7 @@
   pkgs,
   config,
   ...
-}:
-# glue all configs together
-{
+}: {
   imports = [
     ./graphical
     ./terminal
@@ -22,5 +20,5 @@
   };
 
   # let HM manage itself when in standalone mode
-  #programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 }

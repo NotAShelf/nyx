@@ -23,7 +23,7 @@
     # Use mainline kernel, vendor kernel has some issues compiling due to
     # missing modules that shouldn't even be in the closure.
     # https://github.com/NixOS/nixpkgs/issues/111683
-    
+
     # we define this at config level so that we can use it in the
     # pi module
     #kernelPackages = pkgs.linuxPackages_latest;

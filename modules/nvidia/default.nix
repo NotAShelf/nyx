@@ -29,7 +29,7 @@ in {
     Option         "UseNvKmsCompositionPipeline" "false"
     Option         "metamodes" "nvidia-auto-select +0+0 {ForceCompositionPipeline=On,AllowGSYNCCompatible=On}"
   '';
-  
+
   environment.systemPackages = with pkgs; [
     nvidia-offload
     glxinfo
