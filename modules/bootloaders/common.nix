@@ -6,13 +6,6 @@
   ...
 }: {
   boot = {
-    plymouth = let
-      pack = 1;
-      theme = "lone";
-    in {
-      enable = lib.mkDefault false;
-      #themePackages = [(../../packages/plymouth-themes.override {inherit pack theme;})];
-    };
     loader = {
       # Fix a security hole in place for backwards compatibility. See desc in
       # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
