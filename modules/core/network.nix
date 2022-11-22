@@ -18,8 +18,6 @@
 
     firewall = {
       enable = true;
-      # if your minecraft server is not worky
-      # this is probably why
       allowedTCPPorts = [443 80];
       allowedUDPPorts = [443 80 9100];
       allowPing = false;

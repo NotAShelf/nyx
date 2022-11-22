@@ -39,8 +39,8 @@
     };
 
     tpm2 = {
-      enable = true;
-      abrmd.enable = true;
+      enable = lib.mkDefault true;
+      abrmd.enable = lib.mkDefault true;
     };
   };
 
