@@ -13,7 +13,7 @@
   wayland = ../modules/wayland;
 
   # individual bootloaders
-  bl-core = ../modules/bootloaders/common.nix;
+  bl-common = ../modules/bootloaders/common.nix;
   bl-server = ../modules/bootloaders/server.nix;
 
   # flake inputs
@@ -40,7 +40,7 @@ in {
       [
         {networking.hostName = "prometheus";}
         ./prometheus
-        bl-core
+        bl-common
         desktop
         nvidia
         wayland
