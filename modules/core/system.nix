@@ -24,10 +24,5 @@
   # Set timezone
   time.timeZone = "Europe/Istanbul";
 
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-  };
-
   system.stateVersion = "22.05"; # DONT TOUCH THIS
 }
