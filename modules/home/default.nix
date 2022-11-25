@@ -12,7 +12,7 @@
     # HM Modules grouped by topic
     ./graphical
     ./terminal
-    ./gaming # proton, lutris, steam, etc
+    #./gaming # proton, lutris, steam, etc
   ];
 
   home = {
