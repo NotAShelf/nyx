@@ -9,7 +9,7 @@
     loader = {
       # Fix a security hole in place for backwards compatibility. See desc in
       # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
-      #systemd-boot.editor = false;
+      systemd-boot.editor = false;
 
       systemd-boot.enable = lib.mkDefault true;
       efi.canTouchEfiVariables = true;

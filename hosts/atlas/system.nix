@@ -6,13 +6,13 @@
 }: {
   #nixpkgs.localSystem.system = "aarch64-linux";
 
-  #fileSystems = {
-  #  "/" = {
+  fileSystems = {
+    "/" = {
   #    device = "/dev/disk/by-label/NIXOS_SD";
   #    fsType = "ext4";
-  #    options = ["noatime"];
-  #  };
-  #};
+      options = ["noatime"];
+    };
+  };
 
   environment.systemPackages = with pkgs; [git neovim];
 
