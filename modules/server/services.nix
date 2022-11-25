@@ -10,6 +10,10 @@
     })
   ];
 
+  systemd.services.gitea.serviceConfig.SystemCallFilter =
+    lib.mkForce
+    "~@clock @cpu-emulation @debug @keyring @memlock @module @obsolete @raw-io @reboot @resources @setuid @swap";
+
   services = {
     prometheus.exporters.node = {
       enable = true;
@@ -24,6 +28,7 @@
       openFirewall = true;
       firewallFilter = "-i br0 -p tcp -m tcp --dport 9100";
     };
+
     nginx = {
       enable = true;
       recommendedTlsSettings = true;
@@ -71,6 +76,30 @@
         service.DISABLE_REGISTRATION = true;
         ui.DEFAULT_THEME = "arc-green";
       };
+    };
+
+    # services.tor.relay.onionServices = {
+    #   # hide ssh from script kiddies
+    #   ssh = {
+    #     version = 3;
+    #     map = [{port = 22;}];
+    #   };
+    #   # feds crying rn
+    #   website = {
+    #     version = 3;
+    #     map = [{port = 80;}];
+    #   };
+    # };
+
+    tor.settings = {
+      DnsPort = 9053;
+      AutomapHostsOnResolve = true;
+      AutomapHostsSuffixes = [".exit" ".onion"];
+      EnforceDistinctSubnets = true;
+      ExitNodes = "{pl}";
+      EntryNodes = "{pl}";
+      NewCircuitPeriod = 120;
+      DNSPort = 9053;
     };
   };
 }

@@ -5,23 +5,17 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.programs.firefox;
+  cfg = config.modules.programs.schizofox;
 in {
-  options.modules.programs.firefox = {
+  options.modules.programs.schizofox = {
     enable =
       mkEnableOption
-      "Firefox esr setup with vim bindings, discord screenshare works tho. Inspired by ArkenFox.";
+      "Schizo firefox esr setup with vim bindings, discord screenshare works tho. Inspired by ArkenFox.";
     userAgent = mkOption {
       type = types.str;
       example = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0";
       default = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0";
       description = "Spoof user agent";
-    };
-
-    clearCookies = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Clear cookies on shutdown";
     };
 
     netflixCuckFix = mkOption {
@@ -45,7 +39,7 @@ in {
 
       targetLang = mkOption {
         type = types.str;
-        example = "pl";
+        example = "tr";
         description = ''
           Target language used in translation
         '';
@@ -56,7 +50,6 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       (wrapFirefox firefox-esr-102-unwrapped {
-        #forceWayland = true;
         # see https://github.com/mozilla/policy-templates/blob/master/README.md
         extraPolicies = {
           CaptivePortal = false;
@@ -172,7 +165,6 @@ in {
               "7esoorv3@alefvanoon.anonaddy.me".install_url = "https://addons.mozilla.org/firefox/downloads/latest/libredirect/latest.xpi";
               "{b86e4813-687a-43e6-ab65-0bde4ab75758}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/localcdn-fork-of-decentraleyes/latest.xpi";
               "webextension@metamask.io".install_url = "https://addons.mozilla.org/firefox/downloads/latest/ether-metamask/latest.xpi";
-              "CookieAutoDelete@kennydo.com".install_url = "https://addons.mozilla.org/firefox/downloads/latest/cookie-autodelete/latest.xpi";
               "DontFuckWithPaste@raim.ist".install_url = "https://addons.mozilla.org/firefox/downloads/latest/don-t-fuck-with-paste/latest.xpi";
               "{ffd50a6d-1702-4d87-83c3-ec468f67de6a}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/everything-metric-converter/latest.xpi";
               "{531906d3-e22f-4a6c-a102-8057b88a1a63}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/single-file/latest.xpi";
@@ -197,7 +189,7 @@ in {
           SanitizeOnShutdown = {
             Cache = true;
             History = true;
-            Cookies = cfg.clearCookies;
+            Cookies = true;
             Downloads = true;
             FormData = true;
             Sessions = true;
@@ -280,9 +272,9 @@ in {
             "keyword.enabled" = true;
             "browser.fixup.alternate.enabled" = false;
             "browser.search.suggest.enabled" = false;
-            "browser.urlbar.unifiedcomplete" = false;
             "browser.urlbar.suggest.searches" = false;
             "browser.urlbar.speculativeConnect.enabled" = false;
+            "browser.urlbar.unifiedcomplete" = false;
             "browser.urlbar.dnsResolveSingleWordsAfterSearch" = 0;
             "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
             "browser.urlbar.suggest.quicksuggest.sponsored" = false;

@@ -18,15 +18,29 @@
   };
 
   services = {
+    greetd = {
+      enable = true;
+      settings = rec {
+        initial_session = {
+          command = "Hyprland";
+          user = "notashelf";
+        };
+        default_session = initial_session;
+      };
+    };
+
     gnome = {
       glib-networking.enable = true;
       gnome-keyring.enable = true;
     };
-
-    lorri.enable = true;
-    udisks2.enable = true;
-    printing.enable = true;
-    fstrim.enable = true;
+    logind = {
+      lidSwitch = "suspend-then-hibernate";
+      lidSwitchExternalPower = "lock";
+      extraConfig = ''
+        HandlePowerKey=suspend-then-hibernate
+        HibernateDelaySec=3600
+      '';
+    };
 
     # Use pipewire instead of soyaudio
     pipewire = {

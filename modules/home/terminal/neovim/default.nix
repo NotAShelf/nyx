@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.programs.neovim;
+  cfg = config.modules.programs.vimuwu;
 in {
-  options.modules.programs.neovim = {enable = mkEnableOption "neovim";};
+  options.modules.programs.vimuwu = {enable = mkEnableOption "vimuwu";};
 
   config = mkIf cfg.enable {
     xdg.configFile."nvim".source = ./nvim;
@@ -19,12 +19,12 @@ in {
       stylua # Lua
       uncrustify
       shellcheck
-      #rust-bin.stable.latest.default
       alejandra # Nix
       gopls # go
       asmfmt
       ccls # cpp
       black # python
+      shellcheck # bash
       shfmt
       nodejs
       nodePackages.pyright

@@ -5,7 +5,6 @@
   inputs,
   ...
 }: {
-  system.autoUpgrade.enable = false;
   environment = {
     defaultPackages = [];
     etc = {
@@ -33,28 +32,34 @@
     gc = {
       automatic = true;
       dates = "daily";
-      options = "--delete-older-than 2d";
+      options = "--delete-older-than 4d";
     };
 
-    nixPath = [
-      "nixpkgs=/etc/nix/flake-channels/nixpkgs"
-      "home-manager=/etc/nix/flake-channels/home-manager"
-    ];
-
-    registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      nixos-hardware.flake = inputs.nixos-hardware;
-    };
-
+    # Free up to 1GiB whenever there is less than 100MiB left.
+    extraOptions = ''
+      experimental-features = recursive-nix nix-command flakes
+      keep-outputs = true
+      keep-derivations = true
+      min-free = ${toString (100 * 1024 * 1024)}
+      max-free = ${toString (1024 * 1024 * 1024)}
+      accept-flake-config = true
+      http-connections = 0
+      warn-dirty = false
+    '';
     settings = {
-      experimental-features = "recursive-nix nix-command flakes";
-      keep-outputs = true;
-      keep-derivations = true;
       auto-optimise-store = true;
+
       allowed-users = [
         "root"
         "@wheel"
       ];
+
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+
+      max-jobs = lib.mkDefault 6;
       # use binary cache, its not gentoo
       substituters = [
         "https://cache.nixos.org"
@@ -76,20 +81,10 @@
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
       ];
 
-      trusted-users = [
-        "root"
-        "@wheel"
-      ];
-
       sandbox = true;
       system-features = ["kvm" "recursive-nix" "big-parallel"];
     };
-    extraOptions = ''
-      accept-flake-config = true
-      http-connections = 0
-      warn-dirty = false
-      min-free = ${toString (100 * 1024 * 1024)}
-      max-free = ${toString (1024 * 1024 * 1024)}
-    '';
   };
+  system.autoUpgrade.enable = false;
+  system.stateVersion = "22.05"; # DONT TOUCH THIS
 }

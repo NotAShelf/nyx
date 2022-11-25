@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: let
+}:
+with lib; let
   browser = ["firefox.desktop"];
 
   associations = {
@@ -35,7 +36,6 @@ in {
     pinentryFlavor = "gnome3";
     enableZshIntegration = true;
   };
-
   programs = {
     bat = {
       enable = true;
@@ -50,24 +50,8 @@ in {
       };
       config.theme = "Catppuccin-frappe";
     };
-    #programs.gpg = {
-    #  settings = mkIf (cfg.key != "") {
-    #   default-key = cfg.key;
-    #   default-recipient-self = true;
-    #   auto-key-locate = "local,wkd,keyserver";
-    #   keyserver = "hkps://keys.openpgp.org";
-    #   auto-key-retrieve = true;
-    #   auto-key-import = true;
-    #   keyserver-options = "honor-keyserver-url";
-    #};
-
-    # publicKeys = map (source: {
-    #   inherit source;
-    #   trust = "ultimate";
-    # }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
-    #};
+    gpg.enable = true;
   };
-
   xdg = {
     userDirs = {
       enable = true;
@@ -83,7 +67,6 @@ in {
 
       # Custom Directories
       extraConfig = {
-        XDG_CACHE_DIR = "$HOME/.cache";
         XDG_DEV_DIR = "$HOME/Dev";
         XDG_SCREENSHOTS_DIR = "$HOME/Media/Pictures/Screenshots";
       };

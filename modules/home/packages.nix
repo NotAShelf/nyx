@@ -19,28 +19,23 @@
   battop = self.packages.${pkgs.system}.battop;
   nicksfetch = self.packages.${pkgs.system}.nicksfetch;
 in {
-  nixpkgs = {
-    config.allowUnfree = true;
-  };
   home.packages = with pkgs; [
     cloneit
     battop
     nicksfetch
-    hyperfine
-    todo
     upower
+    todo
     mpv-unwrapped
+    yt-dlp
     pavucontrol
-    #dconf
+    hyperfine
     fzf
     gum
     unzip
     gnupg
     ripgrep
     rsync
-    nano
     imagemagick
-    unrar
     killall
     bandwhich
     grex
@@ -51,17 +46,13 @@ in {
     figlet
     lm_sensors
     keepassxc
+    dconf
     gcc
     thunderbird
     acpi
-    tlp
     powertop
-    geoclue2
     nextcloud-client
-    libgdiplus
-    wireshark
     xdg-utils
-
     (discord-canary.override {
       nss = pkgs.nss_latest;
       withOpenASAR = true;

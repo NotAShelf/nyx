@@ -4,7 +4,11 @@
   inputs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [gnome.adwaita-icon-theme];
+  environment.variables = {
+    EDITOR = "nvim";
+    BROWSER = "firefox";
+    GTK_THEME = "Catppuccin-Frappe-Pink";
+  };
 
   zramSwap = {
     enable = true;
@@ -12,11 +16,15 @@
   };
 
   services = {
-    udev.packages = with pkgs; [gnome.gnome-settings-daemon];
-    gnome = {
-      glib-networking.enable = true;
-      #gnome-keyring.enable = true;
-    };
     gvfs.enable = true;
+    dbus = {
+      packages = with pkgs; [dconf];
+      enable = true;
+    };
+
+    udev.packages = with pkgs; [gnome.gnome-settings-daemon];
   };
+
+  # enable polkit
+  security.polkit.enable = true;
 }

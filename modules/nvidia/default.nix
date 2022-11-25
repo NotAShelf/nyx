@@ -13,29 +13,34 @@ with lib; let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec "$@"
   '';
-  # Fix nvidia stuff on wayland
 in {
-  # Set required env variables from hyprland's wiki
+  services.xserver = {
+    videoDrivers = ["nvidia"];
+    screenSection = ''
+      Option         "UseNvKmsCompositionPipeline" "false"
+      Option         "metamodes" "nvidia-auto-select +0+0 {ForceCompositionPipeline=On,AllowGSYNCCompatible=On}"
+    '';
+  };
+
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+      "nvidia-settings"
+    ];
+
   environment = {
     variables = {
       GBM_BACKEND = "nvidia-drm";
       LIBVA_DRIVER_NAME = "nvidia";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
+    systemPackages = with pkgs; [
+      nvidia-offload
+      glxinfo
+      nvidia-vaapi-driver
+      nvtop
+    ];
   };
-
-  services.xserver.videoDrivers = ["nvidia"];
-  services.xserver.screenSection = ''
-    Option         "UseNvKmsCompositionPipeline" "false"
-    Option         "metamodes" "nvidia-auto-select +0+0 {ForceCompositionPipeline=On,AllowGSYNCCompatible=On}"
-  '';
-
-  environment.systemPackages = with pkgs; [
-    nvidia-offload
-    glxinfo
-    nvidia-vaapi-driver
-    nvtop
-  ];
 
   hardware = {
     nvidia = {
@@ -58,5 +63,6 @@ in {
         nvidiaBusId = "PCI:1:0:0";
       };
     };
+    opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 }

@@ -3,46 +3,21 @@
   pkgs,
   ...
 }: {
-  # Don't wait for network startup
-  # https://old.reddit.com/r/NixOS/comments/vdz86j/how_to_remove_boot_dependency_on_network_for_a
-  systemd = {
-    services.NetworkManager-wait-online.enable = false;
-  };
-
   location.provider = "geoclue2";
 
-  # make home-managed GTK stuff work, maybe?
-  # please
   programs.dconf.enable = true;
 
   services = {
-    dbus = {
-      enable = true;
-      packages = with pkgs; [gcr dconf];
-    };
-
     printing.enable = true;
     resolved.enable = true;
 
     udisks2.enable = true;
-    fstrim.enable = true;
 
     geoclue2 = {
       enable = true;
       appConfig.gammastep = {
         isAllowed = true;
         isSystem = false;
-      };
-    };
-
-    greetd = {
-      enable = true;
-      settings = rec {
-        initial_session = {
-          command = "Hyprland";
-          user = "notashelf";
-        };
-        default_session = initial_session;
       };
     };
 

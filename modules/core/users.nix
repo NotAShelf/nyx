@@ -4,20 +4,20 @@
   ...
 }: {
   users.users.notashelf = {
-    createHome = true;
     isNormalUser = true;
-    group = "users";
     extraGroups = [
+      "wheel"
+      "gitea"
+      "docker"
+      "systemd-journal"
       "audio"
+      "wireshark"
+      "video"
       "input"
       "lp"
       "networkmanager"
-      "systemd-journal"
-      "video"
-      "wheel"
-      "wireshark"
     ];
-    #uid = 1001;
+    uid = 1000;
     shell = pkgs.zsh;
     initialPassword = "changeme";
     openssh.authorizedKeys.keys = [

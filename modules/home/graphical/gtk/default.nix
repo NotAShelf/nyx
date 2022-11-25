@@ -7,22 +7,18 @@
 }: {
   gtk = {
     enable = true;
-
     theme = {
       name = "Catppuccin-Frappe-Pink";
       package = self.packages.${pkgs.system}.catppuccin-gtk;
     };
-
     iconTheme = {
       package = self.packages.${pkgs.system}.catppuccin-folders;
       name = "Papirus";
     };
-
     font = {
       name = "Lato";
       size = 13;
     };
-
     gtk3.extraConfig = {
       gtk-xft-antialias = 1;
       gtk-xft-hinting = 1;

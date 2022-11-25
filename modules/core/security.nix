@@ -7,17 +7,17 @@
 # this makes our system more secure
 # note that it might break some stuff, eg webcam
 {
+  services.tor = {
+    enable = true;
+    client.enable = true;
+    torsocks.enable = true;
+  };
+  
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
-    sudo = {
-      execWheelOnly = true;
-      extraConfig = ''
-        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/shutdown
-        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/reboot '';
-    };
-
     rtkit.enable = true;
+
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;
@@ -33,7 +33,15 @@
       };
     };
 
+    sudo = {
+      execWheelOnly = true;
+      extraConfig = ''
+        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/shutdown
+        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/reboot '';
+    };
+
     acme = {
+      #TODO: move this elsewhere
       acceptTerms = true;
       defaults.email = lib.mkDefault "itsashelf@gmail.com";
     };
@@ -43,10 +51,6 @@
       abrmd.enable = lib.mkDefault true;
     };
   };
-
-  # kernel module to improve Linux internet speeds
-  # https://www.cyberciti.biz/cloud-computing/increase-your-linux-server-internet-speed-with-tcp-bbr-congestion-control/
-  # boot.kernelModules = ["tcp_bbr"];
 
   boot.kernel.sysctl = {
     # The Magic SysRq key is a key combo that allows users connected to the

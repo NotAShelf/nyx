@@ -14,11 +14,11 @@ index 50edb74..639ee86 100644
 @@ -50,7 +50,7 @@ PKG_CHECK_MODULES([glib],     [glib-2.0 >= 2.40 gio-unix-2.0 gmodule-2.0 ])
  PKG_CHECK_MODULES([cairo],    [cairo])
  PKG_CHECK_MODULES([rofi],     [rofi >= 1.5.4])
-
+ 
 -[rofi_PLUGIN_INSTALL_DIR]="`$PKG_CONFIG --variable=pluginsdir rofi`"
 +[rofi_PLUGIN_INSTALL_DIR]="`echo $out/lib/rofi`"
  AC_SUBST([rofi_PLUGIN_INSTALL_DIR])
-
+ 
  LT_INIT([disable-static])
 -- 
 2.25.1

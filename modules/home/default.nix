@@ -2,14 +2,17 @@
   inputs,
   pkgs,
   config,
+  lib,
+  self,
   ...
 }: {
   imports = [
+    ./packages.nix
+
+    # HM Modules grouped by topic
     ./graphical
     ./terminal
-    ./office
-    ./gaming
-    ./packages.nix
+    ./gaming # proton, lutris, steam, etc
   ];
 
   home = {
@@ -18,8 +21,6 @@
     homeDirectory = "/home/notashelf";
     extraOutputsToInstall = ["doc" "devdoc"];
   };
-
-  gtk.enable = true;
 
   # let HM manage itself when in standalone mode
   programs.home-manager.enable = true;

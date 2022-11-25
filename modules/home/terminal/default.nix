@@ -7,15 +7,16 @@
   imports = [
     ./kitty
     ./shell
-    ./tmux
     ./tools
     ./neovim
     ./mpd
     ./emacs
+    ./newsboat
   ];
-  config.modules = {
+
+  modules = {
     programs = {
-      neovim.enable = true;
+      vimuwu.enable = true;
     };
   };
 }

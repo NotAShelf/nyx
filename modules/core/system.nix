@@ -1,17 +1,17 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    supportedLocales = ["en_US.UTF-8/UTF-8"];
+  services = {
+    journald.extraConfig = ''
+      SystemMaxUse=50M
+      RuntimeMaxUse=10M
+    '';
   };
 
-  console = {
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-u24n.psf.gz";
-    keyMap = "trq";
+  environment.variables = {
+    EDITOR = "nvim";
   };
 
   environment.systemPackages = with pkgs; [
@@ -23,6 +23,13 @@
 
   # Set timezone
   time.timeZone = "Europe/Istanbul";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    supportedLocales = ["en_US.UTF-8/UTF-8"];
+  };
 
-  system.stateVersion = "22.05"; # DONT TOUCH THIS
+  console = {
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
+    keyMap = "trq";
+  };
 }

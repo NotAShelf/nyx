@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    #./gtk
+    ./gtk
     ./hyprland
     ./mako
     ./rofi
@@ -15,13 +15,13 @@
     ./waybar
     ./firefox
     ./zathura
-    ./newsboat
+    ./office
     inputs.hyprland.homeManagerModules.default
   ];
 
-  config.modules = {
+  modules = {
     programs = {
-      firefox = {
+      schizofox = {
         enable = true;
         translate = {
           enable = true;

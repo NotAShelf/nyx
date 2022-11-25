@@ -55,7 +55,7 @@
       }
       {
         event = "lock";
-        command = "${pkgs.swaylock-effects}/bin/swaylock";
+        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
       }
     ];
     timeouts = [
@@ -70,4 +70,6 @@
       }
     ];
   };
+
+  systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
 }
