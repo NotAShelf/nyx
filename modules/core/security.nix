@@ -12,7 +12,7 @@
     client.enable = true;
     torsocks.enable = true;
   };
-  
+
   security = {
     protectKernelImage = true;
     lockKernelModules = false;

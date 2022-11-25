@@ -69,6 +69,7 @@ in {
       extraConfig = {
         XDG_DEV_DIR = "$HOME/Dev";
         XDG_SCREENSHOTS_DIR = "$HOME/Media/Pictures/Screenshots";
+        XDG_CACHE_DIR = "$HOME/.cache";
       };
     };
 
