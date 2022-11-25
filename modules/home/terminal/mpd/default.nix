@@ -5,6 +5,7 @@
 }: {
   services.mpd = {
     enable = true;
+    musicDirectory = "/home/notashelf/Media/Music";
     network = {
       listenAddress = "any";
       port = 6600;
@@ -25,9 +26,9 @@
     package = pkgs.ncmpcpp;
     mpdMusicDir = "/home/notashelf/Media/Music";
     settings = {
-      ncmpcpp_directory = "$XDG_CONFIG_DIR/ncmpcpp";
+      ncmpcpp_directory = "/home/notashelf/.config/ncmpcpp";
       mpd_crossfade_time = 2;
-      lyrics_directory = "$XDG_CACHE_DIR/lyrics";
+      lyrics_directory = "/home/notashelf/.cache/lyrics";
       progressbar_look = "▃▃▃";
       progressbar_elapsed_color = 5;
       progressbar_color = "black";

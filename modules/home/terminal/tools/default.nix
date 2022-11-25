@@ -83,6 +83,7 @@ in {
 
       # Custom Directories
       extraConfig = {
+        XDG_CACHE_DIR = "$HOME/.cache";
         XDG_DEV_DIR = "$HOME/Dev";
         XDG_SCREENSHOTS_DIR = "$HOME/Media/Pictures/Screenshots";
       };

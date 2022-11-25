@@ -19,6 +19,8 @@
     extraOutputsToInstall = ["doc" "devdoc"];
   };
 
+  gtk.enable = true;
+
   # let HM manage itself when in standalone mode
   programs.home-manager.enable = true;
 }

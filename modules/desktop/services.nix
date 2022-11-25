@@ -11,12 +11,14 @@
 
   location.provider = "geoclue2";
 
+  # make home-managed GTK stuff work, maybe?
+  # please
   programs.dconf.enable = true;
 
   services = {
     dbus = {
       enable = true;
-      packages = [pkgs.dconf pkgs.gcr];
+      packages = with pkgs; [gcr dconf];
     };
 
     printing.enable = true;

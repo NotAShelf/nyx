@@ -87,7 +87,9 @@ in {
     shellAliases = {
       rebuild = "sudo nix-store --verify; sudo nixos-rebuild --install-bootloader switch --flake .#; bat cache --build";
       cleanup = "sudo nix-collect-garbage --delete-older-than 7d";
+      cleanagr = "sudo nix-collect garbage -d";
       nixtest = "sudo nixos-rebuild test --flake .#prometheus --fast";
+      curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       bloat = "nix path-info -Sh /run/current-system";
       ytmp3 = ''
         ${pkgs.yt-dlp}/bin/yt-dlp -x --continue --add-metadata --embed-thumbnail --audio-format mp3 --audio-quality 0 --metadata-from-title="%(artist)s - %(title)s" --prefer-ffmpeg -o "%(title)s.%(ext)s"'';
@@ -124,7 +126,7 @@ in {
     userEmail = "itsashelf@gmail.com";
     signing = {
       signByDefault = true;
-      key = "9F925E596282620D";
+      key = "E2717A390EBDD81C";
     };
     delta.enable = true;
     extraConfig = {

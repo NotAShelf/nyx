@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.programs.schizofox;
+  cfg = config.modules.programs.firefox;
 in {
-  options.modules.programs.schizofox = {
+  options.modules.programs.firefox = {
     enable =
       mkEnableOption
       "Firefox esr setup with vim bindings, discord screenshare works tho. Inspired by ArkenFox.";
@@ -56,7 +56,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       (wrapFirefox firefox-esr-102-unwrapped {
-        forceWayland = true;
+        #forceWayland = true;
         # see https://github.com/mozilla/policy-templates/blob/master/README.md
         extraPolicies = {
           CaptivePortal = false;

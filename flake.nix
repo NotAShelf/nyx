@@ -25,7 +25,10 @@
 
     # Emacs overlay
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    nix-doom-emacs = {
+      url = "github:nix-community/nix-doom-emacs";
+      inputs.nixpkgs.follows = "emacs-overlay";
+    };
 
     # agenix replacement
     ragenix = {
@@ -42,6 +45,19 @@
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
   in {
     nixosConfigurations = import ./hosts inputs;
+
+    # sd card image for Pi 4 (Atlas host)
+    # build with `nix build .#images.atlas`
+    images = {
+      atlas =
+        (self.nixosConfigurations.atlas.extendModules {
+          modules = ["${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"];
+        })
+        .config
+        .system
+        .build
+        .sdImage;
+    };
 
     packages.${system} = {
       # Catppuccin Theme Packages

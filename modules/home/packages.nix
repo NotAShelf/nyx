@@ -26,12 +26,12 @@ in {
     cloneit
     battop
     nicksfetch
+    hyperfine
     todo
     upower
     mpv-unwrapped
     pavucontrol
-    imv
-    hyperfine
+    #dconf
     fzf
     gum
     unzip
@@ -51,7 +51,6 @@ in {
     figlet
     lm_sensors
     keepassxc
-    dconf
     gcc
     thunderbird
     acpi
