@@ -35,9 +35,6 @@
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # firefox nightly
-    nightly-ff.url = "github:colemickens/flake-firefox-nightly";
   };
 
   outputs = {self, ...} @ inputs: let
