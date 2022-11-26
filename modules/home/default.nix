@@ -5,15 +5,7 @@
   lib,
   self,
   ...
-}:
-# glue all configs together
-{
-  config.home = {
-    username = "notashelf";
-    stateVersion = "22.11";
-    homeDirectory = "/home/notashelf";
-    extraOutputsToInstall = ["doc" "devdoc"];
-  };
+}: {
   imports = [
     ./packages.nix
 
@@ -22,17 +14,14 @@
     ./terminal
     #./gaming # proton, lutris, steam, etc
   ];
-  config.modules = {
-    programs = {
-      schizofox = {
-        enable = true;
-        translate = {
-          enable = true;
-          sourceLang = "en";
-          targetLang = "pl";
-        };
-      };
-      vimuwu.enable = true;
-    };
+
+  home = {
+    username = "notashelf";
+    stateVersion = "22.11";
+    homeDirectory = "/home/notashelf";
+    extraOutputsToInstall = ["doc" "devdoc"];
   };
+
+  # let HM manage itself when in standalone mode
+  programs.home-manager.enable = true;
 }

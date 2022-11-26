@@ -13,4 +13,10 @@
     ./emacs
     ./newsboat
   ];
+
+  modules = {
+    programs = {
+      vimuwu.enable = true;
+    };
+  };
 }

@@ -23,7 +23,7 @@
       settings = rec {
         initial_session = {
           command = "Hyprland";
-          user = "NotAShelf";
+          user = "notashelf";
         };
         default_session = initial_session;
       };
@@ -41,11 +41,6 @@
         HibernateDelaySec=3600
       '';
     };
-
-    lorri.enable = true;
-    udisks2.enable = true;
-    printing.enable = true;
-    fstrim.enable = true;
 
     # Use pipewire instead of soyaudio
     pipewire = {

@@ -18,10 +18,6 @@
     allowBroken = true;
   };
 
-  nixpkgs.overlays = with inputs; [
-    rust-overlay.overlays.default
-  ];
-
   # faster rebuilding
   documentation = {
     enable = false;
@@ -32,6 +28,7 @@
 
   nix = {
     package = pkgs.nixUnstable;
+
     gc = {
       automatic = true;
       dates = "daily";
@@ -51,8 +48,17 @@
     '';
     settings = {
       auto-optimise-store = true;
-      allowed-users = ["root" "@wheel"];
-      trusted-users = ["root" "@wheel"];
+
+      allowed-users = [
+        "root"
+        "@wheel"
+      ];
+
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+
       max-jobs = lib.mkDefault 6;
       # use binary cache, its not gentoo
       substituters = [

@@ -31,8 +31,12 @@ with lib; let
     "x-scheme-handler/discord" = ["WebCord.desktop"];
   };
 in {
+  services.gpg-agent = {
+    enable = true;
+    pinentryFlavor = "gnome3";
+    enableZshIntegration = true;
+  };
   programs = {
-    gpg.enable = true;
     bat = {
       enable = true;
       themes = {
@@ -46,6 +50,7 @@ in {
       };
       config.theme = "Catppuccin-frappe";
     };
+    gpg.enable = true;
   };
   xdg = {
     userDirs = {

@@ -19,10 +19,6 @@ in {
       stylua # Lua
       uncrustify
       shellcheck
-      # Rust nightly
-      (rust-bin.selectLatestNightlyWith
-        (toolchain: toolchain.default))
-      rust-analyzer
       alejandra # Nix
       gopls # go
       asmfmt

@@ -12,10 +12,12 @@
     client.enable = true;
     torsocks.enable = true;
   };
+
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
     rtkit.enable = true;
+
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;
@@ -23,6 +25,7 @@
     };
 
     pam.services = {
+      login.enableGnomeKeyring = true;
       swaylock = {
         text = ''
           auth include login
