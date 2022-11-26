@@ -132,7 +132,7 @@ in {
       delta.enable = true;
       signing = {
         signByDefault = true;
-        key = "9F925E596282620D";
+        key = "E2717A390EBDD81C";
       };
 
       extraConfig = {

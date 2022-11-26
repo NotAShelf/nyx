@@ -17,7 +17,7 @@
 
   home = {
     username = "notashelf";
-    stateVersion = "22.11";
+    stateVersion = "22.05";
     homeDirectory = "/home/notashelf";
     extraOutputsToInstall = ["doc" "devdoc"];
   };
