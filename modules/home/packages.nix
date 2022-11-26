@@ -20,10 +20,9 @@
   nicksfetch = self.packages.${pkgs.system}.nicksfetch;
 in {
   home.packages = with pkgs; [
-    cloneit
-    battop
-    nicksfetch
-    upower
+    # cloneit
+    # battop
+    # nicksfetch
     todo
     mpv-unwrapped
     yt-dlp
@@ -32,7 +31,6 @@ in {
     fzf
     gum
     unzip
-    gnupg
     ripgrep
     rsync
     imagemagick

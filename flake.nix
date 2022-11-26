@@ -1,7 +1,6 @@
 {
   description = "My NixOS configuration";
-  # https://github.com/notashelf/dotfiles
-
+ 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
@@ -36,17 +35,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # firefox nightly
-    nightly-ff.url = "github:colemickens/flake-firefox-nightly";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-
   outputs = {self, ...} @ inputs: let
     system = "x86_64-linux";
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
   in {
     nixosConfigurations = import ./hosts inputs;
 
-    # sd card image for Pi 4 (Atlas host)
+    # sd card image for raspberry pi (Atlas host)
     # build with `nix build .#images.atlas`
     images = {
       atlas =
@@ -58,7 +58,6 @@
         .build
         .sdImage;
     };
-
     packages.${system} = {
       # Catppuccin Theme Packages
       catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};

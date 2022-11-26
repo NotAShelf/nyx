@@ -19,7 +19,7 @@
    <a href="https://github.com/notashelf/dotfiles/blob/main/LICENSE">
     <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&logoColor=ca9ee6&colorA=313244&colorB=cba6f7"/>
    </a>
-   <a href="https://liberapay.com/notashelf/donate"><img src="https://img.shields.io/liberapay/patrons/sioodmy.svg?logo=liberapay?color=e5c890&labelColor=303446&style=for-the-badge"></a>
+   <a href="https://liberapay.com/notashelf/donate"><img src="https://img.shields.io/liberapay/patrons/notashelf.svg?logo=liberapay?color=e5c890&labelColor=303446&style=for-the-badge"></a>
    <br>
 </div>
 </h1>
