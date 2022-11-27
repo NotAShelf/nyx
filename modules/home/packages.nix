@@ -42,5 +42,7 @@ in {
     gcc
     thunderbird
     tdesktop
+    lutris
+    dolphin-emu
   ];
 }

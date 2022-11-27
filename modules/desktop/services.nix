@@ -5,12 +5,22 @@
 }: {
   location.provider = "geoclue2";
 
+  hardware.bluetooth = {
+    enable = false;
+    package = pkgs.blues5-experimental;
+    hsphfpd.enable = true;
+  };
+
   services = {
     printing.enable = true;
     resolved.enable = true;
     udisks2.enable = true;
     btrfs.autoScrub.enable = true;
     upower.enable = true;
+
+    # https://nixos.wiki/wiki/Bluetooth
+    blueman.enable = config.hardware.bluetooth.enable;
+    #mpris-proxy.enable = config.hardware.bluetooth.enable;
 
     geoclue2 = {
       enable = true;

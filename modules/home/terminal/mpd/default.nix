@@ -3,19 +3,22 @@
   pkgs,
   ...
 }: {
-  services.mpd = {
-    enable = true;
-    network = {
-      listenAddress = "any";
-      port = 6600;
+  services = {
+    mpris-proxy.enable = true;
+    mpd = {
+      enable = true;
+      network = {
+        listenAddress = "any";
+        port = 6600;
+      };
+      extraConfig = ''
+        audio_output {
+          type    "pipewire"
+          name    "pipewire"
+        }
+        auto_update "yes"
+      '';
     };
-    extraConfig = ''
-      audio_output {
-        type    "pipewire"
-        name    "pipewire"
-      }
-      auto_update "yes"
-    '';
   };
 
   home.packages = with pkgs; [mpc_cli miniplayer];
