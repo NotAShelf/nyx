@@ -16,6 +16,7 @@
       "lp"
       "networkmanager"
       "libvirtd"
+      "tss"
     ];
     uid = 1000;
     shell = pkgs.zsh;

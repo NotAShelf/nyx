@@ -12,6 +12,7 @@
     client.enable = true;
     torsocks.enable = true;
   };
+
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
@@ -21,6 +22,7 @@
       killUnconfinedConfinables = true;
       packages = [pkgs.apparmor-profiles];
     };
+
     pam.services = {
       swaylock = {
         text = ''
@@ -31,14 +33,16 @@
     sudo = {
       execWheelOnly = true;
       extraConfig = ''
-        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/shutdown
-        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/reboot
+        ALL ALL = (wheel) NOPASSWD: ${pkgs.systemd}/bin/shutdown
+        ALL ALL = (wheel) NOPASSWD: ${pkgs.systemd}/bin/reboot
       '';
     };
 
     tpm2 = {
       enable = lib.mkDefault true;
       abrmd.enable = lib.mkDefault true;
+      pkcs11.enable = lib.mkDefault true;
+      tctiEnvironment.enable = lib.mkDefault true;
     };
   };
 
