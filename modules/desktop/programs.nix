@@ -7,6 +7,7 @@
 }: {
   environment.systemPackages = with pkgs; [
     gnome.gnome-control-center
+    gnome.gnome-calendar
   ];
 
   hardware = {

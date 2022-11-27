@@ -31,12 +31,23 @@
   };
 
   nix = {
+    package = pkgs.nixUnstable;
+
     gc = {
       automatic = true;
       dates = "daily";
       options = "--delete-older-than 4d";
     };
-    package = pkgs.nixUnstable;
+
+    nixPath = [
+      "nixpkgs=/etc/nix/flake-channels/nixpkgs"
+      "home-manager=/etc/nix/flake-channels/home-manager"
+    ];
+
+    registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+      nixos-hardware.flake = inputs.nixos-hardware;
+    };
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
