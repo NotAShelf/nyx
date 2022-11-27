@@ -68,6 +68,9 @@ in {
     initExtra = ''
       autoload -U url-quote-magic
       zle -N self-insert url-quote-magic
+      setopt share_history
+      export FZF_DEFAULT_OPTS="
+      "
     '';
     history = {
       save = 1000;

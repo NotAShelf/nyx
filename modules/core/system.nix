@@ -32,4 +32,10 @@
     font = "${pkgs.terminus_font}/share/consolefonts/ter-u24n.psf.gz";
     keyMap = "trq";
   };
+
+  programs = {
+    bash.promptInit = ''
+      eval "${pkgs.starship}/bin/starship init bash"
+    '';
+  };
 }

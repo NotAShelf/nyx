@@ -6,21 +6,26 @@
   ...
 }: {
   environment = {
-    defaultPackages = [];
     etc = {
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
       "nix/flake-channels/home-manager".source = inputs.home-manager;
     };
+
+    # we need git for flakes, don't we
+    systemPackages = [pkgs.git];
+    defaultPackages = [];
   };
 
-  nixpkgs.config = {
-    allowUnfree = true; # really a pain in the ass to deal with when disabled
-    allowBroken = true;
-  };
+  nixpkgs = {
+    config = {
+      allowUnfree = true; # really a pain in the ass to deal with when disabled
+      allowBroken = true;
+    };
 
-  nixpkgs.overlays = with inputs; [
-    rust-overlay.overlays.default
-  ];
+    overlays = with inputs; [
+      rust-overlay.overlays.default
+    ];
+  };
 
   # faster rebuilding
   documentation = {
@@ -39,15 +44,20 @@
       options = "--delete-older-than 4d";
     };
 
+    # pin the registry to avoid downloading and evalıationg a new nixpkgs
+    # version everytime
+
+    registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
+
     nixPath = [
       "nixpkgs=/etc/nix/flake-channels/nixpkgs"
       "home-manager=/etc/nix/flake-channels/home-manager"
     ];
 
-    registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      nixos-hardware.flake = inputs.nixos-hardware;
-    };
+    #registry = {
+    #  nixpkgs.flake = inputs.nixpkgs;
+    #  nixos-hardware.flake = inputs.nixos-hardware;
+    #};
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
@@ -64,9 +74,10 @@
       auto-optimise-store = true;
       allowed-users = ["@wheel" "notashelf"];
       trusted-users = ["@wheel" "notashelf"];
-      max-jobs = lib.mkDefault 6;
+      max-jobs = "auto";
 
       # use binary cache, its not gentoo
+      builders-use-substitutes = true;
       substituters = [
         "https://cache.nixos.org"
         "https://fortuneteller2k.cachix.org"
