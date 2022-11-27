@@ -32,7 +32,8 @@
       execWheelOnly = true;
       extraConfig = ''
         ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/shutdown
-        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/reboot '';
+        ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/reboot
+      '';
     };
 
     tpm2 = {
