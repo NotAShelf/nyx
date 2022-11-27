@@ -14,18 +14,13 @@ with lib; let
     exec "$@"
   '';
 in {
-  services.xserver = {
-    videoDrivers = ["nvidia"];
-    screenSection = ''
-      Option         "UseNvKmsCompositionPipeline" "false"
-      Option         "metamodes" "nvidia-auto-select +0+0 {ForceCompositionPipeline=On,AllowGSYNCCompatible=On}"
-    '';
-  };
+  services.xserver.videoDrivers = ["nvidia"];
 
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "nvidia-x11"
       "nvidia-settings"
+      "nvtop"
     ];
 
   environment = {
@@ -37,31 +32,14 @@ in {
     systemPackages = with pkgs; [
       nvidia-offload
       glxinfo
-      nvidia-vaapi-driver
-      nvtop
     ];
   };
 
   hardware = {
     nvidia = {
-      package = let
-        nv = config.boot.kernelPackages.nvidiaPackages;
-      in
-        if lib.versionAtLeast nv.stable.version nv.beta.version
-        then nv.stable
-        else nv.beta;
       open = true;
       powerManagement.enable = true;
       modesetting.enable = true;
-      prime = {
-        offload.enable = true;
-
-        # Bus ID for the Intel iGPU
-        intelBusId = "PCI:0:2:0";
-
-        # bUS ID for the NVIDIA dGPU
-        nvidiaBusId = "PCI:1:0:0";
-      };
     };
     opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
   };

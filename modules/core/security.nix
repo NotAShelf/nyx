@@ -12,38 +12,27 @@
     client.enable = true;
     torsocks.enable = true;
   };
-
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
     rtkit.enable = true;
-
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;
       packages = [pkgs.apparmor-profiles];
     };
-
     pam.services = {
-      login.enableGnomeKeyring = true;
       swaylock = {
         text = ''
           auth include login
         '';
       };
     };
-
     sudo = {
       execWheelOnly = true;
       extraConfig = ''
         ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/shutdown
         ALL ALL = (root) NOPASSWD: ${pkgs.systemd}/bin/reboot '';
-    };
-
-    acme = {
-      #TODO: move this elsewhere
-      acceptTerms = true;
-      defaults.email = lib.mkDefault "itsashelf@gmail.com";
     };
 
     tpm2 = {

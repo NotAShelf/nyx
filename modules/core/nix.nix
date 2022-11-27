@@ -14,9 +14,13 @@
   };
 
   nixpkgs.config = {
-    allowUnfree = true;
+    allowUnfree = true; # really a pain in the ass to deal with when disabled
     allowBroken = true;
   };
+
+  nixpkgs.overlays = with inputs; [
+    rust-overlay.overlays.default
+  ];
 
   # faster rebuilding
   documentation = {
@@ -27,17 +31,16 @@
   };
 
   nix = {
-    package = pkgs.nixUnstable;
-
     gc = {
       automatic = true;
       dates = "daily";
       options = "--delete-older-than 4d";
     };
+    package = pkgs.nixUnstable;
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
-      experimental-features = recursive-nix nix-command flakes
+      experimental-features = nix-command flakes recursive-nix
       keep-outputs = true
       keep-derivations = true
       min-free = ${toString (100 * 1024 * 1024)}
@@ -48,18 +51,10 @@
     '';
     settings = {
       auto-optimise-store = true;
-
-      allowed-users = [
-        "root"
-        "@wheel"
-      ];
-
-      trusted-users = [
-        "root"
-        "@wheel"
-      ];
-
+      allowed-users = ["@wheel" "notashelf"];
+      trusted-users = ["@wheel" "notashelf"];
       max-jobs = lib.mkDefault 6;
+
       # use binary cache, its not gentoo
       substituters = [
         "https://cache.nixos.org"

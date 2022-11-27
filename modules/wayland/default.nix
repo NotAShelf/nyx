@@ -32,6 +32,7 @@
       XDG_SESSION_TYPE = "wayland";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
+      GTK_THEME = "Catppuccin-Frappe-Pink";
       WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
     };
     loginShellInit = ''
@@ -48,9 +49,9 @@
       driSupport = true;
       driSupport32Bit = true;
       extraPackages = with pkgs; [
-        intel-compute-runtime
         vaapiVdpau
         libvdpau-va-gl
+        intel-compute-runtime
       ];
     };
     pulseaudio.support32Bit = true;

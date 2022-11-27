@@ -4,7 +4,13 @@
   lib,
   ...
 }: {
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    docker.enable = true;
+    libvirtd.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [virt-manager];
+
   networking = {
     # dns
     nameservers = ["1.1.1.1" "1.0.0.1"];
@@ -18,8 +24,8 @@
     };
     firewall = {
       enable = true;
-      allowedTCPPorts = [443 80 8080];
-      allowedUDPPorts = [443 80 8080 9100];
+      allowedTCPPorts = [443 80 22 8080];
+      allowedUDPPorts = [443 80 9100 44857 8080];
       allowPing = false;
       logReversePathDrops = true;
     };

@@ -31,12 +31,8 @@ with lib; let
     "x-scheme-handler/discord" = ["WebCord.desktop"];
   };
 in {
-  services.gpg-agent = {
-    enable = true;
-    pinentryFlavor = "gnome3";
-    enableZshIntegration = true;
-  };
   programs = {
+    gpg.enable = true;
     bat = {
       enable = true;
       themes = {
@@ -50,33 +46,21 @@ in {
       };
       config.theme = "Catppuccin-frappe";
     };
-    gpg.enable = true;
   };
   xdg = {
     userDirs = {
       enable = true;
-      createDirectories = true;
-      documents = "$HOME/Documents";
-      download = "$HOME/Downloads";
-      videos = "$HOME/Media/Videos";
-      music = "$HOME/Media/Music";
-      pictures = "$HOME/Media/Pictures";
-      desktop = "$HOME/Desktop";
-      publicShare = "$HOME/Public/Share";
-      templates = "$HOME/Public/Templates";
-
-      # Custom Directories
-      extraConfig = {
-        XDG_DEV_DIR = "$HOME/Dev";
-        XDG_SCREENSHOTS_DIR = "$HOME/Media/Pictures/Screenshots";
-        XDG_CACHE_DIR = "$HOME/.cache";
-      };
+      documents = "$HOME/other";
+      download = "$HOME/download";
+      videos = "$HOME/vids";
+      music = "$HOME/music";
+      pictures = "$HOME/pics";
+      desktop = "$HOME/other";
+      publicShare = "$HOME/other";
+      templates = "$HOME/other";
     };
-
-    mime.enable = true;
     mimeApps.enable = true;
     mimeApps.associations.added = associations;
     mimeApps.defaultApplications = associations;
-    configFile."mimeapps.list".force = true;
   };
 }

@@ -13,7 +13,6 @@
     ports = [22];
     passwordAuthentication = lib.mkForce false;
     kbdInteractiveAuthentication = false;
-
     hostKeys = [
       {
         bits = 4096;

@@ -8,15 +8,9 @@
     ./kitty
     ./shell
     ./tools
-    ./neovim
+    ./vimuwu
     ./mpd
     ./emacs
     ./newsboat
   ];
-
-  modules = {
-    programs = {
-      vimuwu.enable = true;
-    };
-  };
 }

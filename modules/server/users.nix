@@ -24,6 +24,7 @@
 
   users.users.raf = {
     group = "users";
+    extraGroups = ["gitea"];
     isNormalUser = true;
     shell = pkgs.zsh;
     initialPassword = "changeme";

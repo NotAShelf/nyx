@@ -4,12 +4,12 @@
   ...
 }: {
   imports = [
-    ./blocker.nix
+    ./system.nix
+    ./security.nix
     ./network.nix
     ./nix.nix
-    ./security.nix
-    ./services.nix
-    ./system.nix
     ./users.nix
+    ./openssh.nix
+    ./blocker.nix
   ];
 }

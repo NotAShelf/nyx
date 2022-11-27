@@ -2,7 +2,6 @@
   inputs,
   pkgs,
   config,
-  self,
   ...
 }: let
   mpv-unwrapped = pkgs.mpv-unwrapped.overrideAttrs (o: {
@@ -13,17 +12,9 @@
       sha256 = "sha256-6qbv34ysNQbI/zff6rAnVW4z6yfm2t/XL/PF7D/tjv4=";
     };
   });
-
-  # My own packages
-  cloneit = self.packages.${pkgs.system}.cloneit;
-  battop = self.packages.${pkgs.system}.battop;
-  nicksfetch = self.packages.${pkgs.system}.nicksfetch;
 in {
+  nixpkgs.config.allowUnfree = false;
   home.packages = with pkgs; [
-    cloneit
-    battop
-    nicksfetch
-    upower
     todo
     mpv-unwrapped
     yt-dlp
@@ -32,7 +23,6 @@ in {
     fzf
     gum
     unzip
-    gnupg
     ripgrep
     rsync
     imagemagick
@@ -46,16 +36,11 @@ in {
     figlet
     lm_sensors
     keepassxc
+    bitwarden
+    bitwarden-cli
     dconf
     gcc
     thunderbird
-    acpi
-    powertop
-    nextcloud-client
-    xdg-utils
-    (discord-canary.override {
-      nss = pkgs.nss_latest;
-      withOpenASAR = true;
-    })
+    tdesktop
   ];
 }

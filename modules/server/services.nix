@@ -29,6 +29,14 @@
       firewallFilter = "-i br0 -p tcp -m tcp --dport 9100";
     };
 
+    # Enable cron service
+    cron = {
+      enable = true;
+      systemCronJobs = [
+        "*/50 * * * *      root    date >> /tmp/cron.log"
+      ];
+    };
+
     nginx = {
       enable = true;
       recommendedTlsSettings = true;

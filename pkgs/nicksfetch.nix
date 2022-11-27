@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   patches = [
-    ./patches/nicksfetch.patch
+    ./patches/0002-nicksfetch.patch
   ];
 
   outputs = ["out" "man"];

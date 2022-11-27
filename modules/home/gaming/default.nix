@@ -1,12 +1,11 @@
 {
-  inputs,
-  pkgs,
   config,
+  pkgs,
   lib,
-  self,
   ...
 }: {
   imports = [
-    ./proton-ge
+    #./proton-ge
+    ./steam
   ];
 }

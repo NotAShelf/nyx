@@ -5,7 +5,6 @@
   ...
 }: {
   environment.variables = {
-    EDITOR = "nvim";
     BROWSER = "firefox";
     GTK_THEME = "Catppuccin-Frappe-Pink";
   };
@@ -17,12 +16,6 @@
 
   services = {
     gvfs.enable = true;
-    dbus = {
-      packages = with pkgs; [dconf];
-      enable = true;
-    };
-
-    udev.packages = with pkgs; [gnome.gnome-settings-daemon];
   };
 
   # enable polkit
