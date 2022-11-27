@@ -70,6 +70,34 @@ in {
       zle -N self-insert url-quote-magic
       setopt share_history
       export FZF_DEFAULT_OPTS="
+      --color fg:#c6d0f5
+      --color fg+:#51576d
+      --color bg:#303446
+      --color bg+:#303446
+      --color hl:#8caaee
+      --color hl+:#8caaee
+      --color info:#626880
+      --color prompt:#a6d189
+      --color spinner:#8caaee
+      --color pointer:#8caaee
+      --color marker:#8caaee
+      --color border:#626880
+      --color header:#8caaee
+      --prompt ' | '
+      --pointer ''
+      --layout=reverse
+      --border horizontal
+      --height 40
+      "
+
+      function run() {
+        nix run nixpkgs#$@
+      }
+
+      command_not_found_handler() {
+        printf 'Command not found ->\033[32;05;16m %s\033[0m \n' "$0" >&2
+        return 127
+      }
       "
     '';
     history = {

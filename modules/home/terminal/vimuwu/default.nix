@@ -25,11 +25,9 @@ in {
       ccls # cpp
       black # python
       shellcheck # bash
-      (rust-bin.stable.latest.default.override {
-        extensions = ["clippy"];
-        targets = ["arm-unknown-linux-gnueabihf"];
-      })
-      rust-analyzer
+      (rust-bin.selectLatestNightlyWith
+        (toolchain: toolchain.minimal))
+      # rust-analyzer
       shfmt
       nodejs
       nodePackages.pyright
