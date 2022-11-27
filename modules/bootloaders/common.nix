@@ -6,6 +6,9 @@
   ...
 }: {
   boot = {
+    binfmt.emulatedSystems = [
+      "aarch64-linux"
+    ];
     loader = {
       # Fix a security hole in place for backwards compatibility. See desc in
       # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
@@ -26,7 +29,7 @@
       };
     };
 
-    tmpOnTmpfs = lib.mkDefault false;
+    tmpOnTmpfs = lib.mkDefault true;
 
     # If not using tmpfs, which is naturally purged on reboot, we must clean it
     # /tmp ourselves. /tmp should be volatile storage!
