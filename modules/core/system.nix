@@ -4,7 +4,7 @@
   ...
 }: {
   services = {
-    #thermald.enable = true;
+    thermald.enable = true;
     dbus = {
       packages = with pkgs; [dconf gcr];
       enable = true;

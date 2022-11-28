@@ -20,6 +20,7 @@
     config = {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = true;
+      allowUnsupportedSystem = true;
     };
 
     overlays = with inputs; [
