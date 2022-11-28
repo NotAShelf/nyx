@@ -44,5 +44,6 @@ in {
     tdesktop
     lutris
     dolphin-emu
+    qbittorrent
   ];
 }

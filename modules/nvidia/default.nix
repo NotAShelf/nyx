@@ -37,9 +37,21 @@ in {
 
   hardware = {
     nvidia = {
+      #package = let
+      #  nv = config.boot.kernelPackages.nvidiaPackages;
+      #in
+      #  if lib.versionAtLeast nv.stable.version nv.beta.version
+      #  then nv.stable
+      #  else nv.beta;
       open = true;
       powerManagement.enable = true;
       modesetting.enable = true;
+      prime = {
+        #sync.enable = true;
+        offload.enable = true;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
     };
     opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
   };

@@ -8,6 +8,7 @@
     ./programs.nix
     ./services.nix
     ./system.nix
+    ./bootloader.nix
     ./xserver.nix
   ];
 }

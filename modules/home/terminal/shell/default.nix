@@ -83,8 +83,8 @@ in {
       --color marker:#8caaee
       --color border:#626880
       --color header:#8caaee
-      --prompt ' | '
-      --pointer ''
+      --prompt ' | '
+      --pointer ''
       --layout=reverse
       --border horizontal
       --height 40
@@ -98,7 +98,6 @@ in {
         printf 'Command not found ->\033[32;05;16m %s\033[0m \n' "$0" >&2
         return 127
       }
-      "
     '';
     history = {
       save = 1000;

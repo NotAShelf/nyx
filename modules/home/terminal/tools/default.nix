@@ -50,15 +50,22 @@ in {
   xdg = {
     userDirs = {
       enable = true;
-      documents = "$HOME/other";
-      download = "$HOME/download";
-      videos = "$HOME/vids";
-      music = "$HOME/music";
-      pictures = "$HOME/pics";
-      desktop = "$HOME/other";
-      publicShare = "$HOME/other";
-      templates = "$HOME/other";
+      createDirectories = true;
+      documents = "$HOME/Documents";
+      download = "$HOME/Downloads";
+      videos = "$HOME/Media/Videos";
+      music = "$HOME/Media/Music";
+      pictures = "$HOME/Media/Pictures";
+      desktop = "$HOME/Desktop";
+      publicShare = "$HOME/Public/Share";
+      templates = "$HOME/Public/Templates";
+
+      extraConfig = {
+        XDG_DEV_DIR = "$HOME/Dev";
+        XDG_SCREENSHOT_DIR = "$HOME/Media/Pictures/Screenshots";
+      };
     };
+
     mimeApps.enable = true;
     mimeApps.associations.added = associations;
     mimeApps.defaultApplications = associations;

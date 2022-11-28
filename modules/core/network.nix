@@ -4,13 +4,6 @@
   lib,
   ...
 }: {
-  virtualisation = {
-    docker.enable = true;
-    libvirtd.enable = true;
-  };
-
-  environment.systemPackages = with pkgs; [virt-manager];
-
   networking = {
     # dns
     nameservers = ["1.1.1.1" "1.0.0.1"];
