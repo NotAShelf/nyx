@@ -31,8 +31,26 @@ with lib; let
     "x-scheme-handler/discord" = ["WebCord.desktop"];
   };
 in {
+  services.gpg-agent = {
+    enable = true;
+    pinentryFlavor = "gnome3";
+    enableZshIntegration = true;
+  };
+
   programs = {
     gpg.enable = true;
+    tealdeer = {
+      enable = true;
+      settings = {
+        display = {
+          compact = false;
+          use_pager = true;
+        };
+        updates = {
+          auto_update = true;
+        };
+      };
+    };
     bat = {
       enable = true;
       themes = {

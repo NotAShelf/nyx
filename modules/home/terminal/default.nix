@@ -12,5 +12,6 @@
     ./mpd
     ./emacs
     ./newsboat
+    ./foot
   ];
 }

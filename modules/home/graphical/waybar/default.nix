@@ -45,6 +45,8 @@ in {
         position = "left";
         width = 60;
         spacing = 7;
+        fixed-center = true;
+        exclusive = true;
         modules-left = [
           "custom/search"
           "wlr/workspaces"

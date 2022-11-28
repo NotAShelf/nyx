@@ -4,9 +4,9 @@
   ...
 }: {
   services = {
-    thermald.enable = true;
+    #thermald.enable = true;
     dbus = {
-      packages = with pkgs; [dconf];
+      packages = with pkgs; [dconf gcr];
       enable = true;
     };
     udev.packages = with pkgs; [

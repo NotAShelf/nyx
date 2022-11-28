@@ -39,7 +39,6 @@
       dbus-update-activation-environment --systemd DISPLAY
       eval $(ssh-agent)
       eval $(gnome-keyring-daemon --start)
-      export GPG_TTY=$TTY
     '';
   };
 

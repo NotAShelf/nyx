@@ -4,7 +4,11 @@
   lib,
   ...
 }: {
-  config.home.stateVersion = "22.05";
+  config.home = {
+    stateVersion = "22.05";
+    extraOutputsToInstall = ["doc" "devdoc"];
+  };
+
   imports = [
     ./packages.nix
 
