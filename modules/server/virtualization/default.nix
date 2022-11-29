@@ -16,7 +16,7 @@
 
     podman = {
       enable = true;
-      dockerCompat = true;
+      #dockerCompat = true;
       enableNvidia = builtins.any (driver: driver == "nvidia") config.services.xserver.videoDrivers;
     };
   };
