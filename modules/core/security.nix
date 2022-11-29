@@ -31,12 +31,36 @@
         '';
       };
     };
-    sudo = {
-      execWheelOnly = true;
-      extraConfig = ''
-        ALL ALL = (wheel) NOPASSWD: ${pkgs.systemd}/bin/shutdown
-        ALL ALL = (wheel) NOPASSWD: ${pkgs.systemd}/bin/reboot
-      '';
+    sudo.enable = lib.mkDefault false;
+    doas = {
+      enable = lib.mkDefault true;
+      extraRules = [
+        {
+          groups = ["wheel"];
+          persist = true;
+          keepEnv = false;
+        }
+        {
+          groups = ["wheel"];
+          cmd = "reboot";
+          noPass = true;
+        }
+        {
+          groups = ["wheel"];
+          cmd = "shutdown";
+          noPass = true;
+        }
+        {
+          groups = ["wheel"];
+          cmd = "nix-collect-garbage";
+          noPass = true;
+        }
+        {
+          groups = ["wheel"];
+          cmd = "nixos-rebuild";
+          keepEnv = true;
+        }
+      ];
     };
 
     tpm2 = {

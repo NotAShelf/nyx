@@ -94,6 +94,8 @@
           printf 'Command not found ->\033[01;32m %s\033[0m \n' "$0" >&2
           return 127
         }
+
+        clear
       '';
       history = {
         save = 1000;
@@ -113,9 +115,8 @@
       };
 
       shellAliases = {
-        rebuild = "sudo nix-store --verify; sudo nixos-rebuild --install-bootloader switch --flake .#; bat cache --build";
-        cleanup = "sudo nix-collect-garbage --delete-older-than 7d";
-        nixtest = "sudo nixos-rebuild test --flake .#prometheus --fast";
+        rebuild = "doas nix-store --verify; doas nixos-rebuild --install-bootloader switch --flake .#; bat cache --build";
+        cleanup = "doas nix-collect-garbage --delete-older-than 7d";
         bloat = "nix path-info -Sh /run/current-system";
         curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
         ytmp3 = ''
@@ -131,7 +132,7 @@
         tree = "${pkgs.exa}/bin/exa --tree --icons";
         http = "${pkgs.python3}/bin/python3 -m http.server";
         v = "nvim";
-        ssh = "kitty +kitten ssh";
+        sudo = "doas";
       };
 
       plugins = [
