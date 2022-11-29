@@ -1,5 +1,6 @@
 {
   inputs,
+  self,
   pkgs,
   config,
   ...
@@ -14,7 +15,7 @@
   });
 
   webcord = inputs.webcord.packages.${pkgs.system}.default;
-  cloneit = inputs.self.packages.${pkgs.system}.cloneit;
+  cloneit = self.packages.${pkgs.system}.cloneit;
 in {
   nixpkgs.config.allowUnfree = false;
   home.packages = with pkgs; [

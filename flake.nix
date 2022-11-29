@@ -3,11 +3,21 @@
   # https://dotfiles.sioodmy.dev
 
   inputs = {
+    #"notashelf.dev".url = "github:notashelf/dıtashelf";
+
+    # Use nixpkgs unstable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    # Secrets management via ragenix, an agenix replacement
     ragenix.url = "github:yaxitech/ragenix";
 
+    # Hyprland & Hyprland Contrib repos
     hyprland.url = "github:hyprwm/Hyprland/";
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
@@ -19,6 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Emacs & Doom Emacs
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-doom-emacs = {
       url = "github:nix-community/nix-doom-emacs";
@@ -56,11 +67,12 @@
       catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};
       catppuccin-gtk = pkgs.callPackage ./pkgs/catppuccin-gtk.nix {};
       catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors.nix {};
-      # Custom rofi modes
+      # Custom rofi plugins
       rofi-calc-wayland = pkgs.callPackage ./pkgs/rofi-calc-wayland.nix {};
       rofi-emoji-wayland = pkgs.callPackage ./pkgs/rofi-emoji-wayland.nix {};
       # Everything else
       nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
+      cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
     };
     devShells.${system}.default = pkgs.mkShell {packages = [pkgs.alejandra];};
     formatter.${system} = pkgs.alejandra;
