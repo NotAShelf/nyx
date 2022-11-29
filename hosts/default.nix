@@ -6,7 +6,6 @@
   inputs = self.inputs;
 
   # Bootloaders
-  bootloader = ../modules/core/bootloader.nix;
   bl-common = ../modules/bootloaders/common.nix;
   bl-server = ../modules/bootloaders/server.nix;
 
@@ -34,8 +33,6 @@
     users.notashelf = ../modules/home;
   };
 in {
-  # all my hosts are named after saturn moons btw
-
   # desktop
   prometheus = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
@@ -75,9 +72,9 @@ in {
     system = "aarch64-linux";
     modules =
       [
-        hw.raspberry-pi-4
         ./atlas
         bl-server
+        hw.raspberry-pi-4
         server
       ]
       ++ shared;
