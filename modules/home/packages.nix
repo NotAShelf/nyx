@@ -45,5 +45,6 @@ in {
     lutris
     dolphin-emu
     qbittorrent
+    quasselClient
   ];
 }
