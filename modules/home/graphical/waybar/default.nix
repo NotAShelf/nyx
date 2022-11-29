@@ -30,8 +30,6 @@ in {
         repo = "Waybar";
         rev = "cfef78a5bc8df6a29e06ec128f7a6075425db402";
         sha256 = "XMpl1soXKFe1NOux4HRBrmMrANgcnjGeGsUUKOzOFkE=";
-        #rev = "afa590f781c85a95c45138727510244b66ca674c";
-        #sha256 = "R8/X+mTDAMyFUp6czi6+afD+IP1MAu6xw+ysSEb/r8w=";
       };
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
       patchPhase = ''
@@ -98,7 +96,7 @@ in {
               if [[ $total_todo -gt 0 ]]; then
               	if [[ $undone -gt 0 ]]; then
               		export tooltip="$header👷 Today, you need to do:\\n\\n $(echo $todo_raw_undone)\\n\\n✅ You have already done:\\n\\n $(echo $todo_raw_done)"
-              		export output=" 🗒 \\n $left"
+              		export output=" 🗒️ \\n $left"
               	else
               		export tooltip="$header✅ All done!\\n🥤 Remember to stay hydrated!"
               		export output=" 🎉 \\n $left"
@@ -155,12 +153,12 @@ in {
 
               #!/bin/sh
 
-              off=" Shutdown"
-              reboot=" Reboot"
-              cancel=" Cancel"
+              off=" Shutdown"
+              reboot=" Reboot"
+              cancel=" Cancel"
 
               sure="$(printf '%s\n%s\n%s' "$off" "$reboot" "$cancel" |
-              	${rofi} -dmenu -p ' Are you sure?')"
+              	${rofi} -dmenu -p ' Are you sure?')"
 
               if [ "$sure" = "$off" ]; then
               	${doas} ${systemctl} poweroff

@@ -109,7 +109,7 @@
   }
   #custom-search {
     background-image: url("${./sakura.png}");
-    background-size: 60%;
+    background-size: 40%;
     background-position: center;
     background-repeat: no-repeat;
     margin-top: 7px;

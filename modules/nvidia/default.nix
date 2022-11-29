@@ -32,11 +32,13 @@ in {
     systemPackages = with pkgs; [
       nvidia-offload
       glxinfo
+      nvtop
     ];
   };
 
   hardware = {
     nvidia = {
+      # BREAKS MOZILLA PRODUCTS FOR SOME REASON #
       #package = let
       #  nv = config.boot.kernelPackages.nvidiaPackages;
       #in

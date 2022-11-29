@@ -20,7 +20,6 @@
 
     # https://nixos.wiki/wiki/Bluetooth
     blueman.enable = config.hardware.bluetooth.enable;
-    #mpris-proxy.enable = config.hardware.bluetooth.enable;
 
     geoclue2 = {
       enable = true;
