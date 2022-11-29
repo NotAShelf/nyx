@@ -29,6 +29,9 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Webcord, maybe works better than discord client?
+    webcord.url = "github:fufexan/webcord-flake";
   };
   outputs = {self, ...} @ inputs: let
     system = "x86_64-linux";
