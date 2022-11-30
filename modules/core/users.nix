@@ -17,6 +17,8 @@
       "networkmanager"
       "libvirtd"
       "tss"
+      "power"
+      "nix"
     ];
     uid = 1000;
     shell = pkgs.zsh;

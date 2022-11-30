@@ -33,7 +33,7 @@ in {
       };
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
       patchPhase = ''
-        substituteInPlace src/modules/wlr/workspace_manager.cpp --replace "zext_workspace_handle_v1_activate(workspace_handle_);" "const std::string command = \"hyprctl dispatch workspace \" + name_; system(command.c_str());"
+        substituteInPlace src/modules/wlr/workspace_manager.cpp --replace "zext_workspace_handle_v1_activate(workspace_handle_);" "const std::string command = \"${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch workspace \" + name_; system(command.c_str());"
       '';
     });
 
@@ -147,7 +147,8 @@ in {
           on-click = let
             doas = pkgs.doas + "/bin/doas";
             rofi = config.programs.rofi.package + "/bin/rofi";
-            systemctl = pkgs.systemd + "/bin/systemctl";
+            poweroff = pkgs.systemd + "/bin/poweroff";
+            reboot = pkgs.systemd + "/bin/reboot";
           in
             pkgs.writeShellScript "shutdown-waybar" ''
 
@@ -161,9 +162,9 @@ in {
               	${rofi} -dmenu -p ' Are you sure?')"
 
               if [ "$sure" = "$off" ]; then
-              	${doas} ${systemctl} poweroff
+              	${doas} ${poweroff}
               elif [ "$sure" = "$reboot" ]; then
-              	${doas} ${systemctl} reboot
+              	${doas} ${reboot}
               fi
             '';
           format = "襤";

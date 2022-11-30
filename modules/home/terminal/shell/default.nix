@@ -106,16 +106,19 @@
       };
 
       dirHashes = {
-        docs = "$HOME/docs";
-        notes = "$HOME/docs/notes";
-        dl = "$HOME/download";
-        vids = "$HOME/vids";
-        music = "$HOME/music";
-        media = "/run/media/$USER";
+        docs = "$HOME/Documents";
+        notes = "$HOME/Cloud/Notes";
+        dev = "$HOME/Dev";
+        dotfiles = "$HOME/.config/nixos";
+        dl = "$HOME/Downloads";
+        vids = "$HOME/Media/Videos";
+        music = "$HOME/Media/Music";
+        screenshots = "$HOME/Pictures/Screenshots";
+        media = "$HOME/Media";
       };
 
       shellAliases = {
-        rebuild = "doas nix-store --verify; doas nixos-rebuild --install-bootloader switch --flake .#; bat cache --build";
+        rebuild = "doas nix-store --verify; pushd ~dotfiles && doas nixos-rebuild --install-bootloader switch --flake .# && bat cache --build; popd";
         cleanup = "doas nix-collect-garbage --delete-older-than 7d";
         bloat = "nix path-info -Sh /run/current-system";
         curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
