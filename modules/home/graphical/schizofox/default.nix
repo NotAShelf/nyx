@@ -156,7 +156,8 @@ in {
               extensions;
           in
             mkForceInstalled {
-              "addon@bitwarden.com".install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+              # Addon IDs are in manifest.json or manifest-firefox.json
+              "{446900e4-71c2-419f-a6a7-df9c091e268b}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
               "addon@darkreader.org".install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
               "jid1-Om7eJGwA1U8Akg@jetpack".install_url = "https://addons.mozilla.org/firefox/downloads/latest/octotree/latest.xpi";
               "{d7742d87-e61d-4b78-b8a1-b469842139fa}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
