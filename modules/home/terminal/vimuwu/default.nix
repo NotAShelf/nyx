@@ -78,6 +78,7 @@ in {
         alpha-nvim
         nvim-autopairs
         nvim-colorizer-lua
+        nvim-ts-rainbow
         gitsigns-nvim
         (nvim-treesitter.withPlugins (plugins:
           with plugins; [
