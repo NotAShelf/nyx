@@ -37,10 +37,10 @@
       line-wrong-color = "303446";
       bs-hl-color = "e78284";
       line-uses-ring = false;
-      grace = 2;
+      grace = 3;
       grace-no-mouse = true;
       grace-no-touch = true;
-      datestr = "%d.%m";
+      datestr = "%d/%m/%Y";
       fade-in = "0.1";
       ignore-empty-password = true;
     };
