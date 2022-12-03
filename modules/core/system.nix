@@ -26,6 +26,7 @@
       git
       curl
       wget
+      (writeScriptBin "sudo" ''exec doas "$@"'')
     ];
 
     variables = {
