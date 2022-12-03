@@ -13,5 +13,6 @@
     ./emacs
     ./newsboat
     ./foot
+    ./helix
   ];
 }
