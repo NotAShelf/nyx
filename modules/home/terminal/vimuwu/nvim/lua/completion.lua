@@ -72,6 +72,9 @@ cmp.setup({
 			end
 		end, { "i", "s" }),
 	},
+	experimental = {
+		ghost_text = true,
+	},
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp", priority = 8 },
 		{ name = "buffer", priority = 4 },
@@ -95,4 +98,12 @@ cmp.setup.cmdline(":", {
 	}, {
 		{ name = "cmdline" },
 	}),
+})
+
+vim.api.nvim_create_autocmd("BufRead", {
+	group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+	pattern = "Cargo.toml",
+	callback = function()
+		cmp.setup.buffer({ sources = { { name = "crates" } } })
+	end,
 })

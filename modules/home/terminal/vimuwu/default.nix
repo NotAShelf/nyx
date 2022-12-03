@@ -39,6 +39,7 @@ in {
       nodePackages.yarn
       nodePackages.bash-language-server
       nodePackages.node2nix # Bash
+      texlab
     ];
 
     programs.neovim = {
@@ -62,6 +63,9 @@ in {
         vim-fugitive
         friendly-snippets
         luasnip
+        rust-tools-nvim
+        crates-nvim
+        vim-illuminate
         cmp_luasnip
         nvim-cmp
         impatient-nvim
