@@ -15,5 +15,6 @@
       firewallFilter = "-i br0 -p tcp -m tcp --dport 9100";
     };
     # TODO: grafana service
+    # https://nixos.wiki/wiki/Grafana
   };
 }

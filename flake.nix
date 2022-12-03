@@ -43,6 +43,13 @@
 
     # Webcord, maybe works better than discord client?
     webcord.url = "github:fufexan/webcord-flake";
+
+    helix.url = "github:SoraTenshi/helix/experimental";
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
   };
   outputs = {self, ...} @ inputs: let
     system = "x86_64-linux";
