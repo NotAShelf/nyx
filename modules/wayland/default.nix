@@ -41,7 +41,7 @@
     loginShellInit = ''
       dbus-update-activation-environment --systemd DISPLAY
       eval $(ssh-agent)
-      eval $(gnome-keyring-daemon --start)
+      eval $(gnome-keyring-daemon --start --components=ssh)
     '';
   };
 

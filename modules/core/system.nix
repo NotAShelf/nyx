@@ -31,6 +31,7 @@
 
     variables = {
       EDITOR = "nvim";
+      SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
     };
   };
 

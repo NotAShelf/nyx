@@ -13,6 +13,8 @@
     torsocks.enable = true;
   };
 
+  programs.ssh.startAgent = true;
+
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
