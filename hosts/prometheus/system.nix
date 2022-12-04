@@ -13,4 +13,9 @@
     "/home".options = ["compress=zstd"];
     "/nix".options = ["compress=zstd" "noatime"];
   };
+
+  hardware = {
+    cpu.intel.updateMicrocode = true;
+    enableRedistributableFirmware = true;
+  };
 }
