@@ -54,12 +54,9 @@
         vaapiVdpau
         libvdpau-va-gl
         intel-compute-runtime
+        intel-media-driver
+        vaapiIntel
       ];
-      #extraPackages32 = with pkgs.pkgsi686Linux; [
-      #  vaapiVdpau
-      #  libvdpau-va-gl
-      #  intel-compute-runtime
-      #];
     };
     pulseaudio.support32Bit = true;
   };
