@@ -7,6 +7,7 @@
 }: {
   environment = {
     etc = {
+      "nix/flake-channels/system".source = inputs.self;
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
       "nix/flake-channels/home-manager".source = inputs.home-manager;
     };
