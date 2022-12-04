@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./xdg-ninja
     ./gamemode.nix
     ./programs.nix
     ./services.nix
