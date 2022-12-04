@@ -7,6 +7,19 @@
 with lib; let
   cfg = config.modules.programs.schizofox;
 in {
+  # Firefox cache on tmpfs
+  fileSystems."/home/notashelf/.cache/mozilla/firefox" = {
+    device = "tmpfs";
+    fsType = "tmpfs";
+    noCheck = true;
+    options = [
+      "noatime"
+      "nodev"
+      "nosuid"
+      "size=128M"
+    ];
+  };
+
   options.modules.programs.schizofox = {
     enable =
       mkEnableOption

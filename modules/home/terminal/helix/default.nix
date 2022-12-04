@@ -16,6 +16,7 @@
         space.q = ":q";
         "C-d" = ["half_page_down" "align_view_center"];
         "C-u" = ["half_page_up" "align_view_center"];
+        "C-q" = ":bc";
         space.u = {
           f = ":format"; # format using LSP formatter
           w = ":set whitespace.render all";
@@ -29,8 +30,6 @@
         line-number = "relative";
         scrolloff = 10;
         bufferline = "always";
-        #sticky-context = true;
-        popup-border = "all";
         true-color = true;
         rulers = [80];
         indent-guides = {
@@ -55,10 +54,6 @@
           nbsp = "⍽";
           tab = "→";
           newline = "⤶";
-        };
-
-        explorer = {
-          position = "embed";
         };
 
         cursor-shape = {
@@ -124,8 +119,5 @@
     nodePackages.yarn
     sumneko-lua-language-server
     nodePackages.vscode-langservers-extracted
-    # Rust nightly
-    (rust-bin.selectLatestNightlyWith
-      (toolchain: toolchain.minimal))
   ];
 }
