@@ -1,16 +1,27 @@
 {
-  description = "My NixOS configuration";
-  # https://dotfiles.sioodmy.dev
+  description = "My NixOS configuration with questionable stability";
+  # https://github.com/notashelf/dotfiles
 
   inputs = {
-    #"notashelf.dev".url = "github:notashelf/dıtashelf";
+    #"notashelf.dev".url = "github:notashelf/dotfiles";
 
-    # Use nixpkgs unstable
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix = {
+      url = "github:NixOS/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # default to nixpkgs unstable
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nur.url = "github:nix-community/NUR";
+    devshell.url = "github:numtide/devshell";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -19,6 +30,7 @@
 
     # Hyprland & Hyprland Contrib repos
     hyprland.url = "github:hyprwm/Hyprland/";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +65,7 @@
   };
   outputs = {self, ...} @ inputs: let
     system = "x86_64-linux";
+    overlays.default = import ./overlays;
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
   in {
     nixosConfigurations = import ./hosts inputs;
@@ -81,7 +94,14 @@
       nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
     };
-    devShells.${system}.default = pkgs.mkShell {packages = [pkgs.alejandra];};
+    devShells.x86_64-linux.default = pkgs.mkShell {
+      packages = with pkgs; [
+        rnix-lsp
+        yaml-language-server
+        alejandra
+        git
+      ];
+    };
     formatter.${system} = pkgs.alejandra;
   };
 }
