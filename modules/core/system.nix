@@ -5,6 +5,8 @@
 }: {
   services = {
     thermald.enable = true;
+    acpid.enable = true;
+
     dbus = {
       packages = with pkgs; [dconf gcr];
       enable = true;

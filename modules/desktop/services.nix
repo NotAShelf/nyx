@@ -44,6 +44,8 @@
     tlp = {
       enable = true;
       settings = {
+        START_CHARGE_THRESH_BAT0 = 0;
+        STOP_CHARGE_THRESH_BAT0 = 85;
         PCIE_ASPM_ON_BAT = "power$MODsave";
         DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
         NMI_WATCHDOG = 0;
@@ -57,5 +59,9 @@
       # optional to use google/nextcloud calendar
       gnome-keyring.enable = true;
     };
+  };
+  systemd.user.services = {
+    pipewire.wantedBy = ["default.target"];
+    pipewire-pulse.wantedBy = ["default.target"];
   };
 }

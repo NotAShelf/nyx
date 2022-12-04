@@ -21,5 +21,8 @@
     wireshark.enable = true;
     java.enable = true;
     steam.enable = true;
+    seahorse.enable = true;
+    adb.enable = true;
+    less.enable = true;
   };
 }
