@@ -19,7 +19,19 @@
 in {
   nixpkgs.config.allowUnfree = false;
   home.packages = with pkgs; [
+    # Graphical
     webcord
+    thunderbird
+    tdesktop
+    lutris
+    dolphin-emu
+    qbittorrent
+    quasselClient
+    keepassxc
+    bitwarden
+    xfce.thunar
+
+    # CLI
     cloneit
     todo
     mpv-unwrapped
@@ -27,30 +39,20 @@ in {
     pavucontrol
     hyperfine
     fzf
-    gum
     unzip
     ripgrep
     rsync
     imagemagick
-    killall
     bandwhich
     grex
     fd
-    xfce.thunar
     xh
     jq
     figlet
     lm_sensors
-    keepassxc
-    bitwarden
     bitwarden-cli
     dconf
     gcc
-    thunderbird
-    tdesktop
-    lutris
-    dolphin-emu
-    qbittorrent
-    quasselClient
+    trash-cli
   ];
 }
