@@ -7,5 +7,6 @@
   imports = [
     #./proton-ge
     ./steam
+    ./obs
   ];
 }
