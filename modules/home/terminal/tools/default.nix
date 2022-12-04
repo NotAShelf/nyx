@@ -30,10 +30,14 @@
     "x-scheme-handler/discord" = ["WebCord.desktop"];
   };
 in {
-  services.gpg-agent = {
-    enable = true;
-    pinentryFlavor = "gnome3";
-    enableZshIntegration = true;
+  services = {
+    udiskie.enable = true;
+    gpg-agent = {
+      enable = true;
+      pinentryFlavor = "gnome3";
+      enableSshSupport = true;
+      enableZshIntegration = true;
+    };
   };
 
   programs = {

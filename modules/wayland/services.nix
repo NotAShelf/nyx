@@ -43,7 +43,6 @@
     };
 
     lorri.enable = true;
-    udisks2.enable = true;
     printing.enable = true;
     fstrim.enable = true;
 
