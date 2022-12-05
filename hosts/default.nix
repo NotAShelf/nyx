@@ -42,7 +42,7 @@ in {
         ./prometheus
         bl-common
         desktop
-        nvidia
+        #nvidia
         wayland
         hmModule
         {inherit home-manager;}

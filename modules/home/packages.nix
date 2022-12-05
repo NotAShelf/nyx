@@ -17,7 +17,6 @@
   webcord = inputs.webcord.packages.${pkgs.system}.default;
   cloneit = self.packages.${pkgs.system}.cloneit;
 in {
-  nixpkgs.config.allowUnfree = false;
   home.packages = with pkgs; [
     # Graphical
     webcord

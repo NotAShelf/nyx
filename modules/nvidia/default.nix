@@ -32,12 +32,12 @@ in {
   hardware = {
     nvidia = {
       # BREAKS MOZILLA PRODUCTS FOR SOME REASON #
-      #package = let
-      #  nv = config.boot.kernelPackages.nvidiaPackages;
-      #in
-      #  if lib.versionAtLeast nv.stable.version nv.beta.version
-      #  then nv.stable
-      #  else nv.beta;
+      package = let
+        nv = config.boot.kernelPackages.nvidiaPackages;
+      in
+        if lib.versionAtLeast nv.stable.version nv.beta.version
+        then nv.stable
+        else nv.beta;
       open = true;
       powerManagement.enable = true;
       modesetting.enable = true;
