@@ -22,10 +22,6 @@ with lib; let
   xdg-desktop-portal-hyprland = inputs.xdg-portal-hyprland.packages.${pkgs.system}.default;
 in {
   home.packages = with pkgs; [
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-wlr
-    xdg-desktop-portal-hyprland
     libnotify
     wf-recorder
     brightnessctl

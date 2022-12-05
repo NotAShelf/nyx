@@ -63,9 +63,12 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [
+     pkgs.xdg-desktop-portal-gtk
+     inputs.xdg-portal-hyprland.packages.${pkgs.system}.default
+    ];
     wlr = {
-      enable = true;
+      enable = false;
       settings = {
         screencast = {
           max_fps = 60;
