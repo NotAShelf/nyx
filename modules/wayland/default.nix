@@ -64,8 +64,8 @@
   xdg.portal = {
     enable = true;
     extraPortals = [
-     pkgs.xdg-desktop-portal-gtk
-     inputs.xdg-portal-hyprland.packages.${pkgs.system}.default
+      pkgs.xdg-desktop-portal-gtk
+      inputs.xdg-portal-hyprland.packages.${pkgs.system}.default
     ];
     wlr = {
       enable = false;
