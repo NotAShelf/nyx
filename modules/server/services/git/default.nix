@@ -27,7 +27,7 @@
           BUILTIN_SSH_SERVER_USER = "git";
           SSH_PORT = 22;
           DISABLE_ROUTER_LOG = true;
-          SSH_CREATE_AUTHORIZED_KEYS_FILE = false;
+          SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
         };
         attachment.ALLOWED_TYPES = "*/*";
         service.DISABLE_REGISTRATION = true;
