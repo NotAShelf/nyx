@@ -42,7 +42,7 @@
     gc = {
       automatic = true;
       dates = "daily";
-      options = "--delete-older-than 4d";
+      options = "--delete-older-than 3d";
     };
 
     # pin the registry to avoid downloading and evalıationg a new nixpkgs
