@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   programs.zsh = {
     enable = true;
+    dotDir = ".config/zsh";
     enableCompletion = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
@@ -9,7 +10,7 @@
       autoload -U compinit
       zstyle ':completion:*' menu select
       zmodload zsh/complist
-      compinit
+      compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
       _comp_options+=(globdots)
       bindkey -M menuselect 'h' vi-backward-char
       bindkey -M menuselect 'k' vi-up-line-or-history
@@ -149,16 +150,26 @@
       sudo = "doas";
     };
 
-    plugins = [
+    plugins = with pkgs; [
       {
         name = "zsh-nix-shell";
-        src = pkgs.zsh-nix-shell;
+        src = zsh-nix-shell;
         file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
       }
       {
         name = "zsh-vi-mode";
-        src = pkgs.zsh-vi-mode;
+        src = zsh-vi-mode;
         file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      }
+      {
+        name = "zsh-autopair";
+        file = "zsh-autopair.plugin.zsh";
+        src = fetchFromGitHub {
+          owner = "hlissner";
+          repo = "zsh-autopair";
+          rev = "34a8bca0c18fcf3ab1561caef9790abffc1d3d49";
+          sha256 = "1h0vm2dgrmb8i2pvsgis3lshc5b0ad846836m62y8h3rdb3zmpy1";
+        };
       }
     ];
   };

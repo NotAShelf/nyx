@@ -8,9 +8,10 @@
     enable = true;
     package = inputs.helix.packages."x86_64-linux".default;
     settings = {
-      theme = "catppuccin_frappe";
-      editor.lsp.display-messages = true;
+      theme = "catppuccin_frappe_transparent";
       keys.normal = {
+        "{" = "goto_prev_paragraph";
+        "}" = "goto_next_paragraph";
         space.space = "file_picker";
         space.w = ":w";
         space.q = ":q";
@@ -23,14 +24,18 @@
           W = ":set whitespace.render none";
         };
       };
+      keys.select = {
+        "%" = "match_brackets";
+      };
       editor = {
         color-modes = true;
         cursorline = true;
         idle-timeout = 1;
         line-number = "relative";
-        scrolloff = 10;
+        scrolloff = 5;
         bufferline = "always";
         true-color = true;
+        lsp.display-messages = true;
         rulers = [80];
         indent-guides = {
           render = true;
@@ -59,23 +64,23 @@
         cursor-shape = {
           insert = "bar";
           normal = "block";
-          select = "underline";
+          select = "block";
         };
       };
     };
 
-    # credits: fuf <3
+    # override catppuccin theme and remove background to fix transparency
+    themes = {
+      catppuccin_frappe_transparent = {
+        "inherits" = "catppuccin_frappe";
+        "ui.background" = "{}";
+      };
+    };
+
     languages = with pkgs; [
       {
-        name = "bash";
-        language-server = {
-          command = "${nodePackages.bash-language-server}/bin/bash-language-server";
-          args = ["start"];
-        };
-        auto-format = true;
-      }
-      {
         name = "cpp";
+        auto-format = true;
         language-server = {
           command = "${clang-tools}/bin/clangd";
           clangd.fallbackFlags = ["-std=c++2b"];
@@ -83,21 +88,18 @@
       }
       {
         name = "nix";
-        language-server = {command = lib.getExe inputs.nil.packages.${pkgs.system}.default;};
-        config.nil.formatting.command = ["alejandra" "-q"];
+        language-server.command = with pkgs;
+          lib.getExe
+          inputs.nil.packages.${pkgs.system}.default;
+        auto-format = true;
+        formatter = {
+          command = lib.getExe alejandra;
+          args = ["-q"];
+        };
       }
       {
-        name = "clojure";
-        scope = "source.clojure";
-        injection-regex = "(clojure|clj|edn|boot|yuck)";
-        file-types = ["clj" "cljs" "cljc" "clje" "cljr" "cljx" "edn" "boot" "yuck"];
-        roots = ["project.clj" "build.boot" "deps.edn" "shadow-cljs.edn"];
-        comment-token = ";";
-        language-server = {command = "clojure-lsp";};
-        indent = {
-          tab-width = 2;
-          unit = "  ";
-        };
+        name = "rust";
+        auto-format = true;
       }
     ];
   };
@@ -111,9 +113,16 @@
     zls
     elixir_ls
     black
+    alejandra
     shellcheck
+    taplo
+    solc
+    gawk
     haskellPackages.haskell-language-server
     nodePackages.typescript-language-server
+    java-language-server
+    kotlin-language-server
+    nodePackages.vls
     nodePackages.yaml-language-server
     nodePackages.jsonlint
     nodePackages.yarn
