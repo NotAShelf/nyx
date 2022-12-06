@@ -16,7 +16,7 @@
 
   webcord = inputs.webcord.packages.${pkgs.system}.default;
   cloneit = self.packages.${pkgs.system}.cloneit;
-  plymouth-themes = self.packages.${pkgs.system}.plymouth-themes;
+  #plymouth-themes = self.packages.${pkgs.system}.plymouth-themes;
 in {
   home.packages = with pkgs; [
     # Graphical
@@ -55,7 +55,5 @@ in {
     gcc
     trash-cli
 
-    # Overlays
-    #plymouth-themes
   ];
 }

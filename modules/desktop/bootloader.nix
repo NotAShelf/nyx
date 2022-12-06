@@ -8,9 +8,9 @@
     theme = "hud_3";
   in {
     enable = true;
-    #themePackages = [
-    #  (pkgs.plymouth-themes.override {inherit pack theme;})
-    #];
-    #inherit theme;
+    themePackages = [
+      (pkgs.plymouth-themes.override {inherit pack theme;})
+    ];
+    inherit theme;
   };
 }
