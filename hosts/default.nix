@@ -12,14 +12,15 @@
   # shared modules
   core = ../modules/core;
   nvidia = ../modules/nvidia;
+  # amd = ../modules/amd; # soon :weary:
   wayland = ../modules/wayland;
   server = ../modules/server;
   desktop = ../modules/desktop;
 
   # flake inputs
-  hw = inputs.nixos-hardware.nixosModules;
-  ragenix = inputs.ragenix.nixosModules.age;
-  hmModule = inputs.home-manager.nixosModules.home-manager;
+  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4
+  ragenix = inputs.ragenix.nixosModules.age; # secret encryption
+  hmModule = inputs.home-manager.nixosModules.home-manager; # home-manager
 
   shared = [core ragenix];
 
@@ -30,10 +31,11 @@
       inherit inputs;
       inherit self;
     };
-    users.notashelf = ../modules/home;
+    users.notashelf = ../profiles/notashelf;
   };
 in {
-  # desktop
+  # HP Pavillion from 2016
+  # My main nixos profile, active on my laptop(s)
   prometheus = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =
@@ -51,6 +53,8 @@ in {
     specialArgs = {inherit inputs;};
   };
 
+  # Lenovo Ideapad from 2014
+  # Portable "server"
   icarus = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =
@@ -67,7 +71,8 @@ in {
     specialArgs = {inherit inputs;};
   };
 
-  # server
+  # Raspberry Pi 400
+  # My Pi400 homelab, used mostly for testing
   atlas = nixpkgs.lib.nixosSystem {
     system = "aarch64-linux";
     modules =

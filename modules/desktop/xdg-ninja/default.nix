@@ -1,9 +1,11 @@
 {...}: let
   template = import ./template.nix "nixos";
 in {
-  environment.sessionVariables = template.env;
-
-  environment.etc = {
-    inherit (template) pythonrc npmrc;
+  environment = {
+    variables = template.glEnv;
+    sessionVariables = template.sysEnv;
+    etc = {
+      inherit (template) pythonrc npmrc;
+    };
   };
 }

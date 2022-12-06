@@ -1,16 +1,26 @@
 system: let
-  XDG_DATA_HOME = "$HOME/.local/share";
-  XDG_CONFIG_HOME = "$HOME/.config";
-  XDG_CACHE_HOME = "$HOME/.cache";
+  # copy paste done right
+  XDG_DATA_HOME = "$XDG_DATA_HOME";
+  XDG_CONFIG_HOME = "$XDG_CONFIG_HOME";
+  XDG_CACHE_HOME = "$XDG_CACHE_HOME";
+  XDG_STATE_HOME = "$XDG_STATE_HOME";
   XDG_RUNTIME_DIR = "$XDG_RUNTIME_DIR";
-in {
-  env = {
+in rec {
+  glEnv = {
+    XDG_CACHE_HOME = "\${HOME}/.cache";
+    XDG_CONFIG_HOME = "\${HOME}/.config";
+    XDG_STATE_HOME = "\${HOME}/.local/state";
+    XDG_DATA_HOME = "\${HOME}/.local/share";
+  };
+
+  sysEnv = {
+    HISTFILE = "${XDG_STATE_HOME}/zsh/history";
+    ZDOTDIR = "${XDG_CONFIG_HOME}/zsh";
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
     CUDA_CACHE_PATH = "${XDG_CACHE_HOME}/nv";
     ERRFILE = "${XDG_CACHE_HOME}/X11/xsession-errors";
     GNUPGHOME = "${XDG_DATA_HOME}/gnupg";
     GRADLE_USER_HOME = "${XDG_DATA_HOME}/gradle";
-    HISTFILE = "${XDG_DATA_HOME}/bash/history";
     IPYTHONDIR = "${XDG_CONFIG_HOME}/ipython";
     JUPYTER_CONFIG_DIR = "${XDG_CONFIG_HOME}/jupyter";
     KDEHOME = "${XDG_CONFIG_HOME}/kde";
