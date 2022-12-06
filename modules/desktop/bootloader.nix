@@ -3,14 +3,7 @@
   pkgs,
   ...
 }: {
-  boot.plymouth = let
-    pack = 3;
-    theme = "hud_3";
-  in {
-    enable = true;
-    themePackages = [
-      (pkgs.plymouth-themes.override {inherit pack theme;})
-    ];
-    inherit theme;
-  };
+  # TODO: one day make this use custom themes from
+  # https://github.com/spikespaz/dotfiles/tree/master/dotpkgs/plymouth-themes
+  boot.plymouth.enable = true;
 }
