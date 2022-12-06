@@ -22,7 +22,15 @@
     };
   };
 
-  home.packages = with pkgs; [mpc_cli miniplayer];
+  home.packages = with pkgs; [mpc_cli];
+
+  services.mpdris2 = {
+    enable = true;
+    notifications = true;
+    mpd = {
+      host = "127.0.0.1";
+    };
+  };
 
   programs.ncmpcpp = {
     enable = true;

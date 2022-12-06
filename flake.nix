@@ -2,7 +2,11 @@
   description = "My NixOS configuration with questionable stability";
   # https://github.com/notashelf/dotfiles
 
-  outputs = {self, nixpkgs, ...} @ inputs:
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs:
     with nixpkgs.lib; let
       filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
 
@@ -42,7 +46,7 @@
           .build
           .sdImage;
       };
-      
+
       packages.${system} = {
         # Catpuccin
         catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};

@@ -54,6 +54,5 @@ in {
     dconf
     gcc
     trash-cli
-
   ];
 }
