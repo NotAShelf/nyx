@@ -1,5 +1,4 @@
 {
-  maintainers,
   lib,
   stdenv,
   fetchFromGitHub,

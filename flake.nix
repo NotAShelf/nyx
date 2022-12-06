@@ -65,10 +65,22 @@
     };
   };
   outputs = {self, ...} @ inputs: let
+    #lib = import ./lib inputs;
+    #filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
     system = "x86_64-linux";
-    overlays.default = import ./overlays;
-    pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+    #pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      overlays = with inputs; [
+        nur.overlay
+        nixpkgs-wayland.overlay
+        nixpkgs-f2k.overlays.default
+      ];
+      #++ (filterNixFiles ./overlays);
+    };
   in {
+    #inherit lib pkgs;
+
     nixosConfigurations = import ./hosts inputs;
 
     # SD Card image for Raspberry Pi 4
@@ -94,6 +106,7 @@
       # Everything else
       nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
+      plymouth-themes = pkgs.callPackage ./pkgs/plymouth-themes.nix {};
     };
     devShells.x86_64-linux.default = pkgs.mkShell {
       packages = with pkgs; [
