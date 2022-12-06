@@ -1,10 +1,10 @@
 system: let
   # copy paste done right
-  XDG_DATA_HOME = "$XDG_DATA_HOME";
-  XDG_CONFIG_HOME = "$XDG_CONFIG_HOME";
-  XDG_CACHE_HOME = "$XDG_CACHE_HOME";
-  XDG_STATE_HOME = "$XDG_STATE_HOME";
-  XDG_RUNTIME_DIR = "$XDG_RUNTIME_DIR";
+  XDG_DATA_HOME = "\$HOME/.local/share";
+  XDG_CONFIG_HOME = "\$HOME/.config";
+  XDG_CACHE_HOME = "\$HOME/.cache";
+  XDG_STATE_HOME = "\HOME/.local/shate";
+  XDG_RUNTIME_DIR = "/run/user/\${UID}";
 in rec {
   glEnv = {
     XDG_CACHE_HOME = "\${HOME}/.cache";
@@ -12,7 +12,6 @@ in rec {
     XDG_STATE_HOME = "\${HOME}/.local/state";
     XDG_DATA_HOME = "\${HOME}/.local/share";
   };
-
   sysEnv = {
     HISTFILE = "${XDG_STATE_HOME}/zsh/history";
     ZDOTDIR = "${XDG_CONFIG_HOME}/zsh";
@@ -22,7 +21,7 @@ in rec {
     GNUPGHOME = "${XDG_DATA_HOME}/gnupg";
     GRADLE_USER_HOME = "${XDG_DATA_HOME}/gradle";
     IPYTHONDIR = "${XDG_CONFIG_HOME}/ipython";
-    JUPYTER_CONFIG_DIR = "${XDG_CONFIG_HOME}/jupyter";
+    JUPYTER_COaNFIG_DIR = "${XDG_CONFIG_HOME}/jupyter";
     KDEHOME = "${XDG_CONFIG_HOME}/kde";
     LESSHISTFILE = "${XDG_DATA_HOME}/less/history";
     NPM_CONFIG_CACHE = "${XDG_CACHE_HOME}/npm";
