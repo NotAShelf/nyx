@@ -9,7 +9,7 @@
     loader = {
       systemd-boot.enable = false;
       grub = {
-        enable = false;
+        enable = true;
         useOSProber = true;
         efiSupport = true;
         enableCryptodisk = false;

@@ -9,6 +9,7 @@
       theme = "lone";
     in {
       enable = true;
+      #themePackages =
     };
   };
 }
