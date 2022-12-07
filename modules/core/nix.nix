@@ -41,12 +41,11 @@ in {
           })
         )
         nur.overlay
-        nixpkgs-wayland.overlay
         nixpkgs-f2k.overlays.default
         rust-overlay.overlays.default
       ]
       # Overlays from ./overlays directory
-      ++ (importNixFiles ../../overlays);
+      ++ (importNixFiles ../overlays);
   };
 
   # faster rebuilding
