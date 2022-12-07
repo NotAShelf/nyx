@@ -70,10 +70,10 @@ in {
   };
   xdg = {
     # TODO: avoid hardcoding home path
-    dataHome = "/home/notashelf/.local/share";
-    configHome = "/home/notashelf/.config";
-    stateHome = "/home/notashelf/.local/state";
-    cacheHome = "/home/notashelf/.cache";
+    #dataHome = "/home/notashelf/.local/share";
+    #configHome = "/home/notashelf/.config";
+    #stateHome = "/home/notashelf/.local/state";
+    #cacheHome = "/home/notashelf/.cache";
     userDirs = {
       enable = true;
       createDirectories = true;
@@ -87,7 +87,7 @@ in {
       templates = "$HOME/Public/Templates";
 
       extraConfig = {
-        XDG_SCREENSHOT_DIR = "$HOME/Media/Pictures/Screenshots";
+        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
         XDG_DEV_DIR = "$HOME/Dev";
       };
     };
