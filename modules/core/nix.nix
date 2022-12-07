@@ -4,7 +4,14 @@
   lib,
   inputs,
   ...
-}: {
+}:
+with lib; let
+  filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
+  importNixFiles = path:
+    (lists.forEach (mapAttrsToList (name: _: path + ("/" + name))
+        (filterAttrs filterNixFiles (builtins.readDir path))))
+    import;
+in {
   environment = {
     etc = {
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
@@ -23,9 +30,23 @@
       allowUnsupportedSystem = true;
     };
 
-    overlays = with inputs; [
-      rust-overlay.overlays.default
-    ];
+    overlays = with inputs;
+      [
+        (
+          final: _: let
+            inherit (final) system;
+          in (with nixpkgs-f2k.packages.${system}; {
+            # Overlays with f2k's repo
+            wezterm = wezterm-git;
+          })
+        )
+        nur.overlay
+        nixpkgs-wayland.overlay
+        nixpkgs-f2k.overlays.default
+        rust-overlay.overlays.default
+      ]
+      # Overlays from ./overlays directory
+      ++ (importNixFiles ../../overlays);
   };
 
   # faster rebuilding

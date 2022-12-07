@@ -1,4 +1,4 @@
 final: prev: {
-  #package-name = prev.callPackage ../package-name/default.nix {};
-  plymouth-themes = prev.callPackage ./plymouth {};
+  nixos-plymouth = prev.callPackage ./plymouth {};
+  #nickfetch = prev.callPackage ../pkgs/nicksfetch.nix {};
 }

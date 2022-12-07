@@ -6,70 +6,51 @@
     self,
     nixpkgs,
     ...
-  } @ inputs:
-    with nixpkgs.lib; let
-      filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
+  } @ inputs: let
+    system = "x86_64-linux";
+    pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+  in {
+    nixosConfigurations = import ./hosts inputs;
 
-      importNixFiles = path:
-        (lists.forEach (mapAttrsToList (name: _: path + ("/" + name))
-            (filterAttrs filterNixFiles (builtins.readDir path))))
-        import;
-      system = "x86_64-linux";
-      #pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-      pkgs = import inputs.nixpkgs {
-        inherit system;
-
-        overlays = with inputs;
-          [
-            nur.overlay
-            nixpkgs-wayland.overlay
-            nixpkgs-f2k.overlays.default
-            rust-overlay.overlays.default
-          ]
-          # Overlays from ./overlays directory
-          ++ (importNixFiles ./overlays);
-      };
-    in {
-      inherit pkgs;
-
-      nixosConfigurations = import ./hosts inputs;
-
-      # SD Card image for Raspberry Pi 4
-      # build with `nix build .#images.atlas`
-      images = {
-        atlas =
-          (self.nixosConfigurations.atlas.extendModules {
-            modules = ["${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"];
-          })
-          .config
-          .system
-          .build
-          .sdImage;
-      };
-
-      packages.${system} = {
-        # Catpuccin
-        catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};
-        catppuccin-gtk = pkgs.callPackage ./pkgs/catppuccin-gtk.nix {};
-        catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors.nix {};
-        # Custom rofi plugins
-        rofi-calc-wayland = pkgs.callPackage ./pkgs/rofi-calc-wayland.nix {};
-        rofi-emoji-wayland = pkgs.callPackage ./pkgs/rofi-emoji-wayland.nix {};
-        # Everything else
-        nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
-        cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
-      };
-      devShells.x86_64-linux.default = pkgs.mkShell {
-        packages = with pkgs; [
-          rnix-lsp
-          yaml-language-server
-          alejandra
-          git
-        ];
-      };
-      formatter.${system} = pkgs.alejandra;
+    # SD Card image for Raspberry Pi 4
+    # build with `nix build .#images.atlas`
+    images = {
+      atlas =
+        (self.nixosConfigurations.atlas.extendModules {
+          modules = ["${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"];
+        })
+        .config
+        .system
+        .build
+        .sdImage;
     };
 
+    packages.${system} = {
+      # Catpuccin
+      catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};
+      catppuccin-gtk = pkgs.callPackage ./pkgs/catppuccin-gtk.nix {};
+      catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors.nix {};
+      # Custom rofi plugins
+      rofi-calc-wayland = pkgs.callPackage ./pkgs/rofi-calc-wayland.nix {};
+      rofi-emoji-wayland = pkgs.callPackage ./pkgs/rofi-emoji-wayland.nix {};
+      # Everything else
+      nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
+      cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
+      nixos-plymouth = pkgs.callPackage ./pkgs/nixos-plymouth.nix {};
+    };
+
+    devShells.x86_64-linux.default = pkgs.mkShell {
+      name = "nixos";
+      packages = with pkgs; [
+        rnix-lsp
+        yaml-language-server
+        alejandra
+        git
+      ];
+    };
+
+    formatter.${system} = pkgs.alejandra;
+  };
   inputs = {
     #"notashelf.dev".url = "github:notashelf/dotfiles";
 
