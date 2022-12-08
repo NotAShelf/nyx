@@ -1,7 +1,15 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
+    history = {
+      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      share = true;
+    };
     enableCompletion = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
