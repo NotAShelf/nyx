@@ -40,7 +40,7 @@ in {
     keepassxc
     bitwarden
     xfce.thunar
-    wezterm
+    obsidian
 
     # CLI
     cloneit
