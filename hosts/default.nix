@@ -44,7 +44,7 @@ in {
         ./prometheus
         bl-common
         desktop
-        nvidia
+        #nvidia # crashes mozilla products???
         wayland
         hmModule
         {inherit home-manager;}
