@@ -41,7 +41,11 @@ in {
   };
 
   programs = {
-    gpg.enable = true;
+    gpg = {
+      enable = true;
+      homedir = "${config.xdg.dataHome}/gnupg";
+    };
+
     tealdeer = {
       enable = true;
       settings = {

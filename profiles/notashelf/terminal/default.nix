@@ -14,5 +14,6 @@
     ./newsboat
     ./foot
     ./helix
+    ./wezterm
   ];
 }

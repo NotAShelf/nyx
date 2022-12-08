@@ -4,7 +4,7 @@
     userName = "NotAShelf";
     userEmail = "itsashelf@gmail.com";
     signing = {
-      key = "E2717A390EBDD81C";
+      key = "419DBDD3228990BE";
       signByDefault = true;
     };
     ignores = [
