@@ -6,12 +6,12 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "cattpuccin-gtk";
+  pname = "catppuccin-gtk";
   version = "0.3.0";
 
   src = fetchzip {
-    url = "https://github.com/catppuccin/gtk/releases/download/v0.3.0/Catppuccin-Mocha-Teal.zip";
-    sha256 = "SRS8igz06y+A1bYObtcyPPsOUn3WrOuhVsXkhj1l1KY=";
+    url = "https://github.com/catppuccin/gtk/releases/download/v0.3.0/Catppuccin-Mocha-Pink.zip";
+    sha256 = "rlQuVs7jrdmyAraU1guE/tCzxjm2LnOpxKHUkS6spRg=";
     stripRoot = false;
   };
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/share/themes/
-    cp -r Catppuccin-Mocha-Teal $out/share/themes
+    cp -r Catppuccin-Mocha-Pink $out/share/themes
   '';
 
   meta = {

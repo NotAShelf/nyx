@@ -83,12 +83,14 @@ in {
 
       extraConfig = {
         XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
-        XDG_DEV_DIR = "~/Dev";
+        XDG_DEV_DIR = "$HOME/Dev";
       };
     };
 
-    mimeApps.enable = true;
-    mimeApps.associations.added = associations;
-    mimeApps.defaultApplications = associations;
+    mimeApps = {
+      enable = true;
+      associations.added = associations;
+      defaultApplications = associations;
+    };
   };
 }

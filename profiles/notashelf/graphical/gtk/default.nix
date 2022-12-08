@@ -8,13 +8,15 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Mocha-Teal";
+      name = "Catppuccin-Mocha-Pink";
       package = self.packages.${pkgs.system}.catppuccin-gtk;
     };
+
     iconTheme = {
       package = self.packages.${pkgs.system}.catppuccin-folders;
       name = "Papirus";
     };
+
     font = {
       name = "Lato";
       size = 13;

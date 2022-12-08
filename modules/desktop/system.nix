@@ -6,7 +6,7 @@
 }: {
   environment.variables = {
     BROWSER = "firefox";
-    GTK_THEME = "Catppuccin-Mocha-Teal";
+    GTK_THEME = "Catppuccin-Mocha-Pink";
   };
 
   zramSwap = {
