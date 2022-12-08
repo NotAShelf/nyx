@@ -3,6 +3,22 @@
     enable = true;
     userName = "NotAShelf";
     userEmail = "itsashelf@gmail.com";
+    signing = {
+      key = "";
+      signByDefault = true;
+    };
+    ignores = [
+      ".cache/"
+      ".idea/"
+      "*.swp"
+      "*.elc"
+      ".~lock*"
+      "auto-save-list"
+      ".direnv/"
+      "node_modules"
+      "result"
+      "result-*"
+    ];
     extraConfig = {
       init = {defaultBranch = "main";};
       delta = {
@@ -10,6 +26,20 @@
         plus-style = "syntax #a6d189";
         minus-style = "syntax #e78284";
         line-numbers = true;
+      };
+      branch.autosetupmerge = "true";
+      push.default = "current";
+      merge.stat = "true";
+      core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
+      repack.usedeltabaseoffset = "true";
+      pull.ff = "only";
+      rebase = {
+        autoSquash = true;
+        autoStash = true;
+      };
+      rerere = {
+        autoupdate = true;
+        enabled = true;
       };
     };
     lfs.enable = true;

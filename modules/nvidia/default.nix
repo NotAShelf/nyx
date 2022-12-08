@@ -15,6 +15,7 @@ with lib; let
   '';
 in {
   services.xserver.videoDrivers = ["nvidia"];
+  boot.blacklistedKernelModules = ["nouveau"];
 
   environment = {
     variables = {
@@ -31,16 +32,11 @@ in {
 
   hardware = {
     nvidia = {
-      # BREAKS MOZILLA PRODUCTS FOR SOME REASON #
-      package = let
-        nv = config.boot.kernelPackages.nvidiaPackages;
-      in
-        if lib.versionAtLeast nv.stable.version nv.beta.version
-        then nv.stable
-        else nv.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.production;
       open = true;
       powerManagement.enable = true;
       modesetting.enable = true;
+      nvidiaPersistenced = true;
       prime = {
         #sync.enable = true;
         offload.enable = true;
