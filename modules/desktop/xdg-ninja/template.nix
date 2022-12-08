@@ -5,7 +5,7 @@ system: let
   XDG_CACHE_HOME = "\$HOME/.cache";
   XDG_STATE_HOME = "\HOME/.local/shate";
   XDG_RUNTIME_DIR = "/run/user/\${UID}";
-in rec {
+in {
   glEnv = {
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";
@@ -13,8 +13,6 @@ in rec {
     XDG_DATA_HOME = "\${HOME}/.local/share";
   };
   sysEnv = {
-    HISTFILE = "${XDG_STATE_HOME}/zsh/history";
-    ZDOTDIR = "${XDG_CONFIG_HOME}/zsh";
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
     CUDA_CACHE_PATH = "${XDG_CACHE_HOME}/nv";
     ERRFILE = "${XDG_CACHE_HOME}/X11/xsession-errors";
