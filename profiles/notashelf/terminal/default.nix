@@ -15,5 +15,6 @@
     ./foot
     ./helix
     ./wezterm
+    ./bottom
   ];
 }
