@@ -36,7 +36,6 @@
       # Everything else
       nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
-      nixos-plymouth = pkgs.callPackage ./pkgs/nixos-plymouth.nix {};
     };
 
     devShells.x86_64-linux.default = pkgs.mkShell {
