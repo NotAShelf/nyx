@@ -28,6 +28,7 @@
       git
       curl
       wget
+      pciutils
       (writeScriptBin "sudo" ''exec doas "$@"'')
     ];
 

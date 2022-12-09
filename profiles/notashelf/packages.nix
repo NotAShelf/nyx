@@ -65,5 +65,6 @@ in {
     dconf
     gcc
     trash-cli
+    cached-nix-shell
   ];
 }
