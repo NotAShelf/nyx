@@ -21,7 +21,7 @@ modes = {
 	t = "",
 }
 
-local c = require("catppuccin.palettes").get_palette("frappe")
+local c = require("catppuccin.palettes").get_palette("mocha")
 vim.api.nvim_set_hl(0, "Statusmode", { bg = c.pink, fg = c.base })
 vim.api.nvim_set_hl(0, "Error", { fg = c.red })
 vim.api.nvim_set_hl(0, "Warning", { fg = c.yellow })

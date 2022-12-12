@@ -106,17 +106,18 @@
   };
 
   home.packages = with pkgs; [
-    # some other lsp related packages
+    # some other lsp related packages / dev tools
     lldb
     gopls
     rust-analyzer
     texlab
     zls
     elixir_ls
+    gcc
+    uncrustify
     black
     alejandra
     shellcheck
-    taplo
     solc
     gawk
     haskellPackages.haskell-language-server
@@ -129,5 +130,6 @@
     nodePackages.yarn
     sumneko-lua-language-server
     nodePackages.vscode-langservers-extracted
+    cargo
   ];
 }
