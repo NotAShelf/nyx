@@ -17,7 +17,7 @@
     upower.enable = true;
 
     dbus = {
-      packages = with pkgs; [dconf gcr];
+      packages = with pkgs; [dconf gcr udisks2];
       enable = true;
     };
 
