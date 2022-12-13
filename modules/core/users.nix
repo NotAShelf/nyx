@@ -13,6 +13,7 @@
       "wireshark"
       "video"
       "input"
+      "plugdev"
       "lp"
       "networkmanager"
       "libvirtd"
