@@ -66,5 +66,6 @@ in {
     gcc
     trash-cli
     cached-nix-shell
+    ttyper
   ];
 }
