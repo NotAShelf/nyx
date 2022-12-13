@@ -130,6 +130,6 @@
     nodePackages.yarn
     sumneko-lua-language-server
     nodePackages.vscode-langservers-extracted
-    cargo
+    #cargo
   ];
 }
