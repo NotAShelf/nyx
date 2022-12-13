@@ -14,9 +14,16 @@
   services = {
     printing.enable = true;
     resolved.enable = true;
-    udisks2.enable = true;
-    btrfs.autoScrub.enable = true;
     upower.enable = true;
+
+    dbus = {
+      packages = with pkgs; [dconf gcr];
+      enable = true;
+    };
+
+    udev.packages = with pkgs; [
+      gnome.gnome-settings-daemon
+    ];
 
     # https://nixos.wiki/wiki/Bluetooth
     blueman.enable = config.hardware.bluetooth.enable;
@@ -29,7 +36,7 @@
       };
     };
 
-    # Use pipewire instead of soyaudio
+    # Replace legacy PulseAudio with new and incredibly based PipeWire
     pipewire = {
       enable = true;
       alsa = {

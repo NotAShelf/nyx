@@ -13,7 +13,9 @@ with lib; let
     import;
 in {
   environment = {
+    # set channels (backwards compatibility)
     etc = {
+      #"nix/flake-channels/system".source = inputs.self; # no worky
       "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
       "nix/flake-channels/home-manager".source = inputs.home-manager;
     };
@@ -45,7 +47,7 @@ in {
         rust-overlay.overlays.default
       ]
       # Overlays from ./overlays directory
-      ++ (importNixFiles ../overlays);
+      ++ (importNixFiles ../../overlays);
   };
 
   # faster rebuilding
@@ -67,18 +69,13 @@ in {
 
     # pin the registry to avoid downloading and evalıationg a new nixpkgs
     # version everytime
-
     registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
 
+    # set the path for channels compat
     nixPath = [
       "nixpkgs=/etc/nix/flake-channels/nixpkgs"
       "home-manager=/etc/nix/flake-channels/home-manager"
     ];
-
-    #registry = {
-    #  nixpkgs.flake = inputs.nixpkgs;
-    #  nixos-hardware.flake = inputs.nixos-hardware;
-    #};
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
@@ -124,5 +121,5 @@ in {
     };
   };
   system.autoUpgrade.enable = false;
-  system.stateVersion = "22.05"; # DONT TOUCH THIS
+  system.stateVersion = lib.mkDefault "22.11"; # DONT TOUCH THIS
 }

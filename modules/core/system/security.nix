@@ -25,14 +25,33 @@
       packages = [pkgs.apparmor-profiles];
     };
 
-    pam.services = {
-      login.enableGnomeKeyring = true;
-      swaylock = {
-        text = ''
-          auth include login
-        '';
+    pam = {
+      loginLimits = [
+        {
+          domain = "@wheel";
+          item = "nofile";
+          type = "soft";
+          value = "524288";
+        }
+        {
+          domain = "@wheel";
+          item = "nofile";
+          type = "hard";
+          value = "1048576";
+        }
+      ];
+
+      services = {
+        login.enableGnomeKeyring = true;
+        swaylock = {
+          text = ''
+            auth include login
+          '';
+        };
       };
     };
+
+    # doas is cool, I like doas
     sudo.enable = lib.mkDefault false;
     doas = {
       enable = lib.mkDefault true;
@@ -63,13 +82,6 @@
           keepEnv = true;
         }
       ];
-    };
-
-    tpm2 = {
-      enable = lib.mkDefault true;
-      abrmd.enable = lib.mkDefault true;
-      pkcs11.enable = lib.mkDefault true;
-      tctiEnvironment.enable = lib.mkDefault true;
     };
   };
 

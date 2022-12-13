@@ -4,6 +4,11 @@
   lib,
   ...
 }: {
+  imports = [
+    ./ssh.nix
+    ./blocker.nix
+  ];
+
   networking = {
     # dns
     nameservers = ["1.1.1.1" "1.0.0.1"];

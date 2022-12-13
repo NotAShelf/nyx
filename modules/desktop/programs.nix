@@ -23,6 +23,6 @@
     steam.enable = true;
     seahorse.enable = true;
     adb.enable = true;
-    less.enable = true;
+    nm-applet.enable = true;
   };
 }

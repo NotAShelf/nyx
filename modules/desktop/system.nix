@@ -9,11 +9,6 @@
     GTK_THEME = "Catppuccin-Mocha-Pink";
   };
 
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-  };
-
   services = {
     gvfs.enable = true;
   };

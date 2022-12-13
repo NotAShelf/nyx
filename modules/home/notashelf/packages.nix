@@ -37,7 +37,6 @@ in {
     dolphin-emu
     qbittorrent
     quasselClient
-    keepassxc
     bitwarden
     xfce.thunar
     obsidian
@@ -67,5 +66,8 @@ in {
     trash-cli
     cached-nix-shell
     ttyper
+    docker-compose
+    docker-credential-helpers
+    xorg.xhost
   ];
 }
