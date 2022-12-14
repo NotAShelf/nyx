@@ -12,8 +12,32 @@
   };
 
   services = {
-    printing.enable = true;
+    # enable GVfs, a userspace virtual filesystem.
+    gvfs.enable = true;
+
+    # storage daemon required for udiskie auto-mount
+    udisks2.enable = true;
+
+    # enable cups and add some drivers for common printers
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        gutenprint
+        hplip
+      ];
+    };
+
+    # required for network discovery of printers
+    avahi = {
+      enable = true;
+      # resolve .local domains for printers
+      nssmdns = true;
+    };
+
+    # systemd DNS resolver daemon
     resolved.enable = true;
+
+    # DBus service that provides power management support to applications.
     upower.enable = true;
 
     dbus = {

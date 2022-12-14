@@ -4,6 +4,9 @@
   lib,
   ...
 }: {
+  # let spotifyd be discovered
+  networking.firewall.allowedTCPPorts = [57621];
+
   services = {
     # Enable cron service
     cron = {
@@ -12,5 +15,7 @@
         "*/50 * * * *      root    date >> /tmp/cron.log"
       ];
     };
+
+    spotifyd.enable = true;
   };
 }

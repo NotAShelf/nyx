@@ -45,6 +45,7 @@
         yaml-language-server
         alejandra
         git
+        glow
       ];
     };
 

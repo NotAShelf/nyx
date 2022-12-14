@@ -14,10 +14,25 @@
       # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
       systemd-boot.editor = false;
 
-      systemd-boot.enable = lib.mkDefault true;
+      # could be a little faster
+      # TODO: actually benchmark the boot process to see if it's worth it
+      generationsDir.copyKernels = true;
+
+      systemd-boot = {
+        enable = lib.mkDefault true;
+        configurationLimit = 5;
+      };
+
+      # allow installation to modify EFI variables
       efi.canTouchEfiVariables = true;
+
+      # if set to 0, space needs to be held to get the boot menu to appear
       timeout = 2;
+
+      # default grub to disabled, we manually enable grub on "server" hosts
       grub = {
+        # if need be, this value can be overriden in individual hosts
+        # @ hosts/hostname/system.nix
         enable = lib.mkDefault false;
         useOSProber = true;
         efiSupport = true;
@@ -36,6 +51,7 @@
     cleanTmpDir = lib.mkDefault (!config.boot.tmpOnTmpfs);
 
     # some kernel parameters, i dont remember what half of this shit does but who cares
+    # TODO: document what each of those params do
     kernelParams = [
       "acpi_call"
       "pti=on"
@@ -58,6 +74,22 @@
       "lsm=landlock,lockdown,yama,apparmor,bpf"
       "loglevel=7"
       "rd.udev.log_priority=3"
+      "noresume"
+      # allows systemd to set and save the backlight state
+      "acpi_backlight=none"
+      # prevent the kernel from blanking plymouth out of the fb
+      "fbcon=nodefer"
+      # disable boot logo if any
+      "logo.nologo"
+      # tell the kernel to not be verbose
+      "quiet"
+      # disable systemd status messages
+      "rd.systemd.show_status=auto"
+      # lower the udev log level to show only errors or worse
+      "rd.udev.log_level=3"
+      # disable the cursor in vt to get a black screen during intermissions
+      # TODO turn back on in tty
+      "vt.global_cursor_default=0"
     ];
 
     consoleLogLevel = 0;
@@ -70,6 +102,14 @@
 
     initrd = {
       verbose = false;
+
+      # TODO: figure out why the hell those options break plymouth
+      # strip copied binaries and libraries, enabled by default
+      # saves 30~ mb space according to the nix derivation
+      #systemd.strip = true;
+      # extremely experimental, just the way I like it on a production machine
+      #systemd.enable = true;
+
       availableKernelModules = [
         "nvme"
         "usbhid"

@@ -6,7 +6,7 @@
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
-    #displayManager.lightdm.enable = false;
+    displayManager.lightdm.enable = false;
 
     libinput = {
       enable = true;

@@ -9,8 +9,13 @@
     GTK_THEME = "Catppuccin-Mocha-Pink";
   };
 
-  services = {
-    gvfs.enable = true;
+  # enable flatpak, as well as xdgp to communicate with the host filesystems
+  services.flatpak.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
   };
 
   # enable polkit
@@ -27,5 +32,10 @@
       "nosuid"
       "size=128M"
     ];
+  };
+
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
   };
 }
