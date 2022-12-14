@@ -15,5 +15,8 @@
       pciutils
       (writeScriptBin "sudo" ''exec doas "$@"'')
     ];
+
+    # enable completions for system packages
+    pathsToLink = ["/share/zsh" "/share/bash-completion"];
   };
 }

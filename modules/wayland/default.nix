@@ -8,6 +8,7 @@
   nixpkgs.overlays = with inputs; [nixpkgs-wayland.overlay];
   environment.etc."greetd/environments".text = ''
     Hyprland
+    sway
   '';
 
   environment = {
@@ -52,19 +53,14 @@
       extraPackages = with pkgs; [
         vaapiVdpau
         libvdpau-va-gl
-        intel-compute-runtime
-        intel-media-driver
-        vaapiIntel
       ];
     };
     pulseaudio.support32Bit = true;
   };
 
   xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      inputs.xdg-portal-hyprland.packages.${pkgs.system}.default
+    extraPortals = with inputs; [
+      xdg-portal-hyprland.packages.${pkgs.system}.default
     ];
     wlr = {
       enable = false;
@@ -76,10 +72,5 @@
         };
       };
     };
-  };
-
-  sound = {
-    enable = true;
-    mediaKeys.enable = true;
   };
 }

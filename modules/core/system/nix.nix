@@ -62,6 +62,8 @@ in {
     package = pkgs.nixUnstable;
 
     gc = {
+      # set up garbage collection to run daily,
+      # removing unused packages after three days
       automatic = true;
       dates = "daily";
       options = "--delete-older-than 3d";
@@ -79,7 +81,6 @@ in {
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
-      experimental-features = nix-command flakes recursive-nix
       keep-outputs = true
       keep-derivations = true
       min-free = ${toString (100 * 1024 * 1024)}
@@ -90,9 +91,24 @@ in {
     '';
     settings = {
       auto-optimise-store = true;
+      # allow sudo users to mark the following values as trusted
       allowed-users = ["@wheel" "notashelf"];
+      # only allow sudo users to manage the nix store
       trusted-users = ["@wheel" "notashelf"];
       max-jobs = "auto";
+      sandbox = true;
+      system-features = ["kvm" "recursive-nix" "big-parallel"];
+      # continue building derivations if one fails
+      keep-going = true;
+      # show more log lines for failed builds
+      log-lines = 20;
+      # enable new nix command and flakes
+      # and also "unintended" recursion
+      extra-experimental-features = [
+        "flakes"
+        "nix-command"
+        "recursive-nix"
+      ];
 
       # use binary cache, its not gentoo
       builders-use-substitutes = true;
@@ -104,6 +120,7 @@ in {
         "https://hyprland.cachix.org"
         "https://nix-gaming.cachix.org"
         "https://nixpkgs-unfree.cachix.org"
+        "https://webcord.cachix.org"
       ];
 
       trusted-public-keys = [
@@ -114,10 +131,8 @@ in {
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
+        "webcord.cachix.org-1:l555jqOZGHd2C9+vS8ccdh8FhqnGe8L78QrHNn+EFEs="
       ];
-
-      sandbox = true;
-      system-features = ["kvm" "recursive-nix" "big-parallel"];
     };
   };
   system.autoUpgrade.enable = false;

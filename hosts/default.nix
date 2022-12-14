@@ -5,24 +5,30 @@
 }: let
   inputs = self.inputs;
 
-  # Bootloaders
-  bl-common = ../modules/bootloaders/common.nix;
-  bl-server = ../modules/bootloaders/server.nix;
+  ## bootloaders ##
+  bl-common = ../modules/bootloaders/common.nix; # default bootloader
+  bl-server = ../modules/bootloaders/server.nix; # server-specific bootloader
 
-  # shared modules
+  ## shared modules ##
+
+  # global
   core = ../modules/core;
-  nvidia = ../modules/nvidia; # currently crashes mozilla products
-  amd = ../modules/amd; # soon :weary:
-  wayland = ../modules/wayland;
-  server = ../modules/server;
-  desktop = ../modules/desktop;
+  wayland = ../modules/wayland; # for devices running a wayland desktop
+  server = ../modules/server; # for devices that act as "servers"
+  desktop = ../modules/desktop; # for devices that are for daily use, i.e laptops
 
-  # flake inputs
+  # hardware modules
+  nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
+  intel = ../modules/hardware/intel; # surprisingly common on my devices
+  amd = ../modules/hardware/amd; # soon :weary:
+
+  ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4
   ragenix = inputs.ragenix.nixosModules.age; # secret encryption
   hmModule = inputs.home-manager.nixosModules.home-manager; # home-manager
 
   shared = [core ragenix];
+  hybrid = [intel nvidia];
 
   home-manager = {
     useUserPackages = true;
@@ -44,7 +50,7 @@ in {
         ./prometheus
         bl-common
         desktop
-        #nvidia
+        intel
         wayland
         hmModule
         {inherit home-manager;}
@@ -65,6 +71,7 @@ in {
         server
         wayland
         hmModule
+        intel
         {inherit home-manager;}
       ]
       ++ shared;

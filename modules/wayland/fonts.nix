@@ -28,6 +28,12 @@
 
     # this fixes emoji stuff
     fontconfig = {
+      enable = true;
+      fontDir = {
+        enable = true;
+        decompressFonts = true;
+      };
+
       defaultFonts = {
         monospace = [
           "Iosevka Term"
