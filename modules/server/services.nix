@@ -29,8 +29,9 @@
           backend = "pulseaudio";
           bitrate = 320;
           use_mpris = true;
-          username = "spikespaz@outlook.com";
-          password_cmd = "cat '${config.homeage.mount}/jacob.spotifyd.age'";
+          # TODO: have password not in plaintext
+          username = "";
+          password_cmd = "";
         };
       };
     };
