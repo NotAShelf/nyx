@@ -16,9 +16,8 @@
       ];
     };
 
-    spotifyd.enable = true;
-    services.spotifyd = {
-      enable = true;
+    spotifyd = {
+      enable = false;
       package = pkgs.spotifyd.override {
         withKeyring = true;
         withMpris = true;
@@ -29,9 +28,8 @@
           backend = "pulseaudio";
           bitrate = 320;
           use_mpris = true;
-          # TODO: have password not in plaintext
-          username = "";
-          password_cmd = "";
+          username = "email for spotify"; # TODO: bind new email to spotify
+          password_cmd = "cat <password file>"; # TODO: secret encryption w/ ragenix
         };
       };
     };
