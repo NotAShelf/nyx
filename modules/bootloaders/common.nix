@@ -9,6 +9,7 @@
     binfmt.emulatedSystems = [
       "aarch64-linux"
     ];
+
     loader = {
       # Fix a security hole in place for backwards compatibility. See desc in
       # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
@@ -103,10 +104,11 @@
     initrd = {
       verbose = false;
 
-      # TODO: figure out why the hell those options break plymouth
-      # strip copied binaries and libraries, enabled by default
+      # strip copied binaries and libraries from inframs
       # saves 30~ mb space according to the nix derivation
-      #systemd.strip = true;
+      systemd.strip = true;
+
+      # TODO: figure out why the hell this breaks plymouth
       # extremely experimental, just the way I like it on a production machine
       #systemd.enable = true;
 
