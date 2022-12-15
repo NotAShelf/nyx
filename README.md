@@ -26,20 +26,23 @@
 
 ## 📦 Overview
 
-- [flake](flake.nix) Ground zero of my system configuration
+- [Flake](flake.nix) Ground zero of my system configuration
 - [modules](modules) 🍱 modularized NixOS configs
   - [home](modules/home) 🏠 my [Home-Manager](https://github.com/nix-community/home-manager) config
-  - [bootloaders](modules/bootloaders) Various bootloaders for various purpose hosts
+  - [bootloaders](modules/bootloaders) ⚙ Various bootloaders for various purpose hosts
   - [core](modules/core) 🧠 Core NixOS configuration
   - [server](modules/server) ☁️ Shared modules for "server" purpose hosts
-  - [desktop](modules/desktop) Shared modules for "desktop" purpose hosts
+  - [desktop](modules/desktop) 🖥️ Shared modules for "desktop" purpose hosts
   - [wayland](modules/wayland) 🚀 Wayland-specific configurations and services
-  - [nvidia](modules/nvidia) 💚 My next GPU won't be NVIDIA
-  - [overlays](modules/overlays) Overlay recipes for my system to use
+  - [overlays](modules/overlays) 📦 Overlay recipes for my system to use
+  - [hardware](modules/hardware)
+    - [nvidia](modules/hardware/nvidia) 💚 My next GPU won't be NVIDIA
+    - [intel](modules/hardware/intel) 💙 Common configuration for intel CPUs
+    - [amd](modules/hardware/amd) ❤️ Configuration set for my future AMD laptop
 - [hosts](hosts) 🌳 per-host configuration
   - [prometheus](hosts/prometheus) 💻 My 2016 HP Pavillion with NVIDIA GPU
   - [atlas](hosts/atlas) 🍓 Raspberry Pi 400 that acts as my homelab
-  - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and laptop
+  - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
 - [pkgs](pkgs) 💿 exported packages
 
 ## Motivation
