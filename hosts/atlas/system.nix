@@ -8,8 +8,8 @@
 
   fileSystems = {
     "/" = {
-      #    device = "/dev/disk/by-label/NIXOS_SD";
-      #    fsType = "ext4";
+      device = lib.mkForce "/dev/disk/by-label/NIXOS_SD";
+      fsType = "ext4";
       options = ["noatime"];
     };
   };
