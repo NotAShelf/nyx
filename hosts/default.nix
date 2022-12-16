@@ -50,8 +50,8 @@ in {
         ./prometheus
         bl-common
         desktop
-        intel
         wayland
+        intel
         hmModule
         {inherit home-manager;}
       ]
