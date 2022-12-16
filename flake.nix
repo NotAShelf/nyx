@@ -5,6 +5,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixos-generators,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -23,6 +24,15 @@
         .system
         .build
         .sdImage;
+
+      atlas2 =
+        (self.nixosConfigurations.atlas.extendModules {
+          modules = ["${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"];
+        })
+        .config
+        .system
+        .build
+        .sdImage;
     };
 
     packages.${system} = {
@@ -30,12 +40,28 @@
       catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};
       catppuccin-gtk = pkgs.callPackage ./pkgs/catppuccin-gtk.nix {};
       catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors.nix {};
+
       # Custom rofi plugins
       rofi-calc-wayland = pkgs.callPackage ./pkgs/rofi-calc-wayland.nix {};
       rofi-emoji-wayland = pkgs.callPackage ./pkgs/rofi-emoji-wayland.nix {};
-      # Everything else
+
+      # My personal derivations for packages that are not on nixpkgs
       nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
+      swww = pkgs.callPackage ./pkgs/swww.nix {};
+
+      # ISO builds
+      iso-server-generic = nixos-generators.nixosGenerate {
+        system = "${system}";
+        format = "iso";
+        modules = [];
+      };
+
+      iso-desktop-generic = nixos-generators.nixosGenerate {
+        system = "${system}";
+        format = "iso";
+        modules = [];
+      };
     };
 
     devShells.x86_64-linux.default = pkgs.mkShell {
@@ -63,7 +89,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
+    nixpkgs-f2k = {
+      url = "github:fortuneteller2k/nixpkgs-f2k";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -73,6 +103,12 @@
     devshell.url = "github:numtide/devshell";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    # Generate bootable ISOs for my declarative systems
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Secrets management via ragenix, an agenix replacement
     ragenix.url = "github:yaxitech/ragenix";
