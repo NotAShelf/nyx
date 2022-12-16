@@ -8,7 +8,7 @@
   hardware.bluetooth = {
     enable = false;
     package = pkgs.blues5-experimental;
-    hsphfpd.enable = true;
+    #hsphfpd.enable = true;
   };
 
   services = {
