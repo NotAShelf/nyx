@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   location.provider = "geoclue2";
@@ -89,6 +90,8 @@
       gnome-online-accounts.enable = true;
       # optional to use google/nextcloud calendar
       gnome-keyring.enable = true;
+      # hard fails rebuilds for whatever reason, PLEASE stay disabled
+      gnome-remote-desktop.enable = lib.mkForce false;
     };
 
     cron = {
