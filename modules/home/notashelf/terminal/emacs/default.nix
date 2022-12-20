@@ -2,7 +2,7 @@
   doom-emacs =
     pkgs.callPackage (builtins.fetchTarball {
       url = "https://github.com/nix-community/nix-doom-emacs/archive/master.tar.gz";
-      sha256 = "1d3cbhzfxlkl2m6bxi6j5i4q50divmp8hjl213jb0gfhcxr28i6s";
+      sha256 = "0asprprdhh9d5cm0nyqyqlj47az4snm5fwc7pb4mcxwwybdqr3iq";
     }) {
       doomPrivateDir = ./doom.d;
     };
