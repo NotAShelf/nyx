@@ -46,6 +46,13 @@ in {
       homedir = "${config.xdg.dataHome}/gnupg";
     };
 
+    # nix-index
+    nix-index = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+
     tealdeer = {
       enable = true;
       settings = {

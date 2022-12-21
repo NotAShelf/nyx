@@ -2,10 +2,11 @@
   config,
   self,
   pkgs,
+  lib,
   ...
 }: let
   volume = let
-    pamixer = pkgs.pamixer + "/bin/pamixer";
+    pamixer = lib.getExe pkgs.pamixer;
     notify-send = pkgs.libnotify + "/bin/notify-send";
   in
     pkgs.writeShellScriptBin "volume" ''

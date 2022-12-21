@@ -8,7 +8,7 @@
     enable = true;
     package = inputs.helix.packages."x86_64-linux".default;
     settings = {
-      theme = "catppuccin_frappe_transparent";
+      theme = "catppuccin_mocha_transparent";
       keys.normal = {
         "{" = "goto_prev_paragraph";
         "}" = "goto_next_paragraph";
@@ -71,8 +71,8 @@
 
     # override catppuccin theme and remove background to fix transparency
     themes = {
-      catppuccin_frappe_transparent = {
-        "inherits" = "catppuccin_frappe";
+      catppuccin_mocha_transparent = {
+        "inherits" = "catppuccin_mocha";
         "ui.background" = "{}";
       };
     };
@@ -130,6 +130,6 @@
     nodePackages.yarn
     sumneko-lua-language-server
     nodePackages.vscode-langservers-extracted
-    #cargo
+    cargo
   ];
 }
