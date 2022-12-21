@@ -12,6 +12,10 @@ with lib; let
         (filterAttrs filterNixFiles (builtins.readDir path))))
     import;
 in {
+  system = {
+    autoUpgrade.enable = false;
+    stateVersion = lib.mkDefault "23.05";
+  };
   environment = {
     # set channels (backwards compatibility)
     etc = {
@@ -135,6 +139,4 @@ in {
       ];
     };
   };
-  system.autoUpgrade.enable = false;
-  system.stateVersion = lib.mkDefault "22.11"; # DONT TOUCH THIS
 }
