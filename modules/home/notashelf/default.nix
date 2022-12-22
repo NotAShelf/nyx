@@ -14,7 +14,7 @@
 
   config = {
     home = {
-      stateVersion = "22.11";
+      stateVersion = "23.05";
       extraOutputsToInstall = ["doc" "devdoc"];
     };
 
