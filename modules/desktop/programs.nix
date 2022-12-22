@@ -5,10 +5,7 @@
   inputs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [
-    #gnome.gnome-control-center
-    #gnome.gnome-calendar
-  ];
+  environment.systemPackages = [];
 
   hardware = {
     logitech.wireless = {
