@@ -40,6 +40,8 @@ in {
     bitwarden
     xfce.thunar
     obsidian
+    #gnome.gnome-control-center # TODO: figure out why this fails to build
+    gnome.gnome-calendar
 
     # CLI
     cloneit
@@ -63,6 +65,7 @@ in {
     bitwarden-cli
     dconf
     gcc
+    cmake
     trash-cli
     cached-nix-shell
     ttyper
