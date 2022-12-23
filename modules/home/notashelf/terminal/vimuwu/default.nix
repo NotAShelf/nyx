@@ -25,9 +25,6 @@ in {
       ccls # cpp
       black # python
       shellcheck # bash
-      (rust-bin.selectLatestNightlyWith
-        (toolchain: toolchain.minimal))
-      # rust-analyzer
       shfmt
       nodejs
       nodePackages.pyright

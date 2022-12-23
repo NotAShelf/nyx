@@ -33,7 +33,6 @@ in {
   hardware = {
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.production;
-
       open = true;
       powerManagement.enable = true;
       modesetting.enable = true;

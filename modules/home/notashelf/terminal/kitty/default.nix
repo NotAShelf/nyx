@@ -7,7 +7,7 @@
   programs.kitty = {
     enable = true;
     settings = {
-      background_opacity = "1.0";
+      background_opacity = "0.87";
       font_family = "monospace";
       font_size = 14;
       cursor_blink_interval = "0.5";
