@@ -5,15 +5,15 @@ function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
 		return "Catppuccin Mocha"
 	else
-		return "Catppuccin Latte"
+		return "Catppuccin Mocha"
+		-- normally this should be latte, but wezterm
+		-- fails to find the correct appearrance and defaults to latte for whatever reason
 	end
 end
 
 return {
-	font = wezterm.font(
-		"Iosevka Term Nerd Font Complete Mono",
-		{ weight = "Regular", stretch = "Normal", style = "Normal" }
-	),
+	font = wezterm.font("monospace", { weight = "Regular", stretch = "Normal", style = "Normal" }),
+	font_size = 14,
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
 	enable_tab_bar = false,
 	default_cursor_style = "SteadyUnderline",
