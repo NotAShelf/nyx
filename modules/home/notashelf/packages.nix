@@ -72,5 +72,6 @@ in {
     docker-compose
     docker-credential-helpers
     xorg.xhost
+    mov-cli
   ];
 }
