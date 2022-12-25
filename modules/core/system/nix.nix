@@ -68,7 +68,15 @@ in {
 
     # pin the registry to avoid downloading and evalıationg a new nixpkgs
     # version everytime
+    # this will add each flake input as a registry
+    # to make nix3 commands consistent with your flake
     registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
+
+    # This will additionally add your inputs to the system's legacy channels
+    # Making legacy nix commands consistent as well, awesome!
+    nixPath =
+      lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      config.nix.registry;
 
     # set the path for channels compat
     nixPath = [
@@ -100,18 +108,13 @@ in {
       # show more log lines for failed builds
       log-lines = 20;
       # enable new nix command and flakes
-      # and also "unintended" recursion
-      extra-experimental-features = [
-        "flakes"
-        "nix-command"
-        "recursive-nix"
-        "ca-derivations"
-      ];
-
+      # and also "unintended" recursion as well as content addresssed nix
+      extra-experimental-features = ["flakes" "nix-command" "recursive-nix" "ca-derivations"];
       # use binary cache, its not gentoo
       builders-use-substitutes = true;
+      # substituters to use
       substituters = [
-        "https://cache.ngi0.nixos.org/"
+        "https://cache.ngi0.nixos.org/" # content addressed nix cache
         "https://cache.nixos.org"
         "https://fortuneteller2k.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
