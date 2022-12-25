@@ -21,6 +21,7 @@
     # SD Card image for Raspberry Pi 4
     # build with `nix build .#images.atlas`
     images = {
+      # TODO: import images from a different file to de-clutter flake.nix
       atlas =
         (self.nixosConfigurations.atlas.extendModules {
           modules = ["${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"];
@@ -56,6 +57,7 @@
       swww = pkgs.callPackage ./pkgs/swww.nix {};
 
       # ISO builds
+      # TODO: import ISO builds from a different file to de-clutter flake.nix
       iso-server-generic = nixos-generators.nixosGenerate {
         system = "${system}";
         format = "iso";
@@ -69,7 +71,7 @@
       };
     };
 
-    devShells.x86_64-linux.default = pkgs.mkShell {
+    devShells.${system}.default = pkgs.mkShell {
       name = "nixos";
       packages = with pkgs; [
         rnix-lsp
@@ -83,8 +85,6 @@
     formatter.${system} = pkgs.alejandra;
   };
   inputs = {
-    #"notashelf.dev".url = "github:notashelf/dotfiles";
-
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -92,7 +92,7 @@
 
     # default to nixpkgs unstable
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-f2k = {
       url = "github:fortuneteller2k/nixpkgs-f2k";
