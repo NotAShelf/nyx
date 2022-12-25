@@ -123,6 +123,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Easy color integration
+    nix-colors.url = "github:misterio77/nix-colors";
+
     # Secrets management via ragenix, an agenix replacement
     ragenix.url = "github:yaxitech/ragenix";
 
