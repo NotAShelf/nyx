@@ -85,28 +85,36 @@
     formatter.${system} = pkgs.alejandra;
   };
   inputs = {
+    # Nix itself, the package manager
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # default to nixpkgs unstable
+    # nixpkgs variants for different channels
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+
+    # Fortunateteller2k's nixpkgs collection
     nixpkgs-f2k = {
       url = "github:fortuneteller2k/nixpkgs-f2k";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix User Repository
     nur.url = "github:nix-community/NUR";
+
+    # Nix Developer Environments
     devshell.url = "github:numtide/devshell";
 
+    # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Generate bootable ISOs for my declarative systems
@@ -127,6 +135,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -139,6 +148,7 @@
       inputs.nixpkgs.follows = "emacs-overlay";
     };
 
+    # Rust overlay
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -147,7 +157,12 @@
     # Webcord, maybe works better than discord client?
     webcord.url = "github:fufexan/webcord-flake";
 
+    # Spicetify
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
+
     helix.url = "github:SoraTenshi/helix/experimental";
+
+    # Nix Language server
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
