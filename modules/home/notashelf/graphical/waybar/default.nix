@@ -18,7 +18,10 @@
     '';
   };
 in {
-  xdg.configFile."waybar/style.css".text = import ./style.nix;
+  xdg.configFile."waybar/style.css".text = import ./style.nix {
+    inherit (config) colorscheme;
+  };
+
   programs.waybar = {
     enable = true;
     systemd.enable = true;

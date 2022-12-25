@@ -1,13 +1,20 @@
-''
+{colorscheme}:
+with colorscheme.colors; let
+  OSLogo = builtins.fetchurl rec {
+    name = "OSLogo-${sha256}.png";
+    sha256 = "14mbpw8jv1w2c5wvfvj8clmjw0fi956bq5xf9s2q3my14far0as8";
+    url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg";
+  };
+in ''
   * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: Material Design Icons, Iosevka Nerd Font;
   }
 
   window#waybar {
-    background-color: #303446;
+    background-color: #${base00};
     border-radius: 0px;
-    color: #c6d0f5;
+    color: #${base05};
     font-size: 20px;
     /* transition-property: background-color; */
     transition-duration: 0.5s;
@@ -19,49 +26,49 @@
 
   #workspaces {
     font-size: 15px;
-    background-color: #414559;
+    background-color: #${base02};
   }
 
   #pulseaudio {
-    color: #a6d189;
+    color: #${base0B};
   }
 
   #network {
-    color: #8caaee;
+    color: #${base0D};
   }
 
   #custom-search,
   #custom-weather,
   #clock {
-    color: #c6d0f5;
-    background-color: #414559;
+    color: #${base05};
+    background-color: #${base02};
   }
 
   #workspaces button {
     background-color: transparent;
     /* Use box-shadow instead of border so the text isn't offset */
-    color: #8caaee;
+    color: #${base0D};
     font-size: 21px;
     padding-left: 6px;
     box-shadow: inset 0 -3px transparent;
   }
 
   #workspaces button:hover {
-    color: #85c1dc;
+    color: #${base0C};
     box-shadow: inherit;
     text-shadow: inherit;
   }
 
   #custom-power {
-      color: #e78284;
+      color: #${base08};
   }
 
   #workspaces button.active {
-    color: #e5c890;
+    color: #${base0A};
   }
 
   #workspaces button.urgent {
-    background-color: #e78284;
+    background-color: #${base08};
   }
   #custom-weather,
 
@@ -84,23 +91,23 @@
   #pulseaudio {
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
-    background-color: #414559;
+    background-color: #${base02};
     padding: 10px 0px 10px 0px;
   }
 
   #custom-swallow {
-    color: #ca9ee6;
+    color: #${base0E};
     padding-right: 3px;
   }
 
 
   #custom-lock {
-      color: #8caaee;
+      color: #${base0D};
       padding-right: 1px;
   }
 
   #custom-todo {
-    color: #c6d0f5;
+    color: #${base05};
     padding-left: 2px;
   }
 
@@ -108,8 +115,8 @@
     margin-bottom: 7px;
   }
   #custom-search {
-    background-image: url("${./sakura.png}");
-    background-size: 40%;
+    background-image: url("${OSLogo}");
+    background-size: 60%;
     background-position: center;
     background-repeat: no-repeat;
     margin-top: 7px;
@@ -121,18 +128,18 @@
     font-family: "Iosevka Term";
   }
   #backlight {
-    color: #e5c890;
+    color: #${base0A};
   }
   #battery {
-    color: #a6d189;
+    color: #${base0C};
   }
 
   #battery.warning {
-    color: #ef9f76;
+    color: #${base09};
   }
 
   #battery.critical:not(.charging) {
-    color: #e78284;
+    color: #${base08};
   }
   tooltip {
     font-family: 'Lato', sans-serif;
