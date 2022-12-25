@@ -16,6 +16,7 @@ in {
     autoUpgrade.enable = false;
     stateVersion = lib.mkDefault "23.05";
   };
+
   environment = {
     # set channels (backwards compatibility)
     etc = {
@@ -38,14 +39,6 @@ in {
 
     overlays = with inputs;
       [
-        (
-          final: _: let
-            inherit (final) system;
-          in (with nixpkgs-f2k.packages.${system}; {
-            # Overlays with f2k's repo
-            wezterm = wezterm-git;
-          })
-        )
         nur.overlay
         nixpkgs-f2k.overlays.default
         rust-overlay.overlays.default
@@ -112,11 +105,13 @@ in {
         "flakes"
         "nix-command"
         "recursive-nix"
+        "ca-derivations"
       ];
 
       # use binary cache, its not gentoo
       builders-use-substitutes = true;
       substituters = [
+        "https://cache.ngi0.nixos.org/"
         "https://cache.nixos.org"
         "https://fortuneteller2k.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
@@ -129,6 +124,7 @@ in {
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
         "fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
