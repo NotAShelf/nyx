@@ -52,7 +52,7 @@ in {
       inherit (config.colorscheme) colors;
     in {
       global = {
-        frame_color = "#${colors.base0E}";
+        frame_color = "#${colors.base0F}";
         separator_color = "#${colors.base0D}";
         width = 220;
         height = 220;
@@ -75,7 +75,7 @@ in {
         transparency = 10;
         progress_bar = true;
         progress_bar_frame_width = 0;
-        highlight = "#${colors.base0E}";
+        highlight = "#${colors.base06}";
       };
       fullscreen_delay_everything.fullscreen = "delay";
       urgency_low = {
