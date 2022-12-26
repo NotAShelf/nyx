@@ -27,15 +27,17 @@ in {
     bitwarden
     xfce.thunar
     obsidian
+    nextcloud-client
     #gnome.gnome-control-center # TODO: figure out why this fails to build
     gnome.gnome-calendar
+    pavucontrol
+    ungoogled-chromium
 
     # CLI
     cloneit
     todo
     mpv-unwrapped
     yt-dlp
-    pavucontrol
     hyperfine
     fzf
     unzip
@@ -60,5 +62,6 @@ in {
     docker-credential-helpers
     xorg.xhost
     mov-cli
+    nitch
   ];
 }
