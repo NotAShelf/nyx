@@ -9,7 +9,7 @@
   imports = [
     ./gtk
     ./hyprland
-    #./mako
+    ./webcord
     ./dunst
     ./rofi
     ./swaylock
