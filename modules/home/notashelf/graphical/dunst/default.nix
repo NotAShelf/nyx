@@ -48,10 +48,12 @@ in {
       package = self.packages.${pkgs.system}.catppuccin-folders;
       name = "Papirus";
     };
-    settings = {
+    settings = let
+      inherit (config.colorscheme) colors;
+    in {
       global = {
-        frame_color = "#f4b8e4";
-        separator_color = "#8CAAEE";
+        frame_color = "#${colors.base0F}";
+        separator_color = "#${colors.base0D}";
         width = 220;
         height = 220;
         offset = "0x15";
@@ -73,23 +75,23 @@ in {
         transparency = 10;
         progress_bar = true;
         progress_bar_frame_width = 0;
-        highlight = "#f4b8e4";
+        highlight = "#${colors.base06}";
       };
       fullscreen_delay_everything.fullscreen = "delay";
       urgency_low = {
-        background = "#303446";
-        foreground = "#C6D0F5";
+        background = "#${colors.base02}";
+        foreground = "#${colors.base05}";
         timeout = 5;
       };
       urgency_normal = {
-        background = "#303446";
-        foreground = "#C6D0F5";
+        background = "##${colors.base02}";
+        foreground = "#${colors.base05}";
         timeout = 6;
       };
       urgency_critical = {
-        background = "#303446";
-        foreground = "#C6D0F5";
-        frame_color = "#EF9F76";
+        background = "##${colors.base02}";
+        foreground = "#${colors.base05}";
+        frame_color = "#${colors.base09}";
         timeout = 0;
       };
     };

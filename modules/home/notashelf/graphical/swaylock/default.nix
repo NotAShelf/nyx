@@ -7,35 +7,37 @@
 }: {
   home.packages = with pkgs; [swaylock-effects];
 
-  programs.swaylock = {
+  programs.swaylock = let
+    inherit (config.colorscheme) colors;
+  in {
     settings = {
       clock = true;
-      color = "303446";
+      color = "${colors.base00}";
       font = "Work Sans";
       show-failed-attempts = false;
       indicator = true;
       indicator-radius = 200;
       indicator-thickness = 20;
-      line-color = "303446";
-      ring-color = "626880";
-      inside-color = "303446";
-      key-hl-color = "eebebe";
+      line-color = "${colors.base00}";
+      ring-color = "${colors.base04}";
+      inside-color = "${colors.base00}";
+      key-hl-color = "${colors.base0F}";
       separator-color = "00000000";
-      text-color = "c6d0f5";
+      text-color = "${colors.base05}";
       text-caps-lock-color = "";
-      line-ver-color = "eebebe";
-      ring-ver-color = "eebebe";
-      inside-ver-color = "303446";
-      text-ver-color = "c6d0f5";
-      ring-wrong-color = "e78284";
-      text-wrong-color = "e78284";
-      inside-wrong-color = "303446";
-      inside-clear-color = "303446";
-      text-clear-color = "c6d0f5";
-      ring-clear-color = "a6d189";
-      line-clear-color = "303446";
-      line-wrong-color = "303446";
-      bs-hl-color = "e78284";
+      line-ver-color = "${colors.base0F}";
+      ring-ver-color = "${colors.base0F}";
+      inside-ver-color = "${colors.base00}";
+      text-ver-color = "${colors.base05}";
+      ring-wrong-color = "${colors.base08}";
+      text-wrong-color = "${colors.base08}";
+      inside-wrong-color = "${colors.base00}";
+      inside-clear-color = "${colors.base00}";
+      text-clear-color = "${colors.base05}";
+      ring-clear-color = "${colors.base0B}";
+      line-clear-color = "${colors.base00}";
+      line-wrong-color = "${colors.base00}";
+      bs-hl-color = "${colors.base08}";
       line-uses-ring = false;
       grace = 3;
       grace-no-mouse = true;

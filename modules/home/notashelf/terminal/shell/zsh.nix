@@ -2,14 +2,12 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.colorscheme) colors;
+in {
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    history = {
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
-      share = true;
-    };
     enableCompletion = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
@@ -27,28 +25,30 @@
       bindkey -v '^?' backward-delete-char
     '';
     initExtra = ''
-        autoload -U url-quote-magic
-        zle -N self-insert url-quote-magic
-        export FZF_DEFAULT_OPTS="
-        --color fg:#c6d0f5
-        --color fg+:#51576d
-        --color bg:#303446
-        --color bg+:#303446
-        --color hl:#8caaee
-        --color hl+:#8caaee
-        --color info:#626880
-        --color prompt:#a6d189
-        --color spinner:#8caaee
-        --color pointer:#8caaee
-        --color marker:#8caaee
-        --color border:#626880
-        --color header:#8caaee
-        --prompt ' | '
-        --pointer ''
-        --layout=reverse
-        --border horizontal
-        --height 40
-        "
+      autoload -U url-quote-magic
+      zle -N self-insert url-quote-magic
+      export FZF_DEFAULT_OPTS="
+      --color bg:#${colors.base00}
+      --color bg+:#${colors.base01}
+      --color fg:#${colors.base04}
+      --color fg+:#${colors.base06}
+      --color hl:#${colors.base0D}
+      --color hl+:#${colors.base0D}
+      --color header:#${colors.base0D}
+      --color info:#${colors.base0A}
+      --color marker:#${colors.base0C}
+      --color pointer:#${colors.base0C}
+      --color prompt:#${colors.base0A}
+      --color spinner:#${colors.base0C}
+      --color preview-bg:#${colors.base01}
+      --color preview-fg:#${colors.base0D}
+      --prompt ' '
+      --pointer ''
+      --layout=reverse
+      -m --bind ctrl-space:toggle,pgup:preview-up,pgdn:preview-down
+      "
+
+
 
       function extract() {
           if [ -z "$1" ]; then
@@ -105,8 +105,10 @@
         clear
     '';
     history = {
-      save = 1000;
-      size = 1000;
+      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      share = true;
+      save = 10000;
+      size = 10000;
       expireDuplicatesFirst = true;
       ignoreDups = true;
       ignoreSpace = true;

@@ -30,15 +30,16 @@
       display-emoji = "💀 Emoji";
     };
     theme = let
+      inherit (config.colorscheme) colors;
       inherit (config.lib.formats.rasi) mkLiteral;
     in {
       "*" = {
-        background = mkLiteral "#292c3c";
-        background-alt = mkLiteral "#292c3c";
-        foreground = mkLiteral "#c6d0f5";
-        selected = mkLiteral "#303446";
-        active = mkLiteral "#8caaee";
-        urgent = mkLiteral "#303446";
+        background = mkLiteral "#${colors.base02}";
+        background-alt = mkLiteral "#${colors.base02}";
+        foreground = mkLiteral "#${colors.base05}";
+        selected = mkLiteral "#${colors.base00}";
+        active = mkLiteral "#${colors.base0D}";
+        urgent = mkLiteral "#${colors.base00}";
       };
       "window" = {
         transparency = "real";
@@ -51,7 +52,7 @@
         enabled = mkLiteral "true";
         border-radius = mkLiteral "20px";
         border = mkLiteral "4px";
-        border-color = mkLiteral "#414559";
+        border-color = mkLiteral "#${colors.base02}";
         cursor = "default";
         background-color = mkLiteral "@background";
       };

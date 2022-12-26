@@ -10,6 +10,8 @@
     ./graphical
     ./terminal
     ./gaming
+
+    ./themes
   ];
 
   config = {
