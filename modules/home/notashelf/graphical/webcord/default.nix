@@ -17,7 +17,5 @@
     in ["--add-css-theme=${theme}"];
   };
 in {
-  home.packages = with pkgs; [
-    webcord
-  ];
+  home.packages = [webcord];
 }
