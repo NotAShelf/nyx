@@ -35,7 +35,6 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A collection of plymouth themes ported from Android.";
-    inherit (src.meta) homepage;
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
   };

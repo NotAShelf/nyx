@@ -25,10 +25,9 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [openssl];
 
   meta = with lib; {
+    mainProgram = "cloneit";
     description = "CLI tool to download specific GitHub directories or files";
     homepage = "https://github.com/alok8bb/cloneit";
     license = licenses.mit;
-    maintainers = with maintainers; [sioodmy];
-    mainProgram = "cloneit";
   };
 }

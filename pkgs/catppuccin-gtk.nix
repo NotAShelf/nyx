@@ -30,6 +30,5 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/catppuccin/gtk";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.unix;
-    maintainers = [lib.maintainers.sioodmy];
   };
 }

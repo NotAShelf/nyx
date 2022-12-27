@@ -22,4 +22,11 @@ stdenv.mkDerivation rec {
     cp -r src/* $out/share/icons/Papirus
     bash ./papirus-folders -C cat-mocha-blue --theme $out/share/icons/Papirus -o
   '';
+  
+  meta = {
+    description = "Soothing pastel folder icons via Papirus";
+    homepage = "https://github.com/catppuccin/gtk";
+    license = lib.licenses.gpl3;
+    platforms = lib.platforms.unix;
+  };
 }

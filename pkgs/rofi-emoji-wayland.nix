@@ -57,7 +57,6 @@ stdenv.mkDerivation rec {
     description = "An emoji selector plugin for Rofi";
     homepage = "https://github.com/Mange/rofi-emoji";
     license = licenses.mit;
-    maintainers = with maintainers; [cole-h sioodmy];
     platforms = platforms.linux;
   };
 }
