@@ -85,15 +85,16 @@ in {
       };
     });
     iconTheme = {
-      package = pkgs.papirus-icon-theme;
-      name = "Papirus-Dark";
+      package = pkgs.catppuccin-folders;
+      name = "Papirus";
     };
+
     settings = let
       inherit (config.colorscheme) colors;
     in {
       global = {
         follow = "mouse";
-        width = 300;
+        width = 230;
         origin = "top-center";
         alignment = "left";
         vertical_alignment = "center";
@@ -118,13 +119,12 @@ in {
         transparency = 0;
         gap_size = 8;
         line_height = 0;
-        notification_limit = 0;
+        notification_limit = 3;
         idle_threshold = 120;
         history_length = 20;
         show_age_threshold = 60;
         markup = "full";
-        font = "Liga SFMono Nerd Font 10";
-        format = "<span size='x-large' font_desc='Cantarell,Liga SFMono Nerd Font 9' weight='bold' foreground='#${colors.base05}'>%a</span>\\n%s\\n%b";
+        font = "Iosevka 16";
         word_wrap = "yes";
         sort = "yes";
         shrink = "no";
