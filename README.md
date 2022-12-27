@@ -27,6 +27,7 @@
 ## 📦 Overview
 
 - [Flake](flake.nix) Ground zero of my system configuration
+- [lib](lib) 📚 Personal library of functions and utilities
 - [modules](modules) 🍱 modularized NixOS configs
   - [home](modules/home) 🏠 my [Home-Manager](https://github.com/nix-community/home-manager) config
   - [bootloaders](modules/bootloaders) ⚙ Various bootloaders for various purpose hosts
@@ -37,13 +38,15 @@
   - [overlays](modules/overlays) 📦 Overlay recipes for my system to use
   - [hardware](modules/hardware)
     - [nvidia](modules/hardware/nvidia) 💚 My next GPU won't be NVIDIA
-    - [intel](modules/hardware/intel) 💙 Common configuration for intel CPUs
+    - [intel](modules/hardware/intel) 💙 Common configuration for Intel CPUs
     - [amd](modules/hardware/amd) ❤️ Configuration set for my future AMD laptop
 - [hosts](hosts) 🌳 per-host configuration
   - [prometheus](hosts/prometheus) 💻 My 2016 HP Pavillion with NVIDIA GPU
   - [atlas](hosts/atlas) 🍓 Raspberry Pi 400 that acts as my homelab
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
 - [pkgs](pkgs) 💿 exported packages
+
+## Notes
 
 ## Motivation
 
@@ -56,7 +59,7 @@ those who want to switch inbetween devices at ease, or have common "mixin"
 configs that are shared between multiple devices. All things considered, it is
 an excellent idea to learn Nix (the programming language) and NixOS.
 
-I also maintain some dotfiles for my desktop running Arch Linux. See the [main]()
+I also maintain some dotfiles for my desktop running Arch Linux. See the [main](tree/main)
 branch if you are interested in my "legacy" dotfiles.
 
 ## Donate
@@ -71,12 +74,13 @@ via [liberapay.com/notashelf](https://en.liberapay.com/notashelf/)
 
 Ethereum: ``
 
-Monero/Bitcoin: sioodmy.dev
+Monero/Bitcoin: notashelf.dev
 
 ## Credits & Special Thanks to
 
-I got inspired by those folks
+I ~~shamelessly stole from~~ got inspired by those folks
 
 [rxyhn](https://github.com/rxyhn) -
 [fufexan](https://github.com/fufexan) -
 [hlissner](https://github.com/hlissner) -
+[fortuneteller2k](https://github.com/fortuneteller2k) -
