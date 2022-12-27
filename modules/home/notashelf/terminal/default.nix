@@ -9,7 +9,6 @@
     ./shell
     ./tools
     ./vimuwu
-    ./mpd
     ./emacs
     ./newsboat
     ./foot

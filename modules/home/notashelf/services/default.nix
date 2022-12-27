@@ -3,6 +3,6 @@
     ./dunst
     ./swaylock
     ./waybar
-    ./services
+    ./mpd
   ];
 }
