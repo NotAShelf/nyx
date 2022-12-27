@@ -5,22 +5,22 @@
     kind = "dark";
     colors = {
       # TODO: make this a real colorscheme because the maintainers won't
-      base00 = ""; # Base
-      base01 = ""; # Mantle
-      base02 = ""; # Surface0
-      base03 = ""; # Surface1
-      base04 = ""; # Surface2
-      base05 = ""; # text
-      base06 = ""; # rosewater
-      base07 = ""; # lavender
-      base08 = ""; # red
-      base09 = ""; # peach
-      base0A = ""; # yellow
-      base0B = ""; # green
-      base0C = ""; # teal
-      base0D = ""; # blue
-      base0E = ""; # mauve
-      base0F = ""; # flamingo
+      base00 = "#10101a"; # Base
+      base01 = "#12121c"; # Mantle
+      base02 = "#171721"; # Surface0
+      base03 = "#1c1c26"; # Surface1
+      base04 = "#2b2b35"; # Surface2
+      base05 = "#c3cddb"; # text
+      base06 = "#c3cddb"; # rosewater
+      base07 = "#c8d2e0"; # lavender
+      base08 = "#c8d2e0"; # red
+      base09 = "#fa9a9a"; # peach
+      base0A = "#f8e7b7"; # yellow
+      base0B = "#b0e2ae"; # green
+      base0C = "#8cbef7"; # teal
+      base0D = "#93cff7"; # blue
+      base0E = "#bfa6fa"; # mauve
+      base0F = "#fa9a9a"; # flamingo
     };
   };
 }
