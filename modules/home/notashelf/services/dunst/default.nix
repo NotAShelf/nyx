@@ -94,12 +94,12 @@ in {
     in {
       global = {
         follow = "mouse";
-        width = 230;
+        width = 300;
         origin = "top-center";
         alignment = "left";
         vertical_alignment = "center";
         ellipsize = "middle";
-        offset = "15x15";
+        offset = "17x17";
         padding = 15;
         horizontal_padding = 15;
         text_icon_padding = 15;
