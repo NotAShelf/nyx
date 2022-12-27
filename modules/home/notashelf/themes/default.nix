@@ -17,8 +17,10 @@
 in {
   imports = [
     inputs.nix-colors.homeManagerModule
+    ./gtk
+    #./qt
   ];
   # Use the colorscheme available at github:tinted-theming/base16-schemes
-  #colorscheme = colorSchemes.ashes;
-  colorscheme = catppuccin-macchiato;
+  colorscheme = colorSchemes.ashes;
+  #colorscheme = catppuccin-macchiato;
 }
