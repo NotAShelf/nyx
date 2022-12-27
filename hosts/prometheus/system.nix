@@ -37,6 +37,9 @@
   hardware = {
     cpu.intel.updateMicrocode = true;
     enableRedistributableFirmware = true;
+
+    # my GPU is not properly supported by open source drivers
+    nvidia.open = false;
   };
 
   boot.kernelParams = [
