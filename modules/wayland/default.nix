@@ -11,11 +11,6 @@
     sway
   '';
 
-  services.gammastep = {
-    enable = true;
-    provider = "geoclue2";
-  };
-
   environment = {
     # Experimental wayland-native wine
     # https://nixos.wiki/wiki/Wine

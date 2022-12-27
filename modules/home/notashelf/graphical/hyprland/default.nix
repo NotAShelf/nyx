@@ -11,14 +11,17 @@ with lib; let
     Unit.After = ["graphical-session.target"];
     Install.WantedBy = ["graphical-session.target"];
   };
+
   ocr = pkgs.writeShellScriptBin "ocr" ''
     #!/bin/bash
     grim -g "$(slurp -w 0 -b eebebed2)" /tmp/ocr.png && tesseract /tmp/ocr.png /tmp/ocr-output && wl-copy < /tmp/ocr-output.txt && notify-send "OCR" "Text copied!" && rm /tmp/ocr-output.txt -f
   '';
+
   screenshot = pkgs.writeShellScriptBin "screenshot" ''
     #!/bin/bash
     hyprctl keyword animation "fadeOut,0,8,slow" && ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -w 0 -b 5e81acd2)" - | swappy -f -; hyprctl keyword animation "fadeOut,1,8,slow"
   '';
+  
   xdg-desktop-portal-hyprland = inputs.xdg-portal-hyprland.packages.${pkgs.system}.default;
 in {
   home.packages = with pkgs; [
@@ -44,6 +47,11 @@ in {
     };
     systemdIntegration = true;
     extraConfig = builtins.readFile ./hyprland.conf;
+  };
+
+  services.gammastep = {
+    enable = true;
+    provider = "geoclue2";
   };
 
   systemd.user.services = {
