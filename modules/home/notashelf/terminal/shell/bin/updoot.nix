@@ -1,4 +1,8 @@
-{pkgs, ...}: ''
+{
+  lib,
+  pkgs,
+  ...
+}: ''
   #> Syntax: bash
 
   # Send to host

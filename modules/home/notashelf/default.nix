@@ -26,7 +26,7 @@
     modules = {
       programs = {
         # cozy neovim config with catppuccin colors
-        vimuwu.enable = true;
+        cnvim.enable = true;
 
         # schizo firefox config based on firefox ESR
         schizofox = {

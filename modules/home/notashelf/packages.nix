@@ -35,6 +35,8 @@ in {
 
     # CLI
     cloneit
+    catimg
+    duf
     todo
     mpv-unwrapped
     yt-dlp

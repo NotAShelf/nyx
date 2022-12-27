@@ -8,7 +8,7 @@
     ./kitty
     ./shell
     ./tools
-    ./vimuwu
+    ./cnvim
     ./emacs
     ./newsboat
     ./foot
