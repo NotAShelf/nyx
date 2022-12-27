@@ -113,7 +113,7 @@ in {
       # substituters to use
       substituters = [
         "https://cache.ngi0.nixos.org/" # content addressed nix cache
-        "https://cache.nixos.org"
+        "https://cache.nixos.org?priority=10"
         "https://fortuneteller2k.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
         "https://nix-community.cachix.org"
