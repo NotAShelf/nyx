@@ -33,11 +33,13 @@ in {
   hardware = {
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.production;
-      open = true;
+
       powerManagement.enable = true;
       modesetting.enable = true;
-      nvidiaSettings = true;
-      #nvidiaPersistenced = true; # nvidia GPU headless mode
+
+      open = lib.mkDefault true; # use open source drivers where possible
+      nvidiaSettings = true; # add nvidia-settings to pkgs
+
       prime = {
         offload.enable = true;
         intelBusId = "PCI:0:2:0";
@@ -45,5 +47,6 @@ in {
       };
     };
     opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
+    opengl.extraPackages32 = with pkgs.pkgsi686Linux; [nvidia-vaapi-driver];
   };
 }
