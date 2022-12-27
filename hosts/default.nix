@@ -22,6 +22,9 @@
   intel = ../modules/hardware/intel; # surprisingly common on my devices
   amd = ../modules/hardware/amd; # soon :weary:
 
+  #ssd = ...
+  #hdd = ...
+
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4
   ragenix = inputs.ragenix.nixosModules.age; # secret encryption
