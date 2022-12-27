@@ -3,9 +3,8 @@
   config,
   ...
 }: let
+  pamixer = lib.getExe pkgs.pamixer;
   notify-send = pkgs.libnotify + "/bin/notify-send";
-  pamixer = pkgs.pamixer + "/bin/pamixer";
-
   volume = pkgs.writeShellScriptBin "volume" ''
     #!/bin/sh
 
@@ -53,7 +52,7 @@
   '';
 
   brightness = let
-    brightnessctl = pkgs.brightnessctl + "/bin/brightnessctl";
+    brightnessctl = lib.getExe pkgs.brightnessctl;";
   in
     pkgs.writeShellScriptBin "brightness" ''
       #!/bin/sh
