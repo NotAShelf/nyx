@@ -1,8 +1,5 @@
 {
   inputs,
-  pkgs,
-  config,
-  lib,
   self,
   ...
 }: {
@@ -10,10 +7,7 @@
     ./gtk
     ./hyprland
     ./webcord
-    ./dunst
     ./rofi
-    ./swaylock
-    ./waybar
     ./schizofox
     ./zathura
     ./office

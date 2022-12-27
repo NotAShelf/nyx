@@ -54,7 +54,7 @@ in {
         "wlr/workspaces" = {
           on-click = "activate";
           format = "{icon}";
-          active-only = false;
+          active-only = true;
           format-icons = {
             default = "";
             active = " 󰮯";
