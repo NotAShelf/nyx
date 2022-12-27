@@ -46,16 +46,19 @@ in {
     extraConfig = builtins.readFile ./hyprland.conf;
   };
 
-  services.gammastep = {
-    enable = true;
-    provider = "geoclue2";
-  };
-
   systemd.user.services = {
     swaybg = mkService {
-      Unit.Description = "Wallpaper chooser";
+      Unit.Description = "Wallpaper chooser service";
       Service = {
-        ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${./wall2.png}";
+        ExecStart = "${lib.getExe pkgs.swaybg} -i ${./wall.png}";
+        Restart = "always";
+      };
+    };
+
+    cliphist = mkService {
+      Unit.Description = "Clipboard history service";
+      Service = {
+        ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${lib.getExe pkgs.cliphist} store";
         Restart = "always";
       };
     };
