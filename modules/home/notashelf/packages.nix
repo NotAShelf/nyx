@@ -63,5 +63,6 @@ in {
     xorg.xhost
     mov-cli
     nitch
+    imv
   ];
 }
