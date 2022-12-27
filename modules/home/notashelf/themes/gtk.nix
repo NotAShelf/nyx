@@ -9,12 +9,12 @@
     enable = true;
     theme = {
       name = "Catppuccin-Mocha-Pink";
-      package = self.packages.${pkgs.system}.catppuccin-gtk;
+      package = pkgs.catppuccin-gtk;
     };
 
     iconTheme = {
-      package = self.packages.${pkgs.system}.catppuccin-folders;
       name = "Papirus";
+      package = pkgs.catppuccin-folders;
     };
 
     font = {
@@ -37,8 +37,8 @@
 
   # cursor theme
   home.pointerCursor = {
-    package = self.packages.${pkgs.system}.catppuccin-cursors;
     name = "Catppuccin-Frappe-Dark";
+    package = pkgs.catppuccin-cursors;
     size = 16;
   };
   home.pointerCursor.gtk.enable = true;

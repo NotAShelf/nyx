@@ -12,6 +12,7 @@ in {
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
     sessionVariables = {LC_ALL = "en_US.UTF-8";};
+
     completionInit = ''
       autoload -U compinit
       zstyle ':completion:*' menu select
@@ -24,6 +25,7 @@ in {
       bindkey -M menuselect 'j' vi-down-line-or-history
       bindkey -v '^?' backward-delete-char
     '';
+
     initExtra = ''
       autoload -U url-quote-magic
       zle -N self-insert url-quote-magic
@@ -47,8 +49,6 @@ in {
       --layout=reverse
       -m --bind ctrl-space:toggle,pgup:preview-up,pgdn:preview-down
       "
-
-
 
       function extract() {
           if [ -z "$1" ]; then
@@ -92,6 +92,110 @@ in {
              done
         fi
         }
+
+        # Colors
+        autoload -Uz colors && colors
+
+        # Group matches and describe.
+        zstyle ':completion:*' sort false
+        zstyle ':completion:complete:*:options' sort false
+        zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+        zstyle ':completion:*' special-dirs true
+        zstyle ':completion:*' rehash true
+
+        zstyle ':completion:*' menu yes select # search
+        zstyle ':completion:*' list-grouped false
+        zstyle ':completion:*' list-separator '''
+        zstyle ':completion:*' group-name '''
+        zstyle ':completion:*' verbose yes
+        zstyle ':completion:*:matches' group 'yes'
+        zstyle ':completion:*:warnings' format '%F{red}%B-- No match for: %d --%b%f'
+        zstyle ':completion:*:messages' format '%d'
+        zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+        zstyle ':completion:*:descriptions' format '[%d]'
+
+        # Fuzzy match mistyped completions.
+        zstyle ':completion:*' completer _complete _match _approximate
+        zstyle ':completion:*:match:*' original only
+        zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+        # Don't complete unavailable commands.
+        zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+
+        # Array completion element sorting.
+        zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+        # Colors
+        zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+
+        # Jobs id
+        zstyle ':completion:*:jobs' numbers true
+        zstyle ':completion:*:jobs' verbose true
+
+        # Autosuggest
+        ZSH_AUTOSUGGEST_USE_ASYNC="true"
+
+        while read -r option
+        do
+          setopt $option
+        done <<-EOF
+        AUTO_CD
+        AUTO_LIST
+        AUTO_MENU
+        AUTO_PARAM_SLASH
+        AUTO_PUSHD
+        APPEND_HISTORY
+        ALWAYS_TO_END
+        COMPLETE_IN_WORD
+        CORRECT
+        EXTENDED_HISTORY
+        HIST_EXPIRE_DUPS_FIRST
+        HIST_FCNTL_LOCK
+        HIST_IGNORE_ALL_DUPS
+        HIST_IGNORE_DUPS
+        HIST_IGNORE_SPACE
+        HIST_REDUCE_BLANKS
+        HIST_SAVE_NO_DUPS
+        HIST_VERIFY
+        INC_APPEND_HISTORY
+        INTERACTIVE_COMMENTS
+        MENU_COMPLETE
+        NO_NOMATCH
+        PUSHD_IGNORE_DUPS
+        PUSHD_TO_HOME
+        PUSHD_SILENT
+        SHARE_HISTORY
+        EOF
+
+        while read -r option
+        do
+          unsetopt $option
+        done <<-EOF
+        CORRECT_ALL
+        HIST_BEEP
+        MENU_COMPLETE
+        EOF
+
+        # fzf-tab
+        FZF_TAB_COMMAND=(
+          ${pkgs.fzf}/bin/fzf
+          --ansi
+          --expect='$continuous_trigger' # For continuous completion
+          --nth=2,3 --delimiter='\x00'  # Don't search prefix
+          --layout=reverse --height="''${FZF_TMUX_HEIGHT:=50%}"
+          --tiebreak=begin -m --bind=tab:down,btab:up,change:top,ctrl-space:toggle --cycle
+          '--query=$query'   # $query will be expanded to query string at runtime.
+          '--header-lines=$#headers' # $#headers will be expanded to lines of headers at runtime
+        )
+
+        # If this is an xterm set the title to user@host:dir
+        case "$TERM" in
+        xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
+          TERM_TITLE=$'\e]0;%n@%m: %1~\a'
+            ;;
+        *)
+            ;;
+        esac
 
         function run() {
           nix run nixpkgs#$@
