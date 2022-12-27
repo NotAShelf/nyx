@@ -13,7 +13,7 @@
         rofi-emoji-wayland
       ];
     };
-    font = "Iosevka Nerd Font 13";
+    font = "Iosevka Nerd Font 14";
     extraConfig = {
       modi = "drun,filebrowser,calc,emoji";
       drun-display-format = " {name} ";
