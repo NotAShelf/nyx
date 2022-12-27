@@ -14,6 +14,7 @@
   # Catppuccins
   catppuccin-mocha = (import ./palettes/catppuccin-mocha.nix).colorscheme;
   catppuccin-macchiato = (import ./palettes/catppuccin-mocha.nix).colorscheme;
+  catppuccin-frappe = (import ./palettes/catppuccin-frappe.nix).coloscheme;
 in {
   imports = [
     inputs.nix-colors.homeManagerModule
@@ -21,6 +22,6 @@ in {
     #./qt
   ];
   # Use the colorscheme available at github:tinted-theming/base16-schemes
-  colorscheme = colorSchemes.ashes;
-  #colorscheme = catppuccin-macchiato;
+  #colorscheme = colorSchemes.ashes;
+  colorscheme = catppuccin-mocha;
 }

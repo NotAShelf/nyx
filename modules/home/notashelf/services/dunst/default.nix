@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: let
   pamixer = lib.getExe pkgs.pamixer;
@@ -52,7 +53,7 @@
   '';
 
   brightness = let
-    brightnessctl = lib.getExe pkgs.brightnessctl;";
+    brightnessctl = lib.getExe pkgs.brightnessctl;
   in
     pkgs.writeShellScriptBin "brightness" ''
       #!/bin/sh
@@ -111,7 +112,7 @@ in {
         progress_bar_max_width = 300;
         separator_height = 2;
         frame_width = 2;
-        frame_color = "#${colors.base01}";
+        frame_color = "#${colors.base0E}";
         separator_color = "frame";
         corner_radius = 8;
         transparency = 0;
@@ -146,21 +147,21 @@ in {
 
       urgency_low = {
         timeout = 3;
-        background = "#${colors.base00}";
+        background = "#${colors.base02}";
         foreground = "#${colors.base05}";
         highlight = "#${colors.base0C}";
       };
       urgency_normal = {
         timeout = 6;
-        background = "#${colors.base00}";
+        background = "#${colors.base02}";
         foreground = "#${colors.base05}";
         highlight = "#${colors.base0C}";
       };
       urgency_critical = {
         timeout = 0;
-        background = "#${colors.base00}";
+        background = "#${colors.base02}";
         foreground = "#${colors.base05}";
-        highlight = "#${colors.base0C}";
+        highlight = "#${colors.base08}";
       };
     };
   };
