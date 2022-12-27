@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ./gtk
     ./hyprland
     ./webcord
     ./rofi
