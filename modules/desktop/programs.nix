@@ -42,7 +42,7 @@
     adb.enable = true;
 
     # networkmanager tray uility
-    nm-applet.enable = true;
+    nm-applet.enable = false;
 
     # allow users to mount fuse filesystems with allow_other
     fuse.userAllowOther = true;
