@@ -17,7 +17,7 @@
 in {
   imports = [
     inputs.nix-colors.homeManagerModule
-    ./gtk
+    ./gtk.nix
     #./qt
   ];
   # Use the colorscheme available at github:tinted-theming/base16-schemes
