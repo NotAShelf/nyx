@@ -31,6 +31,7 @@
       timeout = 2;
 
       # default grub to disabled, we manually enable grub on "server" hosts
+      # or any other host that needs it
       grub = {
         # if need be, this value can be overriden in individual hosts
         # @ hosts/hostname/system.nix
@@ -95,7 +96,7 @@
 
     consoleLogLevel = 0;
 
-    # switch from old ass lts kernel
+    # always use the latest kernel instead of the old-ass lts one
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     extraModulePackages = with config.boot.kernelPackages; [acpi_call];

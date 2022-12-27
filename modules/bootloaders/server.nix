@@ -52,7 +52,7 @@
     # switch from old ass lts kernel
     kernelPackages = pkgs.linuxPackages_latest;
 
-    extraModulePackages = with config.boot.kernelPackages; [acpi_call];
+    extraModulePackages = [];
     extraModprobeConfig = "options hid_apple fnmode=1";
 
     initrd = {
