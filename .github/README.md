@@ -80,7 +80,9 @@ Monero/Bitcoin: notashelf.dev
 
 I ~~shamelessly stole from~~ got inspired by those folks
 
+[sioodmy](https://github.com/sioodmy) -
 [rxyhn](https://github.com/rxyhn) -
 [fufexan](https://github.com/fufexan) -
 [hlissner](https://github.com/hlissner) -
 [fortuneteller2k](https://github.com/fortuneteller2k) -
+
