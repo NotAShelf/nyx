@@ -297,6 +297,7 @@ in {
         src = zsh-vi-mode;
         file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
       }
+      /*
       {
         name = "fzf-tab";
         file = "fzf-tab.plugin.zsh";
@@ -307,6 +308,7 @@ in {
           sha256 = "sha256-RXqEW+jwdul2mKX86Co6HLsb26UrYtLjT3FzmHnwfAA=";
         };
       }
+      */
       {
         name = "fast-syntax-highlighting";
         file = "fast-syntax-highlighting.plugin.zsh";
