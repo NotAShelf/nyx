@@ -10,7 +10,7 @@
     -*) exit 0;;
   esac
 
-  case "$(${lib.getExe pkgs.file}--mime-type "$1")" in
+  case "$(${lib.getExe pkgs.file} --mime-type "$1")" in
     *text*)
       ${lib.getExe pkgs.bat} --color always --plain "$1"
       ;;
