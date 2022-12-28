@@ -24,5 +24,5 @@ in {
   ];
   # Use the colorscheme available at github:tinted-theming/base16-schemes
   #colorscheme = colorSchemes.ashes;
-  colorscheme = decay;
+  colorscheme = catppuccin-mocha;
 }
