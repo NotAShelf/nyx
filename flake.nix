@@ -46,25 +46,6 @@
       nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
       swww = pkgs.callPackage ./pkgs/swww.nix {};
-
-      # ISO builds
-      # TODO: import ISO builds from a different file to de-clutter flake.nix
-      iso-server-generic = nixos-generators.nixosGenerate {
-        system = "${system}";
-        format = "iso";
-        modules = [];
-      };
-
-      iso-desktop-generic = nixos-generators.nixosGenerate {
-        system = "${system}";
-        format = "iso";
-        modules = [
-          ./modules/bootloaders/common.nix
-          ./modules/desktop
-          ./modules/wayland
-          ./modules/core
-        ];
-      };
     };
 
     devShells.${system}.default = pkgs.mkShell {
