@@ -9,21 +9,19 @@
   bl-common = ../modules/bootloaders/common.nix; # default bootloader
   bl-server = ../modules/bootloaders/server.nix; # server-specific bootloader
 
-  ## shared modules ##
-
-  # global
+  # globally shared modules
   core = ../modules/core;
   wayland = ../modules/wayland; # for devices running a wayland desktop
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use, i.e laptops
 
-  # hardware modules
+  # hardware specific modules
   nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
   intel = ../modules/hardware/intel; # surprisingly common on my devices
   amd = ../modules/hardware/amd; # soon :weary:
-
-  #ssd = ...
-  #hdd = ...
+  #ssd = ../modules/hardware/ssd
+  #hdd = ../modules/hardware/hdd
+  #btrfs = ../modules/btrfs TODO
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4
