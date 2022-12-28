@@ -13,6 +13,13 @@ with lib; let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec "$@"
   '';
+
+  nvStable = config.boot.kernelPackages.nvidiaPackages.stable.version;
+  nvBeta = config.boot.kernelPackages.nvidiaPackages.beta.version;
+  nvidiaPackage =
+    if (lib.versionOlder nvBeta nvStable)
+    then config.boot.kernelPackages.nvidiaPackages.stable
+    else config.boot.kernelPackages.nvidiaPackages.beta;
 in {
   services.xserver.videoDrivers = ["nvidia"];
   boot.blacklistedKernelModules = ["nouveau"];
@@ -26,15 +33,17 @@ in {
     systemPackages = with pkgs; [
       nvidia-offload
       glxinfo
+      vulkan-tools
+      glmark2
       nvtop
     ];
   };
 
   hardware = {
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.production;
+      package = nvidiaPackage;
 
-      powerManagement.enable = true;
+      powerManagement.enable = false;
       modesetting.enable = true;
 
       open = lib.mkDefault true; # use open source drivers where possible
