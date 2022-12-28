@@ -30,15 +30,6 @@
         .system
         .build
         .sdImage;
-
-      atlas2 =
-        (self.nixosConfigurations.atlas.extendModules {
-          modules = ["${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"];
-        })
-        .config
-        .system
-        .build
-        .sdImage;
     };
 
     packages.${system} = {
@@ -67,7 +58,12 @@
       iso-desktop-generic = nixos-generators.nixosGenerate {
         system = "${system}";
         format = "iso";
-        modules = [];
+        modules = [
+          ./modules/bootloaders/common.nix
+          ./modules/desktop
+          ./modules/wayland
+          ./modules/core
+        ];
       };
     };
 
@@ -82,7 +78,7 @@
       ];
     };
 
-    formatter.${system} = pkgs.alejandra;
+    formatter.${system} = pkgs.${system}.alejandra;
   };
   inputs = {
     # Nix itself, the package manager
