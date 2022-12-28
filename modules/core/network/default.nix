@@ -10,8 +10,13 @@
   ];
 
   networking = {
+    hostId = builtins.substring 0 8 (
+      builtins.hashString "md5" config.networking.hostName
+    );
+
     # dns
-    #nameservers = ["1.1.1.1" "1.0.0.1"];
+    nameservers = ["1.1.1.1" "1.0.0.1"];
+
     networkmanager = {
       enable = true;
       unmanaged = ["docker0" "rndis0"];
@@ -20,6 +25,7 @@
         powersave = true;
       };
     };
+
     firewall = {
       enable = true;
       allowedTCPPorts = [443 80 22 8080];
