@@ -42,6 +42,7 @@ in {
     yt-dlp
     hyperfine
     fzf
+    file
     unzip
     ripgrep
     rsync
