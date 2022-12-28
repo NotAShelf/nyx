@@ -48,7 +48,7 @@
 
 ## Notes
 
-## Motivation
+### Motivation
 
 I so often switch devices due to a myriad of reasons. Regardless of the reason,
 I would like to be able to get my new devices up and running in minutes. Thanks
@@ -62,9 +62,9 @@ an excellent idea to learn Nix (the programming language) and NixOS.
 I also maintain some dotfiles for my desktop running Arch Linux. See the [main](tree/main)
 branch if you are interested in my "legacy" dotfiles.
 
-## Donate
+### Donate
 
-Want to support me, or to show gratitude? Consider donating
+Want to support me, or to show gratitude for something I did? Consider donating
 
 via [liberapay.com/notashelf](https://en.liberapay.com/notashelf/)
 
