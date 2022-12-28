@@ -49,7 +49,7 @@ in ''
     /* Use box-shadow instead of border so the text isn't offset */
     color: #${base0D};
     font-size: 21px;
-    padding-left: 6px;
+    /* padding-left: 6px; */
     box-shadow: inset 0 -3px transparent;
   }
 

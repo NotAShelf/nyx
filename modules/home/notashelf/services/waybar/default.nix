@@ -4,6 +4,7 @@
   config,
   ...
 }: let
+  brightnessctl = lib.getExe pkgs.brightnessctl;
   waybar-wttr = pkgs.stdenv.mkDerivation {
     name = "waybar-wttr";
     buildInputs = [
@@ -51,20 +52,35 @@ in {
         ];
         modules-center = [];
         modules-right = ["pulseaudio" "network" "custom/swallow" "clock" "custom/power"];
-        "wlr/workspaces" = {
+
+        "wlr/workspaces" = let
+          hyprctl = config.wayland.windowManager.hyprland.package + "/bin/hyprctl";
+        in {
           on-click = "activate";
+          on-scroll-up = "${hyprctl} dispatch workspace m+1";
+          on-scroll-down = "${hyprctl} dispatch workspace m-1";
           format = "{icon}";
           active-only = true;
           format-icons = {
-            default = "";
-            active = " 󰮯";
+            "1" = "一";
+            "2" = "二";
+            "3" = "三";
+            "4" = "四";
+            "5" = "五";
+            "6" = "六";
+            "7" = "七";
+            "8" = "八";
+            "9" = "九";
+            "10" = "十";
           };
         };
+
         "custom/search" = {
           format = " ";
           tooltip = false;
           on-click = "${pkgs.killall}/bin/killall rofi || ${config.programs.rofi.package}/bin/rofi -show drun";
         };
+
         "custom/todo" = {
           format = "{}";
           tooltip = true;
@@ -115,7 +131,7 @@ in {
         };
         "custom/lock" = {
           tooltip = false;
-          on-click = "sh -c '(sleep 0.5s; ${pkgs.swaylock}/bin/swaylock --grace 0)' & disown";
+          on-click = "${pkgs.bash}/bin/bash -c '(sleep 0.5s; ${lib.getExe pkgs.swaylock-effects} --grace 0)' & disown";
           format = "";
         };
         "custom/swallow" = {
@@ -127,12 +143,12 @@ in {
           in
             pkgs.writeShellScript "waybar-swallow" ''
               #!/bin/sh
-              if ${hyprctl} getoption misc:enable_swallow | ${rg}/bin/rg -q "int: 1"; then
+              if ${hyprctl} getoption misc:enable_swallow | ${rg} -q "int: 1"; then
               	${hyprctl} keyword misc:enable_swallow false >/dev/null &&
-              		${notify-send} "Hyprland" "Turned off swallowing"
+              	${notify-send} "Hyprland" "Turned off swallowing"
               else
               	${hyprctl} keyword misc:enable_swallow true >/dev/null &&
-              		${notify-send} "Hyprland" "Turned on swallowing"
+              	${notify-send} "Hyprland" "Turned on swallowing"
               fi
             '';
           format = "";
@@ -172,10 +188,15 @@ in {
             <big>{:%Y %B}</big>
             <tt><small>{calendar}</small></tt>'';
         };
+
         backlight = {
           format = "{icon}";
-          format-icons = ["" "" "" "" "" "" "" "" ""];
+          format-icons = ["󰋙" "󰫃" "󰫄" "󰫅" "󰫆" "󰫇" "󰫈"];
+          on-scroll-up = "${brightnessctl} s 1%-";
+          on-scroll-down = "${brightnessctl} s +1%";
+          #format-icons = ["" "" "" "" "" "" "" "" ""];
         };
+
         battery = {
           states = {
             warning = 30;
@@ -189,8 +210,8 @@ in {
         };
         network = {
           format-wifi = "󰤨";
-          format-ethernet = "󰤨";
-          format-alt = "󰤨";
+          format-ethernet = "󰈀 ";
+          format-alt = "󱛇";
           format-disconnected = "󰤭";
           tooltip-format = "{ipaddr}/{ifname} via {gwaddr} ({signalStrength}%)";
         };
