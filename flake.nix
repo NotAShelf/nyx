@@ -96,6 +96,9 @@
     # Easy color integration
     nix-colors.url = "github:misterio77/nix-colors";
 
+    # Nix gaming packages
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
     # Secrets management via ragenix, an agenix replacement
     ragenix.url = "github:yaxitech/ragenix";
 
