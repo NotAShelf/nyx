@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    #./proton-ge
+    ./gamemode
     ./steam
     ./obs
   ];

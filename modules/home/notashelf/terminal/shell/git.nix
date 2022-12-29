@@ -29,7 +29,10 @@
       };
       branch.autosetupmerge = "true";
       push.default = "current";
-      merge.stat = "true";
+      merge = {
+        stat = "true";
+        conflictstyle = "diff3";
+      };
       core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
       repack.usedeltabaseoffset = "true";
       pull.ff = "only";
@@ -53,6 +56,7 @@
       df = "!git hist | peco | awk '{print $2}' | xargs -I {} git diff {}^ {}";
       edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`";
       fuck = "commit --amend -m";
+      graph = "log --all --decorate --graph";
       ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
       pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
       af = "!git add $(git ls-files -m -o --exclude-standard | fzf -m)";
