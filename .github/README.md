@@ -28,8 +28,8 @@
 
 - [Flake](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
+- [home](modules/home) 🏠 my [Home-Manager](https://github.com/nix-community/home-manager) config
 - [modules](modules) 🍱 modularized NixOS configs
-  - [home](modules/home) 🏠 my [Home-Manager](https://github.com/nix-community/home-manager) config
   - [bootloaders](modules/bootloaders) ⚙ Various bootloaders for various purpose hosts
   - [core](modules/core) 🧠 Core NixOS configuration
   - [server](modules/server) ☁️ Shared modules for "server" purpose hosts
@@ -39,14 +39,25 @@
   - [hardware](modules/hardware)
     - [nvidia](modules/hardware/nvidia) 💚 My next GPU won't be NVIDIA
     - [intel](modules/hardware/intel) 💙 Common configuration for Intel CPUs
-    - [amd](modules/hardware/amd) ❤️ Configuration set for my future AMD laptop
+    - [amd](modules/hardware/amd) ❤️ Configuration set for my (future) AMD devices
 - [hosts](hosts) 🌳 per-host configuration
   - [prometheus](hosts/prometheus) 💻 My 2016 HP Pavillion with NVIDIA GPU
-  - [atlas](hosts/atlas) 🍓 Raspberry Pi 400 that acts as my homelab
+  - [atlas](hosts/atlas) 🍓 Raspberry Pi 400 that acts as my home lab
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
 - [pkgs](pkgs) 💿 exported packages
 
 ## Notes
+
+If my dotfiles are confusing to you, that is because they are confusing. I am not
+yet very well versed in NixOS and Nix, thus my configuration may not always follow best
+practices or be the most efficient. I also do not follow any particular logic when
+organizing my configuration. I do, however, try my best to document my NixOS configuration
+as humanly possible. This repository was based off of *many* others which I have linked below.
+If you like anything about this repository, you will probably like theirs as well. If you have anything
+to say/ask about those configurations (especially if it was because you were disgusted by
+my atrocities against NixOS), please do not hesitate to make an issue or open a PR. I am always
+happy to learn and improve. With that said, if you like this repository maybe consider starring it
+or donating me from the links below, up to you.
 
 ### Motivation
 
@@ -68,7 +79,9 @@ Want to support me, or to show gratitude for something I did? Consider donating
 
 via [liberapay.com/notashelf](https://en.liberapay.com/notashelf/)
 
-<a href="https://liberapay.com/notashelf/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
+<a href="https://liberapay.com/notashelf/donate">
+   <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
+</a>
 
 ... or if you prefer crypto
 
@@ -86,3 +99,6 @@ I ~~shamelessly stole from~~ got inspired by those folks
 [hlissner](https://github.com/hlissner) -
 [fortuneteller2k](https://github.com/fortuneteller2k) -
 
+## License
+
+This repository is licensed under the [GPL-3.0](LICENSE) license.
