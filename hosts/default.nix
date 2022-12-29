@@ -14,10 +14,11 @@
   wayland = ../modules/wayland; # for devices running a wayland desktop
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
+  cross = ../modules/cross; # for cross-compilation via binfmt
 
   # hardware specific modules
-  nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
   intel = ../modules/hardware/intel; # surprisingly common on my devices
+  nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
   amd = ../modules/hardware/amd; # soon :weary:
   laptop = ../modules/hardware/laptop; # for devices that identify as laptops
   #btrfs = ../modules/btrfs TODO
@@ -54,6 +55,7 @@ in {
         intel
         hmModule
         laptop
+        cross
         {inherit home-manager;}
       ]
       ++ shared;
