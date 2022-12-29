@@ -6,10 +6,6 @@
   ...
 }: {
   boot = {
-    binfmt.emulatedSystems = [
-      "aarch64-linux"
-    ];
-
     loader = {
       # Fix a security hole in place for backwards compatibility. See desc in
       # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
