@@ -210,7 +210,7 @@ in {
         };
         network = {
           format-wifi = "󰤨";
-          format-ethernet = "󰈀 ";
+          format-ethernet = "󰈀";
           format-alt = "󱛇";
           format-disconnected = "󰤭";
           tooltip-format = "{ipaddr}/{ifname} via {gwaddr} ({signalStrength}%)";
