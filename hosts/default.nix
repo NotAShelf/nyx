@@ -37,7 +37,7 @@
       inherit inputs;
       inherit self;
     };
-    users.notashelf = ../modules/home/notashelf;
+    users.notashelf = ../home/notashelf;
   };
 in {
   # HP Pavillion from 2016

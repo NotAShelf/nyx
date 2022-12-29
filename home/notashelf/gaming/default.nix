@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./gamemode
     ./steam
     ./obs
   ];
