@@ -19,8 +19,7 @@
   nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
   intel = ../modules/hardware/intel; # surprisingly common on my devices
   amd = ../modules/hardware/amd; # soon :weary:
-  #ssd = ../modules/hardware/ssd
-  #hdd = ../modules/hardware/hdd
+  laptop = ../modules/hardware/laptop; # for devices that identify as laptops
   #btrfs = ../modules/btrfs TODO
 
   ## flake inputs ##
@@ -86,7 +85,6 @@ in {
     modules =
       [
         ./atlas
-        bl-server
         hw.raspberry-pi-4
         server
       ]
