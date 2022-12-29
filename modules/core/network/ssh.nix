@@ -12,7 +12,7 @@
     useDns = false;
     ports = [22];
     passwordAuthentication = lib.mkForce false;
-    kbdInteractiveAuthentication = false;
+    kbdInteractiveAuthentication = lib.mkDefault false;
     hostKeys = [
       {
         bits = 4096;
