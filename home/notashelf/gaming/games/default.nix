@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  self,
   ...
 }: {
   home.packages = with inputs.nix-gaming.packages.${pkgs.system};
@@ -25,8 +26,7 @@
       .rocket-league
     ]
     ++ (with pkgs; [
-      gamescope
+      #gamescope # FIXME
       legendary-gl
-      inputs.self.packages.${pkgs.system}.tlauncher
     ]);
 }
