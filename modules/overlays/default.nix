@@ -4,4 +4,6 @@ final: prev: {
   catppuccin-gtk = prev.callPackage ../../pkgs/catppuccin-gtk.nix {};
   catppuccin-folders = prev.callPackage ../../pkgs/catppuccin-folders.nix {};
   catppuccin-cursors = prev.callPackage ../../pkgs/catppuccin-cursors.nix {};
+
+  cloneit = prev.callPackage ../../pkgs/cloneit.nix {};
 }
