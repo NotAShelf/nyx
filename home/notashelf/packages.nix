@@ -13,8 +13,6 @@
       sha256 = "sha256-6qbv34ysNQbI/zff6rAnVW4z6yfm2t/XL/PF7D/tjv4=";
     };
   });
-
-  cloneit = self.packages.${pkgs.system}.cloneit;
 in {
   home.packages = with pkgs; [
     # Graphical

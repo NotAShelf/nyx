@@ -38,9 +38,6 @@
     # systemd DNS resolver daemon
     #resolved.enable = true;
 
-    # DBus service that provides power management support to applications.
-    upower.enable = true;
-
     dbus = {
       packages = with pkgs; [dconf gcr udisks2];
       enable = true;
@@ -70,18 +67,6 @@
       };
       pulse.enable = true;
       jack.enable = true;
-    };
-
-    # Try to save as much battery as possible
-    tlp = {
-      enable = true;
-      settings = {
-        START_CHARGE_THRESH_BAT0 = 0;
-        STOP_CHARGE_THRESH_BAT0 = 85;
-        PCIE_ASPM_ON_BAT = "power$MODsave";
-        DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
-        NMI_WATCHDOG = 0;
-      };
     };
 
     gnome = {
