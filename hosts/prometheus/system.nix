@@ -43,7 +43,8 @@
   };
 
   boot = {
-    kernelPackages = with pkgs; linuxPackages_xanmod;
+    # FIXME xanmod causes regular kernel to become unable to be built
+    #kernelPackages = with pkgs; linuxPackages_xanmod;
 
     kernelParams = [
       "i915.enable_fbc=1"
