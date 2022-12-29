@@ -13,7 +13,7 @@
   core = ../modules/core;
   wayland = ../modules/wayland; # for devices running a wayland desktop
   server = ../modules/server; # for devices that act as "servers"
-  desktop = ../modules/desktop; # for devices that are for daily use, i.e laptops
+  desktop = ../modules/desktop; # for devices that are for daily use
 
   # hardware specific modules
   nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
