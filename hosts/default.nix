@@ -53,6 +53,7 @@ in {
         wayland
         intel
         hmModule
+        laptop
         {inherit home-manager;}
       ]
       ++ shared;
