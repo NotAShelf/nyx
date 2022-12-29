@@ -11,5 +11,6 @@
     ./system.nix
     ./bootloader.nix
     ./xserver.nix
+    ./tor.nix
   ];
 }
