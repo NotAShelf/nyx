@@ -5,7 +5,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixos-generators,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -51,7 +50,7 @@
     devShells.${system}.default = pkgs.mkShell {
       name = "nixos";
       packages = with pkgs; [
-        rnix-lsp
+        nil
         yaml-language-server
         alejandra
         git
@@ -93,12 +92,6 @@
 
     # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
-
-    # Generate bootable ISOs for my declarative systems
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Easy color integration
     nix-colors.url = "github:misterio77/nix-colors";
