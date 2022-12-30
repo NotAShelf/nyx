@@ -18,7 +18,7 @@
     nixosConfigurations = import ./hosts inputs;
 
     # SD Card image for Raspberry Pi 4
-    # build with `nix build .#images.atlas`
+    # build with `nix build .#images.<hostname>`
     images = {
       # TODO: import images from a different file to de-clutter flake.nix
       atlas =
@@ -29,6 +29,16 @@
         .system
         .build
         .sdImage;
+      # TODO: build on non-nixos for better reproducibility
+      prometheus =
+        (self.nixosConfigurations.prometheus.extendModules {
+          modules = ["${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"];
+          # modules = ["${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix"]; ????
+        })
+        .config
+        .system
+        .build
+        .isoImage;
     };
 
     packages.${system} = {
