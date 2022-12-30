@@ -39,12 +39,13 @@
     enableRedistributableFirmware = true;
 
     # my GPU is not properly supported by open source drivers
-    nvidia.open = false;
+    nvidia.open = lib.mkForce false;
   };
 
   boot = {
     # FIXME xanmod causes regular kernel to become unable to be built
-    #kernelPackages = with pkgs; linuxPackages_xanmod;
+    # latest xanmod Linux kernel for speed and android
+    # boot.kernelPackages = with pkgs; linuxPackages_xanmod_latest;
 
     kernelParams = [
       "i915.enable_fbc=1"
