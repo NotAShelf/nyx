@@ -8,6 +8,7 @@
     # Input settings for libinput
     xserver.libinput = {
       enable = true;
+
       # disable mouse acceleration
       mouse.accelProfile = "flat";
       mouse.accelSpeed = "0";
