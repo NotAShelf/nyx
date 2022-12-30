@@ -15,12 +15,6 @@
     GTK_USE_PORTAL = "1";
   };
 
-  environment.sessionVariables = {
-    "XDG_DATA_DIRS" = [
-      "$XDG_DATA_HOME/flatpak/exports/share"
-    ];
-  };
-
   # enable flatpak, as well as xdgp to communicate with the host filesystems
   services.flatpak.enable = true;
   xdg.portal = {
