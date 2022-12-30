@@ -1,8 +1,9 @@
 {
   config,
   lib,
+  pkgs,
   ...
-}: {
+} @ args: {
   services = {
     # Input settings for libinput
     xserver.libinput = {
@@ -26,11 +27,24 @@
       settings = {
         START_CHARGE_THRESH_BAT0 = 0;
         STOP_CHARGE_THRESH_BAT0 = 85;
-        PCIE_ASPM_ON_BAT = "power$MODsave";
+        PCIE_ASPM_ON_BAT = "powersupersave";
         DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "conservative";
         NMI_WATCHDOG = 0;
       };
     };
+
+    udev.extraRules = let
+      inherit (import ./plugged.nix args) plugged unplugged;
+    in ''
+      # add my android device to adbusers
+      # SUBSYSTEM=="usb", ATTR{idVendor}=="22d9", MODE="0666", GROUP="adbusers"
+
+      # start/stop services on power (un)plug
+      SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${plugged}"
+      SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${unplugged}"
+    '';
 
     # DBus service that provides power management support to applications.
     upower.enable = true;
