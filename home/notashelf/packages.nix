@@ -26,10 +26,12 @@ in {
     xfce.thunar
     obsidian
     nextcloud-client
-    #gnome.gnome-control-center # TODO: figure out why this fails to build
+    #gnome.gnome-control-center # FIXME: fails to build due dependency mismatch
+    gnome.gnome-tweaks
     gnome.gnome-calendar
     pavucontrol
     ungoogled-chromium
+    easyeffects
 
     # CLI
     cloneit
