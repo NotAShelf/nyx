@@ -156,6 +156,14 @@ in {
       # Vi mode
       bindkey -v
 
+      # Use vim keys in tab complete menu:
+      bindkey -M menuselect 'h' vi-backward-char
+      bindkey -M menuselect 'k' vi-up-line-or-history
+      bindkey -M menuselect 'l' vi-forward-char
+      bindkey -M menuselect 'j' vi-down-line-or-history
+
+
+
       # If this is an xterm set the title to user@host:dir
       case "$TERM" in
       xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
@@ -256,6 +264,7 @@ in {
         cleanup = "doas nix-collect-garbage --delete-older-than 7d";
         bloat = "nix path-info -Sh /run/current-system";
         curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
+        repair = "nix-store --verify --check-contents --repair";
         ytmp3 = ''
           ${lib.getExe yt-dlp} -x --continue --add-metadata --embed-thumbnail --audio-format mp3 --audio-quality 0 --metadata-from-title="%(artist)s - %(title)s" --prefer-ffmpeg -o "%(title)s.%(ext)s"
         '';
@@ -297,18 +306,6 @@ in {
         src = zsh-vi-mode;
         file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
       }
-      /*
-      {
-        name = "fzf-tab";
-        file = "fzf-tab.plugin.zsh";
-        src = fetchFromGitHub {
-          owner = "Aloxaf";
-          repo = "fzf-tab";
-          rev = "426271fb1bbe8aa88ff4010ca4d865b4b0438d90";
-          sha256 = "sha256-RXqEW+jwdul2mKX86Co6HLsb26UrYtLjT3FzmHnwfAA=";
-        };
-      }
-      */
       {
         name = "fast-syntax-highlighting";
         file = "fast-syntax-highlighting.plugin.zsh";
@@ -329,6 +326,18 @@ in {
           sha256 = "1h0vm2dgrmb8i2pvsgis3lshc5b0ad846836m62y8h3rdb3zmpy1";
         };
       }
+      /*
+      {
+        name = "fzf-tab";
+        file = "fzf-tab.plugin.zsh";
+        src = fetchFromGitHub {
+          owner = "Aloxaf";
+          repo = "fzf-tab";
+          rev = "426271fb1bbe8aa88ff4010ca4d865b4b0438d90";
+          sha256 = "sha256-RXqEW+jwdul2mKX86Co6HLsb26UrYtLjT3FzmHnwfAA=";
+        };
+      }
+      */
     ];
   };
 }
