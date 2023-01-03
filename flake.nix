@@ -146,7 +146,7 @@
     # Spicetify
     spicetify-nix.url = "github:the-argus/spicetify-nix";
 
-    helix.url = "github:SoraTenshi/helix/experimental";
+    helix.url = "github:SoraTenshi/helix/experimental-22.12";
 
     # Nix Language server
     nil = {
