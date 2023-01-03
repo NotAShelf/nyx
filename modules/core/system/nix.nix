@@ -43,7 +43,7 @@ in {
         nixpkgs-f2k.overlays.default
         rust-overlay.overlays.default
       ]
-      # Overlays from ./overlays directory
+      # Overlays from ../../overlays directory
       ++ (importNixFiles ../../overlays);
   };
 
