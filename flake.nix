@@ -17,7 +17,7 @@
   in {
     nixosConfigurations = import ./hosts inputs;
 
-    # SD Card image for Raspberry Pi 4
+    # Recovery images for my hosts
     # build with `nix build .#images.<hostname>`
     images = {
       # TODO: import images from a different file to de-clutter flake.nix
