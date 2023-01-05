@@ -1,0 +1,7 @@
+{...}: {
+  boot = {
+    initrd = {
+      supportedFilesystems = ["btrfs"];
+    };
+  };
+}
