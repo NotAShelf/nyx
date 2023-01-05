@@ -21,7 +21,7 @@
   nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
   amd = ../modules/hardware/amd; # soon :weary:
   laptop = ../modules/hardware/laptop; # for devices that identify as laptops
-  #btrfs = ../modules/btrfs TODO
+  btrfs = ../modules/hardware/btrfs; # for devices rocking a btrfs main disk
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4
@@ -29,8 +29,8 @@
   hmModule = inputs.home-manager.nixosModules.home-manager; # home-manager
 
   shared = [core ragenix];
-  hybrid = [intel nvidia];
 
+  # home-manager configurations
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
@@ -56,6 +56,7 @@ in {
         hmModule
         laptop
         cross
+        btrfs
         {inherit home-manager;}
       ]
       ++ shared;
