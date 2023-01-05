@@ -4,16 +4,7 @@
   pkgs,
   config,
   ...
-}: let
-  mpv-unwrapped = pkgs.mpv-unwrapped.overrideAttrs (o: {
-    src = pkgs.fetchFromGitHub {
-      owner = "mpv-player";
-      repo = "mpv";
-      rev = "48ad2278c7a1fc2a9f5520371188911ef044b32c";
-      sha256 = "sha256-6qbv34ysNQbI/zff6rAnVW4z6yfm2t/XL/PF7D/tjv4=";
-    };
-  });
-in {
+}: {
   home.packages = with pkgs; [
     # Graphical
     thunderbird
@@ -38,7 +29,7 @@ in {
     catimg
     duf
     todo
-    mpv-unwrapped
+    mpv
     yt-dlp
     hyperfine
     fzf
