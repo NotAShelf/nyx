@@ -125,7 +125,7 @@
 
       # TODO: figure out why the hell this breaks plymouth
       # extremely experimental, just the way I like it on a production machine
-      #systemd.enable = true;
+      systemd.enable = true;
 
       availableKernelModules = [
         "nvme"
