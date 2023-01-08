@@ -10,6 +10,7 @@
     ./schizofox
     ./zathura
     ./office
+    ./vscode
     inputs.hyprland.homeManagerModules.default
   ];
 }
