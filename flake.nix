@@ -39,6 +39,14 @@
         .system
         .build
         .isoImage;
+      icarus =
+        (self.nixosConfigurations.icarus.extendModules {
+          modules = ["${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"];
+        })
+        .config
+        .system
+        .build
+        .isoImage;
     };
 
     packages.${system} = {
