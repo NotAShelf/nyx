@@ -29,6 +29,7 @@ in {
       GBM_BACKEND = "nvidia-drm";
       LIBVA_DRIVER_NAME = "nvidia";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      WLR_NO_HARDWARE_CURSORS = "1";
     };
     systemPackages = with pkgs; [
       nvidia-offload
