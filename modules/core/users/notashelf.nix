@@ -21,7 +21,7 @@
       "power"
       "nix"
     ];
-    uid = 1000;
+    uid = 1001;
     shell = pkgs.zsh;
     initialPassword = "changeme";
     openssh.authorizedKeys.keys = [

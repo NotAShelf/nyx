@@ -24,7 +24,7 @@
       efi.canTouchEfiVariables = true;
 
       # if set to 0, space needs to be held to get the boot menu to appear
-      timeout = 2;
+      timeout = lib.mkForce 2;
 
       # default grub to disabled, we manually enable grub on "server" hosts
       # or any other host that needs it
