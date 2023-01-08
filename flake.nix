@@ -76,7 +76,7 @@
       ];
     };
 
-    formatter.${system} = pkgs.${system}.alejandra;
+    formatter.${system} = pkgs.alejandra;
   };
   inputs = {
     # Nix itself, the package manager
