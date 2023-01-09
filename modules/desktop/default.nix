@@ -7,6 +7,7 @@
     ./bootloader
     ./gaming
     ./xdg-ninja
+    ./cross
 
     ./programs.nix
     ./services.nix
