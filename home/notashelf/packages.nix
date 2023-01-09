@@ -57,6 +57,7 @@
     xorg.xhost
     mov-cli
     nitch
+    fastfetch
     imv
   ];
 }

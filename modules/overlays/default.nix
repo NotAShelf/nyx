@@ -1,5 +1,6 @@
 final: prev: {
   nixos-plymouth = prev.callPackage ./plymouth {};
+  fastfetch = prev.callPackage ./fastfetch {};
 
   catppuccin-gtk = prev.callPackage ../../pkgs/catppuccin-gtk.nix {};
   catppuccin-folders = prev.callPackage ../../pkgs/catppuccin-folders.nix {};
