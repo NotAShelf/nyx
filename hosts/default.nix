@@ -14,9 +14,8 @@
   wayland = ../modules/wayland; # for devices running a wayland desktop
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
-  cross = ../modules/cross; # for cross-compilation via binfmt
 
-  # hardware specific modules
+  # hardware specific modules (and btrfs)
   intel = ../modules/hardware/intel; # surprisingly common on my devices
   nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
   amd = ../modules/hardware/amd; # soon :weary:
@@ -50,12 +49,11 @@ in {
         {networking.hostName = "prometheus";}
         ./prometheus
         bl-common
+        hmModule
         desktop
+        laptop
         wayland
         intel
-        hmModule
-        laptop
-        cross
         btrfs
         {inherit home-manager;}
       ]
