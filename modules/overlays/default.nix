@@ -8,6 +8,7 @@ final: prev: {
 
   cloneit = prev.callPackage ../../pkgs/cloneit.nix {};
   proton-ge = prev.callPackage ../../pkgs/proton-ge.nix {};
+  anime4k = prev.callPackage ../../pkgs/anime4k.nix {};
 
   ungoogled-chromium = prev.ungoogled-chromium.override {
     commandLineArgs = toString [
