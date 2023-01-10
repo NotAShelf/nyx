@@ -60,5 +60,8 @@
     nitch
     fastfetch
     imv
+    binwalk
+    binutils
+    diffoscope
   ];
 }
