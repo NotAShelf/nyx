@@ -75,9 +75,26 @@ an excellent idea to learn Nix (the programming language) and NixOS.
 I also maintain some dotfiles for my desktop running Arch Linux. See the [main](tree/main)
 branch if you are interested in my "legacy" dotfiles.
 
-### Donate
+### Words of Advice
 
-Want to support me, or to show gratitude for something I did? Consider donating
+You *probably* do not want to copy or base your config off of this configuration.
+Frankly, this is not a community framework, and nor is it built with the intention of bringing
+new people into NixOS or/and helping newbies figure out how NixOS works. 
+It is simply my NixOS configuration, built around my personal use cases and interests. 
+If you do have a question, I will do my absolute best to answer it as the 
+circumstances (mainly my own knowledge) allow, however, do not expect "support" 
+and do not assume yourself to be entitled to my time. Definitely do not assume this configuration 
+to be following best practices.
+
+Disect the configurations all you want, take what you need and if you find yourself to 
+be excelling somewhere I lack, do feel free to contribute to my atrocities against
+NixOS and everything it stands for. Would be appreciated. Styling PRs will be rejected
+because I like my Alejandra, thanks but no thanks.
+
+## Donate
+
+Want to support me, or to show gratitude for something (somehow) nice I did? 
+Perhaps consider donating!
 
 via [liberapay.com/notashelf](https://en.liberapay.com/notashelf/)
 
@@ -85,9 +102,9 @@ via [liberapay.com/notashelf](https://en.liberapay.com/notashelf/)
    <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
 </a>
 
-... or if you prefer crypto
+...or if you prefer crypto *(those are not active yet due to my lack of interest in cyptocurrencies)*
 
-Ethereum: ``
+Ethereum: ` `
 
 Monero/Bitcoin: notashelf.dev
 
@@ -95,12 +112,17 @@ Monero/Bitcoin: notashelf.dev
 
 I ~~shamelessly stole from~~ got inspired by those folks
 
+### System Configurations
 [sioodmy](https://github.com/sioodmy) -
 [rxyhn](https://github.com/rxyhn) -
 [fufexan](https://github.com/fufexan) -
 [hlissner](https://github.com/hlissner) -
-[fortuneteller2k](https://github.com/fortuneteller2k) -
+[fortuneteller2k](https://github.com/fortuneteller2k)
+
+### Other Resources
+[Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
+
 
 ## License
 
-This repository is licensed under the [GPL-3.0](LICENSE) license.
+This repository is licensed under the [GPL-3.0](../LICENSE) license.
