@@ -8,7 +8,7 @@
   environment = {
     systemPackages = [];
     sessionVariables = {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "~/.steam/root/compatibilitytools.d";
+      #STEAM_EXTRA_COMPAT_TOOLS_PATHS = lib.mkForce "~/.steam/root/compatibilitytools.d";
     };
   };
 
