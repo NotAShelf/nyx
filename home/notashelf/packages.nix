@@ -23,6 +23,7 @@
     pavucontrol
     ungoogled-chromium
     easyeffects
+    librewolf
 
     # CLI
     cloneit
