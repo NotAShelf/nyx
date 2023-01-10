@@ -32,8 +32,6 @@
     "/nix".options = ["compress=zstd" "noatime"];
   };
 
-  services.btrfs.autoScrub.enable = true;
-
   hardware = {
     cpu.intel.updateMicrocode = true;
     enableRedistributableFirmware = true;
