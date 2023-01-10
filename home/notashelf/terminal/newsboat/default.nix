@@ -1,27 +1,41 @@
 {
   config,
   pkgs,
+  lib,
   ...
-}: {
+}: let
+  mpv = "${lib.getExe pkgs.mpv}";
+  glow = "${lib.getExe pkgs.glow}";
+  pandoc = "${lib.getExe pkgs.pandoc}";
+in {
   programs.newsboat = {
     enable = true;
     autoReload = true;
     urls = [
       # https://hackaday.com/blog/feed/
       {
-        title = "Wiadomosci blisko ciebie";
-        tags = ["news" "twitter"];
-        url = "https://nitter.net/WBC24News/rss";
-      }
-      {
-        title = "LukaszBok";
-        tags = ["news" "twitter"];
-        url = "https://nitter.net/LukaszBok/rss";
-      }
-      {
         title = "KIKS";
         tags = ["news" "twitter"];
         url = "https://weekly.nixos.org/feeds/all.rss.xml";
+      }
+      {
+        url = "https://hnrss.org/newest";
+        title = "Hacker News";
+        tags = ["tech"];
+      }
+
+      # Reddit
+      {
+        url = "https://www.reddit.com/r/neovim/.rss";
+        title = "/r/neovim";
+        tags = ["neovim" "reddit"];
+      }
+
+      # Youtube
+      {
+        title = "Computerphile";
+        url = "https://www.youtube.com/feeds/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA";
+        tags = ["tech" "youtube"];
       }
     ];
     extraConfig = ''
@@ -55,6 +69,13 @@
       color info white black bold
       color article white default bold
       user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+
+      html-renderer "${pandoc} --from=html -t markdown_github-raw_html"
+      pager "${glow} --pager --width 72"
+
+      # macros
+      macro v set browser "${mpv} %u" ; open-in-browser ; set browser "firefox %u" -- "Open video on mpv"
+
     '';
   };
 }
