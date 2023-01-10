@@ -49,6 +49,8 @@
         .isoImage;
     };
 
+    packages.${system} = import ./pkgs {inherit pkgs;};
+    /*
     packages.${system} = {
       # Catpuccin
       catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};
@@ -63,8 +65,9 @@
       nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
       cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
       swww = pkgs.callPackage ./pkgs/swww.nix {};
+      discordo = pkgs.callPackage ./pkgs/discordo.nix {};
     };
-
+    */
     devShells.${system}.default = pkgs.mkShell {
       name = "nixos";
       packages = with pkgs; [
