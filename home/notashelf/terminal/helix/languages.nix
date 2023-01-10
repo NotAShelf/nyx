@@ -55,6 +55,7 @@ with pkgs; [
     auto-format = true;
     language-server = {command = lib.getExe inputs.nil.packages.${system}.default;};
     config.nil.formatting.command = ["alejandra" "-q"];
+    roots = ["flake.nix" "flake.json"];
   }
   {
     name = "rust";
