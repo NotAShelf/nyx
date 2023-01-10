@@ -3,7 +3,7 @@
   pkgs,
   inputs,
   ...
-}: {
+} @ args: {
   programs.helix = {
     enable = true;
     package = inputs.helix.packages."x86_64-linux".default;
@@ -45,8 +45,8 @@
         rainbow-brackets = true;
         gutters = ["diagnostics" "line-numbers" "spacer" "diff"];
         statusline = {
-          mode-separator = "|";
-          separator = "|";
+          mode-separator = "";
+          separator = "";
           left = ["mode" "selections" "spinner" "file-name" "total-line-numbers"];
           center = [];
           right = ["diagnostics" "file-encoding" "file-line-ending" "file-type" "position-percentage" "position"];
@@ -80,38 +80,16 @@
       };
     };
 
-    languages = with pkgs; [
-      {
-        name = "cpp";
-        auto-format = true;
-        language-server = {
-          command = "${clang-tools}/bin/clangd";
-          clangd.fallbackFlags = ["-std=c++2b"];
-        };
-      }
-      {
-        name = "nix";
-        language-server.command = with pkgs;
-          lib.getExe
-          inputs.nil.packages.${pkgs.system}.default;
-        auto-format = true;
-        formatter = {
-          command = lib.getExe alejandra;
-          args = ["-q"];
-        };
-      }
-      {
-        name = "rust";
-        formatter.command = lib.getExe rustfmt;
-        auto-format = true;
-      }
-    ];
+    languages = import ./languages.nix args;
+    #languages = with pkgs; [
+    #];
   };
 
   home.packages = with pkgs; [
     # some other lsp related packages / dev tools
     lldb
     gopls
+    revive
     rust-analyzer
     texlab
     zls
