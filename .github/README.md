@@ -39,8 +39,9 @@
   - [hardware](modules/hardware)
     - [nvidia](modules/hardware/nvidia) 💚 My next GPU won't be NVIDIA
     - [intel](modules/hardware/intel) 💙 Common configuration for Intel CPUs
-    - [amd](modules/hardware/amd) ❤️ Configuration set for my (future) AMD devices
+    - [amd](modules/hardware/amd) ❤️  Configuration set for my (future) AMD devices
     - [laptop](modules/hardware/laptop) 💻 Common configuration for devices that identify as laptops
+    - [btrfs](modules/hardware/btrfs) Mixins for devices that use btrfs as their filesystem 
 - [hosts](hosts) 🌳 per-host configuration
   - [prometheus](hosts/prometheus) 💻 My 2016 HP Pavillion with NVIDIA GPU
   - [atlas](hosts/atlas) 🍓 Raspberry Pi 400 that acts as my home lab
