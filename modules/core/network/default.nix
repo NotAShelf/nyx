@@ -36,4 +36,6 @@
   };
   # slows down boot time
   systemd.services.NetworkManager-wait-online.enable = false;
+  # enable wireless database
+  hardware.wirelessRegulatoryDatabase = true;
 }
