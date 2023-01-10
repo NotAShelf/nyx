@@ -7,6 +7,7 @@ final: prev: {
   catppuccin-cursors = prev.callPackage ../../pkgs/catppuccin-cursors.nix {};
 
   cloneit = prev.callPackage ../../pkgs/cloneit.nix {};
+  proton-ge = prev.callPackage ../../pkgs/proton-ge.nix {};
 
   ungoogled-chromium = prev.ungoogled-chromium.override {
     commandLineArgs = toString [
