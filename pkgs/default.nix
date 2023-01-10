@@ -13,4 +13,5 @@
   cloneit = pkgs.callPackage ./cloneit.nix {};
   swww = pkgs.callPackage ./swww.nix {};
   discordo = pkgs.callPackage ./discordo.nix {};
+  proton-ge = pkgs.callPackage ./proton-ge.nix {};
 }
