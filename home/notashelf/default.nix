@@ -19,7 +19,13 @@
     ./themes
   ];
   config = {
+    # reload system units when changing configs
+    systemd.user.startServices = "sd-switch";
+
     home = {
+      # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+      # I will personally strangle every moron who just puts "DONT CHANGE" next
+      # to this value
       stateVersion = "23.05";
       extraOutputsToInstall = ["doc" "devdoc"];
     };
