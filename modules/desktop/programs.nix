@@ -5,7 +5,12 @@
   inputs,
   ...
 }: {
-  environment.systemPackages = [];
+  environment = {
+    systemPackages = [];
+    sessionVariables = {
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "~/.steam/root/compatibilitytools.d";
+    };
+  };
 
   hardware = {
     logitech.wireless = {
@@ -33,6 +38,11 @@
       remotePlay.openFirewall = true;
       # Open ports in the firewall for Source Dedicated Server
       dedicatedServer.openFirewall = true;
+      # Compatibility tools to install
+      # this option is provided by ./gaming/steam.nix
+      extraCompatPackages = with pkgs; [
+        proton-ge
+      ];
     };
 
     # gnome's keyring manager
