@@ -43,6 +43,11 @@
         executable = true;
         text = import ./bin/preview.nix {inherit lib pkgs;};
       };
+
+      ".local/bin/show-zombie-parents.nix" = {
+        executable = true;
+        text = import ./bin/show-zombie-parents.nix {inherit lib pkgs;};
+      };
     };
   };
 }
