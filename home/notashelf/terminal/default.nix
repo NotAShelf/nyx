@@ -14,5 +14,6 @@
     ./foot
     ./helix
     ./bottom
+    ./ranger
   ];
 }
