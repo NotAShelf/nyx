@@ -58,6 +58,10 @@ in {
   nix = {
     package = pkgs.nixUnstable;
 
+    # Make builds run with low priority so my system stays responsive
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
+
     gc = {
       # set up garbage collection to run daily,
       # removing unused packages after three days
@@ -75,12 +79,6 @@ in {
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
-    # set the path for channels compat
-    #nixPath = [
-    #  "nixpkgs=/etc/nix/flake-channels/nixpkgs"
-    #  "home-manager=/etc/nix/flake-channels/home-manager"
-    #];
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
