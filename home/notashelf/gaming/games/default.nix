@@ -26,7 +26,13 @@
       .rocket-league
     ]
     ++ (with pkgs; [
-      #gamescope # FIXME
+      #gamescope # FIXME: override package wlroots
       legendary-gl
+      prismlauncher
+      mono
+      winetricks
+      mangohud
+      taisei
+      unciv
     ]);
 }
