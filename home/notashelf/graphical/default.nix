@@ -11,6 +11,7 @@
     ./zathura
     ./office
     ./vscode
+    ./mpv
     inputs.hyprland.homeManagerModules.default
   ];
 }
