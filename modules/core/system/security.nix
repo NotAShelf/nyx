@@ -18,6 +18,7 @@
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
+    # able to change scheduling policies, e.g. to SCHED_RR
     rtkit.enable = true;
     apparmor = {
       enable = true;
@@ -42,6 +43,8 @@
       ];
 
       services = {
+        # unlock GPG keyring upon login
+        greetd.gnupg.enable = true;
         login.enableGnomeKeyring = true;
         swaylock = {
           text = ''
