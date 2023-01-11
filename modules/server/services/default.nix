@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    #./git
+    #./gitea
     #./tor
     #./nginx
     #./grafana # TODO

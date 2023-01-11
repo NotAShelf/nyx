@@ -34,5 +34,17 @@
         ui.DEFAULT_THEME = "arc-green";
       };
     };
+
+    nginx = {
+      virtualHosts = {
+        "git.notashelf.dev" = {
+          addSSL = true;
+          enableACME = true;
+          locations."/" = {
+            proxyPass = "http://localhost:7000/";
+          };
+        };
+      };
+    };
   };
 }
