@@ -24,17 +24,18 @@
   };
 
   # filesystem options that are *generally* specific to hosts
-  # TODO: this might be mixed into a common "btrfs" module in the future
+  # TODO: this might be mixed into the common "btrfs" module in the future
   # might want to finalize my preferred btrfs schema before I do that
   fileSystems = {
-    "/".options = ["noatime"];
+    "/".options = ["compress=zstd" "noatime"];
     "/home".options = ["compress=zstd"];
     "/nix".options = ["compress=zstd" "noatime"];
   };
 
   hardware = {
-    cpu.intel.updateMicrocode = true;
+    # allow usage of potentially proprietary firmware b lobs
     enableRedistributableFirmware = true;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
     # my GPU is not properly supported by open source drivers
     nvidia.open = lib.mkForce false;
