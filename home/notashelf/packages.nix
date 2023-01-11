@@ -15,6 +15,8 @@
     quasselClient
     bitwarden
     xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.thunar-media-tags-plugin
     obsidian
     nextcloud-client
     #gnome.gnome-control-center # FIXME: fails to build due dependency mismatch
