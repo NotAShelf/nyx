@@ -21,7 +21,7 @@ with lib; let
     then config.boot.kernelPackages.nvidiaPackages.stable
     else config.boot.kernelPackages.nvidiaPackages.beta;
 in {
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["nvidia" "modesetting"];
   boot.blacklistedKernelModules = ["nouveau"];
 
   environment = {
