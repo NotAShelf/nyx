@@ -85,8 +85,6 @@ in ''
   #custom-todo,
   #custom-lock,
   #custom-weather,
-  #custom-btc,
-  #custom-eth,
   #volume,
   #pulseaudio {
     border-radius: 15px;
@@ -102,8 +100,8 @@ in ''
 
 
   #custom-lock {
-      color: #${base0D};
-      padding-right: 1px;
+    color: #${base0D};
+    padding-right: 1px;
   }
 
   #custom-todo {
@@ -116,7 +114,7 @@ in ''
   }
   #custom-search {
     background-image: url("${OSLogo}");
-    background-size: 60%;
+    background-size: 65%;
     background-position: center;
     background-repeat: no-repeat;
     margin-top: 7px;

@@ -37,7 +37,7 @@ in {
       mainBar = {
         layer = "top";
         position = "left";
-        width = 60;
+        width = 55;
         spacing = 7;
         fixed-center = true;
         exclusive = true;
@@ -45,13 +45,19 @@ in {
           "custom/search"
           "wlr/workspaces"
           "custom/lock"
-          "custom/weather"
-          "custom/todo"
           "backlight"
           "battery"
+          "custom/weather"
+          "custom/todo"
         ];
         modules-center = [];
-        modules-right = ["pulseaudio" "network" "custom/swallow" "clock" "custom/power"];
+        modules-right = [
+          "pulseaudio"
+          "network"
+          "custom/swallow"
+          "clock"
+          "custom/power"
+        ];
 
         "wlr/workspaces" = let
           hyprctl = config.wayland.windowManager.hyprland.package + "/bin/hyprctl";
