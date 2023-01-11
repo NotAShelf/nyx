@@ -24,7 +24,7 @@
     ];
   };
 
-  # enable polkit
+  # enable polkit for privilege escalation
   security.polkit.enable = true;
 
   # Firefox cache on tmpfs
@@ -44,4 +44,7 @@
     enable = true;
     mediaKeys.enable = true;
   };
+
+  # enable the unified cgroup hierarchy (cgroupsv2)
+  systemd.enableUnifiedCgroupHierarchy = true;
 }

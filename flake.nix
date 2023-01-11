@@ -50,24 +50,7 @@
     };
 
     packages.${system} = import ./pkgs {inherit pkgs;};
-    /*
-    packages.${system} = {
-      # Catpuccin
-      catppuccin-folders = pkgs.callPackage ./pkgs/catppuccin-folders.nix {};
-      catppuccin-gtk = pkgs.callPackage ./pkgs/catppuccin-gtk.nix {};
-      catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors.nix {};
 
-      # Custom rofi plugins
-      rofi-calc-wayland = pkgs.callPackage ./pkgs/rofi-calc-wayland.nix {};
-      rofi-emoji-wayland = pkgs.callPackage ./pkgs/rofi-emoji-wayland.nix {};
-
-      # My personal derivations for packages that are not on nixpkgs
-      nicksfetch = pkgs.callPackage ./pkgs/nicksfetch.nix {};
-      cloneit = pkgs.callPackage ./pkgs/cloneit.nix {};
-      swww = pkgs.callPackage ./pkgs/swww.nix {};
-      discordo = pkgs.callPackage ./pkgs/discordo.nix {};
-    };
-    */
     devShells.${system}.default = pkgs.mkShell {
       name = "nixos";
       packages = with pkgs; [
