@@ -6,7 +6,7 @@
 }: {
   home.packages = with pkgs; [
     gh # github command-line
-    gh-calc # github activity stats in the CLI
+    gh-cal # github activity stats in the CLI
     gist # manage github gists
     act # local github actions
   ];
