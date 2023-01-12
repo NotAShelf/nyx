@@ -5,12 +5,17 @@ system: let
   XDG_CACHE_HOME = "\$HOME/.cache";
   XDG_STATE_HOME = "\HOME/.local/shate";
   XDG_RUNTIME_DIR = "/run/user/\${UID}";
+  XDG_BIN_HOME = "\${HOME}/.local/bin";
 in {
-  glEnv = {
+  glEnv = rec {
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";
     XDG_STATE_HOME = "\${HOME}/.local/state";
     XDG_DATA_HOME = "\${HOME}/.local/share";
+    XDG_BIN_HOME = "\${HOME}/.local/bin";
+    PATH = [
+      "\${XDG_BIN_HOME}"
+    ];
   };
   sysEnv = {
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
