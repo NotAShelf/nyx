@@ -13,9 +13,7 @@ in {
     XDG_STATE_HOME = "\${HOME}/.local/state";
     XDG_DATA_HOME = "\${HOME}/.local/share";
     XDG_BIN_HOME = "\${HOME}/.local/bin";
-    PATH = [
-      "\${XDG_BIN_HOME}"
-    ];
+    PATH = ["\${XDG_BIN_HOME}"];
   };
   sysEnv = {
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
@@ -42,6 +40,9 @@ in {
     CARGO_HOME = "${XDG_DATA_HOME}/cargo";
     NODE_REPL_HISTORY = "${XDG_DATA_HOME}/node_repl_history";
     PLATFORMIO_CORE_DIR = "${XDG_DATA_HOME}/platformio";
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = [
+      "\${HOME}/.steam/root/compatibilitytools.d"
+    ];
   };
 
   npmrc.text = ''

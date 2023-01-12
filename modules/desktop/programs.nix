@@ -7,9 +7,6 @@
 }: {
   environment = {
     systemPackages = [];
-    sessionVariables = {
-      #STEAM_EXTRA_COMPAT_TOOLS_PATHS = lib.mkForce "~/.steam/root/compatibilitytools.d";
-    };
   };
 
   hardware = {
