@@ -1,3 +1,11 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [knights gnome.gnome-chess stockfish uchess];
+  environment.systemPackages = with pkgs; [
+    knights
+    gnome.gnome-chess
+    stockfish
+    fishnet
+    uchess
+    xboard
+    arena
+  ];
 }
