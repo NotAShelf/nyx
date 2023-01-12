@@ -5,6 +5,8 @@
 }: {
   programs.vscode = {
     enable = true;
+    enableExtensionUpdateCheck = true;
+    enableUpdateCheck = true;
     extensions = with pkgs.vscode-extensions;
       [
         arrterian.nix-env-selector
@@ -34,12 +36,20 @@
         xaver.clang-format
         yzhang.markdown-all-in-one
         _2gua.rainbow-brackets
+        james-yu.latex-workshop
+        redhat.vscode-yaml
+        ms-azuretools.vscode-docker
+        irongeek.vscode-env
+        github.vscode-pull-request-github
+        github.codespaces
+        astro-build.astro-vscode
+        WakaTime.vscode-wakatime
       ]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "copilot-nightly";
           publisher = "github";
-          version = "1.61.7476";
+          version = "1.67.7949";
           sha256 = "QBGxt+uMbk6E86HFzgPl1iFC7VVFTkQV6VNqpChFI0A=";
         }
       ];
