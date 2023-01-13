@@ -5,9 +5,9 @@
 }: let
   inputs = self.inputs;
 
-  ## bootloaders ##
-  bl-common = ../modules/bootloaders/common.nix; # default bootloader
-  bl-server = ../modules/bootloaders/server.nix; # server-specific bootloader
+  ## bootloader ##
+  bootloader = ../modules/bootloader;
+  # my system module will choose the appropriate bootloader based on device.type option
 
   # globally shared modules
   core = ../modules/core;
@@ -44,7 +44,7 @@ in {
       [
         {networking.hostName = "prometheus";}
         ./prometheus
-        bl-common
+        bootloader
         hmModule
         desktop
         wayland
@@ -62,7 +62,8 @@ in {
       [
         {networking.hostName = "icarus";}
         ./icarus
-        bl-common
+        bootloader
+        server
         wayland
         hmModule
         {inherit home-manager;}

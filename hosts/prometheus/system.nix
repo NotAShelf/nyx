@@ -12,14 +12,27 @@ in {
       acpi
     ];
 
-    modules.device = {
-      type = "laptop";
-      cpu = "intel";
-      gpu = "intel"; # this is a nvidia hybrid laptop, but nvidia drivers are broken
-      monitors = ["eDP-1"];
-      hasBluetooth = true;
-      hasSound = true;
-      hasTPM = true;
+    modules = {
+      device = {
+        # device type or purpose
+        type = "laptop";
+        # cpu and gpu
+        cpu = "intel";
+        gpu = "intel"; # this is a nvidia hybrid laptop, but nvidia drivers are broken
+        # available/used monitors
+        monitors = ["eDP-1"];
+        # device capabilities
+        hasBluetooth = true;
+        hasSound = true;
+        hasTPM = true;
+      };
+      system = {
+        # display protocol - wayland is default
+        isWayland = true;
+        # desired system features
+        video.enable = true;
+        sound.enable = true;
+      };
     };
 
     # we enable and modify tpm2 *per host* because not all devices I own
