@@ -26,6 +26,8 @@
         ms-vscode-remote.remote-ssh
         ms-vscode.cpptools
         naumovs.color-highlight
+        svelte.svelte-vscode
+        ms-vsliveshare.vsliveshare
         oderwat.indent-rainbow
         pkief.material-icon-theme
         rust-lang.rust-analyzer
@@ -51,6 +53,36 @@
           publisher = "github";
           version = "1.67.7949";
           sha256 = "QBGxt+uMbk6E86HFzgPl1iFC7VVFTkQV6VNqpChFI0A=";
+        }
+        {
+          name = "volar";
+          publisher = "vue";
+          version = "1.0.12";
+          sha256 = "sha256-D9E3KRUOlNVXH4oMv1W0+/mbqO8Se7+6E2F5P/KvCro=";
+        }
+        {
+          name = "vscode-typescript-vue-plugin";
+          publisher = "vue";
+          version = "1.0.12";
+          sha256 = "sha256-WiL+gc9+U861ubLlY/acR+ZcrFT7TdIDR0K1XNNidX8=";
+        }
+        {
+          name = "decay";
+          publisher = "decaycs";
+          version = "1.0.6";
+          sha256 = "sha256-Jtxj6LmHgF7UNaXtXxHkq881BbuPtIJGxR7kdhKr0Uo=";
+        }
+        {
+          name = "vscode-typescript-next";
+          publisher = "ms-vscode";
+          version = "5.0.202301100";
+          sha256 = "sha256-8d/L9F06ZaS9dTOXV6Q40ivI499nfZLQURcLdHXoTSM=";
+        }
+        {
+          name = "vscode-chromium-vector-icons";
+          publisher = "adolfdaniel";
+          version = "1.0.2";
+          sha256 = "sha256-Meo53e/3jUP6YDEXOA/40xghI77jj4iAQus3/S8RPZI=";
         }
       ];
     userSettings = {
