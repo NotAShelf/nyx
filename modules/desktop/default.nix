@@ -14,5 +14,6 @@
     ./system.nix
     ./xserver.nix
     ./tor.nix
+    ./fonts.nix
   ];
 }
