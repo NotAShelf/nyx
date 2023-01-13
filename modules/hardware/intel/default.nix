@@ -8,6 +8,8 @@
 
   boot.kernelParams = ["i915.fastboot=1" "i915.enable_fbc=1" "enable_gvt=1"];
 
+  services.xserver.videoDrivers = ["intel"];
+
   nixpkgs.config.packageOverrides = pkgs: {
     # let me play youtube videos without h.264, please and thank you
     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
