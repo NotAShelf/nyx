@@ -11,7 +11,6 @@
 
   # globally shared modules
   core = ../modules/core;
-  wayland = ../modules/wayland; # for devices running a wayland desktop
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
 
@@ -47,7 +46,6 @@ in {
         bootloader
         hmModule
         desktop
-        wayland
         {inherit home-manager;}
       ]
       ++ shared;
@@ -64,7 +62,6 @@ in {
         ./icarus
         bootloader
         server
-        wayland
         hmModule
         {inherit home-manager;}
       ]

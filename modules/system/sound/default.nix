@@ -13,7 +13,7 @@ in {
   config = mkIf (cfg.enable && device.hasSound) {
     sound.enable = true;
     # able to change scheduling policies, e.g. to SCHED_RR
-    rtkit.enable = true;
+    security.rtkit.enable = true;
 
     services.pipewire = {
       enable = true;

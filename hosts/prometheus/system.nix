@@ -64,7 +64,15 @@ in {
       enableRedistributableFirmware = true;
 
       # my GPU is not properly supported by open source drivers
-      nvidia.open = lib.mkForce false;
+      nvidia = {
+        open = lib.mkForce false;
+
+        prime = {
+          offload.enable = true;
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+        };
+      };
     };
 
     boot = {

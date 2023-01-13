@@ -1,16 +1,16 @@
 {
-  pkgs,
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; {
   imports = [
-    ./type
+    ./video
     ./sound
-    ./gpu
-    ./cpu
+    ./hardware
     ./fs
+    ./type
   ];
 
   # Options below NEED to be set on each host
@@ -70,6 +70,13 @@ with lib; {
     isWayland = mkOption {
       type = types.bool;
       default = true;
+    };
+
+    # a list of filesystems available on the system
+    # it will enable services based on what strings are found in the list
+    fs = mkOption {
+      type = types.listOf types.str;
+      default = [];
     };
 
     # TODO: make selected window manager a possible config setting
