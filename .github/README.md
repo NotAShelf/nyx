@@ -65,21 +65,22 @@ or donating me from the links below, up to you.
 
 I so often switch devices due to a myriad of reasons. Regardless of the reason,
 I would like to be able to get my new devices up and running in minutes. Thanks
-to the declarative nature of NixOS, I can do just that. Which is why I am
-currently transitioning all of my devices to NixOS. While I do have much to learn
+to the declarative nature of NixOS, I can do just that on top of being able to 
+build entire system from a few modules and nothing more. Which is why I am currently
+in the process of transitioning all of my devices to NixOS. While I do have much to learn
 the NixOS ecosystem is an incredible learning opportunity and a good practice for
 those who want to switch inbetween devices at ease, or have common "mixin"
 configs that are shared between multiple devices. All things considered, it is
-an excellent idea to learn Nix (the programming language) and NixOS.
+an excellent idea to learn Nix (the programming language) and NixOS. 
 
 I also maintain some dotfiles for my desktop running Arch Linux. See the [main](tree/main)
 branch if you are interested in my "legacy" dotfiles.
 
-### Words of Advice
+### Disclaimer
 
 You *probably* do not want to copy or base your config off of this configuration.
 Frankly, this is not a community framework, and nor is it built with the intention of bringing
-new people into NixOS or/and helping newbies figure out how NixOS works. 
+new people into NixOS or/and helping newcomers figure out how NixOS works.
 It is simply my NixOS configuration, built around my personal use cases and interests. 
 If you do have a question, I will do my absolute best to answer it as the 
 circumstances (mainly my own knowledge) allow, however, do not expect "support" 
