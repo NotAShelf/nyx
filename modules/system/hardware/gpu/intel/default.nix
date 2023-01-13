@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  ...
 }:
 with lib; let
   device = config.modules.device;

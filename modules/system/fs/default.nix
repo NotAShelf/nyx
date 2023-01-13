@@ -8,7 +8,7 @@ with lib; let
   sys = config.modules.system.fs;
 in {
   config = mkMerge [
-    (mkIf (sys.fs elem "btrfs") {
+    (mkIf (sys.fs builtins.elem ["btrfs"]) {
       # scrub btrfs devices
       services.btrfs.autoScrub.enable = true;
 
@@ -20,11 +20,11 @@ in {
       };
     })
 
-    (mkIf (sys.fs elem "ext4") {
+    (mkIf (sys.fs builtins.elem ["ext4"]) {
       # TODO
     })
 
-    (mkIf (sys.fs elem "zfs") {
+    (mkIf (sys.fs builtins.elem ["zfs"]) {
       # TODO
     })
   ];

@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./amd
+    #./amd
     ./intel
   ];
 }
