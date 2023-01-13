@@ -7,7 +7,7 @@
 with lib; let
   device = config.modules.device;
 in {
-  config = mkIf (device.gpu == "amd") {
+  config = mkIf (device.gpu == "amd" || device.gpu == "amdHybrid") {
     # enable amdgpu kernel module
     boot.initrd.kernelModules = ["amdgpu"];
     services.xserver.videoDrivers = ["amdgpu"];

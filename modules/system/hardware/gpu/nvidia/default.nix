@@ -21,9 +21,9 @@ with lib; let
     then config.boot.kernelPackages.nvidiaPackages.stable
     else config.boot.kernelPackages.nvidiaPackages.beta;
 
-  cfg = config.modules.device;
+  device = config.modules.device;
 in {
-  config = {
+  config = mkIf (device.gpu == "nvidia" || device.gpu == "nvHybrid") {
     services.xserver.videoDrivers = ["nvidia" "modesetting"];
     boot.blacklistedKernelModules = ["nouveau"];
 
@@ -45,12 +45,12 @@ in {
 
     hardware = {
       nvidia = {
-        package = nvidiaPackage;
+        package = mkDefault nvidiaPackage;
 
         powerManagement.enable = false;
         modesetting.enable = true;
 
-        open = lib.mkDefault true; # use open source drivers where possible
+        open = mkDefault true; # use open source drivers where possible
         nvidiaSettings = true; # add nvidia-settings to pkgs
       };
 

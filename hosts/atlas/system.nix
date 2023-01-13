@@ -4,8 +4,6 @@
   lib,
   ...
 }: {
-  #nixpkgs.localSystem.system = "aarch64-linux";
-
   fileSystems = {
     "/" = {
       device = lib.mkForce "/dev/disk/by-label/NIXOS_SD";

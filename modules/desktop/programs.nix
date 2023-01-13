@@ -17,6 +17,9 @@
   };
 
   programs = {
+    # standalone home-manager
+    home-manager.enable = true;
+
     # registry for linux, thanks to gnome
     dconf.enable = true;
 

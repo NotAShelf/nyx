@@ -5,14 +5,14 @@
   ...
 }:
 with lib; let
-  sys = config.modules.system.fs;
+  sys = config.modules.system;
 in {
   config = mkMerge [
-    (mkIf (sys.fs builtins.elem ["btrfs"]) {
+    (mkIf (builtins.elem "btrfs" sys.fs) {
       # scrub btrfs devices
       services.btrfs.autoScrub.enable = true;
 
-      # this fixes initrd.systemd for whatever reason
+      # this fixes initrd.systemd.enable for whatever reason
       boot = {
         initrd = {
           supportedFilesystems = ["btrfs"];
@@ -20,11 +20,11 @@ in {
       };
     })
 
-    (mkIf (sys.fs builtins.elem ["ext4"]) {
+    (mkIf (builtins.elem "ext4" sys.fs) {
       # TODO
     })
 
-    (mkIf (sys.fs builtins.elem ["zfs"]) {
+    (mkIf (builtins.elem "zfs" sys.fs) {
       # TODO
     })
   ];

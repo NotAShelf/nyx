@@ -61,6 +61,9 @@ in {
     };
 
     hardware.acpilight.enable = true;
-    environment.systemPackages = [config.boot.kernelPackages.cpupower];
+    environment.systemPackages = [
+      config.boot.kernelPackages.cpupower
+      pkgs.acpi
+    ];
   };
 }

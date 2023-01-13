@@ -6,6 +6,7 @@
 }:
 with lib; let
   cfg = config.modules.system.video;
+  sys = config.modules.system;
 in {
   options.modules.system.video = {
     enable = mkEnableOption "video";
@@ -20,7 +21,7 @@ in {
           driSupport32Bit = true;
         };
       };
-      users.users.${device.username}.extraGroups = ["video"];
+      users.users.${sys.username}.extraGroups = ["video"];
     }
   ]);
 }

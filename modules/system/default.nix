@@ -12,7 +12,6 @@ with lib; {
     ./fs
     ./type
   ];
-
   # Options below NEED to be set on each host
   # or you won't have any drivers/services/programs
   # also your build will fail but that's not important
@@ -36,13 +35,13 @@ with lib; {
     # FIXME nvidia hybrid currently breaks wayland due to broken nvidia drivers
     # remember to set this value, or you will not have any graphics drivers
     gpu = mkOption {
-      type = types.enum ["amd" "intel" "nvidia" "vm" "nvHybrid" "amdHybrid"];
+      type = types.enum ["none" "amd" "intel" "nvidia" "nvHybrid" "amdHybrid"];
     };
 
     # this does not affect any drivers and such, it is only necessary for
     # declaring things like monitors in window manager configurations
     monitors = mkOption {
-      type = types.listOf types.str;
+      type = types.listOf types.string;
       default = [];
     };
 
@@ -75,8 +74,13 @@ with lib; {
     # a list of filesystems available on the system
     # it will enable services based on what strings are found in the list
     fs = mkOption {
-      type = types.listOf types.str;
+      type = types.listOf types.string;
       default = [];
+    };
+
+    # the default user (not users) you plan to use on a specific device
+    username = mkOption {
+      type = types.str;
     };
 
     # TODO: make selected window manager a possible config setting

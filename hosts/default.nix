@@ -22,7 +22,7 @@
   ragenix = inputs.ragenix.nixosModules.age; # secret encryption
   hmModule = inputs.home-manager.nixosModules.home-manager; # home-manager
 
-  shared = [core system ragenix];
+  shared = [system core ragenix];
 
   # home-manager configurations
   home-manager = {
