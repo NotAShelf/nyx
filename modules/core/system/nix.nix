@@ -44,7 +44,7 @@ in {
         rust-overlay.overlays.default
       ]
       # Overlays from ../../overlays directory
-      ++ (importNixFiles ../../overlays);
+      ++ (importNixFiles ../../../pkgs/overlays);
   };
 
   # faster rebuilding

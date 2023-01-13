@@ -5,14 +5,8 @@
   ...
 }:
 # this makes our system more secure
-# note that it might break some stuff, eg webcam
+# note that it might break some stuff, e.g. webcam
 {
-  #services.tor = {
-  #  enable = true;
-  #  client.enable = true;
-  #  torsocks.enable = true;
-  #};
-
   programs.ssh.startAgent = true;
 
   security = {
@@ -43,7 +37,7 @@
       ];
 
       services = {
-        # unlock GPG keyring upon login
+        # unlock GPG keyring upon login # FIXME
         greetd.gnupg.enable = true;
         login.enableGnomeKeyring = true;
         swaylock = {
