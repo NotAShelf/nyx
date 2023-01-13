@@ -12,8 +12,6 @@
   security = {
     protectKernelImage = true;
     lockKernelModules = false;
-    # able to change scheduling policies, e.g. to SCHED_RR
-    rtkit.enable = true;
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;

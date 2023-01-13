@@ -13,5 +13,10 @@ in {
         ./laptop.nix
       ];
     })
+    (mkIf (device.type == "hybrid") {
+      imports = [
+        ./laptop.nix
+      ];
+    })
   ];
 }

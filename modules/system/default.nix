@@ -5,6 +5,14 @@
   ...
 }:
 with lib; {
+  imports = [
+    ./type
+    ./sound
+    ./gpu
+    ./cpu
+    ./fs
+  ];
+
   # Options below NEED to be set on each host
   # or you won't have any drivers/services/programs
   # also your build will fail but that's not important
@@ -15,8 +23,9 @@ with lib; {
     # optimizations on top of common programs
     # server has services I would want on a server, and lite is for low-end devices
     # that need only the basics
+    # hybrid is for desktops that are also servers (homelabs, basically)
     type = mkOption {
-      type = types.enum ["laptop" "desktop" "server" "lite"];
+      type = types.enum ["laptop" "desktop" "server" "hybrid" "lite"];
     };
 
     cpu = mkOption {
@@ -38,7 +47,7 @@ with lib; {
     };
 
     # whether the system has bluetooth support
-    # can be disabled to
+    # can be disabled too
     hasBluetooth = mkOption {
       type = types.bool;
     };
@@ -53,7 +62,9 @@ with lib; {
       type = types.bool;
       default = false;
     };
+  };
 
+  options.modules.system = {
     # do you want wayland module to be loaded? this will include:
     # wayland compatibility options, wayland-only services and programs
     isWayland = mkOption {
