@@ -15,19 +15,15 @@
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
 
-  # hardware specific modules (and btrfs)
-  intel = ../modules/hardware/intel; # surprisingly common on my devices
-  nvidia = ../modules/hardware/nvidia; # currently breaks mozilla products
-  amd = ../modules/hardware/amd; # soon :weary:
-  laptop = ../modules/hardware/laptop; # for devices that identify as laptops
-  btrfs = ../modules/hardware/btrfs; # for devices rocking a btrfs main disk
+  # system module for configuring system-specific options (i.e fs or bluetooth)
+  system = ../modules/system;
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4
   ragenix = inputs.ragenix.nixosModules.age; # secret encryption
   hmModule = inputs.home-manager.nixosModules.home-manager; # home-manager
 
-  shared = [core ragenix];
+  shared = [core system ragenix];
 
   # home-manager configurations
   home-manager = {
@@ -51,10 +47,7 @@ in {
         bl-common
         hmModule
         desktop
-        laptop
         wayland
-        intel
-        btrfs
         {inherit home-manager;}
       ]
       ++ shared;
@@ -70,10 +63,8 @@ in {
         {networking.hostName = "icarus";}
         ./icarus
         bl-common
-        server
         wayland
         hmModule
-        intel
         {inherit home-manager;}
       ]
       ++ shared;
@@ -88,7 +79,6 @@ in {
       [
         ./atlas
         hw.raspberry-pi-4
-        server
       ]
       ++ shared;
     specialArgs = {inherit inputs;};
@@ -97,6 +87,7 @@ in {
   gaea = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
+      # import base iso configuration on top of base nixos modules for the live installer
       ./gaea
       "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
       "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
