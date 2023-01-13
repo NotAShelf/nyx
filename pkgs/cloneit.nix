@@ -5,7 +5,7 @@
   pkg-config,
   stdenv,
   openssl,
-  #security,
+  ...
 }:
 rustPlatform.buildRustPackage rec {
   pname = "cloneit";
