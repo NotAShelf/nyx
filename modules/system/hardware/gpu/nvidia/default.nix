@@ -22,18 +22,30 @@ with lib; let
     else config.boot.kernelPackages.nvidiaPackages.beta;
 
   device = config.modules.device;
+  cfg = config.modules.system;
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "nvHybrid") {
     services.xserver.videoDrivers = ["nvidia" "modesetting"];
     boot.blacklistedKernelModules = ["nouveau"];
 
     environment = {
-      variables = {
-        GBM_BACKEND = "nvidia-drm";
-        LIBVA_DRIVER_NAME = "nvidia";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        WLR_NO_HARDWARE_CURSORS = "1";
-      };
+      sessionVariables = mkMerge [
+        {
+          LIBVA_DRIVER_NAME = "nvidia";
+        }
+        (mkIf cfg.isWayland {
+          WLR_NO_HARDWARE_CURSORS = "1";
+          GBM_BACKEND = "nvidia-drm";
+          __GL_GSYNC_ALLOWED = "0";
+          __GL_VRR_ALLOWED = "0";
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        })
+
+        (mkIf cfg.gpu
+          == "nvHybrid" {
+            WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
+          })
+      ];
       systemPackages = with pkgs; [
         nvidia-offload
         glxinfo

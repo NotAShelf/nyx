@@ -29,7 +29,7 @@ in {
       ];
 
       extraPackages32 = with pkgs.pkgsi686Linux; [
-        intel-compute-runtime
+        #intel-compute-runtime # FIXME does not build due to unsupported system
         intel-media-driver
         vaapiIntel
         vaapiVdpau

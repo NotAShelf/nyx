@@ -32,10 +32,11 @@ with lib; {
     };
 
     # the manifacturer of the system gpu
-    # FIXME nvidia hybrid currently breaks wayland due to broken nvidia drivers
+    # FIXME nvidia and nvidia hybrid currently break on wayland due to
+    # broken nvidia drivers
     # remember to set this value, or you will not have any graphics drivers
     gpu = mkOption {
-      type = types.enum ["none" "amd" "intel" "nvidia" "nvHybrid" "amdHybrid"];
+      type = types.enum ["none" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd"];
     };
 
     # this does not affect any drivers and such, it is only necessary for

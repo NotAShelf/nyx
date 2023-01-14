@@ -81,6 +81,7 @@ in {
       ++ shared;
     specialArgs = {inherit inputs;};
   };
+  */
 
   gaea = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
@@ -92,5 +93,4 @@ in {
     ];
     specialArgs = {inherit inputs;};
   };
-  */
 }
