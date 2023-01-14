@@ -1,50 +1,53 @@
 {
   config,
+  lib,
   pkgs,
   ...
-}: {
-  systemd.services = {
-    seatd = {
-      enable = true;
-      description = "Seat management daemon";
-      script = "${pkgs.seatd}/bin/seatd -g wheel";
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = "1";
-      };
-      wantedBy = ["multi-user.target"];
-    };
-  };
-
-  services = {
-    greetd = {
-      enable = true;
-      settings = rec {
-        initial_session = {
-          command = "Hyprland";
-          user = "notashelf";
+}:
+with lib; let
+  cfg = config.modules.system.video;
+  sys = config.modules.system;
+in {
+  config = mkIf (cfg.enable && sys.isWayland) {
+    systemd.services = {
+      seatd = {
+        enable = true;
+        description = "Seat management daemon";
+        script = "${getExe pkgs.seatd} -g wheel";
+        serviceConfig = {
+          Type = "simple";
+          Restart = "always";
+          RestartSec = "1";
         };
-        default_session = initial_session;
+        wantedBy = ["multi-user.target"];
       };
     };
 
-    gnome = {
-      glib-networking.enable = true;
-      gnome-keyring.enable = true;
-    };
+    services = {
+      greetd = {
+        enable = true;
+        settings = rec {
+          initial_session = {
+            command = "Hyprland";
+            user = "notashelf";
+          };
+          default_session = initial_session;
+        };
+      };
 
-    logind = {
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "lock";
-      extraConfig = ''
-        HandlePowerKey=suspend-then-hibernate
-        HibernateDelaySec=3600
-      '';
-    };
+      gnome = {
+        glib-networking.enable = true;
+        gnome-keyring.enable = true;
+      };
 
-    lorri.enable = true;
-    printing.enable = true;
-    fstrim.enable = true;
+      logind = {
+        lidSwitch = "suspend-then-hibernate";
+        lidSwitchExternalPower = "lock";
+        extraConfig = ''
+          HandlePowerKey=suspend-then-hibernate
+          HibernateDelaySec=3600
+        '';
+      };
+    };
   };
 }

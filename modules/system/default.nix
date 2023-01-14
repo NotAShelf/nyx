@@ -11,6 +11,7 @@ with lib; {
     ./hardware
     ./fs
     ./type
+    ./display
   ];
   # Options below NEED to be set on each host
   # or you won't have any drivers/services/programs
@@ -67,7 +68,9 @@ with lib; {
   options.modules.system = {
     # do you want wayland module to be loaded? this will include:
     # wayland compatibility options, wayland-only services and programs
+    # and the wayland nixpkgs overlay
     isWayland = mkOption {
+      # TODO: move to options.modules.environment
       type = types.bool;
       default = true;
     };
@@ -80,10 +83,25 @@ with lib; {
     };
 
     # the default user (not users) you plan to use on a specific device
+    # this will dictate the initial home-manager settings if home-manager is
+    # enabled in usrenv
     username = mkOption {
       type = types.str;
     };
 
     # TODO: make selected window manager a possible config setting
+  };
+
+  options.modules.usrenv = {
+    # TODO: move isWayland in usrenv
+    isWayland = mkOption {
+      type = types.bool;
+      default = true;
+    };
+
+    desktop = mkOption {
+      type = types.enum ["hyprland"];
+      default = "hyprland";
+    };
   };
 }
