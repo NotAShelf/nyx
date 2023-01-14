@@ -11,7 +11,7 @@ in {
     modules = {
       device = {
         type = "laptop";
-        cpu = "";
+        cpu = "intel";
         gpu = "intel"; # nvidia drivers :b:roke
         monitors = ["eDP-1"];
         hasBluetooth = true;

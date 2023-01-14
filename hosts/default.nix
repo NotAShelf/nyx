@@ -51,7 +51,7 @@ in {
       ++ shared;
     specialArgs = {inherit inputs;};
   };
-
+  /*
   # Lenovo Ideapad from 2014
   # Portable "server"
   icarus = nixpkgs.lib.nixosSystem {
@@ -92,4 +92,5 @@ in {
     ];
     specialArgs = {inherit inputs;};
   };
+  */
 }
