@@ -42,6 +42,7 @@ with pkgs; [
       command = "${go}/bin/gofmt";
     };
   }
+  # FIXME: this conflicts with webcord's ts-ls
   {
     name = "javascript";
     auto-format = true;

@@ -12,33 +12,6 @@ in {
 
   config = mkIf cfg.enable {
     xdg.configFile."nvim".source = ./nvim;
-
-    home.packages = with pkgs; [
-      nil
-      sumneko-lua-language-server
-      stylua # Lua
-      uncrustify
-      shellcheck
-      alejandra # Nix
-      gopls # go
-      asmfmt
-      ccls # cpp
-      black # python
-      shellcheck # bash
-      shfmt
-      nodejs
-      nodePackages.pyright
-      nodePackages.prettier
-      nodePackages.stylelint
-      nodePackages.jsonlint # JSON
-      nodePackages.typescript-language-server # Typescript
-      nodePackages.vscode-langservers-extracted # HTML, CSS, JavaScript
-      nodePackages.yarn
-      nodePackages.bash-language-server
-      nodePackages.node2nix # Bash
-      texlab
-    ];
-
     programs.neovim = {
       enable = true;
       package = pkgs.neovim-unwrapped;
@@ -48,6 +21,31 @@ in {
       withRuby = false;
       withNodeJs = false;
       withPython3 = false;
+      extraPackages = with pkgs; [
+        nil
+        sumneko-lua-language-server
+        stylua # Lua
+        uncrustify
+        shellcheck
+        alejandra # Nix
+        gopls # go
+        asmfmt
+        ccls # cpp
+        black # python
+        shellcheck # bash
+        shfmt
+        nodejs
+        nodePackages.pyright
+        nodePackages.prettier
+        nodePackages.stylelint
+        nodePackages.jsonlint # JSON
+        nodePackages.typescript-language-server # Typescript
+        nodePackages.vscode-langservers-extracted # HTML, CSS, JavaScript
+        nodePackages.yarn
+        nodePackages.bash-language-server
+        nodePackages.node2nix # Bash
+        texlab
+      ];
       plugins = with pkgs.vimPlugins; [
         lsp_lines-nvim
         vim-nix
