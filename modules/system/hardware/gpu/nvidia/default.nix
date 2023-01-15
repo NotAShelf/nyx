@@ -33,7 +33,7 @@ in {
         {
           LIBVA_DRIVER_NAME = "nvidia";
         }
-        (mkIf cfg.isWayland {
+        (mkIf (cfg.isWayland) {
           WLR_NO_HARDWARE_CURSORS = "1";
           GBM_BACKEND = "nvidia-drm";
           __GL_GSYNC_ALLOWED = "0";
@@ -41,15 +41,16 @@ in {
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
         })
 
-        (mkIf cfg.gpu
-          == "nvHybrid" {
-            WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
-          })
+        (mkIf (cfg.gpu == "nvHybrid") {
+          WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
+        })
       ];
       systemPackages = with pkgs; [
         nvidia-offload
         glxinfo
         vulkan-tools
+        vulkan-loader
+        vulkan-validation-layers
         glmark2
         nvtop
       ];
