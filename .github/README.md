@@ -24,6 +24,9 @@
 </div>
 </h1>
 
+
+<div align="center"> <img src=".github/assets/desktop_preview.png"></div>
+
 ## 📦 Overview
 
 - [Flake](flake.nix) Ground zero of my system configuration
