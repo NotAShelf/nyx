@@ -3,6 +3,7 @@
   lib,
   config,
   inputs,
+  osConfig,
   ...
 }:
 with lib; let
@@ -23,6 +24,9 @@ with lib; let
   '';
 
   xdg-desktop-portal-hyprland = inputs.xdg-portal-hyprland.packages.${pkgs.system}.default;
+
+  sys = osConfig.modules.system;
+  device = osConfig.modules.device;
 in {
   home.packages = with pkgs; [
     libnotify
@@ -41,9 +45,9 @@ in {
   ];
 
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = sys.isWayland;
     package = inputs.hyprland.packages.${pkgs.system}.default.override {
-      nvidiaPatches = true;
+      nvidiaPatches = device.gpu == "nvidia" || device.gpu == "hybrid-nv";
     };
     systemdIntegration = true;
     extraConfig = builtins.readFile ./hyprland.conf;

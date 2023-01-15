@@ -59,7 +59,6 @@
         alejandra
         git
         glow
-        neovim
       ];
     };
 
