@@ -14,7 +14,7 @@
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
   # TODO: consider moving home module to modules/ again - it adds an extra directory I have to type to get there
-  home = ../home; # home-manager configurations for hosts that need home-manager
+  #home = ../home; # home-manager configurations for hosts that need home-manager
 
   # system module for configuring system-specific options (i.e fs or bluetooth)
   system = ../modules/system;
