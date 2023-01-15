@@ -79,7 +79,7 @@ with lib; {
     # it will enable services based on what strings are found in the list
     fs = mkOption {
       type = types.listOf types.string;
-      default = [];
+      default = ["vfat" "btrfs" "ext4"]; # TODO: zfs
     };
 
     # the default user (not users) you plan to use on a specific device
@@ -92,8 +92,8 @@ with lib; {
     # TODO: make selected window manager a possible config setting
   };
 
-  options.modules.usrenv = {
-    # TODO: move isWayland in usrenv
+  options.modules.usrEnv = {
+    # TODO: move isWayland in usrEnv
     isWayland = mkOption {
       type = types.bool;
       default = true;

@@ -13,15 +13,18 @@
   core = ../modules/core;
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
+  # TODO: consider moving home module to modules/ again - it adds an extra directory I have to type to get there
+  home = ../home; # home-manager configurations for hosts that need home-manager
 
   # system module for configuring system-specific options (i.e fs or bluetooth)
   system = ../modules/system;
 
   ## flake inputs ##
-  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4
+  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other devices
   ragenix = inputs.ragenix.nixosModules.age; # secret encryption
-  hmModule = inputs.home-manager.nixosModules.home-manager; # home-manager
+  hmModule = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
+  # TODO: move home to shared list, when it is modular and mature enough
   shared = [system core ragenix];
 
   # home-manager configurations
@@ -32,7 +35,9 @@
       inherit inputs;
       inherit self;
     };
-    users.notashelf = ../home/notashelf;
+    users = {
+      notashelf = ../home/notashelf;
+    };
   };
 in {
   # HP Pavillion from 2016

@@ -1,5 +1,5 @@
 {
-  description = "My NixOS configuration with questionable stability";
+  description = "My NixOS configuration with *very* questionable stability";
   # https://github.com/notashelf/dotfiles
 
   outputs = {
@@ -59,6 +59,7 @@
         alejandra
         git
         glow
+        neovim
       ];
     };
 
@@ -73,8 +74,8 @@
 
     # nixpkgs variants for different channels
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+    #nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     # Fortunateteller2k's nixpkgs collection
     nixpkgs-f2k = {

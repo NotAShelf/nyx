@@ -47,6 +47,7 @@ in {
         # user settings
         username = "notashelf";
       };
+      usrEnv = {};
     };
 
     # we enable and modify tpm2 *per host* because not all devices I own

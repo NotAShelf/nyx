@@ -20,11 +20,12 @@ in {
       };
       system = {
         isWayland = true;
-        fs = ["btrfs" "vfat"];
+        fs = ["btrfs" "vfat" "ntfs"];
         video.enable = true;
         sound.enable = true;
         username = "notashelf";
       };
+      usrEnv = {};
     };
 
     security.tpm2 = {

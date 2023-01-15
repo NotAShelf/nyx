@@ -7,7 +7,7 @@
 }: {
   imports = [
     # import system packages
-    ./packages.nix
+    ./packages
 
     # apps and services I use
     ./graphical
