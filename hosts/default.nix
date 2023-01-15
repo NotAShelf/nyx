@@ -27,18 +27,8 @@
   # TODO: move home to shared list, when it is modular and mature enough
   shared = [system core ragenix];
 
-  # home-manager configurations
-  home-manager = {
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    extraSpecialArgs = {
-      inherit inputs;
-      inherit self;
-    };
-    users = {
-      notashelf = ../home/notashelf;
-    };
-  };
+  # home-manager configuration
+  home-manager = import ../home;
 in {
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
@@ -51,10 +41,10 @@ in {
         bootloader
         hmModule
         desktop
-        {inherit home-manager;}
+        home-manager
       ]
       ++ shared;
-    specialArgs = {inherit inputs;};
+    specialArgs = {inherit inputs self;};
   };
   /*
   # Lenovo Ideapad from 2014
