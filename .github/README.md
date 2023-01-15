@@ -25,7 +25,7 @@
 </h1>
 
 
-<div align="center"> <img src=".github/assets/desktop_preview.png"></div>
+<div align="center"> <img src="assets/desktop_preview.png"></div>
 
 ## 📦 Overview
 
