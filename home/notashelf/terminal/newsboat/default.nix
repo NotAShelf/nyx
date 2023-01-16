@@ -14,7 +14,7 @@ in {
     urls = [
       # https://hackaday.com/blog/feed/
       {
-        title = "KIKS";
+        title = "Weekly Nixos";
         tags = ["news" "twitter"];
         url = "https://weekly.nixos.org/feeds/all.rss.xml";
       }

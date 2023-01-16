@@ -25,7 +25,7 @@ with lib; let
 
   xdg-desktop-portal-hyprland = inputs.xdg-portal-hyprland.packages.${pkgs.system}.default;
 
-  sys = osConfig.modules.system;
+  env = osConfig.modules.usrEnv;
   device = osConfig.modules.device;
 in {
   home.packages = with pkgs; [
@@ -45,7 +45,7 @@ in {
   ];
 
   wayland.windowManager.hyprland = {
-    enable = sys.isWayland;
+    enable = env.isWayland;
     package = inputs.hyprland.packages.${pkgs.system}.default.override {
       nvidiaPatches = device.gpu == "nvidia" || device.gpu == "hybrid-nv";
     };

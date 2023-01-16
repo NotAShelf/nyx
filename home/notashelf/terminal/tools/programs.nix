@@ -13,19 +13,11 @@
 
   programs = {
     man.enable = true;
+
     gpg = {
       enable = true;
       homedir = "${config.xdg.dataHome}/gnupg";
     };
-
-    # nix-index
-    /*
-    nix-index = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-    */
 
     tealdeer = {
       enable = true;
@@ -52,5 +44,14 @@
       };
       config.theme = "Catppuccin-frappe";
     };
+
+    # nix-index
+    /*
+    nix-index = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+    */
   };
 }
