@@ -22,7 +22,7 @@ with lib; let
     else config.boot.kernelPackages.nvidiaPackages.beta;
 
   device = config.modules.device;
-  cfg = config.modules.system;
+  env = config.modules.usrEnv;
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "nvHybrid") {
     services.xserver.videoDrivers = ["nvidia" "modesetting"];
@@ -33,7 +33,7 @@ in {
         {
           LIBVA_DRIVER_NAME = "nvidia";
         }
-        (mkIf (cfg.isWayland) {
+        (mkIf (env.isWayland) {
           WLR_NO_HARDWARE_CURSORS = "1";
           GBM_BACKEND = "nvidia-drm";
           __GL_GSYNC_ALLOWED = "0";

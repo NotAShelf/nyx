@@ -14,6 +14,7 @@ in {
     # enables AMDVLK & OpenCL support
     hardware.opengl.extraPackages = with pkgs; [
       amdvlk
+      # opencl drivers
       rocm-opencl-icd
       rocm-opencl-runtime
     ];

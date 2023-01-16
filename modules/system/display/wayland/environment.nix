@@ -6,9 +6,9 @@
 }:
 with lib; let
   cfg = config.modules.system.video;
-  sys = config.modules.system;
+  env = config.modules.usrEnv;
 in {
-  config = mkIf (cfg.enable && sys.isWayland) {
+  config = mkIf (cfg.enable && env.isWayland) {
     environment.etc."greetd/environments".text = ''
       Hyprland
       sway

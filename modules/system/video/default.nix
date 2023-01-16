@@ -18,6 +18,7 @@ in {
         opengl = {
           enable = true;
           driSupport = true;
+          # TODO: enable this ONLY if system is 64bit
           driSupport32Bit = true;
         };
       };
