@@ -27,51 +27,54 @@ with lib; let
 
   env = osConfig.modules.usrEnv;
   device = osConfig.modules.device;
+  sys = osConfig.modules.system;
 in {
-  home.packages = with pkgs; [
-    libnotify
-    wf-recorder
-    brightnessctl
-    pamixer
-    python39Packages.requests
-    slurp
-    tesseract5
-    swappy
-    ocr
-    grim
-    screenshot
-    wl-clipboard
-    pngquant
-  ];
+  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "hyprland"))) {
+    home.packages = with pkgs; [
+      libnotify
+      wf-recorder
+      brightnessctl
+      pamixer
+      python39Packages.requests
+      slurp
+      tesseract5
+      swappy
+      ocr
+      grim
+      screenshot
+      wl-clipboard
+      pngquant
+    ];
 
-  wayland.windowManager.hyprland = {
-    enable = env.isWayland;
-    package = inputs.hyprland.packages.${pkgs.system}.default.override {
-      nvidiaPatches = device.gpu == "nvidia" || device.gpu == "hybrid-nv";
-    };
-    systemdIntegration = true;
-    extraConfig = builtins.readFile ./hyprland.conf;
-  };
-
-  services.gammastep = {
-    enable = true;
-    provider = "geoclue2";
-  };
-
-  systemd.user.services = {
-    swaybg = mkService {
-      Unit.Description = "Wallpaper chooser service";
-      Service = {
-        ExecStart = "${lib.getExe pkgs.swaybg} -i ${./wall.png}";
-        Restart = "always";
+    wayland.windowManager.hyprland = {
+      enable = env.isWayland;
+      package = inputs.hyprland.packages.${pkgs.system}.default.override {
+        nvidiaPatches = device.gpu == "nvidia" || device.gpu == "hybrid-nv";
       };
+      systemdIntegration = true;
+      extraConfig = builtins.readFile ./hyprland.conf;
     };
 
-    cliphist = mkService {
-      Unit.Description = "Clipboard history service";
-      Service = {
-        ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${lib.getExe pkgs.cliphist} store";
-        Restart = "always";
+    services.gammastep = {
+      enable = true;
+      provider = "geoclue2";
+    };
+
+    systemd.user.services = {
+      swaybg = mkService {
+        Unit.Description = "Wallpaper chooser service";
+        Service = {
+          ExecStart = "${lib.getExe pkgs.swaybg} -i ${./wall.png}";
+          Restart = "always";
+        };
+      };
+
+      cliphist = mkService {
+        Unit.Description = "Clipboard history service";
+        Service = {
+          ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${lib.getExe pkgs.cliphist} store";
+          Restart = "always";
+        };
       };
     };
   };
