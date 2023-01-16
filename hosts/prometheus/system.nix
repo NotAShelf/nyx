@@ -19,13 +19,16 @@ in {
         hasTPM = true;
       };
       system = {
-        isWayland = true;
         fs = ["btrfs" "vfat" "ntfs"];
         video.enable = true;
         sound.enable = true;
         username = "notashelf";
       };
-      usrEnv = {};
+      usrEnv = {
+        isWayland = true;
+        desktop = "hyprland";
+        useHomeManager = true;
+      };
     };
 
     security.tpm2 = {

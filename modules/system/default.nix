@@ -28,8 +28,11 @@ with lib; {
       type = types.enum ["laptop" "desktop" "server" "hybrid" "lite"];
     };
 
+    # the type of cpu your system has - vm and regular cpus currently do not differ
+    # as I do not work with vms, but they have been added for forward-compatibility
     cpu = mkOption {
-      type = types.enum ["intel" "vm-intel" "amd" "vm-amd"];
+      type = types.enum ["pi" "intel" "vm-intel" "amd" "vm-amd"];
+      default = "";
     };
 
     # the manifacturer of the system gpu
@@ -37,7 +40,8 @@ with lib; {
     # broken nvidia drivers
     # remember to set this value, or you will not have any graphics drivers
     gpu = mkOption {
-      type = types.enum ["none" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd"];
+      type = types.enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd"];
+      default = "";
     };
 
     # this does not affect any drivers and such, it is only necessary for
@@ -66,20 +70,11 @@ with lib; {
   };
 
   options.modules.system = {
-    # do you want wayland module to be loaded? this will include:
-    # wayland compatibility options, wayland-only services and programs
-    # and the wayland nixpkgs overlay
-    isWayland = mkOption {
-      # TODO: move to options.modules.environment
-      type = types.bool;
-      default = true;
-    };
-
     # a list of filesystems available on the system
     # it will enable services based on what strings are found in the list
     fs = mkOption {
       type = types.listOf types.string;
-      default = ["vfat" "btrfs" "ext4"]; # TODO: zfs
+      default = ["vfat" "ext4"]; # TODO: zfs
     };
 
     # the default user (not users) you plan to use on a specific device
@@ -93,15 +88,27 @@ with lib; {
   };
 
   options.modules.usrEnv = {
-    # TODO: move isWayland in usrEnv
+    # do you want wayland module to be loaded? this will include:
+    # wayland compatibility options, wayland-only services and programs
+    # and the wayland nixpkgs overlay
     isWayland = mkOption {
       type = types.bool;
       default = true;
     };
 
+    # this option will determine what window manager/compositor/desktop manager
+    # your system will use - my default is Hyprland, Wayland.
+    # TODO: make this a list
     desktop = mkOption {
       type = types.enum ["hyprland"];
-      default = "hyprland";
+      default = "";
+    };
+
+    # should home manager be enabled
+    # you NEED to set a username if you want to use home-manager
+    useHomeManager = mkOption {
+      type = types.bool;
+      default = false;
     };
   };
 }

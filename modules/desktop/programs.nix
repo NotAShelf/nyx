@@ -17,6 +17,16 @@
   };
 
   programs = {
+    # the thunar file manager
+    # we enable thunar here and add plugins instead of in systemPackages
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [thunar-archive-plugin thunar-media-tags-plugin];
+    };
+
+    # "fuck" to fix the last command that made you go "fuck"
+    thefuck.enable = true;
+
     # registry for linux, thanks to gnome
     dconf.enable = true;
 
