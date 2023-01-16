@@ -34,6 +34,7 @@ in {
       else "${XDG_CONFIG_HOME}/python/pythonrc";
     STEPPATH = "${XDG_DATA_HOME}/step";
     #VSCODE_EXTENSIONS = "${XDG_DATA_HOME}/code/extensions";
+    WAKATIME_HOME = "${XDG_DATA_HOME}/wakatime";
     XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
     INPUTRC = "${XDG_CONFIG_HOME}/readline/inputrc";
     GOPATH = "${XDG_DATA_HOME}/go";
