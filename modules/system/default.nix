@@ -13,10 +13,6 @@ with lib; {
     ./type
     ./display
   ];
-  # Options below NEED to be set on each host
-  # or you won't have any drivers/services/programs
-  # also your build will fail but that's not important
-  # "lmao"
   options.modules.device = {
     # the type of the device
     # laptop and desktop include mostly common modules, but laptop has battery
@@ -35,7 +31,7 @@ with lib; {
       default = "";
     };
 
-    # the manifacturer of the system gpu
+    # the manifacturer/type of the system gpu
     # FIXME nvidia and nvidia hybrid currently break on wayland due to
     # broken nvidia drivers
     # remember to set this value, or you will not have any graphics drivers
@@ -46,6 +42,7 @@ with lib; {
 
     # this does not affect any drivers and such, it is only necessary for
     # declaring things like monitors in window manager configurations
+    # you can avoid declaring this, but I'd rather if you did declare
     monitors = mkOption {
       type = types.listOf types.string;
       default = [];
@@ -83,8 +80,6 @@ with lib; {
     username = mkOption {
       type = types.str;
     };
-
-    # TODO: make selected window manager a possible config setting
   };
 
   options.modules.usrEnv = {
