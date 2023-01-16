@@ -13,6 +13,8 @@
   core = ../modules/core;
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
+  virtualization = ../modules/virtualization;
+  home = import ../home;
   # TODO: consider moving home module to modules/ again - it adds an extra directory I have to type to get there
   #home = ../home; # home-manager configurations for hosts that need home-manager
 
@@ -22,13 +24,10 @@
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other devices
   ragenix = inputs.ragenix.nixosModules.age; # secret encryption
-  hmModule = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
+  home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
   # TODO: move home to shared list, when it is modular and mature enough
   shared = [system core ragenix];
-
-  # home-manager configuration
-  home-manager = import ../home;
 in {
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
@@ -39,14 +38,17 @@ in {
         {networking.hostName = "prometheus";}
         ./prometheus
         bootloader
-        hmModule
         desktop
         home-manager
+        home
+        virtualization
       ]
       ++ shared;
     specialArgs = {inherit inputs self;};
   };
+
   /*
+     TODO: fix each individual host as per system module
   # Lenovo Ideapad from 2014
   # Portable "server"
   icarus = nixpkgs.lib.nixosSystem {
@@ -78,6 +80,8 @@ in {
   };
   */
 
+  # Live recovery environment that overrides some default programs
+  # and fixes keymap for me
   gaea = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
