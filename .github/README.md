@@ -24,32 +24,31 @@
 </div>
 </h1>
 
-
-<div align="center"> <img src="assets/desktop_preview.png"></div>
+<p align="center">
+<img src="assets/desktop_preview.png" width="600" alt="" />
+</p>
 
 ## 📦 Overview
 
 - [Flake](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
+- [docs](docs) Documentation for myself and for people who want to understand this system
 - [home](modules/home) 🏠 my [Home-Manager](https://github.com/nix-community/home-manager) config
 - [modules](modules) 🍱 modularized NixOS configs
-  - [bootloaders](modules/bootloaders) ⚙ Various bootloaders for various purpose hosts
+  - [bootloader](modules/bootloader) ⚙ Various bootloaders for various purpose hosts
   - [core](modules/core) 🧠 Core NixOS configuration
   - [server](modules/server) ☁️ Shared modules for "server" purpose hosts
   - [desktop](modules/desktop) 🖥️ Shared modules for "desktop" purpose hosts
-  - [wayland](modules/wayland) 🚀 Wayland-specific configurations and services
-  - [overlays](modules/overlays) 📦 Overlay recipes for my system to use
-  - [hardware](modules/hardware)
-    - [nvidia](modules/hardware/nvidia) 💚 My next GPU won't be NVIDIA
-    - [intel](modules/hardware/intel) 💙 Common configuration for Intel CPUs
-    - [amd](modules/hardware/amd) ❤️  Configuration set for my (future) AMD devices
-    - [laptop](modules/hardware/laptop) 💻 Common configuration for devices that identify as laptops
-    - [btrfs](modules/hardware/btrfs) Mixins for devices that use btrfs as their filesystem 
+  - [system](modules/system) 🚀 A self-made NixOS configuration to dictate system specs
+  - [virtualization](modules/virtualization) Hot-toggled virtualization module for any host
 - [hosts](hosts) 🌳 per-host configuration
   - [prometheus](hosts/prometheus) 💻 My 2016 HP Pavillion with NVIDIA GPU
   - [atlas](hosts/atlas) 🍓 Raspberry Pi 400 that acts as my home lab
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
+  - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
 - [pkgs](pkgs) 💿 exported packages
+  - [overlays](modules/overlays) 📦 Overlay recipes for my system to use
+
 
 ## Notes
 
@@ -81,14 +80,15 @@ branch if you are interested in my "legacy" dotfiles.
 
 ### Disclaimer
 
+> I am not a NixOS *expert*. I am a NixOS *user*.
+
 You *probably* do not want to copy or base your config off of this configuration.
 Frankly, this is not a community framework, and nor is it built with the intention of bringing
 new people into NixOS or/and helping newcomers figure out how NixOS works.
 It is simply my NixOS configuration, built around my personal use cases and interests. 
 If you do have a question, I will do my absolute best to answer it as the 
 circumstances (mainly my own knowledge) allow, however, do not expect "support" 
-and do not assume yourself to be entitled to my time. Definitely do not assume this configuration 
-to be following best practices.
+and definitely do not assume this configuration to be following best practices.
 
 Disect the configurations all you want, take what you need and if you find yourself to 
 be excelling somewhere I lack, do feel free to contribute to my atrocities against
@@ -100,31 +100,39 @@ because I like my Alejandra, thanks but no thanks.
 Want to support me, or to show gratitude for something (somehow) nice I did? 
 Perhaps consider donating!
 
-via [liberapay.com/notashelf](https://en.liberapay.com/notashelf/)
-
 <a href="https://liberapay.com/notashelf/donate">
    <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
+</a>
+<a href="https://ko-fi.com/sioodmy">
+   <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on kofi" /> 
 </a>
 
 ...or if you prefer crypto *(those are not active yet due to my lack of interest in cyptocurrencies)*
 
 Ethereum: ` `
 
-Monero/Bitcoin: notashelf.dev
+Monero/Bitcoin: notashelf.dev (OpenAlias)
 
 ## Credits & Special Thanks to
 
-I ~~shamelessly stole from~~ got inspired by those folks
-
 ### System Configurations
+
+> I ~~shamelessly stole from~~ got inspired by those folks
+
 [sioodmy](https://github.com/sioodmy) -
 [rxyhn](https://github.com/rxyhn) -
 [fufexan](https://github.com/fufexan) -
 [hlissner](https://github.com/hlissner) -
 [fortuneteller2k](https://github.com/fortuneteller2k)
 
-### Other Resources
-[Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
+... and many more
+
+### Other Cool Resources
+
+> Resource that helped shame how this setup is today
+
+- [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
+    - N
 
 
 ## License
