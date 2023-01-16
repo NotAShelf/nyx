@@ -38,6 +38,8 @@
         # schizo firefox config based on firefox ESR
         schizofox = {
           enable = true;
+          netflixDRMFix = true;
+          extraSecurity = true;
           translate = {
             enable = true;
             sourceLang = "en";
