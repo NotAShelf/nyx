@@ -1,7 +1,11 @@
+Note: The system-module branch is for the upcoming QoL rework and is in REALLY
+early development. See the `nixos` module for the last stable version.
+
 <h1 align="center">
   <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
   
   NotAShelf's NixOS Configurations <br>
+
   <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
   <div align="center">
 
@@ -25,7 +29,7 @@
 </h1>
 
 <p align="center">
-<img src="assets/desktop_preview.png" width="600" alt="" />
+   <img src="assets/desktop_preview.png" width="620" alt="" />
 </p>
 
 ## 📦 Overview
@@ -90,22 +94,28 @@ If you do have a question, I will do my absolute best to answer it as the
 circumstances (mainly my own knowledge) allow, however, do not expect "support" 
 and definitely do not assume this configuration to be following best practices.
 
-Disect the configurations all you want, take what you need and if you find yourself to 
+Dissect the configurations all you want, take what you need and if you find yourself to 
 be excelling somewhere I lack, do feel free to contribute to my atrocities against
-NixOS and everything it stands for. Would be appreciated. Styling PRs will be rejected
-because I like my Alejandra, thanks but no thanks.
+NixOS and everything it stands for. Would be appreciated. 
+
+*Styling PRs will be rejected because I like my Alejandra, thanks but no thanks.*
 
 ## Donate
 
 Want to support me, or to show gratitude for something (somehow) nice I did? 
 Perhaps consider donating!
 
+<div align="center">
+
 <a href="https://liberapay.com/notashelf/donate">
    <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
 </a>
-<a href="https://ko-fi.com/sioodmy">
+
+<a href="https://ko-fi.com/notashelf">
    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on kofi" /> 
 </a>
+
+</div>
 
 ...or if you prefer crypto *(those are not active yet due to my lack of interest in cyptocurrencies)*
 
@@ -129,10 +139,9 @@ Monero/Bitcoin: notashelf.dev (OpenAlias)
 
 ### Other Cool Resources
 
-> Resource that helped shame how this setup is today
+> Resource that helped shape or improve this configuration
 
 - [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
-    - N
 
 
 ## License
