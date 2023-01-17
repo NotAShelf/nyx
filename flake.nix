@@ -89,7 +89,7 @@
     };
 
     # Nix User Repository
-    nur.url = "github:nix-community/NUR";
+    #nur.url = "github:nix-community/NUR";
 
     # Nix Developer Environments
     devshell.url = "github:numtide/devshell";

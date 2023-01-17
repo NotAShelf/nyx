@@ -39,8 +39,9 @@ in {
 
     overlays = with inputs;
       [
-        nur.overlay
-        nixpkgs-f2k.overlays.default
+        # TODO: hotswappable nur module in system-module
+        #nur.overlay
+        #nixpkgs-f2k.overlays.default
         rust-overlay.overlays.default
       ]
       # Overlays from ../../overlays directory
