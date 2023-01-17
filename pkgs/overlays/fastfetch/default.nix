@@ -32,7 +32,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "fastfetch";
-  version = "1.7.0";
+  version = "1.8.2";
 
   src = fetchFromGitHub {
     owner = "LinusDierheimer";
