@@ -10,6 +10,7 @@
 
   # My personal derivations for packages that are not on nixpkgs
   nicksfetch = pkgs.callPackage ./nicksfetch.nix {};
+  fastfetch = pkgs.callPackage ./overlays/fastfetch {};
   cloneit = pkgs.callPackage ./cloneit.nix {};
   swww = pkgs.callPackage ./swww.nix {};
   discordo = pkgs.callPackage ./discordo.nix {};
