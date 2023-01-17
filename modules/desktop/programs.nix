@@ -6,7 +6,12 @@
   ...
 }: {
   environment = {
-    systemPackages = [];
+    systemPackages = with pkgs; [
+      # packages necessery for thunar thumbnails
+      xfce.tumbler
+      libgsf # odf files
+      ffmpegthumbnailer
+    ];
   };
 
   hardware = {
