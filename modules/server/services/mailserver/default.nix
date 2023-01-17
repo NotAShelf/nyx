@@ -69,10 +69,6 @@ in {
   security.acme.acceptTerms = true;
 
   services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
     virtualHosts.${MAILMAN_HOST} = {
       enableACME = true;
       forceSSL = true;
