@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    #./vscode
+    #./vscode # FIXME breaks due to some stupid extension dependency issue
     ./hyprland
     ./webcord
     ./rofi
@@ -12,6 +12,5 @@
     ./zathura
     ./office
     ./mpv
-    inputs.hyprland.homeManagerModules.default
   ];
 }

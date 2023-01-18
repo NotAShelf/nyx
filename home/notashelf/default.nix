@@ -6,7 +6,10 @@
   ...
 }: {
   imports = [
-    # import system packages
+    # external home-manager modules
+    inputs.hyprland.homeManagerModules.default
+
+    # home package sets
     ./packages
 
     # apps and services I use
