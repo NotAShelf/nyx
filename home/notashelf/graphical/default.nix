@@ -4,13 +4,13 @@
   ...
 }: {
   imports = [
+    #./vscode
     ./hyprland
     ./webcord
     ./rofi
     ./schizofox
     ./zathura
     ./office
-    ./vscode
     ./mpv
     inputs.hyprland.homeManagerModules.default
   ];

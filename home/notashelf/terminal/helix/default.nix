@@ -97,7 +97,7 @@
     black
     alejandra
     shellcheck
-    solc
+    #solc
     gawk
     haskellPackages.haskell-language-server
     #nodePackages.typescript-language-server
@@ -107,6 +107,7 @@
     nodePackages.yaml-language-server
     nodePackages.jsonlint
     nodePackages.yarn
+    nodePackages.pnpm
     sumneko-lua-language-server
     nodePackages.vscode-langservers-extracted
     cargo
