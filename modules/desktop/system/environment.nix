@@ -1,4 +1,9 @@
-{lib, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; let
   device = config.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
