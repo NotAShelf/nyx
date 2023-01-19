@@ -26,6 +26,9 @@ in {
       ungoogled-chromium
       easyeffects
       librewolf
+      cantata
+      easytag
+      kid3
     ];
   };
 }
