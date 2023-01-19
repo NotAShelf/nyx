@@ -8,10 +8,6 @@ with lib; let
   cfg = config.modules.system.video;
   sys = config.modules.system;
 in {
-  options.modules.system.video = {
-    enable = mkEnableOption "video";
-  };
-
   config = mkIf (cfg.enable) (mkMerge [
     {
       hardware = {

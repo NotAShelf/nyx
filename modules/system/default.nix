@@ -6,8 +6,7 @@
 }:
 with lib; {
   imports = [
-    ./video
-    ./sound
+    ./media
     ./hardware
     ./fs
     ./type
@@ -26,6 +25,7 @@ with lib; {
 
     # the type of cpu your system has - vm and regular cpus currently do not differ
     # as I do not work with vms, but they have been added for forward-compatibility
+    # TODO: make this a list
     cpu = mkOption {
       type = types.enum ["pi" "intel" "vm-intel" "amd" "vm-amd"];
       default = "";
@@ -35,6 +35,7 @@ with lib; {
     # FIXME nvidia and nvidia hybrid currently break on wayland due to
     # broken nvidia drivers
     # remember to set this value, or you will not have any graphics drivers
+    # TODO: make this a list
     gpu = mkOption {
       type = types.enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd"];
       default = "";
@@ -49,12 +50,14 @@ with lib; {
     };
 
     # whether the system has bluetooth support
-    # can be disabled too
+    # bluetooth is an insecure protocol if left unchedked, so while this defaults to true
+    # the bluetooth.enable does and should not.
     hasBluetooth = mkOption {
       type = types.bool;
     };
 
     # whether the system has sound support (usually true except for servers)
+    # TODO: hook music tagger programs to the evaluation of this option
     hasSound = mkOption {
       type = types.bool;
     };
@@ -67,18 +70,54 @@ with lib; {
   };
 
   options.modules.system = {
-    # a list of filesystems available on the system
-    # it will enable services based on what strings are found in the list
-    fs = mkOption {
-      type = types.listOf types.string;
-      default = ["vfat" "ext4"]; # TODO: zfs
-    };
-
     # the default user (not users) you plan to use on a specific device
     # this will dictate the initial home-manager settings if home-manager is
     # enabled in usrenv
     username = mkOption {
       type = types.str;
+    };
+
+    # no actual use yet, do not use
+    # TODO: replace networking.hostname with this value (?)
+    hostname = mkOption {
+      type = types.str;
+    };
+
+    # a list of filesystems available on the system
+    # it will enable services based on what strings are found in the list
+    fs = mkOption {
+      type = types.listOf types.string;
+      default = ["vfat" "ext4"]; # TODO: zfs, ntfs
+    };
+
+    # should we enable emulation for additional architechtures?
+    # enabling this option will make it so that you can build for, e.g.
+    # aarch64 on x86_&4 and vice verse - not recommended on weaker machines
+    emulation = {
+      enable = mkEnableOption "emulation";
+    };
+
+    # should the device
+    sound = {
+      enable = mkEnableOption "sound";
+    };
+
+    # should the device enable graphical programs
+    # TODO: Is this even necessary? Might need to return to this later.
+    # Most graphical apps don't depend on this value and use device type instead
+    video = {
+      enable = mkEnableOption "video";
+    };
+
+    # should the device load bluetooth drivers and enable blueman
+    bluetooth = {
+      enable = mkEnableOption "bluetooth";
+    };
+
+    # should the device enable printing module and try to load common printer modules
+    # you might need to add more drivers to the printing module for your printer to work
+    printing = {
+      enable = mkEnableOption "printing";
     };
   };
 
@@ -105,5 +144,7 @@ with lib; {
       type = types.bool;
       default = false;
     };
+
+    # TODO: individual overrides to disable programs enabled by device.type opt
   };
 }
