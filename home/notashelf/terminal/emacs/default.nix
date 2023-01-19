@@ -7,8 +7,10 @@
     doomPrivateDir = ./doom.d;
   };
 in {
-  home.packages = [doom-emacs];
-  services.emacs = {
-    enable = true;
+  config = {
+    home.packages = [doom-emacs];
+    services.emacs = {
+      enable = true;
+    };
   };
 }

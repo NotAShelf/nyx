@@ -33,6 +33,8 @@
       extraOutputsToInstall = ["doc" "devdoc"];
     };
 
+    programs.home-manager.enable = true;
+
     modules = {
       programs = {
         # cozy neovim config with catppuccin colors
