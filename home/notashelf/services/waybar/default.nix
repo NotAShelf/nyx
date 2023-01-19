@@ -7,13 +7,6 @@
   waybar_config = import ./settings.nix {inherit config lib pkgs;};
   waybar_style = import ./style.nix {inherit (config) colorscheme;};
 in {
-  /*
-  xdg.configFile = {
-    "waybar/style.css".text = waybar_style {
-      inherit (config) colorscheme;
-    };
-  };
-  */
   programs.waybar = {
     enable = true;
     systemd.enable = true;

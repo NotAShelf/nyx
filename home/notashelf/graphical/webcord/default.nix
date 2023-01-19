@@ -2,8 +2,10 @@
   pkgs,
   lib,
   inputs,
+  osConfig,
   ...
-}: let
+}:
+with lib; let
   webcord = inputs.webcord.packages.${pkgs.system}.default.override {
     flags = let
       catppuccin = pkgs.fetchFromGitHub {
@@ -16,6 +18,10 @@
       theme = "${catppuccin}/themes/mocha.theme.css";
     in ["--add-css-theme=${theme}"];
   };
+  device = osConfig.modules.device;
+  acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  home.packages = [webcord];
+  config = mkIf (builtins.elem device.type acceptedTypes) {
+    home.packages = [webcord];
+  };
 }
