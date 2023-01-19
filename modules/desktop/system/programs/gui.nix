@@ -29,7 +29,7 @@
       plugins = with pkgs.xfce; [thunar-archive-plugin thunar-media-tags-plugin];
     };
 
-    # "fuck" to fix the last command that made you go "fuck"
+    # type "fuck" to fix the last command that made you go "fuck"
     thefuck.enable = true;
 
     # registry for linux, thanks to gnome
