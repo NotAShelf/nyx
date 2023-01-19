@@ -47,8 +47,6 @@ in {
     specialArgs = {inherit inputs self;};
   };
 
-  /*
-     TODO: fix each individual host as per system module
   # Lenovo Ideapad from 2014
   # Portable "server"
   icarus = nixpkgs.lib.nixosSystem {
@@ -59,8 +57,7 @@ in {
         ./icarus
         bootloader
         server
-        hmModule
-        {inherit home-manager;}
+        home-manager
       ]
       ++ shared;
     specialArgs = {inherit inputs;};
@@ -78,7 +75,6 @@ in {
       ++ shared;
     specialArgs = {inherit inputs;};
   };
-  */
 
   # Live recovery environment that overrides some default programs
   # and fixes keymap for me
