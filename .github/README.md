@@ -29,7 +29,7 @@ early development. See the `nixos` module for the last stable version.
 </h1>
 
 <p align="center">
-   <img src="assets/desktop_preview.png" width="620" alt="" />
+   <img src="assets/desktop_preview.png" width="630" alt="" />
 </p>
 
 ## 📦 Overview
