@@ -22,6 +22,8 @@ in {
         fs = ["btrfs" "vfat" "ntfs"];
         video.enable = true;
         sound.enable = true;
+        bluetooth.enable = false;
+        printing.enable = false;
         username = "notashelf";
       };
       usrEnv = {

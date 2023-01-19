@@ -18,16 +18,20 @@ in {
         hasSound = true;
         hasTPM = true;
       };
+
       system = {
         fs = ["ext4" "vfat"];
         video.enable = true;
         sound.enable = true;
+        printing.enable = false;
+        bluetooth.enable = false;
         username = "notashelf";
       };
+
       usrEnv = {
         isWayland = false;
         desktop = [];
-        useHomeManager = false; # FALSE FOR NOW FIXME
+        useHomeManager = false;
       };
     };
 
