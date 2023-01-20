@@ -24,12 +24,21 @@ in {
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
+        virtualization.enable = true;
         username = "notashelf";
       };
       usrEnv = {
         isWayland = true;
         desktop = "hyprland";
         useHomeManager = true;
+      };
+      programs = {
+        default = {
+          terminal = "foot";
+        };
+        overrides = {
+          # ...
+        };
       };
     };
 

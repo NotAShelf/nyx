@@ -18,7 +18,7 @@ with lib; {
     # optimizations on top of common programs
     # server has services I would want on a server, and lite is for low-end devices
     # that need only the basics
-    # hybrid is for desktops that are also servers (homelabs, basically)
+    # hybrid is for desktops that are also servers (my homelabs, basically)
     type = mkOption {
       type = types.enum ["laptop" "desktop" "server" "hybrid" "lite"];
     };
@@ -36,6 +36,7 @@ with lib; {
     # broken nvidia drivers
     # remember to set this value, or you will not have any graphics drivers
     # TODO: make this a list
+    # TODO: raspberry pi specific GPUs
     gpu = mkOption {
       type = types.enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd"];
       default = "";
@@ -119,6 +120,12 @@ with lib; {
     printing = {
       enable = mkEnableOption "printing";
     };
+
+    # should virtualization be enabled
+    # TODO: this will probably create issues if virtualization module is not hotplugged
+    virtualization = {
+      enable = mkEnableOption "virtualization";
+    };
   };
 
   options.modules.usrEnv = {
@@ -144,7 +151,33 @@ with lib; {
       type = types.bool;
       default = false;
     };
+  };
 
-    # TODO: individual overrides to disable programs enabled by device.type opt
+  # this module provides overrides for certain defaults and lets you set
+  # default programs for referencing in other config files.
+  options.modules.programs = {
+    # TODO: turn those into overrides
+    cli = {
+      enabled = mkEnableOption "cli";
+    };
+
+    gui = {
+      enabled = mkEnableOption "gui";
+    };
+
+    # default program options
+    default = {
+      # what program should be used as the default terminal
+      # do note this is NOT the command, just the name. i.e setting footclient will
+      # not work.
+      terminal = mkOption {
+        type = types.str;
+        default = "foot";
+      };
+    };
+
+    overrides = {
+      # TODO: individual overrides to disable programs enabled by device.type opt
+    };
   };
 }
