@@ -152,8 +152,8 @@ in {
     bind=$MOD,mouse_up,workspace,e-1
 
     # brightness controls
-    bind=,XF86MonBrightnessUp,exec,brightnessctl set +5%
-    bind=,XF86MonBrightnessDown,exec,brightnessctl set 5%-
+    bind=,XF86MonBrightnessUp,exec,brightness set +5%
+    bind=,XF86MonBrightnessDown,exec,brightness set 5%-
 
     # media controls
     bindl=,XF86AudioPlay,exec,playerctl play-pause
@@ -161,9 +161,9 @@ in {
     bindl=,XF86AudioNext,exec,playerctl next
 
     # volume
-    bind=,XF86AudioRaiseVolume,exec,pamixer -i 5
-    bind=,XF86AudioLowerVolume,exec,pamixer -d 5
-      binde=, XF86AudioRaiseVolume, exec, volume -i 5
+    #bind=,XF86AudioRaiseVolume,exec,pamixer -i 5
+    #bind=,XF86AudioLowerVolume,exec,pamixer -d 5
+    binde=, XF86AudioRaiseVolume, exec, volume -i 5
     bindl=, XF86AudioLowerVolume, exec, volume -d 5
     bindl=, XF86AudioMute, exec, volume -t
 
