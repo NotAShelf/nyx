@@ -27,6 +27,8 @@ with lib; let
   device = osConfig.modules.device;
   sys = osConfig.modules.system;
 in {
+  imports = [./config.nix];
+
   config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "hyprland"))) {
     home.packages = with pkgs; [
       libnotify
@@ -50,7 +52,7 @@ in {
         nvidiaPatches = device.gpu == "nvidia" || device.gpu == "hybrid-nv";
       };
       systemdIntegration = true;
-      extraConfig = builtins.readFile ./hyprland.conf;
+      #extraConfig = builtins.readFile ./hyprland.conf;
     };
 
     services.gammastep = {
