@@ -121,9 +121,19 @@
     "net.ipv6.conf.default.accept_ra" = 0;
     "net.ipv6.conf.all.accept_ra" = 0;
     "net.ipv4.tcp_timestamps" = 0;
+
+    # TCP optimization
+    # TCP Fast Open is a TCP extension that reduces network latency by packing
+    # data in the sender’s initial TCP SYN. Setting 3 = enable TCP Fast Open for
+    # both incoming and outgoing connections:
+    "net.ipv4.tcp_fastopen" = 3;
+    # Bufferbloat mitigations + slight improvement in throughput & latency
+    "net.ipv4.tcp_congestion_control" = "bbr";
+    "net.core.default_qdisc" = "cake";
   };
 
-  # Security
+  boot.kernelModules = ["tcp_bbr"];
+
   boot.blacklistedKernelModules = [
     # Obscure network protocols
     "ax25"
