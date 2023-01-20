@@ -40,8 +40,8 @@
     name = "Catppuccin-Frappe-Dark";
     package = pkgs.catppuccin-cursors;
     size = 16;
+    gtk.enable = true;
   };
-  home.pointerCursor.gtk.enable = true;
 
   # credits: bruhvko
   # catppuccin theme for qt-apps
