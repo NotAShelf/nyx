@@ -7,13 +7,13 @@
 
   ## bootloader ##
   bootloader = ../modules/bootloader;
-  # my system module will choose the appropriate bootloader based on device.type option
+  # system module will choose the appropriate bootloader based on device.type option
 
   # globally shared modules
-  core = ../modules/core;
+  core = ../modules/core; # the self-proclaimed sane defaults for all my systems
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
-  virtualization = ../modules/virtualization;
+  virtualization = ../modules/virtualization; # hotpluggable virtalization module
 
   # TODO: consider moving home module to modules/ again - it adds an extra directory I have to type to get there
   home = ../home; # home-manager configurations for hosts that need home-manager
@@ -26,8 +26,7 @@
   ragenix = inputs.ragenix.nixosModules.age; # secret encryption
   home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
-  # TODO: move home to shared list, when it is modular and mature enough
-  shared = [system core ragenix];
+  shared = [system core home ragenix];
 in {
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
@@ -40,13 +39,13 @@ in {
         bootloader
         desktop
         home-manager
-        home
         virtualization
       ]
       ++ shared;
     specialArgs = {inherit inputs self;};
   };
 
+  /*
   # Lenovo Ideapad from 2014
   # Portable "server"
   icarus = nixpkgs.lib.nixosSystem {
@@ -75,6 +74,7 @@ in {
       ++ shared;
     specialArgs = {inherit inputs;};
   };
+  */
 
   # Live recovery environment that overrides some default programs
   # and fixes keymap for me
