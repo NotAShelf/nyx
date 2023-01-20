@@ -24,7 +24,7 @@ with lib; let
   device = config.modules.device;
   env = config.modules.usrEnv;
 in {
-  config = mkIf (device.gpu == "nvidia" || device.gpu == "nvHybrid") {
+  config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
     services.xserver.videoDrivers = ["nvidia" "modesetting"];
     boot.blacklistedKernelModules = ["nouveau"];
 
@@ -41,7 +41,7 @@ in {
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
         })
 
-        (mkIf (cfg.gpu == "nvHybrid") {
+        (mkIf (device.gpu == "hybrid-nv") {
           WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
         })
       ];
