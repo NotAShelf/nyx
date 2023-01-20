@@ -6,9 +6,9 @@
 }:
 with lib; let
   device = config.modules.device;
-  system = config.modules.system;
+  sys = config.modules.system;
 in {
-  config = mkIf (system.printing.enable) {
+  config = mkIf (sys.printing.enable) {
     # enable cups and add some drivers for common printers
     services = {
       printing = {

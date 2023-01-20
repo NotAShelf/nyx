@@ -6,9 +6,9 @@
 }:
 with lib; let
   device = config.modules.device;
-  acceptedTypes = ["desktop" "laptop" "lite"];
+  acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
-  config = (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     services = {
       # enable GVfs, a userspace virtual filesystem.
       gvfs.enable = true;

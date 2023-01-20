@@ -1,7 +1,7 @@
 _: {
   imports = [
-    #./programs
-    #./services
+    ./programs
+    ./services
 
     ./fonts.nix
     ./environment.nix
