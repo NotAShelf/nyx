@@ -10,7 +10,7 @@ in {
   ];
   programs.foot = {
     enable = true;
-    server.enable = true;
+    server.enable = false;
     settings = {
       main = {
         term = "xterm-256color";
@@ -31,7 +31,7 @@ in {
         regular5 = "${colors.base0F}"; # pink
         regular6 = "${colors.base0C}"; # teal
         regular7 = "${colors.base06}"; # Subtext 0
-        # Subtext 1
+        # Subtext 1 ???
         bright0 = "${colors.base04}"; # Surface 2
         bright1 = "${colors.base08}"; # red
         bright2 = "${colors.base0B}"; # green
