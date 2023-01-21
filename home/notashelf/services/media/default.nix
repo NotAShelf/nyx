@@ -1,0 +1,6 @@
+_: {
+  imports = [
+    ./mpd
+    ./spicetify
+  ];
+}

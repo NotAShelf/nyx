@@ -4,6 +4,7 @@
   ...
 }: {
   services = {
+    playerctld.enable = true;
     mpris-proxy.enable = true;
     mpd = {
       enable = true;
@@ -22,7 +23,7 @@
     };
   };
 
-  home.packages = with pkgs; [mpc_cli];
+  home.packages = with pkgs; [playerctl mpc_cli];
 
   services.mpdris2 = {
     enable = true;
