@@ -32,6 +32,7 @@ in {
   config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "hyprland"))) {
     home.packages = with pkgs; [
       libnotify
+      wlogout
       wf-recorder
       brightnessctl
       pamixer

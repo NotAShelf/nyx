@@ -51,6 +51,8 @@ in {
       disable_splash_rendering=true
       enable_swallow=true
       swallow_regex=^(foot)$
+      mouse_move_enables_dpms=true
+      disable_autoreload=true # probably not necessary on nixos
     }
 
     decoration {
@@ -108,7 +110,7 @@ in {
     bind=$MOD,D,exec, killall rofi || rofi -show drun
     bind=$MOD,equal,exec, killall rofi || rofi -show calc
     bind=$MOD,period,exec, killall rofi || rofi -show emoji
-    bind=$MODSHIFT,O,exec, ocr
+    bind=$MODSHIFT,O,exec, wlr-ocr
     bind=$MOD,P,pseudo,
     bind=$MOD,F,fullscreen,
 
@@ -121,13 +123,13 @@ in {
     # window resize
     bind = $MOD, S, submap, resize
 
-    submap = resize
-    binde = , right, resizeactive, 10 0
-    binde = , left, resizeactive, -10 0
-    binde = , up, resizeactive, 0 -10
-    binde = , down, resizeactive, 0 10
-    bind = , escape, submap, reset
-    submap = reset
+    submap=resize
+    binde=,right,resizeactive,10 0
+    binde=,left,resizeactive,-10 0
+    binde=,up,resizeactive,0 -10
+    binde=,down,resizeactive,0 10
+    bind=,escape,submap,reset
+    submap=reset
 
     # workspace binds
     # binds mod + [shift +] {1..10} to [move to] ws {1..10}
@@ -161,17 +163,10 @@ in {
     bindl=,XF86AudioNext,exec,playerctl next
 
     # volume
-    #bind=,XF86AudioRaiseVolume,exec,pamixer -i 5
-    #bind=,XF86AudioLowerVolume,exec,pamixer -d 5
     binde=, XF86AudioRaiseVolume, exec, volume -i 5
     bindl=, XF86AudioLowerVolume, exec, volume -d 5
     bindl=, XF86AudioMute, exec, volume -t
 
-    # those don't play well with the dunst notification bar
-    #bindle=,XF86AudioRaiseVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-    #bindle=,XF86AudioLowerVolume,exec,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-    #bindl=,XF86AudioMute,exec,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-    #bindl=,XF86AudioMicMute,exec,wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
     bindm=$MOD,mouse:272,movewindow
     bindm=$MOD,mouse:273,resizewindow
