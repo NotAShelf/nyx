@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    #./kitty
+    ./kitty
     ./shell
     ./tools
     ./cnvim

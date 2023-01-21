@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  colors,
-  ...
-}: {
+{colors, ...}: {
   # General
   background_opacity = "0.85";
   font_family = "monospace";

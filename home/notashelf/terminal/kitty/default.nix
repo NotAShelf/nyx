@@ -6,14 +6,13 @@
   ...
 }:
 with lib; let
-  #inherit (config.colorscheme) colors;
   device = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.kitty = {
       enable = true;
-      settings = import ./settins.nix {inherit (config) colors;};
+      settings = import ./settings.nix {inherit (config.colorscheme) colors;};
       keybindings = {
         "ctrl+c" = "copy_or_interrupt";
         "ctrl+alt+c" = "copy_to_clipboard";
