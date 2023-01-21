@@ -1,6 +1,6 @@
 _: {
   imports = [
     ./mpd
-    ./spicetify
+    ./spotifyd
   ];
 }

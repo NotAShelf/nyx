@@ -1,7 +1,8 @@
 {
   config,
-  pkgs,
   lib,
+  inputs,
+  self,
   ...
 }:
 with lib; let
@@ -40,6 +41,12 @@ in {
           # ...
         };
       };
+    };
+
+    age.secrets.spotify = {
+      file = "${self}/secrets/spotify.age";
+      owner = "notashelf";
+      group = "users";
     };
 
     security.tpm2 = {

@@ -8,6 +8,7 @@
 with lib; let
   device = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
+  #nicksfetch = self.packages.${pkgs.system}.nicksfetch;
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     home.packages = with pkgs; [
