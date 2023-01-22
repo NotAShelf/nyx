@@ -7,5 +7,6 @@
   imports = [
     ./cpu
     ./gpu
+    ./tpm
   ];
 }
