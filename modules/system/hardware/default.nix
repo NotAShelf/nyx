@@ -8,5 +8,6 @@
     ./cpu
     ./gpu
     ./tpm
+    ./bluetooth
   ];
 }

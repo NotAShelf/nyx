@@ -9,12 +9,12 @@ with lib; let
 in {
   config = mkIf (cfg.enable) {
     hardware.bluetooth = {
-      enable = false;
+      enable = true;
       package = pkgs.blues5-experimental;
       #hsphfpd.enable = true;
     };
 
     # https://nixos.wiki/wiki/Bluetooth
-    services.blueman.enable = config.hardware.bluetooth.enable;
+    services.blueman.enable = true;
   };
 }
