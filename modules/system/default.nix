@@ -33,7 +33,7 @@ with lib; {
 
     # the manifacturer/type of the system gpu
     # FIXME nvidia and nvidia hybrid currently break on wayland due to
-    # broken nvidia drivers
+    # broken nvidia driver - mozilla products and plymouth commit die
     # remember to set this value, or you will not have any graphics drivers
     # TODO: make this a list
     # TODO: raspberry pi specific GPUs

@@ -1,5 +1,7 @@
 let
-  notashelf = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCj5CKLJ1eN8AITld24IeU55W57G2Ak1xZtT06fDQVaSPA2y+l5Io0ieNDduD3gypih+AGcS4qU++fn7kN67reBh4qaUIkko/TRjBHsGZzlTbbERP3ln0UYIXGAOHRVMwwsewi7CPFQdMdm+xJAbiNAI3etdNgHhT7drn0xBI6b0IdHfW+cOaf91XUs3pwrKm/MHcKALKdXi9liWEhIBESiAS8w17erl2TrE99GzwAQkfSW4lo5AUb1ugVQDbHzSGUTtsVxsykXOA0bgEOjeqH+H8VxBVrF0pgLjBOUwTiBu74VndFCnkDuJV+TEbVce4dE8vEQwSBSzivxgWIVX0VDn0OYouV7toS8lG3igZh/xiPW/PS2eUDh+NSk5WqtcQj865XuJNwXFvnlHFwrVd7J5jPmri91iSRMbY4D+Pbvbf1OzcffcLpdj27BTE2qgVB4Q5gLXGZm8kBgf6xErcNQdZVOMPR1h5DQyGN5BxIOQ601Ohmzccjs42/QAnb0QWFx/3Ig2HB1/YYbeNPT/nH8TA7EahYk5045fQP4H4NV3E4PZxDgllKaoBCBPNLUd6EhqRb8Od9SJpM23UIP176LWlz/M42TALnopuiF0xz8Xa7V30yJjdgfaIjMcRQRp9W7Vf36D8ftbbMLnJ/2vUz3h11rOCzKH0/0t+CdFTGAUw==";
+  notashelf = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIABG2T60uEoq4qTZtAZfSBPtlqWs2b4V4O+EptQ6S/ru notashelf@prometheus";
+
+  prometheus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOAFtcZn42ZQBSsoPe971ROwFH5/dIxqjIRZlIBAkEMu root@prometheus";
 in {
-  "spotify.age".publicKeys = [notashelf];
+  "spotify.age".publicKeys = [notashelf prometheus];
 }
