@@ -34,7 +34,7 @@ in {
         # or any other host that needs it
         grub = {
           # if need be, this value can be overriden in individual hosts
-          # @ hosts/hostname/system.nix
+          # @ hosts/<hostname>/system.nix
           enable = lib.mkDefault false;
           useOSProber = true;
           efiSupport = true;
@@ -74,7 +74,7 @@ in {
         # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
         "page_alloc.shuffle=1"
         # for debugging kernel-level slab issues
-        #"slub_debug=FZP"
+        "slub_debug=FZP" # WARNING: this will leak unhashed memory addresses to dmesg
         # always-enable sysrq keys. Useful for debugging
         "sysrq_always_enabled=0"
         # save power on idle by limiting c-states
