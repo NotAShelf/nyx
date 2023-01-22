@@ -25,7 +25,6 @@ in {
         _JAVA_AWT_WM_NONEREPARENTING = "1";
         GDK_BACKEND = "wayland,x11";
         ANKI_WAYLAND = "1";
-        DIRENV_LOG_FORMAT = "";
         WLR_DRM_NO_ATOMIC = "1";
         QT_AUTO_SCREEN_SCALE_FACTOR = "1";
         QT_QPA_PLATFORM = "wayland;xcb";
@@ -39,10 +38,12 @@ in {
         SDL_VIDEODRIVER = "wayland";
         CLUTTER_BACKEND = "wayland";
       };
+      /*
       loginShellInit = ''
         eval $(ssh-agent)
         eval $(gnome-keyring-daemon --start --components=ssh,secrets)
-      '';
+        '';
+      */
     };
   };
 }
