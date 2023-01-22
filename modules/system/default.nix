@@ -125,6 +125,8 @@ with lib; {
     # TODO: this will probably create issues if virtualization module is not hotplugged
     virtualization = {
       enable = mkEnableOption "virtualization";
+      docker = {enable = mkEnableOption "docker";};
+      podman = {enable = mkEnableOption "podman";};
     };
   };
 
@@ -171,7 +173,7 @@ with lib; {
       # do note this is NOT the command, just the name. i.e setting footclient will
       # not work.
       terminal = mkOption {
-        type = types.str;
+        type = types.enum ["foot" "kitty" "wezterm"];
         default = "foot";
       };
     };
