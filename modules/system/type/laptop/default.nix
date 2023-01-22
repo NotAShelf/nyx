@@ -45,7 +45,7 @@ in {
         inherit (import ./plugged.nix args) plugged unplugged;
       in ''
         # add my android device to adbusers
-        # SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="adbusers"
+        SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="adbusers"
 
         # start/stop services on power (un)plug
         SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${plugged}"
@@ -56,12 +56,10 @@ in {
       upower.enable = true;
     };
 
-    /*
     powerManagement = {
       enable = true;
       powertop.enable = true;
     };
-    */
 
     hardware.acpilight.enable = true;
     environment.systemPackages = [

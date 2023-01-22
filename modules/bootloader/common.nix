@@ -74,9 +74,9 @@ in {
         # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
         "page_alloc.shuffle=1"
         # for debugging kernel-level slab issues
-        "slub_debug=FZP"
-        #  always-enable sysrq keys. Useful for debugging
-        "sysrq_always_enabled=1"
+        #"slub_debug=FZP"
+        # always-enable sysrq keys. Useful for debugging
+        "sysrq_always_enabled=0"
         # save power on idle by limiting c-states
         # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
         "processor.max_cstate=5"
@@ -95,7 +95,7 @@ in {
         # isables resume and restores original swap space
         "noresume"
         # allows systemd to set and save the backlight state
-        "acpi_backlight=none"
+        "acpi_backlight=native" # none | vendor | video | native
         # prevent the kernel from blanking plymouth out of the fb
         "fbcon=nodefer"
         # disable boot logo if any
