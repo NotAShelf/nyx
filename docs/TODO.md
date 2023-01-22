@@ -1,6 +1,6 @@
 # TODO
 
-- [???] Move video and sound modules to a united "media" directory
+- [x] Move video and sound modules to a united "media" directory
 - [x] Move isWayland to usrenv module from system module 
 - finish making each module toggleable
   - [x] bootloaders
@@ -10,9 +10,11 @@
     - [x] programs
     - [ ] gaming
   - server
+  - 
 - [x] make cross-compilation togglable
 - dynamic kernel module loading based on filesystems
-- document more settings
+- [x] document more settings
+  - document even more settings
 - move previous hosts to the new host config format
   - [x] prometheus
   - [] icarus
@@ -24,7 +26,9 @@
   own homes.
   - [ ] desktop module
   - [ ] server module
-- per-user secrets management via ragenix
+  - override options for default programs 
+    - [terminal]
+- [x] per-user secrets management via ragenix
 - try to declutter inputs and unnecessary services
 - toggle unnecessary/unsafe services or programs off by default
 
