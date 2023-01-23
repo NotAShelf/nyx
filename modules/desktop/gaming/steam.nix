@@ -18,7 +18,7 @@ in {
           proton-ge
         ]
       '';
-      description = lib.mdDoc ''
+      description = mdDoc ''
         Extra packages to be used as compatibility tools for Steam on Linux. Packages will be included
         in the `STEAM_EXTRA_COMPAT_TOOLS_PATHS` environmental variable. For more information see
         <https://github.com/ValveSoftware/steam-for-linux/issues/6310">.
@@ -27,6 +27,9 @@ in {
   };
 
   config = mkIf cfg.enable {
+    #Steam hardware (just in case)
+    hardware.steam-hardware.enable = true;
+
     # Append the extra compatibility packages to whatever else the env variable was populated with.
     # For more information see https://github.com/ValveSoftware/steam-for-linux/issues/6310.
     environment.sessionVariables = mkIf (cfg.extraCompatPackages != []) {
