@@ -293,6 +293,7 @@ in {
         v = "nvim";
         g = "git";
         sudo = "doas";
+        wget = "wget --hsts-file='\${XDG_DATA_HOME}/wget-hsts'";
       };
 
     plugins = with pkgs; [

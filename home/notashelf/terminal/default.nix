@@ -15,5 +15,6 @@
     ./helix
     ./bottom
     ./ranger
+    ./wezterm
   ];
 }

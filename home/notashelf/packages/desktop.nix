@@ -15,6 +15,7 @@ in {
       thunderbird
       lutris
       dolphin-emu
+      yuzu
       qbittorrent
       quasselClient
       bitwarden
