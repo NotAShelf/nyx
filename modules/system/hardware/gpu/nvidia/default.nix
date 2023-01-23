@@ -26,7 +26,11 @@ with lib; let
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
     services.xserver.videoDrivers = ["nvidia" "modesetting"];
-    boot.blacklistedKernelModules = ["nouveau"];
+    boot = {
+      # Load modules on boot
+      kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
+      blacklistedKernelModules = ["nouveau"];
+    };
 
     environment = {
       sessionVariables = mkMerge [
