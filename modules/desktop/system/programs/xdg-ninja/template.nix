@@ -22,7 +22,7 @@ in {
     GNUPGHOME = "${XDG_DATA_HOME}/gnupg";
     GRADLE_USER_HOME = "${XDG_DATA_HOME}/gradle";
     IPYTHONDIR = "${XDG_CONFIG_HOME}/ipython";
-    JUPYTER_COaNFIG_DIR = "${XDG_CONFIG_HOME}/jupyter";
+    JUPYTER_CONFIG_DIR = "${XDG_CONFIG_HOME}/jupyter";
     KDEHOME = "${XDG_CONFIG_HOME}/kde";
     LESSHISTFILE = "${XDG_DATA_HOME}/less/history";
     NPM_CONFIG_CACHE = "${XDG_CACHE_HOME}/npm";
@@ -41,6 +41,7 @@ in {
     CARGO_HOME = "${XDG_DATA_HOME}/cargo";
     NODE_REPL_HISTORY = "${XDG_DATA_HOME}/node_repl_history";
     PLATFORMIO_CORE_DIR = "${XDG_DATA_HOME}/platformio";
+    WINEPREFIX = "${XDG_DATA_HOME}/wine";
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = [
       "\${HOME}/.steam/root/compatibilitytools.d"
     ];
