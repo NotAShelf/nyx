@@ -10,7 +10,7 @@ with lib; let
   device = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = (buildins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     home.packages = [
       pkgs.wezterm
     ];

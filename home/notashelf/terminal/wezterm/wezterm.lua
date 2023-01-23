@@ -5,9 +5,9 @@ function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
 		return "Catppuccin Mocha"
 	else
-		return "Catppuccin Mocha"
+		return "Catppuccin Frappe"
 		-- normally this should be latte, but wezterm
-		-- fails to find the correct appearrance and defaults to latte for whatever reason
+		-- fails to find the correct appearrance and defaults to latte everywhere for whatever reason
 	end
 end
 
