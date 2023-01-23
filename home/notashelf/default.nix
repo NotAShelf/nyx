@@ -26,6 +26,8 @@
     systemd.user.startServices = "sd-switch";
 
     home = {
+      username = "notashelf";
+      homeDirectory = "/home/notashelf";
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
       # I will personally strangle every moron who just puts "DONT CHANGE" next
       # to this value
@@ -33,6 +35,13 @@
       extraOutputsToInstall = ["doc" "devdoc"];
     };
 
+    manual = {
+      html.enable = false;
+      json.enable = false;
+      manpages.enable = false;
+    };
+
+    # let HM manage itself when in standalone mode
     programs.home-manager.enable = true;
 
     modules = {
