@@ -10,7 +10,7 @@ in {
   config = {
     home.packages = [doom-emacs];
     services.emacs = {
-      enable = true;
+      enable = false;
     };
   };
 }

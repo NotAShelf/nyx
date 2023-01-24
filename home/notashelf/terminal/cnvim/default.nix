@@ -22,19 +22,22 @@ in {
       withNodeJs = false;
       withPython3 = false;
       extraPackages = with pkgs; [
-        nil
+        texlab
+        nil # nix language server
         sumneko-lua-language-server
         stylua # Lua
         uncrustify
         shellcheck
-        alejandra # Nix
+        alejandra # nix formatter
         gopls # go
+        revive # go formatter
         asmfmt
         ccls # cpp
         black # python
         shellcheck # bash
         shfmt
         nodejs
+        marksman # markdown language server
         nodePackages.pyright
         nodePackages.prettier
         nodePackages.stylelint
@@ -44,7 +47,6 @@ in {
         nodePackages.yarn
         nodePackages.bash-language-server
         nodePackages.node2nix # Bash
-        texlab
       ];
       plugins = with pkgs.vimPlugins; [
         lsp_lines-nvim
