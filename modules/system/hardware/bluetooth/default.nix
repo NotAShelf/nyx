@@ -10,7 +10,7 @@ in {
   config = mkIf (cfg.enable) {
     hardware.bluetooth = {
       enable = true;
-      package = pkgs.blues5-experimental;
+      package = pkgs.bluez5-experimental;
       #hsphfpd.enable = true;
     };
 
