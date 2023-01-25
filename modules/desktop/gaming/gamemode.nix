@@ -1,10 +1,12 @@
 {
+  config,
+  lib,
   pkgs,
   inputs,
-  lib,
   ...
-}: let
-  programs = lib.makeBinPath (with pkgs; [
+}:
+with lib; let
+  programs = makeBinPath (with pkgs; [
     inputs.hyprland.packages.${pkgs.system}.default
     gojq
     systemd
@@ -23,18 +25,22 @@
     hyprctl --batch 'keyword decoration:blur 1 ; keyword animations:enabled 1 ; keyword misc:no_vfr 0'
     ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
   '';
+
+  cfg = config.modules.programs;
 in {
-  programs.gamemode = {
-    enable = true;
-    enableRenice = true;
-    settings = {
-      general = {
-        softrealtime = "auto";
-        renice = 15;
-      };
-      custom = {
-        start = startscript.outPath;
-        end = endscript.outPath;
+  config = mkIf (cfg.gaming.enable) {
+    programs.gamemode = {
+      enable = true;
+      enableRenice = true;
+      settings = {
+        general = {
+          softrealtime = "auto";
+          renice = 15;
+        };
+        custom = {
+          start = startscript.outPath;
+          end = endscript.outPath;
+        };
       };
     };
   };
