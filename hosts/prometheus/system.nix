@@ -34,6 +34,10 @@ in {
         useHomeManager = true;
       };
       programs = {
+        gaming = {
+          enable = true;
+          chess = true;
+        };
         default = {
           terminal = "foot";
         };

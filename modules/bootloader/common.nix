@@ -8,6 +8,8 @@
 with lib; let
   device = config.modules.device;
 in {
+  # the "common" module is for all devices except servers
+  # TODO: possible override option
   config = mkIf (device.type != "server") {
     boot = {
       loader = {
