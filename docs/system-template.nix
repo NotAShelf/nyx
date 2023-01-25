@@ -20,7 +20,7 @@ in {
         gpu = "intel"; # see modules/system/default.nix for available types
 
         # available/in-use monitor(s)
-        # accepts more than one string
+        # accepts more than one string in a list
         # e.g. ["eDP-1" "HDMI-A-1"]
         monitors = ["eDP-1"];
 

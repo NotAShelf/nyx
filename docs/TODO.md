@@ -8,9 +8,8 @@
   - [x] desktop
     - [x] services
     - [x] programs
-    - [ ] gaming
-  - server
-  - 
+    - [x] gaming
+  - [ ]server
 - [x] make cross-compilation togglable
 - dynamic kernel module loading based on filesystems
 - [x] document more settings
@@ -31,4 +30,4 @@
 - [x] per-user secrets management via ragenix
 - try to declutter inputs and unnecessary services
 - toggle unnecessary/unsafe services or programs off by default
-
+- clean up module skeletons
