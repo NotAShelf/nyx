@@ -26,7 +26,10 @@ with lib; {
         default = true;
       };
 
-      # TODO: gamescope option
+      gamescope = mkOption {
+        type = types.bool;
+        default = true;
+      };
     };
 
     # default program options
@@ -39,11 +42,34 @@ with lib; {
         default = "foot";
       };
 
-      # TODO: browser, file manager, editor etc.
+      fileManager = mkOption {
+        type = types.enum ["thunar" "dolphin" "nemo"];
+        default = "thunar";
+      };
+
+      browser = mkOption {
+        type = types.enum ["firefox" "librewolf" "chromium"];
+        default = "firefox";
+      };
+
+      editor = mkOption {
+        type = types.enum ["neovim" "helix" "emacs"];
+        default = "nvim";
+      };
     };
 
-    overrides = {
+    override = {
       # TODO: individual overrides to disable programs enabled by device.type opt
+      programs = {
+        /*
+        Override option for programs
+        */
+      };
+      services = {
+        /*
+        Override option for services
+        */
+      };
     };
   };
 }
