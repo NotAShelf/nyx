@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     owner = "LinusDierheimer";
     repo = pname;
     rev = version;
-    hash = "sha256-sPCWsnBlAdEy8p/82myrPPUjkLqhybLppSJj3pxfLhQ=";
+    hash = "sha256-Sh31zKkjcNRD5KyNUzbTHRitC/7e2TYKKtpTohGhTQc=";
   };
 
   nativeBuildInputs = [cmake makeWrapper pkg-config];
