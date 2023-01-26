@@ -41,7 +41,7 @@ in {
         default = {
           terminal = "foot";
         };
-        overrides = {
+        override = {
           # ...
         };
       };
@@ -54,8 +54,6 @@ in {
     };
 
     hardware = {
-      enableRedistributableFirmware = true;
-
       nvidia = {
         open = mkForce false;
 

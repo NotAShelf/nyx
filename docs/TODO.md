@@ -10,6 +10,8 @@
     - [x] programs
     - [x] gaming
   - [ ]server
+    - [ ] Override all services as disabled by default 
+    - [ ] Add override options
 - [x] make cross-compilation togglable
 - dynamic kernel module loading based on filesystems
 - [x] document more settings
