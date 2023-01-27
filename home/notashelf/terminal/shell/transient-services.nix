@@ -26,5 +26,10 @@
       bash -lc "exec ${apply-hm-env} $@"
   '';
 in {
-  home.packages = [run-as-service];
+  home = {
+    packages = [run-as-service];
+    sessionVariables = {
+      STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
+    };
+  };
 }
