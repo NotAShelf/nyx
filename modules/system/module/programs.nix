@@ -60,12 +60,15 @@ with lib; {
 
     override = {
       # TODO: individual overrides to disable programs enabled by device.type opt
-      programs = {
-        /*
-        Override option for programs
-        */
+      program = {
+        # an example override for the libreoffice program
+        # if set to true, libreoffice module will not be enabled
+        libreoffice = mkOption {
+          type = types.bool;
+          default = "false";
+        };
       };
-      services = {
+      service = {
         /*
         Override option for services
         */
