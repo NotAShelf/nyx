@@ -6,6 +6,10 @@ toggles to decide whether an option should be enabled. While this does seem to i
 the eval duration, it saves me (or perhaps other people who find this config) the trouble
 of taking notes on specific features and going through them when they need.
 
+# Warning 
+> The system-template is and will remain to be out of date until this refactor is over.
+> Use at your own peril.
+
 ## How to use
 
 Create a directory in /hosts/ with the hostname of your device. This will, most of the time,
