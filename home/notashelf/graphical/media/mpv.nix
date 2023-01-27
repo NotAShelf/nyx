@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  osConfig,
-  ...
-}:
+{lib, ...}:
 with lib; let
   anime4k = pkgs.anime4k;
   # curl -sL https://github.com/bloc97/Anime4K/raw/master/GLSL_Instructions.md | grep '^CTRL' | sed -r -e '/^$/d' -e 's|~~/shaders/|${anime4k}/|g' -e 's|;\$|:$|g' -e "s| |\" = ''|" -e 's|^|    "|' -e "s|$|'';|"
@@ -20,12 +14,7 @@ with lib; let
   device = osConfig.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
-    home.packages = with pkgs; [
-      ffmpeg-full
-      yt-dlp
-    ];
-
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.mpv = {
       enable = true;
       bindings =
@@ -51,9 +40,12 @@ in {
         sub-auto = "fuzzy";
         sub-codepage = "gbk";
       };
-      # scripts = with pkgs.mpvScripts; [
-      #   cutter
-      # ];
+      scripts = with pkgs.mpvScripts; [
+        #cutter
+        mpris
+        thumbnail
+        sponsorblock
+      ];
     };
   };
 }

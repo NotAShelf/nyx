@@ -25,13 +25,9 @@ in {
       #gnome.gnome-control-center # FIXME: fails to build due dependency mismatch
       gnome.gnome-tweaks
       gnome.gnome-calendar
-      pavucontrol
       ungoogled-chromium
       easyeffects
       librewolf
-      cantata
-      easytag
-      kid3
     ];
   };
 }
