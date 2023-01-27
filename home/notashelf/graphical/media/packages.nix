@@ -20,6 +20,7 @@ in {
       cantata
       easytag
       kid3
+      mov-cli
     ];
   };
 }

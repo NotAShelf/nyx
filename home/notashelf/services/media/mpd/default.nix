@@ -56,7 +56,7 @@
       song_window_title_format = "Now Playing ..";
       now_playing_prefix = "$b$6 ";
       now_playing_suffix = "  $/b$8";
-      current_item_prefix = "$b$6$/b$3 ";
+      current_item_prefix = "$b$6$/b$6 ";
       current_item_suffix = "  $8";
       statusbar_color = "white";
       color1 = "white";

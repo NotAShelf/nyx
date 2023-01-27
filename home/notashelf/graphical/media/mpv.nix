@@ -1,4 +1,9 @@
-{lib, ...}:
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}:
 with lib; let
   anime4k = pkgs.anime4k;
   # curl -sL https://github.com/bloc97/Anime4K/raw/master/GLSL_Instructions.md | grep '^CTRL' | sed -r -e '/^$/d' -e 's|~~/shaders/|${anime4k}/|g' -e 's|;\$|:$|g' -e "s| |\" = ''|" -e 's|^|    "|' -e "s|$|'';|"

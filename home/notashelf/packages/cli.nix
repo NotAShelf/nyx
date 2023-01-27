@@ -16,8 +16,6 @@ in {
       catimg
       duf
       todo
-      mpv
-      yt-dlp
       hyperfine
       fzf
       file
@@ -42,10 +40,8 @@ in {
       docker-compose
       docker-credential-helpers
       xorg.xhost
-      mov-cli
       nitch
       fastfetch
-      imv
       binwalk
       binutils
       diffoscope

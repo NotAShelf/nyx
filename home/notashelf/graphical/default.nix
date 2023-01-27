@@ -11,6 +11,6 @@
     ./schizofox
     ./zathura
     ./office
-    ./mpv
+    ./media
   ];
 }
