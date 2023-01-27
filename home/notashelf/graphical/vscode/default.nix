@@ -59,7 +59,7 @@ in {
             name = "copilot-nightly";
             publisher = "github";
             version = "1.67.7949";
-            sha256 = "QBGxt+uMbk6E86HFzgPl1iFC7VVFTkQV6VNqpChFI0A=";
+            sha256 = "sha256-ZtUqQeWjXmTz49DUeYkuqSTdVHRC8OfgWv8fuhlHDVc=";
           }
           {
             name = "volar";
