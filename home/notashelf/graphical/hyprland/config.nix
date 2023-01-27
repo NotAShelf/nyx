@@ -11,12 +11,13 @@
 
   terminal =
     if (cfg.terminal == "foot")
-    then "foot"
+    then "footclient"
     else "kitty";
 in {
   wayland.windowManager.hyprland.extraConfig = ''
     # set cursor for HL itself
     exec-once = hyprctl setcursor ${pointer.name} ${toString pointer.size}
+    exec-once = run-as-service 'foot --server'
 
     monitor=eDP-1,1920x1080@60,0x0,1
 
