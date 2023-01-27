@@ -4,12 +4,9 @@
   ...
 }: {
   imports = [
-    #./vscode # FIXME breaks due to some stupid extension dependency issue
     ./hyprland
-    ./webcord
+    ./apps
     ./rofi
-    ./schizofox
-    ./zathura
     ./office
     ./media
   ];
