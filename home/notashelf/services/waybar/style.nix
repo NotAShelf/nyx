@@ -13,11 +13,13 @@ in ''
 
   window#waybar {
     background-color: #${base00};
-    border-radius: 0px;
+    border: 1px solid #${base00};
+    border-radius: 20px;
     color: #${base05};
     font-size: 20px;
-    /* transition-property: background-color; */
-    transition-duration: 0.5s;
+    margin: 16px 16px;
+    transition-property: background-color;
+    transition-duration: .5s;
   }
 
   window#waybar.hidden {

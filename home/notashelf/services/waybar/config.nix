@@ -8,6 +8,10 @@
     position = "left";
     width = 55;
     spacing = 7;
+    margin-left = 6;
+    margin-top = 9;
+    margin-bottom = 9;
+    margin-right = null;
     fixed-center = true;
     exclusive = true;
     modules-left = [
