@@ -9,7 +9,6 @@
     ./shell
     ./tools
     ./cnvim
-    ./emacs
     ./newsboat
     ./foot
     ./helix
