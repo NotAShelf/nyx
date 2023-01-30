@@ -21,6 +21,7 @@ in {
       easytag
       kid3
       mov-cli
+      ani-cli
     ];
   };
 }
