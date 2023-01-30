@@ -74,5 +74,7 @@ in {
         "nohibernate"
       ];
     };
+
+    console.earlySetup = true;
   };
 }
