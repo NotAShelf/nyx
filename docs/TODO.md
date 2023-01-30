@@ -10,16 +10,17 @@
     - [x] programs
     - [x] gaming
   - [ ]server
+    - [x] Conditionally enable server services
     - [ ] Override all services as disabled by default 
     - [ ] Add override options
 - [x] make cross-compilation togglable
-- dynamic kernel module loading based on filesystems
+- [ ]dynamic kernel module loading based on filesystems
 - [x] document more settings
-  - document even more settings
+  - [ ]document even more settings
 - move previous hosts to the new host config format
   - [x] prometheus
-  - [] icarus
-  - [] atlas
+  - [ ] icarus
+  - [ ] atlas
   - ~~gaea~~ No need, no modules are imported.
 - find enabling conditions for tor and xserver
 - override options for enabled services
@@ -28,8 +29,19 @@
   - [ ] desktop module
   - [ ] server module
   - override options for default programs 
-    - [terminal]
+    - [ ] terminal 
+    - [ ] file-manager 
+    - [ ] editors 
+      - [ ] text editor 
+      - [ ] visual editor
 - [x] per-user secrets management via ragenix
-- try to declutter inputs and unnecessary services
-- toggle unnecessary/unsafe services or programs off by default
-- clean up module skeletons
+- [ ] try to declutter inputs and unnecessary services
+- [ ] toggle unnecessary/unsafe services or programs off by default
+- [ ] clean up module skeletons
+- [ ] further work on driver modules
+  - [ ] add a generation condition to intel module to enable kaby lake and above kernel params
+  - [ ] figure out why nvidia breaks firefox and thunderbird but not librewolf (webgl?)
+  - [ ] clean up bluetooth module, we don't like bluetooth already - security would be nice
+- [ ] (home-manager) clean up schizofox module
+- [ ] (home-manager) use mapAttrs to map all monitors from the list to hyprland monitor settings w/ "1" scaling
+
