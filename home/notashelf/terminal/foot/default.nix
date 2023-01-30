@@ -10,7 +10,7 @@ in {
   ];
   programs.foot = {
     enable = true;
-    server.enable = false;
+    server.enable = false; # broken
     settings = {
       main = {
         term = "xterm-256color";
@@ -20,8 +20,8 @@ in {
       };
       colors = {
         alpha = "0.80";
-        foreground = "cdd6f4"; # Text
-        background = "1e1e2e"; # Base
+        foreground = "${colors.base05}"; # Text
+        background = "${colors.base00}"; # Base
 
         regular0 = "${colors.base03}"; # Surface 1
         regular1 = "${colors.base08}"; # red
