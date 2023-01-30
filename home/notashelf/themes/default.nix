@@ -10,7 +10,7 @@
 
   carbon-dark = (import ./palettes/carbon-dark.nix).colorscheme;
   oxocarbon-dark = (import ./palettes/oxocarbon-dark.nix).colorscheme;
-  decay = (import ./palettes/decay.nix).colorscheme;
+  decay-dark = (import ./palettes/decay-dark.nix).colorscheme;
 
   # Catppuccins
   catppuccin-mocha = (import ./palettes/catppuccin-mocha.nix).colorscheme;
@@ -24,5 +24,7 @@ in {
   ];
   # Use the colorscheme available at github:tinted-theming/base16-schemes
   #colorscheme = colorSchemes.ashes;
+
+  # use the self-declared color scheme from palettes directory
   colorscheme = catppuccin-mocha;
 }
