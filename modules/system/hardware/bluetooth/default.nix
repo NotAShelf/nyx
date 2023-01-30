@@ -12,6 +12,14 @@ in {
       enable = true;
       package = pkgs.bluez5-experimental;
       #hsphfpd.enable = true;
+      powerOnBoot = true;
+      disabledPlugins = ["sap"];
+      settings = {
+        General = {
+          JustWorksRepairing = "always";
+          MultiProfile = "multiple";
+        };
+      };
     };
 
     # https://nixos.wiki/wiki/Bluetooth
