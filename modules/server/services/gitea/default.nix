@@ -53,6 +53,15 @@ in {
           };
         };
       };
+
+      openssh = {
+        extraConfig = ''
+          Match User git
+            AuthorizedKeysCommandUser git
+            AuthorizedKeysCommand ${pkgs.gitea}/bin/gitea keys -e git -u %U -t %T -k %k
+          Match all
+        '';
+      };
     };
   };
 }
