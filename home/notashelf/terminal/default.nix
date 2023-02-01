@@ -5,13 +5,12 @@
   ...
 }: {
   imports = [
+    ./editors
     ./kitty
     ./shell
     ./tools
-    ./cnvim
     ./newsboat
     ./foot
-    ./helix
     ./bottom
     ./ranger
     ./wezterm
