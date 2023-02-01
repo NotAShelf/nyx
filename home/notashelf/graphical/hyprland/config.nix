@@ -91,11 +91,12 @@ in {
       no_gaps_when_only = false
     }
 
+    $MOD = SUPER
+
     $disable=act_opa=$(hyprctl getoption "decoration:active_opacity" -j | jq -r ".float");inact_opa=$(hyprctl getoption "decoration:inactive_opacity" -j | jq -r ".float");hyprctl --batch "keyword decoration:active_opacity 1;keyword decoration:inactive_opacity 1"
     $enable=hyprctl --batch "keyword decoration:active_opacity $act_opa;keyword decoration:inactive_opacity $inact_opa"
 
     # logout menu
-    $MOD = SUPER
     bind = $MOD, Escape, exec, wlogout -p layer-shell
     # lock screen
     #bind = $MOD, L, exec, loginctl lock-session
@@ -114,6 +115,10 @@ in {
     bind=$MODSHIFT,O,exec, wlr-ocr
     bind=$MOD,P,pseudo,
     bind=$MOD,F,fullscreen,
+
+    # hide Waybar
+    bind=$MOD,B,exec,killall -SIGUSR1 waybar
+    bind=$MODSHIFT,B,exec,killall -SIGUSR2 waybar; waybar&
 
     # move focus
     bind = $MOD, left, movefocus, l
@@ -167,7 +172,6 @@ in {
     binde=, XF86AudioRaiseVolume, exec, volume -i 5
     bindl=, XF86AudioLowerVolume, exec, volume -d 5
     bindl=, XF86AudioMute, exec, volume -t
-
 
     bindm=$MOD,mouse:272,movewindow
     bindm=$MOD,mouse:273,resizewindow
