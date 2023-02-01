@@ -308,6 +308,17 @@ in {
         file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
       }
       {
+        name = "forgit"; # i forgit :skull:
+        file = "share/forgit/forgit.plugin.zsh";
+        src = fetchFromGitHub {
+          owner = "wfxr";
+          repo = "forgit";
+          rev = "aa85792ec465ceee254be0e8e70d8703c7029f66";
+          sha256 = "sha256-PGFYw7JbuYHOVycPlYcRItElcyuKEg2cGv4wn6In5Mo=";
+        };
+        # src = "forgit.plugin.zsh";
+      }
+      {
         name = "fast-syntax-highlighting";
         file = "fast-syntax-highlighting.plugin.zsh";
         src = fetchFromGitHub {
