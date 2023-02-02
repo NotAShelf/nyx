@@ -65,6 +65,7 @@ in {
     environment.systemPackages = [
       config.boot.kernelPackages.cpupower
       pkgs.acpi
+      pkgs.powertop
     ];
   };
 }
