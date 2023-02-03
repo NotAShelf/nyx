@@ -14,7 +14,7 @@
     - [ ] Override all services as disabled by default 
     - [ ] Add override options
 - [x] make cross-compilation togglable
-- [ ]dynamic kernel module loading based on filesystems
+- [x]dynamic kernel module loading based on filesystems
 - [x] document more settings
   - [ ]document even more settings
 - move previous hosts to the new host config format
@@ -22,7 +22,9 @@
   - [ ] icarus
   - [ ] atlas
   - ~~gaea~~ No need, no modules are imported.
-- find enabling conditions for tor and xserver
+- [ ] find suitable enabling conditions for tor and xserver
+  - [ ] (both) enable by default, implement overrides to disable
+  - [ ] (xserver) only enable on desktops if xorg is enabled in the usrEnv module
 - override options for enabled services
   - [ ] ~~home-manager module~~ Probably not necessary, users should bring their
   own homes.
@@ -35,9 +37,9 @@
       - [ ] text editor 
       - [ ] visual editor
 - [x] per-user secrets management via ragenix
-- [ ] try to declutter inputs and unnecessary services
+- [x] try to declutter inputs and unnecessary services
 - [ ] toggle unnecessary/unsafe services or programs off by default
-- [ ] clean up module skeletons
+- [x] clean up module skeletons
 - [ ] further work on driver modules
   - [ ] add a generation condition to intel module to enable kaby lake and above kernel params
   - [ ] figure out why nvidia breaks firefox and thunderbird but not librewolf (webgl?)
