@@ -5,5 +5,7 @@ _: {
     ./webcord
     ./zathura
     ./schizofox
+    ./office
+    ./media
   ];
 }

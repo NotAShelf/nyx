@@ -106,9 +106,10 @@ in {
     bind=$MODSUPER,G,changegroupactive,
     bind=$MOD,T,togglegroup,
     bind=$MOD,M,exit,
-    bind=$MOD,E,exec,dolphin
+    bind=$MOD,E,exec,thunar
     bind=$MODSHIFT,L,exec,swaylock
     bind=$MOD,V,togglefloating,
+    bind=$MOD,R,exec, killall tofi || run-as-service $(tofi-drun)
     bind=$MOD,D,exec, killall rofi || rofi -show drun
     bind=$MOD,equal,exec, killall rofi || rofi -show calc
     bind=$MOD,period,exec, killall rofi || rofi -show emoji

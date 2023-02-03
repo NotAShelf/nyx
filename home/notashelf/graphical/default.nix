@@ -4,10 +4,8 @@
   ...
 }: {
   imports = [
-    ./hyprland
     ./apps
-    ./rofi
-    ./office
-    ./media
+    ./hyprland
+    ./launchers
   ];
 }
