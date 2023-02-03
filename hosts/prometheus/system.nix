@@ -43,7 +43,7 @@ in {
         };
         override = {
           program = {
-            libreoffice = true;
+            libreoffice = false;
           };
         };
       };
