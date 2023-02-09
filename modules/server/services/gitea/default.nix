@@ -18,6 +18,7 @@ in {
     services = {
       gitea = {
         enable = false;
+        package = pkgs.forgejo;
         lfs.enable = true;
 
         user = "git";
@@ -58,7 +59,7 @@ in {
         extraConfig = ''
           Match User git
             AuthorizedKeysCommandUser git
-            AuthorizedKeysCommand ${pkgs.gitea}/bin/gitea keys -e git -u %U -t %T -k %k
+            AuthorizedKeysCommand ${lib.getExe pkgs.forgejo} keys -e git -u %u -t %t -k %k
           Match all
         '';
       };
