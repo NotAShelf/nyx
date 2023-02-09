@@ -11,10 +11,10 @@
       PasswordAuthentication = false;
       kbdInteractiveAuthentication = lib.mkDefault false;
       useDns = false;
+      X11Forwarding = false;
     };
 
     openFirewall = true;
-    forwardX11 = false;
     ports = [22];
 
     hostKeys = [
