@@ -81,7 +81,7 @@ those who want to switch inbetween devices at ease, or have common "mixin"
 configs that are shared between multiple devices. All things considered, it is
 an excellent idea to learn Nix (the programming language) and NixOS.
 
-I also maintain some dotfiles for my desktop running Arch Linux. See the [arch](../../tree/main)
+I also maintain some dotfiles for my desktop running Arch Linux. See the [arch](../../tree/arch)
 branch if you are interested in my "legacy" dotfiles.
 
 ### Disclaimer
