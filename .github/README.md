@@ -1,5 +1,7 @@
-Note: The system-module branch is for the upcoming QoL rework and is in REALLY
-early development. See the `nixos` module for the last stable version.
+<p align="center">
+   ⚠️ The `system-module` branch (the one you are currently on) is for the upcoming rework and is not at all stable. See the `nixos` branch
+   for the last confirmed stable version of my NixOS configuration
+</p>
 
 <h1 align="center">
   <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
@@ -71,15 +73,15 @@ or donating me from the links below, up to you.
 
 I so often switch devices due to a myriad of reasons. Regardless of the reason,
 I would like to be able to get my new devices up and running in minutes. Thanks
-to the declarative nature of NixOS, I can do just that on top of being able to 
+to the declarative nature of NixOS, I can do just that on top of being able to
 build entire system from a few modules and nothing more. Which is why I am currently
 in the process of transitioning all of my devices to NixOS. While I do have much to learn
 the NixOS ecosystem is an incredible learning opportunity and a good practice for
 those who want to switch inbetween devices at ease, or have common "mixin"
 configs that are shared between multiple devices. All things considered, it is
-an excellent idea to learn Nix (the programming language) and NixOS. 
+an excellent idea to learn Nix (the programming language) and NixOS.
 
-I also maintain some dotfiles for my desktop running Arch Linux. See the [main](tree/main)
+I also maintain some dotfiles for my desktop running Arch Linux. See the [arch](../../tree/main)
 branch if you are interested in my "legacy" dotfiles.
 
 ### Disclaimer
@@ -89,20 +91,20 @@ branch if you are interested in my "legacy" dotfiles.
 You *probably* do not want to copy or base your config off of this configuration.
 Frankly, this is not a community framework, and nor is it built with the intention of bringing
 new people into NixOS or/and helping newcomers figure out how NixOS works.
-It is simply my NixOS configuration, built around my personal use cases and interests. 
-If you do have a question, I will do my absolute best to answer it as the 
-circumstances (mainly my own knowledge) allow, however, do not expect "support" 
+It is simply my NixOS configuration, built around my personal use cases and interests.
+If you do have a question, I will do my absolute best to answer it as the
+circumstances (mainly my own knowledge) allow, however, do not expect "support"
 and definitely do not assume this configuration to be following best practices.
 
-Dissect the configurations all you want, take what you need and if you find yourself to 
+Dissect the configurations all you want, take what you need and if you find yourself to
 be excelling somewhere I lack, do feel free to contribute to my atrocities against
-NixOS and everything it stands for. Would be appreciated. 
+NixOS and everything it stands for. Would be appreciated.
 
 *Styling PRs will be rejected because I like my Alejandra, thanks but no thanks.*
 
 ## Donate
 
-Want to support me, or to show gratitude for something (somehow) nice I did? 
+Want to support me, or to show gratitude for something (somehow) nice I did?
 Perhaps consider donating!
 
 <div align="center">
@@ -119,9 +121,8 @@ Perhaps consider donating!
 
 ...or if you prefer crypto *(those are not active yet due to my lack of interest in cyptocurrencies)*
 
-Ethereum: ` `
-
-Monero/Bitcoin: notashelf.dev (OpenAlias)
+> Ethereum: `N/A`
+> Monero/Bitcoin: notashelf.dev (via OpenAlias)
 
 ## Credits & Special Thanks to
 
@@ -142,7 +143,6 @@ Monero/Bitcoin: notashelf.dev (OpenAlias)
 > Resource that helped shape or improve this configuration
 
 - [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
-
 
 ## License
 
