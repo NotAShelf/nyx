@@ -19,29 +19,33 @@ in {
         hasTPM = true;
       };
       system = {
-        fs = ["btrfs" "vfat" "ntfs"];
+        fs = ["btrfs" "vfat"];
         video.enable = true;
         sound.enable = true;
+        bluetooth.enable = false;
+        printing.enable = false;
+        virtualization.enable = false;
         username = "notashelf";
       };
       usrEnv = {
         isWayland = true;
-        desktop = ["hyprland"];
+        desktop = "hyprland";
         useHomeManager = true;
       };
-    };
-
-    security.tpm2 = {
-      # enable Trusted Platform Module 2 support
-      enable = cfg.hasTPM;
-      # enable Trusted Platform 2 userspace resource manager daemon
-      abrmd.enable = mkDefault true;
-      # set TCTI environment variables to the specified values if enabled
-      # - TPM2TOOLS_TCTI
-      # - TPM2_PKCS11_TCTI
-      tctiEnvironment.enable = mkDefault true;
-      # enable TPM2 PKCS#11 tool and shared library in system path
-      pkcs11.enable = mkDefault true;
+      programs = {
+        gaming = {
+          enable = false;
+          chess = true;
+        };
+        default = {
+          terminal = "foot";
+        };
+        override = {
+          program = {
+            libreoffice = false;
+          };
+        };
+      };
     };
 
     fileSystems = {
@@ -61,5 +65,9 @@ in {
         "nohibernate"
       ];
     };
+
+    environment.systemPackages = [
+      pkgs.linuxKernel.packages.linux_latest_libre.broadcom_sta
+    ];
   };
 }
