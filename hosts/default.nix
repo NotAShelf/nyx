@@ -45,7 +45,6 @@ in {
     specialArgs = {inherit inputs self;};
   };
 
-  /*
   # Lenovo Ideapad from 2014
   # Portable "server"
   icarus = nixpkgs.lib.nixosSystem {
@@ -59,9 +58,10 @@ in {
         home-manager
       ]
       ++ shared;
-    specialArgs = {inherit inputs;};
+    specialArgs = {inherit inputs self;};
   };
 
+  /*
   # Raspberry Pi 400
   # My Pi400 homelab, used mostly for testing
   atlas = nixpkgs.lib.nixosSystem {
