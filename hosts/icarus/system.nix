@@ -65,10 +65,30 @@ in {
         "i915.enable_psr=2"
         "nohibernate"
       ];
+      kernelModules = [
+        iwlwifi
+      ];
     };
 
-    environment.systemPackages = [
-      pkgs.rtl8723bs-firmware
+    environment.systemPackages = with pkgs; [
+      rtl8723bs-firmware
+      linux-firmware
+      intel2200BGFirmware
+      rtl8192su-firmware
+      rt5677-firmware
+      rtl8723bs-firmware
+      rtl8761b-firmware
+      rtw88-firmware
+      zd1211fw
+      alsa-firmware
+      sof-firmware
+      libreelec-dvb-firmware
+      broadcom-bt-firmware
+      b43Firmware_5_1_138
+      b43Firmware_6_30_163_46
+      xow_dongle-firmware
+      facetimehd-calibration
+      facetimehd-firmware
     ];
   };
 }

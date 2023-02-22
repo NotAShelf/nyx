@@ -54,6 +54,7 @@ in {
         {networking.hostName = "icarus";}
         ./icarus
         bootloader
+        desktop
         server
         home-manager
       ]
