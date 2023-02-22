@@ -56,6 +56,7 @@ in {
 
     hardware = {
       enableRedistributableFirmware = true;
+      enableAllFirmware = true;
     };
 
     boot = {
@@ -65,5 +66,9 @@ in {
         "nohibernate"
       ];
     };
+
+    environment.systemPackages = [
+      pkgs.rtl8723bs-firmware
+    ];
   };
 }
