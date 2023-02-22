@@ -65,9 +65,5 @@ in {
         "nohibernate"
       ];
     };
-
-    environment.systemPackages = [
-      pkgs.linuxKernel.packages.linux_latest_libre.broadcom_sta
-    ];
   };
 }
