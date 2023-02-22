@@ -66,7 +66,7 @@ in {
         "nohibernate"
       ];
       kernelModules = [
-        iwlwifi
+        "iwlwifi"
       ];
     };
 
