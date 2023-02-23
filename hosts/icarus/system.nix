@@ -16,7 +16,7 @@ in {
         monitors = ["eDP-1"];
         hasBluetooth = true;
         hasSound = true;
-        hasTPM = true;
+        hasTPM = false;
       };
       system = {
         fs = ["btrfs" "vfat"];
