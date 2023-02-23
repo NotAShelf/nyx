@@ -28,6 +28,7 @@ in {
       ungoogled-chromium
       easyeffects
       librewolf
+      fractal
     ];
   };
 }
