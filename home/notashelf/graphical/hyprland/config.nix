@@ -51,7 +51,7 @@ in {
       disable_hyprland_logo=true
       disable_splash_rendering=true
       enable_swallow=true
-      swallow_regex=^(foot)$
+      swallow_regex=foot|thunar
       mouse_move_enables_dpms=true
       disable_autoreload=true # probably not necessary on nixos
     }
