@@ -45,6 +45,7 @@ in {
       binwalk
       binutils
       diffoscope
+      nmap
     ];
   };
 }
