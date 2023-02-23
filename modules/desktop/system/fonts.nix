@@ -46,6 +46,7 @@ in {
         comfortaa
         inter
         lato
+        jost
         lexend
         dejavu_fonts
         iosevka-bin

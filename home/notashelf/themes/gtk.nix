@@ -18,7 +18,7 @@
     };
 
     font = {
-      name = "Lato";
+      name = "Lexend";
       size = 13;
     };
     gtk3.extraConfig = {
@@ -41,6 +41,7 @@
     package = pkgs.catppuccin-cursors;
     size = 16;
     gtk.enable = true;
+    x11.enable = true;
   };
 
   # credits: bruhvko
