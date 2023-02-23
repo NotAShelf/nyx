@@ -10,7 +10,7 @@
       settings = with lib; {
         permitRootLogin = mkForce "no";
         passwordAuthentication = mkForce false;
-        forwardX11 = mkDefault false;
+        X11Forwarding = mkDefault false;
       };
       openFirewall = true;
       ports = [22];
