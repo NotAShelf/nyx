@@ -14,5 +14,6 @@
     ./bottom
     ./ranger
     ./wezterm
+    ./pandoc
   ];
 }
