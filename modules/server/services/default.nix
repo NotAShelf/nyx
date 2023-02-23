@@ -7,6 +7,7 @@
     ./gitea
     ./tor
     ./nginx
+    ./matrix
     ./grafana # TODO
     ./irc # TODO
     ./jellyfin # https://nixos.wiki/wiki/Jellyfin

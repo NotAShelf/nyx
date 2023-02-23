@@ -7,6 +7,14 @@
 with lib; let
   device = config.modules.devicece;
   acceptedTypes = ["server" "hybrid"];
+
+  mkWellKnown = data: ''
+    add_header Content-Type application/json;
+    add_header Access-Control-Allow-Origin *;
+    return 200 '${builtins.toJSON data}';
+  '';
+  fqdn = "${config.networking.hostName}.${config.networking.domain}";
+  serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     nixpkgs.overlays = [
@@ -15,6 +23,8 @@ in {
       })
     ];
 
+    networking.domain = "notashelf.dev";
+
     nginx = {
       enable = true;
       recommendedTlsSettings = true;
@@ -22,21 +32,14 @@ in {
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
       virtualHosts = {
-        # TODO: define virtual hosts at services own files
-        #"notashelf.dev" = {
-        #  addSSL = true;
-        #  serverAliases = ["www.notashelf.dev"];
-        #  enableACME = true;
-        #  root = "/srv/www/notashelf.dev";
-        #};
-
-        #"git.notashelf.dev" = {
-        #  addSSL = true;
-        #  enableACME = true;
-        #  locations."/" = {
-        #    proxyPass = "http://localhost:7000/";
-        #  };
-        #};
+        "notashelf.dev" = {
+          addSSL = true;
+          serverAliases = ["www.notashelf.dev"];
+          enableACME = true;
+          #extraConfig = "error_page 404 /404.html;"; # nextjs handles 404 pages itself - can nix handle nextjs?
+          locations."= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+          locations."= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+        };
       };
     };
   };
