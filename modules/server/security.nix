@@ -7,12 +7,12 @@
   services = {
     openssh = {
       enable = true;
-      settings = {
-        permitRootLogin = lib.mkForce "no";
-        passwordAuthentication = lib.mkForce false;
+      settings = with lib; {
+        permitRootLogin = mkForce "no";
+        passwordAuthentication = mkForce false;
+        forwardX11 = mkDefault false;
       };
       openFirewall = true;
-      forwardX11 = false;
       ports = [22];
 
       hostKeys = [
