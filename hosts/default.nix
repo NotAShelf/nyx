@@ -55,7 +55,6 @@ in {
         ./icarus
         bootloader
         desktop
-        server
         home-manager
       ]
       ++ shared;
