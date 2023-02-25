@@ -1,10 +1,17 @@
-{...}: {
+{
+  lib,
+  osConfig,
+  ...
+}: let
+  cfg = osConfig.modules.programs.git;
+in {
   programs.git = {
     enable = true;
     userName = "NotAShelf";
     userEmail = "itsashelf@gmail.com";
     signing = {
-      key = "419DBDD3228990BE";
+      #key = lib.mkDefault "419DBDD3228990BE";
+      key = cfg.signingKey;
       signByDefault = true;
     };
     ignores = [
