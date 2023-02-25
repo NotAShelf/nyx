@@ -32,6 +32,12 @@ with lib; {
       };
     };
 
+    git = {
+      signingKey = mkOption {
+        type = types.str;
+      };
+    };
+
     # default program options
     default = {
       # what program should be used as the default terminal
