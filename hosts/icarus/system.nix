@@ -33,13 +33,16 @@ in {
         useHomeManager = true;
       };
       programs = {
+        git.signingKey = "0x84184B8533918D88";
         gaming = {
           enable = false;
           chess = true;
         };
+
         default = {
           terminal = "foot";
         };
+
         override = {
           program = {
             libreoffice = false;
@@ -70,7 +73,7 @@ in {
       ];
     };
 
-    environment.systemPackages = with pkgs; [
+    hardware.firmware = with pkgs; [
       rtl8723bs-firmware
       linux-firmware
       intel2200BGFirmware
