@@ -12,6 +12,7 @@
     group = "gitea";
   };
 
+  /*
   users.users.donut = {
     group = "users";
     isNormalUser = true;
@@ -21,6 +22,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICYvciy1uq5tU179OgChwrgbrGia4tUQr1onik5GuHc6 amr@nicksos"
     ];
   };
+  */
 
   users.users.raf = {
     group = "users";
