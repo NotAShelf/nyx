@@ -34,6 +34,8 @@ in {
         useHomeManager = true;
       };
       programs = {
+        git.signingKey = "419DBDD3228990BE";
+
         gaming = {
           enable = true;
           chess = true;
