@@ -17,9 +17,14 @@ in {
       prismlauncher
       mono
       winetricks
+      # get dotnet runtime 6
+      dotnet-runtime_6
+      dotnet-runtime_7
       mangohud
       taisei
       unciv
     ];
   };
+
+  # TODO: configure mangohud
 }

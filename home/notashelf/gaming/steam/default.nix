@@ -26,10 +26,6 @@
           xorg.libXi
           xorg.libXinerama
           xorg.libXScrnSaver
-
-          # get dotnet runtime 6
-          dotnet-runtime_6
-          dotnet-runtime_7
         ];
     };
   };
