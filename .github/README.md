@@ -8,7 +8,8 @@
   
   NotAShelf's NixOS Configurations <br>
 
-  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
+<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
+
   <div align="center">
 
   <div align="center">
@@ -48,6 +49,7 @@
   - [system](modules/system) 🚀 A self-made NixOS configuration to dictate system specs
   - [virtualization](modules/virtualization) Hot-toggled virtualization module for any host
 - [hosts](hosts) 🌳 per-host configuration
+  - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system.
   - [prometheus](hosts/prometheus) 💻 My 2016 HP Pavillion with NVIDIA GPU
   - [atlas](hosts/atlas) 🍓 Raspberry Pi 400 that acts as my home lab
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
@@ -55,14 +57,13 @@
 - [pkgs](pkgs) 💿 exported packages
   - [overlays](modules/overlays) 📦 Overlay recipes for my system to use
 
-
 ## Notes
 
 If my dotfiles are confusing to you, that is because they are confusing. I am not
 yet very well versed in NixOS and Nix, thus my configuration may not always follow best
 practices or be the most efficient. I also do not follow any particular logic when
 organizing my configuration. I do, however, try my best to document my NixOS configuration
-as humanly possible. This repository was based off of *many* others which I have linked below.
+as humanly possible. This repository was based off of _many_ others which I have linked below.
 If you like anything about this repository, you will probably like theirs as well. If you have anything
 to say/ask about those configurations (especially if it was because you were disgusted by
 my atrocities against NixOS), please do not hesitate to make an issue or open a PR. I am always
@@ -86,9 +87,9 @@ branch if you are interested in my "legacy" dotfiles.
 
 ### Disclaimer
 
-> I am not a NixOS *expert*. I am a NixOS *user*.
+> I am not a NixOS _expert_. I am a NixOS _user_.
 
-You *probably* do not want to copy or base your config off of this configuration.
+You _probably_ do not want to copy or base your config off of this configuration.
 Frankly, this is not a community framework, and nor is it built with the intention of bringing
 new people into NixOS or/and helping newcomers figure out how NixOS works.
 It is simply my NixOS configuration, built around my personal use cases and interests.
@@ -100,7 +101,7 @@ Dissect the configurations all you want, take what you need and if you find your
 be excelling somewhere I lack, do feel free to contribute to my atrocities against
 NixOS and everything it stands for. Would be appreciated.
 
-*Styling PRs will be rejected because I like my Alejandra, thanks but no thanks.*
+_Styling PRs will be rejected because I like my Alejandra, thanks but no thanks._
 
 ## Donate
 
@@ -119,7 +120,7 @@ Perhaps consider donating!
 
 </div>
 
-...or if you prefer crypto *(those are not active yet due to my lack of interest in cyptocurrencies)*
+...or if you prefer crypto _(those are not active yet due to my lack of interest in cyptocurrencies)_
 
 > Ethereum: `N/A`
 > Monero/Bitcoin: notashelf.dev (via OpenAlias)
