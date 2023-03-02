@@ -28,6 +28,24 @@
 
   shared = [system core home ragenix];
 in {
+  # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
+  # fully free from nvidia
+  # fuck nvidia - Linux "the linux" Torvalds
+  enyo = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules =
+      [
+        {networking.hostName = "enyo";}
+        ./enyo
+        bootloader
+        desktop
+        home-manager
+        virtualization
+      ]
+      ++ shared;
+    specialArgs = {inherit inputs self;};
+  };
+
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
   prometheus = nixpkgs.lib.nixosSystem {
