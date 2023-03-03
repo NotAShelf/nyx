@@ -9,10 +9,10 @@
       base02 = "#2E3436"; # Surface0
       base03 = "#3b4444"; # Surface1
       base04 = "#3b4444"; # Surface2
-      base05 = "#E5FFFF"; # text
-      base06 = "#E5FFFF"; # "
-      base07 = "#D0EBEE"; # white
-      base08 = "#D0EBEE"; # "
+      base05 = "#D0EBEE"; # text
+      base06 = "#D0EBEE"; # "
+      base07 = "#E5FFFF"; # white
+      base08 = "#E5FFFF"; # "
       base09 = "#733447"; # red
       base0A = "#C78C56"; # yellow
       base0B = "#257B76"; # green
