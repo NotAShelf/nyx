@@ -20,6 +20,9 @@ with lib; {
     desktop = mkOption {
       type = types.enum ["hyprland" "awesome" "i3"];
       default = "";
+      autologin = {
+        mkEnableOption = "Should the system autologin into the session of choice?";
+      };
     };
 
     # should home manager be enabled

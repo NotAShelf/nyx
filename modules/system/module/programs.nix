@@ -12,29 +12,33 @@ with lib; {
     # load GUI and CLI programs by default, but check if those overrides are enabled
     # so that they can be disabled at will
     cli = {
-      enabled = mkEnableOption "cli";
+      enabled = mkEnableOption "Enable CLI programs";
     };
     gui = {
-      enabled = mkEnableOption "gui";
+      enabled = mkEnableOption "Enable GUI programs";
     };
 
     gaming = {
-      enable = mkEnableOption "gaming";
+      enable = mkEnableOption "Enable packages required for the device to be gaming-ready";
 
       chess = mkOption {
         type = types.bool;
         default = true;
+        description = "Chess programs and engines";
       };
 
       gamescope = mkOption {
         type = types.bool;
         default = true;
+        description = "Gamescope";
       };
     };
 
     git = {
       signingKey = mkOption {
         type = types.str;
+        default = "";
+        description = "The default gpg key used for signing commits";
       };
     };
 
