@@ -1,11 +1,7 @@
-{
-  inputs,
-  self,
-  ...
-}: {
+_: {
   imports = [
     ./apps
-    ./hyprland
     ./launchers
+    ./wms
   ];
 }
