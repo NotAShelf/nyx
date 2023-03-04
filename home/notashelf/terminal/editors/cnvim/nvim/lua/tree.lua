@@ -1,8 +1,6 @@
 require("nvim-tree").setup({
 	disable_netrw = true,
 	hijack_netrw = true,
-	-- open_on_setup = false,
-	ignore_ft_on_setup = { "alpha" },
 	hijack_cursor = true,
 	hijack_unnamed_buffer_when_opening = false,
 	update_cwd = true,
