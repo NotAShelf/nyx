@@ -16,10 +16,11 @@
 - [x] make cross-compilation togglable
 - [x]dynamic kernel module loading based on filesystems
 - [x] document more settings
-  - [ ]document even more settings
+  - [x] document even more settings
 - move previous hosts to the new host config format
   - [x] prometheus
-  - [ ] icarus
+  - [x] icarus
+  - [x] enyo
   - [ ] atlas
   - ~~gaea~~ No need, no modules are imported.
 - [ ] find suitable enabling conditions for tor and xserver
