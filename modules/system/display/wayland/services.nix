@@ -22,32 +22,5 @@ in {
         wantedBy = ["multi-user.target"];
       };
     };
-
-    services = {
-      greetd = {
-        enable = true;
-        settings = rec {
-          initial_session = {
-            command = "Hyprland";
-            user = "notashelf";
-          };
-          default_session = initial_session;
-        };
-      };
-
-      gnome = {
-        glib-networking.enable = true;
-        gnome-keyring.enable = true;
-      };
-
-      logind = {
-        lidSwitch = "suspend-then-hibernate";
-        lidSwitchExternalPower = "lock";
-        extraConfig = ''
-          HandlePowerKey=suspend-then-hibernate
-          HibernateDelaySec=3600
-        '';
-      };
-    };
   };
 }

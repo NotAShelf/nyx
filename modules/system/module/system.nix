@@ -33,14 +33,12 @@ with lib; {
       enable = mkEnableOption "emulation";
     };
 
-    # should the device
+    # should sound related programs and audio-dependent programs be enabled
     sound = {
       enable = mkEnableOption "sound";
     };
 
     # should the device enable graphical programs
-    # TODO: Is this even necessary? Might need to return to this later.
-    # Most graphical apps don't depend on this value and use device type instead
     video = {
       enable = mkEnableOption "video";
     };
@@ -56,12 +54,12 @@ with lib; {
       enable = mkEnableOption "printing";
     };
 
-    # should virtualization be enabled
-    # TODO: this will probably create issues if virtualization module is not hotplugged
+    # should virtualization (docker, qemu, podman etc.) be enabled
     virtualization = {
       enable = mkEnableOption "virtualization";
       docker = {enable = mkEnableOption "docker";};
       podman = {enable = mkEnableOption "podman";};
+      qemu = {enable = mkEnableOption "qemu";};
     };
   };
 }
