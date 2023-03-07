@@ -29,7 +29,7 @@ with lib; let
 in {
   imports = [./config.nix];
 
-  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "hyprland"))) {
+  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
     home.packages = with pkgs; [
       libnotify
       wlogout
@@ -48,7 +48,7 @@ in {
     ];
 
     wayland.windowManager.hyprland = {
-      enable = env.isWayland;
+      enable = true;
       package = inputs.hyprland.packages.${pkgs.system}.default.override {
         nvidiaPatches = device.gpu == "nvidia" || device.gpu == "hybrid-nv";
       };
