@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   env = config.modules.usrEnv;
@@ -25,11 +26,7 @@ in {
   };
 
   # if the system is not using wayland, then we need the non-wayland version of wine
-  environment.systemPackages = [
-    (
-      if env.isWayland
-      then pkgs.wineWowPackages.stable
-      else ""
-    )
+  environment.systemPackages = lib.mkIf (env.isWayland) [
+    pkgs.wineWowPackages.stable
   ];
 }
