@@ -1,3 +1,10 @@
+local function open_nvim_tree()
+	require("nvim-tree.api").tree.open()
+	
+	-- open the tree, find the file but don't focus it
+	require("nvim-tree.api").tree.toggle({ focus = true, find_file = true })
+end
+
 require("nvim-tree").setup({
 	disable_netrw = true,
 	hijack_netrw = true,

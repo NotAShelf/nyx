@@ -1,9 +1,8 @@
-require("nvim-web-devicons").setup()
-require("alpha-nvim").setup()
-
 local alpha = require("alpha")
 local dashboard = require("alpha.themes.dashboard")
 
+require("nvim-web-devicons").setup()
+alpha.setup(
 -- Set header
 dashboard.section.header.val = {
 	"                                                     ",
@@ -48,3 +47,4 @@ alpha.setup(dashboard.opts)
 vim.cmd([[
     autocmd FileType alpha setlocal nofoldenable
 ]])
+)

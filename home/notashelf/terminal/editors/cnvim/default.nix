@@ -81,6 +81,8 @@ in {
         nvim-colorizer-lua
         nvim-ts-rainbow
         gitsigns-nvim
+        toggleterm-nvim
+        todo-comments-nvim
         (nvim-treesitter.withPlugins (plugins:
           with plugins; [
             tree-sitter-python
@@ -109,6 +111,7 @@ in {
             tree-sitter-sql
             tree-sitter-zig
             tree-sitter-dockerfile
+            tree-sitter-markdown
           ]))
       ];
     };
