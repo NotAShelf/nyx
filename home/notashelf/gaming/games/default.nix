@@ -17,11 +17,14 @@ in {
       prismlauncher
       mono
       winetricks
-      # get dotnet runtime 6
-      dotnet-runtime_6
       mangohud
       taisei
       unciv
+      # get dotnet runtime 6
+      dotnet-runtime_6
+
+      # jre 17
+      temurin-jre-bin-17
     ];
   };
 
