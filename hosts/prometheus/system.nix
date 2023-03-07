@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.device;
+  device = config.modules.device;
 in {
   config = {
     modules = {
@@ -30,7 +30,8 @@ in {
       };
       usrEnv = {
         isWayland = true;
-        desktop = "hyprland";
+        desktop = "Hyprland";
+        autologin = true;
         useHomeManager = true;
       };
       programs = {
@@ -58,7 +59,7 @@ in {
     };
 
     hardware = {
-      nvidia = {
+      nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
         open = mkForce false;
 
         prime = {
@@ -71,8 +72,10 @@ in {
 
     boot = {
       kernelParams = [
-        "i915.enable_fbc=1"
-        "i915.enable_psr=2"
+        (optionalString ((device.gpu == "hybrid-nv") && (device.cpu == "intel")) ''
+          "i915.enable_fbc=1"
+          "i915.enable_psr=2"
+        '')
         "nohibernate"
       ];
     };

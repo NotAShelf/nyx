@@ -27,7 +27,7 @@
       };
       usrEnv = {
         isWayland = true;
-        desktop = "hyprland";
+        desktop = "Hyprland";
         useHomeManager = true;
       };
       programs = {
