@@ -75,7 +75,7 @@ in {
         [
           "nohibernate"
         ]
-        ++ optionals ((device.gpu == "hybrid-nv") && (device.cpu == "intel")) [
+        ++ optionals ((device.cpu == "intel") && (device.gpu != "hybrid-nv")) [
           "i915.enable_fbc=1"
           "i915.enable_psr=2"
         ];
