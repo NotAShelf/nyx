@@ -29,10 +29,20 @@ in {
     boot = {
       # Load modules on boot
       kernelModules =
-        ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"]
+        [
+          "nvidia"
+          "nvidia_modeset"
+          "nvidia_uvm"
+          "nvidia_drm"
+        ]
         ++ optionals (device.cpu == "intel")
-        ["module_blacklist=i915"];
-      blacklistedKernelModules = ["nouveau"];
+        [
+          "module_blacklist=i915"
+        ];
+      # blacklist kernel modules
+      blacklistedKernelModules = [
+        "nouveau"
+      ];
     };
 
     environment = {
@@ -48,7 +58,7 @@ in {
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
         })
 
-        (mkIf (device.gpu == "hybrid-nv") {
+        (mkIf ((env.isWayland) && (device.gpu == "hybrid-nv")) {
           WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
         })
       ];
@@ -59,7 +69,6 @@ in {
         vulkan-loader
         vulkan-validation-layers
         glmark2
-        nvtop
       ];
     };
 
@@ -77,5 +86,29 @@ in {
       opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
       opengl.extraPackages32 = with pkgs.pkgsi686Linux; [nvidia-vaapi-driver];
     };
+
+    services.xserver.config = mkIf (device.gpu == "hybrid-nv") ''
+      # Integrated Intel GPU
+      Section "Device"
+        Identifier "iGPU"
+        Driver "modesetting"
+      EndSection
+
+      # Dedicated NVIDIA GPU
+      Section "Device"
+        Identifier "dGPU"
+        Driver "nvidia"
+      EndSection
+
+      Section "ServerLayout"
+        Identifier "layout"
+        Screen 0 "iGPU"
+      EndSection
+
+      Section "Screen"
+        Identifier "iGPU"
+        Device "iGPU"
+      EndSection
+    '';
   };
 }
