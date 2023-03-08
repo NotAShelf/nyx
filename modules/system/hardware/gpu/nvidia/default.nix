@@ -28,7 +28,10 @@ in {
     services.xserver.videoDrivers = ["nvidia" "modesetting"];
     boot = {
       # Load modules on boot
-      kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
+      kernelModules =
+        ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"]
+        ++ optionals (device.cpu == "intel")
+        ["module_blacklist=i915"];
       blacklistedKernelModules = ["nouveau"];
     };
 
