@@ -29,7 +29,7 @@
     inherit (config.colorscheme) colors;
   in ''
     font = Iosevka Nerd Font
-    font-size = 16
+    font-size = 13
     horizontal = true
     anchor = top
     width = 100%
@@ -38,11 +38,11 @@
     border-width = 0
     min-input-width = 120
     result-spacing = 30
-    padding-top = 8
-    padding-bottom = 0
+    padding-top = 10
+    padding-bottom = 10
     padding-left = 20
     padding-right = 0
-    prompt-text = "  Run"
+    prompt-text = " "
     prompt-padding = 30
     background-color = ${colors.base00}
     text-color = ${colors.base05}
