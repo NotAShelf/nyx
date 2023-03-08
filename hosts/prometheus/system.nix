@@ -71,13 +71,14 @@ in {
     };
 
     boot = {
-      kernelParams = [
-        (optionalString ((device.gpu == "hybrid-nv") && (device.cpu == "intel")) ''
+      kernelParams =
+        [
+          "nohibernate"
+        ]
+        ++ optionals ((device.gpu == "hybrid-nv") && (device.cpu == "intel")) [
           "i915.enable_fbc=1"
           "i915.enable_psr=2"
-        '')
-        "nohibernate"
-      ];
+        ];
     };
 
     console.earlySetup = true;
