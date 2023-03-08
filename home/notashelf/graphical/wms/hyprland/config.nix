@@ -109,7 +109,7 @@ in {
     bind=$MOD,E,exec,thunar
     bind=$MODSHIFT,L,exec,swaylock
     bind=$MOD,V,togglefloating,
-    bind=$MOD,R,exec, killall tofi || run-as-service $(tofi-drun)
+    bind=$MOD,R,exec, killall tofi || run-as-service $(tofi-drun --prompt-text "  Run")
     bind=$MOD,D,exec, killall rofi || rofi -show drun
     bind=$MOD,equal,exec, killall rofi || rofi -show calc
     bind=$MOD,period,exec, killall rofi || rofi -show emoji
