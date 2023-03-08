@@ -53,7 +53,7 @@
         schizofox = {
           enable = true;
           netflixDRMFix = true;
-          extraSecurity = true;
+          extraSecurity = false;
           translate = {
             enable = true;
             sourceLang = "en";
