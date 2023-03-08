@@ -1,10 +1,6 @@
-{
-  pkg,
-  config,
-  lib,
-  ...
-}: let
+{config, ...}: let
   browser = ["firefox.desktop"];
+  zathura = ["org.pwmt.zathura.desktop.desktop"];
 
   associations = {
     "text/html" = browser;
@@ -24,7 +20,7 @@
     "video/*" = ["mpv.dekstop"];
     "image/*" = ["imv.desktop"];
     "application/json" = browser;
-    "application/pdf" = ["org.pwmt.zathura.desktop.desktop"];
+    "application/pdf" = zathura;
     "x-scheme-handler/tg" = ["telegramdesktop.desktop"];
     "x-scheme-handler/spotify" = ["spotify.desktop"];
     "x-scheme-handler/discord" = ["WebCord.desktop"];
