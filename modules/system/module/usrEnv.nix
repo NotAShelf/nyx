@@ -18,11 +18,13 @@ with lib; {
     # the system will use
     # TODO: make this a list
     desktop = mkOption {
-      type = types.enum ["hyprland" "awesome" "i3"];
+      type = types.enum ["Hyprland" "awesome" "i3"];
       default = "";
-      autologin = {
-        mkEnableOption = "Should the system autologin into the session of choice?";
-      };
+    };
+
+    autologin = mkOption {
+      type = types.bool;
+      default = false;
     };
 
     # should home manager be enabled

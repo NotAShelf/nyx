@@ -5,7 +5,8 @@
   ...
 }:
 with lib; let
-  sys = config.options.modules.system;
+  env = config.modules.usrEnv;
+  sys = config.modules.system;
 in {
   config = {
     services = {
@@ -13,13 +14,13 @@ in {
         enable = true;
         settings = rec {
           initial_session = {
-            command = "${sys.desktop}";
+            command = "${env.desktop}";
             user = "${sys.username}";
           };
           default_session =
-            if (env.autologin.enable)
-            then initial_session
-            else "";
+            if (env.autologin)
+            then mkForce initial_session
+            else mkForce "";
         };
       };
 
