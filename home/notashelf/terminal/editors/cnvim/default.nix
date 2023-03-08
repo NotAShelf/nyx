@@ -49,6 +49,7 @@ in {
         nodePackages.node2nix # node and tix, we game
       ];
       plugins = with pkgs.vimPlugins; [
+        copilot-lua
         lsp_lines-nvim
         vim-nix
         nvim-ts-autotag
