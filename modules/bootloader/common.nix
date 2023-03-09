@@ -17,8 +17,6 @@ in {
         # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
         systemd-boot.editor = false;
 
-        # could be a little faster
-        # TODO: actually benchmark the boot process to see if it's worth it
         generationsDir.copyKernels = true;
 
         systemd-boot = {
@@ -129,7 +127,6 @@ in {
         # saves 30~ mb space according to the nix derivation
         systemd.strip = true;
 
-        # TODO: figure out why the hell this breaks plymouth
         # extremely experimental, just the way I like it on a production machine
         systemd.enable = true;
 
