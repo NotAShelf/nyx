@@ -25,21 +25,28 @@ with lib; let
   env = config.modules.usrEnv;
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
-    services.xserver.videoDrivers = ["nvidia" "modesetting"];
+    services.xserver = {
+      videoDrivers = ["modesetting" "nvidia"];
+      monitorSection = ''
+        Option "DPMS" "false"
+      '';
+
+      serverFlagsSection = ''
+        Option "StandbyTime" "0"
+        Option "SuspendTime" "0"
+        Option "OffTime" "0"
+        Option "BlankTime" "0"
+      '';
+    };
+
     boot = {
       # Load modules on boot
-      kernelModules =
-        [
-          "nvidia"
-          "nvidia_modeset"
-          "nvidia_uvm"
-          "nvidia_drm"
-        ]
-        ++ optionals (device.cpu == "intel")
-        [
-          "module_blacklist=i915"
-        ];
-      # blacklist kernel modules
+      kernelModules = mkIf (device.gpu == "hybrid-nv" && device.cpu == "intel") [
+        "module_blacklist=i915"
+      ];
+
+      # blacklist nouveau module so that it does not conflict with nvidia drm stuff
+      # also they are godawful, I'd rather run linux on a piece of paper than those
       blacklistedKernelModules = [
         "nouveau"
       ];
@@ -75,40 +82,20 @@ in {
     hardware = {
       nvidia = {
         package = mkDefault nvidiaPackage;
-
-        powerManagement.enable = false;
-        modesetting.enable = true;
+        modesetting.enable = mkDefault true;
+        powerManagement = {
+          enable = mkDefault true;
+          finegrained = mkDefault true;
+        };
 
         open = mkDefault true; # use open source drivers where possible
-        nvidiaSettings = true; # add nvidia-settings to pkgs
+        nvidiaSettings = false; # add nvidia-settings to pkgs
+        nvidiaPersistenced = true;
+        forceFullCompositionPipeline = true;
       };
 
       opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
       opengl.extraPackages32 = with pkgs.pkgsi686Linux; [nvidia-vaapi-driver];
     };
-
-    services.xserver.config = mkIf (device.gpu == "hybrid-nv") ''
-      # Integrated Intel GPU
-      Section "Device"
-        Identifier "iGPU"
-        Driver "modesetting"
-      EndSection
-
-      # Dedicated NVIDIA GPU
-      Section "Device"
-        Identifier "dGPU"
-        Driver "nvidia"
-      EndSection
-
-      Section "ServerLayout"
-        Identifier "layout"
-        Screen 0 "iGPU"
-      EndSection
-
-      Section "Screen"
-        Identifier "iGPU"
-        Device "iGPU"
-      EndSection
-    '';
   };
 }
