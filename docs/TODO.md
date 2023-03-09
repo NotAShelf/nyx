@@ -9,12 +9,12 @@
     - [x] services
     - [x] programs
     - [x] gaming
-  - [ ]server
+  - [ ] server
     - [x] Conditionally enable server services
     - [ ] Override all services as disabled by default 
     - [ ] Add override options
 - [x] make cross-compilation togglable
-- [x]dynamic kernel module loading based on filesystems
+- [x] dynamic kernel module loading based on filesystems
 - [x] document more settings
   - [x] document even more settings
 - move previous hosts to the new host config format
