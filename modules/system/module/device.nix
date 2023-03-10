@@ -43,11 +43,12 @@ with lib; {
       default = [];
     };
 
-    # whether the system has bluetooth support
     # bluetooth is an insecure protocol if left unchedked, so while this defaults to true
-    # the bluetooth.enable does and should not.
+    # but the bluetooth.enable option does and should not.
     hasBluetooth = mkOption {
       type = types.bool;
+      default = true;
+      description = "Whether or not the system has bluetooth support";
     };
 
     # whether the system has sound support (usually true except for servers)
