@@ -12,6 +12,8 @@
   oxocarbon-dark = (import ./palettes/oxocarbon-dark.nix).colorscheme;
   decay-dark = (import ./palettes/decay-dark.nix).colorscheme;
 
+  noelle = (import ./palettes/noelle.nix).colorscheme;
+
   # Catppuccins
   catppuccin-mocha = (import ./palettes/catppuccin-mocha.nix).colorscheme;
   catppuccin-macchiato = (import ./palettes/catppuccin-mocha.nix).colorscheme;
