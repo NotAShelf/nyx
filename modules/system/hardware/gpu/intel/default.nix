@@ -38,7 +38,7 @@ in {
     };
 
     environment.variables = {
-      VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkDefault "va_gl");
+      VDPAU_DRIVER = mkIf (config.hardware.opengl.enable) mkDefault "va_gl";
     };
   };
 }
