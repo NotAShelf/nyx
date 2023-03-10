@@ -20,13 +20,23 @@ in {
         hasTPM = true;
       };
       system = {
+        username = "notashelf";
         fs = ["btrfs" "vfat" "ntfs"];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
-        virtualization.enable = false;
-        username = "notashelf";
+
+        networking = {
+          optimizeTcp = true;
+        };
+
+        virtualization = {
+          enable = false;
+          docker.enable = false;
+          qemu.enable = true;
+          podman.enable = false;
+        };
       };
       usrEnv = {
         isWayland = true;
@@ -46,6 +56,7 @@ in {
         };
         override = {
           program = {
+            # setting this to true will disable libreoffice
             libreoffice = false;
           };
         };

@@ -1,6 +1,15 @@
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  device = config.options.device;
+in {
   boot = {
-    kernel.sysctl = {
+    kernelModules = ["tls" "tcp_bbr"];
+    kernel.sysctl = mkIf (device.optimizeTcp) {
       # fast networking
       "net.core.default_qdisc" = "cake";
       "net.core.optmem_max" = 65536;
@@ -32,6 +41,5 @@
       "net.netfilter.nf_conntrack_tcp_timeout_established" = 600;
       "net.netfilter.nf_conntrack_tcp_timeout_time_wait" = 1;
     };
-    kernelModules = ["tls" "tcp_bbr"];
   };
 }
