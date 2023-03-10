@@ -19,7 +19,7 @@ with lib; let
   nvBeta = config.boot.kernelPackages.nvidiaPackages.beta.version;
 
   nvidiaPackage =
-    if (lib.versionOlder nvBeta nvStable)
+    if (versionOlder nvBeta nvStable)
     then config.boot.kernelPackages.nvidiaPackages.stable
     else config.boot.kernelPackages.nvidiaPackages.beta;
 
@@ -27,23 +27,31 @@ with lib; let
   env = config.modules.usrEnv;
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
+    # nvidia drivers are unfree software
+    nixpkgs.config.allowUnfree = true;
+
     services.xserver = {
       videoDrivers = ["nvidia"];
+
+      # disable DPMS
+      monitorSection = ''
+        Option "DPMS" "false"
+      '';
+
+      # disable screen blanking in total
+      serverFlagsSection = ''
+        Option "StandbyTime" "0"
+        Option "SuspendTime" "0"
+        Option "OffTime" "0"
+        Option "BlankTime" "0"
+      '';
     };
 
     boot = {
-      # Load modules on boot
-      /*
-      kernelParams = mkIf (device.gpu == "hybrid-nv" && device.cpu == "intel") [
-        "module_blacklist=i915"
-      ];
-      */
-
       # blacklist nouveau module so that it does not conflict with nvidia drm stuff
       # also the nouveau performance is godawful, I'd rather run linux on a piece of paper than use nouveau
       blacklistedKernelModules = [
         "nouveau"
-        #optionalString (device.gpu == "hybrid-nv" && device.cpu == "intel") "i915"
       ];
     };
 
@@ -71,6 +79,8 @@ in {
         vulkan-loader
         vulkan-validation-layers
         glmark2
+        libva
+        libva-utils
       ];
     };
 
@@ -91,8 +101,13 @@ in {
         forceFullCompositionPipeline = true;
       };
 
-      opengl.extraPackages = with pkgs; [nvidia-vaapi-driver];
-      opengl.extraPackages32 = with pkgs.pkgsi686Linux; [nvidia-vaapi-driver];
+      opengl = {
+        enable = true;
+        driSupport = true;
+        driSupport32Bit = true;
+        extraPackages = with pkgs; [nvidia-vaapi-driver];
+        extraPackages32 = with pkgs.pkgsi686Linux; [nvidia-vaapi-driver];
+      };
     };
   };
 }
