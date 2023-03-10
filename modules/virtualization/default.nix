@@ -8,7 +8,10 @@ with lib; let
   sys = config.modules.system;
 in {
   config = mkIf (sys.virtualization.enable) {
-    environment.systemPackages = with pkgs; [virt-manager docker-compose];
+    environment.systemPackages = with pkgs; [
+      virt-manager
+      docker-compose
+    ];
 
     virtualisation = {
       libvirtd = {

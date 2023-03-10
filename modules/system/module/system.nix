@@ -61,5 +61,14 @@ with lib; {
       podman = {enable = mkEnableOption "podman";};
       qemu = {enable = mkEnableOption "qemu";};
     };
+
+    # should we optimize tcp networking
+    networking = {
+      optimizeTcp = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Enable tcp optimizations";
+      };
+    };
   };
 }
