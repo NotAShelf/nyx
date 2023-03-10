@@ -14,8 +14,10 @@ with lib; let
     exec "$@"
   '';
 
+  # use the latest possible nvidia package
   nvStable = config.boot.kernelPackages.nvidiaPackages.stable.version;
   nvBeta = config.boot.kernelPackages.nvidiaPackages.beta.version;
+
   nvidiaPackage =
     if (lib.versionOlder nvBeta nvStable)
     then config.boot.kernelPackages.nvidiaPackages.stable
@@ -26,29 +28,22 @@ with lib; let
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
     services.xserver = {
-      videoDrivers = ["modesetting" "nvidia"];
-      monitorSection = ''
-        Option "DPMS" "false"
-      '';
-
-      serverFlagsSection = ''
-        Option "StandbyTime" "0"
-        Option "SuspendTime" "0"
-        Option "OffTime" "0"
-        Option "BlankTime" "0"
-      '';
+      videoDrivers = ["nvidia"];
     };
 
     boot = {
       # Load modules on boot
-      kernelModules = mkIf (device.gpu == "hybrid-nv" && device.cpu == "intel") [
+      /*
+      kernelParams = mkIf (device.gpu == "hybrid-nv" && device.cpu == "intel") [
         "module_blacklist=i915"
       ];
+      */
 
       # blacklist nouveau module so that it does not conflict with nvidia drm stuff
-      # also they are godawful, I'd rather run linux on a piece of paper than those
+      # also the nouveau performance is godawful, I'd rather run linux on a piece of paper than use nouveau
       blacklistedKernelModules = [
         "nouveau"
+        #optionalString (device.gpu == "hybrid-nv" && device.cpu == "intel") "i915"
       ];
     };
 
@@ -88,8 +83,10 @@ in {
           finegrained = mkDefault true;
         };
 
-        open = mkDefault true; # use open source drivers where possible
-        nvidiaSettings = false; # add nvidia-settings to pkgs
+        # use open source drivers by default, hosts may override this option if their gpu is
+        # not supported by the open source drivers
+        open = mkDefault true;
+        nvidiaSettings = false; # add nvidia-settings to pkgs, useless on nixos
         nvidiaPersistenced = true;
         forceFullCompositionPipeline = true;
       };
