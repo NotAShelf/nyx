@@ -25,12 +25,16 @@
   - ~~gaea~~ No need, no modules are imported.
 - [ ] find suitable enabling conditions for tor and xserver
   - [ ] (both) enable by default, implement overrides to disable
-  - [ ] (xserver) only enable on desktops if xorg is enabled in the usrEnv module
-- override options for enabled services
-  - [ ] ~~home-manager module~~ Probably not necessary, users should bring their
-  own homes.
+  - [ ] **xserver**
+    - [ ] enable if there is any sort of graphics stack
+  - [ ] **tor**
+    - [ ] add a program override that force enables it
+- override options for enabled programs & services
+  - [x] home-manager module (Probably not necessary, users should bring their
+  own homes)
   - [ ] desktop module
   - [ ] server module
+    - [ ] default all services to off, enable them per host as required
   - override options for default programs 
     - [ ] terminal 
     - [ ] file-manager 
@@ -43,8 +47,17 @@
 - [x] clean up module skeletons
 - [ ] further work on driver modules
   - [ ] add a generation condition to intel module to enable kaby lake and above kernel params
-  - [ ] figure out why nvidia breaks firefox and thunderbird but not librewolf (webgl?)
-  - [ ] clean up bluetooth module, we don't like bluetooth already - security would be nice
+  - [x] figure out why nvidia breaks firefox and thunderbird but not librewolf (webgl?) **: NVIDIA SUCKS
+  - [x] clean up bluetooth module, we don't like bluetooth already - security would be nice
 - [ ] (home-manager) clean up schizofox module
+  - [ ] schizofox should load security related options on two levels
+    * **each version should provide an additional layer of security**
+    - [ ] level 1 (paranoid)
+    - [ ] level 2 (schizo)
 - [ ] (home-manager) use mapAttrs to map all monitors from the list to hyprland monitor settings w/ "1" scaling
-
+- [ ] (home-manager) move themes out of my home directory, so that it can be shared between users
+  - [ ] clean up palettes
+- [ ] **profiles** in addition to system configurations, we can have a "profile" that overrides a bunch of configurations
+enabled or disabled
+  - [ ] theme profiles (waybar, kitty, foot etc.)
+- [ ] look into additional file managers (nemo seems good)
