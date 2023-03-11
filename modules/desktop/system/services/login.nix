@@ -9,6 +9,9 @@ with lib; let
   sys = config.modules.system;
 in {
   config = {
+    # unlock GPG keyring on login
+    security.pam.services.greetd.gnupg.enable = true;
+
     services = {
       greetd = {
         enable = true;
