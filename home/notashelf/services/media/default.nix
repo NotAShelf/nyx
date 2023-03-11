@@ -3,5 +3,6 @@ _: {
     ./mpd
     ./spotifyd
     ./easyeffects
+    ./noisetorch
   ];
 }
