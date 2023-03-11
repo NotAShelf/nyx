@@ -32,13 +32,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "fastfetch";
-  version = "1.8.2";
+  version = "1.10.3";
 
   src = fetchFromGitHub {
     owner = "LinusDierheimer";
     repo = pname;
     rev = version;
-    hash = "sha256-Sh31zKkjcNRD5KyNUzbTHRitC/7e2TYKKtpTohGhTQc=";
+    hash = "sha256-+4HJ8dGM9suDsDFl1bWg+B9dAIV1PnUCDTYppmMHtkk=";
   };
 
   nativeBuildInputs = [cmake makeWrapper pkg-config];
