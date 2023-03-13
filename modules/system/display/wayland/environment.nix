@@ -11,7 +11,7 @@ in {
   config = mkIf (sys.enable && env.isWayland) {
     environment.etc."greetd/environments".text = ''
       Hyprland
-      sway
+      zsh
     '';
 
     environment = {
