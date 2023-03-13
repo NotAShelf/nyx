@@ -15,6 +15,8 @@ in {
       libreoffice-qt
       hunspell
       hunspellDicts.uk_UA
+      hunspellDicts.en_US-large
+      hunspellDicts.en_GB-large
     ];
   };
 }
