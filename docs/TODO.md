@@ -2,14 +2,14 @@
 
 - [x] Move video and sound modules to a united "media" directory
 - [x] Move isWayland to usrenv module from system module 
-- finish making each module toggleable
+- [ ] **finish making each module toggleable**
   - [x] bootloaders
   - [x] home-manager
-  - [x] desktop
+  - [x] **desktop**
     - [x] services
     - [x] programs
     - [x] gaming
-  - [ ] server
+  - [ ] **server**
     - [x] Conditionally enable server services
     - [ ] Override all services as disabled by default 
     - [ ] Add override options
@@ -17,7 +17,7 @@
 - [x] dynamic kernel module loading based on filesystems
 - [x] document more settings
   - [x] document even more settings
-- move previous hosts to the new host config format
+- [ ] **move previous hosts to the new host config format**
   - [x] prometheus
   - [x] icarus
   - [x] enyo
@@ -29,19 +29,19 @@
     - [ ] enable if there is any sort of graphics stack
   - [ ] **tor**
     - [ ] add a program override that force enables it
-- override options for enabled programs & services
+- [ ]**override options for enabled programs & services**
   - [x] home-manager module (Probably not necessary, users should bring their
   own homes)
   - [ ] desktop module
   - [ ] server module
     - [ ] default all services to off, enable them per host as required
-  - override options for default programs 
-    - [ ] terminal 
+  - [ ]**override options for default programs**
+    - [x] terminal 
     - [ ] file-manager 
     - [ ] editors 
       - [ ] text editor 
       - [ ] visual editor
-- [x] per-user secrets management via ragenix
+- [x] per-user secrets management via (r)agenix
 - [x] try to declutter inputs and unnecessary services
 - [ ] toggle unnecessary/unsafe services or programs off by default
 - [x] clean up module skeletons
@@ -49,15 +49,18 @@
   - [ ] add a generation condition to intel module to enable kaby lake and above kernel params
   - [x] figure out why nvidia breaks firefox and thunderbird but not librewolf (webgl?) **: NVIDIA SUCKS
   - [x] clean up bluetooth module, we don't like bluetooth already - security would be nice
+  - [ ] figure out why nvidia drivers are royally fucked
 - [ ] (home-manager) clean up schizofox module
   - [ ] schizofox should load security related options on two levels
     * **each version should provide an additional layer of security**
-    - [ ] level 1 (paranoid)
-    - [ ] level 2 (schizo)
+    - [ ] level 1 (paranoid) - `extraSecurity`
+    - [ ] level 2 (schizo) - `lockdownMode`
 - [ ] (home-manager) use mapAttrs to map all monitors from the list to hyprland monitor settings w/ "1" scaling
 - [ ] (home-manager) move themes out of my home directory, so that it can be shared between users
   - [ ] clean up palettes
 - [ ] **profiles** in addition to system configurations, we can have a "profile" that overrides a bunch of configurations
 enabled or disabled
   - [ ] theme profiles (waybar, kitty, foot etc.)
-- [ ] look into additional file managers (nemo seems good)
+    - [ ] default profile (catppuccin)
+    - [ ] additional profiles w/ overrides
+- [x] look into additional file managers (nemo seems good)
