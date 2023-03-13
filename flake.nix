@@ -47,6 +47,12 @@
         .system
         .build
         .isoImage;
+      gaea =
+        (self.nixosConfigurations.gaea)
+        .config
+        .system
+        .build
+        .isoImage;
     };
 
     packages.${system} = import ./pkgs {inherit pkgs;};
