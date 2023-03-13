@@ -43,11 +43,7 @@ in {
           terminal = "foot";
         };
 
-        override = {
-          program = {
-            libreoffice = false;
-          };
-        };
+        override = {};
       };
     };
 

@@ -54,12 +54,7 @@ in {
         default = {
           terminal = "foot";
         };
-        override = {
-          program = {
-            # setting this to true will disable libreoffice
-            libreoffice = false;
-          };
-        };
+        override = {};
       };
     };
 

@@ -30,7 +30,7 @@
 in {
   # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
   # fully free from nvidia
-  # fuck nvidia - Linux "the linux" Torvalds
+  # fuck nvidia - Linus "the linux" Torvalds
   enyo = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =
