@@ -41,7 +41,9 @@ in {
         Requires = "${cfg.deviceUnit}";
         After = "${cfg.deviceUnit}";
       };
-      Install = {WantedBy = ["default.target"];};
+      Install = {
+        WantedBy = ["default.target"];
+      };
       Service = {
         Type = "simple";
         RemainAfterExit = "yes";
