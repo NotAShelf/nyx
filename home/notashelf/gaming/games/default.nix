@@ -17,8 +17,11 @@ with lib; let
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
     home = {
-      file.".local/share/PrismLauncher/themes/mocha".source = catppuccin;
-      file.".local/share/PrismLauncher/themes/mocha".recursive = true;
+      # copy the catppuccin theme to the themes directory of PrismLauncher
+      file.".local/share/PrismLauncher/themes/mocha" = {
+        source = catppuccin;
+        recursive = true;
+      };
 
       packages = with pkgs; [
         #gamescope # FIXME: override package wlroots
