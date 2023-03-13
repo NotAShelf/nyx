@@ -8,6 +8,7 @@
 
   pointer = config.home.pointerCursor;
   cfg = osConfig.modules.programs.default;
+  monitors = osConfig.modules.device.monitors;
 
   terminal =
     if (cfg.terminal == "foot")
@@ -53,7 +54,7 @@ in {
       enable_swallow=true
       swallow_regex=foot|thunar
       mouse_move_enables_dpms=true
-      disable_autoreload=true # probably not necessary on nixos
+      disable_autoreload=true # autoreload is unnecessary on nixos
     }
 
     decoration {
@@ -101,6 +102,9 @@ in {
     # lock screen
     #bind = $MOD, L, exec, loginctl lock-session
 
+
+    bind=$MOD,F1,exec,firefox
+    bind=$MOD,F2,exec,thunar
     bind=$MOD,RETURN,exec,run-as-service "${terminal}"
     bind=$MOD,Q,killactive,
     bind=$MODSUPER,G,changegroupactive,
