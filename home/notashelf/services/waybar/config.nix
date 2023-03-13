@@ -2,7 +2,12 @@
   config,
   pkgs,
   lib,
-}: {
+  osConfig,
+  ...
+}:
+with lib; let
+  sys = osConfig.modules.system;
+in {
   mainBar = {
     layer = "top";
     position = "left";
@@ -25,6 +30,8 @@
     ];
     modules-center = [];
     modules-right = [
+      (optionalString (sys.bluetooth.enable) "bluetooth")
+      "gamemode"
       "pulseaudio"
       "network"
       "custom/swallow"
@@ -203,19 +210,46 @@
       format-alt = "{icon}";
       format-icons = ["" "" "" "" "" "" "" "" "" "" "" ""];
     };
-    network = {
+    network = let
+      nm-editor = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+    in {
       format-wifi = "󰤨";
       format-ethernet = "󰈀";
       format-alt = "󱛇";
       format-disconnected = "󰤭";
       tooltip-format = "{ipaddr}/{ifname} via {gwaddr} ({signalStrength}%)";
+      on-click = "${nm-editor}";
     };
+
     pulseaudio = {
       scroll-step = 5;
       tooltip = false;
       format = "{icon}";
       format-icons = {default = ["" "" "墳"];};
       on-click = "${pkgs.killall}/bin/killall pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
+    };
+
+    bluetooth = {
+      # controller = "controller1", // specify the alias of the controller if there are more than 1 on the system
+      format = " {status}";
+      format-disabled = "󰂲"; # an empty format will hide the module
+      format-connected = "󰂱";
+      tooltip-format = "{controller_alias}\t{controller_address}";
+      tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+      tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+    };
+
+    gamemode = {
+      format = "{glyph}";
+      format-alt = "{glyph} {count}";
+      glyph = "";
+      hide-not-running = true;
+      use-icon = true;
+      icon-name = "input-gaming-symbolic";
+      icon-spacing = 4;
+      icon-size = 20;
+      tooltip = true;
+      tooltip-format = "Games running: {count}";
     };
   };
 }

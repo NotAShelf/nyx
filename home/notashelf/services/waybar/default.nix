@@ -2,10 +2,11 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }:
 with lib; let
-  waybar_config = import ./config.nix {inherit config lib pkgs;};
+  waybar_config = import ./config.nix {inherit osConfig config lib pkgs;};
   waybar_style = import ./style.nix {inherit (config) colorscheme;};
 in {
   config = {
