@@ -6,7 +6,7 @@ require("toggleterm").setup({
 			return vim.o.columns * 0.4
 		end
 	end,
-	direction = "vertical",
+	direction = "horizontal",
 	winbar = {
 		enabled = false,
 		name_formatter = function(term) --  term: Terminal
