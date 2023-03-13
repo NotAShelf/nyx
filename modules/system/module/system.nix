@@ -70,5 +70,13 @@ with lib; {
         description = "Enable tcp optimizations";
       };
     };
+
+    security = {
+      fixWebcam = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Fix the purposefully broken webcam by unblacklisting the related kernel module.";
+      };
+    };
   };
 }
