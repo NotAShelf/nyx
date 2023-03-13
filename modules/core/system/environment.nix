@@ -13,6 +13,7 @@
       curl
       wget
       pciutils
+      lshw
       (writeScriptBin "sudo" ''exec doas "$@"'')
     ];
 
