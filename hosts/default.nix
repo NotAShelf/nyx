@@ -63,6 +63,21 @@ in {
     specialArgs = {inherit inputs self;};
   };
 
+  epimetheus = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules =
+      [
+        {networking.hostName = "epimetheus";}
+        ./epimetheus
+        bootloader
+        desktop
+        home-manager
+        virtualization
+      ]
+      ++ shared;
+    specialArgs = {inherit inputs self;};
+  };
+
   # Lenovo Ideapad from 2014
   # Portable "server"
   icarus = nixpkgs.lib.nixosSystem {
