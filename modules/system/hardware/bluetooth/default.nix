@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.system.bluetooth;
+  sys = config.modules.system.bluetooth;
 in {
-  config = mkIf (cfg.enable) {
+  config = mkIf (sys.enable) {
     hardware.bluetooth = {
       enable = true;
       package = pkgs.bluez5-experimental;

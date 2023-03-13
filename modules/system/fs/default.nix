@@ -14,7 +14,7 @@ in {
 
       # this fixes initrd.systemd.enable for whatever reason
       boot = {
-        supportedFilesystems = lib.mkForce ["btrfs"];
+        supportedFilesystems = mkForce ["btrfs"];
         initrd = {
           supportedFilesystems = ["btrfs"];
         };
@@ -23,7 +23,7 @@ in {
 
     (mkIf (builtins.elem "ext4" sys.fs) {
       boot = {
-        supportedFilesystems = lib.mkForce ["ext4"];
+        supportedFilesystems = mkForce ["ext4"];
         initrd = {
           supportedFilesystems = ["ext4"];
         };
@@ -37,7 +37,7 @@ in {
     # accept both ntfs and ntfs3 as valid values
     (mkIf ((builtins.elem "ntfs" sys.fs) || (builtins.elem "ntfs3" sys.fs)) {
       boot = {
-        supportedFilesystems = lib.mkForce ["ntfs"];
+        supportedFilesystems = mkForce ["ntfs"];
       };
     })
   ];
