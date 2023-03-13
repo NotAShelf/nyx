@@ -3,19 +3,30 @@
   pkgs,
   lib,
   ...
-}:
-# this makes our system more secure
-# note that it might break some stuff, e.g. webcam
-{
+}: let
+  # this makes our system more secure
+  # note that it might break some stuff, e.g. webcam
+  sys = config.modules.system.security;
+in {
   programs.ssh.startAgent = true;
 
   security = {
     protectKernelImage = true;
-    lockKernelModules = false;
+    lockKernelModules = true;
+    forcePageTableIsolation = true;
+
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;
       packages = [pkgs.apparmor-profiles];
+    };
+
+    auditd.enable = true;
+    audit = {
+      enable = true;
+      rules = [
+        "-a exit,always -F arch=b64 -S execve"
+      ];
     };
 
     pam = {
@@ -35,7 +46,6 @@
       ];
 
       services = {
-        # unlock GPG keyring upon login # FIXME
         greetd.gnupg.enable = true;
         login.enableGnomeKeyring = true;
         swaylock = {
@@ -91,45 +101,48 @@
     "kernel.ftrace_enabled" = false;
   };
 
-  boot.blacklistedKernelModules = [
-    # Obscure network protocols
-    "ax25"
-    "netrom"
-    "rose"
-    # Old or rare or insufficiently audited filesystems
-    "adfs"
-    "affs"
-    "bfs"
-    "befs"
-    "cramfs"
-    "efs"
-    "erofs"
-    "exofs"
-    "freevxfs"
-    "f2fs"
-    "vivid"
-    "gfs2"
-    "ksmbd"
-    "nfsv4"
-    "nfsv3"
-    "cifs"
-    "nfs"
-    "cramfs"
-    "freevxfs"
-    "jffs2"
-    "hfs"
-    "hfsplus"
-    "squashfs"
-    "udf"
-    "btusb"
-    "uvcvideo" # thats why your webcam not worky
-    "hpfs"
-    "jfs"
-    "minix"
-    "nilfs2"
-    "omfs"
-    "qnx4"
-    "qnx6"
-    "sysv"
-  ];
+  boot.blacklistedKernelModules =
+    [
+      # Obscure network protocols
+      "ax25"
+      "netrom"
+      "rose"
+      # Old or rare or insufficiently audited filesystems
+      "adfs"
+      "affs"
+      "bfs"
+      "befs"
+      "cramfs"
+      "efs"
+      "erofs"
+      "exofs"
+      "freevxfs"
+      "f2fs"
+      "vivid"
+      "gfs2"
+      "ksmbd"
+      "nfsv4"
+      "nfsv3"
+      "cifs"
+      "nfs"
+      "cramfs"
+      "freevxfs"
+      "jffs2"
+      "hfs"
+      "hfsplus"
+      "squashfs"
+      "udf"
+      "btusb"
+      "hpfs"
+      "jfs"
+      "minix"
+      "nilfs2"
+      "omfs"
+      "qnx4"
+      "qnx6"
+      "sysv"
+    ]
+    ++ lib.optionals (!sys.fixWebcam) [
+      "uvcvideo" # this is why your webcam no worky
+    ];
 }
