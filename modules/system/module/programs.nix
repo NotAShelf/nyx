@@ -45,8 +45,8 @@ with lib; {
     # default program options
     default = {
       # what program should be used as the default terminal
-      # do note this is NOT the command, just the name. i.e setting footclient will
-      # not work.
+      # do note this is NOT the command, but just the name. i.e setting footclient will
+      # not work because the program name will be references as "foot" in the rest of the config
       terminal = mkOption {
         type = types.enum ["foot" "kitty" "wezterm"];
         default = "foot";
@@ -73,14 +73,30 @@ with lib; {
       program = {
         # an example override for the libreoffice program
         # if set to true, libreoffice module will not be enabled
+
         libreoffice = mkOption {
           type = types.bool;
-          default = "false";
+          default = false;
         };
+
+        /*
+           FIXME: proof of concept
+        "*" = {
+          disable = mkOption {
+            type = types.bool;
+            description = "Forcefully disables any program that has been overriden to be disabled.";
+          };
+
+          enable = mkOption {
+            type = types.bool;
+            description = "Forcefully enables any program that has been overriden to be enabled.";
+          };
+        };
+        */
       };
       service = {
         /*
-        Override option for services
+        TODO: Override option for services
         */
       };
     };
