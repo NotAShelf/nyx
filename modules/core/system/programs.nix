@@ -1,8 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs = {
     bash = {
       promptInit = ''
-        eval "${pkgs.starship}/bin/starship init bash"
+        eval "$(${lib.getExe pkgs.starship} init bash)"
       '';
     };
     # less pager
