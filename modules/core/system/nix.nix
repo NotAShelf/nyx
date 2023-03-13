@@ -27,6 +27,9 @@ in {
 
     # we need git for flakes, don't we
     systemPackages = [pkgs.git];
+
+    # disable all packages installed by default, so that my system doesn't have anything
+    # that I myself have added
     defaultPackages = [];
   };
 
@@ -94,9 +97,9 @@ in {
     settings = {
       auto-optimise-store = true;
       # allow sudo users to mark the following values as trusted
-      allowed-users = ["@wheel" "notashelf"];
+      allowed-users = ["@wheel"];
       # only allow sudo users to manage the nix store
-      trusted-users = ["@wheel" "notashelf"];
+      trusted-users = ["@wheel"];
       max-jobs = "auto";
       sandbox = true;
       system-features = ["kvm" "recursive-nix" "big-parallel"];
