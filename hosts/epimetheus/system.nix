@@ -13,7 +13,7 @@ in {
       device = {
         type = "laptop";
         cpu = "intel";
-        gpu = "nvidia"; # nvidia drivers :b:roke
+        gpu = "intel"; # nvidia drivers :b:roke
         monitors = ["eDP-1" "HDMI-A-1"];
         hasBluetooth = true;
         hasSound = true;
@@ -21,7 +21,7 @@ in {
       };
       system = {
         username = "notashelf";
-        fs = ["btrfs" "vfat" "ntfs"];
+        fs = ["btrfs" "vfat"];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
@@ -45,11 +45,11 @@ in {
         useHomeManager = true;
       };
       programs = {
-        git.signingKey = "419DBDD3228990BE";
+        git.signingKey = "0x05A3BD53FEB32B81";
 
         gaming = {
-          enable = true;
-          chess = true;
+          enable = false;
+          chess = false;
         };
         default = {
           terminal = "foot";
@@ -64,7 +64,10 @@ in {
 
         prime = {
           offload.enable = true;
+          # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
           intelBusId = "PCI:0:2:0";
+
+          # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
           nvidiaBusId = "PCI:1:0:0";
         };
       };
