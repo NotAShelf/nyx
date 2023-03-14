@@ -82,6 +82,9 @@
     #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     #nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
+    # impermanence
+    impermanence.url = "github:nix-community/impermanence";
+
     # Fortunateteller2k's nixpkgs collection
     nixpkgs-f2k = {
       url = "github:fortuneteller2k/nixpkgs-f2k";
@@ -95,6 +98,7 @@
     };
 
     # Nix User Repository
+    # TODO: make a toggleable NUR module that uses an overlay
     #nur.url = "github:nix-community/NUR";
 
     # Nix Developer Environments
