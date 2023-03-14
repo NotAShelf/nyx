@@ -8,17 +8,30 @@
 with lib; {
   imports = [inputs.impermanence.nixosModules.impermanence];
 
+  systemd.tmpfiles.rules = [
+    "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
+    "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
+    "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
+  ];
+
   environment.persistence."/persist" = {
     directories = [
       "/etc/nixos"
+      "/etc/NetworkManager/system-connections"
+      "/var/lib/NetworkManager"
     ];
 
     files = [
       "/etc/machine-id"
+      # ssh stuff
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/ssh/ssh_host_rsa_key"
       "/etc/ssh/ssh_host_rsa_key.pub"
+      # other
+      "/etc/adjtime"
+      "/etc/NIXOS"
+      # optionalstring for /var/lib/${lxd, docker}
     ];
   };
 
@@ -38,9 +51,11 @@ with lib; {
     serviceConfig.Type = "oneshot";
     script = ''
       mkdir -p /mnt
+
       # We first mount the btrfs root to /mnt
       # so we can manipulate btrfs subvolumes.
       mount -o subvol=/ /dev/mapper/enc /mnt
+
       # While we're tempted to just delete /root and create
       # a new snapshot from /root-blank, /root is already
       # populated at this point with a number of subvolumes,
@@ -50,12 +65,7 @@ with lib; {
       # /root contains subvolumes:
       # - /root/var/lib/portables
       # - /root/var/lib/machines
-      #
-      # I suspect these are related to systemd-nspawn, but
-      # since I don't use it I'm not 100% sure.
-      # Anyhow, deleting these subvolumes hasn't resulted
-      # in any issues so far, except for fairly
-      # benign-looking errors from systemd-tmpfiles.
+
       btrfs subvolume list -o /mnt/root |
         cut -f9 -d' ' |
         while read subvolume; do
@@ -66,6 +76,7 @@ with lib; {
         btrfs subvolume delete /mnt/root
       echo "restoring blank /root subvolume..."
       btrfs subvolume snapshot /mnt/root-blank /mnt/root
+
       # Once we're done rolling back to a blank snapshot,
       # we can unmount /mnt and continue on the boot process.
       umount /mnt
