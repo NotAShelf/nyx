@@ -10,7 +10,10 @@ with lib; let
 in {
   config = {
     # unlock GPG keyring on login
-    security.pam.services.greetd.gnupg.enable = true;
+    security.pam.services.greetd = {
+      gnupg.enable = true;
+      enableGnomeKeyring = true;
+    };
 
     services = {
       greetd = {

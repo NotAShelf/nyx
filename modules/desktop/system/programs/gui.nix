@@ -57,6 +57,6 @@
     seahorse.enable = true;
 
     # networkmanager tray uility
-    nm-applet.enable = false;
+    nm-applet.enable = true;
   };
 }
