@@ -58,6 +58,14 @@ in {
       };
     };
 
+    fileSystems = {
+      "/".options = ["compress=zstd" "noatime"];
+      "/home".options = ["compress=zstd"];
+      "/nix".options = ["compress=zstd" "noatime"];
+      "/var/log".options = ["compress=zstd" "noatime"];
+      "/persist".options = ["compress=zstd" "noatime"];
+    };
+
     hardware = {
       nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
         open = mkForce false;
