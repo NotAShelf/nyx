@@ -27,7 +27,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    #Steam hardware (just in case)
+    # Steam hardware (just in case)
     hardware.steam-hardware.enable = true;
 
     # Append the extra compatibility packages to whatever else the env variable was populated with.
