@@ -167,6 +167,8 @@ in {
     # brightness controls
     bind=,XF86MonBrightnessUp,exec,brightness set +5%
     bind=,XF86MonBrightnessDown,exec,brightness set 5%-
+    # set brigtness to 90% on init because it gets reset thanks to btrfs rollback
+    exec-once = brightness set 90%
 
     # media controls
     bindl=,XF86AudioPlay,exec,playerctl play-pause
