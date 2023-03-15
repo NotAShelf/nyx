@@ -19,10 +19,13 @@ in {
       greetd = {
         enable = true;
         settings = rec {
+          # pick up desktop variant (i.e Hyprland) and username from usrEnv
+          # this option is usually defined in host/<hostname>/system.nix
           initial_session = {
             command = "${env.desktop}";
             user = "${sys.username}";
           };
+          # default_session should be configured only if autologin is enabled
           default_session =
             if (env.autologin)
             then mkForce initial_session
