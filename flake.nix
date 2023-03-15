@@ -65,10 +65,14 @@
         alejandra
         git
         glow
+        statix
+        deadnix
       ];
     };
 
     formatter.${system} = pkgs.alejandra;
+
+    checks.${system} = import ./lib/checks {inherit pkgs inputs;};
   };
   inputs = {
     # Nix itself, the package manager
