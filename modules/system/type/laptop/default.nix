@@ -62,10 +62,18 @@ in {
     };
 
     hardware.acpilight.enable = true;
-    environment.systemPackages = [
-      config.boot.kernelPackages.cpupower
-      pkgs.acpi
-      pkgs.powertop
+    environment.systemPackages = with pkgs; [
+      #config.boot.kernelPackages.cpupower
+      acpi
+      powertop
     ];
+
+    boot = {
+      kernelModules = ["acpi_call"];
+      extraModulePackages = with config.boot.kernelPackages; [
+        acpi_call
+        cpupower
+      ];
+    };
   };
 }
