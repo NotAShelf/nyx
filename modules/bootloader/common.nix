@@ -20,7 +20,7 @@ in {
         generationsDir.copyKernels = true;
 
         systemd-boot = {
-          enable = lib.mkDefault true;
+          enable = mkDefault true;
           configurationLimit = 5;
         };
 
@@ -28,17 +28,17 @@ in {
         efi.canTouchEfiVariables = true;
 
         # if set to 0, space needs to be held to get the boot menu to appear
-        timeout = lib.mkForce 2;
+        timeout = mkForce 2;
 
         # default grub to disabled, we manually enable grub on "server" hosts
         # or any other host that needs it
         grub = {
           # if need be, this value can be overriden in individual hosts
           # @ hosts/<hostname>/system.nix
-          enable = lib.mkDefault false;
+          enable = mkDefault false;
           useOSProber = true;
           efiSupport = true;
-          enableCryptodisk = false;
+          enableCryptodisk = mkDefault false;
           device = "nodev";
           theme = null;
           backgroundColor = null;
@@ -46,14 +46,15 @@ in {
         };
       };
 
-      tmpOnTmpfs = lib.mkDefault true;
+      tmpOnTmpfs = mkDefault true;
 
       # If not using tmpfs, which is naturally purged on reboot, we must clean it
       # /tmp ourselves. /tmp should be volatile storage!
-      cleanTmpDir = lib.mkDefault (!config.boot.tmpOnTmpfs);
+      cleanTmpDir = mkDefault (!config.boot.tmpOnTmpfs);
 
       # https://www.kernel.org/doc/html/v4.14/admin-guide/kernel-parameters.html
       kernelParams = [
+        #  enables calls to ACPI methods through /proc/acpi/call
         "acpi_call"
         # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
         "pti=on"
