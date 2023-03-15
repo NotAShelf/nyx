@@ -133,7 +133,7 @@ in {
                   Description = "Translator";
                   Alias = "!t";
                   Method = "GET";
-                  URLTemplate = "https://www.deepl.com/pl/translator#${cfg.translate.sourceLang}/${cfg.translate.targetLang}/{searchTerms}%0A";
+                  URLTemplate = "https://www.deepl.com/en/translator#${cfg.translate.sourceLang}/${cfg.translate.targetLang}/{searchTerms}%0A";
                 }
               ];
             Default = "Searx";
