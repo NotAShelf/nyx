@@ -23,7 +23,7 @@
   ];
   config = {
     # reload system units when changing configs
-    # systemd.user.startServices = "sd-switch";
+    systemd.user.startServices = "legacy"; # FIXME: sd-switch crashes the home-manager service with an obscure error
 
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
       Install.WantedBy = ["graphical-session.target"];
