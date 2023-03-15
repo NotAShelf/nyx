@@ -8,6 +8,13 @@
 with lib; {
   imports = [inputs.impermanence.nixosModules.impermanence];
 
+  /*
+  TODO:
+    since we roll back subvolumes using a string, it could be possible to also roll back home directory except
+    important files, with the help of impermanence
+    needs to be looked into
+  */
+
   systemd.tmpfiles.rules = [
     "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
     "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
@@ -30,7 +37,6 @@ with lib; {
       "/etc/ssh/ssh_host_rsa_key.pub"
       # other
       "/etc/adjtime"
-      "/etc/NIXOS"
       # optionalstring for /var/lib/${lxd, docker}
     ];
   };

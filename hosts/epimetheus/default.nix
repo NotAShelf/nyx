@@ -3,6 +3,7 @@ _: {
     ./hardware-configuration.nix
     ./system.nix
     ./impermanence.nix
+    ./encryption.nix
     #./ragenix.nix
   ];
 }
