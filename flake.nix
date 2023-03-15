@@ -102,7 +102,7 @@
     #nur.url = "github:nix-community/NUR";
 
     # Nix Developer Environments
-    devshell.url = "github:numtide/devshell";
+    # devshell.url = "github:numtide/devshell";
 
     # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
