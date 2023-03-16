@@ -6,7 +6,7 @@
 <h1 align="center">
   <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
   
-  NotAShelf's NixOS Configurations <br>
+  NotAShelf's NixOS Configuration Flake <br>
 
 <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
 
@@ -37,21 +37,38 @@
 
 ## 📦 Overview
 
+### Notable Features
+  
+  - **Shared Configurations** - Reduce re-used code by sharing modules and options between hosts
+  - **Fully Modular** - We extend NixOS instead of simply declaring options. 
+  - **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides
+  - **Secrets Management** - Manage secrets through Ragenix
+  - **Flexible Modules** - Both system and home-manager modules allow users to bring their own configurations from anywhere
+  - **Extensive Configuration** - We leave so little unconfigured. Everything is configured and ready to be accessed.
+  - **Wayland Ready** - Leave Xorg in the past where it belongs. The system is fully ready for Wayland, with Xorg as fallback.
+  - **Opt-in Impermanence** - Impermanence can be included anytime without interfeting with other configurations.
+  - **Encryption Ready** - The system has been optimized not to interfere with disk encryption.
+  - **Declarative Themes** - Through the help of `nix-colors` and `wall-pkgs`, theme your system from only your flake
+
+### Layout
+
 - [Flake](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
+  - [checks](lib/checks) Check actions utilized by my flake.nix
 - [docs](docs) Documentation for myself and for people who want to understand this system
-- [home](modules/home) 🏠 my [Home-Manager](https://github.com/nix-community/home-manager) config
+- [home](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
 - [modules](modules) 🍱 modularized NixOS configs
   - [bootloader](modules/bootloader) ⚙ Various bootloaders for various purpose hosts
   - [core](modules/core) 🧠 Core NixOS configuration
   - [server](modules/server) ☁️ Shared modules for "server" purpose hosts
   - [desktop](modules/desktop) 🖥️ Shared modules for "desktop" purpose hosts
   - [system](modules/system) 🚀 A self-made NixOS configuration to dictate system specs
-  - [virtualization](modules/virtualization) Hot-toggled virtualization module for any host
-- [hosts](hosts) 🌳 per-host configuration
+  - [virtualization](modules/virtualization) Hot-pluggable virtualization module for any host
+- [hosts](hosts) 🌳 per-host configurations
   - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system.
-  - [prometheus](hosts/prometheus) 💻 My 2016 HP Pavillion with NVIDIA GPU
-  - [atlas](hosts/atlas) 🍓 Raspberry Pi 400 that acts as my home lab
+  - [prometheus](hosts/prometheus) 💻 My HP Pavillion with a NVIDIA GPU
+  - [epimetheus](hosts/epimetheus) 💻 The succeeding brother host to prometheus, with full disk encryption
+  - [atlas](hosts/atlas) 🍓 Proof of concept server host that is used by my Raspberry Pi 400
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
   - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
 - [pkgs](pkgs) 💿 exported packages
@@ -59,16 +76,27 @@
 
 ## Notes
 
-If my dotfiles are confusing to you, that is because they are confusing. I am not
-yet very well versed in NixOS and Nix, thus my configuration may not always follow best
-practices or be the most efficient. I also do not follow any particular logic when
-organizing my configuration. I do, however, try my best to document my NixOS configuration
-as humanly possible. This repository was based off of _many_ others which I have linked below.
-If you like anything about this repository, you will probably like theirs as well. If you have anything
-to say/ask about those configurations (especially if it was because you were disgusted by
-my atrocities against NixOS), please do not hesitate to make an issue or open a PR. I am always
-happy to learn and improve. With that said, if you like this repository maybe consider starring it
-or donating me from the links below, up to you.
+### Preface
+
+If my configuration appears confusing to you, that is because it is confusing.
+Admitably, I am not yet very well wresed in NixOS or the Nix expression language.
+Thus, my configuration is severely limited by my knowledge, despite what my work may
+suggest. While I may not be able to follow best Nix practices, I try to follow a particular
+logic while organizing this configuration. I also attempt to document everything as
+I humanly can.
+
+The resulting configuration was based off of *many* others which I have linked below.
+If you like anything about this particular repository, you will probaby be interested
+in checking them out. If you like what *I* have been doing and if it's helpful to you
+in any shape or form, consider leaving a star or donating to me (every bit would be appreciated)
+from the links below. Up to you.
+
+If you have anything to say or ask about those conigurations (especially if it was because
+you were absolutely horrified by my atrocities against Nix or NixOS) I invite you to
+create an issue on open a pull request. I am always happy to learn and improve.
+Some of my mental notes (hopefully to be organized better when I finish my blog)
+can be found in [the documentation](../docs/notes). Should you need explanation on 
+some of the things I've done (or proofread my notes) you may take a look in there.
 
 ### Motivation
 
@@ -135,7 +163,9 @@ Perhaps consider donating!
 [rxyhn](https://github.com/rxyhn) -
 [fufexan](https://github.com/fufexan) -
 [hlissner](https://github.com/hlissner) -
-[fortuneteller2k](https://github.com/fortuneteller2k)
+[fortuneteller2k](https://github.com/fortuneteller2k) -
+[NobbZ]() -
+[ViperML]() -
 
 ... and many more
 
