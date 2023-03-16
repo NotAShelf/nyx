@@ -25,23 +25,19 @@
     # reload system units when changing configs
     systemd.user.startServices = "legacy"; # FIXME: sd-switch crashes the home-manager service with an obscure error
 
-    systemd.user.services.polkit-gnome-authentication-agent-1 = {
-      Install.WantedBy = ["graphical-session.target"];
-      Unit.PartOf = ["graphical-session.target"];
-      Service.ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-    };
-
     home = {
       username = "notashelf";
       homeDirectory = "/home/notashelf";
+
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-      # I will personally strangle every moron who just puts "DONT CHANGE" next
+      # I will personally strangle every moron who just puts nothing but "DONT CHANGE" next
       # to this value
       stateVersion = "23.05";
       extraOutputsToInstall = ["doc" "devdoc"];
     };
 
     manual = {
+      # the docs suck, so we disable them to save space
       html.enable = false;
       json.enable = false;
       manpages.enable = false;
