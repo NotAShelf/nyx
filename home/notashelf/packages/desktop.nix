@@ -29,6 +29,7 @@ in {
       easyeffects
       librewolf
       fractal
+      zoom-us # I hate this
     ];
   };
 }
