@@ -7,8 +7,12 @@ _: {
   ];
 
   boot.initrd.luks.devices."enc" = {
-    allowDiscards = true;
+    # improve performance on ssds
+    bypassWorkqueues = true;
     keyFileSize = 4096;
+    # the device with the maching id will be searched for the key file
     keyFile = "/dev/disk/by-id/usb-Generic_Flash_Disk_B314B63E-0:0";
+    # if keyfile is not there, fall back to cryptsetup password
+    # fallbackToPassword = true; # IMPLIED BY config.boot.initrd.systemd.enable
   };
 }
