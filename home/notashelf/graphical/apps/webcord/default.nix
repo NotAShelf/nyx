@@ -11,8 +11,8 @@ with lib; let
       catppuccin = pkgs.fetchFromGitHub {
         owner = "catppuccin";
         repo = "discord";
-        rev = "159aac939d8c18da2e184c6581f5e13896e11697";
-        sha256 = "sha256-cWpog52Ft4hqGh8sMWhiLUQp/XXipOPnSTG6LwUAGGA=";
+        rev = "dfd6b75c3fd4487850d11e83e64721f2113d0867";
+        sha256 = "sha256-rfySizeEko9YcS+SIl2u6Hulq1hPnPoe8d6lnD15lPI=";
       };
 
       theme = "${catppuccin}/themes/mocha.theme.css";
