@@ -177,6 +177,14 @@ in {
         nix run nixpkgs#$@
       }
 
+      function search() {
+        nix search nixpkgs#$@
+      }
+
+      function shell() {
+        nix shell nixpkgs#$@
+      }
+
       function extract() {
         if [ -z "$1" ]; then
            # display usage if no parameters given
@@ -260,7 +268,8 @@ in {
       };
     in
       with pkgs; {
-        rebuild = "doas nix-store --verify; pushd ~dotfiles && doas nixos-rebuild switch --flake .# && notify-send \"Done\"&& bat cache --build; popd";
+        rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudp && notify-send \"Done\"&& bat cache --build; popd";
+        test = "pushd ~dotfiles nixos-rebuild dry-activate";
         cleanup = "doas nix-collect-garbage --delete-older-than 7d";
         bloat = "nix path-info -Sh /run/current-system";
         curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
