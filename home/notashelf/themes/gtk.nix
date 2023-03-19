@@ -36,12 +36,14 @@
   };
 
   # cursor theme
-  home.pointerCursor = {
-    name = "Catppuccin-Frappe-Dark";
-    package = pkgs.catppuccin-cursors;
-    size = 16;
-    gtk.enable = true;
-    x11.enable = true;
+  home = {
+    pointerCursor = {
+      name = "Catppuccin-Frappe-Dark";
+      package = pkgs.catppuccin-cursors;
+      size = 16;
+      gtk.enable = true;
+      x11.enable = true;
+    };
   };
 
   # credits: bruhvko
