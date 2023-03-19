@@ -29,6 +29,7 @@
         isWayland = true;
         desktop = "Hyprland";
         useHomeManager = true;
+        autologin = true;
       };
       programs = {
         git.signingKey = "0x3BD06CF51250A715";
