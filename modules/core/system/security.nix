@@ -55,8 +55,6 @@ in {
       ];
 
       services = {
-        greetd.gnupg.enable = true;
-        login.enableGnomeKeyring = true;
         swaylock = {
           text = ''
             auth include login
