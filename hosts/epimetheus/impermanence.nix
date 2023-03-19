@@ -17,7 +17,6 @@ with lib; {
     directories = [
       "/etc/nixos"
       "/etc/NetworkManager/system-connections"
-      "/var/lib/NetworkManager"
     ];
 
     files = [
