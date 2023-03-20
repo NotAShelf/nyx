@@ -12,7 +12,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod"];
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
@@ -23,16 +23,21 @@
     options = ["subvol=root"];
   };
 
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/afe3c394-d469-4e2c-937a-fa251529ec33";
+    fsType = "btrfs";
+    options = ["subvol=nix"];
+  };
+
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/afe3c394-d469-4e2c-937a-fa251529ec33";
     fsType = "btrfs";
     options = ["subvol=home"];
   };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/afe3c394-d469-4e2c-937a-fa251529ec33";
-    fsType = "btrfs";
-    options = ["subvol=nix"];
+  fileSystems."/home/notashelf/.cache/mozilla/firefox" = {
+    device = "tmpfs";
+    fsType = "tmpfs";
   };
 
   fileSystems."/boot" = {
@@ -50,6 +55,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp7s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp1s0f0u8.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

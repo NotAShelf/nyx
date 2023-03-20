@@ -24,6 +24,10 @@
         printing.enable = false;
         virtualization.enable = true;
         username = "notashelf";
+
+        networking = {
+          optimizeTcp = false;
+        };
       };
       usrEnv = {
         isWayland = true;
@@ -55,6 +59,11 @@
       kernelParams = [
         "nohibernate"
       ];
+
+      loader = {
+        grub.enable = true;
+        systemd-boot.enable = false;
+      };
     };
 
     console.earlySetup = true;
