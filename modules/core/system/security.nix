@@ -11,8 +11,6 @@
   */
   sys = config.modules.system.security;
 in {
-  programs.ssh.startAgent = true;
-
   security = {
     protectKernelImage = true;
     lockKernelModules = true;

@@ -8,8 +8,6 @@
     fstrim.enable = true;
     # firmware updater for machine hardware
     fwupd.enable = true;
-    # "nix-shell replacement for project development"
-    lorri.enable = true;
     # limit systemd journal size
     journald.extraConfig = ''
       SystemMaxUse=50M
