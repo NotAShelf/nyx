@@ -20,7 +20,7 @@ in {
       udisks2.enable = true;
 
       # systemd DNS resolver daemon
-      resolved.enable = false; # FIXME: breaks device connectiity
+      resolved.enable = true; # FIXME: breaks device connectiity
 
       dbus = {
         packages = with pkgs; [dconf gcr udisks2];

@@ -113,6 +113,7 @@ in {
     "kernel.ftrace_enabled" = false;
   };
 
+  /*
   boot.blacklistedKernelModules =
     [
       # Obscure network protocols
@@ -157,4 +158,6 @@ in {
     ++ lib.optionals (!sys.fixWebcam) [
       "uvcvideo" # this is why your webcam no worky
     ];
+
+  */
 }
