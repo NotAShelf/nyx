@@ -21,7 +21,7 @@ in {
 
         systemd-boot = {
           enable = mkDefault true;
-          configurationLimit = 5;
+          configurationLimit = null;
         };
 
         # allow installation to modify EFI variables
