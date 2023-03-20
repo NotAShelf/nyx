@@ -231,7 +231,7 @@ in {
 
     bluetooth = {
       # controller = "controller1", // specify the alias of the controller if there are more than 1 on the system
-      format = " {status}";
+      format = "";
       format-disabled = "󰂲"; # an empty format will hide the module
       format-connected = "󰂱";
       tooltip-format = "{controller_alias}\t{controller_address}";

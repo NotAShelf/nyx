@@ -41,6 +41,13 @@ in ''
 
   #custom-search,
   #custom-weather,
+
+  #bluetooth {
+    color: #${base0E};
+    background-color: #${base02};
+    padding-right: 3px;
+  }
+
   #clock {
     color: #${base05};
     background-color: #${base02};
