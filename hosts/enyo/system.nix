@@ -14,10 +14,10 @@
         monitors = ["HDMI-A-1"];
         hasBluetooth = true;
         hasSound = true;
-        hasTPM = false;
+        hasTPM = true;
       };
       system = {
-        fs = ["btrfs" "vfat" "ntfs"];
+        fs = ["btrfs" "vfat" "ntfs" "exfat"];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = true;
@@ -26,7 +26,7 @@
         username = "notashelf";
 
         networking = {
-          optimizeTcp = false;
+          optimizeTcp = true;
         };
       };
       usrEnv = {
@@ -36,7 +36,7 @@
         autologin = true;
       };
       programs = {
-        git.signingKey = "0x3BD06CF51250A715";
+        git.signingKey = "F0D14CCB5ED5AA22 ";
 
         gaming = {
           enable = true;
