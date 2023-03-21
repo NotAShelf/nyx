@@ -121,7 +121,7 @@
     ragenix.url = "github:yaxitech/ragenix";
 
     # Hyprland & Hyprland Contrib repos
-    hyprland.url = "github:hyprwm/Hyprland/";
+    hyprland.url = "github:hyprwm/Hyprland/37ced6aca4ad8f18f8e205e3cdb6de9c8964d4b6";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprland-contrib = {
