@@ -95,6 +95,7 @@ in ''
   #custom-lock,
   #custom-weather,
   #volume,
+  #bluetooth,
   #pulseaudio {
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
