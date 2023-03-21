@@ -76,7 +76,9 @@ with lib; {
     '';
 
   # borrow some environment options from the minimal profile to save space
-  environment.noXlibs = mkDefault true;
+  environment.noXlibs = mkDefault true; # trim inputs
+
+  # disable documentation
   documentation = {
     enable = mkDefault false;
 
