@@ -10,7 +10,7 @@ in {
     # enable Trusted Platform Module 2 support
     enable = device.hasTPM;
     # enable Trusted Platform 2 userspace resource manager daemon
-    abrmd.enable = mkDefault true;
+    abrmd.enable = mkDefault false;
     # set TCTI environment variables to the specified values if enabled
     # - TPM2TOOLS_TCTI
     # - TPM2_PKCS11_TCTI
