@@ -24,8 +24,16 @@ in {
       type = types.bool;
       default = true;
       description = "
-        Enable the sheer amount of security options from ArkenFox
+        Enable level 1 security options for Firefox.
       ";
+    };
+
+    extremeSecurity = mkOption {
+      type = types.bool;
+      default = true;
+      description = "
+        Take your meds.
+        ";
     };
 
     netflixDRMFix = mkOption {
@@ -68,7 +76,7 @@ in {
           DisableFirefoxStudies = true;
           DisablePocket = true;
           DisableTelemetry = true;
-          DisableFirefoxAccounts = true;
+          DisableFirefoxAccounts = !cfg.extremeSecurity;
           DisableFormHistory = true;
           DisplayBookmarksToolbar = true;
           DontCheckDefaultBrowser = true;
@@ -184,7 +192,7 @@ in {
 
           SanitizeOnShutdown = let
             enableState =
-              if cfg.extraSecurity
+              if cfg.extremeSecurity
               then true
               else false;
           in {
@@ -223,6 +231,11 @@ in {
               }
             ]
             ++ optionals (cfg.extraSecurity) [
+              {
+                # TODO: move basic security options to extraSecurity
+              }
+            ]
+            ++ optionals (cfg.extremeSecurity) [
               {
                 # glowies crying rn
                 "privacy.webrtc.legacyGlobalIndicator" = false;
