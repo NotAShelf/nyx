@@ -31,6 +31,10 @@ in {
           optimizeTcp = true;
         };
 
+        security = {
+          fixWebcam = true;
+        };
+
         virtualization = {
           enable = false;
           docker.enable = false;
