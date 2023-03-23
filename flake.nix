@@ -8,6 +8,7 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
+    lib = import ./lib {inherit nixpkgs lib;};
     pkgs = import inputs.nixpkgs {
       inherit system;
       config = {
@@ -15,7 +16,7 @@
       };
     };
   in {
-    nixosConfigurations = import ./hosts inputs;
+    nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
 
     # Recovery images for my hosts
     # build with `nix build .#images.<hostname>`
@@ -74,6 +75,7 @@
 
     checks.${system} = import ./lib/checks {inherit pkgs inputs;};
   };
+
   inputs = {
     # Nix itself, the package manager
     nix = {

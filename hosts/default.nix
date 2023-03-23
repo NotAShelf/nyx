@@ -1,6 +1,7 @@
 {
   nixpkgs,
   self,
+  lib,
   ...
 }: let
   inputs = self.inputs;
@@ -14,12 +15,9 @@
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
   virtualization = ../modules/virtualization; # hotpluggable virtalization module
+  system = ../modules/system; # system module for configuring system-specific options easily
 
-  # TODO: consider moving home module to modules/ again - it adds an extra directory I have to type to get there
   home = ../home; # home-manager configurations for hosts that need home-manager
-
-  # system module for configuring system-specific options (i.e fs or bluetooth)
-  system = ../modules/system;
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other devices
@@ -43,7 +41,7 @@ in {
         virtualization
       ]
       ++ shared;
-    specialArgs = {inherit inputs self;};
+    specialArgs = {inherit inputs self lib;};
   };
 
   # HP Pavillion from 2016
@@ -60,7 +58,7 @@ in {
         virtualization
       ]
       ++ shared;
-    specialArgs = {inherit inputs self;};
+    specialArgs = {inherit inputs self lib;};
   };
 
   epimetheus = nixpkgs.lib.nixosSystem {
@@ -75,7 +73,7 @@ in {
         virtualization
       ]
       ++ shared;
-    specialArgs = {inherit inputs self;};
+    specialArgs = {inherit inputs self lib;};
   };
 
   # Lenovo Ideapad from 2014
@@ -91,7 +89,7 @@ in {
         home-manager
       ]
       ++ shared;
-    specialArgs = {inherit inputs self;};
+    specialArgs = {inherit inputs self lib;};
   };
 
   /*

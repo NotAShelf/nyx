@@ -6,11 +6,13 @@
   ...
 }:
 with lib; let
+  /*
   filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
   importNixFiles = path:
     (lists.forEach (mapAttrsToList (name: _: path + ("/" + name))
         (filterAttrs filterNixFiles (builtins.readDir path))))
-    import;
+        import;
+  */
 in {
   system = {
     autoUpgrade.enable = false;
@@ -43,12 +45,13 @@ in {
     overlays = with inputs;
       [
         # TODO: hotswappable nur module in system-module
-        #nur.overlay
-        #nixpkgs-f2k.overlays.default
+
+        # nur.overlay
+        # nixpkgs-f2k.overlays.default # TODO: remove
         rust-overlay.overlays.default
       ]
       # Overlays from ../../overlays directory
-      ++ (importNixFiles ../../../pkgs/overlays);
+      ++ (lib.importNixFiles ../../../pkgs/overlays);
   };
 
   # faster rebuilding
@@ -78,11 +81,11 @@ in {
     # version everytime
     # this will add each flake input as a registry
     # to make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: v: {flake = v;}) inputs;
+    registry = mapAttrs (_: v: {flake = v;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
@@ -100,6 +103,7 @@ in {
       allowed-users = ["@wheel"];
       # only allow sudo users to manage the nix store
       trusted-users = ["@wheel"];
+      # let the system decide the number of max jobs
       max-jobs = "auto";
       sandbox = true;
       system-features = ["kvm" "recursive-nix" "big-parallel"];
