@@ -9,7 +9,7 @@
     gh-cal # github activity stats in the CLI
     gist # manage github gists
     act # local github actions
-    zsh-forgit
+    zsh-forgit # zsh plugin to load forgit via `git forgit`
     gitflow
   ];
 
@@ -33,6 +33,7 @@
         };
       };
     };
+
     bat = {
       enable = true;
       themes = {
@@ -44,7 +45,10 @@
           }
           + "/Catppuccin-frappe.tmTheme");
       };
-      config.theme = "Catppuccin-frappe";
+      config = {
+        theme = "Catppuccin-frappe";
+        pager = "less -FR";
+      };
     };
 
     # nix-index
