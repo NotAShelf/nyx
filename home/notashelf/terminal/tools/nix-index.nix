@@ -3,10 +3,14 @@
   lib,
   ...
 }: {
+  home.packages = with pkgs; [
+    nix-index
+  ];
+
   # set up nix-index
   systemd.user.timers.nix-index-db-update = {
     Timer = {
-      OnCalendar = "daily";
+      OnCalendar = "weekly";
       Persistent = true;
       RandomizedDelaySec = 0;
     };
@@ -29,7 +33,6 @@
     in {
       Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath [pkgs.wget pkgs.coreutils]}";
       ExecStart = "${script}";
-      Restart = "always";
     };
     Install.WantedBy = ["multi-user.target"];
   };
