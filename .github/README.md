@@ -38,17 +38,17 @@
 ## 📦 Overview
 
 ### Notable Features
-  
-  - **Shared Configurations** - Reduce re-used code by sharing modules and options between hosts
-  - **Fully Modular** - We extend NixOS instead of simply declaring options. 
-  - **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides
-  - **Secrets Management** - Manage secrets through Ragenix
-  - **Flexible Modules** - Both system and home-manager modules allow users to bring their own configurations from anywhere
-  - **Extensive Configuration** - We leave so little unconfigured. Everything is configured and ready to be accessed.
-  - **Wayland Ready** - Leave Xorg in the past where it belongs. The system is fully ready for Wayland, with Xorg as fallback.
-  - **Opt-in Impermanence** - Impermanence can be included anytime without interfeting with other configurations.
-  - **Encryption Ready** - The system has been optimized not to interfere with disk encryption.
-  - **Declarative Themes** - Through the help of `nix-colors` and `wall-pkgs`, theme your system from only your flake
+
+- **Shared Configurations** - Reduce re-used code by sharing modules and options between hosts
+- **Fully Modular** - We extend NixOS instead of simply declaring options.
+- **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides
+- **Secrets Management** - Manage secrets through Ragenix
+- **Flexible Modules** - Both system and home-manager modules allow users to bring their own configurations from anywhere
+- **Extensive Configuration** - We leave so little unconfigured. Everything is configured and ready to be accessed.
+- **Wayland Ready** - Leave Xorg in the past where it belongs. The system is fully ready for Wayland, with Xorg as fallback.
+- **Opt-in Impermanence** - Impermanence can be included anytime without interfeting with other configurations.
+- **Encryption Ready** - The system has been optimized not to interfere with disk encryption.
+- **Declarative Themes** - Through the help of `nix-colors` and `wallpkgs`, theme your system from only your flake
 
 ### Layout
 
@@ -85,9 +85,9 @@ suggest. While I may not be able to follow best Nix practices, I try to follow a
 logic while organizing this configuration. I also attempt to document everything as
 I humanly can.
 
-The resulting configuration was based off of *many* others which I have linked below.
+The resulting configuration was based off of _many_ others which I have linked below.
 If you like anything about this particular repository, you will probaby be interested
-in checking them out. If you like what *I* have been doing and if it's helpful to you
+in checking them out. If you like what _I_ have been doing and if it's helpful to you
 in any shape or form, consider leaving a star or donating to me (every bit would be appreciated)
 from the links below. Up to you.
 
@@ -95,7 +95,7 @@ If you have anything to say or ask about those conigurations (especially if it w
 you were absolutely horrified by my atrocities against Nix or NixOS) I invite you to
 create an issue on open a pull request. I am always happy to learn and improve.
 Some of my mental notes (hopefully to be organized better when I finish my blog)
-can be found in [the documentation](../docs/notes). Should you need explanation on 
+can be found in [the documentation](../docs/notes). Should you need explanation on
 some of the things I've done (or proofread my notes) you may take a look in there.
 
 ### Motivation
