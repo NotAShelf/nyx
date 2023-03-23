@@ -98,7 +98,7 @@ in {
       rust-analyzer
       texlab
       zls
-      elixir_ls
+      #elixir_ls # broken
       gcc
       uncrustify
       black
