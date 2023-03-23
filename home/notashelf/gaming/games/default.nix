@@ -10,7 +10,7 @@ with lib; let
 
   acceptedTypes = ["laptop" "desktop" "lite"];
 
-  catppuccin = pkgs.fetchzip {
+  catppuccin-mocha = pkgs.fetchzip {
     url = "https://raw.githubusercontent.com/catppuccin/prismlauncher/main/themes/Mocha/Catppuccin-Mocha.zip";
     sha256 = "8uRqCoe9iSIwNnK13d6S4XSX945g88mVyoY+LZSPBtQ=";
   };
@@ -19,23 +19,22 @@ in {
     home = {
       # copy the catppuccin theme to the themes directory of PrismLauncher
       file.".local/share/PrismLauncher/themes/mocha" = {
-        source = catppuccin;
+        source = catppuccin-mocha;
         recursive = true;
       };
 
       packages = with pkgs; [
-        #gamescope # FIXME: override package wlroots
+        gamescope
         legendary-gl
         prismlauncher
         mono
         winetricks
         mangohud
-        taisei
-        unciv
-        # get dotnet runtime 6
+        taisei # open-source touhou fan game
+        # get dotnet runtime 6 - needed by terraria
         dotnet-runtime_6
 
-        # jre 17
+        # jre 17 - needed by minecraft
         temurin-jre-bin-17
       ];
     };
