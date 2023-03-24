@@ -16,6 +16,8 @@ with lib; let
   };
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
+    programs.mangohud.settings = {};
+
     home = {
       # copy the catppuccin theme to the themes directory of PrismLauncher
       file.".local/share/PrismLauncher/themes/mocha" = {
