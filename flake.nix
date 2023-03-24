@@ -92,10 +92,10 @@
     impermanence.url = "github:nix-community/impermanence";
 
     # Fortunateteller2k's nixpkgs collection
-    nixpkgs-f2k = {
-      url = "github:fortuneteller2k/nixpkgs-f2k";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #nixpkgs-f2k = {
+    #  url = "github:fortuneteller2k/nixpkgs-f2k";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
@@ -154,7 +154,12 @@
     webcord.url = "github:fufexan/webcord-flake";
 
     # Spicetify
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
+    /*
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs"
+    };
+    */
 
     helix.url = "github:SoraTenshi/helix/experimental-22.12";
 
