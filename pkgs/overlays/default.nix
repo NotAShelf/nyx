@@ -3,6 +3,7 @@ final: prev: {
   fastfetch = prev.callPackage ./fastfetch {};
   chromium = prev.callPackage ./chromium {};
   ani-cli = prev.callPackage ./ani-cli {};
+  anime4k = prev.callPackage ./anime4k {};
 
   catppuccin-gtk = prev.callPackage ../catppuccin-gtk.nix {};
   catppuccin-folders = prev.callPackage ../catppuccin-folders.nix {};
@@ -10,5 +11,4 @@ final: prev: {
 
   cloneit = prev.callPackage ../cloneit.nix {};
   proton-ge = prev.callPackage ../proton-ge.nix {};
-  anime4k = prev.callPackage ../anime4k.nix {};
 }
