@@ -20,7 +20,7 @@
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
         video.enable = true;
         sound.enable = true;
-        bluetooth.enable = true;
+        bluetooth.enable = false;
         printing.enable = false;
         virtualization = {
           enable = true;
