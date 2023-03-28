@@ -21,7 +21,7 @@ in {
           ovmf.enable = true;
           ovmf.packages = [pkgs.OVMFFull.fd];
           swtpm.enable = true;
-          qemu.package = pkgs.qemu_kvm;
+          package = pkgs.qemu_kvm;
         };
       };
 
