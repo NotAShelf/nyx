@@ -28,7 +28,6 @@ in {
       ungoogled-chromium
       easyeffects
       librewolf
-      fractal
       zoom-us # I hate this
     ];
   };
