@@ -1271,6 +1271,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1679748960,
+        "narHash": "sha256-BP8XcYHyj1NxQi04RpyNW8e7KiXSoI+Fy1tXIK2GfdA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "da26ae9f6ce2c9ab380c0f394488892616fc5a6a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-wayland": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -1634,6 +1650,7 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "ragenix": "ragenix",
         "rust-overlay": "rust-overlay_3",
+        "sops-nix": "sops-nix",
         "webcord": "webcord",
         "xdg-portal-hyprland": "xdg-portal-hyprland"
       }
@@ -1752,6 +1769,27 @@
       "original": {
         "owner": "sensorflo",
         "repo": "sln-mode",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1679799335,
+        "narHash": "sha256-YrnDyftm0Mk4JLuw3sDBPNfSjk054N0dqQx8FW4JqDM=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "4740f80ca6e756915aaaa0a9c5fbb61ba09cc145",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },
