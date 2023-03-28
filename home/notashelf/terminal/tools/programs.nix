@@ -50,14 +50,5 @@
         pager = "less -FR";
       };
     };
-
-    # nix-index
-    /*
-    nix-index = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-    */
   };
 }
