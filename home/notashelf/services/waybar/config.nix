@@ -30,7 +30,7 @@ in {
     ];
     modules-center = [];
     modules-right = [
-      "bluetooth"
+      (optionalString (sys.bluetooth.enable) "bluetooth")
       "gamemode"
       "pulseaudio"
       "network"

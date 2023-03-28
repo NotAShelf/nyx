@@ -39,13 +39,17 @@ in ''
     color: #${base0D};
   }
 
+  gamemode {
+    color: #${base0D};
+    padding-right: 3px;
+  }
+
   #custom-search,
   #custom-weather,
 
   #bluetooth {
     color: #${base0E};
-    background-color: #${base02};
-    padding-right: 3px;
+    padding: 3px;
   }
 
   #clock {
@@ -96,6 +100,7 @@ in ''
   #custom-weather,
   #volume,
   #bluetooth,
+  #gamemode,
   #pulseaudio {
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
