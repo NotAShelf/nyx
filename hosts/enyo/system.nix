@@ -22,7 +22,10 @@
         sound.enable = true;
         bluetooth.enable = true;
         printing.enable = false;
-        virtualization.enable = true;
+        virtualization = {
+          enable = true;
+          qemu.enable = true;
+        };
         username = "notashelf";
 
         networking = {

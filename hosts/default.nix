@@ -17,7 +17,7 @@
   virtualization = ../modules/virtualization; # hotpluggable virtalization module
   system = ../modules/system; # system module for configuring system-specific options easily
 
-  home = ../home; # home-manager configurations for hosts that need home-manager
+  homes = ../home; # home-manager configurations for hosts that need home-manager
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other devices
@@ -26,7 +26,7 @@
 
   home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
-  shared = [system core home ragenix sops];
+  shared = [system core ragenix sops];
 in {
   # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
   # fully free from nvidia
@@ -41,6 +41,7 @@ in {
         desktop
         home-manager
         virtualization
+        homes
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};
@@ -58,6 +59,7 @@ in {
         desktop
         home-manager
         virtualization
+        homes
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};
@@ -72,6 +74,20 @@ in {
         bootloader
         desktop
         home-manager
+        virtualization
+        homes
+      ]
+      ++ shared;
+    specialArgs = {inherit inputs self lib;};
+  };
+
+  janus = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules =
+      [
+        {networking.hostName = "janus";}
+        ./janus
+        bootloader
         virtualization
       ]
       ++ shared;
@@ -89,6 +105,7 @@ in {
         bootloader
         desktop
         home-manager
+        homes
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};

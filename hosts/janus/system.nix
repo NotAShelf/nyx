@@ -85,6 +85,9 @@ in {
       };
     };
 
+    # TODO: MOVE THIS TO CORE
+    programs.zsh.enable = true;
+
     boot = {
       kernelParams =
         [
