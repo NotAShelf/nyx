@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+with lib; let
   /*
   SEE: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
   this makes our system more secure
@@ -62,9 +63,17 @@ in {
     };
 
     # doas is cool, I like doas
-    sudo.enable = lib.mkDefault false;
+    sudo = {
+      enable = mkDefault true;
+      execWheelOnly = true;
+      extraConfig = ''
+        # rollback results in sudo lectures after each reboot
+        Defaults lecture = never
+      '';
+    };
+
     doas = {
-      enable = lib.mkDefault true;
+      enable = mkDefault (!config.security.sudo.enable);
       extraRules = [
         {
           groups = ["wheel"];
@@ -111,7 +120,6 @@ in {
     "kernel.ftrace_enabled" = false;
   };
 
-  /*
   boot.blacklistedKernelModules =
     [
       # Obscure network protocols
@@ -156,6 +164,4 @@ in {
     ++ lib.optionals (!sys.fixWebcam) [
       "uvcvideo" # this is why your webcam no worky
     ];
-
-  */
 }
