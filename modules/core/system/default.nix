@@ -10,6 +10,7 @@
     ./services.nix
     ./programs.nix
     ./nix.nix
+    ./builders.nix
   ];
 
   # compress half of the ram to use as swap
