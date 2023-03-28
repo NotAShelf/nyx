@@ -27,7 +27,6 @@ in {
 
       # Environment
       export PATH="''${HOME}/.local/bin:''${HOME}/go/bin:''${HOME}/.npm/bin:''${PATH}"
-      export SUDO_PROMPT=$'Password for ->\033[32;05;16m %u\033[0m  '
 
       export FZF_DEFAULT_OPTS="
       --color bg:#${colors.base00}
@@ -231,11 +230,6 @@ in {
       precmd() {
         printf '\033]0;%s\007' "$(dirs)"
       }
-
-      command_not_found_handler() {
-        printf 'Command not found ->\033[32;05;16m %s\033[0m \n' "$0" >&2
-          return 127
-      }
     '';
 
     history = {
@@ -268,9 +262,9 @@ in {
       };
     in
       with pkgs; {
-        rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudp && notify-send \"Done\"&& bat cache --build; popd";
+        rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudo && notify-send \"Done\"&& bat cache --build; popd";
         test = "pushd ~dotfiles nixos-rebuild dry-activate";
-        cleanup = "doas nix-collect-garbage --delete-older-than 7d";
+        cleanup = "sudo nix-collect-garbage --delete-older-than 7d";
         bloat = "nix path-info -Sh /run/current-system";
         curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
         repair = "nix-store --verify --check-contents --repair";
@@ -301,7 +295,6 @@ in {
         "......" = "cd ../../../../../";
         v = "nvim";
         g = "git";
-        sudo = "doas";
         wget = "wget --hsts-file='\${XDG_DATA_HOME}/wget-hsts'";
       };
 
