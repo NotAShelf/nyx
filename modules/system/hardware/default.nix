@@ -1,13 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+_: {
   imports = [
-    ./cpu
-    ./gpu
-    ./tpm
-    ./bluetooth
+    ./type # device type and associated module definitions
+
+    ./cpu # cpu specific options
+    ./gpu # gpu specific options
+    ./tpm # trusted platform module
+    ./bluetooth # bluetooth
   ];
 }
