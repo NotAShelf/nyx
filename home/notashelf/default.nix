@@ -23,7 +23,7 @@
   ];
   config = {
     # reload system units when changing configs
-    systemd.user.startServices = "legacy"; # FIXME: sd-switch crashes the home-manager service with an obscure error
+    systemd.user.startServices = "sd-switch"; # or "legacy" if "sd-switch" breaks again
 
     home = {
       username = "notashelf";
@@ -56,6 +56,7 @@
           enable = true;
           netflixDRMFix = true;
           extraSecurity = true;
+          extremeSecurity = false;
           translate = {
             enable = true;
             sourceLang = "en";
