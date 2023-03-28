@@ -21,10 +21,12 @@
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other devices
-  ragenix = inputs.ragenix.nixosModules.age; # secret encryption
+  ragenix = inputs.ragenix.nixosModules.age; # secret encryption via age
+  sops = inputs.sops-nix.nixosModules.sops; # secret encryption based on sops
+
   home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
-  shared = [system core home ragenix];
+  shared = [system core home ragenix sops];
 in {
   # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
   # fully free from nvidia
@@ -117,6 +119,6 @@ in {
       "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
       "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
     ];
-    specialArgs = {inherit inputs;};
+    specialArgs = {inherit inputs self;};
   };
 }
