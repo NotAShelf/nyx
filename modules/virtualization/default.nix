@@ -5,30 +5,32 @@
   ...
 }:
 with lib; let
-  sys = config.modules.system;
+  sys = config.modules.system.virtualization;
 in {
-  config = mkIf (sys.virtualization.enable) {
+  config = mkIf (sys.enable) {
     environment.systemPackages = with pkgs; [
       virt-manager
       docker-compose
     ];
 
-    virtualisation = {
+    virtualisation = mkIf (sys.qemu.enable) {
+      kvmgt.enable = true;
       libvirtd = {
         enable = true;
         qemu = {
           ovmf.enable = true;
           ovmf.packages = [pkgs.OVMFFull.fd];
           swtpm.enable = true;
+          qemu.package = pkgs.qemu_kvm;
         };
       };
 
-      docker = {
+      docker = mkIf (sys.docker.enable) {
         enable = true;
         enableOnBoot = false;
       };
 
-      podman = {
+      podman = mkIf (sys.podman.enable) {
         enable = true;
         #dockerCompat = true;
         enableNvidia = builtins.any (driver: driver == "nvidia") config.services.xserver.videoDrivers;
