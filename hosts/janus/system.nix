@@ -101,6 +101,8 @@ in {
 
     services.btrfs.autoScrub = {fileSystems = ["/"];};
 
+    networking.firewall.enable = mkForce false;
+
     console.earlySetup = true;
   };
 }
