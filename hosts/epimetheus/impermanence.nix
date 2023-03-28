@@ -7,16 +7,18 @@ with lib; {
   imports = [inputs.impermanence.nixosModules.impermanence];
 
   /*
-  TODO:
-    since we roll back subvolumes using a string, it could be possible to also roll back home directory except
-    important files, with the help of impermanence
-    needs to be looked into
+   TODO:
+  since we roll back subvolumes using a script, it could be possible to also roll back home directory except
+  important files, with the help of impermanence
+  needs to be looked into
   */
 
   environment.persistence."/persist" = {
     directories = [
       "/etc/nixos"
       "/etc/NetworkManager/system-connections"
+      "/etc/secureboot"
+      "/var/db/sudo"
     ];
 
     files = [
@@ -40,6 +42,7 @@ with lib; {
     after = [
       # LUKS/TPM process
       "systemd-cryptsetup@enc.service"
+      # TODO: add whatever process handles unlocking via key here
     ];
     before = [
       "sysroot.mount"
