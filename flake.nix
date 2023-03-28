@@ -91,6 +91,12 @@
     # impermanence
     impermanence.url = "github:nix-community/impermanence";
 
+    # sops-nix for atomic secrets management
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Fortunateteller2k's nixpkgs collection
     #nixpkgs-f2k = {
     #  url = "github:fortuneteller2k/nixpkgs-f2k";
