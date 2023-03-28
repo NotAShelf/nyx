@@ -29,6 +29,8 @@ in {
       easyeffects
       librewolf
       zoom-us # I hate this
+      freecad
+      prusa-slicer
     ];
   };
 }
