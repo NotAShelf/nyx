@@ -4,7 +4,8 @@
   inputs,
   self,
   ...
-}: {
+}:
+with lib; {
   config = {
     modules = {
       device = {
