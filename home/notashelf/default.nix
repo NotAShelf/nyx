@@ -8,6 +8,7 @@
   imports = [
     # external home-manager modules
     inputs.hyprland.homeManagerModules.default
+    inputs.neovim-flake.homeManagerModules.default
 
     # home package sets
     ./packages
@@ -45,6 +46,13 @@
 
     # let HM manage itself when in standalone mode
     programs.home-manager.enable = true;
+    programs.neovim-flake = {
+      enable = false;
+      settings = {
+        vim.viAlias = true;
+        vim.vimAlias = true;
+      };
+    };
 
     modules = {
       programs = {
