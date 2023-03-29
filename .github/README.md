@@ -71,6 +71,7 @@
   - [atlas](hosts/atlas) 🍓 Proof of concept server host that is used by my Raspberry Pi 400
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
   - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
+  - [janus](hosts/janus) ⚡ Host for creating simple virtual machines without any of the s
 - [pkgs](pkgs) 💿 exported packages
   - [overlays](modules/overlays) 📦 Overlay recipes for my system to use
 

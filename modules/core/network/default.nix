@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+with lib; {
   imports = [
     ./ssh.nix
     ./blocker.nix
@@ -27,12 +28,15 @@
     };
 
     firewall = {
-      enable = true;
+      enable = mkDefault true;
+      package = mkDefault pkgs.iptables;
       allowedTCPPorts = [443 80 22 8080];
       allowedUDPPorts = [443 80 9100 44857 8080];
       allowPing = false;
       logReversePathDrops = true;
     };
+
+    nftables.enable = true;
   };
 
   # enable opensnitch firewall
