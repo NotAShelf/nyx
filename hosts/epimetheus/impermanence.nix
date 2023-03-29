@@ -29,8 +29,8 @@ with lib; {
       "/etc/ssh/ssh_host_rsa_key"
       "/etc/ssh/ssh_host_rsa_key.pub"
       # other
-      "/etc/adjtime"
-      # optionalstring for /var/lib/${lxd, docker}
+      # "/etc/adjtime"
+      # TODO: optionalstring for /var/lib/${lxd, docker}
     ];
   };
 
