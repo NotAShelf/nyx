@@ -106,6 +106,7 @@
 
     neovim-flake = {
       url = "github:notashelf/neovim-flake/fixHomeManager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Fortunateteller2k's nixpkgs collection
