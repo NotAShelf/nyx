@@ -5,6 +5,7 @@
   ...
 }:
 with lib; let
+  domain = "git.notashelf.dev";
   device = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
   # cfg = config.modules.programs.override;
@@ -25,8 +26,8 @@ in {
         database.user = "git";
 
         appName = "The Secret Shelf";
-        domain = "git.notashelf.dev";
-        rootUrl = "https://git.notashelf.dev";
+        domain = "${domain}";
+        rootUrl = "https://${domain}";
         httpPort = 7000;
         settings = {
           repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
