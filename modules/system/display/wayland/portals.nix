@@ -12,7 +12,7 @@ in {
   config = mkIf (cfg.enable && env.isWayland) {
     xdg.portal = {
       extraPortals = with inputs; [
-        xdg-portal-hyprland.packages.${pkgs.system}.default
+        #xdg-portal-hyprland.packages.${pkgs.system}.default
       ];
       # xdg-desktop-wlr (this section) is no longer needed, xdg-desktop-portal-hyprland
       # will (and should) override this one, set to false or remove this section
