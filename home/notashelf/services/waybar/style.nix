@@ -113,7 +113,7 @@ in ''
     margin: 0px 7px 0px 7px;
     padding: 10px 0px 10px 0px;
   }
-  
+
   #cpu.60 {
     color: #${base0D};
     background-color: #${base09};
@@ -121,7 +121,7 @@ in ''
     margin: 0px 7px 0px 7px;
     padding: 10px 0px 10px 0px;
   }
-  
+
   #cpu.70 {
     color: #${base0D};
     background-color: #${base08};
