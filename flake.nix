@@ -99,8 +99,6 @@
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
-
-      # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -122,8 +120,8 @@
     };
 
     # Nix User Repository
-    # TODO: make a toggleable NUR module that uses an overlay
-    #nur.url = "github:nix-community/NUR";
+    #  TODO: make a toggleable NUR module that uses an overlay
+    # nur.url = "github:nix-community/NUR";
 
     # Nix Developer Environments
     # devshell.url = "github:numtide/devshell";
