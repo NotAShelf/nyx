@@ -6,5 +6,6 @@ _: {
     ./swayidle
     ./waybar
     ./media
+    ./cloud
   ];
 }
