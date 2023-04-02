@@ -42,6 +42,10 @@
     padding-bottom = 10
     padding-left = 20
     padding-right = 0
+    margin-top = 0
+    margin-bottom = 0
+    margin-left = 15
+    margin-right = 0
     prompt-text = " "
     prompt-padding = 30
     background-color = ${colors.base00}
