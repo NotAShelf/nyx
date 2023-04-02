@@ -5,15 +5,7 @@
   inputs,
   ...
 }:
-with lib; let
-  /*
-  filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
-  importNixFiles = path:
-    (lists.forEach (mapAttrsToList (name: _: path + ("/" + name))
-        (filterAttrs filterNixFiles (builtins.readDir path))))
-        import;
-  */
-in {
+with lib; {
   system = {
     autoUpgrade.enable = false;
     stateVersion = lib.mkDefault "23.05";
@@ -85,18 +77,17 @@ in {
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
-      keep-outputs = true
-      keep-derivations = true
       min-free = ${toString (100 * 1024 * 1024)}
       max-free = ${toString (1024 * 1024 * 1024)}
       accept-flake-config = true
       http-connections = 0
       warn-dirty = false
     '';
+
     settings = {
       auto-optimise-store = true;
       # allow sudo users to mark the following values as trusted
@@ -114,25 +105,31 @@ in {
       # enable new nix command and flakes
       # and also "unintended" recursion as well as content addresssed nix
       extra-experimental-features = ["flakes" "nix-command" "recursive-nix" "ca-derivations"];
+
+      # for direnv GC roots
+      keep-derivations = true;
+      keep-outputs = true;
+
       # use binary cache, its not gentoo
+      # this also allows us to use remote builders to reduce build times and batter usage
       builders-use-substitutes = true;
       # substituters to use
       substituters = [
-        "https://cache.ngi0.nixos.org/" # content addressed nix cache
+        "https://cache.ngi0.nixos.org/" # content addressed nix cache (TODO)
         "https://cache.nixos.org?priority=10"
-        "https://fortuneteller2k.cachix.org"
-        "https://nixpkgs-wayland.cachix.org"
-        "https://nix-community.cachix.org"
-        "https://hyprland.cachix.org"
-        "https://nix-gaming.cachix.org"
-        "https://nixpkgs-unfree.cachix.org"
-        "https://webcord.cachix.org"
+        #"https://fortuneteller2k.cachix.org"
+        "https://nixpkgs-wayland.cachix.org" # automated builds of *some* wayland packages
+        "https://nix-community.cachix.org" # nix-community cache
+        "https://hyprland.cachix.org" # hyprland
+        "https://nix-gaming.cachix.org" # nix-gaming
+        "https://nixpkgs-unfree.cachix.org" # unfree-package cache
+        "https://webcord.cachix.org" # never build webcord again
       ];
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
-        "fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
+        #"fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
