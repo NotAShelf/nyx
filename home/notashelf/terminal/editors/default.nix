@@ -3,6 +3,6 @@ _: {
     ./cnvim
     ./emacs
     ./helix
-    #./neovim-flake
+    ./neovim-flake
   ];
 }
