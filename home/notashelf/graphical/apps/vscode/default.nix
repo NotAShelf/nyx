@@ -44,7 +44,6 @@ in {
           usernamehw.errorlens
           xaver.clang-format
           yzhang.markdown-all-in-one
-          _2gua.rainbow-brackets
           james-yu.latex-workshop
           redhat.vscode-yaml
           ms-azuretools.vscode-docker
@@ -53,6 +52,9 @@ in {
           github.codespaces
           astro-build.astro-vscode
           WakaTime.vscode-wakatime
+        ]
+        ++ [
+          pkgs.vscode-extensions."2gua".rainbow-brackets
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {

@@ -7,5 +7,6 @@ _: {
     ./schizofox
     ./office
     ./media
+    ./vscode
   ];
 }
