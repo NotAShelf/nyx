@@ -7,16 +7,15 @@ with colorscheme.colors; let
   };
 in ''
   * {
-    /* `otf-font-awesome` is required to be installed for icons */
     font-family: Material Design Icons, Iosevka Nerd Font;
+    font-size: 19px;
   }
 
   window#waybar {
     background-color: #${base00};
-    border: 1px solid #${base00};
+    border: .5px solid #${base00};
     border-radius: 20px;
     color: #${base05};
-    font-size: 20px;
     margin: 16px 16px;
     transition-property: background-color;
     transition-duration: .5s;
@@ -26,36 +25,31 @@ in ''
     opacity: 0.2;
   }
 
-  #workspaces {
-    font-size: 15px;
-    background-color: #${base02};
-  }
-
-  #pulseaudio {
-    color: #${base0B};
-  }
-
-  #network {
-    color: #${base0D};
-  }
-
-  gamemode {
-    color: #${base0D};
-    padding-right: 3px;
-  }
-
-  #custom-search,
   #custom-weather,
-
-  #bluetooth {
-    color: #${base0E};
-    padding: 3px;
-  }
-
-  #clock {
-    color: #${base05};
+  #clock,
+  #network,
+  #custom-swallow,
+  #cpu,
+  #battery,
+  #backlight,
+  #memory,
+  #workspaces,
+  #custom-search,
+  #custom-power,
+  #custom-todo,
+  #custom-lock,
+  #custom-weather,
+  #volume,
+  #cpu,
+  #bluetooth,
+  #gamemode,
+  #pulseaudio {
+    border-radius: 15px;
+    margin: 0px 7px 0px 7px;
     background-color: #${base02};
+    padding: 10px 0px 10px 0px;
   }
+
 
   #workspaces button {
     background-color: transparent;
@@ -72,10 +66,6 @@ in ''
     text-shadow: inherit;
   }
 
-  #custom-power {
-      color: #${base08};
-  }
-
   #workspaces button.active {
     color: #${base0A};
   }
@@ -83,24 +73,81 @@ in ''
   #workspaces button.urgent {
     background-color: #${base08};
   }
-  #custom-weather,
 
-  #clock,
-  #network,
-  #custom-swallow,
-  #cpu,
-  #battery,
-  #backlight,
-  #memory,
-  #workspaces,
-  #custom-search,
-  #custom-power,
-  #custom-todo,
-  #custom-lock,
-  #custom-weather,
-  #volume,
-  #bluetooth,
-  #gamemode,
+  #custom-power {
+    color: #${base08};
+  }
+
+  #workspaces {
+    font-size: 15px;
+    background-color: #${base02};
+  }
+
+  #pulseaudio {
+    color: #${base0B};
+  }
+
+  #network {
+    color: #${base0D};
+  }
+
+  #gamemode {
+    color: #${base0D};
+  }
+
+  #custom-weather {
+    color: #${base05};
+    background-color: #${base02};
+  }
+
+  #cpu {
+    color: rgba(0, 0, 0, 0.0);
+    background-color: rgba(0, 0, 0, 0.0);
+    margin: -50;
+  }
+
+  #cpu.50 {
+    color: #${base0D};
+    background-color: #${base0F};
+    border-radius: 15px;
+    margin: 0px 7px 0px 7px;
+    padding: 10px 0px 10px 0px;
+  }
+  
+  #cpu.60 {
+    color: #${base0D};
+    background-color: #${base09};
+    border-radius: 15px;
+    margin: 0px 7px 0px 7px;
+    padding: 10px 0px 10px 0px;
+  }
+  
+  #cpu.70 {
+    color: #${base0D};
+    background-color: #${base08};
+    border-radius: 15px;
+    margin: 0px 7px 0px 7px;
+    padding: 10px 0px 10px 0px;
+  }
+
+  #bluetooth {
+    color: #${base0E};
+  }
+
+  #bluetooth.off,
+  #bluetooth.pairable,
+  #bluetooth.discovering,
+  #bluetooth.disabled {
+    color: rgba(0, 0, 0, 0.0);
+    background-color: rgba(0, 0, 0, 0.0);
+    margin: -50;
+  }
+
+  #clock {
+    color: #${base05};
+    background-color: #${base02};
+  }
+
   #pulseaudio {
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
@@ -112,7 +159,6 @@ in ''
     color: #${base0E};
     padding-right: 3px;
   }
-
 
   #custom-lock {
     color: #${base0D};
@@ -127,6 +173,7 @@ in ''
   #custom-power {
     margin-bottom: 7px;
   }
+
   #custom-search {
     background-image: url("${OSLogo}");
     background-size: 65%;
@@ -134,15 +181,18 @@ in ''
     background-repeat: no-repeat;
     margin-top: 7px;
   }
+
   #clock {
     font-weight: 700;
     font-size: 20px;
     padding: 5px 0px 5px 0px;
     font-family: "Iosevka Term";
   }
+
   #backlight {
     color: #${base0A};
   }
+
   #battery {
     color: #${base0C};
   }
@@ -154,14 +204,17 @@ in ''
   #battery.critical:not(.charging) {
     color: #${base08};
   }
+
   tooltip {
     font-family: 'Lato', sans-serif;
     border-radius: 15px;
     padding: 20px;
     margin: 30px;
   }
+
   tooltip label {
     font-family: 'Lato', sans-serif;
     padding: 20px;
   }
+
 ''

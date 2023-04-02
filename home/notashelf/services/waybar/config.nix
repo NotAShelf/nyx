@@ -30,6 +30,7 @@ in {
     ];
     modules-center = [];
     modules-right = [
+      "cpu"
       (optionalString (sys.bluetooth.enable) "bluetooth")
       "gamemode"
       "pulseaudio"
@@ -229,6 +230,17 @@ in {
       on-click = "${pkgs.killall}/bin/killall pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
     };
 
+    cpu = {
+      interval = 10;
+      format = "{usage}%";
+      max-length = 10;
+      states = {
+        "50" = 50;
+        "60" = 75;
+        "70" = 90;
+      };
+    };
+
     bluetooth = {
       # controller = "controller1", // specify the alias of the controller if there are more than 1 on the system
       format = "";
@@ -236,6 +248,7 @@ in {
       format-connected = "󰂱";
       tooltip-format = "{controller_alias}\t{controller_address}";
       tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+      tooltip-format-disabled = "";
       tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
     };
 
