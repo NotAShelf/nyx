@@ -24,6 +24,21 @@
       enable = true;
       enableZshIntegration = true;
     };
+
+    # TODO: declarative ssh config
+    /*
+    ssh = {
+      enable = true;
+      hashKnownHosts = true;
+      compression = true; TODO: benchmark cpu and network usages with this opt
+      matchBlocks = {
+        "raf.example.com" = {
+          hostname = "example.com";
+          user = "john";
+        };
+      };
+    };
+    */
   };
 
   home = {
