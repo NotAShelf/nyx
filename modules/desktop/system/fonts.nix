@@ -36,6 +36,7 @@ in {
 
       # font packages that should be installed
       fonts = with pkgs; [
+        corefonts
         material-icons
         material-design-icons
         roboto
