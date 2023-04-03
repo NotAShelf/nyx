@@ -103,7 +103,7 @@
     };
 
     neovim-flake = {
-      url = "github:notashelf/neovim-flake/fixHomeManager";
+      url = "github:notashelf/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
