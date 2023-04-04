@@ -46,6 +46,7 @@ in {
       binutils
       diffoscope
       nmap
+      shadower
     ];
   };
 }

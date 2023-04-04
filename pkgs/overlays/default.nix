@@ -4,7 +4,7 @@ final: prev: {
   chromium = prev.callPackage ./chromium {};
   ani-cli = prev.callPackage ./ani-cli {};
   anime4k = prev.callPackage ./anime4k {};
-  #shadower = prev.callPackage ./shadower {};
+  shadower = prev.callPackage ./shadower {};
 
   # catppuccin packages
   catppuccin-gtk = prev.callPackage ../catppuccin-gtk.nix {};

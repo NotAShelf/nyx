@@ -10,6 +10,7 @@
 
   # My personal derivations for packages that are not on nixpkgs
   fastfetch = pkgs.callPackage ./overlays/fastfetch {};
+  shadower = pkgs.callPackage ./overlays/shadower {};
 
   nicksfetch = pkgs.callPackage ./nicksfetch.nix {};
   cloneit = pkgs.callPackage ./cloneit.nix {};
