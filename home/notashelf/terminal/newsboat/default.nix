@@ -41,17 +41,25 @@ in {
           url = "https://www.reddit.com/r/unixporn/.rss";
           tags = ["unix" "ricing" "style"];
         }
-        # Youtube
+        # Computerphile
         {
           title = "Computerphile";
           url = "https://www.youtube.com/feeds/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA";
           tags = ["tech" "youtube"];
+        }
+        # Security news
+        {
+          title = "Krebson Security";
+          url = "https://krebsonsecurity.com/feed/";
+          tags = ["tech" "security"];
         }
       ];
       extraConfig = ''
         download-full-page yes
         download-retries 3
         error-log /dev/null
+        cookie-cache ~/.cache/newsboat/cookies.txt
+        auto-reload yes
         max-items 0
         bind-key j down
         bind-key k up
@@ -83,6 +91,7 @@ in {
         color hint-separator     default color8
         color hint-description   default color8
         color title              color14 color8
+
         highlight article "^(Feed|Title|Author|Link|Date): .+" color4 default bold
         highlight article "^(Feed|Title|Author|Link|Date):" color14 default bold
         highlight article "\\((link|image|video)\\)" color8 default
