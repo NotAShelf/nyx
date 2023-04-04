@@ -64,6 +64,10 @@ with lib; {
         "nohibernate"
       ];
 
+      kernelModules = [
+        "wireguard"
+      ];
+
       loader = {
         grub.enable = true;
         systemd-boot.enable = false;
