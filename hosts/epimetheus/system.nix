@@ -98,6 +98,8 @@ in {
 
     services.btrfs.autoScrub = {fileSystems = ["/"];};
 
+    home-manager.users.notashelf.systemd.user.startServices = mkForce "legacy"; 
+
     console.earlySetup = true;
   };
 }
