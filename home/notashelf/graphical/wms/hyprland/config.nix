@@ -81,11 +81,11 @@ in {
 
       animation = windows, 1, 4, overshot, slide
       animation = windowsOut, 1, 4, smoothOut, slide
-      animation=border,1,10,default
+      animation = border,1,10,default
 
       animation = fade, 1, 10, smoothIn
       animation = fadeDim, 1, 10, smoothIn
-      animation=workspaces,1,4,overshot,slidevert
+      animation = workspaces,1,4,overshot,slidevert
     }
 
     dwindle {
