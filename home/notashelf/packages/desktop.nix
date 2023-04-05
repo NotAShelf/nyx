@@ -22,7 +22,7 @@ in {
       obsidian
       nextcloud-client
       udiskie
-      #gnome.gnome-control-center # FIXME: fails to build due dependency mismatch
+      gnome.gnome-control-center
       gnome.gnome-tweaks
       gnome.gnome-calendar
       ungoogled-chromium
@@ -31,6 +31,7 @@ in {
       zoom-us # I hate this
       freecad
       prusa-slicer
+      cinnamon.nemo
     ];
   };
 }
