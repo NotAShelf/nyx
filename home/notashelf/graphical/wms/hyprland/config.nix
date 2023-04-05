@@ -21,6 +21,8 @@ in {
     exec-once = run-as-service 'foot --server'
 
     monitor=eDP-1,preferred,0x0,1
+    ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)}
+
 
     input {
       kb_layout=tr
