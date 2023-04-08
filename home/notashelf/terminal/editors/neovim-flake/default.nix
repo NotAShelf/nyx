@@ -89,6 +89,10 @@
         nvimBufferline.enable = true;
       };
 
+      vim.projects = {
+        project-nvim.enable = true;
+      };
+
       vim.treesitter = {
         enable = true;
         context.enable = true;
