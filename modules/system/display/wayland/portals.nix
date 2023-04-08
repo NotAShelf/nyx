@@ -13,7 +13,8 @@ in {
     xdg.portal = {
       enable = true;
 
-      extraPortals = with pkgs; with inputs; [
+      extraPortals = with pkgs;
+      with inputs; [
         xdg-desktop-portal-gtk
         xdg-portal-hyprland.packages.${pkgs.system}.default
       ];
