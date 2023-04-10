@@ -31,6 +31,7 @@ with lib; {
 
         networking = {
           optimizeTcp = true;
+          useTailscale = true;
         };
       };
       usrEnv = {
