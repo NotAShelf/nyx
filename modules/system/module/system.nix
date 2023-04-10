@@ -69,6 +69,12 @@ with lib; {
         default = false;
         description = "Enable tcp optimizations";
       };
+
+      useTailscale = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Use Tailscale for inter-machine VPN.";
+      };
     };
 
     security = {

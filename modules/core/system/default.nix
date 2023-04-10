@@ -11,6 +11,7 @@
     ./programs.nix
     ./nix.nix
     ./builders.nix
+    ./tailscale.nix
   ];
 
   # compress half of the ram to use as swap

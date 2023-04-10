@@ -5,21 +5,25 @@
   ...
 }: {
   nix = {
-    settings = {
-      builders-use-substitutes = true;
-    };
-    distributedBuilds = true;
-    buildMachines = [
+    distributedBuilds = false;
+    buildMachines = lib.filter (x: x.hostName != config.networking.hostName) [
       {
-        protocol = "ssh";
-        hostName = "build.neushore.dev";
-        maxJobs = 4;
-        systems = ["aarch64-darwin" "x86_64-darwin" "x86_64-linux"];
         system = "x86_64-linux";
-        supportedFeatures = ["benchmark" "big-parallel" "kvm"];
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU8yelFLRmE0cGI1SE5aM1h3WC93djZoZXdnUWNmbUt1UlBHNFpNazNsbGQgcm9vdEBuZXVzaG9yZQo=";
+        systems = ["aarch64-darwin" "x86_64-darwin" "x86_64-linux" "aarch64-linux"];
         sshUser = "raf";
         sshKey = "/home/notashelf/.ssh/builder";
+        maxJobs = 16;
+        hostName = "build.neushore.dev";
+        supportedFeatures = ["nixos-test" "benchmark" "kvm" "big-parallel"];
+      }
+      {
+        system = "x86_64-linux";
+        systems = ["aarch64-darwin" "x86_64-darwin" "x86_64-linux" "aarch64-linux"];
+        sshUser = "notashelf";
+        sshKey = "/home/notashelf/.ssh/builder";
+        maxJobs = 4;
+        hostName = "epimetheus";
+        supportedFeatures = ["nixos-test" "benchmark" "kvm" "big-parallel"];
       }
     ];
   };
