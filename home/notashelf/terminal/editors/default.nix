@@ -1,7 +1,7 @@
 _: {
   imports = [
     ./cnvim
-    ./emacs
+    #./emacs
     ./helix
     ./neovim-flake
   ];
