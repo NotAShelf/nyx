@@ -32,7 +32,7 @@ in {
         };
 
         security = {
-          fixWebcam = true;
+          fixWebcam = false;
         };
 
         virtualization = {

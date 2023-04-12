@@ -17,7 +17,9 @@ with lib; {
         hasSound = true;
         hasTPM = true;
       };
+
       system = {
+        username = "notashelf";
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
         video.enable = true;
         sound.enable = true;
@@ -27,19 +29,25 @@ with lib; {
           enable = true;
           qemu.enable = true;
         };
-        username = "notashelf";
 
         networking = {
           optimizeTcp = true;
           useTailscale = true;
         };
+
+        security = {
+          secureBoot = false;
+        };
+
       };
+
       usrEnv = {
         isWayland = true;
         desktop = "Hyprland";
         useHomeManager = true;
         autologin = true;
       };
+
       programs = {
         git.signingKey = "F0D14CCB5ED5AA22 ";
 

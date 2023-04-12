@@ -7,7 +7,7 @@
   inputs = self.inputs;
 
   ## bootloader ##
-  bootloader = ../modules/bootloader;
+  boot = ../modules/boot;
   # system module will choose the appropriate bootloader based on device.type option
 
   # globally shared modules
@@ -26,7 +26,7 @@
 
   home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
-  shared = [system core ragenix sops];
+  shared = [system core ragenix sops boot];
 in {
   # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
   # fully free from nvidia
@@ -37,7 +37,6 @@ in {
       [
         {networking.hostName = "enyo";}
         ./enyo
-        bootloader
         desktop
         home-manager
         virtualization
@@ -55,7 +54,6 @@ in {
       [
         {networking.hostName = "prometheus";}
         ./prometheus
-        bootloader
         desktop
         home-manager
         virtualization
@@ -71,7 +69,6 @@ in {
       [
         {networking.hostName = "epimetheus";}
         ./epimetheus
-        bootloader
         desktop
         home-manager
         virtualization
@@ -87,7 +84,6 @@ in {
       [
         {networking.hostName = "janus";}
         ./janus
-        bootloader
         virtualization
       ]
       ++ shared;
@@ -102,7 +98,6 @@ in {
       [
         {networking.hostName = "icarus";}
         ./icarus
-        bootloader
         desktop
         home-manager
         homes
