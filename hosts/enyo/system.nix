@@ -38,7 +38,6 @@ with lib; {
         security = {
           secureBoot = false;
         };
-
       };
 
       usrEnv = {
