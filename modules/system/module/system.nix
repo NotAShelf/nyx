@@ -81,7 +81,13 @@ with lib; {
       fixWebcam = mkOption {
         type = types.bool;
         default = false;
-        description = "Fix the purposefully broken webcam by unblacklisting the related kernel module.";
+        description = "Fix the purposefully broken webcam by un-blacklisting the related kernel module.";
+      };
+
+      secureBoot = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Enable secure-boot and load necessary packages.";
       };
     };
   };
