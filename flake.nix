@@ -177,8 +177,6 @@
     };
     */
 
-    helix.url = "github:SoraTenshi/helix/experimental-22.12";
-
     # Nix Language server
     nil = {
       url = "github:oxalica/nil";

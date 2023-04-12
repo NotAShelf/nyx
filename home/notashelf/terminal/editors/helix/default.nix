@@ -44,16 +44,21 @@ in {
           line-number = "relative";
           scrolloff = 5;
           bufferline = "always";
+          lsp = {
+            display-messages = true;
+            display-inlay-hints = true;
+          };
           true-color = true;
           rulers = [80];
+          soft-wrap.enable = true;
           indent-guides = {
             render = true;
           };
           rainbow-brackets = true;
           gutters = ["diagnostics" "line-numbers" "spacer" "diff"];
           statusline = {
-            mode-separator = "";
-            separator = "";
+            mode-separator = " ";
+            separator = " ";
             left = ["mode" "selections" "spinner" "file-name" "total-line-numbers"];
             center = [];
             right = ["diagnostics" "file-encoding" "file-line-ending" "file-type" "position-percentage" "position"];
