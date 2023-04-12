@@ -56,6 +56,7 @@ in {
       enable_swallow=true
       swallow_regex=foot|thunar
       mouse_move_enables_dpms=true
+      key_press_enables_dpms=true
       disable_autoreload=true # autoreload is unnecessary on nixos
     }
 
