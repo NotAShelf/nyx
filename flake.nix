@@ -59,7 +59,7 @@
     packages.${system} = import ./pkgs {inherit pkgs;};
 
     devShells.${system}.default = pkgs.mkShell {
-      name = "nixos";
+      name = "nyx";
       packages = with pkgs; [
         nil
         yaml-language-server
