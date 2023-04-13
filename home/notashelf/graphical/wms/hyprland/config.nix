@@ -20,7 +20,7 @@ in {
     exec-once = hyprctl setcursor ${pointer.name} ${toString pointer.size}
     exec-once = run-as-service 'foot --server'
 
-    monitor=eDP-1,preferred,0x0,1
+    # monitor=eDP-1,preferred,0x0,1
     ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)}
 
 
@@ -54,7 +54,7 @@ in {
       disable_hyprland_logo=true
       disable_splash_rendering=true
       enable_swallow=true
-      swallow_regex=foot|thunar
+      swallow_regex=foot|thunar|nemo
       mouse_move_enables_dpms=true
       key_press_enables_dpms=true
       disable_autoreload=true # autoreload is unnecessary on nixos
@@ -101,20 +101,20 @@ in {
     $enable=hyprctl --batch "keyword decoration:active_opacity $act_opa;keyword decoration:inactive_opacity $inact_opa"
 
     # logout menu
-    bind = $MOD, Escape, exec, wlogout -p layer-shell
+    bind = $MODSHIFT, Escape, exec, wlogout -p layer-shell
     # lock screen
-    #bind = $MOD, L, exec, loginctl lock-session
+    #bind = $MODSHIFT, L, exec, loginctl lock-session
+    bind=$MODSHIFT,L,exec,swaylock
 
 
     bind=$MOD,F1,exec,firefox
-    bind=$MOD,F2,exec,thunar
+    bind=$MOD,F2,exec,run-as-service "nemo"
     bind=$MOD,RETURN,exec,run-as-service "${terminal}"
-    bind=$MOD,Q,killactive,
-    bind=$MODSUPER,G,changegroupactive,
+    bind=$MODSHIFT,Q,killactive,
+    bind=$MODSHIFT,G,changegroupactive,
     bind=$MOD,T,togglegroup,
     bind=$MOD,M,exit,
     bind=$MOD,E,exec,thunar
-    bind=$MODSHIFT,L,exec,swaylock
     bind=$MOD,V,togglefloating,
     bind=$MOD,R,exec, killall tofi || run-as-service $(tofi-drun --prompt-text "  Run")
     bind=$MOD,D,exec, killall rofi || rofi -show drun
@@ -147,18 +147,20 @@ in {
 
     # workspace binds
     # binds mod + [shift +] {1..10} to [move to] ws {1..10}
-    ${builtins.concatStringsSep "\n" (builtins.genList (
-        x: let
-          ws = let
-            c = (x + 1) / 10;
-          in
-            builtins.toString (x + 1 - (c * 10));
-        in ''
-          bind = $MOD, ${ws}, workspace, ${toString (x + 1)}
-          bind = $MOD SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
-        ''
-      )
-      10)}
+    ${
+      builtins.concatStringsSep "\n" (builtins.genList (
+          x: let
+            ws = let
+              c = (x + 1) / 10;
+            in
+              builtins.toString (x + 1 - (c * 10));
+          in ''
+            bind = $MOD, ${ws}, workspace, ${toString (x + 1)}
+            bind = $MOD SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
+          ''
+        )
+        10)
+    }
 
 
     bind=$MODSHIFT,right,movetoworkspace,+1
@@ -211,14 +213,13 @@ in {
     windowrule=float,title:wlogout
     windowrule=fullscreen,title:wlogout
     windowrule=float,pavucontrol-qt
-    windowrule=float,keepassxc
+    windowrule=float,Bitwarden
     windowrule=nofullscreenrequest,class:firefox
     windowrule=idleinhibit focus,mpv
     windowrule=idleinhibit focus,foot
     windowrule=idleinhibit fullscreen,firefox
 
     windowrule=float,udiskie
-    windowrule=float,title:^(Transmission)$
     windowrule=float,title:^(Volume Control)$
     windowrule=float,title:^(Firefox — Sharing Indicator)$
     windowrule=move 0 0,title:^(Firefox — Sharing Indicator)$
@@ -237,12 +238,15 @@ in {
     #windowrulev2 = workspace special silent, title:^(Firefox — Sharing Indicator)$
     #windowrulev2 = workspace special silent, title:^(.*is sharing (your screen|a window)\.)$
 
-    # start spotify tiled in ws9
-    windowrulev2 = tile, class:^(Spotify)$
-    windowrulev2 = workspace 9 silent, class:^(Spotify)$
-
     # start Discord/WebCord in ws2
-    windowrulev2 = workspace 2, title:^(.*(Disc|WebC)ord.*)$
+    windowrulev2 = workspace 4, title:^(.*(Disc|WebC)ord.*)$
+
+    # start spotify & steam tiled in ws3 and ws9
+    windowrulev2 = tile, class:^(Spotify)$
+    windowrulev2 = workspace 4 silent, class:^(Spotify)$
+
+    windowrulev2 = tile, class:^(Steam)$
+    windowrulev2 = workspace 9 silent, class:^(Steam)$
 
     # idle inhibit while watching videos
     windowrulev2 = idleinhibit focus, class:^(mpv)$
