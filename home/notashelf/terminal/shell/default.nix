@@ -53,15 +53,21 @@
         text = import ./bin/updoot.nix {inherit lib pkgs;};
       };
 
-      ".local/bin/preview.sh" = {
+      ".local/bin/preview" = {
         # Preview script for fzf tab
         executable = true;
         text = import ./bin/preview.nix {inherit lib pkgs;};
       };
 
-      ".local/bin/show-zombie-parents.nix" = {
+      ".local/bin/show-zombie-parents" = {
         executable = true;
         text = import ./bin/show-zombie-parents.nix {inherit lib pkgs;};
+      };
+
+      ".local/bin/tzip" = {
+        # Upload and get link
+        executable = true;
+        text = import ./bin/tzip.nix {inherit lib pkgs;};
       };
     };
   };
