@@ -42,10 +42,12 @@ in {
       xorg.xhost
       nitch
       fastfetch
+      #
       binwalk
       binutils
       diffoscope
       nmap
+      #
       shadower
     ];
   };
