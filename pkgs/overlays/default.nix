@@ -7,7 +7,6 @@ final: prev: {
   shadower = prev.callPackage ./shadower {};
   webcord-vencord = prev.callPackage ./webcord-vencord {};
 
-
   # catppuccin packages
   catppuccin-gtk = prev.callPackage ../catppuccin-gtk.nix {};
   catppuccin-folders = prev.callPackage ../catppuccin-folders.nix {};
