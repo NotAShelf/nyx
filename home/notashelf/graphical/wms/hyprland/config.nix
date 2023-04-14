@@ -245,9 +245,6 @@ in {
     windowrulev2 = tile, class:^(Spotify)$
     windowrulev2 = workspace 4 silent, class:^(Spotify)$
 
-    windowrulev2 = tile, class:^(Steam)$
-    windowrulev2 = workspace 9 silent, class:^(Steam)$
-
     # idle inhibit while watching videos
     windowrulev2 = idleinhibit focus, class:^(mpv)$
     windowrulev2 = idleinhibit fullscreen, class:^(firefox)$
