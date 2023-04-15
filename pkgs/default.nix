@@ -17,4 +17,5 @@
   cloneit = pkgs.callPackage ./cloneit.nix {};
   discordo = pkgs.callPackage ./discordo.nix {};
   proton-ge = pkgs.callPackage ./proton-ge.nix {};
+  arrpc = pkgs.callPackage ./arrpc.nix {};
 }
