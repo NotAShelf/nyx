@@ -67,6 +67,7 @@ in {
       blur=1
       blur_size=4
       blur_passes=3
+      blur_xray=true
 
       drop_shadow = yes
       shadow_range = 4
