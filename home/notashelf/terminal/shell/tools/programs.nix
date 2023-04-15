@@ -34,6 +34,18 @@
       };
     };
 
+    exa.enable = true;
+
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    dircolors = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     bat = {
       enable = true;
       themes = {

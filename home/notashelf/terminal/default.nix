@@ -8,7 +8,6 @@
     ./editors
     ./kitty
     ./shell
-    ./tools
     ./newsboat
     ./foot
     ./bottom
