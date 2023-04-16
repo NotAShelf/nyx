@@ -25,7 +25,6 @@ in {
         _JAVA_AWT_WM_NONEREPARENTING = "1";
         GDK_BACKEND = "wayland,x11";
         ANKI_WAYLAND = "1";
-        WLR_DRM_NO_ATOMIC = "1";
         QT_AUTO_SCREEN_SCALE_FACTOR = "1";
         QT_QPA_PLATFORM = "wayland;xcb";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
@@ -33,17 +32,12 @@ in {
         QT_STYLE_OVERRIDE = "kvantum";
         DISABLE_QT5_COMPAT = "0";
         MOZ_ENABLE_WAYLAND = "1";
-        WLR_BACKEND = "vulkan";
         XDG_SESSION_TYPE = "wayland";
         SDL_VIDEODRIVER = "wayland";
         CLUTTER_BACKEND = "wayland";
+        #WLR_DRM_NO_ATOMIC = "1";
+        #WLR_BACKEND = "vulkan";
       };
-      /*
-      loginShellInit = ''
-        eval $(ssh-agent)
-        eval $(gnome-keyring-daemon --start --components=ssh,secrets)
-        '';
-      */
     };
   };
 }
