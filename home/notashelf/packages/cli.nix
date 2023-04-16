@@ -45,7 +45,7 @@ in {
       #
       binwalk
       binutils
-      diffoscope
+      diffoscopeMinimal
       nmap
       #
       shadower
