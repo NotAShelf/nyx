@@ -46,11 +46,14 @@ in {
         };
       };
 
-      tmpOnTmpfs = mkDefault true;
+      tmp = {
+        # /tmp on tmpfs, lets it live on your ram
+        useTmpfs = mkDefault true;
 
-      # If not using tmpfs, which is naturally purged on reboot, we must clean it
-      # /tmp ourselves. /tmp should be volatile storage!
-      cleanTmpDir = mkDefault (!config.boot.tmpOnTmpfs);
+        # If not using tmpfs, which is naturally purged on reboot, we must clean
+        # /tmp ourselves. /tmp should be volatile storage!
+        cleanOnBoot = mkDefault (!config.boot.tmp.useTmpfs);
+      };
 
       # https://www.kernel.org/doc/html/v4.14/admin-guide/kernel-parameters.html
       kernelParams = [

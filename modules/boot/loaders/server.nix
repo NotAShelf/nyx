@@ -24,7 +24,7 @@ in {
         };
       };
 
-      cleanTmpDir = true;
+      tmp.cleanOnBoot = true;
 
       # some kernel parameters, i dont remember what half of this shit does but who cares
       kernelParams = [
@@ -75,7 +75,6 @@ in {
           "kvm-intel"
           "sd_mod"
           "dm_mod"
-          "usb_storage"
           "rtsx_pci_sdmmc"
         ];
       };
