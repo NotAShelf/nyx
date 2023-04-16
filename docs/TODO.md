@@ -19,6 +19,7 @@
   - [x] document even more settings
 - [ ] **move previous hosts to the new host config format**
   - [x] prometheus
+  - [x] epimetheus
   - [x] icarus
   - [x] enyo
   - [ ] atlas
@@ -26,7 +27,7 @@
 - [ ] find suitable enabling conditions for tor and xserver
   - [ ] (both) enable by default, implement overrides to disable
   - [ ] **xserver**
-    - [ ] enable if there is any sort of graphics stack
+    - [ ] enable if there is any sort of graphics stack and env is not wayland
   - [ ] **tor**
     - [ ] add a program override that force enables it
 - [ ]**override options for enabled programs & services**
@@ -52,10 +53,10 @@
   - [ ] figure out why nvidia drivers are royally fucked
 - [ ] (home-manager) clean up schizofox module
   - [ ] schizofox should load security related options on two levels
-    * **each version should provide an additional layer of security**
+    - **each version should provide an additional layer of security**
     - [ ] level 1 (paranoid) - `extraSecurity`
     - [ ] level 2 (schizo) - `lockdownMode`
-- [ ] (home-manager) use mapAttrs to map all monitors from the list to hyprland monitor settings w/ "1" scaling
+- [x] (home-manager) use mapAttrs to map all monitors from the list to hyprland monitor settings w/ "1" scaling
 - [ ] (home-manager) move themes out of my home directory, so that it can be shared between users
   - [ ] clean up palettes
 - [ ] **profiles** in addition to system configurations, we can have a "profile" that overrides a bunch of configurations
