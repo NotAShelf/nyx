@@ -1,7 +1,7 @@
-{...}: {
+_: {
   imports = [
-    ./cli.nix
-    ./desktop.nix
-    ./server.nix
+    ./gui
+    ./cli
+    ./server
   ];
 }

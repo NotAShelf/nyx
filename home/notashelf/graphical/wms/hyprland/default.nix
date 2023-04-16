@@ -13,12 +13,7 @@ with lib; let
     Install.WantedBy = ["graphical-session.target"];
   };
 
-  ocr = pkgs.writeShellScriptBin "ocr" ''
-    #!/bin/bash
-    grim -g "$(slurp -w 0 -b eebebed2)" /tmp/ocr.png && tesseract /tmp/ocr.png /tmp/ocr-output && wl-copy < /tmp/ocr-output.txt && notify-send "OCR" "Text copied!" && rm /tmp/ocr-output.txt -f
-  '';
-
-  screenshot = pkgs.writeShellScriptBin "screenshot" ''
+  hyprshot = pkgs.writeShellScriptBin "hyprshot" ''
     #!/bin/bash
     hyprctl keyword animation "fadeOut,0,8,slow" && ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -w 0 -b 5e81acd2)" - | swappy -f -; hyprctl keyword animation "fadeOut,1,8,slow"
   '';
@@ -30,30 +25,16 @@ in {
   imports = [./config.nix];
 
   config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
-    home.packages = with pkgs; [
-      libnotify
-      wlogout
-      wf-recorder
-      brightnessctl
-      pamixer
-      python39Packages.requests
-      slurp
-      tesseract5
-      swappy
-      ocr
-      grim
-      screenshot
-      wl-clipboard
-      pngquant
+    home.packages = [
+      hyprshot
     ];
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.default.override {
-        nvidiaPatches = device.gpu == "nvidia" || device.gpu == "hybrid-nv";
-      };
       systemdIntegration = true;
-      #extraConfig = builtins.readFile ./hyprland.conf;
+      package = inputs.hyprland.packages.${pkgs.system}.default.override {
+        nvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
+      };
     };
 
     services.gammastep = {

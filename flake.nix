@@ -104,7 +104,7 @@
     # my personal neovim-flake
     neovim-flake = {
       url = "github:notashelf/neovim-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Automated, pre-built packages for Wayland

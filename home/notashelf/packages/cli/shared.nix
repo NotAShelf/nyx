@@ -1,15 +1,10 @@
 {
-  osConfig,
   config,
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  acceptedTypes = ["laptop" "desktop" "server" "hybrid" "lite"];
-in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+}: {
+  config = {
     home.packages = with pkgs; [
       # CLI
       cloneit
@@ -37,18 +32,11 @@ in {
       trash-cli
       cached-nix-shell
       ttyper
-      docker-compose
-      docker-credential-helpers
       xorg.xhost
       nitch
       fastfetch
-      #
-      binwalk
-      binutils
-      diffoscopeMinimal
-      nmap
-      #
-      shadower
+      libnotify
+      python39Packages.requests # move
     ];
   };
 }

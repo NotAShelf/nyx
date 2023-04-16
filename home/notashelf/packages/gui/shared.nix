@@ -1,21 +1,12 @@
 {
-  osConfig,
-  config,
-  lib,
   pkgs,
+  lib,
+  config,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  acceptedTypes = ["laptop" "desktop" "hybrid"];
-  #nicksfetch = self.packages.${pkgs.system}.nicksfetch;
-in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+}: {
+  config = {
     home.packages = with pkgs; [
       thunderbird
-      lutris
-      dolphin-emu
-      yuzu
       qbittorrent
       quasselClient
       bitwarden
@@ -29,9 +20,10 @@ in {
       easyeffects
       librewolf
       zoom-us # I hate this
-      freecad
-      prusa-slicer
       cinnamon.nemo
+      brightnessctl # move
+      pamixer # move
+      tesseract5 # move
     ];
   };
 }

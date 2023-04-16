@@ -67,7 +67,6 @@ in {
       blur=1
       blur_size=4
       blur_passes=3
-      blur_xray=true
 
       drop_shadow = yes
       shadow_range = 4
@@ -196,7 +195,7 @@ in {
     # stop animations while screenshotting; makes black border go away
 
     bind=SUPERSHIFT,P,exec,$disable; grim - | wl-copy --type image/png && notify-send "Screenshot" "Screenshot copied to clipboard"; $enable
-    bind=SUPERSHIFT,S,exec,$disable; screenshot; $enable
+    bind=SUPERSHIFT,S,exec,$disable; hyprshot; $enable
 
     $screenshotarea = hyprctl keyword animation "fadeOut,0,0,default"; grimblast --notify copysave area; hyprctl keyword animation "fadeOut,1,4,default"
     bind = , Print, exec, $screenshotarea
