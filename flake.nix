@@ -85,8 +85,6 @@
 
     # nixpkgs variants for different channels
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-    #nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     # impermanence
     impermanence.url = "github:nix-community/impermanence";
@@ -97,34 +95,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # secure-boot on nixos
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # my personal neovim-flake
     neovim-flake = {
       url = "github:notashelf/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Fortunateteller2k's nixpkgs collection
-    #nixpkgs-f2k = {
-    #  url = "github:fortuneteller2k/nixpkgs-f2k";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Nix User Repository
-    #  TODO: make a toggleable NUR module that uses an overlay
-    # nur.url = "github:nix-community/NUR";
-
-    # Nix Developer Environments
-    # devshell.url = "github:numtide/devshell";
 
     # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -139,7 +126,7 @@
     ragenix.url = "github:yaxitech/ragenix";
 
     # Hyprland & Hyprland Contrib repos
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/4bc3f9adbe7563817a9e1c6eac6f5e435f7db957";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprland-contrib = {
