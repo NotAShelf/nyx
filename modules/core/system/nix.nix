@@ -32,6 +32,9 @@ with lib; {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = true;
       allowUnsupportedSystem = true;
+      permittedInsecurePackages = [
+        "electron-21.4.0"
+      ];
     };
 
     overlays = with inputs;
