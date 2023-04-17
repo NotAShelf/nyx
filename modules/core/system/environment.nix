@@ -17,7 +17,6 @@ in {
     # packages I want pre-installed on all systems
     systemPackages = with pkgs;
       [
-        neovim
         git
         curl
         wget
