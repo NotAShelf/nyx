@@ -10,6 +10,8 @@
   programs.swaylock = let
     inherit (config.colorscheme) colors;
   in {
+    enable = true;
+    package = with pkgs; swaylock-effects;
     settings = {
       clock = true;
       color = "${colors.base00}";
