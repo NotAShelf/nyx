@@ -83,7 +83,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nixpkgs variants for different channels
+    # build against nixos unstable, more variants can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # impermanence
