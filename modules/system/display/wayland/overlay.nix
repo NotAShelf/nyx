@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   ...
 }:
@@ -10,6 +9,8 @@ with lib; let
   env = config.modules.usrEnv;
 in {
   config = mkIf (video.enable && env.isWayland) {
-    nixpkgs.overlays = with inputs; [nixpkgs-wayland.overlay];
+    nixpkgs.overlays = with inputs; [
+      nixpkgs-wayland.overlay
+    ];
   };
 }
