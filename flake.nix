@@ -89,12 +89,6 @@
     # impermanence
     impermanence.url = "github:nix-community/impermanence";
 
-    # sops-nix for atomic secrets management
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # secure-boot on nixos
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -104,7 +98,6 @@
     # my personal neovim-flake
     neovim-flake = {
       url = "github:notashelf/neovim-flake";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Automated, pre-built packages for Wayland
@@ -125,8 +118,18 @@
     # Secrets management via ragenix, an agenix replacement
     ragenix.url = "github:yaxitech/ragenix";
 
+    # sops-nix for atomic secrets management
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Hyprland & Hyprland Contrib repos
-    hyprland.url = "github:hyprwm/Hyprland/4bc3f9adbe7563817a9e1c6eac6f5e435f7db957";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprpicker.url = "github:hyprwm/hyprpicker";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprland-contrib = {
@@ -140,6 +143,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Webcord, maybe works better than discord client?
+    webcord.url = "github:fufexan/webcord-flake";
+
     # Emacs & Doom Emacs
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-doom-emacs = {
@@ -152,17 +158,6 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Webcord, maybe works better than discord client?
-    webcord.url = "github:fufexan/webcord-flake";
-
-    # Spicetify
-    /*
-    spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs"
-    };
-    */
 
     # Nix Language server
     nil = {
