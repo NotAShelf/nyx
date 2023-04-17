@@ -48,9 +48,6 @@
 
     modules = {
       programs = {
-        # cozy neovim config with catppuccin colors
-        cnvim.enable = false;
-
         # schizo firefox config based on firefox ESR
         schizofox = {
           enable = true;
