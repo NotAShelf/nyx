@@ -41,6 +41,6 @@ in
     '';
     npmDeps = old.npmDeps.overrideAttrs (_old: {
       inherit src;
-      outputHash = "sha256-PeoOoEljbkHynjZwocCWCTyYvIvSE1gQiABUzIiXEdM=";
+      outputHash = "sha256-YguZtGn8CT4EqOQWS0GeNGBdZSC3Lj1gFR0ZiegWTJU=";
     });
   })
