@@ -25,15 +25,17 @@ in {
         };
       };
 
-      docker = mkIf (sys.docker.enable) {
+      podman = mkIf (sys.docker.enable) {
         enable = true;
-        enableOnBoot = false;
-      };
+        dockerCompat = true;
+        dockerSocket.enable = true;
 
-      podman = mkIf (sys.podman.enable) {
-        enable = true;
-        #dockerCompat = true;
         enableNvidia = builtins.any (driver: driver == "nvidia") config.services.xserver.videoDrivers;
+
+        autoPrune = {
+          enable = true;
+          flags = ["--all"];
+        };
       };
 
       lxd.enable = false;
