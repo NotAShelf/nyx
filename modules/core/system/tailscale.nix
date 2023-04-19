@@ -12,6 +12,10 @@ in {
     environment.systemPackages = [pkgs.tailscale];
 
     # enable tailscale, inter-machine VPN service
-    services.tailscale.enable = true;
+
+    services.tailscale = {
+      enable = true;
+      permitCertUid = "root";
+    };
   };
 }
