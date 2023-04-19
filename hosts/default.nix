@@ -106,6 +106,14 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  helios = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules = [
+      ./helios
+    ];
+    specialArgs = {inherit inputs self lib;};
+  };
+
   /*
   # Raspberry Pi 400
   # My Pi400 homelab, used mostly for testing
