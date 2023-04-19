@@ -19,6 +19,9 @@ with lib; {
       "/etc/NetworkManager/system-connections"
       "/etc/secureboot"
       "/var/db/sudo"
+      "/etc/ssh"
+      "/var/lib/flatpak"
+      "/var/lib/libvirt"
     ];
 
     files = [
@@ -29,7 +32,6 @@ with lib; {
       "/etc/ssh/ssh_host_rsa_key"
       "/etc/ssh/ssh_host_rsa_key.pub"
       # other
-      # "/etc/adjtime"
       # TODO: optionalstring for /var/lib/${lxd, docker}
     ];
   };
