@@ -78,6 +78,7 @@
         enable = true;
         name = "catppuccin";
         style = "mocha";
+        transparent = true;
       };
       vim.autopairs.enable = true;
 
@@ -114,7 +115,7 @@
       vim.git = {
         enable = true;
         gitsigns.enable = true;
-        gitsigns.codeActions = true;
+        gitsigns.codeActions = false;
       };
 
       vim.minimap = {
