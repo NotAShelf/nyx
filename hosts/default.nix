@@ -117,7 +117,6 @@ in {
       [
         ./helios
         server
-        profiles
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};
