@@ -36,7 +36,7 @@ with lib; {
       logReversePathDrops = true;
     };
 
-    nftables.enable = true;
+    nftables.enable = false;
   };
 
   # enable opensnitch firewall
