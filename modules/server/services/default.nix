@@ -8,6 +8,7 @@
     ./tor
     ./nginx
     ./matrix
+    ./wireguard
     ./grafana # TODO
     ./irc # TODO
     ./jellyfin # https://nixos.wiki/wiki/Jellyfin
