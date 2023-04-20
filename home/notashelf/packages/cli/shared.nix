@@ -20,7 +20,6 @@ in {
       unzip
       ripgrep
       rsync
-
       bandwhich
       grex
       fd
@@ -28,11 +27,7 @@ in {
       jq
       figlet
       lm_sensors
-      bitwarden-cli
       dconf
-      gcc
-      cmake
-      trash-cli
       cached-nix-shell
       ttyper
       xorg.xhost

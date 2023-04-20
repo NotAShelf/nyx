@@ -15,6 +15,10 @@ in {
       # CLI
       libnotify
       imagemagick
+      gcc
+      cmake
+      bitwarden-cli
+      trash-cli
     ];
   };
 }
