@@ -117,6 +117,8 @@ in {
       [
         ./helios
         server
+        home-manager
+        homes
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};

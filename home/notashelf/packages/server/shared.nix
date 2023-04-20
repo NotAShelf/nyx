@@ -8,12 +8,11 @@ with lib; let
   programs = osConfig.modules.programs;
 
   device = osConfig.modules.device;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf ((programs.gui.enable) && (builtins.elem device.type acceptedTypes)) {
+  config = mkIf ((programs.cli.enable) && (builtins.elem device.type acceptedTypes)) {
     home.packages = with pkgs; [
-      freecad
-      prusa-slicer
+      wireguard-tools
     ];
   };
 }

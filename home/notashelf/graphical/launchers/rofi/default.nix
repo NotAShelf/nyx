@@ -19,6 +19,7 @@ in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.rofi = {
       enable = true;
+      # TODO: only override with plugins if wayland
       package = rofiPackage.override {
         plugins = with self.packages.${pkgs.system}; [
           rofi-calc-wayland
