@@ -115,6 +115,7 @@ in {
     system = "x86_64-linux";
     modules =
       [
+        {networking.hostName = "helios";}
         ./helios
         server
         home-manager
