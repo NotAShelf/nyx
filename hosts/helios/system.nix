@@ -56,7 +56,7 @@
       enable = true;
       version = 2;
       useOSProber = lib.mkForce false;
-      efiSupport = true;
+      efiSupport = false;
       enableCryptodisk = false;
       theme = null;
       backgroundColor = null;
