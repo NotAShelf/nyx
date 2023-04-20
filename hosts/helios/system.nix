@@ -52,7 +52,6 @@
 
     services.btrfs.autoScrub.enable = lib.mkForce false;
 
-
     boot.loader.grub = {
       enable = true;
       version = 2;
