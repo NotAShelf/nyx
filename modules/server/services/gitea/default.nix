@@ -5,7 +5,6 @@
   ...
 }:
 with lib; let
-  domain = "git.notashelf.dev";
   device = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
   # cfg = config.modules.programs.override;
@@ -46,7 +45,7 @@ in {
 
       nginx = {
         virtualHosts = {
-          "git.notashelf.dev" = {
+          "${domain}" = {
             addSSL = true;
             enableACME = true;
             locations."/" = {

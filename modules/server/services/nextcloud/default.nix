@@ -12,7 +12,7 @@ with lib; let
 in {
   config = {
     services.nextcloud = {
-      enable = true;
+      enable = false;
       package = pkgs.nextcloud26;
       hostName = domain;
       nginx.recommendedHttpHeaders = true;
@@ -30,7 +30,7 @@ in {
     };
 
     services.postgresql = {
-      enable = true;
+      enable = false;
       ensureDatabases = [config.services.nextcloud.config.dbname];
       ensureUsers = [
         {

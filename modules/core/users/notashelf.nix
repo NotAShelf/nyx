@@ -16,6 +16,7 @@
       "tss"
       "power"
       "nix"
+      "gitea"
     ];
     uid = 1001;
     shell = pkgs.zsh;
