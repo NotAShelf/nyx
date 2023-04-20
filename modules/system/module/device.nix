@@ -20,8 +20,8 @@ with lib; {
     # as I do not work with vms, but they have been added for forward-compatibility
     # TODO: make this a list - apparently more than one cpu on a device is still doable
     cpu = mkOption {
-      type = types.enum ["pi" "intel" "vm-intel" "amd" "vm-amd"];
-      default = "";
+      type = types.enum ["pi" "intel" "vm-intel" "amd" "vm-amd" null];
+      default = null;
     };
 
     # the manifacturer/type of the system gpu
@@ -31,8 +31,8 @@ with lib; {
     # TODO: make this a list
     # TODO: raspberry pi specific GPUs
     gpu = mkOption {
-      type = types.enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd"];
-      default = "";
+      type = types.enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd" null];
+      default = null;
     };
 
     # this does not affect any drivers and such, it is only necessary for
