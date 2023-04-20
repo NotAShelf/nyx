@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./programs
+    ./services
 
     ./services.nix
     ./security.nix
