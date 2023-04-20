@@ -2,12 +2,17 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
-}: let
+}:
+with lib; let
   password_cmd = "${pkgs.coreutils}/bin/tail -1 /run/agenix/spotify";
   username_cmd = "${pkgs.coreutils}/bin/head -1 /run/agenix/spotify";
+  device = osConfig.modules.device;
+
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     services = {
       spotifyd = {
         enable = false;

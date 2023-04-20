@@ -9,8 +9,11 @@
 with lib; let
   waybar_config = import ./config.nix {inherit osConfig config lib pkgs;};
   waybar_style = import ./style.nix {inherit (config) colorscheme;};
+  device = osConfig.modules.device;
+
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     home.packages = with pkgs; [
       python39Packages.requests
     ];

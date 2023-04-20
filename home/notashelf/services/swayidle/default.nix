@@ -2,8 +2,10 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
-}: let
+}:
+with lib; let
   suspendScript = pkgs.writeShellScript "suspend-script" ''
     ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.ripgrep}/bin/rg running
     # only suspend if audio isn't running
@@ -11,8 +13,11 @@
       ${pkgs.systemd}/bin/systemctl suspend
     fi
   '';
+  device = osConfig.modules.device;
+
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     # screen idle
     services.swayidle = {
       enable = true;

@@ -6,6 +6,10 @@
 }:
 with lib; let
   cfg = config.services.noisetorch;
+
+  device = osConfig.modules.device;
+
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   options = {
     services.noisetorch = {
@@ -32,7 +36,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && builtins.elem device.type acceptedTypes) {
     home.packages = [cfg.package];
 
     systemd.user.services.noisetorch = {
