@@ -12,7 +12,7 @@ in {
     # https://nixos.wiki/wiki/Quassel
     services.quassel = {
       enable = true;
-      portNumber = "4242";
+      portNumber = 4242;
       interfaces = ["0.0.0.0"];
       dataDir = "/home/${config.services.quassel.user}/quassel";
     };
