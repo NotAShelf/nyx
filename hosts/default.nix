@@ -7,17 +7,20 @@
   inputs = self.inputs;
 
   ## bootloader ##
-  boot = ../modules/boot;
-  # system module will choose the appropriate bootloader based on device.type option
+  boot = ../modules/boot; # system module will choose the appropriate bootloader based on device.type option
 
-  # globally shared modules
+  ## globally shared modules ##
   core = ../modules/core; # the self-proclaimed sane defaults for all my systems
   server = ../modules/server; # for devices that act as "servers"
   desktop = ../modules/desktop; # for devices that are for daily use
   virtualization = ../modules/virtualization; # hotpluggable virtalization module
   system = ../modules/system; # system module for configuring system-specific options easily
 
+  ## home-manager ##
   homes = ../home; # home-manager configurations for hosts that need home-manager
+
+  ## profiles ##
+  profiles = ../profiles; # profiles are pre-defined setting sets that override certain other settings as required
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other devices
@@ -26,7 +29,7 @@
 
   home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
-  shared = [system core ragenix sops boot];
+  shared = [system core ragenix boot];
 in {
   # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
   # fully free from nvidia
@@ -63,6 +66,7 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  # Twin host of prometheus, provides disk encryption
   epimetheus = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =
@@ -78,6 +82,7 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  # Virtual machine host for testing
   janus = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules =
@@ -108,9 +113,15 @@ in {
 
   helios = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    modules = [
-      ./helios
-    ];
+    modules =
+      [
+        ./helios
+        home-manager
+        homes
+        server
+        profiles
+      ]
+      ++ shared;
     specialArgs = {inherit inputs self lib;};
   };
 

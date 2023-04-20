@@ -1,5 +1,6 @@
 _: {
   imports = [
-    ./power.nix
+    #./power
+    ./bootloader
   ];
 }

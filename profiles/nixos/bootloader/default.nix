@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./nixos
+    ./nixos-infect
   ];
 }
