@@ -8,6 +8,7 @@ with lib; let
   device = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
   # cfg = config.modules.programs.override;
+  domain = "git.notashelf.dev";
 in {
   # TODO: add gitea service override
   config = mkIf (builtins.elem device.type acceptedTypes) {

@@ -1,4 +1,8 @@
-{lib, ...}:
+{
+  config,
+  lib,
+  ...
+}:
 with lib; let
   domain = "jellyfin.notashelf.dev";
   device = config.modules.device;

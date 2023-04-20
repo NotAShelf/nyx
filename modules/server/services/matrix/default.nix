@@ -1,4 +1,4 @@
-{lib, ...}:
+{config, lib, ...}:
 with lib; let
   device = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
@@ -13,7 +13,7 @@ in {
         LC_CTYPE = "C";
     '';
     services.matrix-synapse = {
-      enable = true;
+      enable = false;
       settings.server_name = config.networking.domain;
       settings.listeners = [
         {

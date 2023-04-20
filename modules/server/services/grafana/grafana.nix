@@ -11,14 +11,14 @@ in {
   # TODO: grafana service
   # TODO: grafana service override
   # https://nixos.wiki/wiki/Grafana
-  config = {
-    services.grafana = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
+    services.grafana = {
       enable = true;
       # Listening address and TCP port
       addr = "127.0.0.1";
       port = 3000;
       # Grafana needs to know on which domain and URL it's running on:
-      domain = "dash.notashelf.dev";
+      settings.server.domain = "dash.notashelf.dev";
       rootUrl = "https://dash.notashelf.dev/grafana/"; # Not needed if it is `https://your.domain/`
     };
 
