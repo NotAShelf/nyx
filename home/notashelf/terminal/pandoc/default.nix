@@ -1,8 +1,10 @@
 {
-  config,
+  osConfig,
   pkgs,
+  lib,
   ...
-}: let
+}:
+with lib; let
   texlive = pkgs.texlive.combine {
     inherit
       (pkgs.texlive)
@@ -15,6 +17,10 @@
       beamer
       ;
   };
+  device = osConfig.modules.device;
+  acceptedTypes = ["laptop" "desktop"];
 in {
-  home.packages = [texlive pkgs.pandoc];
+  config = mkIf (builtins.elem device.type acceptedTypes) {
+    home.packages = [texlive pkgs.pandoc];
+  };
 }
