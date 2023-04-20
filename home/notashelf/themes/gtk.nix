@@ -1,13 +1,13 @@
 {
+  osConfig,
   pkgs,
   lib,
   ...
 }:
 with lib; let
-  env = osConfig.modules.usrEnv;
   device = osConfig.modules.device;
 
-  acceptedTypes = ["laptop" "desktop"];
+  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     gtk = {
