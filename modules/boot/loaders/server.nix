@@ -13,7 +13,7 @@ in {
       loader = {
         systemd-boot.enable = false;
         grub = {
-          enable = lib.mkForce true;
+          enable = true;
           useOSProber = true;
           efiSupport = true;
           enableCryptodisk = false;
