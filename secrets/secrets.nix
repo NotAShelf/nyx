@@ -4,8 +4,9 @@ let
 
   # hosts
   helios = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOznQQTpblKWT0p5RyVPyq3BZFRimYC+5FiBJHuLeRV";
+
+  shared = [notashelf];
 in {
   "spotify.age".publicKeys = [notashelf];
-  "wireguard.age".publicKeys = [helios notashelf];
+  "wireguard.age".publicKeys = [helios] ++ shared;
 }
-

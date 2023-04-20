@@ -3,6 +3,9 @@
   pkgs,
   ...
 }: {
+  # this usually needs a reboot before the service can use the kernel module
+  boot.kernelModules = ["wireguard"];
+
   networking = {
     nat = {
       enable = true;
