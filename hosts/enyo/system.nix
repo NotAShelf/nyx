@@ -50,6 +50,9 @@ with lib; {
       programs = {
         git.signingKey = "F0D14CCB5ED5AA22 ";
 
+        cli.enable = true;
+        gui.enable = true;
+
         gaming = {
           enable = true;
           chess = true;

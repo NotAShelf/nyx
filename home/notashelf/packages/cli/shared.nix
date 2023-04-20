@@ -1,10 +1,13 @@
 {
-  config,
+  osConfig,
   lib,
   pkgs,
   ...
-}: {
-  config = {
+}:
+with lib; let
+  programs = osConfig.modules.programs;
+in {
+  config = (mkIf programs.cli.enable) {
     home.packages = with pkgs; [
       # CLI
       cloneit
@@ -17,7 +20,7 @@
       unzip
       ripgrep
       rsync
-      imagemagick
+
       bandwhich
       grex
       fd
@@ -35,7 +38,6 @@
       xorg.xhost
       nitch
       fastfetch
-      libnotify
       python39Packages.requests # move
     ];
   };

@@ -12,10 +12,10 @@ with lib; {
     # load GUI and CLI programs by default, but check if those overrides are enabled
     # so that they can be disabled at will
     cli = {
-      enabled = mkEnableOption "Enable CLI programs";
+      enable = mkEnableOption "Enable CLI programs";
     };
     gui = {
-      enabled = mkEnableOption "Enable GUI programs";
+      enable = mkEnableOption "Enable GUI programs";
     };
 
     gaming = {

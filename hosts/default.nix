@@ -116,8 +116,6 @@ in {
     modules =
       [
         ./helios
-        home-manager
-        homes
         server
         profiles
       ]

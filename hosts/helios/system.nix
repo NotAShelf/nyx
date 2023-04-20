@@ -38,6 +38,9 @@ _: {
 
       programs = {
         git.signingKey = "";
+
+        cli.enable = true;
+        gui.enable = false;
       };
     };
 

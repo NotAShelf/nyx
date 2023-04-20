@@ -47,6 +47,9 @@ in {
       programs = {
         git.signingKey = "419DBDD3228990BE";
 
+        cli.enable = true;
+        gui.enable = true;
+
         gaming = {
           enable = true;
           chess = true;
