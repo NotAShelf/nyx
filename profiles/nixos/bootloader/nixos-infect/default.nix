@@ -1,5 +1,5 @@
 {lib, ...}: {
-      services.btrfs.autoScrub.enable = lib.mkForce false;
+  services.btrfs.autoScrub.enable = lib.mkForce false;
 
   boot.loader = {
     systemd-boot.enable = false;
