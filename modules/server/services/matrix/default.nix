@@ -1,4 +1,8 @@
-{config, lib, ...}:
+{
+  config,
+  lib,
+  ...
+}:
 with lib; let
   device = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
