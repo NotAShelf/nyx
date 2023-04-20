@@ -50,7 +50,7 @@ in {
             addSSL = true;
             enableACME = true;
             locations."/" = {
-              proxyPass = "http://localhost:7000/";
+              proxyPass = "http://127.0.0.1:${toString config.services.gitea.httpPort}/";
             };
           };
         };

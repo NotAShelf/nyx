@@ -18,7 +18,7 @@ in {
     };
 
     # pass quassel port to the firewall
-    networking.firewall.allowedTCPPorts = ["${config.services.quassel.portNumber}"];
+    networking.firewall.allowedTCPPorts = ["${toString config.services.quassel.portNumber}"];
 
     services.postgresql = {
       enable = true;

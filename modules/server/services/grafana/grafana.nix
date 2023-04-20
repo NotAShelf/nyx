@@ -22,7 +22,7 @@ in {
       rootUrl = "https://dash.notashelf.dev/grafana/"; # Not needed if it is `https://your.domain/`
     };
 
-    services.nginx.virtualHosts.${config.services.grafana.domain} = {
+    services.nginx.virtualHosts.${config.services.grafana.settings.server.domain} = {
       addSSL = true;
       enableACME = true;
       locations."/grafana/" = {
