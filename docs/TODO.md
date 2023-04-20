@@ -1,7 +1,7 @@
 # TODO
 
 - [x] Move video and sound modules to a united "media" directory
-- [x] Move isWayland to usrenv module from system module 
+- [x] Move isWayland to usrenv module from system module
 - [ ] **finish making each module toggleable**
   - [x] bootloaders
   - [x] home-manager
@@ -11,7 +11,7 @@
     - [x] gaming
   - [ ] **server**
     - [x] Conditionally enable server services
-    - [ ] Override all services as disabled by default 
+    - [ ] Override all services as disabled by default
     - [ ] Add override options
 - [x] make cross-compilation togglable
 - [x] dynamic kernel module loading based on filesystems
@@ -22,6 +22,7 @@
   - [x] epimetheus
   - [x] icarus
   - [x] enyo
+  - [x] helios
   - [ ] atlas
   - ~~gaea~~ No need, no modules are imported.
 - [ ] find suitable enabling conditions for tor and xserver
@@ -32,15 +33,15 @@
     - [ ] add a program override that force enables it
 - [ ]**override options for enabled programs & services**
   - [x] home-manager module (Probably not necessary, users should bring their
-  own homes)
+        own homes)
   - [ ] desktop module
   - [ ] server module
     - [ ] default all services to off, enable them per host as required
   - [ ]**override options for default programs**
-    - [x] terminal 
-    - [ ] file-manager 
-    - [ ] editors 
-      - [ ] text editor 
+    - [x] terminal
+    - [ ] file-manager
+    - [ ] editors
+      - [ ] text editor
       - [ ] visual editor
 - [x] per-user secrets management via (r)agenix
 - [x] try to declutter inputs and unnecessary services
@@ -48,7 +49,7 @@
 - [x] clean up module skeletons
 - [ ] further work on driver modules
   - [ ] add a generation condition to intel module to enable kaby lake and above kernel params
-  - [x] figure out why nvidia breaks firefox and thunderbird but not librewolf (webgl?) **: NVIDIA SUCKS
+  - [x] figure out why nvidia breaks firefox and thunderbird but not librewolf (webgl?) \*\*: NVIDIA SUCKS
   - [x] clean up bluetooth module, we don't like bluetooth already - security would be nice
   - [ ] figure out why nvidia drivers are royally fucked
 - [ ] (home-manager) clean up schizofox module
@@ -60,8 +61,12 @@
 - [ ] (home-manager) move themes out of my home directory, so that it can be shared between users
   - [ ] clean up palettes
 - [ ] **profiles** in addition to system configurations, we can have a "profile" that overrides a bunch of configurations
-enabled or disabled
+      enabled or disabled
   - [ ] theme profiles (waybar, kitty, foot etc.)
     - [ ] default profile (catppuccin)
     - [ ] additional profiles w/ overrides
+  - [ ] bootloader profiles
+    - [ ] systemd-boot
+    - [ ] grub
+    - [ ] none (nixos-infect)
 - [x] look into additional file managers (nemo seems good)
