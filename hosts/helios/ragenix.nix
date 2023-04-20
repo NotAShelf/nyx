@@ -3,7 +3,7 @@
   self,
   ...
 }: {
-  age.secrets.spotify = {
+  age.secrets.wireguard = {
     file = "${self}/secrets/wireguard.age";
     owner = "notashelf";
     mode = "700";
