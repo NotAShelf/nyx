@@ -26,7 +26,8 @@
         {
           # desktop
           publicKey = "vv190fxSVr+u7Zv0ujPcwE4aYs0QcbObHwzWGwUNSUA=";
-          allowedIPs = ["10.100.0.2/32"];
+          allowedIPs = ["0.0.0.0/0" "::/0"];
+          # ["10.100.0.2/32"];
         }
       ];
     };
