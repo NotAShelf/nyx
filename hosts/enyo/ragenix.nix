@@ -16,5 +16,4 @@
     mode = "700";
     group = "users";
   };
-
 }
