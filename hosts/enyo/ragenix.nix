@@ -9,4 +9,12 @@
     mode = "700";
     group = "users";
   };
+
+  age.secrets.wg-client = {
+    file = "${self}/secrets/wg-client.age";
+    owner = "notashelf";
+    mode = "700";
+    group = "users";
+  };
+
 }
