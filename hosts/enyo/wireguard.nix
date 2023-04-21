@@ -22,9 +22,10 @@
         # For a client configuration, one peer entry for the server will suffice.
 
         {
-          # Public key of the server (not a file path).
+          # Public key of the server
           publicKey = "0qV2U3Dzkkf8plN19Y5pZdBgTY0TNb8BczDwzq65dXg=";
 
+          #allowedIPs = [ "0.0.0.0/0" ];
           allowedIPs = ["10.0.0.1/32"];
 
           # Set this to the server IP and port.
