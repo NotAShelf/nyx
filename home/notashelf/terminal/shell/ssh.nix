@@ -21,13 +21,13 @@ _: {
         "frozendev" = {
           hostname = "builder.neushore.dev";
           user = "raf";
-          identityFile = "builder";
+          identityFile = "~/.ssh/id_rsa";
         };
 
         "notavps" = {
           hostname = "notashelf.dev";
-          user = "builder";
-          identityFile = "builder";
+          user = "notashelf";
+          identityFile = "~/.ssh/notavps";
           port = 2214;
         };
 
