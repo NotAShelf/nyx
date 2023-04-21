@@ -25,7 +25,7 @@
           # Public key of the server (not a file path).
           publicKey = "0qV2U3Dzkkf8plN19Y5pZdBgTY0TNb8BczDwzq65dXg=";
 
-          allowedIPs = ["10.0.0.1/32" "fdc9:281f:04d7:9ee9::1/128"];
+          allowedIPs = ["10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64"];
 
           # Set this to the server IP and port.
           endpoint = "128.140.91.216:51820";
