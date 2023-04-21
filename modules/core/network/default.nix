@@ -10,6 +10,14 @@ with lib; {
     ./blocker.nix
   ];
 
+  services = {
+    # systemd DNS resolver daemon
+    resolved.enable = true;
+
+    # enable opensnitch firewall
+    opensnitch.enable = true;
+  };
+
   networking = {
     hostId = builtins.substring 0 8 (
       builtins.hashString "md5" config.networking.hostName
@@ -27,6 +35,7 @@ with lib; {
       };
     };
 
+    nftables.enable = false;
     firewall = {
       enable = mkDefault true;
       #package = mkDefault pkgs.iptables;
@@ -35,12 +44,7 @@ with lib; {
       allowPing = false;
       logReversePathDrops = true;
     };
-
-    nftables.enable = false;
   };
-
-  # enable opensnitch firewall
-  services.opensnitch.enable = true;
 
   # slows down boot time
   systemd.services.NetworkManager-wait-online.enable = false;

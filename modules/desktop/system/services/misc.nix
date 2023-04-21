@@ -19,9 +19,6 @@ in {
       # storage daemon required for udiskie auto-mount
       udisks2.enable = true;
 
-      # systemd DNS resolver daemon
-      resolved.enable = true;
-
       dbus = {
         packages = with pkgs; [dconf gcr udisks2];
         enable = true;
