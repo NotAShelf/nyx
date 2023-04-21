@@ -12,7 +12,7 @@
     # "wg0" is the network interface name. You can name the interface arbitrarily.
     wg0 = {
       # Determines the IP address and subnet of the client's end of the tunnel interface.
-      ips = ["10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64"];
+      ips = ["10.0.0.2/24"];
       listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
 
       # Path to the private key file.
@@ -25,7 +25,7 @@
           # Public key of the server (not a file path).
           publicKey = "0qV2U3Dzkkf8plN19Y5pZdBgTY0TNb8BczDwzq65dXg=";
 
-          allowedIPs = ["10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64"];
+          allowedIPs = ["10.0.0.1/32];
 
           # Set this to the server IP and port.
           endpoint = "128.140.91.216:51820";

@@ -13,7 +13,7 @@
       internalInterfaces = ["wg0"];
     };
     wireguard.interfaces.wg0 = {
-      ips = ["10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64"];
+      ips = ["10.0.0.1/24"];
       listenPort = 51820;
       privateKeyFile = config.age.secrets.wireguard.path;
       postSetup = ''
@@ -26,7 +26,7 @@
         {
           # desktop
           publicKey = "vv190fxSVr+u7Zv0ujPcwE4aYs0QcbObHwzWGwUNSUA=";
-          allowedIPs = ["10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64"];
+          allowedIPs = ["10.0.0.2/32"];
         }
       ];
     };
