@@ -19,6 +19,7 @@ in {
       cmake
       bitwarden-cli
       trash-cli
+      arrpc
     ];
   };
 }
