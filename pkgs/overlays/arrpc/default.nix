@@ -42,6 +42,7 @@ buildNpmPackage rec {
   passthru.tests.arrpc = nixosTests.arrpc;
 
   meta = with lib; {
+    mainProgram = "arrpc";
     description = "An open implementation of Discord's local RPC servers";
     homepage = "https://github.com/OpenAsar/arRPC";
     changelog = "https://github.com/OpenAsar/arRPC/blob/main/changelog.md";
