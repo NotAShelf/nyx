@@ -9,11 +9,11 @@
   networking = {
     nat = {
       enable = true;
-      externalInterface = "enp6s0";
+      externalInterface = "enp0s3";
       internalInterfaces = ["wg0"];
     };
     wireguard.interfaces.wg0 = {
-      ips = ["10.100.0.1/24" "fdc9:281f:04d7:9ee9::1/64"];
+      ips = ["10.100.0.1/24"];
       listenPort = 51820;
       privateKeyFile = config.age.secrets.wireguard.path;
       postSetup = ''
@@ -25,8 +25,7 @@
       peers = [
         {
           # desktop
-          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKAYCaA6JEnTt2BI6MJn8t2Qc3E45ARZua1VWhQpSPQi root@enyo
-";
+          publicKey = "vv190fxSVr+u7Zv0ujPcwE4aYs0QcbObHwzWGwUNSUA=";
           allowedIPs = ["10.100.0.2/32"];
         }
       ];
