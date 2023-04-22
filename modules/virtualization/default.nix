@@ -15,6 +15,7 @@ in {
 
     virtualisation = mkIf (sys.qemu.enable) {
       kvmgt.enable = true;
+      spiceUSBRedirection.enable = true;
       libvirtd = {
         enable = true;
         qemu = {
