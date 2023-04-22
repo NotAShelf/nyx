@@ -35,6 +35,12 @@ in {
           type    "pipewire"
           name    "pipewire"
         }
+        audio_output {
+          type                    "fifo"
+          name                    "fifo"
+          path                    "/tmp/mpd.fifo"
+          format                  "44100:16:2"
+        }
         auto_update "yes"
       '';
     };
@@ -69,7 +75,9 @@ in {
 
   programs.ncmpcpp = {
     enable = true;
-    package = pkgs.ncmpcpp;
+    package = pkgs.ncmpcpp.override {
+      visualizerSupport = true;
+    };
     mpdMusicDir = "/home/${username}/Media/Music";
     settings = {
       # Miscelaneous
