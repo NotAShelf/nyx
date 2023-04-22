@@ -30,8 +30,8 @@ in {
 
       export FZF_DEFAULT_OPTS="
       --color gutter:-1
-      --color bg:#${colors.base00}
-      --color bg+:#${colors.base01}
+      --color bg:-1
+      --color bg+:-1
       --color fg:#${colors.base04}
       --color fg+:#${colors.base06}
       --color hl:#${colors.base0D}
