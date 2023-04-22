@@ -20,41 +20,7 @@
 
     # Recovery images for my hosts
     # build with `nix build .#images.<hostname>`
-    images = {
-      # TODO: import images from a different file to de-clutter flake.nix
-      atlas =
-        (self.nixosConfigurations.atlas.extendModules {
-          modules = ["${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"];
-        })
-        .config
-        .system
-        .build
-        .sdImage;
-      # TODO: build on non-nixos for better reproducibility
-      prometheus =
-        (self.nixosConfigurations.prometheus.extendModules {
-          modules = ["${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"];
-          # modules = ["${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix"]; ????
-        })
-        .config
-        .system
-        .build
-        .isoImage;
-      icarus =
-        (self.nixosConfigurations.icarus.extendModules {
-          modules = ["${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"];
-        })
-        .config
-        .system
-        .build
-        .isoImage;
-      gaea =
-        (self.nixosConfigurations.gaea)
-        .config
-        .system
-        .build
-        .isoImage;
-    };
+    images = import ./hosts/images.nix {inherit inputs self lib;};
 
     packages.${system} = import ./pkgs {inherit pkgs;};
 
@@ -143,8 +109,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Webcord, maybe works better than discord client?
+    # Webcord, maybe works better than discord cient?
     webcord.url = "github:fufexan/webcord-flake";
+    arrpc.url = "github:notashelf/arrpc-flake"; # rpc
 
     # Emacs & Doom Emacs
     emacs-overlay.url = "github:nix-community/emacs-overlay";
