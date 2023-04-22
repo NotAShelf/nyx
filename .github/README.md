@@ -15,15 +15,15 @@
   <div align="center">
    <p></p>
    <a href="">
-      <img src="https://img.shields.io/github/issues/notashelf/dotfiles?color=fab387&labelColor=303446&style=for-the-badge">
+      <img src="https://img.shields.io/github/issues/notashelf/nyx?color=fab387&labelColor=303446&style=for-the-badge">
    </a>
-   <a href="https://github.com/notashelf/dotfiles/stargazers">
-      <img src="https://img.shields.io/github/stars/notashelf/dotfiles?color=ca9ee6&labelColor=303446&style=for-the-badge">
+   <a href="https://github.com/notashelf/nyx/stargazers">
+      <img src="https://img.shields.io/github/stars/notashelf/nyx?color=ca9ee6&labelColor=303446&style=for-the-badge">
    </a>
-   <a href="https://github.com/notashelf/dotfiles/">
-      <img src="https://img.shields.io/github/repo-size/notashelf/dotfiles?color=ea999c&labelColor=303446&style=for-the-badge">
+   <a href="https://github.com/notashelf/nyx/">
+      <img src="https://img.shields.io/github/repo-size/notashelf/nyx?color=ea999c&labelColor=303446&style=for-the-badge">
    </a>
-   <a href="https://github.com/notashelf/dotfiles/blob/main/LICENSE">
+   <a href="https://github.com/notashelf/nyx/blob/main/LICENSE">
     <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&logoColor=ca9ee6&colorA=313244&colorB=cba6f7"/>
    </a>
    <a href="https://liberapay.com/notashelf/donate"><img src="https://img.shields.io/liberapay/patrons/notashelf.svg?logo=liberapay?color=e5c890&labelColor=303446&style=for-the-badge"></a>
