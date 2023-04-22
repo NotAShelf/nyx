@@ -33,7 +33,7 @@ in {
       xorg.xhost
       nitch
       fastfetch
-      python39Packages.requests # move
+      skim
     ];
   };
 }
