@@ -1,23 +1,37 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: let
+  # a function that checks for the existence of a group
+  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+in {
   users.users.notashelf = {
+    packages = [pkgs.home-manager];
     isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "docker"
-      "systemd-journal"
-      "audio"
-      "wireshark"
-      "video"
-      "input"
-      "plugdev"
-      "lp"
-      "networkmanager"
-      "libvirtd"
-      "tss"
-      "power"
-      "nix"
-      "gitea"
-    ];
+    extraGroups =
+      [
+        "wheel"
+        "systemd-journal"
+        "audio"
+        "video"
+        "input"
+        "plugdev"
+        "lp"
+        "tss"
+        "power"
+        "nix"
+      ]
+      ++ ifTheyExist [
+        "network"
+        "networkmanager"
+        "wireshark"
+        "mysql"
+        "docker"
+        "podman"
+        "git"
+        "libvirtd"
+      ];
     uid = 1001;
     shell = pkgs.zsh;
     initialPassword = "changeme";
