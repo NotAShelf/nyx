@@ -1,11 +1,9 @@
 {
   pkgs,
   config,
+  lib,
   ...
-}: let
-  # a function that checks for the existence of a group
-  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in {
+}: {
   users.users.notashelf = {
     packages = [pkgs.home-manager];
     isNormalUser = true;
@@ -22,7 +20,7 @@ in {
         "power"
         "nix"
       ]
-      ++ ifTheyExist [
+      ++ lib.ifTheyExist config [
         "network"
         "networkmanager"
         "wireshark"
