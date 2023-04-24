@@ -65,6 +65,7 @@ in {
     boot = {
       kernelModules = lib.mkForce ["bridge" "macvlan" "tap" "tun" "loop" "atkbd" "ctr"];
       supportedFilesystems = lib.mkForce ["btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" "ext4" "vfat"];
+      loader.grub.enable = mkForce false;
     };
 
     services = {
