@@ -125,7 +125,6 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
-  /*
   # Raspberry Pi 400
   # My Pi400 homelab, used mostly for testing
   atlas = nixpkgs.lib.nixosSystem {
@@ -136,9 +135,8 @@ in {
         hw.raspberry-pi-4
       ]
       ++ shared;
-    specialArgs = {inherit inputs;};
+    specialArgs = {inherit inputs self lib;};
   };
-  */
 
   # Live recovery environment that overrides some default programs
   # and fixes keymap for me

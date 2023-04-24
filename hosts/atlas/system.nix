@@ -16,22 +16,38 @@ in {
         monitors = ["HDMI-A-1"];
         hasBluetooth = true;
         hasSound = true;
-        hasTPM = true;
+        hasTPM = false;
       };
-
       system = {
         fs = ["ext4" "vfat"];
         video.enable = true;
         sound.enable = true;
-        printing.enable = false;
         bluetooth.enable = false;
+        printing.enable = false;
+        virtualization.enable = false;
         username = "notashelf";
       };
-
       usrEnv = {
         isWayland = false;
-        desktop = [];
-        useHomeManager = false;
+        desktop = "Hyprland";
+        useHomeManager = true;
+      };
+      programs = {
+        git.signingKey = "0x84184B8533918D88";
+
+        cli.enable = true;
+        gui.enable = false;
+
+        gaming = {
+          enable = false;
+          chess = false;
+        };
+
+        default = {
+          terminal = "foot";
+        };
+
+        override = {};
       };
     };
 
@@ -67,10 +83,6 @@ in {
           PASSPHRASE = "12345678";
         };
       };
-    };
-
-    security.tpm2 = {
-      enable = false;
     };
 
     fileSystems = {
