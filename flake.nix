@@ -64,6 +64,7 @@
     # my personal neovim-flake
     neovim-flake = {
       url = "github:notashelf/neovim-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Automated, pre-built packages for Wayland
@@ -92,12 +93,20 @@
 
     # Hyprland & Hyprland Contrib repos
     hyprland = {
-      url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
+      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprpicker.url = "github:hyprwm/hyprpicker";
-    xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    xdg-portal-hyprland = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
