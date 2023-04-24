@@ -13,7 +13,7 @@
       # I don't know how reproducible the url is...
       VENCORD_CRX_URL = vencord-url;
       sha256 = "";
-      outputHash = "lovKwzBa4IMKDZ4TR6lv9pzWV7Vjm1FXG8ZRv4dZ9IM=";
+      outputHash = "sha256-ZjD18wwqWmAd130imJFA9SrurC44wBh0m3o2s0bCODQ=";
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
       nativeBuildInputs = [curl p7zip];
