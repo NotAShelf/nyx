@@ -21,7 +21,7 @@ in {
       };
       system = {
         username = "notashelf";
-        fs = ["btrfs" "vfat"];
+        fs = ["btrfs" "ext4" "vfat"];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
@@ -97,6 +97,11 @@ in {
           "i915.enable_fbc=1"
           "i915.enable_psr=2"
         ];
+      kernelModules = [
+        "sdhci"
+      ];
+
+      supportedFilesystems = ["ext4" "exfat"];
     };
 
     services.btrfs.autoScrub = {fileSystems = ["/"];};
