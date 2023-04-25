@@ -10,7 +10,6 @@ in {
     userName = "NotAShelf";
     userEmail = "itsashelf@gmail.com";
     signing = {
-      #key = lib.mkDefault "419DBDD3228990BE";
       key = cfg.signingKey;
       signByDefault = true;
     };

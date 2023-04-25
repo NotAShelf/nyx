@@ -33,8 +33,8 @@ in {
         winetricks
         mangohud
         lutris
-        dolphin-emu
-        yuzu
+        dolphin-emu # cool emulator
+        yuzu # switch emulator
         taisei # open-source touhou fan game
         # get dotnet runtime 6 - needed by terraria
         dotnet-runtime_6

@@ -19,7 +19,6 @@ in {
       cmake
       bitwarden-cli
       trash-cli
-      arrpc
       python39Packages.requests
     ];
   };
