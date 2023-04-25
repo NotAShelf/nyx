@@ -40,7 +40,7 @@ in {
 
         gaming = {
           enable = false;
-          chess = true;
+          chess.enable = true;
         };
 
         default = {

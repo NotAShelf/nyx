@@ -21,11 +21,9 @@ with lib; {
     gaming = {
       enable = mkEnableOption "Enable packages required for the device to be gaming-ready";
 
-      chess = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Chess programs and engines";
-      };
+      emulation.enable = mkEnableOption "Enable programs required to emulate other platforms, such as Nintendo Switch";
+
+      chess.enable = mkEnableOption "Chess programs and engines";
 
       gamescope = mkOption {
         type = types.bool;
@@ -49,12 +47,12 @@ with lib; {
       # not work because the program name will be references as "foot" in the rest of the config
       terminal = mkOption {
         type = types.enum ["foot" "kitty" "wezterm"];
-        default = "foot";
+        default = "kitty";
       };
 
       fileManager = mkOption {
         type = types.enum ["thunar" "dolphin" "nemo"];
-        default = "thunar";
+        default = "nemo";
       };
 
       browser = mkOption {
@@ -64,7 +62,7 @@ with lib; {
 
       editor = mkOption {
         type = types.enum ["neovim" "helix" "emacs"];
-        default = "nvim";
+        default = "neovim";
       };
     };
 
@@ -78,21 +76,6 @@ with lib; {
           type = types.bool;
           default = false;
         };
-
-        /*
-           FIXME: proof of concept
-        "*" = {
-          disable = mkOption {
-            type = types.bool;
-            description = "Forcefully disables any program that has been overriden to be disabled.";
-          };
-
-          enable = mkOption {
-            type = types.bool;
-            description = "Forcefully enables any program that has been overriden to be enabled.";
-          };
-        };
-        */
       };
       service = {
         /*

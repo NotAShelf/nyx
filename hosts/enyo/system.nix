@@ -55,7 +55,7 @@ with lib; {
 
         gaming = {
           enable = true;
-          chess = true;
+          chess.enable = true;
         };
         default = {
           terminal = "foot";

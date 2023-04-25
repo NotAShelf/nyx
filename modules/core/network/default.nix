@@ -39,7 +39,7 @@ with lib; {
     firewall = {
       enable = mkDefault true;
       #package = mkDefault pkgs.iptables;
-      allowedTCPPorts = [443 80 22 8080];
+      allowedTCPPorts = [443 80 22 8080 3030];
       allowedUDPPorts = [443 80 9100 44857 8080];
       allowPing = false;
       logReversePathDrops = true;
