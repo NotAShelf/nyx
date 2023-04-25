@@ -11,8 +11,6 @@
   # My personal derivations for packages that are not on nixpkgs
   fastfetch = pkgs.callPackage ./overlays/fastfetch {};
   shadower = pkgs.callPackage ./overlays/shadower {};
-  webcord-vencord = pkgs.callPackage ./overlays/webcord-vencord {};
-  arrpc = pkgs.callPackage ./overlays/arrpc {};
 
   nicksfetch = pkgs.callPackage ./nicksfetch.nix {};
   cloneit = pkgs.callPackage ./cloneit.nix {};

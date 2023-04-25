@@ -5,8 +5,6 @@ final: prev: {
   ani-cli = prev.callPackage ./ani-cli {};
   anime4k = prev.callPackage ./anime4k {};
   shadower = prev.callPackage ./shadower {};
-  webcord-vencord = prev.callPackage ./webcord-vencord {};
-  arrpc = prev.callPackage ./arrpc {};
 
   # catppuccin packages
   catppuccin-gtk = prev.callPackage ../catppuccin-gtk.nix {};
