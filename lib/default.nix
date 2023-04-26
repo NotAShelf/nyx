@@ -20,5 +20,12 @@ with lib;
 
       # a function that returns a boolean based on whether or not the groups exist
       ifGroupsExist = config: groups: lib.any (group: builtins.hasAttr group config.users.groups) groups;
+
+      # make a service that is a part of the graphical session target
+      mkGraphicalService = lib.recursiveUpdate {
+        Unit.PartOf = ["graphical-session.target"];
+        Unit.After = ["graphical-session.target"];
+        Install.WantedBy = ["graphical-session.target"];
+      };
     }
   )
