@@ -9,7 +9,7 @@
         {
           publicKey = "0qV2U3Dzkkf8plN19Y5pZdBgTY0TNb8BczDwzq65dXg=";
           allowedIPs = ["10.0.0.1/24"];
-          endpoint = "notashelf.dev:51820";
+          endpoint = "notashelf.dev:5533";
           persistentKeepalive = 30;
         }
       ];
