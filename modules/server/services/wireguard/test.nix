@@ -21,7 +21,6 @@
       ];
 
       # Peers
-      # TODO: Template?
       peers = [
         # enyo
         {
