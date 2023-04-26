@@ -3,8 +3,8 @@
   self,
   ...
 }: {
-  age.secrets.wireguard = {
-    file = "${self}/secrets/wireguard.age";
+  age.secrets.wg-server = {
+    file = "${self}/secrets/wg-server.age";
     owner = "notashelf";
     mode = "700";
     group = "users";

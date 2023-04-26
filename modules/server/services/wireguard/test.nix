@@ -8,7 +8,7 @@
     enable = true;
     interfaces.wg1 = {
       # General settings
-      privateKeyFile = config.age.secrets.wireguard.path;
+      privateKeyFile = config.age.secrets.wg-server.path;
       listenPort = 51820;
 
       # IPs
