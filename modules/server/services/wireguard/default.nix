@@ -1,5 +1,6 @@
 _: {
   imports = [
-    ./server.nix
+    #./server.nix
+    ./test.nix
   ];
 }
