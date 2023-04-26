@@ -30,7 +30,7 @@
             "fe80::11/128"
             "2a01:4f9:c010:2cf9:f::11/128"
           ];
-          publicKey = "vv190fxSVr+u7Zv0ujPcwE4aYs0QcbObHwzWGwUNSUA=";
+          publicKey = "u5Riuu4NEWEH06qATdnrPO+LacZTspoghqMnoWQ+uEQ=";
         }
       ];
     };

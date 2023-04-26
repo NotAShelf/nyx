@@ -18,7 +18,7 @@
             "2a01:4f9:c010:2cf9:f::/80"
           ];
           endpoint = "notashelf.dev:51820";
-          publicKey = "0qV2U3Dzkkf8plN19Y5pZdBgTY0TNb8BczDwzq65dXg=";
+          publicKey = "v3ol3QsgLPudVEtbETByQ0ABAOrJE2WcFfQ/PQAD8FM=";
         }
       ];
       privateKeyFile = config.age.secrets.wg-client.path;
