@@ -50,8 +50,8 @@ with lib; {
     firewall = {
       enable = mkDefault false;
       package = mkDefault pkgs.iptables;
-      allowedTCPPorts = [443 80 22 8080 3030];
-      allowedUDPPorts = [443 80 9100 44857 8080];
+      allowedTCPPorts = [443 80 3030 8080];
+      allowedUDPPorts = [443 80 8080 9100 44857];
       allowPing = false;
       logReversePathDrops = true;
     };
