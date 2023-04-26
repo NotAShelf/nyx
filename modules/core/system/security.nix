@@ -19,7 +19,7 @@ in {
     forcePageTableIsolation = true;
 
     # User namespaces are required for sandboxing. Better than nothing imo.
-    security.allowUserNamespaces = true;
+    allowUserNamespaces = true;
 
     apparmor = {
       enable = true;
