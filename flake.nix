@@ -102,6 +102,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     xdg-portal-hyprland = {
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
