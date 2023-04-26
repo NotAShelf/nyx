@@ -19,13 +19,13 @@ _: {
         };
 
         "frozendev" = {
-          hostname = "builder.neushore.dev";
+          hostname = "frzn.dev";
           user = "raf";
           identityFile = "~/.ssh/id_rsa";
         };
 
         "notavps" = {
-          hostname = "notashelf.dev";
+          hostname = "cloud.notashelf.dev";
           user = "notashelf";
           identityFile = "~/.ssh/notavps";
           port = 2214;
