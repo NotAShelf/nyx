@@ -12,7 +12,7 @@
       wg0 = {
         ips = ["10.0.0.1/24"];
         listenPort = 5553;
-        privateKeyFile = "/home/notashelf/wireguard-keys/private";
+        privateKeyFile = "/root/wireguard-keys/private";
         peers = [
           {
             # enyo

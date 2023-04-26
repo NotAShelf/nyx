@@ -2,11 +2,12 @@
   # wireguard vpn
   networking.wg-quick.interfaces = {
     wg0 = {
-      privateKeyFile = "/home/notashelf/wireguard-keys/private";
+      privateKeyFile = "/root/wg-private";
       address = ["10.0.0.2/32"];
       dns = ["10.0.0.1"];
       peers = [
         {
+          # helios
           publicKey = "0qV2U3Dzkkf8plN19Y5pZdBgTY0TNb8BczDwzq65dXg=";
           allowedIPs = ["10.0.0.1/24"];
           endpoint = "notashelf.dev:5533";
