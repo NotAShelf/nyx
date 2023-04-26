@@ -16,6 +16,18 @@ with lib; {
 
     # enable opensnitch firewall
     opensnitch.enable = true;
+    
+    # fail2ban firewall jail
+    fail2ban = {
+    enable = true;
+    maxretry = 5;
+    ignoreIP = [
+      "127.0.0.0/8"
+      "10.0.0.0/8"
+      "192.168.0.0/16"
+    ];
+  };
+
   };
 
   networking = {
@@ -37,8 +49,8 @@ with lib; {
 
     nftables.enable = false;
     firewall = {
-      enable = mkDefault true;
-      #package = mkDefault pkgs.iptables;
+      enable = mkDefault false;
+      package = mkDefault pkgs.iptables;
       allowedTCPPorts = [443 80 22 8080 3030];
       allowedUDPPorts = [443 80 9100 44857 8080];
       allowPing = false;
