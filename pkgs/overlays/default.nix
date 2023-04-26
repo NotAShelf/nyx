@@ -7,9 +7,9 @@ final: prev: {
   shadower = prev.callPackage ./shadower {};
 
   # catppuccin packages
-  catppuccin-gtk = prev.callPackage ../catppuccin-gtk.nix {};
-  catppuccin-folders = prev.callPackage ../catppuccin-folders.nix {};
-  catppuccin-cursors = prev.callPackage ../catppuccin-cursors.nix {};
+  # catppuccin-gtk = prev.callPackage ../catppuccin-gtk.nix {};
+  # catppuccin-folders = prev.callPackage ../catppuccin-folders.nix {};
+  # catppuccin-cursors = prev.callPackage ../catppuccin-cursors.nix {};
 
   cloneit = prev.callPackage ../cloneit.nix {};
   proton-ge = prev.callPackage ../proton-ge.nix {};
