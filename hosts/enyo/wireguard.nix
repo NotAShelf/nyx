@@ -12,7 +12,7 @@
   networking.wireguard = {
     enable = true;
     interfaces = {
-      wg1 = {
+      wg0 = {
         # General Settings
         privateKeyFile = config.age.secrets.wg-client.path;
         allowedIPsAsRoutes = true;

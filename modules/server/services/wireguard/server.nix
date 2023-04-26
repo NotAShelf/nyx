@@ -11,7 +11,7 @@
   networking.wireguard = {
     enable = true;
     interfaces = {
-      wg1 = {
+      wg0 = {
         # General settings
         privateKeyFile = config.age.secrets.wg-server.path;
         listenPort = 51820;
