@@ -28,8 +28,13 @@ in {
       zoom-us # I hate this
       cinnamon.nemo
       brightnessctl # move
-      pamixer # move
       tesseract5 # move
+      pamixer # move
+      dolphin
+      plasma5Packages.kio
+      plasma5Packages.kio-extras
+      plasma5Packages.kimageformats
+      plasma5Packages.kdegraphics-thumbnailers
     ];
   };
 }
