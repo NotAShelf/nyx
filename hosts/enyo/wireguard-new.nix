@@ -3,7 +3,7 @@
   networking.wg-quick.interfaces = {
     wg0 = {
       privateKeyFile = "/home/notashelf/wireguard-keys/private";
-      address = ["10.0.0.3/32"];
+      address = ["10.0.0.2/32"];
       dns = ["10.0.0.1"];
       peers = [
         {

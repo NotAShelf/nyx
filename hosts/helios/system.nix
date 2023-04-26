@@ -63,5 +63,7 @@
       splashImage = null;
       device = lib.mkForce "/dev/sda";
     };
+
+    networking.domain = "notashelf.dev";
   };
 }
