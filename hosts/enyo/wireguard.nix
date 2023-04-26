@@ -1,44 +1,28 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
-  networking = {
-    # enable wireguard and add tools
-    wireguard.enable = true;
-
-    # ports to be used for wireguard
-    firewall.allowedUDPPorts = [51820 51821];
-
-    # wg-quick interfaces, could be named anything
-    wg-quick.interfaces = {
-      wg0 = {
-        privateKeyFile = config.age.secrets.wg-client.path;
-        address = ["10.0.0.2/32"];
-        dns = ["10.0.0.1"];
-        listenPort = 51820;
-        peers = [
-          {
-            # helios
-            publicKey = "0qV2U3Dzkkf8plN19Y5pZdBgTY0TNb8BczDwzq65dXg=";
-            allowedIPs = ["10.0.0.1/24"];
-            endpoint = "notashelf.dev:51820";
-            persistentKeepalive = 30;
-          }
-        ];
-      };
-    };
-  };
-
-  # append restart conditions to the wg-quick service
-  systemd.services.wg-quick-wg0 = {
-    serviceConfig = {
-      Type = lib.mkForce "simple";
-      Restart = "always";
-      RestartSec = "10s";
-    };
-    unitConfig = {
-      StartLimitIntervalSec = 0; # ensure Restart= is always honoured
+  networking.wireguard.enable = true;
+  networking.wireguard.interfaces = {
+    wg1 = {
+      ips = [
+        "10.255.255.11/32"
+        "2a01:4f9:c010:2cf9:f::11/128"
+      ];
+      peers = [
+        {
+          allowedIPs = [
+            "10.255.255.0/24"
+            "2a01:4f9:c010:2cf9:f::/80"
+          ];
+          endpoint = "notashelf.dev:51820";
+          publicKey = "0qV2U3Dzkkf8plN19Y5pZdBgTY0TNb8BczDwzq65dXg=";
+        }
+      ];
+      privateKeyFile = config.age.secrets.wg-client.path;
+      allowedIPsAsRoutes = true;
     };
   };
 }

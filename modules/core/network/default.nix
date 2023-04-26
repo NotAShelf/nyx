@@ -54,6 +54,7 @@ with lib; {
       allowedUDPPorts = [443 80 8080 9100 44857];
       allowPing = false;
       logReversePathDrops = true;
+      checkReversePath = lib.mkForce false; # Don't filter DHCP packets, according to nixops-libvirtd
     };
   };
 

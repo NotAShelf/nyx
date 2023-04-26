@@ -9,5 +9,5 @@ let
 in {
   "spotify.age".publicKeys = [notashelf];
   "wireguard.age".publicKeys = [helios] ++ shared;
-  "wg-client.age".publicKeys = [notashelf];
+  "wg-client.age".publicKeys = shared;
 }
