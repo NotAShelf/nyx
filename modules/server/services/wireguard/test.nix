@@ -12,7 +12,7 @@
       wg0 = {
         ips = ["10.0.0.1/24"];
         listenPort = 5553;
-        privateKeyFile = "/root/wg-private";
+        privateKeyFile = "/home/notashelf/wireguard-keys/private";
         peers = [
           {
             # enyo
@@ -21,8 +21,8 @@
           }
           /*
           {
-            # neodymium
-            publicKey = "IFeRvelEilNRLkhWgFKL9HrJ9XYsm+r4yvv23CigETk=";
+            # test
+            publicKey = "";
             allowedIPs = ["10.0.0.3/32"];
           }
           */
