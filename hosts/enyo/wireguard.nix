@@ -5,17 +5,18 @@
   ...
 }: {
   networking.firewall = {
-    allowedUDPPorts = [51820]; # Clients and peers can use the same port, see listenpor
+    allowedUDPPorts = [51820];
   };
+
   # Wireguard Client Peer Setup
   networking.wireguard = {
     enable = true;
-    
-
     interfaces = {
       wg1 = {
-      privateKeyFile = config.age.secrets.wg-client.path;
+        # General Settings
+        privateKeyFile = config.age.secrets.wg-client.path;
         allowedIPsAsRoutes = true;
+        listenPort = 51820;
         ips = [
           "10.255.255.11/32"
           "2a01:4f9:c010:2cf9:f::11/128"
