@@ -16,18 +16,17 @@ with lib; {
 
     # enable opensnitch firewall
     opensnitch.enable = true;
-    
+
     # fail2ban firewall jail
     fail2ban = {
-    enable = true;
-    maxretry = 5;
-    ignoreIP = [
-      "127.0.0.0/8"
-      "10.0.0.0/8"
-      "192.168.0.0/16"
-    ];
-  };
-
+      enable = true;
+      maxretry = 5;
+      ignoreIP = [
+        "127.0.0.0/8"
+        "10.0.0.0/8"
+        "192.168.0.0/16"
+      ];
+    };
   };
 
   networking = {
