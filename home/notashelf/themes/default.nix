@@ -22,7 +22,7 @@ in {
   imports = [
     inputs.nix-colors.homeManagerModule
     ./gtk.nix
-    #./qt
+    ./qt.nix
   ];
   # Use the colorscheme available at github:tinted-theming/base16-schemes
   #colorscheme = colorSchemes.ashes;

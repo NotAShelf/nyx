@@ -1,5 +1,6 @@
 {
   osConfig,
+  config,
   pkgs,
   lib,
   ...
@@ -10,65 +11,74 @@ with lib; let
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
+    home.packages = with pkgs; [glib]; # gsettings
+    xdg.systemDirs.data = let
+      schema = pkgs.gsettings-desktop-schemas;
+    in ["${schema}/share/gsettings-schemas/${schema.name}"];
+
+    home.sessionVariables = {
+      # set GTK theme as specified by the catppuccin-gtk package
+      GTK_THEME = "${config.gtk.theme.name}"; #"Catppuccin-Mocha-Blue-Dark";
+
+      # gtk applications should use filepickers specified by xdg
+      GTK_USE_PORTAL = "1";
+    };
+
     gtk = {
       enable = true;
+
       theme = {
-        name = "Catppuccin-Mocha-Pink";
-        package = pkgs.catppuccin-gtk;
+        name = "Catppuccin-Mocha-Compact-Blue-Dark";
+        package = pkgs.catppuccin-gtk.override {
+          size = "compact";
+          accents = ["blue"];
+          variant = "mocha";
+        };
       };
 
       iconTheme = {
-        name = "Papirus";
-        package = pkgs.catppuccin-folders;
+        name = "Papirus-Dark";
+        package = pkgs.catppuccin-papirus-folders.override {
+          accent = "blue";
+          flavor = "mocha";
+        };
       };
 
       font = {
         name = "Lexend";
         size = 13;
       };
+
       gtk3.extraConfig = {
         gtk-xft-antialias = 1;
         gtk-xft-hinting = 1;
         gtk-xft-hintstyle = "hintslight";
         gtk-xft-rgba = "rgb";
       };
-      gtk2.extraConfig = ''
-        gtk-xft-antialias=1
-        gtk-xft-hinting=1
-        gtk-xft-hintstyle="hintslight"
-        gtk-xft-rgba="rgb"
-      '';
+
+      gtk2 = {
+        configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+        extraConfig = ''
+          gtk-xft-antialias=1
+          gtk-xft-hinting=1
+          gtk-xft-hintstyle="hintslight"
+          gtk-xft-rgba="rgb"
+        '';
+      };
     };
 
     # cursor theme
     home = {
       pointerCursor = {
-        name = "Catppuccin-Frappe-Dark";
-        package = pkgs.catppuccin-cursors;
-        size = 16;
+        package = pkgs.catppuccin-cursors.mochaDark; #pkgs.bibata-cursors;
+        name = "Catppuccin-Mocha-Dark-Cursors"; #"Bibata-Modern-Classic";
+        size = 24;
         gtk.enable = true;
         x11.enable = true;
       };
     };
 
-    # credits: bruhvko
-    # catppuccin theme for qt-apps
-    home.packages = with pkgs; [libsForQt5.qtstyleplugin-kvantum];
-
-    xdg.configFile."Kvantum/catppuccin/catppuccin.kvconfig".source = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.kvconfig";
-      sha256 = "1f8xicnc5696g0a7wak749hf85ynfq16jyf4jjg4dad56y4csm6s";
-    };
-    xdg.configFile."Kvantum/catppuccin/catppuccin.svg".source = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.svg";
-      sha256 = "0vys09k1jj8hv4ra4qvnrhwxhn48c2gxbxmagb3dyg7kywh49wvg";
-    };
-    xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
-      [General]
-      theme=catppuccin
-
-      [Applications]
-      catppuccin=qt5ct, org.kde.dolphin, org.kde.kalendar, org.qbittorrent.qBittorrent, hyprland-share-picker, dolphin-emu, Nextcloud
-    '';
+    i18n.inputMethod.enabled = "fcitx5";
+    i18n.inputMethod.fcitx5.addons = with pkgs; [fcitx5-mozc];
   };
 }
