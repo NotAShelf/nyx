@@ -91,8 +91,8 @@ in {
         };
       });
       iconTheme = {
-        package = pkgs.catppuccin-folders;
-        name = "Papirus";
+        package = config.gtk.iconTheme.package;
+        name = "Papirus-Dark";
       };
 
       settings = let

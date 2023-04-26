@@ -49,14 +49,6 @@ in {
     };
 
     systemd.user.services = {
-      swaybg = mkService {
-        Unit.Description = "Wallpaper chooser service";
-        Service = {
-          ExecStart = "${lib.getExe pkgs.swaybg} -i ${./wall.png}";
-          Restart = "always";
-        };
-      };
-
       cliphist = mkService {
         Unit.Description = "Clipboard history service";
         Service = {

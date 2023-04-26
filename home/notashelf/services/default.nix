@@ -4,6 +4,8 @@ _: {
     ./dunst
     ./swaylock
     ./swayidle
+    #./swaybg
+    ./hyprpaper
     ./waybar
     ./media
     ./cloud
