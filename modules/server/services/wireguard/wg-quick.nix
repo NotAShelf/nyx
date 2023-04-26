@@ -1,17 +1,17 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   networking = {
-    firewall = {
-      allowedUDPPorts = [
-        5553 # wireguard
-      ];
-    };
+    firewall.allowedUDPPorts = [51820 51821];
 
     nat.internalInterfaces = ["wg0"];
 
     wireguard.interfaces = {
       wg0 = {
         ips = ["10.0.0.1/24"];
-        listenPort = 5553;
+        listenPort = 51820;
         privateKeyFile = config.age.secrets.wireguard.path;
         peers = [
           {
