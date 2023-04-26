@@ -1,7 +1,5 @@
 _: {
   imports = [
-    #./server.nix
-    #./wg-quick.nix
-    ./test.nix
+    ./server.nix
   ];
 }

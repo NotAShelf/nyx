@@ -3,10 +3,14 @@
   lib,
   ...
 }: {
-  # Wireguard setup
+  networking.firewall = {
+    allowedUDPPorts = [51820];
+  };
+  # Wireguard Server Peer Setup
   networking.wireguard = {
     enable = true;
-    interfaces.wg1 = {
+    interfaces = {
+    wg1 = {
       # General settings
       privateKeyFile = config.age.secrets.wg-server.path;
       listenPort = 51820;
@@ -32,6 +36,7 @@
           publicKey = "u5Riuu4NEWEH06qATdnrPO+LacZTspoghqMnoWQ+uEQ=";
         }
       ];
+    };
     };
   };
 }
