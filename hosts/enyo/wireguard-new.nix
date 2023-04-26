@@ -1,8 +1,12 @@
-{lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   # wireguard vpn
   networking.wg-quick.interfaces = {
     wg0 = {
-      privateKeyFile = "/root/wg-private";
+      privateKeyFile = config.age.secrets.wireguard.path;
       address = ["10.0.0.2/32"];
       dns = ["10.0.0.1"];
       peers = [

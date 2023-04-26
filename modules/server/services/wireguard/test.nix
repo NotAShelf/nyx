@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   networking = {
     firewall = {
       allowedUDPPorts = [
@@ -12,7 +12,7 @@
       wg0 = {
         ips = ["10.0.0.1/24"];
         listenPort = 5553;
-        privateKeyFile = "/root/wireguard-keys/private";
+        privateKeyFile = config.age.secrets.wireguard.path;
         peers = [
           {
             # enyo
