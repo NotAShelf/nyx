@@ -11,8 +11,15 @@ in {
     # make the tailscale command usable to users
     environment.systemPackages = [pkgs.tailscale];
 
-    # enable tailscale, inter-machine VPN service
+    networking.firewall = {
+      # always allow traffic from your Tailscale network
+      trustedInterfaces = ["tailscale0"];
 
+      # allow the Tailscale UDP port through the firewall
+      allowedUDPPorts = [config.services.tailscale.port];
+    };
+
+    # enable tailscale, inter-machine VPN service
     services.tailscale = {
       enable = true;
       permitCertUid = "root";
