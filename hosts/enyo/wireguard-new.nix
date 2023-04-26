@@ -1,4 +1,4 @@
-lib: {
+{lib, ...}: {
   # wireguard vpn
   networking.wg-quick.interfaces = {
     wg0 = {
