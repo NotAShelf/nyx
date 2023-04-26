@@ -28,15 +28,17 @@
         ];
       };
     };
-    systemd.services.wg-quick-wg0 = {
-      serviceConfig = {
-        Type = lib.mkForce "simple";
-        Restart = "on-failure";
-        RestartSec = "10s";
-      };
-      unitConfig = {
-        StartLimitIntervalSec = 0; # ensure Restart= is always honoured
-      };
+  };
+
+  # append restart conditions to the wg-quick service
+  systemd.services.wg-quick-wg0 = {
+    serviceConfig = {
+      Type = lib.mkForce "simple";
+      Restart = "always";
+      RestartSec = "10s";
+    };
+    unitConfig = {
+      StartLimitIntervalSec = 0; # ensure Restart= is always honoured
     };
   };
 }
