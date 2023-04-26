@@ -18,6 +18,9 @@ in {
     # force-enable the Page Table Isolation (PTI) Linux kernel feature
     forcePageTableIsolation = true;
 
+    # User namespaces are required for sandboxing. Better than nothing imo.
+    security.allowUserNamespaces = true;
+
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;
