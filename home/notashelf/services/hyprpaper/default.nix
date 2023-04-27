@@ -8,6 +8,8 @@
   env = osConfig.modules.usrEnv;
   sys = osConfig.modules.system;
 
+  monitors = osConfig.modules.device.monitors;
+
   hyprpaper = inputs.hyprpaper.packages.${pkgs.system}.default;
 in {
   config = lib.mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
@@ -31,7 +33,7 @@ in {
         };
       in ''
         preload=${path}
-        wallpaper=HDMI-A-1,${path}
+        ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''wallpaper=${monitor},${path}'') monitors)}
         ipc=off
       '';
     };
