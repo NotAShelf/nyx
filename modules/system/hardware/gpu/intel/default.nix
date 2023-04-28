@@ -7,7 +7,7 @@
 with lib; let
   device = config.modules.device;
 in {
-  config = mkIf (device.gpu == "intel" || device.gpu == "nvHybrid") {
+  config = mkIf (device.gpu == "intel" || device.gpu == "hybrid-nv") {
     # enable the i915 kernel module
     boot.initrd.kernelModules = ["i915"];
     # better performance than the actual Intel driver
