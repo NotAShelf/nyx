@@ -1,5 +1,4 @@
 {
-  nixpkgs,
   self,
   lib,
   ...
@@ -34,7 +33,7 @@ in {
   # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
   # fully free from nvidia
   # fuck nvidia - Linus "the linux" Torvalds
-  enyo = nixpkgs.lib.nixosSystem {
+  enyo = lib.mkSystem {
     system = "x86_64-linux";
     modules =
       [
@@ -51,7 +50,7 @@ in {
 
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
-  prometheus = nixpkgs.lib.nixosSystem {
+  prometheus = lib.mkSystem {
     system = "x86_64-linux";
     modules =
       [
@@ -67,7 +66,7 @@ in {
   };
 
   # Twin host of prometheus, provides disk encryption
-  epimetheus = nixpkgs.lib.nixosSystem {
+  epimetheus = lib.mkNixosSystem {
     system = "x86_64-linux";
     modules =
       [
@@ -83,7 +82,7 @@ in {
   };
 
   # Virtual machine host for testing
-  janus = nixpkgs.lib.nixosSystem {
+  janus = lib.mkSystem {
     system = "x86_64-linux";
     modules =
       [
@@ -97,7 +96,7 @@ in {
 
   # Lenovo Ideapad from 2014
   # Portable "server"
-  icarus = nixpkgs.lib.nixosSystem {
+  icarus = lib.mkSystem {
     system = "x86_64-linux";
     modules =
       [
@@ -111,7 +110,7 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
-  helios = nixpkgs.lib.nixosSystem {
+  helios = lib.mkSystem {
     system = "x86_64-linux";
     modules =
       [
@@ -127,7 +126,7 @@ in {
 
   # Raspberry Pi 400
   # My Pi400 homelab, used mostly for testing
-  atlas = nixpkgs.lib.nixosSystem {
+  atlas = lib.mkNixosSystem {
     system = "aarch64-linux";
     modules =
       [
@@ -140,13 +139,11 @@ in {
 
   # Live recovery environment that overrides some default programs
   # and fixes keymap for me
-  gaea = nixpkgs.lib.nixosSystem {
+  gaea = lib.mkNixosIso {
     system = "x86_64-linux";
     modules = [
       # import base iso configuration on top of base nixos modules for the live installer
       ./gaea
-      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
     ];
     specialArgs = {inherit inputs self;};
   };
