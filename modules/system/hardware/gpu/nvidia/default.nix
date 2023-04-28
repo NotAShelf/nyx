@@ -30,29 +30,31 @@ in {
     # nvidia drivers are unfree software
     nixpkgs.config.allowUnfree = true;
 
-    services.xserver = {
-      videoDrivers = ["nvidia"];
+    services.xserver = mkMerge [
+      {
+        videoDrivers = ["nvidia"];
 
-      # disable DPMS
-      monitorSection = ''
-        Option "DPMS" "false"
-      '';
+        /*
+        # disable DPMS
+        monitorSection = ''
+          Option "DPMS" "false"
+        '';
 
-      # disable screen blanking in total
-      serverFlagsSection = ''
-        Option "StandbyTime" "0"
-        Option "SuspendTime" "0"
-        Option "OffTime" "0"
-        Option "BlankTime" "0"
-      '';
-    };
+        # disable screen blanking in total
+        serverFlagsSection = ''
+          Option "StandbyTime" "0"
+          Option "SuspendTime" "0"
+          Option "OffTime" "0"
+          Option "BlankTime" "0"
+        '';
+        */
+      }
+    ];
 
     boot = {
       # blacklist nouveau module so that it does not conflict with nvidia drm stuff
       # also the nouveau performance is godawful, I'd rather run linux on a piece of paper than use nouveau
-      blacklistedKernelModules = [
-        "nouveau"
-      ];
+      blacklistedKernelModules = ["nouveau"];
     };
 
     environment = {
@@ -60,16 +62,16 @@ in {
         {
           LIBVA_DRIVER_NAME = "nvidia";
         }
+
         (mkIf (env.isWayland) {
           WLR_NO_HARDWARE_CURSORS = "1";
-          GBM_BACKEND = "nvidia-drm";
-          __GL_GSYNC_ALLOWED = "0";
-          __GL_VRR_ALLOWED = "0";
+          #GBM_BACKEND = "nvidia-drm";
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          XDG_SESSION_TYPE = "wayland";
         })
 
         (mkIf ((env.isWayland) && (device.gpu == "hybrid-nv")) {
-          WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
+          #WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
         })
       ];
       systemPackages = with pkgs; [
