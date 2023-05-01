@@ -7,39 +7,43 @@
     nixpkgs,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
-    lib = import ./lib {inherit nixpkgs lib;};
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-      config = {
-        tarball-ttl = 0;
-      };
-    };
+    supportedSystems = [
+      "x86_64-linux"
+    ];
+
+    forSystemEach = nixpkgs.lib.genAttrs supportedSystems;
+    forPkgsEach = f: forSystemEach (system: f nixpkgs.legacyPackages.${system});
+
+    lib = import ./lib {inherit nixpkgs lib inputs;};
   in {
     nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
+
+    templates = import ./templates;
 
     # Recovery images for my hosts
     # build with `nix build .#images.<hostname>`
     images = import ./hosts/images.nix {inherit inputs self lib;};
 
-    packages.${system} = import ./pkgs {inherit pkgs;};
+    #packages.${system} = import ./pkgs {inherit pkgs;};
+    packages = forPkgsEach (pkgs: import ./pkgs {inherit pkgs;});
 
-    devShells.${system}.default = pkgs.mkShell {
-      name = "nyx";
-      packages = with pkgs; [
-        nil
-        yaml-language-server
-        alejandra
-        git
-        glow
-        statix
-        deadnix
-      ];
-    };
+    devShells = forPkgsEach (pkgs: {
+      default = pkgs.mkShell {
+        name = "nyx";
+        packages = with pkgs; [
+          nil
+          alejandra
+          git
+          glow
+          statix
+          deadnix
+        ];
+      };
+    });
 
-    formatter.${system} = pkgs.alejandra;
+    formatter = forPkgsEach (pkgs: pkgs.alejandra);
 
-    checks.${system} = import ./lib/checks {inherit pkgs inputs;};
+    checks = forPkgsEach (pkgs: import ./lib/checks {inherit pkgs inputs;});
   };
 
   inputs = {
