@@ -42,7 +42,7 @@ in {
       sensitivity=0.7 # for mouse cursor
 
       gaps_in=6
-      gaps_out=12
+      gaps_out=11
       border_size=3
       col.active_border=0xff${colors.base0F}
       col.inactive_border=0x00${colors.base00}
@@ -108,13 +108,12 @@ in {
 
 
     bind=$MOD,F1,exec,firefox
-    bind=$MOD,F2,exec,run-as-service "nemo"
+    bind=$MOD,F2,exec,run-as-service "dolphin"
     bind=$MOD,RETURN,exec,run-as-service "${terminal}"
     bind=$MODSHIFT,Q,killactive,
     bind=$MODSHIFT,G,changegroupactive,
     bind=$MOD,T,togglegroup,
-    bind=$MOD,M,exit,
-    bind=$MOD,E,exec,thunar
+    bind=$MODSHIFT,E,exit,
     bind=$MOD,V,togglefloating,
     bind=$MOD,R,exec, killall tofi || run-as-service $(tofi-drun --prompt-text "  Run")
     bind=$MOD,D,exec, killall rofi || rofi -show drun
@@ -208,7 +207,6 @@ in {
     bind = $mod SHIFT ALT, R, exec, grimblast --notify --cursor copysave screen
 
     windowrule=tile,title:Spotify
-    windowrule=float,*.exe
     windowrule=fullscreen,wlogout
     windowrule=float,title:wlogout
     windowrule=fullscreen,title:wlogout
