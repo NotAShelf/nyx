@@ -14,7 +14,7 @@ with lib; let
 in {
   security = {
     protectKernelImage = true;
-    lockKernelModules = true;
+    lockKernelModules = false;
     # force-enable the Page Table Isolation (PTI) Linux kernel feature
     forcePageTableIsolation = true;
 
@@ -65,7 +65,6 @@ in {
       };
     };
 
-    # doas is cool, I like doas
     sudo = {
       enable = mkDefault true;
       execWheelOnly = true;
@@ -75,6 +74,7 @@ in {
       '';
     };
 
+    # doas is pretty wacky and interferes with nix's --remote-sudo
     doas = {
       enable = mkDefault (!config.security.sudo.enable);
       extraRules = [

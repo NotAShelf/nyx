@@ -48,7 +48,7 @@ with lib; {
 
     nftables.enable = false;
     firewall = {
-      enable = mkDefault false;
+      enable = mkDefault true;
       package = mkDefault pkgs.iptables;
       allowedTCPPorts = [443 80 3030 8080];
       allowedUDPPorts = [443 80 8080 9100 44857];
