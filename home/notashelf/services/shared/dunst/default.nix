@@ -157,12 +157,14 @@ in {
           foreground = "#${colors.base05}";
           highlight = "#${colors.base0C}";
         };
+
         urgency_normal = {
-          timeout = 6;
+          timeout = 7;
           background = "#${colors.base02}";
           foreground = "#${colors.base05}";
           highlight = "#${colors.base0C}";
         };
+
         urgency_critical = {
           timeout = 0;
           background = "#${colors.base02}";

@@ -14,10 +14,11 @@ with lib; let
     fi
   '';
   device = osConfig.modules.device;
+  env = osConfig.modules.usrEnv;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes && env.isWayland) {
     # screen idle
     services.swayidle = {
       enable = true;

@@ -5,12 +5,6 @@
   ...
 }:
 with lib; let
-  mkService = lib.recursiveUpdate {
-    Unit.PartOf = ["graphical-session.target"];
-    Unit.After = ["graphical-session.target"];
-    Install.WantedBy = ["graphical-session.target"];
-  };
-
   env = osConfig.modules.usrEnv;
   sys = osConfig.modules.system;
 in {
@@ -21,10 +15,10 @@ in {
         Service = let
           wall = builtins.fetchurl {
             url = "https://raw.githubusercontent.com/catppuccin/wallpapers/main/wallpapers/catppuccin/01.png";
-            sha256 = "";
+            sha256 = lib.fakeHash;
           };
         in {
-          ExecStart = "${lib.getExe pkgs.hyprpaper} -i ${wall}";
+          ExecStart = "${lib.getExe pkgs.swaybg} -i ${wall}";
           Restart = "always";
         };
       };
