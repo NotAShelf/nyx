@@ -13,7 +13,7 @@ in {
       device = {
         type = "laptop";
         cpu = "intel";
-        gpu = "hybrid-nv"; # nvidia drivers :b:roke
+        gpu = "intel"; # nvidia drivers :b:roke
         monitors = ["eDP-1" "HDMI-A-1"];
         hasBluetooth = true;
         hasSound = true;
@@ -97,11 +97,10 @@ in {
           "i915.enable_fbc=1"
           "i915.enable_psr=2"
         ];
-      kernelModules = [
-        "sdhci"
-      ];
 
-      supportedFilesystems = ["ext4" "exfat"];
+      kernelModules = [
+        "sdhci" # fix microsd cards
+      ];
     };
 
     services.btrfs.autoScrub = {fileSystems = ["/"];};
