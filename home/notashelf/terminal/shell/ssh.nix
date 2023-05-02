@@ -8,7 +8,6 @@ _: {
       matchBlocks = {
         "aur" = {
           hostname = "aur.archlinux.org";
-          user = "john";
           identityFile = "~/.ssh/aur";
         };
 
@@ -40,6 +39,7 @@ _: {
           hostname = "ssh.neushore.dev";
           user = "raf";
           identityFile = "~/.ssh/neushore";
+          port = 30;
         };
       };
     };
