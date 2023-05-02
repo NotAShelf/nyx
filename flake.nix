@@ -18,7 +18,7 @@
   in {
     nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
 
-    templates = import ./templates;
+    templates = import ./lib/templates;
 
     # Recovery images for my hosts
     # build with `nix build .#images.<hostname>`
