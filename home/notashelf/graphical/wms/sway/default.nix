@@ -1,4 +1,8 @@
-{lib, osConfig, ...}:
+{
+  lib,
+  osConfig,
+  ...
+}:
 with lib; let
   env = osConfig.modules.usrEnv;
   sys = osConfig.modules.system;
