@@ -39,6 +39,7 @@ with lib; {
 
     networkmanager = {
       enable = true;
+      dns = "systemd-resolved";
       unmanaged = ["docker0" "rndis0"];
       wifi = {
         macAddress = "random";
