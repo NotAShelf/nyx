@@ -52,7 +52,7 @@ with lib; {
 
       fileManager = mkOption {
         type = types.enum ["thunar" "dolphin" "nemo"];
-        default = "nemo";
+        default = "dolphin";
       };
 
       browser = mkOption {
@@ -63,6 +63,11 @@ with lib; {
       editor = mkOption {
         type = types.enum ["neovim" "helix" "emacs"];
         default = "neovim";
+      };
+
+      launcher = mkOption {
+        type = types.enul ["rofi" "wofi" "anyrun"];
+        default = "rofi";
       };
     };
 
