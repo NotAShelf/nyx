@@ -44,12 +44,16 @@ in {
         slang = "chi";
         sub-auto = "fuzzy";
         sub-codepage = "gbk";
+        osc = "no";
+        osd-bar = "no";
+        border = "no";
       };
       scripts = with pkgs.mpvScripts; [
         #cutter
         mpris
         thumbnail
         sponsorblock
+        uosc
       ];
     };
   };
