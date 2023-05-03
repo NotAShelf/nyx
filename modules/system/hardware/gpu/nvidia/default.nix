@@ -33,22 +33,22 @@ in {
     services.xserver = mkMerge [
       {
         videoDrivers = ["nvidia"];
+      }
 
-        /*
+      (mkIf (!env.isWayland) {
         # disable DPMS
         monitorSection = ''
           Option "DPMS" "false"
         '';
 
-        # disable screen blanking in total
+        # disable screen blanking in general
         serverFlagsSection = ''
           Option "StandbyTime" "0"
           Option "SuspendTime" "0"
           Option "OffTime" "0"
           Option "BlankTime" "0"
         '';
-        */
-      }
+      })
     ];
 
     boot = {
@@ -65,14 +65,14 @@ in {
 
         (mkIf (env.isWayland) {
           WLR_NO_HARDWARE_CURSORS = "1";
-          #GBM_BACKEND = "nvidia-drm";
-          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
           XDG_SESSION_TYPE = "wayland";
+          #GBM_BACKEND = "nvidia-drm";
+          #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
         })
 
-        (mkIf ((env.isWayland) && (device.gpu == "hybrid-nv")) {
-          #WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
-        })
+        #(mkIf ((env.isWayland) && (device.gpu == "hybrid-nv")) {
+        #  WLR_DRM_DEVICES = mkDefault "/dev/dri/card0:/dev/dri/card1";
+        #})
       ];
       systemPackages = with pkgs; [
         nvidia-offload

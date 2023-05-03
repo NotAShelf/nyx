@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  inputs,
-  self,
   ...
 }:
 with lib; let
@@ -13,7 +11,7 @@ in {
       device = {
         type = "laptop";
         cpu = "intel";
-        gpu = "intel"; # nvidia drivers :b:roke
+        gpu = "hybrid-nv"; # nvidia drivers :b:roke
         monitors = ["eDP-1" "HDMI-A-1"];
         hasBluetooth = true;
         hasSound = true;
