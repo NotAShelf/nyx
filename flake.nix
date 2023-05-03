@@ -127,16 +127,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Webcord, maybe works better than discord cient?
-    webcord.url = "github:fufexan/webcord-flake";
-    arrpc.url = "github:notashelf/arrpc-flake"; # rpc
-
-    # Emacs & Doom Emacs
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    nix-doom-emacs = {
-      url = "github:nix-community/nix-doom-emacs";
-      inputs.nixpkgs.follows = "emacs-overlay";
-    };
+    # use my own arrpc-flake to provide arRPC package
+    arrpc.url = "github:notashelf/arrpc-flake";
 
     # Rust overlay
     rust-overlay = {
