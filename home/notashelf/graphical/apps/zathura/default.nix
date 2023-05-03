@@ -8,6 +8,8 @@
 with lib; let
   device = osConfig.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
+
+  inherit (config.colorscheme) colors;
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.zathura = {
@@ -15,43 +17,43 @@ in {
       options = {
         font = "Iosevka 15";
 
-        default-fg = "#C6D0F5";
-        default-bg = "#303446";
+        default-fg = "${colors.base05}";
+        default-bg = "${colors.base00}";
 
-        completion-bg = "#414559";
-        completion-fg = "#C6D0F5";
+        completion-bg = "${colors.base02}";
+        completion-fg = "${colors.base05}";
         completion-highlight-bg = "#575268";
-        completion-highlight-fg = "#C6D0F5";
-        completion-group-bg = "#414559";
-        completion-group-fg = "#8CAAEE";
+        completion-highlight-fg = "${colors.base05}";
+        completion-group-bg = "${colors.base02}";
+        completion-group-fg = "${colors.base0D}";
 
-        statusbar-fg = "#C6D0F5";
-        statusbar-bg = "#414559";
+        statusbar-fg = "${colors.base05}";
+        statusbar-bg = "${colors.base02}";
         statusbar-h-padding = 10;
         statusbar-v-padding = 10;
 
-        notification-bg = "#414559";
-        notification-fg = "#C6D0F5";
-        notification-error-bg = "#414559";
-        notification-error-fg = "#E78284";
-        notification-warning-bg = "#414559";
+        notification-bg = "${colors.base02}";
+        notification-fg = "${colors.base05}";
+        notification-error-bg = "${colors.base02}";
+        notification-error-fg = "${colors.base08}";
+        notification-warning-bg = "${colors.base02}";
         notification-warning-fg = "#FAE3B0";
         selection-notification = true;
 
-        inputbar-fg = "#C6D0F5";
-        inputbar-bg = "#414559";
+        inputbar-fg = "${colors.base05}";
+        inputbar-bg = "${colors.base02}";
 
         recolor = true;
-        recolor-lightcolor = "#303446";
-        recolor-darkcolor = "#C6D0F5";
+        recolor-lightcolor = "${colors.base00}";
+        recolor-darkcolor = "${colors.base05}";
 
-        index-fg = "#C6D0F5";
-        index-bg = "#303446";
-        index-active-fg = "#C6D0F5";
-        index-active-bg = "#414559";
+        index-fg = "${colors.base05}";
+        index-bg = "${colors.base00}";
+        index-active-fg = "${colors.base05}";
+        index-active-bg = "${colors.base02}";
 
-        render-loading-bg = "#303446";
-        render-loading-fg = "#C6D0F5";
+        render-loading-bg = "${colors.base00}";
+        render-loading-fg = "${colors.base05}";
 
         highlight-color = "#575268";
         highlight-active-color = "#F4B8E4";
