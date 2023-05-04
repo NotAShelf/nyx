@@ -6,11 +6,14 @@
   ...
 }:
 with lib; let
+  swaylock = lib.getExe pkgs.swaylock-effects;
+
+  systemctl = "${pkgs.systemd}/bin/systemctl";
   suspendScript = pkgs.writeShellScript "suspend-script" ''
     ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.ripgrep}/bin/rg running
     # only suspend if audio isn't running
     if [ $? == 1 ]; then
-      ${pkgs.systemd}/bin/systemctl suspend
+      ${systemctl} suspend
     fi
   '';
   device = osConfig.modules.device;
@@ -22,23 +25,27 @@ in {
     # screen idle
     services.swayidle = {
       enable = true;
+      extraArgs = ["-d"];
       events = [
         {
           event = "before-sleep";
-          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+          command = "${swaylock} -fF";
         }
         {
           event = "lock";
-          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+          command = "${swaylock} -fF";
         }
       ];
       timeouts = [
+        /*
         {
-          timeout = 310;
-          command = "${pkgs.systemd}/bin/loginctl lock-session";
+          timeout = 300;
+          command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
+          resumeCommand = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
         }
+        */
         {
-          timeout = 310;
+          timeout = 600;
           command = suspendScript.outPath;
         }
       ];
