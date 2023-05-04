@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./games
+    ./mangohud
     ./steam
     ./obs
   ];
