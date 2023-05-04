@@ -5,16 +5,16 @@
   lib,
   ...
 }: let
-  username = osConfig.modules.system.username;
-  home = config.home.homeDirectory;
-  dataDir = config.xdg.dataHome;
-  musicDir = "${home}/Music";
+  musicDir = config.xdg.userDirs.music;
   device = osConfig.modules.device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   config = lib.mkIf (builtins.elem device.type acceptedTypes) {
+    /*
     # yams service
+    # TODO: figure out a way to provide the lastfm authentication declaratively
+
     systemd.user.services.yams = {
       Unit = {
         Description = "Last.FM scrobbler for MPD";
@@ -27,13 +27,16 @@ in {
       };
       Install.WantedBy = ["default.target"];
     };
+    */
 
     services = {
       playerctld.enable = true;
       mpris-proxy.enable = true;
+
+      # mpd service
       mpd = {
         enable = true;
-        musicDirectory = "${musicDir}";
+        musicDirectory = musicDir;
         network = {
           listenAddress = "any";
           port = 6600;
@@ -53,6 +56,7 @@ in {
         '';
       };
 
+      # discord rich presence for mpd
       mpd-discord-rpc = {
         enable = true;
         settings = {
@@ -65,10 +69,13 @@ in {
         };
       };
 
+      # MPRIS 2 support to mpd
       mpdris2 = {
         enable = true;
         notifications = true;
         mpd = {
+          # for some reason config.xdg.userDirs.music is not a "path" - possibly because it has $HOME in its name?
+          musicDirectory = "${config.home.homeDirectory}/Media/Music";
           host = "127.0.0.1";
         };
       };
@@ -85,38 +92,62 @@ in {
       beets = {
         enable = true;
         settings = {
-          directory = "test";
-          library = "${dataDir}/beets/library.db";
+          ui.color = true;
+          directory = musicDir;
+          library = "${musicDir}/musiclibrary.db";
+          clutter = [
+            "Thumbs.DB"
+            ".DS_Store"
+            ".directory"
+          ];
+
           plugins = [
             "mpdupdate"
             "lyrics"
             "thumbnails"
             "fetchart"
             "embedart"
-            # DEPRECATED "acousticbrainz"
+            # "acousticbrainz" # DEPRECATED
             "chroma"
             "fromfilename"
             "lastgenre"
+            "absubmit"
+            "duplicates"
+            "edit"
+            "mbcollection"
+            "mbsync"
+            "replaygain"
+            "scrub"
           ];
+
           import = {
             move = true;
+            timid = true;
+            detail = true;
+            bell = true;
             write = true;
           };
+
           mpd = {
             host = "localhost";
             port = 6600;
           };
+
           lyrics = {
             auto = true;
           };
+
           thumbnails.auto = true;
           fetchart.auto = true;
+
           embedart = {
             auto = true;
             remove_art_file = true;
           };
+
           acousticbrainz.auto = true;
           chroma.auto = true;
+          replaygain.backend = "gstreamer";
         };
       };
 
@@ -126,10 +157,10 @@ in {
         package = pkgs.ncmpcpp.override {
           visualizerSupport = true;
         };
-        mpdMusicDir = "${musicDir}";
+        mpdMusicDir = musicDir;
         settings = {
           # Miscelaneous
-          ncmpcpp_directory = "${config.home.homeDirectory}/.config/ncmpcpp";
+          ncmpcpp_directory = "${config.xdg.configHome}/ncmpcpp";
           ignore_leading_the = true;
           external_editor = "nvim";
           message_delay_time = 1;
