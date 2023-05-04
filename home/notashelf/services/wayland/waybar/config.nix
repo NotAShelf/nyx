@@ -253,7 +253,7 @@ in {
     };
 
     gamemode = {
-      format = "{glyph}";
+      format = "";
       format-alt = "{glyph} {count}";
       glyph = "";
       hide-not-running = true;
