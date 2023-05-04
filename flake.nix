@@ -9,15 +9,19 @@
   } @ inputs: let
     supportedSystems = [
       "x86_64-linux"
+      # ... add more systems as they are used
     ];
 
     forSystemEach = nixpkgs.lib.genAttrs supportedSystems;
     forPkgsEach = f: forSystemEach (system: f nixpkgs.legacyPackages.${system});
 
+    # extended nixpkgs lib, contains my custom functions
     lib = import ./lib {inherit nixpkgs lib inputs;};
   in {
+    # entry-point for nixos configurations
     nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
 
+    # developer templates for easy project initialization
     templates = import ./lib/templates;
 
     # Recovery images for my hosts
