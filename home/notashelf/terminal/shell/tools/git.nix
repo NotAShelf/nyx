@@ -1,12 +1,14 @@
 {
   lib,
   osConfig,
+  pkgs,
   ...
 }: let
   cfg = osConfig.modules.programs.git;
 in {
   programs.git = {
     enable = true;
+    package = pkgs.gitAndTools.gitFull;
     userName = "NotAShelf";
     userEmail = "itsashelf@gmail.com";
     signing = {
@@ -26,33 +28,59 @@ in {
       "result-*"
     ];
     extraConfig = {
-      init = {defaultBranch = "main";};
+      init.defaultBranch = "main";
+
       delta = {
+        enable = true;
         syntax-theme = "Nord";
         plus-style = "syntax #a6d189";
         minus-style = "syntax #e78284";
         line-numbers = true;
+        options.navigate = true;
       };
+
       branch.autosetupmerge = "true";
-      push.default = "current";
+      pull.ff = "only";
+
+      push = {
+        default = "current";
+        followTags = true;
+      };
+
       merge = {
         stat = "true";
         conflictstyle = "diff3";
       };
+
       core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
+      color.ui = "auto";
+
       repack.usedeltabaseoffset = "true";
-      pull.ff = "only";
+
       rebase = {
         autoSquash = true;
         autoStash = true;
       };
+
       rerere = {
         autoupdate = true;
         enabled = true;
       };
+
+      url = {
+        "https://github.com/".insteadOf = "github:";
+        "ssh://git@github.com/".pushInsteadOf = "github:";
+        "https://gitlab.com/".insteadOf = "gitlab:";
+        "ssh://git@gitlab.com/".pushInsteadOf = "gitlab:";
+        "https://aur.archlinux.org/".insteadOf = "aur:";
+        "ssh://aur@aur.archlinux.org/".pushInsteadOf = "aur:";
+        "https://git.sr.ht/".insteadOf = "srht:";
+        "ssh://git@git.sr.ht/".pushInsteadOf = "srht:";
+        "https://codeberg.org/".insteadOf = "codeberg:";
+        "ssh://git@codeberg.org/".pushInsteadOf = "codeberg:";
+      };
     };
     lfs.enable = true;
-    delta.enable = true;
     aliases = {
       br = "branch";
       c = "commit -m";
