@@ -107,7 +107,7 @@ in ''
   }
 
   #cpu.50 {
-    color: #${base0D};
+    color: #${base05};
     background-color: #${base0F};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
@@ -115,7 +115,7 @@ in ''
   }
 
   #cpu.60 {
-    color: #${base0D};
+    color: #${base05};
     background-color: #${base09};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
@@ -123,7 +123,7 @@ in ''
   }
 
   #cpu.70 {
-    color: #${base0D};
+    color: #${base05};
     background-color: #${base08};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
