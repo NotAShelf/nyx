@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  musicDir = config.xdg.userDirs.music;
+  musicDir = "${config.home.homeDirectory}/Media/Music";
   device = osConfig.modules.device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
