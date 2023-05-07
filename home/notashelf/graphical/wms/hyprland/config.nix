@@ -10,6 +10,8 @@
   cfg = osConfig.modules.programs.default;
   monitors = osConfig.modules.device.monitors;
 
+  fileManager = osConfig.modules.programs.default.fileManager;
+
   terminal =
     if (cfg.terminal == "foot")
     then "footclient"
@@ -87,6 +89,7 @@ in {
       animation = fade, 1, 10, smoothIn
       animation = fadeDim, 1, 10, smoothIn
       animation = workspaces,1,4,overshot,slidevert
+
     }
 
     dwindle {
@@ -103,12 +106,11 @@ in {
     # logout menu
     bind = $MODSHIFT, Escape, exec, wlogout -p layer-shell
     # lock screen
-    #bind = $MODSHIFT, L, exec, loginctl lock-session
     bind=$MODSHIFT,L,exec,swaylock
 
 
     bind=$MOD,F1,exec,firefox
-    bind=$MOD,F2,exec,run-as-service "dolphin"
+    bind=$MOD,F2,exec,run-as-service "${fileManager}"
     bind=$MOD,RETURN,exec,run-as-service "${terminal}"
     bind=$MODSHIFT,Q,killactive,
     bind=$MODSHIFT,G,changegroupactive,
@@ -119,9 +121,15 @@ in {
     bind=$MOD,D,exec, killall rofi || rofi -show drun
     bind=$MOD,equal,exec, killall rofi || rofi -show calc
     bind=$MOD,period,exec, killall rofi || rofi -show emoji
-    bind=$MODSHIFT,O,exec, wlr-ocr
     bind=$MOD,P,pseudo,
     bind=$MOD,F,fullscreen,
+
+    # workspace controls
+    bind=$MODSHIFT,right,movetoworkspace,+1
+    bind=$MODSHIFT,left,movetoworkspace,-1
+    bind=$MOD,mouse_down,workspace,e+1
+    bind=$MOD,mouse_up,workspace,e-1
+
 
     # hide Waybar
     bind=$MOD,B,exec,killall -SIGUSR1 waybar
@@ -133,40 +141,11 @@ in {
     bind = $MOD, up, movefocus, u
     bind = $MOD, down, movefocus, d
 
+    bindm=$MOD,mouse:272,movewindow
+    bindm=$MOD,mouse:273,resizewindow
+
     # window resize
     bind = $MOD, S, submap, resize
-
-    submap=resize
-    binde=,right,resizeactive,10 0
-    binde=,left,resizeactive,-10 0
-    binde=,up,resizeactive,0 -10
-    binde=,down,resizeactive,0 10
-    bind=,escape,submap,reset
-    submap=reset
-
-    # workspace binds
-    # binds mod + [shift +] {1..10} to [move to] ws {1..10}
-    ${
-      builtins.concatStringsSep "\n" (builtins.genList (
-          x: let
-            ws = let
-              c = (x + 1) / 10;
-            in
-              builtins.toString (x + 1 - (c * 10));
-          in ''
-            bind = $MOD, ${ws}, workspace, ${toString (x + 1)}
-            bind = $MOD SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
-          ''
-        )
-        10)
-    }
-
-
-    bind=$MODSHIFT,right,movetoworkspace,+1
-    bind=$MODSHIFT,left,movetoworkspace,-1
-
-    bind=$MOD,mouse_down,workspace,e+1
-    bind=$MOD,mouse_up,workspace,e-1
 
     # brightness controls
     bind=,XF86MonBrightnessUp,exec,brightness set +5%
@@ -184,27 +163,33 @@ in {
     bindl=, XF86AudioLowerVolume, exec, volume -d 5
     bindl=, XF86AudioMute, exec, volume -t
 
-    bindm=$MOD,mouse:272,movewindow
-    bindm=$MOD,mouse:273,resizewindow
+
+    submap=resize
+    binde=,right,resizeactive,10 0
+    binde=,left,resizeactive,-10 0
+    binde=,up,resizeactive,0 -10
+    binde=,down,resizeactive,0 10
+    bind=,escape,submap,reset
+    submap=reset
 
     # select area to perform OCR on
-    bind = $MOD,O,exec,run-as-service wl-ocr
+    bind = $MODSHIFT,O,exec,run-as-service wl-ocr
 
     # screenshot
     # stop animations while screenshotting; makes black border go away
 
-    bind=SUPERSHIFT,P,exec,$disable; grim - | wl-copy --type image/png && notify-send "Screenshot" "Screenshot copied to clipboard"; $enable
-    bind=SUPERSHIFT,S,exec,$disable; hyprshot; $enable
+    bind=$MOD SHIFT,P,exec,$disable; grim - | wl-copy --type image/png && notify-send "Screenshot" "Screenshot copied to clipboard"; $enable
+    bind=$MOD SHIFT,S,exec,$disable; hyprshot; $enable
 
     $screenshotarea = hyprctl keyword animation "fadeOut,0,0,default"; grimblast --notify copysave area; hyprctl keyword animation "fadeOut,1,4,default"
     bind = , Print, exec, $screenshotarea
-    bind = $mod SHIFT, R, exec, $screenshotarea
+    bind = $MOD SHIFT, R, exec, $screenshotarea
 
-    bind = CTRL, Print, exec, grimblast --notify --cursor copysave output
-    bind = $mod SHIFT CTRL, R, exec, grimblast --notify --cursor copysave output
+    bind = $MOD, Print, exec, grimblast --notify --cursor copysave output
+    bind = $MOD SHIFT CTRL, R, exec, grimblast --notify --cursor copysave output
 
     bind = ALT, Print, exec, grimblast --notify --cursor copysave screen
-    bind = $mod SHIFT ALT, R, exec, grimblast --notify --cursor copysave screen
+    bind = $MOD SHIFT ALT, R, exec, grimblast --notify --cursor copysave screen
 
     windowrule=tile,title:Spotify
     windowrule=fullscreen,wlogout
@@ -246,5 +231,23 @@ in {
     # idle inhibit while watching videos
     windowrulev2 = idleinhibit focus, class:^(mpv)$
     windowrulev2 = idleinhibit fullscreen, class:^(firefox)$
+
+
+    # workspace binds
+    # binds mod + [shift +] {1..10} to [move to] ws {1..10}
+    ${
+      builtins.concatStringsSep "\n" (builtins.genList (
+          x: let
+            ws = let
+              c = (x + 1) / 10;
+            in
+              builtins.toString (x + 1 - (c * 10));
+          in ''
+            bind = $MOD, ${ws}, workspace, ${toString (x + 1)}
+            bind = $MOD SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
+          ''
+        )
+        10)
+    }
   '';
 }
