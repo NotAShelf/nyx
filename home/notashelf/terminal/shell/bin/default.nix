@@ -34,6 +34,12 @@
         executable = true;
         text = import ./tzip.nix {inherit lib pkgs;};
       };
+
+      ".local/bin/extract" = {
+        # Extract the compressed file with the correct tool based on the extension
+        executable = true;
+        text = import ./extract.nix {inherit lib pkgs;};
+      };
     };
   };
 }
