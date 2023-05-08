@@ -45,9 +45,19 @@
         ]
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1683545835,
         "narHash": "sha256-GfsXWlidRkQG/eB/iwWrUAvB2v2uYrQr1LKRAToId/s=",
         "owner": "NotAShelf",
+||||||| parent of 6df88d9 (arRPC: use arrpc home-manager module)
+        "lastModified": 1682463774,
+        "narHash": "sha256-QjdTEkWCI/enk5h0IK27MsES1y7S4HPqjWP7DgEfMOs=",
+        "owner": "notashelf",
+=======
+        "lastModified": 1683545835,
+        "narHash": "sha256-GfsXWlidRkQG/eB/iwWrUAvB2v2uYrQr1LKRAToId/s=",
+        "owner": "notashelf",
+>>>>>>> 6df88d9 (arRPC: use arrpc home-manager module)
         "repo": "arrpc-flake",
         "rev": "b29476f08795519fdac720fb4caf46dbe756823b",
         "type": "github"

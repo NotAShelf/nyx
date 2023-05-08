@@ -25,6 +25,10 @@ with lib; let
   video = osConfig.modules.system.video;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
+  imports = [
+    inputs.arrpc.homeManagerModules.default
+  ];
+
   config = mkIf ((builtins.elem device.type acceptedTypes) && (video.enable)) {
     home = {
       packages = with pkgs; [
@@ -36,6 +40,9 @@ in {
       source = "${catppuccin-mocha}/themes/mocha.theme.css";
     };
 
+    services.arrpc.enable = true;
+
+    /*
     systemd.user.services = {
       arRPC = mkService {
         Unit.Description = "arRPC systemd service";
@@ -45,5 +52,6 @@ in {
         };
       };
     };
+    */
   };
 }
