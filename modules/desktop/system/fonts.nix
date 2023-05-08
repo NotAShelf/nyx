@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 with lib; let
@@ -57,7 +58,7 @@ in {
         jetbrains-mono
         emacs-all-the-icons-fonts
 
-        (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
+        (inputs.nixpkgs-pinned.legacyPackages.${pkgs.system}.nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
       ];
     };
   };
