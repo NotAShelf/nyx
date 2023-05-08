@@ -49,16 +49,13 @@
     bat = {
       enable = true;
       themes = {
-        Catppuccin-frappe = builtins.readFile (pkgs.fetchFromGitHub {
-            owner = "catppuccin";
-            repo = "bat";
-            rev = "00bd462e8fab5f74490335dcf881ebe7784d23fa";
-            sha256 = "yzn+1IXxQaKcCK7fBdjtVohns0kbN+gcqbWVE4Bx7G8=";
-          }
-          + "/Catppuccin-frappe.tmTheme");
+        Catppuccin-mocha = builtins.readFile (pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/catppuccin/bat/main/Catppuccin-mocha.tmTheme";
+          hash = "sha256-qMQNJGZImmjrqzy7IiEkY5IhvPAMZpq0W6skLLsng/w=";
+        });
       };
       config = {
-        theme = "Catppuccin-frappe";
+        theme = "Catppuccin-mocha";
         pager = "less -FR";
       };
     };
