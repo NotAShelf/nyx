@@ -4,14 +4,20 @@
   lib,
   ...
 }: {
-  home.packages = with pkgs; [
-    gh # github command-line
-    gh-cal # github activity stats in the CLI
-    gist # manage github gists
-    act # local github actions
-    zsh-forgit # zsh plugin to load forgit via `git forgit`
-    gitflow
-  ];
+  home = {
+    packages = with pkgs; [
+      gh # github command-line
+      gh-cal # github activity stats in the CLI
+      gist # manage github gists
+      act # local github actions
+      zsh-forgit # zsh plugin to load forgit via `git forgit`
+      gitflow
+    ];
+
+    sessionVariables = {
+      STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
+    };
+  };
 
   programs = {
     man.enable = true;
@@ -44,6 +50,16 @@
     dircolors = {
       enable = true;
       enableZshIntegration = true;
+    };
+
+    skim = {
+      enable = true;
+      enableZshIntegration = true;
+      defaultCommand = "rg --files --hidden";
+      changeDirWidgetOptions = [
+        "--preview 'exa --icons --git --color always -T -L 3 {} | head -200'"
+        "--exact"
+      ];
     };
 
     bat = {
