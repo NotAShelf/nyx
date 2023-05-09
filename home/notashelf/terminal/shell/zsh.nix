@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   inherit (config.colorscheme) colors;
@@ -96,7 +97,6 @@ in {
       zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
       zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
-      zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
       zstyle ':fzf-tab:*' switch-group ',' '.'
       zstyle ":completion:*:git-checkout:*" sort false
       zstyle ':completion:*' file-sort modification
@@ -223,7 +223,7 @@ in {
       };
     in
       with pkgs; {
-        rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudo && notify-send \"Done\"&& bat cache --build; popd";
+        rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudo && notify-send \"Done\" ; popd";
         test = "pushd ~dotfiles nixos-rebuild dry-activate";
         cleanup = "sudo nix-collect-garbage --delete-older-than 7d";
         bloat = "nix path-info -Sh /run/current-system";
