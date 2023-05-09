@@ -58,7 +58,7 @@ in {
         jetbrains-mono
         emacs-all-the-icons-fonts
 
-        (inputs.nixpkgs-pinned.legacyPackages.${pkgs.system}.nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
+        (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
       ];
     };
   };
