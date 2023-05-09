@@ -47,13 +47,13 @@
       "locked": {
         "lastModified": 1683545835,
         "narHash": "sha256-GfsXWlidRkQG/eB/iwWrUAvB2v2uYrQr1LKRAToId/s=",
-        "owner": "notashelf",
+        "owner": "NotAShelf",
         "repo": "arrpc-flake",
         "rev": "b29476f08795519fdac720fb4caf46dbe756823b",
         "type": "github"
       },
       "original": {
-        "owner": "notashelf",
+        "owner": "NotAShelf",
         "repo": "arrpc-flake",
         "type": "github"
       }
@@ -1614,13 +1614,13 @@
       "locked": {
         "lastModified": 1683212430,
         "narHash": "sha256-6PfFi0gkVoXvHcG3lLD4bG5lUWelG75tLPvsD8PxDLY=",
-        "owner": "notashelf",
+        "owner": "NotAShelf",
         "repo": "neovim-flake",
         "rev": "1678ef4738d18ecc963003059be42c6733a5aef7",
         "type": "github"
       },
       "original": {
-        "owner": "notashelf",
+        "owner": "NotAShelf",
         "repo": "neovim-flake",
         "type": "github"
       }
@@ -2601,6 +2601,7 @@
         "ragenix": "ragenix",
         "rust-overlay": "rust-overlay_4",
         "sops-nix": "sops-nix",
+        "wallpkgs": "wallpkgs",
         "xdg-portal-hyprland": "xdg-portal-hyprland"
       }
     },
@@ -3156,6 +3157,26 @@
         "owner": "supercollider-quarks",
         "ref": "master",
         "repo": "vowel",
+        "type": "github"
+      }
+    },
+    "wallpkgs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1682890949,
+        "narHash": "sha256-PuYDwZbxgrFoQMq4EnV0/K3GKDj2hHfus9eYXKR8BjU=",
+        "owner": "NotAShelf",
+        "repo": "wallpkgs",
+        "rev": "fc590930e132a59cdcfa306b63a8bd55eefe18cd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NotAShelf",
+        "repo": "wallpkgs",
         "type": "github"
       }
     },

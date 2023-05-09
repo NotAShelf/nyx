@@ -96,13 +96,19 @@
 
     # my personal neovim-flake
     neovim-flake = {
-      url = "github:notashelf/neovim-flake";
+      url = "github:NotAShelf/neovim-flake";
       #inputs.nixpkgs.follows = "nixpkgs-pinned";
     };
 
     # use my own arrpc-flake to provide arRPC package
     arrpc = {
-      url = "github:notashelf/arrpc-flake";
+      url = "github:NotAShelf/arrpc-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # use my own wallpapers repository to provide various wallpapers as nix packages
+    wallpkgs = {
+      url = "github:NotAShelf/wallpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
