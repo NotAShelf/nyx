@@ -13,7 +13,7 @@ in {
 
     networking.firewall = {
       # always allow traffic from your Tailscale network
-      trustedInterfaces = ["tailscale0"]; 
+      trustedInterfaces = ["tailscale0"];
       checkReversePath = "loose";
 
       # allow the Tailscale UDP port through the firewall
