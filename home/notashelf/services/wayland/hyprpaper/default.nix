@@ -11,6 +11,7 @@
   monitors = osConfig.modules.device.monitors;
 
   hyprpaper = inputs.hyprpaper.packages.${pkgs.system}.default;
+  wallpkgs = inputs.wallpkgs.packages.${pkgs.system};
 in {
   config = lib.mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
     systemd.user.services.hyprpaper = {
@@ -27,13 +28,10 @@ in {
     };
     xdg.configFile."hypr/hyprpaper.conf" = {
       text = let
-        path = builtins.fetchurl {
-          url = "https://raw.githubusercontent.com/notashelf/wallpkgs/main/wallpapers/catppuccin/01.png";
-          sha256 = "0srl821d00q3pz7cvks5jrpm253kvxrhkk4m78iskmr8faahai1b";
-        };
+        wallpaper = "${wallpkgs.catppuccin}/share/wallpapers/catppuccin/01.png";
       in ''
-        preload=${path}
-        ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''wallpaper=${monitor},${path}'') monitors)}
+        preload=${wallpaper}
+        ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''wallpaper=${monitor},${wallpaper}'') monitors)}
         ipc=off
       '';
     };
