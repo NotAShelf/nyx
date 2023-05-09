@@ -62,7 +62,7 @@
 
     # build against nixos unstable, more variants can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
+    #nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
@@ -74,10 +74,7 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Easy color integration
-    nix-colors = {
-      url = "github:misterio77/nix-colors";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-colors.url = "github:misterio77/nix-colors";
 
     # Nix gaming packages
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -100,7 +97,7 @@
     # my personal neovim-flake
     neovim-flake = {
       url = "github:notashelf/neovim-flake";
-      inputs.nixpkgs.follows = "nixpkgs-pinned";
+      #inputs.nixpkgs.follows = "nixpkgs-pinned";
     };
 
     # use my own arrpc-flake to provide arRPC package
