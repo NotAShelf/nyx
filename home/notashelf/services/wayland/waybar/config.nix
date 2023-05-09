@@ -152,7 +152,7 @@ in {
           	${notify-send} "Hyprland" "Turned on swallowing"
           fi
         '';
-      format = "";
+      format = "󰊰";
     };
     "custom/power" = {
       tooltip = false;
@@ -168,7 +168,7 @@ in {
 
           off=" Shutdown"
           reboot=" Reboot"
-          cancel=" Cancel"
+          cancel="󰅖 Cancel"
 
           sure="$(printf '%s\n%s\n%s' "$off" "$reboot" "$cancel" |
           	${rofi} -dmenu -p ' Are you sure?')"
@@ -179,7 +179,7 @@ in {
           	${doas} ${reboot}
           fi
         '';
-      format = "襤";
+      format = "󰐥";
     };
     clock = {
       format = ''
@@ -206,10 +206,10 @@ in {
         critical = 15;
       };
       format = "{icon}";
-      format-charging = "";
-      format-plugged = "";
+      format-charging = "󰂄";
+      format-plugged = "󰂄";
       format-alt = "{icon}";
-      format-icons = ["" "" "" "" "" "" "" "" "" "" "" ""];
+      format-icons = ["󰂃" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
     };
     network = let
       nm-editor = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
@@ -226,7 +226,7 @@ in {
       scroll-step = 5;
       tooltip = false;
       format = "{icon}";
-      format-icons = {default = ["" "" "墳"];};
+      format-icons = {default = ["" "" "󰕾"];};
       on-click = "${pkgs.killall}/bin/killall pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
     };
 
@@ -253,9 +253,9 @@ in {
     };
 
     gamemode = {
-      format = "";
+      format = "󰊴";
       format-alt = "{glyph} {count}";
-      glyph = "";
+      glyph = "󰊴";
       hide-not-running = true;
       use-icon = true;
       icon-name = "input-gaming-symbolic";
