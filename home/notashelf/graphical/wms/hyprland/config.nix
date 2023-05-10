@@ -218,15 +218,18 @@ in {
     windowrulev2 = pin, title:^(Picture-in-Picture)$
 
     # throw sharing indicators away
-    #windowrulev2 = workspace special silent, title:^(Firefox — Sharing Indicator)$
-    #windowrulev2 = workspace special silent, title:^(.*is sharing (your screen|a window)\.)$
+    windowrulev2 = workspace special silent, title:^(Firefox — Sharing Indicator)$
+    windowrulev2 = workspace special silent, title:^(.*is sharing (your screen|a window)\.)$
 
     # start Discord/WebCord in ws2
     windowrulev2 = workspace 4, title:^(.*(Disc|WebC)ord.*)$
 
     # start spotify & steam tiled in ws3 and ws9
     windowrulev2 = tile, class:^(Spotify)$
-    windowrulev2 = workspace 4 silent, class:^(Spotify)$
+    windowrulev2 = workspace 3 silent, class:^(Spotify)$
+
+    # send nextcloud desktop client to ws10
+    windowrulev2 = workspace 10 silent, class:^(com.nextcloud.desktopclient.nextcloud)$
 
     # idle inhibit while watching videos
     windowrulev2 = idleinhibit focus, class:^(mpv)$
@@ -234,6 +237,10 @@ in {
 
 
     # workspace binds
+    # binds * (asterisk) to special workspace
+    bind = $MOD, KP_Multiply, togglespecialworkspace
+    bind = $MOD SHIFT, KP_Multiply, movetoworkspace, special
+
     # binds mod + [shift +] {1..10} to [move to] ws {1..10}
     ${
       builtins.concatStringsSep "\n" (builtins.genList (
