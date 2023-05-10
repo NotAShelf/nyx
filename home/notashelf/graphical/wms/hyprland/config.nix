@@ -2,9 +2,11 @@
   config,
   pkgs,
   osConfig,
+  lib,
   ...
 }: let
   inherit (config.colorscheme) colors;
+  inherit (import ./propaganda.nix pkgs) propaganda;
 
   pointer = config.home.pointerCursor;
   cfg = osConfig.modules.programs.default;
@@ -130,10 +132,8 @@ in {
     bind=$MOD,mouse_down,workspace,e+1
     bind=$MOD,mouse_up,workspace,e-1
 
+    bind=SUPERSHIFT,H,exec,cat ${propaganda} | wl-copy && notify-send "Propaganda" "ready to spread!"
 
-    # hide Waybar
-    bind=$MOD,B,exec,killall -SIGUSR1 waybar
-    bind=$MODSHIFT,B,exec,killall -SIGUSR2 waybar; waybar&
 
     # move focus
     bind = $MOD, left, movefocus, l
@@ -163,7 +163,7 @@ in {
     bindl=, XF86AudioLowerVolume, exec, volume -d 5
     bindl=, XF86AudioMute, exec, volume -t
 
-
+    # a submap for resizing windows
     submap=resize
     binde=,right,resizeactive,10 0
     binde=,left,resizeactive,-10 0
@@ -173,7 +173,7 @@ in {
     submap=reset
 
     # select area to perform OCR on
-    bind = $MODSHIFT,O,exec,run-as-service wl-ocr
+    bind = $MODSHIFT,O,exec,run-as-service ocr
 
     # screenshot
     # stop animations while screenshotting; makes black border go away
