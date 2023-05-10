@@ -24,7 +24,7 @@ _: {
 
       hostname = {
         ssh_only = true;
-        format = "[$hostname](bold blue) ";
+        format = "@[$hostname](bold blue) ";
         disabled = false;
       };
     };
