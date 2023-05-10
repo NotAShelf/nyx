@@ -77,7 +77,10 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     # Nix gaming packages
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Secrets management via ragenix, an agenix replacement
     ragenix.url = "github:yaxitech/ragenix";
@@ -96,8 +99,8 @@
 
     # my personal neovim-flake
     neovim-flake = {
-      url = "github:NotAShelf/neovim-flake";
-      #inputs.nixpkgs.follows = "nixpkgs-pinned";
+      url = "github:NotAShelf/neovim-flake?ref=release/v0.4";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # use my own arrpc-flake to provide arRPC package
