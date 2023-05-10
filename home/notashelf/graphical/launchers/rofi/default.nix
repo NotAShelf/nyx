@@ -39,7 +39,7 @@ in {
         display-drun = " Run";
         display-run = " Run";
         display-filebrowser = " Files";
-        display-calc = " Calculator";
+        display-calc = "󰃬 Calculator";
         display-emoji = "💀 Emoji";
       };
       theme = let
