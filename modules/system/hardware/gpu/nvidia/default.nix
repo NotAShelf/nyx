@@ -5,15 +5,6 @@
   ...
 }:
 with lib; let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    #!/bin/bash
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec "$@"
-  '';
-
   # use the latest possible nvidia package
   nvStable = config.boot.kernelPackages.nvidiaPackages.stable.version;
   nvBeta = config.boot.kernelPackages.nvidiaPackages.beta.version;
@@ -66,16 +57,15 @@ in {
         (mkIf (env.isWayland) {
           WLR_NO_HARDWARE_CURSORS = "1";
           XDG_SESSION_TYPE = "wayland";
-          #GBM_BACKEND = "nvidia-drm";
-          #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          #GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
         })
 
-        #(mkIf ((env.isWayland) && (device.gpu == "hybrid-nv")) {
-        #  WLR_DRM_DEVICES = mkDefault "/dev/dri/card0:/dev/dri/card1";
-        #})
+        (mkIf ((env.isWayland) && (device.gpu == "hybrid-nv")) {
+          #WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
+        })
       ];
       systemPackages = with pkgs; [
-        nvidia-offload
         glxinfo
         vulkan-tools
         vulkan-loader
@@ -90,6 +80,7 @@ in {
       nvidia = {
         package = mkDefault nvidiaPackage;
         modesetting.enable = mkDefault true;
+        prime.OffloadCmd.enable = device.gpu == "hybrid-nv";
         powerManagement = {
           enable = mkDefault true;
           finegrained = mkDefault true;
