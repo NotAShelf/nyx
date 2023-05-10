@@ -80,7 +80,7 @@ in {
       nvidia = {
         package = mkDefault nvidiaPackage;
         modesetting.enable = mkDefault true;
-        prime.OffloadCmd.enable = device.gpu == "hybrid-nv";
+        prime.offload.enableOffloadCmd = device.gpu == "hybrid-nv";
         powerManagement = {
           enable = mkDefault true;
           finegrained = mkDefault true;
