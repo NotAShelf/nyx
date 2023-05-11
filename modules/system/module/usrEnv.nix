@@ -11,7 +11,7 @@ with lib; {
     # and the wayland nixpkgs overlay
     isWayland = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
     };
 
     # this option will determine what window manager/compositor/desktop environment
@@ -19,7 +19,7 @@ with lib; {
     # TODO: make this a list
     desktop = mkOption {
       type = types.enum ["Hyprland" "awesome" "i3"];
-      default = "";
+      default = "Hyprland";
     };
 
     autologin = mkOption {
@@ -31,7 +31,7 @@ with lib; {
     # you MUST to set a username if you want to use home-manager
     useHomeManager = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
     };
   };
 }

@@ -1,39 +1,78 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
   device = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
+
+  fqdn = "${config.networking.hostName}.${config.networking.domain}";
+  clientConfig = {
+    "m.homeserver".base_url = "https://${fqdn}";
+    "m.identity_server" = {};
+  };
+  serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
+  mkWellKnown = data: ''
+    add_header Content-Type application/json;
+    add_header Access-Control-Allow-Origin *;
+    add_header 'Referrer-Policy' 'origin-when-cross-origin';
+    add_header X-Frame-Options DENY;
+    add_header X-Content-Type-Options nosniff;
+    return 200 '${builtins.toJSON data}';
+  '';
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
-    services.postgresql.enable = true;
-    services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
-      CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
-      CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-        TEMPLATE template0
-        LC_COLLATE = "C"
-        LC_CTYPE = "C";
-    '';
+    services.postgresql = {
+      enable = true;
+      initialScript = pkgs.writeText "synapse-init.sql" ''
+        CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
+        CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+          TEMPLATE template0
+          LC_COLLATE = "C"
+          LC_CTYPE = "C";
+      '';
+    };
+    services.nginx.virtualHosts = {
+      "${config.networking.domain}" = {
+        locations."= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+        locations."= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+        locations."/_matrix".proxyPass = "http://[::1]:8008";
+        locations."/_synapse/client".proxyPass = "http://[::1]:8008";
+      };
+    };
+    age.secrets.matrix-secret = {
+      file = "${self}/secrets/matrix-secret.age";
+      owner = "matrix-synapse";
+    };
     services.matrix-synapse = {
-      enable = false;
-      settings.server_name = config.networking.domain;
-      settings.listeners = [
-        {
-          port = 8008;
-          bind_addresses = ["::1"];
-          type = "http";
-          tls = false;
-          x_forwarded = true;
-          resources = [
-            {
-              names = ["client" "federation"];
-              compress = true;
-            }
-          ];
-        }
-      ];
+      enable = true;
+      settings = {
+        database_type = "psycopg2";
+        database_args = {
+          database = "matrix-synapse";
+        };
+        server_name = "notashelf.dev";
+        public_baseurl = "https://notashelf.dev";
+        max_upload_size = "100M";
+        listeners = [
+          {
+            bind_addresses = ["::1"];
+            port = 8008;
+            resources = [
+              {
+                names = ["client" "federation"];
+                compress = true;
+              }
+            ];
+            tls = false;
+            type = "http";
+            x_forwarded = true;
+          }
+        ];
+      };
+      extraConfigFiles = [config.age.secrets.matrix-secret.path];
     };
   };
 }

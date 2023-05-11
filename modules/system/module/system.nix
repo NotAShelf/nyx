@@ -14,7 +14,6 @@ with lib; {
     };
 
     # no actual use yet, do not use
-    # TODO: replace networking.hostname with this value (?)
     hostname = mkOption {
       type = types.str;
     };
@@ -23,7 +22,7 @@ with lib; {
     # it will enable services based on what strings are found in the list
     fs = mkOption {
       type = types.listOf types.string;
-      default = ["vfat" "ext4"]; # TODO: zfs, ntfs
+      default = ["vfat" "ext4" "btrfs"]; # TODO: zfs, ntfs
     };
 
     # should we enable emulation for additional architechtures?

@@ -1,13 +1,16 @@
 _: {
   imports = [
-    #./gitea
-    #./tor
     ./nginx
-    #./matrix
+    ./gitea
+    ./nextcloud
     ./wireguard
-    #./grafana # TODO
+    ./grafana
+    ./matrix
+    ./vaultwarden
+    ./jellyfin # https://nixos.wiki/wiki/Jellyfin
+
+    #./tor
     #./irc # TODO
-    #./jellyfin # https://nixos.wiki/wiki/Jellyfin
     #./kodi # https://nixos.wiki/wiki/Kodi
   ];
 }
