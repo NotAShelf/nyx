@@ -13,13 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-gof4yL5sHPKXDC4mDfPyBIvPtWxxxVy6gHx58yoTEbQ=";
   };
 
-  passthru.updateScript = writeScript "update-pytr" ''
-    #!/usr/bin/env nix-shell
-    #!nix-shell -i bash -p curl jq common-updater-scripts
-
-    version="$(curl -sL "https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases" | jq 'map(select(.prerelease == false)) | .[0].tag_name' --raw-output)"
-    update-source-version proton-ge-custom "$version"
-  '';
+  passthru.runUpdate = true;
 
   buildCommand = ''
     mkdir -p $out/bin
@@ -31,6 +25,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/GloriousEggroll/proton-ge-custom";
     license = licenses.bsd3;
     platforms = ["x86_64-linux"];
-    maintainers = with maintainers; [ajs124 notashelf];
+    maintainers = with maintainers; [shawn8901 notashelf];
   };
 })
