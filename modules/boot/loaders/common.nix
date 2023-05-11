@@ -129,7 +129,7 @@ in {
         "logo.nologo"
 
         # tell the kernel to not be verbose
-        "quiet"
+        # "quiet"
 
         # disable systemd status messages
         # rd prefix means systemd-udev will be used instead of initrd
