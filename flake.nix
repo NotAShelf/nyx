@@ -97,6 +97,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Rust overlay
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nix Language server
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+
     # my personal neovim-flake
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake?ref=feature/wakatime";
@@ -154,19 +167,6 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Rust overlay
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Nix Language server
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
   };
 }
