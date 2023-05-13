@@ -20,8 +20,6 @@ in {
       systemPackages = with pkgs; [wineWowPackages.waylandFull];
       variables = {
         NIXOS_OZONE_WL = "1";
-        __GL_GSYNC_ALLOWED = "0";
-        __GL_VRR_ALLOWED = "0";
         _JAVA_AWT_WM_NONEREPARENTING = "1";
         GDK_BACKEND = "wayland,x11";
         ANKI_WAYLAND = "1";
@@ -36,6 +34,8 @@ in {
         CLUTTER_BACKEND = "wayland";
         #WLR_DRM_NO_ATOMIC = "1";
         #WLR_BACKEND = "vulkan";
+        #__GL_GSYNC_ALLOWED = "0";
+        #__GL_VRR_ALLOWED = "0";
       };
     };
   };
