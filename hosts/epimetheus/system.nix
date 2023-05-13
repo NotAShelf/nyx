@@ -24,6 +24,7 @@ in {
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
+        emulation.enable = true;
 
         networking = {
           optimizeTcp = true;
