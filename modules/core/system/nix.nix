@@ -99,8 +99,12 @@ with lib; {
       trusted-users = ["@wheel"];
       # let the system decide the number of max jobs
       max-jobs = "auto";
+      # build inside sandboxed environments
       sandbox = true;
-      system-features = ["kvm" "recursive-nix" "big-parallel"];
+      # supported system features
+      system-features = ["nixos-tests" "kvm" "recursive-nix" "big-parallel" "gccarch-core2" "gccarch-haswell"];
+      # architectures supported by my builders
+      extra-platforms = config.boot.binfmt.emulatedSystems;
       # continue building derivations if one fails
       keep-going = true;
       # show more log lines for failed builds
