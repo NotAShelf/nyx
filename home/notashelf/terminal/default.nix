@@ -1,9 +1,4 @@
-{
-  inputs,
-  pkgs,
-  config,
-  ...
-}: {
+_: {
   imports = [
     ./editors
     ./kitty
@@ -14,5 +9,6 @@
     ./ranger
     ./wezterm
     ./pandoc
+    ./xplr
   ];
 }
