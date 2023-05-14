@@ -1614,16 +1614,16 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1683720206,
-        "narHash": "sha256-mAXMOZBAs8Yqmt4XPOlx+G8NJ1LgAGbFNqPv3BqeVww=",
+        "lastModified": 1683811312,
+        "narHash": "sha256-VhM4g2n0Yh6cqfsLhXIO5p3YyYRdnobLTT86tLWX5dA=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "d0a2345bfaa292eee149dd8f2b4e90019792c272",
+        "rev": "50c2e916260849f62dfdd68a7ddaee9b44f7f3a8",
         "type": "github"
       },
       "original": {
         "owner": "NotAShelf",
-        "ref": "release/v0.4",
+        "ref": "feature/wakatime",
         "repo": "neovim-flake",
         "type": "github"
       }
