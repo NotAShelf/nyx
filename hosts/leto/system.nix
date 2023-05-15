@@ -11,28 +11,28 @@ in {
   config = {
     modules = {
       device = {
-        type = "laptop";
+        type = "lite";
         cpu = "intel";
         gpu = "intel"; # nvidia drivers :b:roke
-        monitors = ["eDP-1" "HDMI-A-1"];
-        hasBluetooth = true;
+        monitors = [];
+        hasBluetooth = false;
         hasSound = true;
-        hasTPM = true;
+        hasTPM = false;
       };
       system = {
         username = "notashelf";
         fs = ["btrfs" "vfat"];
         video.enable = true;
-        sound.enable = true;
+        sound.enable = false;
         bluetooth.enable = false;
         printing.enable = false;
 
         networking = {
-          optimizeTcp = true;
+          optimizeTcp = false;
         };
 
         security = {
-          fixWebcam = true;
+          fixWebcam = false;
         };
 
         virtualization = {
@@ -70,21 +70,6 @@ in {
       "/persist".options = ["compress=zstd" "noatime"];
     };
 
-    hardware = {
-      nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
-        open = mkForce false;
-
-        prime = {
-          offload.enable = true;
-          # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-          intelBusId = "PCI:0:2:0";
-
-          # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-          nvidiaBusId = "PCI:1:0:0";
-        };
-      };
-    };
-
     # TODO: MOVE THIS TO CORE
     programs.zsh.enable = true;
 
@@ -100,8 +85,6 @@ in {
     };
 
     services.btrfs.autoScrub = {fileSystems = ["/"];};
-
-    networking.firewall.enable = mkForce false;
 
     console.earlySetup = true;
   };

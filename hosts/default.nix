@@ -81,18 +81,31 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
-  # Virtual machine host for testing
-  janus = lib.mkSystem {
+  # Twin virtual machine hosts
+  # both hosts inherit from leto, the retired VM host
+  artemis = lib.mkSystem {
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "janus";}
-        ./janus
-        virtualization
+        {networking.hostName = "artemis";}
+        ./leto
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};
   };
+
+  apollon = lib.mkSystem {
+    system = "aarch64-linux-linux";
+    modules =
+      [
+        {networking.hostName = "apollon";}
+        ./leto
+      ]
+      ++ shared;
+    specialArgs = {inherit inputs self lib;};
+  };
+
+
 
   # Lenovo Ideapad from 2014
   # Portable "server"
@@ -110,6 +123,7 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  # Hetzner VPS to replace my previous server machines
   helios = lib.mkSystem {
     system = "x86_64-linux";
     modules =
