@@ -54,7 +54,6 @@
 
     boot.loader.grub = {
       enable = true;
-      version = 2;
       useOSProber = lib.mkForce false;
       efiSupport = lib.mkForce false;
       enableCryptodisk = false;

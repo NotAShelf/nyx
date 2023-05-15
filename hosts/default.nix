@@ -95,7 +95,7 @@ in {
   };
 
   apollon = lib.mkSystem {
-    system = "aarch64-linux-linux";
+    system = "aarch64-linux";
     modules =
       [
         {networking.hostName = "apollon";}
