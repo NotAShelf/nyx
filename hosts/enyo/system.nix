@@ -25,6 +25,7 @@ with lib; {
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
+        emulation.enable = true;
         virtualization = {
           enable = true;
           qemu.enable = true;
