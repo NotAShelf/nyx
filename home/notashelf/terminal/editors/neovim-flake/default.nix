@@ -13,6 +13,7 @@
       vim = {
         viAlias = true;
         vimAlias = true;
+        enableEditorconfig = true;
         debugMode = {
           enable = false;
           level = 20;
