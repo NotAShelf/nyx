@@ -105,8 +105,6 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
-
-
   # Lenovo Ideapad from 2014
   # Portable "server"
   icarus = lib.mkSystem {
