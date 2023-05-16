@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  inputs,
-  self,
-  ...
-}:
-with lib; {
+{pkgs, ...}: {
   config = {
     modules = {
       device = {
@@ -72,6 +65,8 @@ with lib; {
     };
 
     boot = {
+      kernelPackages = pkgs.linuxPackages_xanmod_latest;
+
       kernelParams = [
         "nohibernate"
       ];
