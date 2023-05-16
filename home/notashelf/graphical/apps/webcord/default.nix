@@ -9,18 +9,9 @@ with lib; let
   catppuccin-mocha = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "discord";
-    rev = "dfd6b75c3fd4487850d11e83e64721f2113d0867";
-    sha256 = "sha256-rfySizeEko9YcS+SIl2u6Hulq1hPnPoe8d6lnD15lPI=";
+    rev = "3b6a4a2f69253dc7d5ea93317d7dce9a0ef24589";
+    sha256 = "OugXRMSXbb3DDyrrmTIvYFlD0Kc/KU37OWoEPOpa8z8=";
   };
-
-  arRPC = inputs.arrpc.packages.${pkgs.system}.default;
-
-  mkService = lib.recursiveUpdate {
-    Unit.PartOf = ["graphical-session.target"];
-    Unit.After = ["graphical-session.target"];
-    Install.WantedBy = ["graphical-session.target"];
-  };
-
   device = osConfig.modules.device;
   video = osConfig.modules.system.video;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
@@ -30,28 +21,14 @@ in {
   ];
 
   config = mkIf ((builtins.elem device.type acceptedTypes) && (video.enable)) {
-    home = {
-      packages = with pkgs; [
-        webcord-vencord
-      ];
-    };
+    home.packages = with pkgs; [
+      webcord-vencord # webcord with vencord extension installed
+    ];
 
     xdg.configFile."WebCord/Themes/mocha" = {
       source = "${catppuccin-mocha}/themes/mocha.theme.css";
     };
 
     services.arrpc.enable = true;
-
-    /*
-    systemd.user.services = {
-      arRPC = mkService {
-        Unit.Description = "arRPC systemd service";
-        Service = {
-          ExecStart = "${lib.getExe arRPC}";
-          Restart = "always";
-        };
-      };
-    };
-    */
   };
 }
