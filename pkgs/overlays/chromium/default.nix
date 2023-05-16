@@ -9,15 +9,6 @@ with lib; let
   env = config.modules.usrEnv;
 in {
   ungoogled-chromium = prev.ungoogled-chromium.override {
-    extensions = [
-      {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # sponsor block
-      {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} # ublock origin
-      {id = "dmghijelimhndkbmpgbldicpogfkceaj";} # extra dark
-      {id = "fihnjjcciajhdojfnbdddfaoknhalnja";} # i dont care about
-      {id = "jghecgabfgfdldnmbfkhmffcabddioke";} # volume master
-      {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden integration
-    ];
-
     commandLineArgs =
       toString [
         # Ungoogled features
