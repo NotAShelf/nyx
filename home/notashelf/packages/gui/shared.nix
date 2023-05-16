@@ -14,7 +14,9 @@ in {
     home.packages = with pkgs; [
       thunderbird
       qbittorrent
-      quasselClient
+      hexchat
+      netflix
+      spotify-wrapped
       bitwarden
       obsidian
       nextcloud-client
