@@ -65,7 +65,8 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
-  # Twin host of prometheus, provides disk encryption
+  # Twin host for prometheus
+  # provides full disk encryption with passkey/USB auth
   epimetheus = lib.mkNixosSystem {
     system = "x86_64-linux";
     modules =
@@ -98,7 +99,10 @@ in {
     system = "aarch64-linux";
     modules =
       [
-        {networking.hostName = "apollon";}
+        {
+          networking.hostName = "apollon";
+          hardware.opengl = {driSupport32Bit = lib.mkForce false;};
+        }
         ./leto
       ]
       ++ shared;
