@@ -112,7 +112,7 @@
 
     # my personal neovim-flake
     neovim-flake = {
-      url = "github:NotAShelf/neovim-flake?ref=feature/wakatime";
+      url = "github:NotAShelf/neovim-flake?ref=release/v0.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -131,6 +131,11 @@
     helix = {
       url = "github:SoraTenshi/helix/new-daily-driver";
       inputs.rust-overlay.follows = "rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    anyrun = {
+      url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
