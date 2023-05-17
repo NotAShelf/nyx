@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  self,
   ...
 }:
 with lib; {
@@ -45,8 +46,8 @@ with lib; {
         # nixpkgs-f2k.overlays.default # TODO: remove
         rust-overlay.overlays.default
       ]
-      # Overlays from ../../overlays directory
-      ++ (lib.importNixFiles ../../../pkgs/overlays);
+      # Overlays from the overlays directory
+      ++ (lib.importNixFiles "${self}/pkgs/overlays");
   };
 
   # faster rebuilding
@@ -58,7 +59,7 @@ with lib; {
   };
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.unstable;
 
     # Make builds run with low priority so my system stays responsive
     daemonCPUSchedPolicy = "idle";
