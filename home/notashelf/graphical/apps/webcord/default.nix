@@ -9,9 +9,10 @@ with lib; let
   catppuccin-mocha = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "discord";
-    rev = "3b6a4a2f69253dc7d5ea93317d7dce9a0ef24589";
-    sha256 = "OugXRMSXbb3DDyrrmTIvYFlD0Kc/KU37OWoEPOpa8z8=";
+    rev = "0f2c393b11dd8174002803835ef7640635100ca3";
+    hash = "sha256-iUnLLAQVMXFLyoB3wgYqUTx5SafLkvtOXK6C8EHK/nI=";
   };
+
   device = osConfig.modules.device;
   video = osConfig.modules.system.video;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
