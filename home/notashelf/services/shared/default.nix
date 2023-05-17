@@ -4,5 +4,6 @@ _: {
     ./dunst
     ./media
     ./polkit
+    ./tray
   ];
 }
