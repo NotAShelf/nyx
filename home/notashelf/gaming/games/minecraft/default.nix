@@ -27,7 +27,7 @@ in {
 
       packages = with pkgs; [
         # the successor to polyMC, which is now mostly abandoned
-        #prismlauncher # FIXME: some nixpkgs issue, again
+        prismlauncher # FIXME: some nixpkgs issue, again
 
         # jre 17 - needed by newer minecraft versions
         temurin-jre-bin-17
