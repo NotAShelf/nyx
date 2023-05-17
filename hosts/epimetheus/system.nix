@@ -74,10 +74,12 @@ in {
 
     hardware = {
       nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
+        nvidiaPersistenced = mkForce false;
+
         open = mkForce false;
 
         prime = {
-          offload.enable = true;
+          offload.enable = mkForce true;
           # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
           intelBusId = "PCI:0:2:0";
 
