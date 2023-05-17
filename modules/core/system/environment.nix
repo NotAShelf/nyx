@@ -11,7 +11,10 @@ in {
     # variables that I want to set globally on all systems
     variables = {
       EDITOR = "nvim";
+      VISUAL = "nvim";
       SSH_AUTH_SOCK = "/run/user/\${UID}/keyring/ssh";
+      SYSTEMD_PAGERSECURE = "true";
+      PAGER = "less -FR";
     };
 
     # packages I want pre-installed on all systems
@@ -28,6 +31,6 @@ in {
       ];
 
     # enable completions for system packages
-    pathsToLink = ["/share/zsh" "/share/bash-completion"];
+    pathsToLink = ["/share/zsh" "/share/bash-completion" "/share/nix-direnv"];
   };
 }
