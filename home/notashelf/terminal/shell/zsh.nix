@@ -159,11 +159,9 @@ in {
       bindkey "^A" vi-beginning-of-line
       bindkey "^E" vi-end-of-line
 
-
-
       # If this is an xterm set the title to user@host:dir
       case "$TERM" in
-      xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
+      xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty|kitty*)
         TERM_TITLE=$'\e]0;%n@%m: %1~\a'
           ;;
       *)
@@ -175,7 +173,7 @@ in {
       }
 
       function search() {
-        nix search nixpkgs#$@
+        nix search nixpkgs $@
       }
 
       function shell() {
@@ -215,49 +213,55 @@ in {
       media = "$HOME/Media";
     };
 
-    shellAliases = let
-      # for setting up license in new projects
-      gpl3 = pkgs.fetchurl {
-        url = "https://www.gnu.org/licenses/gpl-3.0.txt";
-        sha256 = "OXLcl0T2SZ8Pmy2/dmlvKuetivmyPd5m1q+Gyd+zaYY=";
-      };
-    in
-      with pkgs; {
-        rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudo && notify-send \"Done\" ; popd";
-        test = "pushd ~dotfiles nixos-rebuild dry-activate";
-        cleanup = "sudo nix-collect-garbage --delete-older-than 7d";
-        bloat = "nix path-info -Sh /run/current-system";
-        curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
-        repair = "nix-store --verify --check-contents --repair";
-        ytmp3 = ''
-          ${lib.getExe yt-dlp} -x --continue --add-metadata --embed-thumbnail --audio-format mp3 --audio-quality 0 --metadata-from-title="%(artist)s - %(title)s" --prefer-ffmpeg -o "%(title)s.%(ext)s"
-        '';
-        cat = "${lib.getExe bat} --style=plain";
-        grep = "${lib.getExe ripgrep}";
-        du = "${lib.getExe du-dust}";
-        ps = "${lib.getExe procs}";
-        m = "mkdir -p";
-        fcd = "cd $(find -type d | fzf)";
-        ls = "${lib.getExe exa} -h --git --icons --color=auto --group-directories-first -s extension";
-        l = "ls -lF --time-style=long-iso --icons";
-        sc = "sudo systemctl";
-        scu = "systemctl --user ";
-        la = "${lib.getExe exa} -lah --tree";
-        tree = "${lib.getExe exa} --tree --icons --tree";
-        http = "${lib.getExe python3} -m http.server";
-        burn = "pkill -9";
-        diff = "diff --color=auto";
-        killall = "pkill";
-        gpl3init = "cp ${gpl3} LICENSE";
-        ".." = "cd ..";
-        "..." = "cd ../../";
-        "...." = "cd ../../../";
-        "....." = "cd ../../../../";
-        "......" = "cd ../../../../../";
-        v = "nvim";
-        g = "git";
-        wget = "wget --hsts-file='\${XDG_DATA_HOME}/wget-hsts'";
-      };
+    shellAliases = with pkgs; {
+      # make sudo use aliases
+      sudo = "sudo ";
+      # easy netcat alias for my fiche host
+      # https://github.com/solusipse/fiche
+      fbin = "cat $@ | ${lib.getExe pkgs.netcat-gnu} p.frzn.dev 9999";
+      # nix specific aliases
+      rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudo && notify-send \"Done\" ; popd";
+      test = "pushd ~dotfiles nixos-rebuild dry-activate";
+      cleanup = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
+      bloat = "nix path-info -Sh /run/current-system";
+      curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
+      gc-check = "nix-store --gc --print-roots | egrep -v \"^(/nix/var|/run/\w+-system|\{memory|/proc)\"";
+      repair = "nix-store --verify --check-contents --repair";
+      run = "nix run nixpkgs#$@";
+      search = "nix search nixpkgs $@";
+      shell = "nix shell nixpkgs#$@";
+      # quality of life aliases
+      ytmp3 = ''
+        ${lib.getExe yt-dlp} -x --continue --add-metadata --embed-thumbnail --audio-format mp3 --audio-quality 0 --metadata-from-title="%(artist)s - %(title)s" --prefer-ffmpeg -o "%(title)s.%(ext)s"
+      '';
+      cat = "${lib.getExe bat} --style=plain";
+      grep = "${lib.getExe ripgrep}";
+      du = "${lib.getExe du-dust}";
+      ps = "${lib.getExe procs}";
+      mp = "mkdir -p";
+      fcd = "cd $(find -type d | fzf)";
+      ls = "${lib.getExe exa} -h --git --icons --color=auto --group-directories-first -s extension";
+      l = "ls -lF --time-style=long-iso --icons";
+      # system aliases
+      sc = "sudo systemctl";
+      jc = "sudo journalctl";
+      scu = "systemctl --user ";
+      jcu = "journalctl --user";
+      la = "${lib.getExe exa} -lah --tree";
+      tree = "${lib.getExe exa} --tree --icons --tree";
+      http = "${lib.getExe python3} -m http.server";
+      burn = "pkill -9";
+      diff = "diff --color=auto";
+      killall = "pkill";
+      # faster navigation
+      ".." = "cd ..";
+      "..." = "cd ../../";
+      "...." = "cd ../../../";
+      "....." = "cd ../../../../";
+      "......" = "cd ../../../../../";
+      # things I do to keep my home directory clean
+      wget = "wget --hsts-file='\${XDG_DATA_HOME}/wget-hsts'";
+    };
 
     plugins = with pkgs; [
       {
