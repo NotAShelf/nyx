@@ -56,7 +56,7 @@
   inputs = {
     # Nix itself, the package manager
     nix = {
-      url = "github:NixOS/nix";
+      url = "github:NixOS/nix?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
