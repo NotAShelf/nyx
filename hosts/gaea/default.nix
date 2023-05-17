@@ -9,14 +9,13 @@ with lib; {
     ./boot.nix
     ./iso.nix
     ./network.nix
+    ./nix.nix
   ];
 
   # FIXME: for some reason, we cannot boot off ventoy
   # and have to burn the iso to an entire USB with dd
   # dd if=result/iso/*.iso of=/dev/sdX status=progress
 
-  # system packages for the base installer
-  environment.systemPackages = with pkgs; [git neovim netcat];
   users.extraUsers.root.password = "";
 
   # console locale #
@@ -53,9 +52,14 @@ with lib; {
     '';
 
   # borrow some environment options from the minimal profile to save space
-  environment.noXlibs = mkDefault true; # trim inputs
+  environment = {
+    noXlibs = mkDefault true; # trim inputs
+    # system packages for the base installer
+    systemPackages = with pkgs; [gitMinimal neovim netcat];
+    defaultPackages = []; # no packages other than my defaults
+  };
 
-  # disable documentation
+  # disable documentation to save space
   documentation = {
     enable = mkDefault false;
 
@@ -63,4 +67,10 @@ with lib; {
 
     info.enable = mkDefault false;
   };
+
+  # disable fontConfig to save space, we don't have a graphical environment on the ISO
+  fonts.fontconfig.enable = lib.mkForce false;
+
+  # disable sound related programs
+  sound.enable = false;
 }

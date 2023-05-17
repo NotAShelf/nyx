@@ -3,8 +3,10 @@
   lib,
   ...
 }: {
+  # talk to me kernel
   boot.kernelParams = lib.mkAfter ["noquiet"];
 
+  # no need for systemd in the initrd stage on an installation media, it's a one night stand
   boot.initrd.systemd.enable = lib.mkImageMediaOverride false;
   boot.initrd.systemd.emergencyAccess = lib.mkImageMediaOverride true;
 
