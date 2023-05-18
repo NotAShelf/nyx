@@ -6,7 +6,7 @@
   xdg.configFile."kdeglobals".source = "${pkgs.catppuccin-kde}/Resources/Base.colors";
   qt = {
     enable = true;
-    # platformTheme = "gnome"; # just an override for QT_QPA_PLATFORMTHEME
+    # platformTheme = "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes "gtk" or "gnome"
     style = {
       package = pkgs.catppuccin-kde;
       name = "Cattpuccin-Mocha-Dark";
@@ -19,7 +19,7 @@
 
   home.sessionVariables = {
     QT_STYLE_OVERRIDE = "kvantum";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
+    #QT_QPA_PLATFORMTHEME = "kvantum"; # can't be used alongside kvantum, nix above knows why
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     QT_QPA_PLATFORM = "wayland;xcb";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
