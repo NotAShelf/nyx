@@ -19,12 +19,16 @@ in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.rofi = {
       enable = true;
-      # TODO: only override with plugins if wayland
+      # TODO: only override with plugins if system is wayland-enabled
       package = rofiPackage.override {
-        plugins = with self.packages.${pkgs.system}; [
-          rofi-calc-wayland
-          rofi-emoji-wayland
-        ];
+        plugins = with self.packages.${pkgs.system};
+          [
+            pkgs.rofi-rbw
+          ]
+          ++ optionals (env.isWayland) [
+            rofi-calc-wayland
+            rofi-emoji-wayland
+          ];
       };
       font = "Iosevka Nerd Font 14";
       extraConfig = {
@@ -42,6 +46,7 @@ in {
         display-calc = "󰃬 Calculator";
         display-emoji = "💀 Emoji";
       };
+
       theme = let
         inherit (config.colorscheme) colors;
         inherit (config.lib.formats.rasi) mkLiteral;
