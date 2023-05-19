@@ -14,7 +14,8 @@ with lib; let
 in {
   security = {
     protectKernelImage = true;
-    lockKernelModules = false;
+    lockKernelModules = false; # breaks virtd, wireguard and iptables
+
     # force-enable the Page Table Isolation (PTI) Linux kernel feature
     forcePageTableIsolation = true;
 
