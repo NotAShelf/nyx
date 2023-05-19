@@ -54,11 +54,8 @@
   };
 
   inputs = {
-    # Nix itself, the package manager
-    nix = {
-      url = "github:NixOS/nix?ref=master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # An upstream, feature-rich fork of the Nix package manager
+    nix-super.url = "github:privatevoid-net/nix-super";
 
     # build against nixos unstable, more variants can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

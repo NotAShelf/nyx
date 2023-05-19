@@ -17,7 +17,6 @@ in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (env.isWayland)) {
     home.packages = with pkgs; [
       # CLI
-      shadower
       ocr
       grim
       slurp
