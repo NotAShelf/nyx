@@ -1634,11 +1634,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1684498988,
-        "narHash": "sha256-YIxhv8UKNdn6D3wWXL9NU0mGbSuBgrjjPRdncxfhnAE=",
+        "lastModified": 1684501396,
+        "narHash": "sha256-AfoQIixIOmT7Fx7GI1Z+rnfHrw5qqFvpwFoFnuMOaGw=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "1889ba444108f92479d61d9aa3b76c71c1285119",
+        "rev": "d1b65d285888e5ce68a98b5327631ff17a43fa8c",
         "type": "github"
       },
       "original": {
@@ -1764,11 +1764,11 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1683240066,
-        "narHash": "sha256-XXTB64SAMukIt2suhoPP87QDKX9vB2ByXXuE7l2Vyxw=",
+        "lastModified": 1684501670,
+        "narHash": "sha256-+yu51O/LUi3seULthh7HTxtxVfDMcT3IR/0uDncKqho=",
         "owner": "privatevoid-net",
         "repo": "nix-super",
-        "rev": "aaba1f91e7eba8ce029fa6bfa81ad9e14a13708d",
+        "rev": "80c164b00196612545c17252a234dfada78d470b",
         "type": "github"
       },
       "original": {
