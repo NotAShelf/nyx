@@ -1,16 +1,12 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+_: {
   imports = [
+    ./nix
+
     ./locale.nix
     ./environment.nix
     ./security.nix
     ./services.nix
     ./programs.nix
-    ./nix.nix
-    ./builders.nix
     ./tailscale.nix
   ];
 
