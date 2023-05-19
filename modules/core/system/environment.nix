@@ -27,8 +27,13 @@ in {
         lshw
       ]
       ++ optionals (config.security.doas.enable) [
+        # add the doas package only if I have doas enabled, instead of sudo
         doas
       ];
+
+    # disable all packages installed by default, so that my system doesn't have anything
+    # that I myself have added
+    defaultPackages = [];
 
     # enable completions for system packages
     pathsToLink = ["/share/zsh" "/share/bash-completion" "/share/nix-direnv"];
