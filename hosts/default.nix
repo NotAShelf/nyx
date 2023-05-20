@@ -24,7 +24,6 @@
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other devices
   agenix = inputs.agenix.nixosModules.default; # secret encryption via age
-  sops = inputs.sops-nix.nixosModules.sops; # secret encryption based on sops
   home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
   shared = [system core agenix boot];
@@ -32,7 +31,7 @@ in {
   # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
   # fully free from nvidia
   # fuck nvidia - Linus "the linux" Torvalds
-  enyo = lib.mkSystem {
+  enyo = lib.mkNixosSystem {
     system = "x86_64-linux";
     modules =
       [
