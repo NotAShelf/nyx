@@ -18,10 +18,10 @@ with lib; {
 
   environment = {
     # set channels (backwards compatibility)
-    etc = {
-      #"nix/flake-channels/system".source = inputs.self; # no worky
-      "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
-      "nix/flake-channels/home-manager".source = inputs.home-manager;
+    etc = with inputs; {
+      "nix/flake-channels/system".source = self;
+      "nix/flake-channels/nixpkgs".source = nixpkgs;
+      "nix/flake-channels/home-manager".source = home-manager;
     };
 
     # we need git for flakes, don't we
@@ -31,10 +31,11 @@ with lib; {
   nixpkgs = {
     config = {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
-      allowBroken = true;
+      allowBroken = false;
       allowUnsupportedSystem = true;
       permittedInsecurePackages = [
         "electron-21.4.0"
+        "nodejs-16.20.0"
       ];
     };
 
@@ -45,7 +46,7 @@ with lib; {
         rust-overlay.overlays.default
 
         (self: super: {
-          nixSuper = inputs.nix-super.packages.x86_64-linux.default;
+          nixSuper = inputs.nix-super.packages.${pkgs.system}.default;
         })
       ]
       # Overlays from the overlays directory
@@ -60,8 +61,22 @@ with lib; {
     dev.enable = false;
   };
 
-  nix = {
+  nix = let
+    mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
+  in {
     package = pkgs.nixSuper; # pkgs.nixVersions.unstable;
+
+    # pin the registry to avoid downloading and evaluating a new nixpkgs
+    # version everytime
+    # this will add each flake input as a registry
+    # to make nix3 commands consistent with your flake
+    registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
+
+    #registry.default.flake = config.nix.registry.nixpkgs;
+
+    # This will additionally add your inputs to the system's legacy channels
+    # Making legacy nix commands consistent as well, awesome!
+    nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
     # Make builds run with low priority so my system stays responsive
     daemonCPUSchedPolicy = "idle";
@@ -75,23 +90,10 @@ with lib; {
       options = "--delete-older-than 3d";
     };
 
-    # pin the registry to avoid downloading and evalıationg a new nixpkgs
-    # version everytime
-    # this will add each flake input as a registry
-    # to make nix3 commands consistent with your flake
-    registry = mapAttrs (_: v: {flake = v;}) inputs;
-
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
-    nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
-
     # Free up to 1GiB whenever there is less than 100MiB left.
     extraOptions = ''
       min-free = ${toString (100 * 1024 * 1024)}
       max-free = ${toString (1024 * 1024 * 1024)}
-      accept-flake-config = true
-      http-connections = 0
-      warn-dirty = false
     '';
 
     settings = {
@@ -99,15 +101,15 @@ with lib; {
       # allow sudo users to mark the following values as trusted
       allowed-users = ["@wheel"];
       # only allow sudo users to manage the nix store
-      trusted-users = ["@wheel"];
+      trusted-users = ["@wheel" "nix-builder"];
       # let the system decide the number of max jobs
       max-jobs = "auto";
       # build inside sandboxed environments
       sandbox = true;
       # supported system features
       system-features = ["nixos-tests" "kvm" "recursive-nix" "big-parallel" "gccarch-core2" "gccarch-haswell"];
-      # architectures supported by my builders
-      extra-platforms = config.boot.binfmt.emulatedSystems;
+      # extra architectures supported by my builders
+      extra-platforms = config.boot.binfmt.emulatedSystems; # TODO: only allow extra systems if emulation is allowed in system.nix
       # continue building derivations if one fails
       keep-going = true;
       # show more log lines for failed builds
@@ -115,13 +117,19 @@ with lib; {
       # enable new nix command and flakes
       # and also "unintended" recursion as well as content addresssed nix
       extra-experimental-features = ["flakes" "nix-command" "recursive-nix" "ca-derivations"];
+      # don't warn me that my git tree is dirty, I know
+      warn-dirty = false;
+      # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
+      http-connections = 0;
+      # whether to accept nix configuration from a flake without prompting
+      accept-flake-config = true;
 
       # for direnv GC roots
       keep-derivations = true;
       keep-outputs = true;
 
       # use binary cache, its not gentoo
-      # this also allows us to use remote builders to reduce build times and batter usage
+      # this also allows us to use remote builders to reduce build times and battery usage
       builders-use-substitutes = true;
       # substituters to use
       substituters = [

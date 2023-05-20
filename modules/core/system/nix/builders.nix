@@ -1,30 +1,42 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}: {
+}: let
+  builder = {
+    systems = ["x86_64-linux" "i686-linux"];
+    speedFactor = 4;
+    maxJobs = 4;
+    supportedFeatures = ["benchmark" "nixos-test"];
+    sshKey = config.age.secrets.nix-builderKey.path;
+    protocol = "ssh-ng";
+  };
+  bigBuilder =
+    builder
+    // {
+      maxJobs = 16;
+      speedFactor = 16;
+      supportedFeatures = builder.supportedFeatures ++ ["kvm" "big-parallel"];
+    };
+in {
   nix = {
-    distributedBuilds = false;
+    distributedBuilds = true;
     buildMachines = lib.filter (x: x.hostName != config.networking.hostName) [
-      {
-        system = "x86_64-linux";
-        systems = ["aarch64-darwin" "x86_64-darwin" "x86_64-linux" "aarch64-linux"];
-        sshUser = "raf";
-        sshKey = "/home/notashelf/.ssh/builder";
-        maxJobs = 16;
-        hostName = "build.neushore.dev";
-        supportedFeatures = ["nixos-test" "benchmark" "kvm" "big-parallel"];
-      }
-      {
-        system = "x86_64-linux";
-        systems = ["aarch64-darwin" "x86_64-darwin" "x86_64-linux" "aarch64-linux"];
-        sshUser = "notashelf";
-        sshKey = "/home/notashelf/.ssh/builder";
-        maxJobs = 4;
-        hostName = "epimetheus";
-        supportedFeatures = ["nixos-test" "benchmark" "kvm" "big-parallel"];
-      }
+      (bigBuilder
+        // {
+          sshUser = "builder";
+          hostName = "builder.neushore.dev";
+        })
+      (builder
+        // {
+          sshUser = "nix-builder";
+          hostName = "helios";
+        })
+      (builder
+        // {
+          sshUser = "nix-builder";
+          hostName = "epimetheus";
+        })
     ];
   };
 }
