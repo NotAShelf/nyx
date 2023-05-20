@@ -55,7 +55,7 @@
 
   inputs = {
     # An upstream, feature-rich fork of the Nix package manager
-    nix-super.url = "github:privatevoid-net/nix-super";
+    nix-super.url = "github:privatevoid-net/nix-super/d9e7c9777cc65847295e50ac5dc6736a99eb9f8d";
 
     # build against nixos unstable, more variants can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -79,8 +79,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Secrets management via ragenix, an agenix replacement
-    ragenix.url = "github:yaxitech/ragenix";
+    # Secrets management via agenix
+    agenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "";
+    };
 
     # sops-nix for atomic secrets management
     sops-nix = {

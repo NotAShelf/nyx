@@ -2,6 +2,7 @@
   osConfig,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
@@ -9,6 +10,7 @@ with lib; let
 in {
   config = (mkIf programs.cli.enable) {
     home.packages = with pkgs; [
+      inputs.agenix.packages.${pkgs.system}.default
       # CLI
       cloneit
       catimg

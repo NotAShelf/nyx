@@ -1,7 +1,7 @@
 _: {
   imports = [
     ./hardware-configuration.nix
-    ./ragenix.nix
+    ./secrets.nix
     ./system.nix
     ./mounts.nix
     ./wireguard.nix

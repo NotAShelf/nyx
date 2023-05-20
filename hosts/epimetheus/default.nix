@@ -4,6 +4,6 @@ _: {
     ./system.nix
     ./impermanence.nix
     ./encryption.nix
-    #./ragenix.nix
+    #./secrets.nix
   ];
 }
