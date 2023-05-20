@@ -37,6 +37,11 @@ in {
           sshUser = "nix-builder";
           hostName = "epimetheus";
         })
+      (builder
+        // {
+          sshUser = "nix-builder";
+          hostName = "enyo";
+        })
     ];
   };
 }
