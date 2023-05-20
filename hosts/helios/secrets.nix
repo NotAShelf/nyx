@@ -15,4 +15,14 @@
     file = "${self}/secrets/nix-builderKey.age";
     mode = "400";
   };
+
+  age.secrets.matrix-secret = {
+    file = "${self}/secrets/matrix-secret.age";
+    owner = "matrix-synapse";
+  };
+
+  age.secrets.nextcloud-secret = {
+    file = "${self}/secrets/nextcloud-secret.age";
+    owner = "nextcloud";
+  };
 }

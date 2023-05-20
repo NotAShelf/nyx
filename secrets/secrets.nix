@@ -8,4 +8,6 @@ in {
   "wg-server.age".publicKeys = [enyo helios notashelf];
   "wg-client.age".publicKeys = [enyo helios notashelf];
   "nix-builderKey.age".publicKeys = [enyo helios notashelf];
+  "matrix-secret.age".publicKeys = [enyo helios notashelf];
+  "nextcloud-secret.age".publicKeys = [enyo helios notashelf];
 }

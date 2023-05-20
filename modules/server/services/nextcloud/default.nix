@@ -22,18 +22,18 @@ in {
         enable = true;
         package = pkgs.nextcloud26;
         hostName = "cloud.notashelf.dev";
-        #home = "/opt/nextcloud";
+        home = "/opt/nextcloud";
         autoUpdateApps.enable = true;
         config = {
           overwriteProtocol = "https";
           extraTrustedDomains = ["https://${toString domain}"];
           trustedProxies = ["https://${toString domain}"];
           adminuser = "notashelf";
-          adminpassFile = config.age.secrets.nextcloud-auth.path;
+          adminpassFile = config.age.secrets.nextcloud-secret.path;
           dbtype = "pgsql";
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
-          defaultPhoneRegion = "NZ";
+          defaultPhoneRegion = "TR";
         };
         nginx.recommendedHttpHeaders = true;
         https = true;

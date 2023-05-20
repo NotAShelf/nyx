@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 with lib; let
@@ -42,10 +43,7 @@ in {
         locations."/_synapse/client".proxyPass = "http://[::1]:8008";
       };
     };
-    age.secrets.matrix-secret = {
-      file = "${self}/secrets/matrix-secret.age";
-      owner = "matrix-synapse";
-    };
+
     services.matrix-synapse = {
       enable = true;
       settings = {

@@ -31,12 +31,14 @@ in {
           enableACME = true;
         };
       in {
+        # website + other stuff
         "notashelf.dev" =
           template
           // {
             serverAliases = ["notashelf.dev"];
             root = "/home/notashelf/Dev/web";
           };
+        # jellyfin
         "fin.notashelf.dev" =
           template
           // {
@@ -46,6 +48,7 @@ in {
               extraConfig = "proxy_pass_header Authorization;";
             };
           };
+        # vaultwawrden
         "vault.notashelf.dev" =
           template
           // {
@@ -54,19 +57,23 @@ in {
               extraConfig = "proxy_pass_header Authorization;";
             };
           };
+        # gitea
         "git.notashelf.dev" =
           template
           // {
             locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
           };
+        # nextcloud
         ${config.services.nextcloud.hostName} = template;
 
+        # matrix-synapse
         "matrix.notashelf.dev" =
           template
           // {
             locations."/".proxyPass = "http://127.0.0.1:8008";
           };
 
+        # grafana dashboard
         ${config.services.grafana.settings.server.domain} =
           template
           // {
