@@ -15,11 +15,11 @@
 
   # credits: yavko
   # catppuccin theme for qt-apps
-  home.packages = with pkgs; [libsForQt5.qtstyleplugin-kvantum qt5ct];
+  home.packages = with pkgs; [libsForQt5.qtstyleplugin-kvantum];
 
   home.sessionVariables = {
-    QT_STYLE_OVERRIDE = "kvantum";
     #QT_QPA_PLATFORMTHEME = "kvantum"; # can't be used alongside kvantum, nix above knows why
+    QT_STYLE_OVERRIDE = "kvantum";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     QT_QPA_PLATFORM = "wayland;xcb";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
@@ -44,6 +44,7 @@
     catppuccin=qt5ct, org.kde.dolphin, org.kde.kalendar, org.qbittorrent.qBittorrent, hyprland-share-picker, dolphin-emu, Nextcloud, nextcloud
   '';
 
+  /*
   xdg.configFile."qt5ct/qt5ct.conf".text = ''
     [Appearance]
     color_scheme_path=${pkgs.qt5ct}/share/qt5ct/colors/darker.conf
@@ -78,4 +79,5 @@
     force_raster_widgets=1
     ignored_applications=@Invalid()
   '';
+  */
 }
