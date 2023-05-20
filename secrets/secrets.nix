@@ -7,4 +7,5 @@ in {
   "spotify.age".publicKeys = [enyo notashelf];
   "wg-server.age".publicKeys = [enyo helios notashelf];
   "wg-client.age".publicKeys = [enyo helios notashelf];
+  "nix-builderKey.age".publicKeys = [enyo helios notashelf];
 }
