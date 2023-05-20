@@ -90,10 +90,10 @@ with lib; {
       options = "--delete-older-than 3d";
     };
 
-    # Free up to 1GiB whenever there is less than 100MiB left.
+    # Free up to 20GiB whenever there is less than 5GB left.
     extraOptions = ''
-      min-free = ${toString (100 * 1024 * 1024)}
-      max-free = ${toString (1024 * 1024 * 1024)}
+      min-free = ${toString (5 * 1024 * 1024 * 1024)}
+      max-free = ${toString (20 * 1024 * 1024 * 1024)}
     '';
 
     settings = {

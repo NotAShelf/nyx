@@ -26,8 +26,6 @@
 
   age.secrets.nix-builderKey = {
     file = "${self}/secrets/nix-builderKey.age";
-    owner = "notashelf";
-    mode = "700";
-    group = "users";
+    mode = "400";
   };
 }
