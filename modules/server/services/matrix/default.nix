@@ -43,7 +43,8 @@ in {
       };
     };
 
-    services.matrix-synapse = {
+    networking.firewall.allowedTCPPorts = [8008];
+    x-synapse = {
       enable = true;
       settings = {
         database_type = "psycopg2";
@@ -71,5 +72,7 @@ in {
       };
       extraConfigFiles = [config.age.secrets.matrix-secret.path];
     };
+  };
+}
   };
 }
