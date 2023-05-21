@@ -20,7 +20,7 @@ in {
 
     services = {
       gitea = {
-        enable = false;
+        enable = true;
         package = pkgs.forgejo;
         lfs.enable = true;
 
