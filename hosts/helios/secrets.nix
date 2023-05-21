@@ -28,6 +28,6 @@
   };
 
   age.secrets.mailserver-secret = {
-    file = "${self}secrets/mailserver-secret.age";
+    file = "${self}/secrets/mailserver-secret.age";
   };
 }
