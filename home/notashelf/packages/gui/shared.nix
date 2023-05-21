@@ -12,6 +12,7 @@ with lib; let
 in {
   config = mkIf ((programs.gui.enable) && (builtins.elem device.type acceptedTypes)) {
     home.packages = with pkgs; [
+      schildichat-desktop-wayland
       thunderbird
       qbittorrent
       hexchat
