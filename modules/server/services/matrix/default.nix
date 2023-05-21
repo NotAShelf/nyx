@@ -10,7 +10,7 @@ with lib; let
   acceptedTypes = ["server" "hybrid"];
 
   clientConfig = {
-    "m.homeserver".base_url = "https://${config.networking.hostName}.${config.networking.domain}";
+    "m.homeserver".base_url = "https://${config.networking.hostName}${config.networking.domain}";
     "m.identity_server" = {};
   };
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
@@ -44,7 +44,8 @@ in {
     };
 
     networking.firewall.allowedTCPPorts = [8008];
-    x-synapse = {
+
+    matrix-synapse = {
       enable = true;
       settings = {
         database_type = "psycopg2";
