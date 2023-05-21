@@ -16,6 +16,8 @@ in {
       lib.mkForce
       "~@clock @cpu-emulation @debug @keyring @memlock @module @obsolete @raw-io @reboot @resources @setuid @swap";
 
+    networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];
+
     services = {
       gitea = {
         enable = false;

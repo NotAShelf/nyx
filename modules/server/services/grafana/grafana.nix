@@ -12,6 +12,8 @@ in {
   # TODO: grafana service override
   # https://nixos.wiki/wiki/Grafana
   config = mkIf (builtins.elem device.type acceptedTypes) {
+    networking.firewall.allowedTCPPorts = [config.services.grafana.settings.server.http_port];
+
     services.grafana = {
       enable = true;
 
