@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+_: {
   users.users.git = {
     isSystemUser = true;
     extraGroups = [];
