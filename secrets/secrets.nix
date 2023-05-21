@@ -10,4 +10,5 @@ in {
   "nix-builderKey.age".publicKeys = [enyo helios notashelf];
   "matrix-secret.age".publicKeys = [enyo helios notashelf];
   "nextcloud-secret.age".publicKeys = [enyo helios notashelf];
+  "mailserver-secret.age".publicKeys = [enyo helios notashelf];
 }

@@ -11,6 +11,13 @@ in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     networking.domain = "notashelf.dev";
 
+    security = {
+      acme = {
+        acceptTerms = true;
+        defaults.email = "me@notashelf.dev";
+      };
+    };
+
     services.nginx = {
       enable = true;
       commonHttpConfig = ''

@@ -24,5 +24,10 @@
   age.secrets.nextcloud-secret = {
     file = "${self}/secrets/nextcloud-secret.age";
     owner = "nextcloud";
+    mode = "400";
+  };
+
+  age.secrets.mailserver-secret = {
+    file = "${self}secrets/mailserver-secret.age";
   };
 }

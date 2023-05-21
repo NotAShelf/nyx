@@ -28,16 +28,4 @@
       ];
     };
   };
-
-  security = {
-    acme = {
-      acceptTerms = true;
-      defaults.email = "me@notashelf.dev";
-      #certs = {
-      #"notashelf.dev" = {
-      #  group = "nginx";
-      #  email = "me@notashelf.dev";
-      #};
-    };
-  };
 }

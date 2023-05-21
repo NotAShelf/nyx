@@ -19,6 +19,12 @@ _: {
           identityFile = "~/.ssh/builder";
         };
 
+        "nix-builder" = {
+          hostname = "builder@helios";
+          user = "nix-builder";
+          identityFile = "~/.ssh/builder";
+        };
+
         "frozendev" = {
           hostname = "frzn.dev";
           user = "raf";
