@@ -14,7 +14,7 @@ with lib; let
 in {
   config = {
     age.secrets.nextcloud-auth = {
-      file = "${self}/secrets/nextcloud-auth.age";
+      file = "${self}/secrets/nextcloud-secret.age";
       owner = "nextcloud";
     };
     services = {
