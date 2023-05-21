@@ -45,7 +45,7 @@ in {
 
     networking.firewall.allowedTCPPorts = [8008];
 
-    matrix-synapse = {
+    services.matrix-synapse = {
       enable = true;
       settings = {
         database_type = "psycopg2";
