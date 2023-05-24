@@ -74,11 +74,6 @@
       kernelModules = [
         "wireguard"
       ];
-
-      loader = {
-        grub.enable = true;
-        systemd-boot.enable = false;
-      };
     };
 
     console.earlySetup = true;
