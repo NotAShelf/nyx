@@ -14,13 +14,13 @@ _: {
         };
 
         "builder" = {
-          hostname = "builder.neushore.dev";
+          hostname = "build.neushore.dev";
           user = "builder";
           identityFile = "~/.ssh/builder";
         };
 
         "nix-builder" = {
-          hostname = "builder@helios";
+          hostname = "helios";
           user = "nix-builder";
           identityFile = "~/.ssh/builder";
         };
