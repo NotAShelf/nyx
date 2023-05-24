@@ -82,7 +82,7 @@ in {
           DisableFirefoxStudies = true;
           DisablePocket = true;
           DisableTelemetry = true;
-          DisableFirefoxAccounts = !cfg.extremeSecurity;
+          DisableFirefoxAccounts = cfg.securityLevel == "extreme";
           DisableFormHistory = true;
           DisplayBookmarksToolbar = true;
           DontCheckDefaultBrowser = true;
@@ -198,7 +198,7 @@ in {
 
           SanitizeOnShutdown = let
             enableState =
-              if cfg.extremeSecurity
+              if cfg.securityLevel == "extreme"
               then true
               else false;
           in {
@@ -235,14 +235,14 @@ in {
               "media.eme.enabled" = cfg.netflixDRMFix;
             }
 
-            (mkIf cfg.securityLevel
-              == "extra"
+            (mkIf (cfg.securityLevel
+                == "extra")
               {
                 # TODO: move basic security options to extraSecurity
               })
 
-            (mkIf cfg.securityLevel
-              == "extreme"
+            (mkIf (cfg.securityLevel
+                == "extreme")
               {
                 # glowies crying rn
                 "privacy.webrtc.legacyGlobalIndicator" = false;
