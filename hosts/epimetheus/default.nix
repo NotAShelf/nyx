@@ -4,6 +4,5 @@ _: {
     ./system.nix
     ./impermanence.nix
     ./encryption.nix
-    #./secrets.nix
   ];
 }
