@@ -17,6 +17,7 @@
       maxJobs = 16;
       speedFactor = 16;
       supportedFeatures = builder.supportedFeatures ++ ["kvm" "big-parallel"];
+      systems = builder.systems ++ ["aarch64-linux"];
     };
 in {
   nix = {
@@ -25,7 +26,7 @@ in {
       (bigBuilder
         // {
           sshUser = "builder";
-          hostName = "builder.neushore.dev";
+          hostName = "build.neushore.dev";
         })
       (builder
         // {
