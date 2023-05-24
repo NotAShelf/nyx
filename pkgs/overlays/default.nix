@@ -5,11 +5,5 @@ final: prev: {
   mov-cli = prev.callPackage ./mov-cli {};
   anime4k = prev.callPackage ./anime4k {};
   spotify-wrapped = prev.callPackage ./spotify-wrapped {};
-
-  # catppuccin packages
-  # catppuccin-gtk = prev.callPackage ../catppuccin-gtk.nix {};
-  # catppuccin-folders = prev.callPackage ../catppuccin-folders.nix {};
-  # catppuccin-cursors = prev.callPackage ../catppuccin-cursors.nix {};
-
   cloneit = prev.callPackage ../cloneit.nix {};
 }
