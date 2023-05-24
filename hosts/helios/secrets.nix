@@ -19,6 +19,7 @@
   age.secrets.matrix-secret = {
     file = "${self}/secrets/matrix-secret.age";
     owner = "matrix-synapse";
+    mode = "400";
   };
 
   age.secrets.nextcloud-secret = {
@@ -29,5 +30,11 @@
 
   age.secrets.mailserver-secret = {
     file = "${self}/secrets/mailserver-secret.age";
+    mode = "400";
+  };
+
+  age.secrets.mongodb-secret = {
+    file = "${self}/secrets/mailserver-secret.age";
+    mode = "400";
   };
 }

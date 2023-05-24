@@ -11,4 +11,5 @@ in {
   "matrix-secret.age".publicKeys = [enyo helios notashelf];
   "nextcloud-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-secret.age".publicKeys = [enyo helios notashelf];
+  "mongodb-secret.age".publicKeys = [enyo helios notashelf];
 }
