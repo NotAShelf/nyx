@@ -6,12 +6,12 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.programs.schizofox;
+  cfg = config.programs.schizofox;
 
   device = osConfig.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  options.modules.programs.schizofox = {
+  options.programs.schizofox = {
     enable = mkEnableOption "Schizo firefox esr setup with vim bindings, discord screenshare works tho. Inspired by ArkenFox.";
     userAgent = mkOption {
       type = types.str;
@@ -20,25 +20,17 @@ in {
       description = "Spoof user agent";
     };
 
-    extraSecurity = mkOption {
-      type = types.bool;
-      default = true;
-      description = "
-        Enable level 1 security options for Firefox.
-      ";
-    };
-
-    extremeSecurity = mkOption {
-      type = types.bool;
-      default = true;
-      description = "
-        Take your meds.
-        ";
+    securityLevel = mkOption {
+      type = types.enum ["none" "extra" "extreme"];
+      default = "extra";
+      description = ''
+        The desired security level, may break certain features at higher levels
+      '';
     };
 
     netflixDRMFix = mkOption {
       type = types.bool;
-      default = false;
+      default = cfg.securityLevel == "extreme";
       description = "
         Enable drm content for sites that require it - such as Netflix 
         (literally just torrent stuff)
@@ -67,7 +59,21 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable && (builtins.elem device.type acceptedTypes)) {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
+    programs = {
+      # schizo firefox config based on firefox ESR
+      schizofox = {
+        enable = true;
+        netflixDRMFix = true;
+        securityLevel = "extra";
+        translate = {
+          enable = true;
+          sourceLang = "en";
+          targetLang = "tr";
+        };
+      };
+    };
+
     home.packages = with pkgs; [
       (wrapFirefox firefox-esr-102-unwrapped {
         # see https://github.com/mozilla/policy-templates/blob/master/README.md
@@ -216,7 +222,7 @@ in {
               "browser.uidensity" = 1;
 
               "browser.startup.homepage" = "file://${./startpage.html}";
-              # "general.useragent.override" = cfg.userAgent;
+              "general.useragent.override" = cfg.userAgent;
 
               # remove useless stuff from the bar
               "browser.uiCustomization.state" = ''
@@ -229,12 +235,14 @@ in {
               "media.eme.enabled" = cfg.netflixDRMFix;
             }
 
-            (mkIf cfg.extraSecurity
+            (mkIf cfg.securityLevel
+              == "extra"
               {
                 # TODO: move basic security options to extraSecurity
               })
 
-            (mkIf cfg.extremeSecurity
+            (mkIf cfg.securityLevel
+              == "extreme"
               {
                 # glowies crying rn
                 "privacy.webrtc.legacyGlobalIndicator" = false;
