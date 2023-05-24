@@ -55,7 +55,7 @@
 
   inputs = {
     # An upstream, feature-rich fork of the Nix package manager
-    nix-super.url = "github:privatevoid-net/nix-super/d9e7c9777cc65847295e50ac5dc6736a99eb9f8d";
+    nix-super.url = "github:privatevoid-net/nix-super";
 
     # build against nixos unstable, more variants can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -134,9 +134,7 @@
     };
 
     # Hyprland & Hyprland Contrib repos
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
+    hyprland.url = "github:hyprwm/Hyprland";
 
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
