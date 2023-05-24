@@ -37,12 +37,17 @@ with lib; {
   environment.persistence."/persist" = {
     directories = [
       "/etc/nixos"
+      "/etc/nix"
       "/etc/NetworkManager/system-connections"
       "/etc/secureboot"
       "/var/db/sudo"
       "/etc/ssh"
       "/var/lib/flatpak"
       "/var/lib/libvirt"
+      "/var/lib/bluetooth"
+      "/var/lib/nixos"
+      "/var/lib/pipewire"
+      "/var/lib/systemd/coredump"
     ];
 
     files = [
@@ -56,6 +61,12 @@ with lib; {
       # TODO: optionalstring for /var/lib/${lxd, docker}
     ];
   };
+
+  systemd.tmpfiles.rules = [
+    "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
+    "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
+    "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
+  ];
 
   boot.initrd.systemd.services.rollback = {
     description = "Rollback BTRFS root subvolume to a pristine state";
