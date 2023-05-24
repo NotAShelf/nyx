@@ -6,13 +6,13 @@
   ...
 }:
 with lib; let
-  device = config.modules.system.security;
+  sys = config.modules.system.security;
 in {
   imports = [
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
-  config = mkIf (device.secureBoot) {
+  config = mkIf (sys.secureBoot) {
     environment.systemPackages = [
       # For debugging and troubleshooting Secure Boot.
       pkgs.sbctl
