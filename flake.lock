@@ -1638,11 +1638,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1684775580,
-        "narHash": "sha256-0vWlaHJWZTxYovBRZIzdEVhu421XZ7kmHq+hEX6pNn0=",
+        "lastModified": 1684893238,
+        "narHash": "sha256-GagF/8MZ9Nw7dhfeGZDHVHDuN/FumCgQO2GHIRKW6yQ=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "6aec7e7a80a0dbf42361d0fdfe9cf6a6690074e1",
+        "rev": "dd9191e016e87028f53265b4293970fb5dec31d3",
         "type": "github"
       },
       "original": {
@@ -2688,11 +2688,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1684808436,
-        "narHash": "sha256-WG5LgB1+Oguj4H4Bpqr5GoLSc382LyGlaToiOw5xhwA=",
+        "lastModified": 1684894917,
+        "narHash": "sha256-kwKCfmliHIxKuIjnM95TRcQxM/4AAEIZ+4A9nDJ6cJs=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "a227d4571dd1f948138a40ea8b0d0c413eefb44b",
+        "rev": "9ea38d547100edcf0da19aaebbdffa2810585495",
         "type": "github"
       },
       "original": {
