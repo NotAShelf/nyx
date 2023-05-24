@@ -24,7 +24,6 @@ in {
     exec-once = hyprctl setcursor ${pointer.name} ${toString pointer.size}
     exec-once = run-as-service 'foot --server'
 
-    # monitor=eDP-1,preferred,0x0,1
     ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)}
 
 
@@ -82,7 +81,7 @@ in {
       enabled = true
       bezier = smoothOut, 0.36, 0, 0.66, -0.56
       bezier = smoothIn, 0.25, 1, 0.5, 1
-      bezier = overshot,0.4,0.8,0.2,1.2
+      bezier = overshot, 0.4,0.8,0.2,1.2
 
       animation = windows, 1, 4, overshot, slide
       animation = windowsOut, 1, 4, smoothOut, slide
