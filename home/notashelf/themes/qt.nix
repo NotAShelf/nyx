@@ -24,6 +24,9 @@
     QT_QPA_PLATFORM = "wayland;xcb";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     DISABLE_QT5_COMPAT = "0";
+
+    # tell calibre to use the dark theme, because the light one hurts my eyes
+    CALIBRE_USE_DARK_PALETTE = "1";
   };
 
   xdg.configFile."Kvantum/catppuccin/catppuccin.kvconfig".source = builtins.fetchurl {
