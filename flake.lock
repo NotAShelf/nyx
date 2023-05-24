@@ -935,6 +935,24 @@
         "type": "github"
       }
     },
+    "flake-utils_7": {
+      "inputs": {
+        "systems": "systems_6"
+      },
+      "locked": {
+        "lastModified": 1681202837,
+        "narHash": "sha256-H+Rh19JDwRtpVPAWp64F+rlEtxUWBAQW28eAi3SRSzg=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "cfacdce06f30d2b68473a46042957675eebb3401",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "flutter-tools": {
       "flake": false,
       "locked": {
@@ -2624,6 +2642,7 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "rust-overlay": "rust-overlay_3",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "spicetify": "spicetify",
         "wallpkgs": "wallpkgs",
         "xdg-portal-hyprland": "xdg-portal-hyprland"
       }
@@ -2772,6 +2791,27 @@
         "type": "github"
       }
     },
+    "spicetify": {
+      "inputs": {
+        "flake-utils": "flake-utils_7",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1684872357,
+        "narHash": "sha256-10NR2inbTZnD2XfAtZ55+T8nOZo5e0TWUg3667APHco=",
+        "owner": "the-argus",
+        "repo": "spicetify-nix",
+        "rev": "16022e436ab3fe28ff8b5272a36fcadc0845b060",
+        "type": "github"
+      },
+      "original": {
+        "owner": "the-argus",
+        "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
     "sqls-nvim": {
       "flake": false,
       "locked": {
@@ -2866,6 +2906,21 @@
       }
     },
     "systems_5": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_6": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

@@ -17,7 +17,6 @@ in {
       qbittorrent
       hexchat
       netflix
-      spotify-wrapped
       bitwarden
       obsidian
       nextcloud-client

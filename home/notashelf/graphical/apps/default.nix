@@ -8,5 +8,6 @@ _: {
     ./media
     ./vscode
     ./chromium
+    ./spotify
   ];
 }

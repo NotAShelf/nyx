@@ -128,8 +128,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # anyrun program launcher
     anyrun = {
       url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # spicetify for theming spotify
+    spicetify = {
+      url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
