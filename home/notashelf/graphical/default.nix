@@ -3,5 +3,6 @@ _: {
     ./apps
     ./launchers
     ./wms
+    ./games
   ];
 }

@@ -13,6 +13,7 @@ in {
   imports = [
     ./minecraft
   ];
+
   config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
     home = {
       packages = with pkgs; [

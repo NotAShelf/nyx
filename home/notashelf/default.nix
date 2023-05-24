@@ -4,7 +4,9 @@
   config,
   lib,
   ...
-}: {
+}: let
+  inherit (lib) mkDefault;
+in {
   imports = [
     # external home-manager modules
     inputs.hyprland.homeManagerModules.default
@@ -13,17 +15,16 @@
     ./packages
 
     # apps and services I use
-    ./graphical
-    ./terminal
-    ./services
-    ./gaming
+    ./graphical # graphical apps
+    ./terminal # terminal emulators and terminal-first programs
+    ./services # system services, organized by display protocol
 
-    # declarative system and program theme
+    # declarative system and program themes (qt/gtk)
     ./themes
   ];
   config = {
     # reload system units when changing configs
-    systemd.user.startServices = "sd-switch"; # or "legacy" if "sd-switch" breaks again
+    systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again
 
     home = {
       username = "notashelf";
@@ -32,7 +33,7 @@
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
       # I will personally strangle every moron who just puts nothing but "DONT CHANGE" next
       # to this value
-      stateVersion = "23.05";
+      stateVersion = mkDefault "23.05";
       extraOutputsToInstall = ["doc" "devdoc"];
     };
 
@@ -46,6 +47,7 @@
     # let HM manage itself when in standalone mode
     programs.home-manager.enable = true;
 
+    /*
     modules = {
       programs = {
         # schizo firefox config based on firefox ESR
@@ -62,5 +64,6 @@
         };
       };
     };
+    */
   };
 }

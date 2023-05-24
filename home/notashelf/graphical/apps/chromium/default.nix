@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  inputs,
   osConfig,
   ...
 }:
@@ -12,11 +11,18 @@ with lib; let
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.chromium = {
-      enable = false;
-      /*
-      package = pkgs.chromium.override {
+      enable = true;
+      extensions = [
+        {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # sponsor block
+        {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} # ublock
+        {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden
+        {id = "iaiomicjabeggjcfkbimgmglanimpnae";} # tab manager
+      ];
+
+      package = pkgs.ungoogled-chromium.override {
+        nss = pkgs.nss_latest;
         commandLineArgs =
-          lib.toString [
+          [
             # Ungoogled features
             "--disable-search-engine-collection"
             "--extension-mime-request-handling=always-prompt-for-install"
@@ -45,20 +51,36 @@ in {
             "--enable-oop-rasterization"
             "--enable-zero-copy"
             "--ignore-gpu-blocklist"
+
+            # Etc
+            # "--gtk-version=4"
+            "--disk-cache=$XDG_RUNTIME_DIR/chromium-cache"
+            "--no-default-browser-check"
+            "--no-service-autorun"
+            "--disable-features=PreloadMediaEngagementData,MediaEngagementBypassAutoplayPolicies"
+            "--disable-reading-from-canvas"
+            "--no-pings"
+            "--no-first-run"
+            "--no-experiments"
+            "--no-crash-upload"
+            "--disable-wake-on-wifi"
+            "--disable-breakpad"
+            "--disable-sync"
+            "--disable-speech-api"
+            "--disable-speech-synthesis-api"
           ]
           ++ optionals (env.isWayland) [
-            "--enable-features=UseOzonePlatform"
+            # Wayland
+            # Disabled because hardware acceleration doesn't work
+            # when disabling --use-gl=egl, it's not gonna show any emoji
+            # and it's gonna be slow as hell
+
+            # "--use-gl=egl"
+
             "--ozone-platform=wayland"
+            "--enable-features=UseOzonePlatform"
           ];
       };
-      */
-
-      extensions = [
-        {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # sponsor block
-        {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} # ublock
-        {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden
-        {id = "iaiomicjabeggjcfkbimgmglanimpnae";} # tab manager
-      ];
     };
   };
 }

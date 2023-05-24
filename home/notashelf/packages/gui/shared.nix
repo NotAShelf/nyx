@@ -25,7 +25,6 @@ in {
       gnome.gnome-control-center
       gnome.gnome-tweaks
       gnome.gnome-calendar
-      ungoogled-chromium
       easyeffects
       librewolf
       zoom-us # I hate this

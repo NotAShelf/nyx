@@ -16,8 +16,6 @@ with lib; let
   };
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
-    programs.mangohud.settings = {};
-
     home = {
       # copy the catppuccin theme to the themes directory of PrismLauncher
       file.".local/share/PrismLauncher/themes/mocha" = {
@@ -27,7 +25,7 @@ in {
 
       packages = with pkgs; [
         # the successor to polyMC, which is now mostly abandoned
-        prismlauncher # FIXME: some nixpkgs issue, again
+        prismlauncher
 
         # jre 17 - needed by newer minecraft versions
         temurin-jre-bin-17
