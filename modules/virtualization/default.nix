@@ -8,10 +8,11 @@ with lib; let
   sys = config.modules.system.virtualization;
 in {
   config = mkIf (sys.enable) {
-    environment.systemPackages = with pkgs; [
-      virt-manager
-      docker-compose
-    ];
+    environment.systemPackages = with pkgs;
+      mkIf (sys.qemu.enable) [
+        virt-manager
+        virt-viewer
+      ];
 
     virtualisation = mkIf (sys.qemu.enable) {
       kvmgt.enable = true;
@@ -19,10 +20,10 @@ in {
       libvirtd = {
         enable = true;
         qemu = {
+          package = pkgs.qemu_kvm;
           ovmf.enable = true;
           ovmf.packages = [pkgs.OVMFFull.fd];
           swtpm.enable = true;
-          package = pkgs.qemu_kvm;
         };
       };
 
