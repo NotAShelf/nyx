@@ -44,7 +44,7 @@ in {
       loginAccounts = {
         "raf@notashelf.dev" = {
           hashedPasswordFile = config.age.secrets.mailserver-secret.path;
-          aliases = ["admin@notashelf.dev" "root@notashelf.dev" "postmaster@notashelf.dev"];
+          aliases = ["me@notashelf.dev" "admin@notashelf.dev" "root@notashelf.dev" "postmaster@notashelf.dev"];
         };
       };
 

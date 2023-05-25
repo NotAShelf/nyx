@@ -73,6 +73,9 @@ in {
         # nextcloud
         ${config.services.nextcloud.hostName} = template;
 
+        # mailserver
+        "mail.notashelf.dev" = template;
+
         # matrix-synapse
         "matrix.notashelf.dev" =
           template
