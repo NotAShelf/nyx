@@ -39,6 +39,7 @@ in {
       #enableSubmission = false;
       #enableSubmissionSsl = true;
       #certificateDomains = ["imap.notashelf.dev"];
+      fqdn = "mail.notashelf.dev";
       certificateScheme = "acme-nginx";
       domains = ["notashelf.dev"];
       loginAccounts = {
