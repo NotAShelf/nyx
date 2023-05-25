@@ -40,17 +40,17 @@
         nix.enable = true;
         html.enable = true;
         clang.enable = true;
-        sql.enable = true;
-        rust = {
-          enable = true;
-          crates.enable = true;
-        };
+        sql.enable = false;
         ts.enable = true;
         go.enable = true;
         zig.enable = false;
         python.enable = true;
         dart.enable = false;
         elixir.enable = false;
+        rust = {
+          enable = true;
+          crates.enable = true;
+        };
       };
 
       vim.visuals = {
@@ -95,11 +95,17 @@
       vim.filetree = {
         nvimTreeLua = {
           enable = true;
+
           renderer = {
             rootFolderLabel = null;
           };
+
           view = {
             width = 25;
+          };
+
+          mappings = {
+            toggle = "<C-W>";
           };
         };
       };
@@ -189,6 +195,8 @@
         presence-nvim = {
           enable = true;
           auto_update = true;
+          enable_line_number = true;
+          show_time = true;
           image_text = "The Superior Text Editor";
           client_id = "793271441293967371";
           main_image = "neovim";
