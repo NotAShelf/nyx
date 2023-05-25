@@ -51,8 +51,10 @@ with lib; {
     firewall = {
       enable = mkDefault true;
       package = mkDefault pkgs.iptables-nftables-compat;
-      allowedTCPPorts = [443 80 3030 8080];
-      allowedUDPPorts = [443 80 8080 9100 44857];
+      allowedTCPPorts = [
+        33896 # qb
+      ];
+      allowedUDPPorts = [];
       allowPing = false;
       logReversePathDrops = true;
       checkReversePath = lib.mkForce false; # Don't filter DHCP packets, according to nixops-libvirtd

@@ -19,7 +19,7 @@
 
     # the ssh port(s) should be automatically passed to the firewall's allowedTCPports
     openFirewall = true;
-    ports = [30];
+    ports = [2317];
 
     hostKeys = [
       {

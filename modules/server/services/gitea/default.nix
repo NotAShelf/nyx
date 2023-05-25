@@ -12,9 +12,11 @@ with lib; let
 in {
   # TODO: add gitea service override
   config = mkIf (builtins.elem device.type acceptedTypes && !override.gitea) {
+    /*
     systemd.services.gitea.serviceConfig.SystemCallFilter =
       lib.mkForce
       "~@clock @cpu-emulation @debug @keyring @memlock @module @obsolete @raw-io @reboot @resources @setuid @swap";
+    */
 
     networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];
 
