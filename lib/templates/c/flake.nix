@@ -1,8 +1,8 @@
 {
-  description = "Foo Bar C/C++ Project";
+  description = "Sample C/C++ Project";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = {
@@ -23,15 +23,15 @@
       };
     };
 
-    packages = forAllSystems (s: let
-      pkgs = pkgsFor.${s};
+    packages = forAllSystems (sys: let
+      pkgs = pkgsFor.${sys};
     in rec {
       inherit (pkgs) foo-bar;
       default = foo-bar;
     });
 
-    devShells = forAllSystems (s: let
-      pkgs = pkgsFor.${s};
+    devShells = forAllSystems (sys: let
+      pkgs = pkgsFor.${sys};
     in rec {
       foo-bar = pkgs.mkShell {
         inputsFrom = [pkgs.foo-bar];
