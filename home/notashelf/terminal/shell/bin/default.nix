@@ -40,6 +40,11 @@
         executable = true;
         text = import ./extract.nix {inherit lib pkgs;};
       };
+
+      ".local/bin/compilec" = {
+        executable = true;
+        text = import ./compilec.nix {};
+      };
     };
   };
 }
