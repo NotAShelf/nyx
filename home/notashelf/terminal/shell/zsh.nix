@@ -168,23 +168,6 @@ in {
           ;;
       esac
 
-      function run() {
-        nix run nixpkgs#$@
-      }
-
-      function search() {
-        nix search nixpkgs $@
-      }
-
-      function shell() {
-        nix shell nixpkgs#$@
-      }
-
-      precmd() {
-        printf '\033]0;%s\007' "$(dirs)"
-      }
-
-
       # run programs that are not in PATH with comma
       command_not_found_handler() {
         ${pkgs.comma}/bin/comma "$@"
@@ -218,7 +201,7 @@ in {
       sudo = "sudo ";
       # easy netcat alias for my fiche host
       # https://github.com/solusipse/fiche
-      fbin = "cat $@ | ${lib.getExe pkgs.netcat-gnu} p.frzn.dev 9999";
+      fbin = "${lib.getExe pkgs.netcat-gnu} p.frzn.dev 9999";
       # nix specific aliases
       rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudo && notify-send \"Done\" ; popd";
       test = "pushd ~dotfiles nixos-rebuild dry-activate";
