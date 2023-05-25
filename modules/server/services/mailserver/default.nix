@@ -34,20 +34,28 @@ in {
     mailserver = {
       enable = true;
       openFirewall = true;
-      enableImap = false;
-      enableImapSsl = true;
-      enableSubmission = false;
-      enableSubmissionSsl = true;
-      certificateDomains = ["imap.notashelf.dev"];
-      fqdn = "mail.notashelf.dev";
+      #enableImap = false;
+      #enableImapSsl = true;
+      #enableSubmission = false;
+      #enableSubmissionSsl = true;
+      #certificateDomains = ["imap.notashelf.dev"];
+      certificateScheme = "acme-nginx";
       domains = ["notashelf.dev"];
       loginAccounts = {
         "raf@notashelf.dev" = {
           hashedPasswordFile = config.age.secrets.mailserver-secret.path;
-          aliases = ["admin@notashelf.dev" "root@notashelf.dev"];
+          aliases = ["admin@notashelf.dev" "root@notashelf.dev" "postmaster@notashelf.dev"];
         };
       };
-      certificateScheme = 2;
+
+      fullTextSearch = {
+        enable = true;
+        # index new email as they arrive
+        autoIndex = true;
+        # this only applies to plain text attachments, binary attachments are never indexed
+        indexAttachments = true;
+        enforced = "body";
+      };
     };
   };
 }
