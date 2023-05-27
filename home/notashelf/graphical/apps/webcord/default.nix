@@ -3,6 +3,8 @@
   lib,
   inputs,
   osConfig,
+  config,
+  self,
   ...
 }:
 with lib; let
@@ -26,8 +28,13 @@ in {
       webcord-vencord # webcord with vencord extension installed
     ];
 
-    xdg.configFile."WebCord/Themes/mocha" = {
-      source = "${catppuccin-mocha}/themes/mocha.theme.css";
+    xdg.configFile = {
+      "WebCord/Themes/mocha" = {
+        source = "${catppuccin-mocha}/themes/mocha.theme.css";
+      };
+
+      # share my webcord configuration across devices
+      "WebCord/config.json".source = config.lib.file.mkOutOfStoreSymlink "${self}/home/notashelf/graphical/apps/webcord/config.json";
     };
 
     services.arrpc.enable = true;
