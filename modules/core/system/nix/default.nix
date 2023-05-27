@@ -90,13 +90,12 @@ with lib; {
       options = "--delete-older-than 3d";
     };
 
-    # Free up to 20GiB whenever there is less than 5GB left.
-    extraOptions = ''
-      min-free = ${toString (5 * 1024 * 1024 * 1024)}
-      max-free = ${toString (20 * 1024 * 1024 * 1024)}
-    '';
-
     settings = {
+      # Free up to 20GiB whenever there is less than 5GB left.
+      # this setting is in bytes, so we multiply with 1024 thrice
+      min-free = "${toString (5 * 1024 * 1024 * 1024)}";
+      max-free = "${toString (20 * 1024 * 1024 * 1024)}";
+      # automatically optimise symlinks
       auto-optimise-store = true;
       # allow sudo users to mark the following values as trusted
       allowed-users = ["@wheel"];
@@ -107,13 +106,14 @@ with lib; {
       # build inside sandboxed environments
       sandbox = true;
       # supported system features
-      system-features = ["nixos-tests" "kvm" "recursive-nix" "big-parallel" "gccarch-core2" "gccarch-haswell"];
+      # TODO: "gccarch-core2" "gccarch-haswell"
+      system-features = ["nixos-tests" "kvm" "recursive-nix" "big-parallel"];
       # extra architectures supported by my builders
-      extra-platforms = config.boot.binfmt.emulatedSystems; # TODO: only allow extra systems if emulation is allowed in system.nix
+      extra-platforms = config.boot.binfmt.emulatedSystems;
       # continue building derivations if one fails
       keep-going = true;
       # show more log lines for failed builds
-      log-lines = 20;
+      log-lines = 30;
       # enable new nix command and flakes
       # and also "unintended" recursion as well as content addresssed nix
       extra-experimental-features = ["flakes" "nix-command" "recursive-nix" "ca-derivations"];
@@ -134,24 +134,26 @@ with lib; {
       # substituters to use
       substituters = [
         "https://cache.ngi0.nixos.org" # content addressed nix cache (TODO)
-        "https://cache.nixos.org"
+        "https://cache.nixos.org" # funny binary cache
+        "https://cache.privatevoid.net" # for nix-super
         "https://nixpkgs-wayland.cachix.org" # automated builds of *some* wayland packages
         "https://nix-community.cachix.org" # nix-community cache
         "https://hyprland.cachix.org" # hyprland
         "https://nix-gaming.cachix.org" # nix-gaming
         "https://nixpkgs-unfree.cachix.org" # unfree-package cache
-        "https://cache.privatevoid.net"
+        "https://helix.cachix.org" # helix
       ];
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
+        "cache.privatevoid.net:SErQ8bvNWANeAvtsOESUwVYr2VJynfuc9JRwlzTTkVg="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-        "cache.privatevoid.net:SErQ8bvNWANeAvtsOESUwVYr2VJynfuc9JRwlzTTkVg="
+        "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
       ];
     };
   };
