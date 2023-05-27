@@ -7,6 +7,12 @@
 with lib; let
   env = config.modules.usrEnv;
   sys = config.modules.system;
+
+  sessionData = config.services.xserver.displayManager.sessionData.desktops;
+  sessionPath = lib.concatStringsSep ":" [
+    "${sessionData}/share/xsessions"
+    "${sessionData}/share/wayland-sessions"
+  ];
 in {
   config = {
     # unlock GPG keyring on login
@@ -24,18 +30,28 @@ in {
     services = {
       greetd = {
         enable = true;
-        settings = rec {
+        vt = 2;
+        restart = !env.autologin;
+        settings = {
           # pick up desktop variant (i.e Hyprland) and username from usrEnv
           # this option is usually defined in host/<hostname>/system.nix
-          initial_session = {
+          initial_session = mkIf env.autologin {
             command = "${env.desktop}";
             user = "${sys.username}";
           };
-          # default_session should be configured only if autologin is enabled
-          default_session =
-            if (env.autologin)
-            then mkForce initial_session
-            else mkForce "";
+
+          default_session = {
+            command = lib.concatStringsSep " " [
+              (lib.getExe pkgs.greetd.tuigreet)
+              "--time"
+              "--remember"
+              "--remember-user-session"
+              "--asterisks"
+              # "--power-shutdown '${pkgs.systemd}/bin/systemctl shutdown'"
+              "--sessions '${sessionPath}'"
+            ];
+            user = "greeter";
+          };
         };
       };
 
