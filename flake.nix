@@ -47,6 +47,7 @@
           {
             _module.args.pkgs = import nixpkgs {
               config.allowUnfree = true;
+              config.allowUnsupportedSystem = true;
               inherit system;
             };
           }
