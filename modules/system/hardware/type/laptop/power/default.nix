@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  pkgs, # this is necessary for plugged.nix lmao
+  pkgs,
   ...
 } @ args:
 with lib; let
@@ -15,19 +15,22 @@ in {
       auto-cpufreq.enable = true;
 
       # temperature target on battery
-      undervolt.tempBat = 65; # deg C
+      undervolt = {
+        tempBat = 65; # deg C
+        package = pkgs.undervolt;
+      };
 
       auto-cpufreq.settings = {
         battery = {
           governor = "powersave";
-          scaling_min_freq = MHz 1400;
-          scaling_max_freq = MHz 1600;
+          scaling_min_freq = mkDefault MHz 1200;
+          scaling_max_freq = mkDefault MHz 1800;
           turbo = "never";
         };
         charger = {
           governor = "performance";
-          scaling_min_freq = MHz 1600;
-          scaling_max_freq = MHz 1700;
+          scaling_min_freq = mkDefault MHz 1800;
+          scaling_max_freq = mkDefault MHz 3000;
           turbo = "auto";
         };
       };

@@ -16,9 +16,6 @@ in {
         # add my android device to adbusers
         SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="adbusers"
       '';
-
-      # DBus service that provides power management support to applications.
-      upower.enable = true;
     };
   };
 }
