@@ -14,8 +14,8 @@ in
       owner = "ayntgl";
       repo = "discordo";
       inherit rev;
-      sha256 = "";
+      sha256 = "y3TEWwjgiTmyCSTZXN9yqM54Y89RjZZYZDO6E/fYMNs=";
     };
 
-    vendorSha256 = "";
+    vendorSha256 = "WklwvGVTjP36BAY1xY1g253iU9JsjYn/MSCFTFx0V2s=";
   }
