@@ -1,6 +1,6 @@
 {
   description = "My NixOS configuration with *very* questionable stability";
-  # https://github.com/notashelf/dotfiles
+  # https://github.com/notashelf/nyx
 
   outputs = {
     self,
@@ -93,6 +93,7 @@
     # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    # project shells
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -153,8 +154,10 @@
 
     helix = {
       url = "github:SoraTenshi/helix/new-daily-driver";
-      #inputs.rust-overlay.follows = "rust-overlay";
-      #inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        rust-overlay.follows = "rust-overlay"; #inputs.rust-overlay.follows = "rust-overlay";
+        nixpkgs.follows = "nixpkgs";
+      }; #inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # anyrun program launcher
