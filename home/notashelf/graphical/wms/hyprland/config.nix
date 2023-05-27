@@ -22,6 +22,7 @@ in {
   wayland.windowManager.hyprland.extraConfig = ''
     # set cursor for HL itself
     exec-once = hyprctl setcursor ${pointer.name} ${toString pointer.size}
+    # start foot server
     exec-once = run-as-service 'foot --server'
 
     ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)}
@@ -42,13 +43,13 @@ in {
     }
 
     general {
-      sensitivity=0.7 # for mouse cursor
+      sensitivity=0.8 # for mouse cursor
 
       gaps_in=6
       gaps_out=11
       border_size=3
       col.active_border=0xff${colors.base0F}
-      col.inactive_border=0x00${colors.base00}
+
 
       apply_sens_to_raw=0 # whether to apply the sensitivity to raw input (e.g. used by games where you aim using your mouse)
     }
@@ -64,7 +65,7 @@ in {
     }
 
     decoration {
-      rounding=5
+      rounding=7
       multisample_edges=true
       blur_new_optimizations=1
       blur=1
@@ -107,7 +108,7 @@ in {
     # logout menu
     bind = $MODSHIFT, Escape, exec, wlogout -p layer-shell
     # lock screen
-    bind=$MODSHIFT,L,exec,swaylock
+    bind = $MODSHIFT, L, exec, swaylock
 
 
     bind=$MOD,F1,exec,firefox
@@ -131,7 +132,7 @@ in {
     bind=$MOD,mouse_down,workspace,e+1
     bind=$MOD,mouse_up,workspace,e-1
 
-    bind=SUPERSHIFT,H,exec,cat ${propaganda} | wl-copy && notify-send "Propaganda" "ready to spread!"
+    bind=$MODSHIFT,H,exec,cat ${propaganda} | wl-copy && notify-send "Propaganda" "ready to spread!"
 
 
     # move focus
@@ -182,13 +183,13 @@ in {
 
     $screenshotarea = hyprctl keyword animation "fadeOut,0,0,default"; grimblast --notify copysave area; hyprctl keyword animation "fadeOut,1,4,default"
     bind = , Print, exec, $screenshotarea
-    bind = $MOD SHIFT, R, exec, $screenshotarea
+    bind = $MOD SHIFT, S, exec, $screenshotarea
 
     bind = $MOD, Print, exec, grimblast --notify --cursor copysave output
-    bind = $MOD SHIFT CTRL, R, exec, grimblast --notify --cursor copysave output
+    bind = $MODSHIFT, R, exec, grimblast --notify --cursor copysave output
 
     bind = ALT, Print, exec, grimblast --notify --cursor copysave screen
-    bind = $MOD SHIFT ALT, R, exec, grimblast --notify --cursor copysave screen
+    bind = $ALTSHIFT , S, exec, grimblast --notify --cursor copysave screen
 
     windowrule=tile,title:Spotify
     windowrule=fullscreen,wlogout
@@ -211,6 +212,9 @@ in {
 
     # telegram media viewer
     windowrulev2 = float, title:^(Media viewer)$
+
+    # imv image viewer
+    windowrulev2 = float, class:^(imv)$
 
     # make Firefox PiP window floating and sticky
     windowrulev2 = float, title:^(Picture-in-Picture)$
