@@ -14,6 +14,20 @@ with lib; let
     url = "https://raw.githubusercontent.com/catppuccin/prismlauncher/main/themes/Mocha/Catppuccin-Mocha.zip";
     sha256 = "8uRqCoe9iSIwNnK13d6S4XSX945g88mVyoY+LZSPBtQ=";
   };
+
+  javaPackages = with pkgs; [
+    # Java 8
+    temurin-jre-bin-8
+    zulu8
+    # Java 11
+    temurin-jre-bin-11
+    graalvm11-ce
+    # Java 17
+    graalvm17-ce
+    # Latest
+    temurin-jre-bin
+    zulu
+  ];
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
     home = {
@@ -25,10 +39,11 @@ in {
 
       packages = with pkgs; [
         # the successor to polyMC, which is now mostly abandoned
-        prismlauncher
-
-        # jre 17 - needed by newer minecraft versions
-        temurin-jre-bin-17
+        (pkgs.prismlauncher.override {
+          # get java versions required by various minecraft versions
+          # "write once run everywhere" my ass
+          jdks = javaPackages;
+        })
       ];
     };
   };
