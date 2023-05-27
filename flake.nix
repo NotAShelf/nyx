@@ -20,7 +20,7 @@
     forPkgsEach = f: forSystemEach (system: f nixpkgs.legacyPackages.${system});
 
     # extended nixpkgs lib, contains my custom functions
-    lib = import ./lib {inherit nixpkgs lib inputs;};
+    lib = import ./lib {inherit nixpkgs lib inputs forPkgsEach forSystemEach;};
   in {
     # entry-point for nixos configurations
     nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
@@ -50,8 +50,6 @@
     });
 
     formatter = forPkgsEach (pkgs: pkgs.alejandra);
-
-    checks = forPkgsEach (pkgs: import ./lib/checks {inherit pkgs inputs;});
   };
 
   inputs = {
