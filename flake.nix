@@ -9,6 +9,7 @@
   } @ inputs: let
     supportedSystems = [
       "x86_64-linux"
+      "aarch64-linux"
       # ... add more systems as they are used
     ];
 
@@ -124,8 +125,8 @@
 
     helix = {
       url = "github:SoraTenshi/helix/new-daily-driver";
-      inputs.rust-overlay.follows = "rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.rust-overlay.follows = "rust-overlay";
+      #inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # anyrun program launcher
