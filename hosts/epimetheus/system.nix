@@ -11,7 +11,7 @@ in {
       device = {
         type = "laptop";
         cpu = "intel";
-        gpu = "intel"; # nvidia drivers :b:roke
+        gpu = "hybrid-nv"; # nvidia drivers :b:roke
         monitors = ["eDP-1"];
         hasBluetooth = true;
         hasSound = true;
@@ -32,6 +32,7 @@ in {
 
         security = {
           fixWebcam = false;
+          secureBoot = false;
         };
 
         virtualization = {
@@ -106,7 +107,7 @@ in {
 
     services.btrfs.autoScrub = {fileSystems = ["/"];};
 
-    home-manager.users.notashelf.systemd.user.startServices = mkForce "legacy";
+    home-manager.users.notashelf.systemd.user.startServices = "legacy";
 
     console.earlySetup = true;
   };
