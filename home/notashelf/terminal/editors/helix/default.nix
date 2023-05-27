@@ -15,6 +15,7 @@ in {
       package = inputs.helix.packages."x86_64-linux".default;
       settings = {
         theme = "catppuccin_mocha_transparent";
+        icons = "nerdfonts";
         keys.normal = {
           "{" = "goto_prev_paragraph";
           "}" = "goto_next_paragraph";
@@ -24,6 +25,7 @@ in {
           space.w = ":w";
           space.q = ":bc";
           "C-q" = ":xa";
+          "C-w" = "file_picker";
           space.u = {
             f = ":format"; # format using LSP formatter
             w = ":set whitespace.render all";
@@ -94,27 +96,26 @@ in {
         };
       };
 
-      languages = import ./languages.nix args;
+      # languages = import ./languages.nix args;
     };
 
     home.packages = with pkgs; [
       # some other lsp related packages / dev tools
-      lldb
-      gopls
-      revive
-      rust-analyzer
-      texlab
-      zls
+      lldb # debugging stuff
+      gopls # go
+      revive # go
+      rust-analyzer # rust
+      texlab # latex
+      zls # zig
       #elixir_ls # broken
-      gcc
-      uncrustify
-      black
-      alejandra
-      shellcheck
-      #solc
+      gcc # C/++
+      uncrustify # source code beautifier
+      black # python
+      alejandra # nix formatting
+      shellcheck # bash
       gawk
       haskellPackages.haskell-language-server
-      #nodePackages.typescript-language-server
+      nodePackages.typescript-language-server
       java-language-server
       kotlin-language-server
       nodePackages.vls
