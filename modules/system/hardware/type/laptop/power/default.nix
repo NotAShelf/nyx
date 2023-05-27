@@ -23,14 +23,14 @@ in {
       auto-cpufreq.settings = {
         battery = {
           governor = "powersave";
-          scaling_min_freq = mkDefault MHz 1200;
-          scaling_max_freq = mkDefault MHz 1800;
+          scaling_min_freq = mkDefault (MHz 1200);
+          scaling_max_freq = mkDefault (MHz 1800);
           turbo = "never";
         };
         charger = {
           governor = "performance";
-          scaling_min_freq = mkDefault MHz 1800;
-          scaling_max_freq = mkDefault MHz 3000;
+          scaling_min_freq = mkDefault (MHz 1800);
+          scaling_max_freq = mkDefault (MHz 3000);
           turbo = "auto";
         };
       };
