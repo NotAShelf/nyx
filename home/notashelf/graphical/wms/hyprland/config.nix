@@ -177,19 +177,18 @@ in {
 
     # screenshot
     # stop animations while screenshotting; makes black border go away
-
     bind=$MOD SHIFT,P,exec,$disable; grim - | wl-copy --type image/png && notify-send "Screenshot" "Screenshot copied to clipboard"; $enable
     bind=$MOD SHIFT,S,exec,$disable; hyprshot; $enable
 
     $screenshotarea = hyprctl keyword animation "fadeOut,0,0,default"; grimblast --notify copysave area; hyprctl keyword animation "fadeOut,1,4,default"
-    bind = , Print, exec, $screenshotarea
-    bind = $MOD SHIFT, S, exec, $screenshotarea
+    #bind = , Print, exec, $screenshotarea
+    #bind = $MODSHIFT, S, exec, $screenshotarea
 
-    bind = $MOD, Print, exec, grimblast --notify --cursor copysave output
-    bind = $MODSHIFT, R, exec, grimblast --notify --cursor copysave output
+    #bind = $MOD, Print, exec, grimblast --notify --cursor copysave output
+    #bind = $MODSHIFT, R, exec, grimblast --notify --cursor copysave output
 
-    bind = ALT, Print, exec, grimblast --notify --cursor copysave screen
-    bind = $ALTSHIFT , S, exec, grimblast --notify --cursor copysave screen
+    #bind = ALT, Print, exec, grimblast --notify --cursor copysave screen
+    #bind = $ALTSHIFT , S, exec, grimblast --notify --cursor copysave screen
 
     windowrule=tile,title:Spotify
     windowrule=fullscreen,wlogout
