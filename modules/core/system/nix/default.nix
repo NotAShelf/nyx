@@ -39,18 +39,15 @@ with lib; {
       ];
     };
 
-    overlays = with inputs;
-      [
-        # TODO: hotswappable nur module in system-module
-        # nur.overlay
-        rust-overlay.overlays.default
+    overlays = with inputs; [
+      # TODO: hotswappable nur module in system-module
+      # nur.overlay
+      rust-overlay.overlays.default
 
-        (self: super: {
-          nixSuper = inputs.nix-super.packages.${pkgs.system}.default;
-        })
-      ]
-      # Overlays from the overlays directory
-      ++ (lib.importNixFiles "${self}/pkgs/overlays");
+      (self: super: {
+        nixSuper = inputs.nix-super.packages.${pkgs.system}.default;
+      })
+    ];
   };
 
   # faster rebuilding
@@ -91,6 +88,8 @@ with lib; {
     };
 
     settings = {
+      # specify the path to the nix registry
+      flake-registry = "/etc/nix/registry.json";
       # Free up to 20GiB whenever there is less than 5GB left.
       # this setting is in bytes, so we multiply with 1024 thrice
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";

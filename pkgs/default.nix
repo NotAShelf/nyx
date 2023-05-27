@@ -1,13 +1,24 @@
-{pkgs, ...}: {
-  # Custom rofi plugins
-  rofi-calc-wayland = pkgs.callPackage ./rofi-calc-wayland.nix {};
-  rofi-emoji-wayland = pkgs.callPackage ./rofi-emoji-wayland.nix {};
+{
+  self,
+  inputs,
+  ...
+}: {
+  systems = ["x86_64-linux"];
 
-  # My personal derivations for packages that are not on nixpkgs
-  fastfetch = pkgs.callPackage ./overlays/fastfetch {};
-  mov-cli = pkgs.callPackage ./overlays/mov-cli {};
-  nicksfetch = pkgs.callPackage ./nicksfetch.nix {};
-  cloneit = pkgs.callPackage ./cloneit.nix {};
-  discordo = pkgs.callPackage ./discordo.nix {};
-  wl-clip-persist = pkgs.callPackage ./wl-clip-persist.nix {};
+  perSystem = {pkgs, ...}: {
+    packages = {
+      nixos-plymouth = pkgs.callPackage ./plymouth-themes.nix {};
+      fastfetch = pkgs.callPackage ./fastfetch.nix {};
+      ani-cli = pkgs.callPackage ./ani-cli.nix {};
+      mov-cli = pkgs.callPackage ./mov-cli.nix {};
+      anime4k = pkgs.callPackage ./anime4k.nix {};
+      spotify-wrapped = pkgs.callPackage ./spotify-wrapped.nix {};
+      cloneit = pkgs.callPackage ./cloneit.nix {};
+      discordo = pkgs.callPackage ./discordo.nix {};
+      nicksfetch = pkgs.callPackage ./nicksfetch.nix {};
+      rofi-calc-wayland = pkgs.callPackage ./rofi-calc-wayland.nix {};
+      rofi-emoji-wayland = pkgs.callPackage ./rofi-emoji-wayland.nix {};
+      wl-clip-persist = pkgs.callPackage ./wl-clip-persist.nix {};
+    };
+  };
 }

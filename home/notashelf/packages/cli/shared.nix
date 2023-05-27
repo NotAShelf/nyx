@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs,
+  self,
   ...
 }:
 with lib; let
@@ -10,9 +11,12 @@ with lib; let
 in {
   config = (mkIf programs.cli.enable) {
     home.packages = with pkgs; [
+      # packages from inputs
       inputs.agenix.packages.${pkgs.system}.default
-      # CLI
-      cloneit
+      self.packages.${pkgs.hostPlatform.system}.fastfetch
+      self.packages.${pkgs.hostPlatform.system}.cloneit
+
+      # CLI packages from nixpkgs
       catimg
       duf
       todo
@@ -34,7 +38,6 @@ in {
       ttyper
       xorg.xhost
       nitch
-      fastfetch
       skim
     ];
   };

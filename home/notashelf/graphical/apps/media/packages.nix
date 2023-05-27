@@ -2,6 +2,7 @@
   pkgs,
   lib,
   osConfig,
+  self,
   ...
 }:
 with lib; let
@@ -20,8 +21,10 @@ in {
       cantata
       easytag
       kid3
-      mov-cli
-      ani-cli
+      # get ani-cli and mov-cli from my own derivations
+      # I don't want to wait for nixpkgs
+      self.packages.${pkgs.hostPlatform.system}.mov-cli
+      self.packages.${pkgs.hostPlatform.system}.ani-cli
     ];
   };
 }

@@ -3,7 +3,7 @@
   fetchFromGitHub,
   ...
 }: let
-  rev = "40e2e7e6a5533c1e0bd682cb7ccadf3e5bc5eae8";
+  rev = "808bf3c5c134b0ac7d6b8c971b2748a315043368";
   shortRev = builtins.substring 0 8 rev;
 in
   buildGoModule {
@@ -14,8 +14,8 @@ in
       owner = "ayntgl";
       repo = "discordo";
       inherit rev;
-      sha256 = "sha256-620PwT6RVrc3orD6Ny51kyMMdcQU5bZ1gSMJDJA7H2g=";
+      sha256 = "";
     };
 
-    vendorSha256 = "sha256-XUoKEnLy88BAeUMZ19YS/vF1TksYroayQiyds5aQ3hI=";
+    vendorSha256 = "";
   }

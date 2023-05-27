@@ -5,54 +5,77 @@
   outputs = {
     self,
     nixpkgs,
+    flake-parts,
     ...
-  } @ inputs: let
-    supportedSystems = [
-      "x86_64-linux"
-      "aarch64-linux"
-      # ... add more systems as they are used
-    ];
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        # systems for which you want to build the `perSystem` attributes
+        "x86_64-linux"
+        "aarch64-linux"
+        # ...
+      ];
 
-    # map each system from supportedSystems
-    forSystemEach = nixpkgs.lib.genAttrs supportedSystems;
+      imports = [
+        ./pkgs
+        {config._module.args._inputs = inputs // {inherit (inputs) self;};}
+      ];
 
-    # gen pkgs for each mapped supportedSystem
-    forPkgsEach = f: forSystemEach (system: f nixpkgs.legacyPackages.${system});
+      flake = let
+        # extended nixpkgs lib, contains my custom functions
+        lib = import ./lib {inherit nixpkgs lib inputs;};
+      in {
+        # entry-point for nixos configurations
+        nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
 
-    # extended nixpkgs lib, contains my custom functions
-    lib = import ./lib {inherit nixpkgs lib inputs forPkgsEach forSystemEach;};
-  in {
-    # entry-point for nixos configurations
-    nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
+        # developer templates for easy project initialization
+        templates = import ./lib/templates;
 
-    # developer templates for easy project initialization
-    templates = import ./lib/templates;
-
-    # Recovery images for my hosts
-    # build with `nix build .#images.<hostname>`
-    images = import ./hosts/images.nix {inherit inputs self lib;};
-
-    #packages.${system} = import ./pkgs {inherit pkgs;};
-    packages = forPkgsEach (pkgs: import ./pkgs {inherit pkgs;});
-
-    devShells = forPkgsEach (pkgs: {
-      default = pkgs.mkShell {
-        name = "nyx";
-        packages = with pkgs; [
-          nil
-          alejandra
-          git
-          glow
-          statix
-          deadnix
-        ];
+        # Recovery images for my hosts
+        # build with `nix build .#images.<hostname>`
+        images = import ./hosts/images.nix {inherit inputs self lib;};
       };
-    });
 
-    formatter = forPkgsEach (pkgs: pkgs.alejandra);
-  };
+      perSystem = {
+        config,
+        inputs',
+        pkgs,
+        system,
+        ...
+      }: {
+        imports = [
+          {
+            _module.args.pkgs = import nixpkgs {
+              config.allowUnfree = true;
+              inherit system;
+            };
+          }
+        ];
+
+        devShells.default = inputs'.devshell.legacyPackages.mkShell {
+          packages = with pkgs; [
+            nil # nix ls
+            alejandra # formatter
+            git # flakes require git, and so do I
+            glow # markdown viewer
+            statix
+            deadnix
+          ];
+          name = "nyx";
+        };
+
+        # provide the formatter for nix fmt
+        formatter = pkgs.alejandra;
+      };
+    };
 
   inputs = {
+    # I hate everything
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     # An upstream, feature-rich fork of the Nix package manager
     nix-super.url = "github:privatevoid-net/nix-super";
 
@@ -69,6 +92,11 @@
     # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Easy color integration
     nix-colors.url = "github:misterio77/nix-colors";
 
@@ -82,6 +110,7 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     # Home Manager
