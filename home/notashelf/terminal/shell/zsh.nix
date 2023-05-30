@@ -188,7 +188,7 @@ in {
       docs = "$HOME/Documents";
       notes = "$HOME/Cloud/Notes";
       dev = "$HOME/Dev";
-      dotfiles = "$HOME/.config/nixos";
+      dotfiles = "$HOME/.config/nyx";
       dl = "$HOME/Downloads";
       vids = "$HOME/Media/Videos";
       music = "$HOME/Media/Music";
@@ -210,9 +210,9 @@ in {
       curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       gc-check = "nix-store --gc --print-roots | egrep -v \"^(/nix/var|/run/\w+-system|\{memory|/proc)\"";
       repair = "nix-store --verify --check-contents --repair";
-      run = "nix run nixpkgs#$@";
-      search = "nix search nixpkgs $@";
-      shell = "nix shell nixpkgs#$@";
+      run = "nix run $@";
+      search = "nix search $@";
+      shell = "nix shell $@";
       # quality of life aliases
       ytmp3 = ''
         ${lib.getExe yt-dlp} -x --continue --add-metadata --embed-thumbnail --audio-format mp3 --audio-quality 0 --metadata-from-title="%(artist)s - %(title)s" --prefer-ffmpeg -o "%(title)s.%(ext)s"

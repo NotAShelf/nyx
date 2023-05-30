@@ -1,0 +1,100 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  device = config.modules.device;
+in {
+  config = {
+    modules = {
+      device = {
+        type = "laptop";
+        cpu = "amd";
+        gpu = "amd";
+        monitors = ["eDP-1"];
+        hasBluetooth = true;
+        hasSound = true;
+        hasTPM = true;
+      };
+      system = {
+        username = "notashelf";
+        fs = ["btrfs" "ext4" "vfat"];
+        video.enable = true;
+        sound.enable = true;
+        bluetooth.enable = false;
+        printing.enable = false;
+        emulation.enable = false;
+
+        networking = {
+          optimizeTcp = true;
+          useTailscale = true;
+        };
+
+        security = {
+          fixWebcam = false;
+          secureBoot = false;
+        };
+
+        virtualization = {
+          enable = false;
+          docker.enable = false;
+          qemu.enable = false;
+          podman.enable = false;
+        };
+      };
+      usrEnv = {
+        isWayland = true;
+        desktop = "Hyprland";
+        autologin = true;
+        useHomeManager = true;
+      };
+      programs = {
+        git.signingKey = "0x148C61C40F80F8D6";
+
+        cli.enable = true;
+        gui.enable = true;
+
+        gaming = {
+          enable = false;
+          chess.enable = false;
+        };
+        default = {
+          terminal = "foot";
+        };
+        override = {};
+      };
+    };
+
+    fileSystems = {
+      "/".options = ["compress=zstd" "noatime"];
+      "/home".options = ["compress=zstd"];
+      "/nix".options = ["compress=zstd" "noatime"];
+      "/var/log".options = ["compress=zstd" "noatime"];
+      "/persist".options = ["compress=zstd" "noatime"];
+    };
+
+    boot = {
+      kernelParams = [
+        "nohibernate"
+      ];
+    };
+
+    services.btrfs.autoScrub = {fileSystems = ["/"];};
+
+    # fingerprint login
+    services.fprintd = {
+      enable = true;
+      tod.enable = true;
+      tod.driver = pkgs.libfprint-2-tod1-goodix;
+    };
+
+    security.pam.services = {
+      login.fprintAuth = true;
+      swaylock.fprintAuth = true;
+    };
+
+    console.earlySetup = true;
+  };
+}

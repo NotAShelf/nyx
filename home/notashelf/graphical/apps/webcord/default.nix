@@ -34,7 +34,7 @@ in {
       };
 
       # share my webcord configuration across devices
-      "WebCord/config.json".source = config.lib.file.mkOutOfStoreSymlink "${self}/home/notashelf/graphical/apps/webcord/config.json";
+      # "WebCord/config.json".source = config.lib.file.mkOutOfStoreSymlink "${self}/home/notashelf/graphical/apps/webcord/config.json";
     };
 
     services.arrpc.enable = true;

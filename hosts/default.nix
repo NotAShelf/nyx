@@ -80,6 +80,21 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  hermes = lib.mkNixosSystem {
+    system = "x86_64-linux";
+    modules =
+      [
+        {networking.hostName = "hermes";}
+        ./hermes
+        desktop
+        home-manager
+        virtualization
+        homes
+      ]
+      ++ shared;
+    specialArgs = {inherit inputs self lib;};
+  };
+
   # Twin virtual machine hosts
   # both hosts inherit from leto, the retired VM host
   artemis = lib.mkSystem {
