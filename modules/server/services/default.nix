@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./database
     ./nginx
     ./gitea
     ./nextcloud
@@ -8,7 +9,7 @@ _: {
     ./matrix
     ./vaultwarden
     ./mailserver
-    ./jellyfin # https://nixos.wiki/wiki/Jellyfin
+    ./jellyfin
 
     #./tor
     #./irc # TODO
