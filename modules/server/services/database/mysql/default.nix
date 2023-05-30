@@ -14,6 +14,18 @@ in {
     services.mysql = {
       enable = true;
       package = pkgs.mariadb;
+      dataDir = "/data/mysql";
+
+      # databases and users
+      ensureDatabases = ["mkm"];
+      ensureUsers = [
+        {
+          name = "mkm";
+          ensurePermissions = {
+            "mkm.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
   };
 }
