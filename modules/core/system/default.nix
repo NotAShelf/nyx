@@ -8,7 +8,6 @@ _: {
     ./security.nix
     ./services.nix
     ./programs.nix
-    ./tailscale.nix
   ];
 
   # compress half of the ram to use as swap

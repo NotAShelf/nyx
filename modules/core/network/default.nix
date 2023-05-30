@@ -8,6 +8,7 @@ with lib; {
   imports = [
     ./ssh.nix
     ./blocker.nix
+    ./tailscale.nix
   ];
 
   services = {
