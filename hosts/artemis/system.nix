@@ -73,6 +73,10 @@ in {
         ];
     };
 
+    fileSystems = {
+      "/".options = ["compress=zstd" "noatime"];
+    };
+
     services.btrfs.autoScrub = {fileSystems = ["/"];};
 
     console.earlySetup = true;
