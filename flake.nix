@@ -77,6 +77,12 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    # Nix helper
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # An upstream, feature-rich fork of the Nix package manager
     nix-super.url = "github:privatevoid-net/nix-super";
 
@@ -100,7 +106,10 @@
     };
 
     # Easy color integration
-    nix-colors.url = "github:misterio77/nix-colors";
+    nix-colors = {
+      url = "github:misterio77/nix-colors";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     # Nix gaming packages
     nix-gaming = {
@@ -155,9 +164,9 @@
     helix = {
       url = "github:SoraTenshi/helix/new-daily-driver";
       inputs = {
-        rust-overlay.follows = "rust-overlay"; #inputs.rust-overlay.follows = "rust-overlay";
+        rust-overlay.follows = "rust-overlay";
         nixpkgs.follows = "nixpkgs";
-      }; #inputs.nixpkgs.follows = "nixpkgs";
+      };
     };
 
     # anyrun program launcher
@@ -206,5 +215,22 @@
 
     # mailserver on nixos
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://helix.cachix.org"
+      "https://nix-gaming.cachix.org"
+      "https://hyprland.cachix.org"
+      "https://cache.privatevoid.net"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "cache.privatevoid.net:SErQ8bvNWANeAvtsOESUwVYr2VJynfuc9JRwlzTTkVg="
+    ];
   };
 }
