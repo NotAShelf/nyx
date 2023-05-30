@@ -57,6 +57,7 @@ in {
       extraModulePackages = with config.boot.kernelPackages; [
         acpi_call
         cpupower
+        pkgs.cpupower-gui
       ];
     };
   };

@@ -84,6 +84,7 @@ in {
     services.btrfs.autoScrub = {fileSystems = ["/"];};
 
     # fingerprint login
+    # doesn't work because thanks drivers
     services.fprintd = {
       enable = true;
       tod.enable = true;

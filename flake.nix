@@ -172,7 +172,7 @@
     # anyrun program launcher
     anyrun = {
       url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # spicetify for theming spotify
