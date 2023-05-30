@@ -102,7 +102,7 @@ in {
     modules =
       [
         {networking.hostName = "artemis";}
-        ./leto
+        ./artemis
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};
@@ -112,11 +112,8 @@ in {
     system = "aarch64-linux";
     modules =
       [
-        {
-          networking.hostName = "apollon";
-          hardware.opengl = {driSupport32Bit = lib.mkForce false;};
-        }
-        ./leto
+        {networking.hostName = "apollon";}
+        ./apollon
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};
