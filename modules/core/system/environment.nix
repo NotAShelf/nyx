@@ -15,6 +15,7 @@ in {
       SSH_AUTH_SOCK = "/run/user/\${UID}/keyring/ssh";
       SYSTEMD_PAGERSECURE = "true";
       PAGER = "less -FR";
+      FLAKE = "/home/notashelf/.config/nyx";
     };
 
     # packages I want pre-installed on all systems
