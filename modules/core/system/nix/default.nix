@@ -141,6 +141,7 @@ with lib; {
         "https://nix-gaming.cachix.org" # nix-gaming
         "https://nixpkgs-unfree.cachix.org" # unfree-package cache
         "https://helix.cachix.org" # helix
+        "https://anyrun.cachix.org" # anyrun
       ];
 
       trusted-public-keys = [
@@ -153,6 +154,7 @@ with lib; {
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
         "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
     };
   };
