@@ -7,12 +7,13 @@
 with lib; let
   env = config.modules.usrEnv;
   sys = config.modules.system;
-
+  /*
   sessionData = config.services.xserver.displayManager.sessionData.desktops;
   sessionPath = lib.concatStringsSep ":" [
     "${sessionData}/share/xsessions"
     "${sessionData}/share/wayland-sessions"
   ];
+  */
 in {
   config = {
     # unlock GPG keyring on login
@@ -40,18 +41,24 @@ in {
             user = "${sys.username}";
           };
 
-          default_session = {
-            command = lib.concatStringsSep " " [
-              (lib.getExe pkgs.greetd.tuigreet)
-              "--time"
-              "--remember"
-              "--remember-user-session"
-              "--asterisks"
-              # "--power-shutdown '${pkgs.systemd}/bin/systemctl shutdown'"
-              "--sessions '${sessionPath}'"
-            ];
-            user = "greeter";
-          };
+          default_session =
+            if (!env.autologin)
+            then {
+              command = lib.concatStringsSep " " [
+                (lib.getExe pkgs.greetd.tuigreet)
+                "--time"
+                "--remember"
+                "--remember-user-session"
+                "--asterisks"
+                # "--power-shutdown '${pkgs.systemd}/bin/systemctl shutdown'"
+                #"--sessions '${sessionPath}'"
+              ];
+              user = "greeter";
+            }
+            else {
+              command = "${env.desktop}";
+              user = "${sys.username}";
+            };
         };
       };
 
