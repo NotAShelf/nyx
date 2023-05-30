@@ -8,12 +8,10 @@
     openssh = {
       enable = true;
       settings = with lib; {
-        permitRootLogin = mkForce "no";
-        passwordAuthentication = mkForce false;
+        PermitRootLogin = mkForce "no";
+        PasswordAuthentication = mkForce false;
         X11Forwarding = mkDefault false;
       };
-      openFirewall = true;
-      ports = [22];
 
       hostKeys = [
         {
