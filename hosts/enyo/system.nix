@@ -22,6 +22,7 @@
         virtualization = {
           enable = true;
           qemu.enable = true;
+          docker.enable = true;
         };
 
         networking = {
