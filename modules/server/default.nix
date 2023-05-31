@@ -4,4 +4,10 @@ _: {
     ./services
     ./users.nix
   ];
+
+  config = {
+    networking.firewall.allowedTCPPorts = [
+      3001 # mkm
+    ];
+  };
 }

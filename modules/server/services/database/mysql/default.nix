@@ -14,7 +14,7 @@ in {
     services.mysql = {
       enable = true;
       package = pkgs.mariadb;
-      dataDir = "/data/mysql";
+      # dataDir = "/data/mysql";
 
       # databases and users
       ensureDatabases = ["mkm"];
