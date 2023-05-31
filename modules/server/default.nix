@@ -1,14 +1,7 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+_: {
   imports = [
     ./programs
     ./services
-
-    ./services.nix
-    ./security.nix
     ./users.nix
   ];
 }
