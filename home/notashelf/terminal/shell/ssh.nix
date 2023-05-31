@@ -17,12 +17,18 @@ _: {
           hostname = "build.neushore.dev";
           user = "builder";
           identityFile = "~/.ssh/builder";
+          port = 30;
+        };
+
+        "helios" = {
+          port = 2317;
         };
 
         "nix-builder" = {
           hostname = "helios";
           user = "nix-builder";
           identityFile = "~/.ssh/builder";
+          port = 2317;
         };
 
         "frozendev" = {
