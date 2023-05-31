@@ -76,6 +76,13 @@ in {
         # mailserver
         "mail.notashelf.dev" = template;
 
+        # mkm
+        "14062023.xyz" =
+          template
+          // {
+            locations."/".proxyPass = "http://127.0.0.1:3001";
+          };
+
         # matrix-synapse
         "matrix.notashelf.dev" =
           template
