@@ -13,7 +13,7 @@ in {
       after = ["network.target"];
       reloadIfChanged = true;
       serviceConfig = {
-        ExecStart = "nix-shell --packages pnpm --run 'pnpm run build && pnpm start'";
+        ExecStart = "${pkgs.nix}/bin/nix-shell --packages pnpm --run 'pnpm run build && pnpm start'";
         Restart = "always";
       };
       wantedBy = ["multi-user.target"];
