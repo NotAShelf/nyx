@@ -8,16 +8,15 @@
 in {
   systemd.services = mkIf (config.networking.hostName == "helios") {
     mkm-web = {
+      description = "Mkm Ticketing Frontend";
       requires = ["mysql.service"];
-      after = ["mysql.service"];
-      description = "Mkm Ticketing";
+      after = ["network.target"];
       reloadIfChanged = true;
-      script = let
-        pnpm = "${getExe pkgs.nodePackages_latest.pnpm}";
-      in ''
-        cd /home/notashelf/Dev/mkm-ticketing-main &&
-        ${pnpm} install && ${pnpm} run build && ${pnpm} run start
-      '';
+      serviceConfig = {
+        ExecStart = "nix-shell --packages pnpm --run 'pnpm run build && pnpm start'";
+        Restart = "always";
+      };
+      wantedBy = ["multi-user.target"];
     };
   };
 }
