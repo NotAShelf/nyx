@@ -18,8 +18,8 @@
         bluetooth.enable = false;
         printing.enable = false;
         virtualization = {
-          enable = false;
-          qemu.enable = false;
+          enable = true;
+          qemu.enable = true;
           docker.enable = true;
         };
 
