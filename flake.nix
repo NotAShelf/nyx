@@ -29,7 +29,7 @@
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
 
         # developer templates for easy project initialization
-        templates = import ./lib/templates;
+        templates = import ./lib/flake/templates;
 
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
@@ -54,6 +54,9 @@
         ];
 
         devShells.default = inputs'.devshell.legacyPackages.mkShell {
+          name = "nyx";
+
+          commands = (import ./lib/flake/devShell).shellCommands;
           packages = with pkgs; [
             nil # nix ls
             alejandra # formatter
@@ -62,7 +65,6 @@
             statix
             deadnix
           ];
-          name = "nyx";
         };
 
         # provide the formatter for nix fmt
