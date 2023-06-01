@@ -111,26 +111,18 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
-  # Twin virtual machine hosts
-  # Artemis is x86_64-linux
-  artemis = lib.mkSystem {
+  # Hetzner VPS to replace my previous server machines
+  # hosts some of my infrastructure
+  helios = lib.mkSystem {
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "artemis";}
-        ./artemis
-      ]
-      ++ shared;
-    specialArgs = {inherit inputs self lib;};
-  };
-
-  # Apollon is aarch64-linux
-  apollon = lib.mkSystem {
-    system = "aarch64-linux";
-    modules =
-      [
-        {networking.hostName = "apollon";}
-        ./apollon
+        {networking.hostName = "helios";}
+        ./helios
+        server
+        home-manager
+        homes
+        virtualization
       ]
       ++ shared;
     specialArgs = {inherit inputs self lib;};
@@ -145,22 +137,6 @@ in {
         {networking.hostName = "icarus";}
         ./icarus
         desktop
-        home-manager
-        homes
-      ]
-      ++ shared;
-    specialArgs = {inherit inputs self lib;};
-  };
-
-  # Hetzner VPS to replace my previous server machines
-  # hosts some of my infrastructure
-  helios = lib.mkSystem {
-    system = "x86_64-linux";
-    modules =
-      [
-        {networking.hostName = "helios";}
-        ./helios
-        server
         home-manager
         homes
       ]
@@ -189,6 +165,31 @@ in {
       # import base iso configuration on top of base nixos modules for the live installer
       ./gaea
     ];
+    specialArgs = {inherit inputs self lib;};
+  };
+
+  # Twin virtual machine hosts
+  # Artemis is x86_64-linux
+  artemis = lib.mkSystem {
+    system = "x86_64-linux";
+    modules =
+      [
+        {networking.hostName = "artemis";}
+        ./artemis
+      ]
+      ++ shared;
+    specialArgs = {inherit inputs self lib;};
+  };
+
+  # Apollon is aarch64-linux
+  apollon = lib.mkSystem {
+    system = "aarch64-linux";
+    modules =
+      [
+        {networking.hostName = "apollon";}
+        ./apollon
+      ]
+      ++ shared;
     specialArgs = {inherit inputs self lib;};
   };
 }
