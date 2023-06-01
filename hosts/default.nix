@@ -5,28 +5,40 @@
 }: let
   inputs = self.inputs;
 
-  ## bootloader ##
-  boot = ../modules/boot; # system module will choose the appropriate bootloader based on device.type option
+  commonModules = ../modules/common; # the path where common modules reside
+  extraModules = ../modules/extra; # the path where extra modules reside
+  sharedModules = ../modules/shared; # the path where shared modules reside
 
-  ## globally shared modules ##
-  core = ../modules/core; # the self-proclaimed sane defaults for all my systems
-  server = ../modules/server; # for devices that act as "servers"
-  desktop = ../modules/desktop; # for devices that are for daily use
-  virtualization = ../modules/virtualization; # hotpluggable virtalization module
-  system = ../modules/system; # system module for configuring system-specific options easily
+  # common modules, to be shared across all systems
+  boot = commonModules + /boot; # system module will choose the appropriate bootloader based on device.type option
+  core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
+  system = commonModules + /system; # system module for configuring system-specific options easily
+
+  # extra modules, likely optional but possibly critical
+  server = extraModules + /server; # for devices that act as "servers"
+  desktop = extraModules + /desktop; # for devices that are for daily use
+  virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
   ## home-manager ##
   homes = ../home; # home-manager configurations for hosts that need home-manager
 
   ## profiles ##
-  profiles = ../profiles; # profiles are pre-defined setting sets that override certain other settings as required
+  # TODO: shared profiles that determine things like colorscheme or power saving
+  # profiles = ../profiles; # profiles are pre-defined setting sets that override certain other settings as required
 
   ## flake inputs ##
-  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other devices
+  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
   agenix = inputs.agenix.nixosModules.default; # secret encryption via age
   home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
-  shared = [system core agenix boot];
+  # a list of shared modules that ALL systems need
+  shared = [
+    system # the skeleton module for config.modules.*
+    core # the "sane" default shared across systems
+    agenix # age encryption for secrets
+    boot # bootloader configurations + secureboot
+    sharedModules # consume my flake's own nixosModules
+  ];
 in {
   # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
   # fully free from nvidia
@@ -48,6 +60,7 @@ in {
 
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
+  # superceded by epimetheus
   prometheus = lib.mkSystem {
     system = "x86_64-linux";
     modules =
@@ -80,6 +93,9 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  # HP Pavillion laptop from 2023
+  # possesess a Ryzen 7 7730U, and acts as my portable workstation
+  # similar to epimetheus, has full disk encryption with ephemeral root
   hermes = lib.mkNixosSystem {
     system = "x86_64-linux";
     modules =
@@ -96,7 +112,7 @@ in {
   };
 
   # Twin virtual machine hosts
-  # both hosts inherit from leto, the retired VM host
+  # Artemis is x86_64-linux
   artemis = lib.mkSystem {
     system = "x86_64-linux";
     modules =
@@ -108,6 +124,7 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  # Apollon is aarch64-linux
   apollon = lib.mkSystem {
     system = "aarch64-linux";
     modules =
@@ -120,7 +137,7 @@ in {
   };
 
   # Lenovo Ideapad from 2014
-  # Portable "server"
+  # Hybrid device, acts as a portable server and a "workstation"
   icarus = lib.mkSystem {
     system = "x86_64-linux";
     modules =
@@ -136,6 +153,7 @@ in {
   };
 
   # Hetzner VPS to replace my previous server machines
+  # hosts some of my infrastructure
   helios = lib.mkSystem {
     system = "x86_64-linux";
     modules =
@@ -151,7 +169,7 @@ in {
   };
 
   # Raspberry Pi 400
-  # My Pi400 homelab, used mostly for testing
+  # My Pi400 homelab, used mostly for testing networking/cloud services
   atlas = lib.mkNixosSystem {
     system = "aarch64-linux";
     modules =
@@ -171,6 +189,6 @@ in {
       # import base iso configuration on top of base nixos modules for the live installer
       ./gaea
     ];
-    specialArgs = {inherit inputs self;};
+    specialArgs = {inherit inputs self lib;};
   };
 }

@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   programs.ssh.startAgent = true;
 
   services.openssh = {
@@ -19,7 +14,8 @@
 
     # the ssh port(s) should be automatically passed to the firewall's allowedTCPports
     openFirewall = true;
-    ports = [2317];
+    # the port(s) openssh daemon should listen on
+    ports = [22];
 
     hostKeys = [
       {

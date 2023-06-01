@@ -9,9 +9,15 @@ with lib; let
 in {
   config = mkIf (sys.enable) {
     environment.systemPackages = with pkgs;
-      mkIf (sys.qemu.enable) [
+      []
+      ++ optionals (sys.qemu.enable) [
         virt-manager
         virt-viewer
+      ]
+      ++ optionals (sys.docker.enable) [
+        podman-compose
+        podman-desktop
+        distrobox # TODO: add a separate option for this
       ];
 
     virtualisation = mkIf (sys.qemu.enable) {
@@ -37,6 +43,7 @@ in {
         autoPrune = {
           enable = true;
           flags = ["--all"];
+          dates = "weekly";
         };
       };
 
