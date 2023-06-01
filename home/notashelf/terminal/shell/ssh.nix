@@ -20,10 +20,6 @@ _: {
           port = 30;
         };
 
-        "helios" = {
-          port = 2317;
-        };
-
         "nix-builder" = {
           hostname = "helios";
           user = "nix-builder";
