@@ -15,4 +15,5 @@ jobs:
           extra_nix_config: |
             auto-optimise-store = true
             experimental-features = nix-command flakes
+            access-tokens = ${{ secrets.AUTH_TOKEN }}
       - run: nix flake check

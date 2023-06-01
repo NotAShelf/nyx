@@ -90,7 +90,7 @@ in {
 
         # WARNING: this will leak unhashed memory addresses to dmesg
         # for debugging kernel-level slab issues
-        "slub_debug=FZP"
+        # "slub_debug=FZP"
 
         # always-enable sysrq keys. Useful for debugging
         "sysrq_always_enabled=0"

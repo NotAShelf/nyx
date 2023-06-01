@@ -79,7 +79,10 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    mkm.url = "github:gladiusglad/mkm-ticketing";
+    mkm = {
+      url = "github:gladiusglad/mkm-ticketing";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Nix helper
     nh = {

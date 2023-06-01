@@ -3,7 +3,7 @@
     modules = {
       device = {
         type = "server";
-        cpu = null;
+        cpu = "amd";
         gpu = null;
         hasBluetooth = false;
         hasSound = false;
