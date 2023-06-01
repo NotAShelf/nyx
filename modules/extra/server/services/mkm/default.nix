@@ -11,11 +11,12 @@ in {
       requires = ["mysql.service"];
       after = ["mysql.service"];
       description = "Mkm Ticketing";
+      reloadIfChanged = true;
       script = let
         pnpm = "${getExe pkgs.nodePackages_latest.pnpm}";
       in ''
         cd /home/notashelf/Dev/mkm-ticketing-main &&
-        ${pnpm} install && ${pnpm} run start
+        ${pnpm} install && ${pnpm} run build && ${pnpm} run start
       '';
     };
   };
