@@ -10,6 +10,7 @@ _: {
     ./vaultwarden
     ./mailserver
     ./jellyfin
+    ./mkm # holy fuck
 
     #./tor
     #./irc # TODO
