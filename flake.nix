@@ -62,8 +62,8 @@
             alejandra # formatter
             git # flakes require git, and so do I
             glow # markdown viewer
-            statix
-            deadnix
+            statix # lints and suggestions
+            deadnix # clean up unused nix code
           ];
         };
 
@@ -78,6 +78,8 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    mkm.url = "github:gladiusglad/mkm-ticketing";
 
     # Nix helper
     nh = {
