@@ -3,4 +3,4 @@ result
 .direnv/
 
 # Ignore VM stuff
-*.qcow
+*.qcow2
