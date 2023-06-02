@@ -38,6 +38,10 @@ in {
         dockerCompat = true;
         dockerSocket.enable = true;
 
+        defaultNetwork.settings = {
+          dns_enabled = true;
+        };
+
         enableNvidia = builtins.any (driver: driver == "nvidia") config.services.xserver.videoDrivers;
 
         autoPrune = {
