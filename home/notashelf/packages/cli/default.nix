@@ -4,6 +4,5 @@
     ./desktop.nix
     ./wayland.nix
     ./whitehat.nix
-    ./docker.nix
   ];
 }
