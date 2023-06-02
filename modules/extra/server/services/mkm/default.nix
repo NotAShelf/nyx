@@ -13,12 +13,13 @@ in {
     containers = {
       "mkm-web" = mkIf (config.networking.hostName == "helios") {
         autoStart = true;
+        environmentFiles = [
+          /home/notashelf/Dev/mkm-ticketing/.env.local
+        ];
         ports = [
           "3000:3001"
           "3306:3306"
         ];
-        entrypoint = "next dev";
-        workdir = "/tmp/mkm-web";
         extraOptions = ["--network=host"];
 
         image = "mkm-web";
