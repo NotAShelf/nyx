@@ -71,7 +71,6 @@ in {
           "xhci_pci"
           "ahci"
           "btrfs"
-          "kvm-intel"
           "sd_mod"
           "dm_mod"
           "rtsx_pci_sdmmc"

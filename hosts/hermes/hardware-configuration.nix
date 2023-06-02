@@ -17,13 +17,13 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
+  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/0eb8b547-3644-4d49-a4e9-c28c395b8568";
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/c9527aaf-947d-4dc0-88ab-3af438e3f5b1";
     fsType = "btrfs";
     options = ["subvol=root"];
   };
-
-  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/0eb8b547-3644-4d49-a4e9-c28c395b8568";
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/c9527aaf-947d-4dc0-88ab-3af438e3f5b1";
