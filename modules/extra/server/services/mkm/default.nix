@@ -5,57 +5,63 @@
   inputs,
   ...
 }: let
-  inherit (lib) mkIf getExe;
+  inherit (lib) mkIf;
 in {
-  virtualisation.oci-containers.containers = mkIf (config.networking.hostName == "helios") {
-    "mkm-web" = {
-      workdir = "/tmp/mkm-web";
-      ports = ["3000:3001"];
-      entrypoint = "next dev";
-      image = "mkm-web:latest";
-      imageFile = with pkgs;
-        dockerTools.buildImage {
-          name = "mkm-web";
-          tag = "latest";
+  virtualisation.oci-containers = {
+    backend = "podman";
 
-          fromImage = "node:18-alpine";
-          # fromImageName = "node";
-          # fromImageTag = "18-alpine";
+    containers = {
+      "mkm-web" = mkIf (config.networking.hostName == "helios") {
+        autoStart = true;
+        ports = ["3000:3001"];
+        entrypoint = "next dev";
+        workdir = "/tmp/mkm-web";
+        extraOptions = ["--network=host"];
 
-          copyToRoot = pkgs.buildEnv {
-            name = "image-root";
-            paths = [
-              inputs.mkm.packages.${pkgs.system}.default
-              pkgs.nodePackages.pnpm
-            ];
-            pathsToLink = [
-              "/mkm-web"
-              "/bin"
-            ];
+        image = "mkm-web:latest";
+        imageFile = with pkgs;
+          dockerTools.buildImage {
+            config = {
+              #User = "nonroot";
+              Entrypoint = ["pnpm run dev"];
+            };
+
+            name = "mkm-web";
+            tag = "latest";
+
+            fromImage = "node:18-alpine";
+
+            copyToRoot = pkgs.buildEnv {
+              name = "image-root";
+              paths = [
+                inputs.mkm.packages.${pkgs.system}.default
+                pkgs.nodePackages.pnpm
+              ];
+              pathsToLink = [
+                "/mkm-web"
+                "/bin"
+              ];
+            };
+
+            /*
+            runAsRoot = ''
+              #!${pkgs.runtimeShell}
+              ${pkgs.dockerTools.shadowSetup}
+              mkdir /tmp
+              chmod 777 -R /tmp
+              mkdir -p /usr/bin
+              ln -s ${pkgs.coreutils}/bin/env /usr/bin/env
+              groupadd -r nonroot
+              useradd -r -g nonroot nonroot
+              mkdir -p /home/nonroot
+              chown nonroot:nonroot /home/nonroot
+            '';
+            */
+
+            #diskSize = 1024;
+            #buildVMMemorySize = 256;
           };
-
-          runAsRoot = ''
-            #!${pkgs.runtimeShell}
-            ${pkgs.dockerTools.shadowSetup}
-            mkdir /tmp
-            chmod 777 -R /tmp
-            mkdir -p /usr/bin
-            ln -s ${pkgs.coreutils}/bin/env /usr/bin/env
-            groupadd -r nonroot
-            useradd -r -g nonroot nonroot
-            mkdir -p /home/nonroot
-            chown nonroot:nonroot /home/nonroot
-          '';
-
-          #diskSize = 1024;
-          #buildVMMemorySize = 256;
-
-          config = {
-            User = "nonroot";
-            WorkingDir = "/home/nonroot";
-            Entrypoint = ["pnpm run dev"];
-          };
-        };
+      };
     };
   };
 }
