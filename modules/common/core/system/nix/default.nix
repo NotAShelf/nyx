@@ -32,7 +32,7 @@ with lib; {
     config = {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = false;
-      allowUnsupportedSystem = false;
+      allowUnsupportedSystem = true;
       permittedInsecurePackages = [
         #"electron-21.4.0"
         #"nodejs-16.20.0"
