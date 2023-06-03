@@ -7,6 +7,7 @@
 }:
 with lib; let
   device = config.modules.device;
+  cfg = config.modules.services.override;
   acceptedTypes = ["server" "hybrid"];
 
   clientConfig = {
@@ -23,7 +24,7 @@ with lib; let
     return 200 '${builtins.toJSON data}';
   '';
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.matrix) {
     services.postgresql = {
       enable = true;
       initialScript = pkgs.writeText "synapse-init.sql" ''

@@ -9,10 +9,10 @@ with lib; let
   domain = "cloud.notashelf.dev";
 
   device = config.modules.device;
-  #cfg = config.modules.programs.override;
+  cfg = config.modules.services.override;
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = {
+  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.nextcloud) {
     age.secrets.nextcloud-auth = {
       file = "${self}/secrets/nextcloud-secret.age";
       owner = "nextcloud";

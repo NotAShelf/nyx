@@ -6,10 +6,11 @@
 }:
 with lib; let
   device = config.modules.device;
+  cfg = config.modules.services.override;
   acceptedTypes = ["server" "hybrid"];
   port = 4242;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.irc) {
     # https://nixos.wiki/wiki/Quassel
     services.quassel = {
       enable = true;

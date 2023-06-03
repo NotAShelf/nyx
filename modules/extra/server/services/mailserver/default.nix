@@ -6,14 +6,14 @@
 }:
 with lib; let
   device = config.modules.device;
-  cfg = config.modules.programs.override;
+  cfg = config.modules.services.override;
   acceptedTypes = ["server" "hybrid"];
 in {
   imports = [
     inputs.simple-nixos-mailserver.nixosModule
   ];
 
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.mailserver) {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 

@@ -5,10 +5,10 @@
 }:
 with lib; let
   device = config.modules.device;
-  cfg = config.modules.programs.override;
+  cfg = config.modules.services.override;
   acceptedTypes = ["server" "hybrid"];
 in
-  mkIf (builtins.elem device.type acceptedTypes) {
+  mkIf (builtins.elem device.type acceptedTypes && !cfg.jellyfin) {
     services = {
       jellyfin = {
         enable = true;

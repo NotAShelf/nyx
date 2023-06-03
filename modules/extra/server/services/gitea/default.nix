@@ -7,11 +7,11 @@
 with lib; let
   device = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
-  override = config.modules.programs.override.service;
+  cfg = config.modules.services.override;
   domain = "git.notashelf.dev";
 in {
   # TODO: add gitea service override
-  config = mkIf (builtins.elem device.type acceptedTypes && !override.gitea) {
+  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.gitea)) {
     /*
     systemd.services.gitea.serviceConfig.SystemCallFilter =
       lib.mkForce

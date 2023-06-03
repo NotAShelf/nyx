@@ -2,15 +2,14 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 with lib; let
   device = config.modules.device;
-  cfg = config.modules.programs.override;
+  cfg = config.modules.services.override;
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.database.mongodb)) {
     services.mongodb = {
       enable = true;
       package = pkgs.mongodb;

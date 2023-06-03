@@ -5,13 +5,13 @@
 }:
 with lib; let
   device = config.modules.device;
-  #cfg = config.modules.programs.override;
+  cfg = config.modules.services.override;
   acceptedTypes = ["server" "hybrid"];
 in {
   # TODO: grafana service
   # TODO: grafana service override
   # https://nixos.wiki/wiki/Grafana
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.grafana)) {
     networking.firewall.allowedTCPPorts = [config.services.grafana.settings.server.http_port];
 
     services.grafana = {
