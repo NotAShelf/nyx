@@ -29,6 +29,7 @@ in ''
   #clock,
   #network,
   #custom-swallow,
+  #custom-power,
   #cpu,
   #battery,
   #backlight,
@@ -85,10 +86,12 @@ in ''
 
   #pulseaudio {
     color: #${base0B};
+    padding: 14px 0px 14px 0px;
   }
 
   #network {
     color: #${base0D};
+    padding: 14px 0px 14px 0px;
   }
 
   #gamemode {
@@ -115,7 +118,7 @@ in ''
   }
 
   #cpu.60 {
-    color: #${base05};
+    color: #${base0D};
     background-color: #${base09};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
@@ -146,6 +149,10 @@ in ''
   #clock {
     color: #${base05};
     background-color: #${base02};
+    font-weight: 700;
+    font-size: 20px;
+    padding: 5px 0px 5px 0px;
+    font-family: "Iosevka Term";
   }
 
   #pulseaudio {
@@ -157,7 +164,9 @@ in ''
 
   #custom-swallow {
     color: #${base0E};
-    padding-right: 3px;
+    /*padding-right: 3px;*/
+    padding: 14px 0px 14px 0px;
+
   }
 
   #custom-lock {
@@ -172,6 +181,7 @@ in ''
 
   #custom-power {
     margin-bottom: 7px;
+    padding: 14px 0px 14px 0px;
   }
 
   #custom-search {
@@ -180,13 +190,6 @@ in ''
     background-position: center;
     background-repeat: no-repeat;
     margin-top: 7px;
-  }
-
-  #clock {
-    font-weight: 700;
-    font-size: 20px;
-    padding: 5px 0px 5px 0px;
-    font-family: "Iosevka Term";
   }
 
   #backlight {

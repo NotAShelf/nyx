@@ -65,7 +65,7 @@ in {
     "custom/search" = {
       format = " ";
       tooltip = false;
-      on-click = "${pkgs.killall}/bin/killall rofi || ${config.programs.rofi.package}/bin/rofi -show drun";
+      on-click = "${lib.getExe pkgs.killall} rofi || run-as-service $(rofi -show drun)";
     };
 
     "custom/todo" = {
@@ -219,14 +219,17 @@ in {
       format-alt = "󱛇";
       format-disconnected = "󰤭";
       tooltip-format = "{ipaddr}/{ifname} via {gwaddr} ({signalStrength}%)";
-      on-click = "${nm-editor}";
+      on-click-right = "${nm-editor}";
     };
 
     pulseaudio = {
       scroll-step = 5;
       tooltip = false;
       format = "{icon}";
-      format-icons = {default = ["" "" "󰕾"];};
+      format-muted = "󰝟";
+      format-icons = {
+        default = ["" "" ""];
+      };
       on-click = "${pkgs.killall}/bin/killall pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
     };
 
