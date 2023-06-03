@@ -10,7 +10,7 @@ with lib; let
 in {
   config = mkIf (sys.enable && env.isWayland) {
     environment.etc."greetd/environments".text = ''
-      Hyprland
+      ${lib.optionalString (env.desktop == "Hyprland") "Hyprland"}
       zsh
     '';
 

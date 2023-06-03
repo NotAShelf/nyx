@@ -12,6 +12,7 @@ in {
     environment.etc."greetd/environments".text = ''
       ${lib.optionalString (env.desktop == "i3") "i3"}
       ${lib.optionalString (env.desktop == "awesome") "awesome"}
+      zsh
     '';
   };
 }

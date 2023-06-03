@@ -4,10 +4,10 @@
   pkgs,
   inputs,
   ...
-}:
-with lib; let
+}: let
   cfg = config.modules.system.video;
   env = config.modules.usrEnv;
+  inherit (lib) mkForce mkIf;
 in {
   config = mkIf (cfg.enable && env.isWayland) {
     xdg.portal = {
@@ -21,7 +21,7 @@ in {
       # xdg-desktop-wlr (this section) is no longer needed, xdg-desktop-portal-hyprland
       # will (and should) override this one, set to false or remove this section
       wlr = {
-        enable = false;
+        enable = mkForce false;
         settings = {
           screencast = {
             max_fps = 60;
