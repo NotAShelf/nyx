@@ -44,14 +44,13 @@ in {
     (mkIf (builtins.elem device.type ["server" "hybrid"]) {
       wg-server = {
         file = "${self}/secrets/wg-server.age";
-        owner = "notashelf";
-        mode = "700";
-        group = "users";
       };
 
       nix-builderKey = {
         file = "${self}/secrets/nix-builderKey.age";
         mode = "400";
+        group = "users";
+        owner = "notashelf";
       };
 
       matrix-secret = {

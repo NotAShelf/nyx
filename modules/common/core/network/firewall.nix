@@ -34,6 +34,8 @@ in {
       enable = mkDefault true;
       package = mkDefault pkgs.iptables-nftables-compat;
       allowedTCPPorts = [
+        443
+        8080
         33896 # qb
       ];
       allowedUDPPorts = [];

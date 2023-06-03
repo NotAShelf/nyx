@@ -32,16 +32,14 @@ with lib; {
     config = {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = false;
-      allowUnsupportedSystem = true;
+      allowUnsupportedSystem = false;
       permittedInsecurePackages = [
-        "electron-21.4.0"
-        "nodejs-16.20.0"
+        #"electron-21.4.0"
+        #"nodejs-16.20.0"
       ];
     };
 
     overlays = with inputs; [
-      # TODO: hotswappable nur module in system-module
-      # nur.overlay
       rust-overlay.overlays.default
 
       (self: super: {
@@ -97,7 +95,7 @@ with lib; {
       # automatically optimise symlinks
       auto-optimise-store = true;
       # allow sudo users to mark the following values as trusted
-      allowed-users = ["@wheel"];
+      allowed-users = ["@wheel" "nix-builder"];
       # only allow sudo users to manage the nix store
       trusted-users = ["@wheel" "nix-builder"];
       # let the system decide the number of max jobs
@@ -115,7 +113,14 @@ with lib; {
       log-lines = 30;
       # enable new nix command and flakes
       # and also "unintended" recursion as well as content addresssed nix
-      extra-experimental-features = ["flakes" "nix-command" "recursive-nix" "ca-derivations"];
+      extra-experimental-features = [
+        "flakes"
+        "nix-command"
+        "recursive-nix"
+        /*
+        "ca-derivations"
+        */
+      ];
       # don't warn me that my git tree is dirty, I know
       warn-dirty = false;
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
