@@ -1,5 +1,5 @@
 _: {
   imports = [
-    ./colors.nix
+    ./style.nix
   ];
 }
