@@ -13,23 +13,21 @@ in {
   config = mkIf (device.type != "server") {
     boot = {
       loader = {
-        # Fix a security hole in place for backwards compatibility. See desc in
-        # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
-        systemd-boot.editor = false;
-
+        # if set to 0, space needs to be held to get the boot menu to appear
+        timeout = mkForce 2;
         generationsDir.copyKernels = true;
+
+        # allow installation to modify EFI variables
+        efi.canTouchEfiVariables = true;
 
         systemd-boot = {
           enable = mkDefault true;
           configurationLimit = null;
           consoleMode = "max";
+          # Fix a security hole in place for backwards compatibility. See desc in
+          # nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
+          editor = false;
         };
-
-        # allow installation to modify EFI variables
-        efi.canTouchEfiVariables = true;
-
-        # if set to 0, space needs to be held to get the boot menu to appear
-        timeout = mkForce 2;
 
         # default grub to disabled, we manually enable grub on "server" hosts
         # or any other host that needs it
