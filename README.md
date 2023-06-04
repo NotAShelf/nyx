@@ -32,48 +32,55 @@
 </h1>
 
 <p align="center">
-   <img src="assets/desktop_preview.png" width="640" alt="" />
+   <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" />
 </p>
 
 ## 📦 Overview
 
 ### Notable Features
 
-- **Shared Configurations** - Reduce re-used code by sharing modules and options between hosts
-- **Fully Modular** - We extend NixOS instead of simply declaring options.
-- **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides
-- **Secrets Management** - Manage secrets through Ragenix
-- **Flexible Modules** - Both system and home-manager modules allow users to bring their own configurations from anywhere
-- **Extensive Configuration** - We leave so little unconfigured. Everything is configured and ready to be accessed.
-- **Wayland Ready** - Leave Xorg in the past where it belongs. The system is fully ready for Wayland, with Xorg as fallback.
-- **Opt-in Impermanence** - Impermanence can be included anytime without interfeting with other configurations.
-- **Encryption Ready** - The system has been optimized not to interfere with disk encryption.
-- **Declarative Themes** - Through the help of `nix-colors` and `wallpkgs`, theme your system from only your flake
+- **Shared Configurations** - Reduces re-used boilerplate code by sharing modules and profiles across hosts.
+- **Fully Modular** - Utilizes NixOS' module system to avoid hardcoding any of the options.
+- **Profiles** - Provides serialized configuration sets for easily changing large portions of configurations with less options.
+- **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides.
+- **Secrets Management** - Manage secrets through Agenix.
+- **Flexible Modules** - Both Home-manager and NixOS modules allow users to retrieve NixOS or home-manager configurations from anywhere.
+- **Extensive Configuration** - Most desktop programs are configured out of the box and shared across hosts, with override options for per-host controls.
+- **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
+- **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
+- **Encryption Ready** - Supports and actively utilizes FDE (full disk encryption).
+- **Declarative Themes** - Using [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
 
 ### Layout
 
-- [Flake](flake.nix) Ground zero of my system configuration
+- [flake](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
-  - [checks](lib/checks) Check actions utilized by my flake.nix
-- [docs](docs) Documentation for myself and for people who want to understand this system
+  - [flake](lib/flake) ❄️ Extended functions or configuration imports for my flake.nix
+- [docs](docs) The documentation for my flake repository
+  - [notes](docs/notes) Notes from tedious or/and underdocumented processes I have gone through
 - [home](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
-- [modules](modules) 🍱 modularized NixOS configs
-  - [bootloader](modules/bootloader) ⚙ Various bootloaders for various purpose hosts
-  - [core](modules/core) 🧠 Core NixOS configuration
-  - [server](modules/server) ☁️ Shared modules for "server" purpose hosts
-  - [desktop](modules/desktop) 🖥️ Shared modules for "desktop" purpose hosts
-  - [system](modules/system) 🚀 A self-made NixOS configuration to dictate system specs
-  - [virtualization](modules/virtualization) Hot-pluggable virtualization module for any host
-- [hosts](hosts) 🌳 per-host configurations
+- [modules](modules) 🍱 modularized NixOS configurations
+  - [common](modules/common) ⚙️⚙ The common modules imported by all hosts
+    - [core](modules/shared) 🧠 Core NixOS configuration
+    - [boot](modules/boot) 🔧 Default configuration for common bootloaders
+    - [system](modules/system) 💡 A self-made NixOS configuration to dictate system specs
+  - [extra](modules/extra) 🚀 Extra modules that are rarely imported
+    - [server](modules/extra) ☁️ Shared modules for "server" purpose hosts
+    - [desktop](modules/desktop) 🖥️ Shared modules for "desktop" purpose hosts
+    - [virtualization](modules/virtualization) 🪛 Hot-pluggable virtualization module for any host
+  - [shared](modules/shared) ☁️ Modules that can be consumed by external flakes
+- [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
   - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system.
   - [prometheus](hosts/prometheus) 💻 My HP Pavillion with a NVIDIA GPU
   - [epimetheus](hosts/epimetheus) 💻 The succeeding brother host to prometheus, with full disk encryption
+  - [hermes](hosts/hermes) 💻 My new HP Pavillion with a Ryzen 7 7730U
+  - [helios](hosts/helios) ⚡ Hetzner VPS for self-hosting some of my infrastructure
   - [atlas](hosts/atlas) 🍓 Proof of concept server host that is used by my Raspberry Pi 400
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
   - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
-  - [janus](hosts/janus) ⚡ Host for creating simple virtual machines without any of the s
-- [pkgs](pkgs) 💿 exported packages
-  - [overlays](modules/overlays) 📦 Overlay recipes for my system to use
+    - [artemis](hosts/artemis) 🏹 x86_64-linux VM Host
+    - [apollon](hosts/apollon) ⚔️a aarch64-linux VM Host
+- [pkgs](pkgs) 📦 Packages exported by my flake
 
 ## Notes
 
@@ -149,11 +156,6 @@ Perhaps consider donating!
 
 </div>
 
-...or if you prefer crypto _(those are not active yet due to my lack of interest in cyptocurrencies)_
-
-> Ethereum: `N/A`
-> Monero/Bitcoin: notashelf.dev (via OpenAlias)
-
 ## Credits & Special Thanks to
 
 ### System Configurations
@@ -165,16 +167,19 @@ Perhaps consider donating!
 [fufexan](https://github.com/fufexan) -
 [hlissner](https://github.com/hlissner) -
 [fortuneteller2k](https://github.com/fortuneteller2k) -
-[NobbZ]() -
-[ViperML]() -
+[NobbZ](https://github.com/NobbZ/nixos-config) -
+[ViperML](https://github.com/viperML/dotfiles) -
+[spikespaz](https://github.com/spikespaz/dotfiles) -
 
 ... and many more
 
 ### Other Cool Resources
 
-> Resource that helped shape or improve this configuration
+> Resource that helped shape and improve this configuation, or resources that I strongly recommend that you read.
 
 - [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
+- [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
+- [Viper's Blog](https://ayats.org/)
 
 ## License
 
