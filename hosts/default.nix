@@ -20,16 +20,17 @@
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
   ## home-manager ##
-  homes = ../home; # home-manager configurations for hosts that need home-manager
+  home = ../home; # home-manager configurations for hosts that need home-manager
+  homes = [hm home]; # combine hm flake input and the home module to be imported together
 
   ## profiles ##
   # TODO: shared profiles that determine things like colorscheme or power saving
-  # profiles = ../profiles; # profiles are pre-defined setting sets that override certain other settings as required
+  profiles = ../profiles; # profiles are pre-defined setting sets that override certain other settings as required
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
   agenix = inputs.agenix.nixosModules.default; # secret encryption via age
-  home-manager = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
+  hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
   # a list of shared modules that ALL systems need
   shared = [
@@ -38,9 +39,15 @@
     agenix # age encryption for secrets
     boot # bootloader configurations + secureboot
     sharedModules # consume my flake's own nixosModules
+    profiles # configure the set of defaults for the system, allow separating shared modules on a per-host basis
   ];
+
+  # extraSpecialArgs that all hosts need
+  sharedArgs = {
+    inherit inputs self lib;
+  };
 in {
-  # My main desktop boasting a RX 6700 XT and Ryzen 5 3600x
+  # My main desktop boasting a RX 6700 XT and a Ryzen 5 3600x
   # fully free from nvidia
   # fuck nvidia - Linus "the linux" Torvalds
   enyo = lib.mkNixosSystem {
@@ -50,12 +57,12 @@ in {
         {networking.hostName = "enyo";}
         ./enyo
         desktop
-        home-manager
         virtualization
-        homes
       ]
-      ++ shared;
-    specialArgs = {inherit inputs self lib;};
+      ++ shared
+      ++ homes;
+    # specialArgs = {inherit inputs self lib profiles;};
+    specialArgs = sharedArgs;
   };
 
   # HP Pavillion from 2016
@@ -68,11 +75,10 @@ in {
         {networking.hostName = "prometheus";}
         ./prometheus
         desktop
-        home-manager
         virtualization
-        homes
       ]
-      ++ shared;
+      ++ shared
+      ++ homes;
     specialArgs = {inherit inputs self lib;};
   };
 
@@ -85,11 +91,10 @@ in {
         {networking.hostName = "epimetheus";}
         ./epimetheus
         desktop
-        home-manager
         virtualization
-        homes
       ]
-      ++ shared;
+      ++ shared
+      ++ homes;
     specialArgs = {inherit inputs self lib;};
   };
 
@@ -103,11 +108,10 @@ in {
         {networking.hostName = "hermes";}
         ./hermes
         desktop
-        home-manager
         virtualization
-        homes
       ]
-      ++ shared;
+      ++ shared
+      ++ homes;
     specialArgs = {inherit inputs self lib;};
   };
 
@@ -120,11 +124,10 @@ in {
         {networking.hostName = "helios";}
         ./helios
         server
-        home-manager
-        homes
         virtualization
       ]
-      ++ shared;
+      ++ shared
+      ++ homes;
     specialArgs = {inherit inputs self lib;};
   };
 
@@ -137,10 +140,9 @@ in {
         {networking.hostName = "icarus";}
         ./icarus
         desktop
-        home-manager
-        homes
       ]
-      ++ shared;
+      ++ shared
+      ++ homes;
     specialArgs = {inherit inputs self lib;};
   };
 

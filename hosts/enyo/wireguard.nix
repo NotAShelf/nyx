@@ -1,12 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   networking.firewall = {
     allowedUDPPorts = [51820];
   };
+
+  boot.kernelModules = [
+    "wireguard"
+  ];
 
   # Wireguard Client Peer Setup
   networking.wireguard = {

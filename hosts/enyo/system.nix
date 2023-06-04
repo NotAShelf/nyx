@@ -71,10 +71,6 @@
       kernelParams = [
         "nohibernate"
       ];
-
-      kernelModules = [
-        "wireguard"
-      ];
     };
 
     console.earlySetup = true;

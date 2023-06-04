@@ -14,6 +14,10 @@ in {
       allowedUDPPorts = [51820];
     };
 
+    boot.kernelModules = [
+      "wireguard"
+    ];
+
     # Wireguard Server Peer Setup
     networking.wireguard = {
       enable = true;
