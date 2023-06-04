@@ -24,6 +24,12 @@ in
       # a function that returns a boolean based on whether or not the groups exist
       ifGroupsExist = config: groups: lib.any (group: builtins.hasAttr group config.users.groups) groups;
 
+      # return an int (1/0) based on boolean value
+      boolToNum = bool:
+        if bool
+        then 1
+        else 0;
+
       # make a service that is a part of the graphical session target
       mkGraphicalService = lib.recursiveUpdate {
         Unit.PartOf = ["graphical-session.target"];
