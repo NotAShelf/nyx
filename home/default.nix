@@ -2,18 +2,21 @@
   config,
   inputs,
   self,
+  profiles,
   ...
 }: let
-  usr = config.modules.system.username;
+  usr =
+    if (config.modules.system.username == null)
+    then "notashelf"
+    else "${config.modules.system.username}";
 in {
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = {
-      inherit inputs self;
+      inherit inputs self profiles;
     };
     users = {
-      # TODO: "base" user that will be used by default is there is no defined
       # home directory for the user
       ${usr} = ../home/${usr};
     };

@@ -1,4 +1,8 @@
-{inputs, ...}: let
+{
+  inputs,
+  osConfig,
+  ...
+}: let
   # inherit (inputs.nix-colors) colorSchemes;
   # Custom colorscheme list #
   # default-dark = (import ./palettes/default-dark.nix).colorscheme;

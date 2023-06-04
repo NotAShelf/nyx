@@ -119,7 +119,7 @@ in {
         unpackPhase = "true";
         installPhase = ''
           mkdir -p $out/bin
-          cp ${./scripts/waybar-wttr.py} $out/bin/waybar-wttr
+          cp ${../../scripts/waybar-wttr.py} $out/bin/waybar-wttr
           chmod +x $out/bin/waybar-wttr
         '';
       };
