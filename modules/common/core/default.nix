@@ -1,7 +1,9 @@
-{pkgs, ...}: {
+_: {
   imports = [
     ./network
     ./system
     ./users
+    ./nix
+    ./secrets
   ];
 }

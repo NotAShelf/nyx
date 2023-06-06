@@ -23,7 +23,14 @@ in {
         package = pkgs.nextcloud26;
         hostName = "cloud.notashelf.dev";
         home = "/opt/nextcloud";
-        autoUpdateApps.enable = true;
+        maxUploadSize = "4G";
+        enableImagemagick = true;
+
+        autoUpdateApps = {
+          enable = true;
+          startAt = "02:00";
+        };
+
         config = {
           overwriteProtocol = "https";
           extraTrustedDomains = ["https://${toString domain}"];
@@ -38,6 +45,7 @@ in {
         nginx.recommendedHttpHeaders = true;
         https = true;
       };
+
       postgresql = {
         enable = true;
         ensureDatabases = [config.services.nextcloud.config.dbname];
@@ -49,9 +57,16 @@ in {
         ];
       };
     };
-    systemd.services."nextcloud-setup" = {
-      requires = ["postgresql.service"];
-      after = ["postgresql.service"];
+    systemd.services = {
+      phpfpm-nextcloud.aliases = ["nextcloud.service"];
+      "nextcloud-setup" = {
+        requires = ["postgresql.service"];
+        after = ["postgresql.service"];
+        serviceConfig = {
+          Restart = "on-failure";
+          RestartSec = "10s";
+        };
+      };
     };
   };
 }

@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./database
+    ./databases
     ./nginx
     ./gitea
     ./nextcloud

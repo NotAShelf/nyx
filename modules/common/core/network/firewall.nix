@@ -13,6 +13,7 @@ in {
     # fail2ban firewall jail
     fail2ban = {
       enable = true;
+      banaction = "iptables-multiport[blocktype=DROP]";
       maxretry = 7;
       ignoreIP = [
         "127.0.0.0/8"
@@ -20,11 +21,18 @@ in {
         "192.168.0.0/16"
       ];
 
+      jails.sshd = ''
+        enabled = true
+        port = 22
+        mode = aggressive
+      '';
+
       bantime-increment = {
         enable = true;
         rndtime = "12m";
         overalljails = true;
         multipliers = "4 8 16 32 64 128 256 512 1024";
+        maxtime = "48h";
       };
     };
   };

@@ -10,8 +10,17 @@
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.wireguard)) {
-    networking.firewall = {
-      allowedUDPPorts = [51820];
+    networking = {
+      nat = {
+        enable = true;
+        externalInterface = "ens3";
+        internalInterfaces = ["wg0"];
+      };
+
+      firewall = {
+        allowedUDPPorts = [51820];
+        trustedInterfaces = ["wg0"];
+      };
     };
 
     boot.kernelModules = [

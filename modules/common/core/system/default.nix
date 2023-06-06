@@ -1,8 +1,5 @@
 _: {
   imports = [
-    ./nix
-    ./secrets
-
     ./locale.nix
     ./environment.nix
     ./security.nix
