@@ -20,13 +20,18 @@ in {
       server.enable = false; # broken
       settings = {
         main = {
+          app-id = "foot";
+          title = "foot";
+          locked-title = "no";
+
           term = "xterm-256color";
-          font = "monospace:size=14";
-          pad = "24x24";
+          font = "Ioveska Nerd Font Mono:size=14";
+          pad = "16x16";
           dpi-aware = "yes";
+          vertical-letter-offset = "-0.75";
         };
         colors = {
-          alpha = "0.80";
+          alpha = "0.85";
           foreground = "${colors.base05}"; # Text
           background = "${colors.base00}"; # Base
 
