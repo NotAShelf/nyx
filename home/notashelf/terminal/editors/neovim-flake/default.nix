@@ -2,9 +2,11 @@
   inputs,
   pkgs,
   ...
-}: {
+}: let
+  neovim = inputs.neovim-flake;
+in {
   imports = [
-    inputs.neovim-flake.homeManagerModules.default
+    neovim.homeManagerModules.default
   ];
 
   programs.neovim-flake = {
@@ -13,6 +15,10 @@
       vim = {
         viAlias = true;
         vimAlias = true;
+        startPlugins = with pkgs; [vimPlugins.nvim-surround];
+        luaConfigRC.test = neovim.lib.nvim.dag.entryAnywhere ''
+          require("nvim-surround").setup({})
+        '';
         enableEditorconfig = true;
         debugMode = {
           enable = false;
@@ -47,6 +53,7 @@
         python.enable = true;
         dart.enable = false;
         elixir.enable = false;
+        svelte.enable = true;
         rust = {
           enable = true;
           crates.enable = true;
@@ -148,7 +155,7 @@
       };
 
       vim.utility = {
-        colorizer.enable = true;
+        ccc.enable = true;
         icon-picker.enable = true;
         diffview-nvim.enable = true;
         vim-wakatime = {
@@ -172,7 +179,17 @@
 
       vim.ui = {
         noice.enable = true;
-        smartcolumn.enable = true;
+        colorizer.enable = true;
+        modes-nvim.enable = true;
+        smartcolumn = {
+          enable = true;
+          columnAt.languages = {
+            nix = 150;
+            ruby = 110;
+            java = 120;
+            go = [110 150];
+          };
+        };
       };
 
       vim.assistant = {
