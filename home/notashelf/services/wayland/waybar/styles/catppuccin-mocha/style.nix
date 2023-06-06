@@ -7,7 +7,7 @@ with colorscheme.colors; let
   };
 in ''
   * {
-    font-family: Material Design Icons, Iosevka Nerd Font;
+    font-family: Material Design Icons, Iosevka Nerd Font Mono;
     font-size: 19px;
   }
 
@@ -84,11 +84,6 @@ in ''
     background-color: #${base02};
   }
 
-  #pulseaudio {
-    color: #${base0B};
-    padding: 14px 0px 14px 0px;
-  }
-
   #network {
     color: #${base0D};
     padding: 14px 0px 14px 0px;
@@ -156,10 +151,9 @@ in ''
   }
 
   #pulseaudio {
-    border-radius: 15px;
-    margin: 0px 7px 0px 7px;
-    background-color: #${base02};
-    padding: 10px 0px 10px 0px;
+    color: #${base0B};
+    padding: 5px 0px 5px 0px;
+    font-size: 30;
   }
 
   #custom-swallow {
