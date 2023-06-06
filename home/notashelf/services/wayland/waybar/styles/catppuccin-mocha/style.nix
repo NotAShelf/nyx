@@ -105,24 +105,21 @@ in ''
   }
 
   #cpu.50 {
-    color: #${base05};
-    background-color: #${base0F};
+    color: #${base06};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
     padding: 10px 0px 10px 0px;
   }
 
   #cpu.60 {
-    color: #${base0D};
-    background-color: #${base09};
+    color: #${base09};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
     padding: 10px 0px 10px 0px;
   }
 
   #cpu.70 {
-    color: #${base05};
-    background-color: #${base08};
+    color: #${base08};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
     padding: 10px 0px 10px 0px;
@@ -165,7 +162,7 @@ in ''
 
   #custom-lock {
     color: #${base0D};
-    padding-right: 1px;
+    font-size: 30;
   }
 
   #custom-todo {

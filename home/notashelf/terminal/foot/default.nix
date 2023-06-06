@@ -25,7 +25,7 @@ in {
           locked-title = "no";
 
           term = "xterm-256color";
-          font = "Ioveska Nerd Font Mono:size=14";
+          font = "monospace:size=16";
           pad = "16x16";
           dpi-aware = "yes";
           vertical-letter-offset = "-0.75";
