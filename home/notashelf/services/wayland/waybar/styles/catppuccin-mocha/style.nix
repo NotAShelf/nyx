@@ -165,7 +165,8 @@ in ''
 
   #custom-lock {
     color: #${base0D};
-    font-size: 30;
+    font-size: 25;
+    padding: 14px 0px 14px 0px;
   }
 
   #custom-todo {
