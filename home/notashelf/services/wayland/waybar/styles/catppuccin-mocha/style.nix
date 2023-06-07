@@ -106,6 +106,7 @@ in ''
 
   #cpu.50 {
     color: #${base06};
+    background-color: #${base02};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
     padding: 10px 0px 10px 0px;
@@ -113,6 +114,7 @@ in ''
 
   #cpu.60 {
     color: #${base09};
+    background-color: #${base02};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
     padding: 10px 0px 10px 0px;
@@ -120,6 +122,7 @@ in ''
 
   #cpu.70 {
     color: #${base08};
+    background-color: #${base02};
     border-radius: 15px;
     margin: 0px 7px 0px 7px;
     padding: 10px 0px 10px 0px;

@@ -7,6 +7,7 @@
 }:
 with lib; let
   sys = osConfig.modules.system;
+  cfg = osConfig.modules.programs;
 in {
   mainBar = {
     layer = "top";
@@ -32,7 +33,7 @@ in {
     modules-right = [
       "cpu"
       (optionalString (sys.bluetooth.enable) "bluetooth")
-      "gamemode"
+      (optionalString (cfg.gaming.enable) "gamemode")
       "pulseaudio"
       "network"
       "custom/swallow"
@@ -235,7 +236,7 @@ in {
 
     cpu = {
       interval = 10;
-      format = "{usage}%";
+      format = " {usage}%";
       max-length = 10;
       states = {
         "50" = 50;
