@@ -43,9 +43,7 @@
   ];
 
   # extraSpecialArgs that all hosts need
-  sharedArgs = {
-    inherit inputs self lib;
-  };
+  sharedArgs = {inherit inputs self lib;};
 in {
   # My main desktop boasting a RX 6700 XT and a Ryzen 5 3600x
   # fully free from nvidia

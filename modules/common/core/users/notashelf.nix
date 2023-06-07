@@ -3,9 +3,14 @@
   config,
   lib,
   ...
-}: {
+}: let
+  keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIABG2T60uEoq4qTZtAZfSBPtlqWs2b4V4O+EptQ6S/ru notashelf@prometheus"
+  ];
+in {
+  boot.initrd.network.ssh.authorizedKeys = keys;
+
   users.users.notashelf = {
-    packages = [pkgs.home-manager];
     isNormalUser = true;
     extraGroups =
       [
@@ -33,8 +38,6 @@
     uid = 1001;
     shell = pkgs.zsh;
     initialPassword = "changeme";
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIABG2T60uEoq4qTZtAZfSBPtlqWs2b4V4O+EptQ6S/ru notashelf@prometheus"
-    ];
+    openssh.authorizedKeys.keys = keys;
   };
 }

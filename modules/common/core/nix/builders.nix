@@ -23,11 +23,20 @@ in {
   nix = {
     distributedBuilds = true;
     buildMachines = lib.filter (x: x.hostName != config.networking.hostName) [
+      /*
       (bigBuilder
         // {
           sshUser = "builder";
-          hostName = "build.neushore.dev";
+          hostName = "builder";
+          protocol = "ssh";
         })
+      */
+      (bigBuilder
+        // {
+          sshUser = "nix-builder";
+          hostName = "enyo";
+        })
+
       (builder
         // {
           sshUser = "nix-builder";
@@ -37,11 +46,6 @@ in {
         // {
           sshUser = "nix-builder";
           hostName = "epimetheus";
-        })
-      (builder
-        // {
-          sshUser = "nix-builder";
-          hostName = "enyo";
         })
       (builder
         // {

@@ -24,7 +24,6 @@ _: {
           hostname = "helios";
           user = "nix-builder";
           identityFile = "~/.ssh/builder";
-          port = 2317;
         };
 
         "frozendev" = {
