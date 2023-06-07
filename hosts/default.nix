@@ -59,8 +59,7 @@ in {
         desktop
         virtualization
       ]
-      ++ shared
-      ++ homes;
+      ++ lib.concatLists [shared homes];
     # specialArgs = {inherit inputs self lib profiles;};
     specialArgs = sharedArgs;
   };
@@ -77,8 +76,7 @@ in {
         desktop
         virtualization
       ]
-      ++ shared
-      ++ homes;
+      ++ lib.concatLists [shared homes];
     specialArgs = {inherit inputs self lib;};
   };
 
@@ -93,8 +91,7 @@ in {
         desktop
         virtualization
       ]
-      ++ shared
-      ++ homes;
+      ++ lib.concatLists [shared homes];
     specialArgs = {inherit inputs self lib;};
   };
 
@@ -110,8 +107,7 @@ in {
         desktop
         virtualization
       ]
-      ++ shared
-      ++ homes;
+      ++ lib.concatLists [shared homes];
     specialArgs = {inherit inputs self lib;};
   };
 
@@ -126,8 +122,7 @@ in {
         server
         virtualization
       ]
-      ++ shared
-      ++ homes;
+      ++ lib.concatLists [shared homes];
     specialArgs = {inherit inputs self lib;};
   };
 
@@ -141,8 +136,7 @@ in {
         ./icarus
         desktop
       ]
-      ++ shared
-      ++ homes;
+      ++ lib.concatLists [shared homes];
     specialArgs = {inherit inputs self lib;};
   };
 
