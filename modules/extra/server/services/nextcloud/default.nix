@@ -21,6 +21,14 @@ in {
       nextcloud = {
         enable = true;
         package = pkgs.nextcloud26;
+        extraOptions = {
+          redis = {
+            host = "/run/redis-default/redis.sock";
+            port = 6379;
+            dbindex = 0;
+            timeout = 1.5;
+          };
+        };
         hostName = "cloud.notashelf.dev";
         home = "/opt/nextcloud";
         maxUploadSize = "4G";
