@@ -57,6 +57,7 @@ in {
       enable = true;
       mailDirectory = "/srv/storage/mail/vmail";
       dkimKeyDirectory = "/srv/storage/mail/dkim";
+      sieveDirectory = "/srv/storage/mail/sieve";
       openFirewall = true;
       enableImap = true;
       enableImapSsl = true;
