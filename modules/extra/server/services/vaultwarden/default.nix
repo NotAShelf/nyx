@@ -33,7 +33,7 @@ in {
         smtpPort = 587;
         smtpSecurity = "starttls";
         websocketAddress = "127.0.0.1";
-        dataDir = "/srv/storage/bitwarden_rs";
+        dataDir = "/srv/storage/vaultwarden";
       };
     };
   };
