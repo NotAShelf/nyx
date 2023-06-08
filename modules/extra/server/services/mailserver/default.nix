@@ -17,39 +17,40 @@ in {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 
-    postfix = {
-      dnsBlacklists = [
-        "all.s5h.net"
-        "b.barracudacentral.org"
-        "bl.spamcop.net"
-        "blacklist.woody.ch"
-      ];
-      dnsBlacklistOverrides = ''
-        ataraxiadev.com OK
-        mail.ataraxiadev.com OK
-        127.0.0.0/8 OK
-        192.168.0.0/16 OK
-      '';
-      headerChecks = [
-        {
-          action = "IGNORE";
-          pattern = "/^User-Agent.*Roundcube Webmail/";
-        }
-      ];
-    };
-
-    services.roundcube = {
-      enable = true;
-      # this is the url of the vhost, not necessarily the same as the fqdn of
-      # the mailserver
-      hostName = "webmail.notashelf.dev";
-      extraConfig = ''
-        # starttls needed for authentication, so the fqdn required to match
-        # the certificate
-        $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
-        $config['smtp_user'] = "%u";
-        $config['smtp_pass'] = "%p";
-      '';
+    services = {
+      roundcube = {
+        enable = true;
+        # this is the url of the vhost, not necessarily the same as the fqdn of
+        # the mailserver
+        hostName = "webmail.notashelf.dev";
+        extraConfig = ''
+          # starttls needed for authentication, so the fqdn required to match
+          # the certificate
+          $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
+          $config['smtp_user'] = "%u";
+          $config['smtp_pass'] = "%p";
+        '';
+      };
+      postfix = {
+        dnsBlacklists = [
+          "all.s5h.net"
+          "b.barracudacentral.org"
+          "bl.spamcop.net"
+          "blacklist.woody.ch"
+        ];
+        dnsBlacklistOverrides = ''
+          ataraxiadev.com OK
+          mail.ataraxiadev.com OK
+          127.0.0.0/8 OK
+          192.168.0.0/16 OK
+        '';
+        headerChecks = [
+          {
+            action = "IGNORE";
+            pattern = "/^User-Agent.*Roundcube Webmail/";
+          }
+        ];
+      };
     };
 
     mailserver = {
