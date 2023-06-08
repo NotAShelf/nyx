@@ -55,8 +55,8 @@ in {
 
     mailserver = {
       enable = true;
-      mailDirectory = "/srv/mail/vmail";
-      dkimKeyDirectory = "/srv/mail/dkim";
+      mailDirectory = "/srv/storage/mail/vmail";
+      dkimKeyDirectory = "/srv/storage/mail/dkim";
       openFirewall = true;
       enableImap = true;
       enableImapSsl = true;

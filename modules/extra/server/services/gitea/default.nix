@@ -22,39 +22,17 @@ in {
         lfs.enable = true;
         user = "git";
         database.user = "git";
-        stateDir = "/srv/gitea/data";
+        stateDir = "/srv/storage/gitea/data";
 
         mailerPasswordFile = config.age.secrets.mailserver-gitea-secret.path;
         dump = {
           enable = true;
-          backupDir = "/srv/gitea/dump";
+          backupDir = "/srv/storage/gitea/dump";
           interval = "06:00";
           type = "tar.zst";
         };
 
         settings = {
-          migrations = {
-            ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
-          };
-
-          packages = {
-            ENABLED = false;
-          };
-
-          "repository.upload" = {
-            FILE_MAX_SIZE = 100;
-            MAX_FILES = 10;
-          };
-
-          repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
-
-          mailer = {
-            ENABLED = true;
-            PROTOCOL = "smtps";
-            SMTP_ADDR = "mail.notashelf.dev";
-            USER = "gitea@notashelf.dev";
-          };
-
           server = {
             ROOT_URL = "https://${domain}";
             HTTP_PORT = 7000;
@@ -71,6 +49,21 @@ in {
           attachment.ALLOWED_TYPES = "*/*";
           service.DISABLE_REGISTRATION = true;
           ui.DEFAULT_THEME = "arc-green";
+          migrations.ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
+          packages.ENABLED = false;
+          repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
+
+          "repository.upload" = {
+            FILE_MAX_SIZE = 100;
+            MAX_FILES = 10;
+          };
+
+          mailer = {
+            ENABLED = true;
+            PROTOCOL = "smtps";
+            SMTP_ADDR = "mail.notashelf.dev";
+            USER = "gitea@notashelf.dev";
+          };
         };
       };
 
