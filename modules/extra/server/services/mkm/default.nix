@@ -15,7 +15,7 @@ in {
         "mkm-web" = mkIf (config.networking.hostName == "helios") {
           autoStart = true;
           environmentFiles = [
-            config.age.secrets.mailserver-secret.path
+            config.age.secrets.mkm-web.path
           ];
           ports = [
             "3005:3005"
