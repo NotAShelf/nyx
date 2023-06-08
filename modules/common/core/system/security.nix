@@ -67,6 +67,7 @@ in {
     };
 
     sudo = {
+      wheelNeedsPassword = false;
       enable = mkDefault true;
       execWheelOnly = true;
       extraConfig = ''
