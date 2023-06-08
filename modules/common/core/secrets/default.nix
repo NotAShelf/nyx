@@ -79,6 +79,7 @@ in {
       mailserver-gitea-secret = {
         file = "${self}/secrets/mailserver-gitea-secret.age";
         owner = "gitea";
+        group = "gitea";
         mode = "400";
       };
 
