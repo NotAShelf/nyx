@@ -68,6 +68,8 @@ in {
       nextcloud-secret = {
         file = "${self}/secrets/nextcloud-secret.age";
         mode = "400";
+        owner = "nextcloud";
+        group = "nextcloud";
       };
 
       # mailserver secrets
