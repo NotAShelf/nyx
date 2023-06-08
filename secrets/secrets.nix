@@ -17,4 +17,5 @@ in {
   "mailserver-gitea-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-vaultwarden-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-matrix-secret.age".publicKeys = [enyo helios notashelf];
+  "mailserver-cloud-secret.age".publicKeys = [enyo helios notashelf];
 }
