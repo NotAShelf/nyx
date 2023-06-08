@@ -21,10 +21,10 @@ in {
       nextcloud = {
         enable = true;
         package = pkgs.nextcloud26;
+        caching.redis = true;
         extraOptions = {
           redis = {
             host = "/run/redis-default/redis.sock";
-            port = 6379;
             dbindex = 0;
             timeout = 1.5;
           };
@@ -54,8 +54,9 @@ in {
         https = true;
       };
 
+      # database service
       postgresql = {
-        enable = true;
+        enable = mkForce true;
         ensureDatabases = [config.services.nextcloud.config.dbname];
         ensureUsers = [
           {

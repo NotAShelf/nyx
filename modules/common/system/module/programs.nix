@@ -18,6 +18,8 @@ with lib; {
         database = {
           mysql = mkEnableOption "Override MySQL database service";
           mongodb = mkEnableOption "Override MongoDB service";
+          redis = mkEnableOption "Override Redis service";
+          postgresql = mkEnableOption "Override Postgresql service";
         };
       };
     };
