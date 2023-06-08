@@ -1543,11 +1543,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1686232596,
-        "narHash": "sha256-B4xs9CZqGR5KFwuVgFQ+XBq3376tst/WwyyU1oc9ko8=",
+        "lastModified": 1686260383,
+        "narHash": "sha256-RSL/oHfKX65ATQq0ePD696pSZnHN1jkC9PAvS8akANc=",
         "owner": "gladiusglad",
         "repo": "mkm-ticketing",
-        "rev": "d98b87eabee80f5f033b6a4ce98e81421c90af3f",
+        "rev": "4ff150d6ae037ecfe3c6f18b03b5d54c04bbf355",
         "type": "github"
       },
       "original": {
@@ -2076,11 +2076,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1686251608,
-        "narHash": "sha256-3hCB34PRhbgNk7IkYJKOh1qRy081urqzUS8w4v56/lI=",
+        "lastModified": 1686255332,
+        "narHash": "sha256-Yn/uop7kx7kfl6GFSutpAunpLaEkwOARMzqXvL3bAA4=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "838856abf46f95c339b4f9443998df8d5738ee97",
+        "rev": "566ba2d32faa7ce01ca2b363e4dcfb4e89df8a5f",
         "type": "github"
       },
       "original": {
