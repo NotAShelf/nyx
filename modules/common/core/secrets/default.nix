@@ -59,7 +59,7 @@ in {
         mode = "400";
       };
 
-      mkm-web-secret = {
+      mkm-web = {
         file = "${self}/secrets/mkm-web.age";
         mode = "400";
       };
