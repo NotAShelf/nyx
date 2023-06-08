@@ -17,6 +17,16 @@ in {
     programs.spicetify = {
       spotifyPackage = self.packages.${pkgs.hostPlatform.system}.spotify-wrapped;
       enable = true;
+      injectCss = true;
+      replaceColors = true;
+
+      overwriteAssets = true;
+      sidebarConfig = true;
+      enabledCustomApps = with spicePkgs.apps; [
+        lyrics-plus
+        new-releases
+      ];
+
       theme = spicePkgs.themes.catppuccin-mocha;
       colorScheme = "flamingo";
 
@@ -28,6 +38,10 @@ in {
         lastfm
         genre
         historyShortcut
+        bookmark
+        fullAlbumDate
+        groupSession
+        popupLyrics
       ];
     };
   };
