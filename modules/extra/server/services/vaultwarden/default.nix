@@ -10,16 +10,19 @@
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.vaultwarden)) {
-    services = {
-      vaultwarden = {
-        enable = true;
-        config = {
-          DOMAIN = "https://vault.notashelf.dev";
-          SIGNUPS_ALLOWED = false;
-          ROCKET_ADDRESS = "127.0.0.1";
-          ROCKET_PORT = 8222;
-        };
-        backupDir = "/opt/vault";
+    services.vaultwarden = {
+      enable = true;
+      backupDir = "/opt/vault";
+      config = {
+        DOMAIN = "https://vault.notashelf.dev";
+        SIGNUPS_ALLOWED = false;
+        ROCKET_ADDRESS = "127.0.0.1";
+        ROCKET_PORT = 8222;
+        extendedLogging = true;
+        invitationsAllowed = false;
+        useSyslog = true;
+        logLevel = "warn";
+        showPasswordHint = false;
       };
     };
   };

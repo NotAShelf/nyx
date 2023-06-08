@@ -17,6 +17,27 @@ in {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 
+    postfix = {
+      dnsBlacklists = [
+        "all.s5h.net"
+        "b.barracudacentral.org"
+        "bl.spamcop.net"
+        "blacklist.woody.ch"
+      ];
+      dnsBlacklistOverrides = ''
+        ataraxiadev.com OK
+        mail.ataraxiadev.com OK
+        127.0.0.0/8 OK
+        192.168.0.0/16 OK
+      '';
+      headerChecks = [
+        {
+          action = "IGNORE";
+          pattern = "/^User-Agent.*Roundcube Webmail/";
+        }
+      ];
+    };
+
     services.roundcube = {
       enable = true;
       # this is the url of the vhost, not necessarily the same as the fqdn of
@@ -33,19 +54,44 @@ in {
 
     mailserver = {
       enable = true;
+      mailDirectory = "/srv/mail/vmail";
+      dkimKeyDirectory = "/srv/mail/dkim";
       openFirewall = true;
-      #enableImap = false;
-      #enableImapSsl = true;
-      #enableSubmission = false;
-      #enableSubmissionSsl = true;
-      #certificateDomains = ["imap.notashelf.dev"];
+      enableImap = true;
+      enableImapSsl = true;
+      enablePop3 = false;
+      enablePop3Ssl = false;
+      enableSubmission = false;
+      enableSubmissionSsl = true;
+      hierarchySeparator = "/";
+      localDnsResolver = false;
       fqdn = "mail.notashelf.dev";
       certificateScheme = "acme-nginx";
       domains = ["notashelf.dev"];
       loginAccounts = {
         "raf@notashelf.dev" = {
           hashedPasswordFile = config.age.secrets.mailserver-secret.path;
-          aliases = ["me@notashelf.dev" "admin@notashelf.dev" "root@notashelf.dev" "postmaster@notashelf.dev"];
+          aliases = ["raf" "me@notashelf.dev" "admin" "admin@notashelf.dev" "root" "root@notashelf.dev" "postmaster@notashelf.dev"];
+        };
+
+        "gitea@notashelf.dev" = {
+          aliases = ["gitea"];
+          hashedPasswordFile = config.age.secrets.mailserver-gitea-secret;
+        };
+
+        "vaultwarden@notashelf.dev" = {
+          aliases = ["vaultwarden"];
+          hashedPasswordFile = config.age.secrets.mailserver-vaultwarden-secret;
+        };
+
+        "matrix@notashelf.dev" = {
+          aliases = ["matrix"];
+          hashedPasswordFile = config.age.secrets.mailserver-matrix-secret;
+        };
+
+        "cloud@notashelf.dev" = {
+          aliases = ["matrix"];
+          hashedPasswordFile = config.age.secrets.mailserver-cloud-secret;
         };
       };
 
