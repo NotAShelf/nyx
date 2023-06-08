@@ -59,6 +59,11 @@ in {
         mode = "400";
       };
 
+      mkm-web-secret = {
+        file = "${self}/secrets/mkm-web.age";
+        mode = "400";
+      };
+
       matrix-secret = {
         file = "${self}/secrets/matrix-secret.age";
         owner = "matrix-synapse";
