@@ -76,6 +76,9 @@ in {
         # mailserver
         "mail.notashelf.dev" = template;
 
+        # webmail
+        "webmail.notashelf.dev" = template;
+
         # mkm
         "14062023.xyz" =
           template
