@@ -42,15 +42,16 @@ in {
       })
 
     (mkIf (builtins.elem device.type ["server" "hybrid"]) {
-      wg-server = {
-        file = "${self}/secrets/wg-server.age";
-      };
-
       nix-builderKey = {
         file = "${self}/secrets/nix-builderKey.age";
         mode = "400";
         group = "users";
         owner = "notashelf";
+      };
+
+      # service secrets
+      wg-server = {
+        file = "${self}/secrets/wg-server.age";
       };
 
       mongodb-secret = {
@@ -66,10 +67,10 @@ in {
 
       nextcloud-secret = {
         file = "${self}/secrets/nextcloud-secret.age";
-        owner = "nextcloud";
         mode = "400";
       };
 
+      # mailserver secrets
       mailserver-secret = {
         file = "${self}/secrets/mailserver-secret.age";
         mode = "400";
@@ -77,21 +78,25 @@ in {
 
       mailserver-gitea-secret = {
         file = "${self}/secrets/mailserver-gitea-secret.age";
+        owner = "gitea";
         mode = "400";
       };
 
       mailserver-vaultwarden-secret = {
         file = "${self}/secrets/mailserver-vaultwarden-secret.age";
+        owner = "vaultwarden";
         mode = "400";
       };
 
       mailserver-matrix-secret = {
         file = "${self}/secrets/mailserver-matrix-secret.age";
+        owner = "matrix-synapse";
         mode = "400";
       };
 
       mailserver-cloud-secret = {
         file = "${self}/secrets/mailserver-cloud-secret.age";
+        owner = "nextcloud";
         mode = "400";
       };
     })
