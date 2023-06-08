@@ -1543,11 +1543,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1686264153,
-        "narHash": "sha256-d2ivEymHR5KCb1KlwlshDcm62zcUHcBHhqGNajSeA5s=",
+        "lastModified": 1686264845,
+        "narHash": "sha256-BOJS1Z+AxVT7Cb/l5szCFGVCQZxyFxuSgRkLh8CWZuw=",
         "owner": "gladiusglad",
         "repo": "mkm-ticketing",
-        "rev": "be5688de864b2f190291486f624464eb883a31fb",
+        "rev": "9e43deac85abd3c3430e7c5ae5dbc312c02f6bcc",
         "type": "github"
       },
       "original": {
