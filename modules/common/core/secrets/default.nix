@@ -80,7 +80,7 @@ in {
 
       mailserver-gitea-secret = {
         file = "${self}/secrets/mailserver-gitea-secret.age";
-        owner = "gitea";
+        owner = "git";
         group = "gitea";
         mode = "400";
       };
