@@ -11,12 +11,11 @@ in {
   config = mkIf (!cfg.mkm) {
     virtualisation.oci-containers = {
       backend = "podman";
-      /*
       containers = {
         "mkm-web" = mkIf (config.networking.hostName == "helios") {
           autoStart = true;
           environmentFiles = [
-            /home/notashelf/Dev/mkm-ticketing/.env.local
+            config.age.secrets.mailserver-secret.path
           ];
           ports = [
             "3005:3005"
@@ -28,7 +27,6 @@ in {
           imageFile = inputs.mkm.packages.${pkgs.system}.dockerImage;
         };
       };
-      */
     };
   };
 }

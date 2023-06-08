@@ -13,10 +13,11 @@ in {
   "matrix-secret.age".publicKeys = [enyo helios notashelf];
   "nextcloud-secret.age".publicKeys = [enyo helios notashelf];
   "mongodb-secret.age".publicKeys = [enyo helios notashelf];
+  "mkm-web.age".publicKeys = [enyo helios notashelf];
 
   # wireguard secrets
   "wg-server.age".publicKeys = [enyo helios notashelf];
-  "wg-client.age".publicKeys = [enyo helios hermes notashelf];
+  "wg-client.age".publicKeys = [enyo helios notashelf];
 
   # secrets for specific mailserver accounts
   "mailserver-secret.age".publicKeys = [enyo helios notashelf];
