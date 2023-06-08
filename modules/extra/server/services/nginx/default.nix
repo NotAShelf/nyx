@@ -83,7 +83,7 @@ in {
         "14062023.xyz" =
           template
           // {
-            locations."/".proxyPass = "http://127.0.0.1:3001";
+            locations."/".proxyPass = "http://127.0.0.1:3005";
           };
 
         # matrix-synapse

@@ -32,7 +32,6 @@ in {
         smtpHost = "mail.notashelf.dev";
         smtpPort = 587;
         smtpSecurity = "starttls";
-        websocketAddress = "127.0.0.1";
         dataDir = "/srv/storage/vaultwarden";
       };
     };
