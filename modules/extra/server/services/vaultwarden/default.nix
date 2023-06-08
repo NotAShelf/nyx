@@ -12,7 +12,7 @@ in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.vaultwarden)) {
     services.vaultwarden = {
       enable = true;
-      backupDir = "/opt/vault";
+      backupDir = "/srv/storage/vaultwarden/backup";
       config = {
         DOMAIN = "https://vault.notashelf.dev";
         SIGNUPS_ALLOWED = false;
@@ -23,6 +23,17 @@ in {
         useSyslog = true;
         logLevel = "warn";
         showPasswordHint = false;
+        signupsAllowed = false;
+        signupsDomainsWhitelist = "notashelf.dev";
+        signupsVerify = true;
+        smtpAuthMechanism = "Login";
+        smtpFrom = "vaultwarden@notashelf.dev";
+        smtpFromName = "Vaultwarden";
+        smtpHost = "mail.notashelf.dev";
+        smtpPort = 587;
+        smtpSecurity = "starttls";
+        websocketAddress = "127.0.0.1";
+        dataDir = "/srv/storage/bitwarden_rs";
       };
     };
   };
