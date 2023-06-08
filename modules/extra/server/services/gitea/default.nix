@@ -24,7 +24,7 @@ in {
         database.user = "git";
         stateDir = "/srv/gitea/data";
 
-        mailerPasswordFile = config.age.secrets.mailserver-gitea-secret;
+        mailerPasswordFile = config.age.secrets.mailserver-gitea-secret.path;
         dump = {
           enable = true;
           backupDir = "/srv/gitea/dump";

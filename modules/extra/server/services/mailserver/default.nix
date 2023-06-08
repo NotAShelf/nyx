@@ -72,27 +72,27 @@ in {
       loginAccounts = {
         "raf@notashelf.dev" = {
           hashedPasswordFile = config.age.secrets.mailserver-secret.path;
-          aliases = ["raf" "me@notashelf.dev" "admin" "admin@notashelf.dev" "root" "root@notashelf.dev" "postmaster@notashelf.dev"];
+          aliases = ["raf" "me@notashelf.dev" "admin" "admin@notashelf.dev" "root" "root@notashelf.dev" "postmaster" "postmaster@notashelf.dev"];
         };
 
         "gitea@notashelf.dev" = {
           aliases = ["gitea"];
-          hashedPasswordFile = config.age.secrets.mailserver-gitea-secret;
+          hashedPasswordFile = config.age.secrets.mailserver-gitea-secret.path;
         };
 
         "vaultwarden@notashelf.dev" = {
           aliases = ["vaultwarden"];
-          hashedPasswordFile = config.age.secrets.mailserver-vaultwarden-secret;
+          hashedPasswordFile = config.age.secrets.mailserver-vaultwarden-secret.path;
         };
 
         "matrix@notashelf.dev" = {
           aliases = ["matrix"];
-          hashedPasswordFile = config.age.secrets.mailserver-matrix-secret;
+          hashedPasswordFile = config.age.secrets.mailserver-matrix-secret.path;
         };
 
         "cloud@notashelf.dev" = {
-          aliases = ["matrix"];
-          hashedPasswordFile = config.age.secrets.mailserver-cloud-secret;
+          aliases = ["cloud"];
+          hashedPasswordFile = config.age.secrets.mailserver-cloud-secret.path;
         };
       };
 

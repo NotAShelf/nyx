@@ -53,6 +53,11 @@ in {
         owner = "notashelf";
       };
 
+      mongodb-secret = {
+        file = "${self}/secrets/mailserver-secret.age";
+        mode = "400";
+      };
+
       matrix-secret = {
         file = "${self}/secrets/matrix-secret.age";
         owner = "matrix-synapse";
@@ -70,8 +75,23 @@ in {
         mode = "400";
       };
 
-      mongodb-secret = {
-        file = "${self}/secrets/mailserver-secret.age";
+      mailserver-gitea-secret = {
+        file = "${self}/secrets/mailserver-gitea-secret.age";
+        mode = "400";
+      };
+
+      mailserver-vaultwarden-secret = {
+        file = "${self}/secrets/mailserver-vaultwarden-secret.age";
+        mode = "400";
+      };
+
+      mailserver-matrix-secret = {
+        file = "${self}/secrets/mailserver-matrix-secret.age";
+        mode = "400";
+      };
+
+      mailserver-cloud-secret = {
+        file = "${self}/secrets/mailserver-cloud-secret.age";
         mode = "400";
       };
     })
