@@ -12,7 +12,7 @@ in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.vaultwarden)) {
     services.vaultwarden = {
       enable = true;
-      backupDir = "/srv/storage/vaultwarden-backup";
+      backupDir = "/srv/storage/vaultwarden/backup";
       config = {
         DOMAIN = "https://vault.notashelf.dev";
         SIGNUPS_ALLOWED = false;
