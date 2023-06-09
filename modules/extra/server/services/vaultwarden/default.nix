@@ -10,6 +10,12 @@
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.vaultwarden)) {
+    # this forces the system to create backup folder
+    systemd.services.backup-vaultwarden.serviceConfig = {
+      User = "root";
+      Group = "root";
+    };
+
     services.vaultwarden = {
       enable = true;
       backupDir = "/srv/storage/vaultwarden/backup";
