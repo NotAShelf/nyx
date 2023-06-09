@@ -14,6 +14,7 @@ in {
   "nextcloud-secret.age".publicKeys = [enyo helios notashelf];
   "mongodb-secret.age".publicKeys = [enyo helios notashelf];
   "mkm-web.age".publicKeys = [enyo helios notashelf];
+  "vaultwarden-env.age".publicKeys = [enyo helios notashelf];
 
   # wireguard secrets
   "wg-server.age".publicKeys = [enyo helios notashelf];

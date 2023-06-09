@@ -18,6 +18,7 @@ in {
 
     services.vaultwarden = {
       enable = true;
+      environmentFile = config.age.secrets.vaultwarden-env.path;
       backupDir = "/srv/storage/vaultwarden/backup";
       config = {
         DOMAIN = "https://vault.notashelf.dev";

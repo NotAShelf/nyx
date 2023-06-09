@@ -70,6 +70,12 @@ in {
         mode = "400";
       };
 
+      vaultwarden-env = {
+        file = "${self}/secrets/vaultwarden-env.age";
+        owner = "vaultwarden";
+        mode = "400";
+      };
+
       nextcloud-secret = {
         file = "${self}/secrets/nextcloud-secret.age";
         mode = "400";
