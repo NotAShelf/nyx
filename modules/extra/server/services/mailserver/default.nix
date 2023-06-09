@@ -39,8 +39,8 @@ in {
           "blacklist.woody.ch"
         ];
         dnsBlacklistOverrides = ''
-          ataraxiadev.com OK
-          mail.ataraxiadev.com OK
+          notashelf.dev OK
+          mail.notashelf.dedv OK
           127.0.0.0/8 OK
           192.168.0.0/16 OK
         '';
