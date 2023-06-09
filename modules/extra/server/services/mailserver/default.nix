@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   inputs,
   ...
 }:
@@ -22,7 +23,7 @@ in {
         enable = true;
         database.username = "roundcube";
         maxAttachmentSize = 50;
-        dicts = with pkgs.aspellDicts; [en ru];
+        dicts = with pkgs.aspellDicts; [en tr de];
         # this is the url of the vhost, not necessarily the same as the fqdn of
         # the mailserver
         hostName = "webmail.notashelf.dev";
