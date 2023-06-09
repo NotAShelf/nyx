@@ -28,10 +28,10 @@ in {
         signupsVerify = true;
         smtpAuthMechanism = "Login";
         smtpFrom = "vaultwarden@notashelf.dev";
-        smtpFromName = "Vaultwarden";
+        smtpFromName = "NotAShelf's Vaultwarden Service";
         smtpHost = "mail.notashelf.dev";
-        smtpPort = 587;
-        smtpSecurity = "starttls";
+        smtpPort = 465;
+        smtpSecurity = "force_tls";
         dataDir = "/srv/storage/vaultwarden";
       };
     };
