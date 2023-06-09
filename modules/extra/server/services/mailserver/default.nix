@@ -20,17 +20,31 @@ in {
     services = {
       roundcube = {
         enable = true;
+        database.username = "roundcube";
+        maxAttachmentSize = 50;
+        dicts = with pkgs.aspellDicts; [en ru];
         # this is the url of the vhost, not necessarily the same as the fqdn of
         # the mailserver
         hostName = "webmail.notashelf.dev";
         extraConfig = ''
+          $config['imap_host'] = array(
+            'tls://mail.notashelf.dev' => "NotAShelf's Mail Server",
+            'ssl://imap.gmail.com:993' => 'Google Mail',
+          );
+          $config['username_domain'] = array(
+            'mail.notashelf.dev' => 'notashelf.dev',
+            'mail.gmail.com' => 'gmail.com',
+          );
+          $config['x_frame_options'] = false;
           # starttls needed for authentication, so the fqdn required to match
           # the certificate
           $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
           $config['smtp_user'] = "%u";
           $config['smtp_pass'] = "%p";
+          $config['plugins'] = [ "carddav" ];
         '';
       };
+
       postfix = {
         dnsBlacklists = [
           "all.s5h.net"
@@ -50,6 +64,15 @@ in {
             pattern = "/^User-Agent.*Roundcube Webmail/";
           }
         ];
+
+        config = {
+          smtp_helo_name = config.mailserver.fqdn;
+        };
+      };
+
+      phpfpm.pools.roundcube.settings = {
+        "listen.owner" = config.services.nginx.user;
+        "listen.group" = config.services.nginx.group;
       };
     };
 
@@ -94,6 +117,29 @@ in {
         "cloud@notashelf.dev" = {
           aliases = ["cloud"];
           hashedPasswordFile = config.age.secrets.mailserver-cloud-secret.path;
+        };
+      };
+
+      mailboxes = {
+        Archive = {
+          auto = "subscribe";
+          specialUse = "Archive";
+        };
+        Drafts = {
+          auto = "subscribe";
+          specialUse = "Drafts";
+        };
+        Sent = {
+          auto = "subscribe";
+          specialUse = "Sent";
+        };
+        Junk = {
+          auto = "subscribe";
+          specialUse = "Junk";
+        };
+        Trash = {
+          auto = "subscribe";
+          specialUse = "Trash";
         };
       };
 
