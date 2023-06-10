@@ -227,7 +227,7 @@ in {
       scroll-step = 5;
       tooltip = false;
       format = "{icon}";
-      format-muted = "󰝟";
+      format-muted = "󰸈";
       format-icons = {
         default = ["" "" ""];
       };
@@ -236,7 +236,7 @@ in {
 
     cpu = {
       interval = 10;
-      format = " {usage}%";
+      format = "";
       max-length = 10;
       states = {
         "50" = 50;

@@ -180,7 +180,7 @@ in {
       vim.ui = {
         noice.enable = true;
         colorizer.enable = true;
-        modes-nvim.enable = true;
+        modes-nvim.enable = false;
         smartcolumn = {
           enable = true;
           columnAt.languages = {
