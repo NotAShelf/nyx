@@ -90,7 +90,6 @@ in {
       allowedTCPPorts = [
         443
         8080
-        33896 # qb
       ];
       allowedUDPPorts = [];
       allowPing = false;
