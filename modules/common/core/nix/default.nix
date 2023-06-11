@@ -33,10 +33,7 @@ with lib; {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = false;
       allowUnsupportedSystem = true;
-      permittedInsecurePackages = [
-        #"electron-21.4.0"
-        #"nodejs-16.20.0"
-      ];
+      permittedInsecurePackages = [];
     };
 
     overlays = with inputs; [
@@ -77,12 +74,19 @@ with lib; {
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
 
+    # set up garbage collection to run daily,
+    # removing unused packages after three days
     gc = {
-      # set up garbage collection to run daily,
-      # removing unused packages after three days
       automatic = true;
-      dates = "daily";
+      dates = "Mon *-*-* 03:00";
       options = "--delete-older-than 3d";
+    };
+
+    # automatically optimize nix store my removing hard links
+    # do it after the gc
+    optimise = {
+      automatic = true;
+      dates = ["04:00"];
     };
 
     settings = {
@@ -133,7 +137,7 @@ with lib; {
       keep-outputs = true;
 
       # use binary cache, its not gentoo
-      # this also allows us to use remote builders to reduce build times and battery usage
+      # also let external builders to use the binary cache
       builders-use-substitutes = true;
       # substituters to use
       substituters = [
