@@ -25,6 +25,9 @@
     gpg = {
       enable = true;
       homedir = "${config.xdg.dataHome}/gnupg";
+      settings = {
+        keyserver = "keys.openpgp.org";
+      };
     };
 
     tealdeer = {
