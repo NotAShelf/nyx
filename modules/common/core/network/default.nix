@@ -22,7 +22,16 @@ with lib; {
     );
 
     # dns
-    nameservers = ["1.1.1.1" "1.0.0.1"];
+    nameservers = [
+      # cloudflare, yuck
+      # shares data
+      "1.1.1.1"
+      "1.0.0.1"
+
+      # quad9, said to be the best
+      # shares *less* datg
+      "9.9.9.9"
+    ];
 
     networkmanager = {
       enable = true;
