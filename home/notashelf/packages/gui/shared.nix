@@ -12,7 +12,7 @@ with lib; let
 in {
   config = mkIf ((programs.gui.enable) && (builtins.elem device.type acceptedTypes)) {
     home.packages = with pkgs; [
-      schildichat-desktop-wayland
+      schildichat-desktop
       thunderbird
       qbittorrent
       hexchat
@@ -28,10 +28,9 @@ in {
       librewolf
       zoom-us # I hate this
       cinnamon.nemo
-      brightnessctl # move
-      tesseract5 # move
       pamixer # move
-      dolphin
+      plasma5Packages.dolphin
+      plasma5Packages.dolphin-plugins
       plasma5Packages.kio
       plasma5Packages.kio-extras
       plasma5Packages.kimageformats

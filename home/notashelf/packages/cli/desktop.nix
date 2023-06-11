@@ -21,6 +21,8 @@ in {
       trash-cli
       python39Packages.requests
       slides
+      brightnessctl
+      tesseract5
     ];
   };
 }
