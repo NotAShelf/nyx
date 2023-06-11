@@ -74,15 +74,10 @@
     };
 
   inputs = {
-    # I hate everything
+    # powered by
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
-    mkm = {
-      url = "github:gladiusglad/mkm-ticketing";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Nix helper
@@ -223,6 +218,11 @@
 
     # mailserver on nixos
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+
+    mkm = {
+      url = "github:gladiusglad/mkm-ticketing";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
