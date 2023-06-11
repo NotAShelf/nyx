@@ -45,7 +45,10 @@ in {
 
         nix.enable = true;
         html.enable = true;
-        clang.enable = true;
+        clang = {
+          enable = true;
+          lsp.server = "clangd";
+        };
         sql.enable = false;
         ts.enable = true;
         go.enable = true;
