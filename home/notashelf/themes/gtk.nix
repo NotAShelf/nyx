@@ -11,28 +11,44 @@ with lib; let
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
-    home.packages = with pkgs; [glib]; # gsettings
     xdg.systemDirs.data = let
       schema = pkgs.gsettings-desktop-schemas;
     in ["${schema}/share/gsettings-schemas/${schema.name}"];
 
-    home.sessionVariables = {
-      # set GTK theme as specified by the catppuccin-gtk package
-      GTK_THEME = "${config.gtk.theme.name}"; #"Catppuccin-Mocha-Blue-Dark";
+    home = {
+      packages = with pkgs; [
+        glib # gsettings
+        (catppuccin-gtk.override {
+          size = "standard";
+          accents = ["blue"];
+          variant = "mocha";
+          tweaks = ["normal"];
+        })
+        (catppuccin-papirus-folders.override {
+          accent = "blue";
+          flavor = "mocha";
+        })
+      ];
 
-      # gtk applications should use filepickers specified by xdg
-      GTK_USE_PORTAL = "1";
+      sessionVariables = {
+        # set GTK theme as specified by the catppuccin-gtk package
+        GTK_THEME = "${config.gtk.theme.name}";
+
+        # gtk applications should use filepickers specified by xdg
+        GTK_USE_PORTAL = "1";
+      };
     };
 
     gtk = {
       enable = true;
 
       theme = {
-        name = "Catppuccin-Mocha-Compact-Blue-Dark";
+        name = "Catppuccin-Mocha-Standard-Blue-Dark";
         package = pkgs.catppuccin-gtk.override {
-          size = "compact";
+          size = "standard";
           accents = ["blue"];
           variant = "mocha";
+          tweaks = ["normal"];
         };
       };
 
