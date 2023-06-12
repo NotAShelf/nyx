@@ -12,7 +12,8 @@ with lib; let
     #!/bin/bash
     hyprctl keyword animation "fadeOut,0,8,slow" && ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -w 0 -b 5e81acd2)" - | swappy -f -; hyprctl keyword animation "fadeOut,1,8,slow"
   '';
-
+  hyprpicker = inputs.hyprpicker.packages.${pkgs.system}.default;
+  hyprland-share-picker = inputs.xdg-portal-hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   grimblast = inputs.hyprland-contrib.packages.${pkgs.system}.grimblast;
 
   env = osConfig.modules.usrEnv;
@@ -24,6 +25,8 @@ in {
     home.packages = [
       hyprshot
       grimblast
+      hyprpicker
+      hyprland-share-picker
     ];
 
     wayland.windowManager.hyprland = {
