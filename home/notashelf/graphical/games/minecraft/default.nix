@@ -23,6 +23,7 @@ with lib; let
     temurin-jre-bin-11
     graalvm11-ce
     # Java 17
+    temurin-jre-bin-17
     graalvm17-ce
     # Latest
     temurin-jre-bin
