@@ -7,7 +7,7 @@ _: {
         "fakenews"
         "gambling"
         "porn"
-        "social"
+        #"social" # blocks stuff like reddit
       ];
     };
   };
