@@ -38,7 +38,7 @@ jobs:
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
           extraPullNames: nix-community
-          name: neovim-flake
+          name: notashelf
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
@@ -46,5 +46,5 @@ jobs:
       - name: Validate Flakes
         run: nix flake check
 
-      - name: Build hyprland packages from the matrix with default settings
+      - name: Build Hyprland packages from the matrix with default settings
         run: nix build .#${{ matrix.package }} --print-build-logs
