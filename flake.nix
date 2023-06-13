@@ -35,6 +35,10 @@
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
         images = import ./hosts/images.nix {inherit inputs self lib;};
+
+        # A copy of Hyprland with its nixpkgs overriden
+        # cannot trigger binary cache pulls, so I push it to my own
+        hyprland = inputs.hyprland.packages."x86_64-linux".default;
       };
 
       perSystem = {
@@ -70,6 +74,9 @@
 
         # provide the formatter for nix fmt
         formatter = pkgs.alejandra;
+
+        # packages
+        packages.hyprland-cached = inputs'.hyprland.packages.default;
       };
     };
 
@@ -185,7 +192,10 @@
     };
 
     # Hyprland & Hyprland Contrib repos
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
