@@ -193,7 +193,7 @@
 
     # Hyprland & Hyprland Contrib repos
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland?rev=e1edfde539557d175f8c48d94996469426da7c47";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
