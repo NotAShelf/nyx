@@ -14,7 +14,7 @@ on:
       - assets/**
       - .gitignore
 jobs:
-  cahix:
+  cachix:
     runs-on: ubuntu-latest
     strategy:
       matrix:
