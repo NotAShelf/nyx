@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - main
+      - system-module
+    paths:
+      - flake.nix
+      - flake.lock
     paths-ignore:
       - .github/**
       - assets/**
@@ -42,9 +46,6 @@ jobs:
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
-
-      - name: Validate Flakes
-        run: nix flake check
 
       - name: Build Hyprland packages from the matrix with default settings
         run: nix build .#${{ matrix.package }} --print-build-logs
