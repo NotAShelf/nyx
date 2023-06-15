@@ -55,16 +55,19 @@ with lib; {
   environment = {
     noXlibs = mkDefault true; # trim inputs
     # system packages for the base installer
-    systemPackages = with pkgs; [gitMinimal neovim netcat];
+    systemPackages = with pkgs; [
+      nixos-install-tools
+      gitMinimal
+      neovim
+      netcat
+    ];
     defaultPackages = []; # no packages other than my defaults
   };
 
   # disable documentation to save space
   documentation = {
     enable = mkDefault false;
-
     doc.enable = mkDefault false;
-
     info.enable = mkDefault false;
   };
 
