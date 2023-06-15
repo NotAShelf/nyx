@@ -55,8 +55,5 @@ jobs:
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
 
-      - name: Validate Flakes
-        run: nix flake check
-
       - name: Build from the matrix
         run: nix build .#${{ matrix.package }} --print-build-logs

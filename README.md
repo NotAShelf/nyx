@@ -1,5 +1,5 @@
 <p align="center">
-   ⚠️ The <code>system-module<code/> branch (the one you are currently on) is for the upcoming rework and is not at all stable. See the <code>nixos<code/> branch
+   ⚠️ The <code>system-module</code> branch (the one you are currently on) is for the upcoming rework and is not at all stable. See the <code>nixos</code> branch
    for the last confirmed stable version of my NixOS configuration
 </p>
 
