@@ -1,4 +1,4 @@
-name: "Set up binary cache"
+name: Push built binaries to Cache
 
 on:
   workflow_dispatch:
@@ -17,6 +17,13 @@ jobs:
       matrix:
         package:
           - hyprland-cached
+          - wl-clip-persist
+          - cloneit
+          - fastfetch
+          - rofi-calc-wayland
+          - rofi-emoji-wayland
+          - rat
+          - spotify-wrapped
     steps:
       - uses: easimon/maximize-build-space@v6
         with:
