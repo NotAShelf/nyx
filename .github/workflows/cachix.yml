@@ -5,22 +5,18 @@ on:
   push:
     branches:
       - main
-      - system-module
-    paths:
-      - flake.nix
-      - flake.lock
     paths-ignore:
       - .github/**
       - assets/**
       - .gitignore
+
 jobs:
-  cachix:
+  build-and-cache:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         package:
           - hyprland-cached
-          # add more as needed
     steps:
       - uses: easimon/maximize-build-space@v6
         with:
@@ -28,9 +24,12 @@ jobs:
           remove-android: true
           remove-dotnet: true
           remove-haskell: true
-      - uses: actions/checkout@v3
 
-      - uses: cachix/install-nix-action@v20
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Cachix
+        uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
@@ -38,7 +37,8 @@ jobs:
             experimental-features = nix-command flakes
           nix_path: nixpkgs=channel:nixos-unstable
 
-      - uses: cachix/cachix-action@v12
+      - name: Cachix setup
+        uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
           extraPullNames: nix-community
@@ -47,5 +47,8 @@ jobs:
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
 
-      - name: Build Hyprland packages from the matrix with default settings
+      - name: Validate Flakes
+        run: nix flake check
+
+      - name: Build from the matrix
         run: nix build .#${{ matrix.package }} --print-build-logs
