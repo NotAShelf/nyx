@@ -148,6 +148,7 @@ with lib; {
         "https://numtide.cachix.org" # another unfree package cache
         "https://helix.cachix.org" # helix
         "https://anyrun.cachix.org" # anyrun
+        "https://notashelf.cachix.org" # cached stuff from my flake outputs
       ];
 
       trusted-public-keys = [
@@ -162,6 +163,7 @@ with lib; {
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+        "notashelf.cachix.org-1:VTTBFNQWbfyLuRzgm2I7AWSDJdqAa11ytLXHBhrprZk="
       ];
     };
   };

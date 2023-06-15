@@ -24,14 +24,13 @@ in {
 
     (mkIf (builtins.elem device.type ["desktop" "laptop" "hybrid" "lite"])
       {
-        /*
+        # secrets needed for peers
         spotify = {
           file = "${self}/secrets/spotify.age";
           owner = "notashelf";
           mode = "700";
           group = "users";
         };
-        */
 
         wg-client = {
           file = "${self}/secrets/wg-client.age";
@@ -39,16 +38,16 @@ in {
           mode = "700";
           group = "users";
         };
+
+        nix-builderKey = {
+          file = "${self}/secrets/nix-builderKey.age";
+          mode = "400";
+          group = "users";
+          owner = "notashelf";
+        };
       })
 
     (mkIf (builtins.elem device.type ["server" "hybrid"]) {
-      nix-builderKey = {
-        file = "${self}/secrets/nix-builderKey.age";
-        mode = "400";
-        group = "users";
-        owner = "notashelf";
-      };
-
       # service secrets
       wg-server = {
         file = "${self}/secrets/wg-server.age";

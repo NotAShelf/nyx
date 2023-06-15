@@ -12,7 +12,7 @@
   - [ ] **server**
     - [x] Conditionally enable server services
     - [ ] Override all services as disabled by default
-    - [ ] Add override options
+    - [x] Add override options
 - [x] make cross-compilation togglable
 - [x] dynamic kernel module loading based on filesystems
 - [x] document more settings
@@ -35,23 +35,23 @@
   - [x] home-manager module (Probably not necessary, users should bring their
         own homes)
   - [ ] desktop module
-  - [ ] server module
+  - [x] server module
     - [ ] default all services to off, enable them per host as required
   - [ ]**override options for default programs**
     - [x] terminal
-    - [ ] file-manager
-    - [ ] editors
+    - [x] file-manager
+    - [x] editors
       - [ ] text editor
       - [ ] visual editor
 - [x] per-user secrets management via (r)agenix
 - [x] try to declutter inputs and unnecessary services
-- [ ] toggle unnecessary/unsafe services or programs off by default
+- [x] toggle unnecessary/unsafe services or programs off by default
 - [x] clean up module skeletons
 - [ ] further work on driver modules
   - [ ] add a generation condition to intel module to enable kaby lake and above kernel params
   - [x] figure out why nvidia breaks firefox and thunderbird but not librewolf (webgl?) \*\*: NVIDIA SUCKS
   - [x] clean up bluetooth module, we don't like bluetooth already - security would be nice
-  - [ ] figure out why nvidia drivers are royally fucked
+  - [x] figure out why nvidia drivers are royally fucked
 - [ ] (home-manager) clean up schizofox module
   - [ ] schizofox should load security related options on two levels
     - **each version should provide an additional layer of security**
@@ -70,3 +70,4 @@
     - [ ] grub
     - [ ] none (nixos-infect)
 - [x] look into additional file managers (nemo seems good)
+  - [x] dolphin is fixed, based and real
