@@ -35,10 +35,6 @@
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
         images = import ./hosts/images.nix {inherit inputs self lib;};
-
-        # A copy of Hyprland with its nixpkgs overriden
-        # cannot trigger binary cache pulls, so I push it to my own
-        hyprland = inputs.hyprland.packages."x86_64-linux".default;
       };
 
       perSystem = {
@@ -60,7 +56,6 @@
 
         devShells.default = inputs'.devshell.legacyPackages.mkShell {
           name = "nyx";
-
           commands = (import ./lib/flake/devShell).shellCommands;
           packages = with pkgs; [
             nil # nix ls
@@ -76,7 +71,11 @@
         formatter = pkgs.alejandra;
 
         # packages
-        packages.hyprland-cached = inputs'.hyprland.packages.default;
+        packages = {
+          # A copy of Hyprland with its nixpkgs overriden
+          # cannot trigger binary cache pulls, so I push it to my own
+          hyprland-cached = inputs'.hyprland.packages.default;
+        };
       };
     };
 
