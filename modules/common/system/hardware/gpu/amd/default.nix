@@ -19,14 +19,14 @@ in {
 
     # enables AMDVLK & OpenCL support
     hardware.opengl.extraPackages = with pkgs; [
-      #amdvlk
-      #opencl drivers
-      #rocm-opencl-icd
-      #rocm-opencl-runtime
+      # opencl drivers
+      rocm-opencl-icd
+      rocm-opencl-runtime
     ];
 
+    /*
     hardware.opengl.extraPackages32 = with pkgs; [
-      #driversi686Linux.amdvlk
     ];
+    */
   };
 }

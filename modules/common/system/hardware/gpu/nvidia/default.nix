@@ -67,11 +67,9 @@ in {
         })
       ];
       systemPackages = with pkgs; [
-        glxinfo
         vulkan-tools
         vulkan-loader
         vulkan-validation-layers
-        glmark2
         libva
         libva-utils
       ];
