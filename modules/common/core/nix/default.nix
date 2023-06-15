@@ -64,8 +64,6 @@ with lib; {
     # to make nix3 commands consistent with your flake
     registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
 
-    #registry.default.flake = config.nix.registry.nixpkgs;
-
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
     nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
@@ -121,14 +119,12 @@ with lib; {
         "flakes"
         "nix-command"
         "recursive-nix"
-        /*
         "ca-derivations"
-        */
       ];
       # don't warn me that my git tree is dirty, I know
       warn-dirty = false;
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
-      http-connections = 0;
+      http-connections = 50;
       # whether to accept nix configuration from a flake without prompting
       accept-flake-config = true;
 
@@ -137,7 +133,7 @@ with lib; {
       keep-outputs = true;
 
       # use binary cache, its not gentoo
-      # also let external builders to use the binary cache
+      # external builders can also pick up those substituters
       builders-use-substitutes = true;
       # substituters to use
       substituters = [
