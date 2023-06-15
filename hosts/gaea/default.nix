@@ -2,10 +2,14 @@
   config,
   lib,
   pkgs,
+  modulesPath,
   ...
 }:
 with lib; {
   imports = [
+    "${modulesPath}/profiles/minimal.nix"
+    "${modulesPath}/installer/cd-dvd/installation-cd-base.nix"
+
     ./boot.nix
     ./iso.nix
     ./network.nix

@@ -1,12 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-with lib; let
-  cfg = config.modules.device;
-in {
+_: {
   config = {
     modules = {
       device = {
@@ -16,37 +8,53 @@ in {
         monitors = ["eDP-1"];
         hasBluetooth = false;
         hasSound = true;
-        hasTPM = false;
+        hasTPM = true;
       };
       system = {
-        fs = ["btrfs" "vfat"];
+        username = "notashelf";
+        fs = ["btrfs" "ext4" "vfat"];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
-        virtualization.enable = false;
-        username = "notashelf";
+        emulation.enable = false;
+
+        networking = {
+          optimizeTcp = true;
+          useTailscale = true;
+        };
+
+        security = {
+          fixWebcam = false;
+          secureBoot = false;
+        };
+
+        virtualization = {
+          enable = false;
+          docker.enable = false;
+          qemu.enable = false;
+          podman.enable = false;
+        };
       };
       usrEnv = {
         isWayland = true;
         desktop = "Hyprland";
+        autologin = true;
         useHomeManager = true;
       };
       programs = {
-        git.signingKey = "0x84184B8533918D88";
+        git.signingKey = "0x148C61C40F80F8D6";
 
         cli.enable = true;
         gui.enable = true;
 
         gaming = {
           enable = false;
-          chess.enable = true;
+          chess.enable = false;
         };
-
         default = {
           terminal = "foot";
         };
-
         override = {};
       };
     };
@@ -54,6 +62,8 @@ in {
     fileSystems = {
       "/".options = ["compress=zstd" "noatime"];
       "/home".options = ["compress=zstd"];
+      "/persist".options = ["compress=zstd"];
+      "/var/log".options = ["compress=zstd"];
       "/nix".options = ["compress=zstd" "noatime"];
     };
 
