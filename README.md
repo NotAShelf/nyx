@@ -1,5 +1,5 @@
 <p align="center">
-   ⚠️ The `system-module` branch (the one you are currently on) is for the upcoming rework and is not at all stable. See the `nixos` branch
+   ⚠️ The <code>system-module<code/> branch (the one you are currently on) is for the upcoming rework and is not at all stable. See the <code>nixos<code/> branch
    for the last confirmed stable version of my NixOS configuration
 </p>
 
@@ -56,11 +56,11 @@
 - [flake](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
   - [flake](lib/flake) ❄️ Extended functions or configuration imports for my flake.nix
-- [docs](docs) The documentation for my flake repository
-  - [notes](docs/notes) Notes from tedious or/and underdocumented processes I have gone through
+- [docs](docs)📑 The documentation for my flake repository
+  - [notes](docs/notes)📝 Notes from tedious or/and underdocumented processes I have gone through
 - [home](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
 - [modules](modules) 🍱 modularized NixOS configurations
-  - [common](modules/common) ⚙️⚙ The common modules imported by all hosts
+  - [common](modules/common) ⚙️T The common modules imported by all hosts
     - [core](modules/shared) 🧠 Core NixOS configuration
     - [boot](modules/boot) 🔧 Default configuration for common bootloaders
     - [system](modules/system) 💡 A self-made NixOS configuration to dictate system specs
@@ -108,30 +108,29 @@ some of the things I've done (or proofread my notes) you may take a look in ther
 
 ### Motivation
 
-I so often switch devices due to a myriad of reasons. Regardless of the reason,
-I would like to be able to get my new devices up and running in minutes. Thanks
-to the declarative nature of NixOS, I can do just that on top of being able to
-build entire system from a few modules and nothing more. Which is why I am currently
-in the process of transitioning all of my devices to NixOS. While I do have much to learn
+I often switch devices, due to a myriad of reasons, and regardless of the reason,
+I would like to be able to get my new devices up and running in minutes without having to move
+a bunch of files from one device to another. Thanks to the declarative nature of NixOS, not only
+can I install my previous system to a new host almost entirely identically, I can also bootstrap
+a new host for a new machine in minutes with my personal abstractions.
+
+Which is exactly why I have converted all my devices to NixOS. While I do have much to learn
 the NixOS ecosystem is an incredible learning opportunity and a good practice for
 those who want to switch inbetween devices at ease, or have common "mixin"
 configs that are shared between multiple devices. All things considered, it is
 an excellent idea to learn Nix (the programming language) and NixOS.
 
-I also maintain some dotfiles for my desktop running Arch Linux. See the [arch](../../../tree/arch)
-branch if you are interested in my "legacy" dotfiles.
+If you are here for my "legacy" Arch Linux dotfiles, you can find them [in here](https://github.com/NotAShelf/dotfiles).
 
 ### Disclaimer
 
 > I am not a NixOS _expert_. I am a NixOS _user_.
 
-You _probably_ do not want to copy or base your config off of this configuration.
-Frankly, this is not a community framework, and nor is it built with the intention of bringing
-new people into NixOS or/and helping newcomers figure out how NixOS works.
-It is simply my NixOS configuration, built around my personal use cases and interests.
-If you do have a question, I will do my absolute best to answer it as the
-circumstances (mainly my own knowledge) allow, however, do not expect "support"
-and definitely do not assume this configuration to be following best practices.
+You _probably_ do not want to copy or base your config off of this repository.
+It is simply my NixOS configuration, built around my personal use cases and interests, containing many
+abstractions that you will need to figure out. If you do have a question, do feel free to ask.
+I will do my absolute best to answer it as the circumstances (mainly my own knowledge) allow,
+however, do not expect "support" and definitely do not assume this configuration to be following best practices.
 
 Dissect the configurations all you want, take what you need and if you find yourself to
 be excelling somewhere I lack, do feel free to contribute to my atrocities against
@@ -173,6 +172,12 @@ Perhaps consider donating!
 
 ... and many more
 
+### Anti-credits
+
+> Pretend I haven't credited those people
+
+[n3oney](https://github.com/n3oney) -
+
 ### Other Cool Resources
 
 > Resource that helped shape and improve this configuation, or resources that I strongly recommend that you read.
@@ -181,6 +186,8 @@ Perhaps consider donating!
 - [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
 - [Viper's Blog](https://ayats.org/)
 
+Additionally, take a look at my [notes](docs/notes) for my notes on specific processes on NixOS.
+
 ## License
 
-This repository is licensed under the [GPL-3.0](../LICENSE) license.
+This repository is licensed under the [GPL-3.0](LICENSE) license.
