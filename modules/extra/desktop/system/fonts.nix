@@ -57,7 +57,7 @@ in {
         noto-fonts-emoji
         emacs-all-the-icons-fonts
 
-        (nerdfonts.override {fonts = ["Iosevka"];})
+        (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
       ];
     };
   };

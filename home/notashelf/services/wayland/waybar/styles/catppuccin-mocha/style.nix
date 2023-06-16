@@ -156,11 +156,16 @@ in ''
     font-size: 30;
   }
 
+  #pulseaudio.source-muted,
+  #pulseaudio.muted {
+    color: #${base08};
+    padding: 16px 0px 16px 0px;
+    font-size: 15;
+  }
+
   #custom-swallow {
     color: #${base0E};
-    /*padding-right: 3px;*/
     padding: 14px 0px 14px 0px;
-
   }
 
   #custom-lock {

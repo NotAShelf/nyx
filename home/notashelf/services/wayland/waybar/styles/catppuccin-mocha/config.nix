@@ -225,9 +225,10 @@ in {
 
     pulseaudio = {
       scroll-step = 5;
-      tooltip = false;
+      tooltip = true;
+      tooltip-format = "{volume}";
       format = "{icon}";
-      format-muted = "󰸈";
+      format-muted = "󰝟";
       format-icons = {
         default = ["" "" ""];
       };
