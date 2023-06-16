@@ -10,7 +10,6 @@
   sharedModules = ../modules/shared; # the path where shared modules reside
 
   # common modules, to be shared across all systems
-  boot = commonModules + /boot; # system module will choose the appropriate bootloader based on device.type option
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
   system = commonModules + /system; # system module for configuring system-specific options easily
 
@@ -19,13 +18,12 @@
   desktop = extraModules + /desktop; # for devices that are for daily use
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
+  # profiles
+  profiles = ../modules + /profiles;
+
   ## home-manager ##
   home = ../home; # home-manager configurations for hosts that need home-manager
   homes = [hm home]; # combine hm flake input and the home module to be imported together
-
-  ## profiles ##
-  # TODO: shared profiles that determine things like colorscheme or power saving
-  profiles = ../profiles; # profiles are pre-defined setting sets that override certain other settings as required
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
@@ -37,9 +35,8 @@
     system # the skeleton module for config.modules.*
     core # the "sane" default shared across systems
     agenix # age encryption for secrets
-    boot # bootloader configurations + secureboot
     sharedModules # consume my flake's own nixosModules
-    profiles # configure the set of defaults for the system, allow separating shared modules on a per-host basis
+    profiles
   ];
 
   # extraSpecialArgs that all hosts need

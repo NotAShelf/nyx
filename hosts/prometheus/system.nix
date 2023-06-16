@@ -22,6 +22,15 @@ in {
       system = {
         username = "notashelf";
         fs = ["btrfs" "vfat" "ntfs"];
+
+        boot = {
+          loader = "systemd-boot";
+          enableKernelTweaks = true;
+          enableInitrdTweaks = true;
+          loadRecommendedModules = true;
+          tmpOnTmpfs = true;
+        };
+
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;

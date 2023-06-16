@@ -22,6 +22,15 @@ in {
       system = {
         username = "notashelf";
         fs = ["btrfs" "vfat"];
+
+        boot = {
+          loader = "grub";
+          enableKernelTweaks = false;
+          enableInitrdTweaks = false;
+          loadRecommendedModules = false;
+          tmpOnTmpfs = false;
+        };
+
         video.enable = true;
         sound.enable = false;
         bluetooth.enable = false;

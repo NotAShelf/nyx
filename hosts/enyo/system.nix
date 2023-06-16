@@ -14,11 +14,21 @@
       system = {
         username = "notashelf";
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
+
+        boot = {
+          loader = "systemd-boot";
+          enableKernelTweaks = true;
+          enableInitrdTweaks = true;
+          loadRecommendedModules = true;
+          tmpOnTmpfs = true;
+        };
+
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
         emulation.enable = true;
+
         virtualization = {
           enable = true;
           qemu.enable = true;

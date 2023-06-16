@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -51,6 +50,27 @@ with lib; {
     # you might need to add more drivers to the printing module for your printer to work
     printing = {
       enable = mkEnableOption "printing";
+    };
+
+    # pre-boot and bootloader configurations
+    boot = {
+      enableKernelTweaks = mkEnableOption "security and performance related kernel parameters";
+      enableInitrdTweaks = mkEnableOption "quality of life tweaks for the initrd stage";
+      recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
+      loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
+      tmpOnTmpfs = mkEnableOption "whether or not /tmp should live on tmpfs. false means it will be cleared manually on each reboot";
+
+      kernel = mkOption {
+        type = types.raw;
+        default = pkgs.linuxPackages_latest;
+      };
+
+      # the bootloader that should be used
+      loader = mkOption {
+        type = types.enum ["none" "grub" "systemd-boot"];
+        default = "none";
+        description = "The bootloader that should be used for the device.";
+      };
     };
 
     # should virtualization (docker, qemu, podman etc.) be enabled
