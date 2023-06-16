@@ -28,7 +28,7 @@ in {
       };
     in ''
       # TODO: get the version from xplr package's src.version
-      version = '0.21.1'
+      version = '${pkgs.xplr.version}'
 
       package.path =
       "${wl-clipboard-plugin}/init.lua;" ..

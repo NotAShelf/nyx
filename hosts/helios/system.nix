@@ -17,6 +17,15 @@
         sound.enable = false;
         bluetooth.enable = false;
         printing.enable = false;
+
+        boot = {
+          loader = "grub";
+          enableKernelTweaks = true;
+          enableInitrdTweaks = true;
+          loadRecommendedModules = true;
+          tmpOnTmpfs = false;
+        };
+
         virtualization = {
           enable = true;
           qemu.enable = true;
