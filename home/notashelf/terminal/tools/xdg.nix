@@ -1,6 +1,7 @@
 {config, ...}: let
   browser = ["firefox.desktop"];
   zathura = ["org.pwmt.zathura.desktop.desktop"];
+  filemanager = ["dolphin.desktop"];
 
   associations = {
     "text/html" = browser;
@@ -24,6 +25,7 @@
     "x-scheme-handler/tg" = ["telegramdesktop.desktop"];
     "x-scheme-handler/spotify" = ["spotify.desktop"];
     "x-scheme-handler/discord" = ["WebCord.desktop"];
+    "inode/directory" = filemanager;
   };
 in {
   xdg = {

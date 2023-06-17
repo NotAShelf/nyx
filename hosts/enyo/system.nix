@@ -9,6 +9,7 @@
         hasBluetooth = true;
         hasSound = true;
         hasTPM = true;
+        yubikeySupport.enable = true;
       };
 
       system = {

@@ -1,10 +1,16 @@
-_: {
+{config, ...}: {
+  home = {
+    sessionVariables = {
+      STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
+    };
+  };
+
   programs.starship = {
     enable = true;
 
     settings = {
       add_newline = false;
-      scan_timeout = 5;
+      scan_timeout = 3;
 
       character = {
         error_symbol = "[](bold red)";

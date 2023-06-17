@@ -1,5 +1,9 @@
-{lib, ...}: {
-  programs.ssh.startAgent = true;
+{
+  config,
+  lib,
+  ...
+}: {
+  programs.ssh.startAgent = !config.modules.device.yubikeySupport.enable;
 
   services.openssh = {
     enable = true;

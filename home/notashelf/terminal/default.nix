@@ -1,14 +1,8 @@
 _: {
   imports = [
     ./editors
-    ./kitty
+    ./emulators
     ./shell
-    ./newsboat
-    ./foot
-    ./bottom
-    ./ranger
-    ./wezterm
-    ./pandoc
-    ./xplr
+    ./tools
   ];
 }

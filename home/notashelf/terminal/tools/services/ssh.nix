@@ -1,6 +1,5 @@
 _: {
   programs = {
-    # TODO: declarative ssh config
     ssh = {
       enable = true;
       hashKnownHosts = true;

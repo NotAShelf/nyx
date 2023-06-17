@@ -16,6 +16,7 @@
   # extra modules, likely optional but possibly critical
   server = extraModules + /server; # for devices that act as "servers"
   desktop = extraModules + /desktop; # for devices that are for daily use
+  hardware = extraModules + /hardware; # for specific hardware configurations that are not in nixos-hw
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
   # profiles
@@ -36,7 +37,8 @@
     core # the "sane" default shared across systems
     agenix # age encryption for secrets
     sharedModules # consume my flake's own nixosModules
-    profiles
+    profiles # a profiles module to provide configuration sets per demand
+    hardware
   ];
 
   # extraSpecialArgs that all hosts need

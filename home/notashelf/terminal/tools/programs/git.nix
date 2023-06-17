@@ -1,11 +1,21 @@
 {
-  lib,
   osConfig,
+  config,
   pkgs,
   ...
 }: let
   cfg = osConfig.modules.programs.git;
+  inherit (config) colorscheme;
 in {
+  home.packages = with pkgs; [
+    gh # github command-line
+    gh-cal # github activity stats in the CLI
+    gist # manage github gists
+    act # local github actions
+    zsh-forgit # zsh plugin to load forgit via `git forgit`
+    gitflow
+  ];
+
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
@@ -30,11 +40,10 @@ in {
     extraConfig = {
       init.defaultBranch = "main";
 
-      delta = {
+      delta = with colorscheme.colors; {
         enable = true;
-        syntax-theme = "Nord";
-        plus-style = "syntax #a6d189";
-        minus-style = "syntax #e78284";
+        plus-style = "syntax ${base0A}";
+        minus-style = "syntax ${base08}";
         line-numbers = true;
         options.navigate = true;
       };

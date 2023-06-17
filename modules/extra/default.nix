@@ -3,5 +3,6 @@ _: {
     ./desktop
     ./server
     ./virtualization
+    ./hardware
   ];
 }
