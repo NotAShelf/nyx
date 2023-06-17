@@ -54,7 +54,7 @@
       };
 
       programs = {
-        git.signingKey = "F0D14CCB5ED5AA22 ";
+        git.signingKey = "0x4CAB619FB7C0D6C4";
 
         cli.enable = true;
         gui.enable = true;
