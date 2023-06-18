@@ -161,6 +161,15 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  # an air-gapped nixos liveiso to deal with yubikeys
+  erebus = lib.mkNixosIso {
+    system = "x86_64-linux";
+    modules = [
+      ./erebus
+    ];
+    specialArgs = {inherit inputs self lib;};
+  };
+
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
   artemis = lib.mkSystem {
