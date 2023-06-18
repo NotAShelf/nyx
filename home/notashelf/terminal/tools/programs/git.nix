@@ -20,7 +20,7 @@ in {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
     userName = "NotAShelf";
-    userEmail = "itsashelf@gmail.com";
+    userEmail = "raf@notashelf.dev";
     signing = {
       key = cfg.signingKey;
       signByDefault = true;
