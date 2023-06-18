@@ -1,6 +1,7 @@
 {
   osConfig,
   config,
+  lib,
   ...
 }: let
   sys = osConfig.modules.system;
@@ -10,8 +11,8 @@ in {
       enable = true;
       pinentryFlavor =
         if (sys.video.enable)
-        then "gnome3"
-        else "ncurses"; # requires services.dbus.packages = [ pkgs.gcr ]
+        then "gnome3" # requires services.dbus.packages = [ pkgs.gcr ]
+        else "curses";
       enableSshSupport = true;
       defaultCacheTtl = 1209600;
       defaultCacheTtlSsh = 1209600;
@@ -22,11 +23,15 @@ in {
     };
   };
 
+  # Allow manually restarting gpg-agent in case of failure
+  systemd.user.services.gpg-agent.Unit.RefuseManualStart = lib.mkForce false;
+
   programs = {
     gpg = {
       enable = true;
       homedir = "${config.xdg.dataHome}/gnupg";
       settings = {
+        keyserver = "keys.openpgp.org";
         # https://github.com/drduh/config/blob/master/gpg.conf
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
