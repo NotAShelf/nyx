@@ -9,5 +9,6 @@ _: {
     ./vscode
     ./chromium
     ./spotify
+    ./thunderbird
   ];
 }

@@ -13,7 +13,6 @@ in {
   config = mkIf ((programs.gui.enable) && (builtins.elem device.type acceptedTypes)) {
     home.packages = with pkgs; [
       schildichat-desktop
-      thunderbird
       qbittorrent
       hexchat
       netflix
