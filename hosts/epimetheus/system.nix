@@ -103,6 +103,8 @@ in {
       kernelParams =
         [
           "nohibernate"
+          # The passive default severely degrades performance.
+          "intel_pstate=active"
         ]
         ++ optionals ((device.cpu == "intel") && (device.gpu != "hybrid-nv")) [
           "i915.enable_fbc=1"
