@@ -20,14 +20,20 @@ in {
       obsidian
       nextcloud-client
       udiskie
-      gnome.gnome-control-center
+      (pkgs.symlinkJoin {
+        name = "gnome-control-center-wrapped";
+        paths = [pkgs.gnome.gnome-control-center];
+        nativeBuildInputs = [pkgs.makeWrapper];
+        postBuild = ''
+          wrapProgram "$out/bin/gnome-control-center" --set XDG_CURRENT_DESKTOP gnome
+        '';
+      })
       gnome.gnome-tweaks
       gnome.gnome-calendar
       easyeffects
       librewolf
       zoom-us # I hate this
       cinnamon.nemo
-      pamixer # move
       plasma5Packages.dolphin
       plasma5Packages.dolphin-plugins
       plasma5Packages.kio
