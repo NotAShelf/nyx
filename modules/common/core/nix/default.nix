@@ -17,11 +17,14 @@ with lib; {
   };
 
   environment = {
-    # set channels (backwards compatibility)
     etc = with inputs; {
+      # set channels (backwards compatibility)
       "nix/flake-channels/system".source = self;
       "nix/flake-channels/nixpkgs".source = nixpkgs;
       "nix/flake-channels/home-manager".source = home-manager;
+
+      # preserve current flake in /etc
+      "nixos/flake".source = self;
     };
 
     # we need git for flakes, don't we
@@ -33,7 +36,7 @@ with lib; {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = false;
       allowUnsupportedSystem = true;
-      permittedInsecurePackages = [];
+      permittedInsecurePackages = []; # default to none, add more as necessary
     };
 
     overlays = with inputs; [
