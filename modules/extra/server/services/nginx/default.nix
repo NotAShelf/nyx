@@ -78,13 +78,6 @@ in {
         # webmail
         "webmail.notashelf.dev" = template;
 
-        # mkm
-        "14062023.xyz" =
-          template
-          // {
-            locations."/".proxyPass = "http://127.0.0.1:3005";
-          };
-
         # matrix-synapse
         "matrix.notashelf.dev" =
           template
@@ -99,7 +92,7 @@ in {
             enableACME = true;
           }
           // {
-            locations."/grafana/" = {
+            locations."/" = {
               proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
               proxyWebsockets = true;
             };
