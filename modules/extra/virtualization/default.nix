@@ -8,6 +8,9 @@ with lib; let
   sys = config.modules.system.virtualization;
 in {
   config = mkIf (sys.enable) {
+    # TODO: # Enable CRIU alongside podman
+    # programs.criu.enable = lib.mkDefault true;
+
     environment.systemPackages = with pkgs;
       []
       ++ optionals (sys.qemu.enable) [
