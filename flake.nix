@@ -18,14 +18,24 @@
       ];
 
       imports = [
-        ./pkgs
+        # add self back to inputs, I depend on inputs.self at least once
         {config._module.args._inputs = inputs // {inherit (inputs) self;};}
+
+        # parts and modules from inputs
+        inputs.flake-parts.flakeModules.easyOverlay
+        inputs.treefmt-nix.flakeModule
+
+        # parts of the flake
+        ./pkgs
       ];
 
       flake = let
         # extended nixpkgs lib, contains my custom functions
         lib = import ./lib {inherit nixpkgs lib inputs;};
       in {
+        # TODO
+        darwinConfigurations = {};
+
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
 
@@ -58,6 +68,7 @@
           name = "nyx";
           commands = (import ./lib/flake/devShell).shellCommands;
           packages = with pkgs; [
+            inputs'.agenix.packages.default # let me run agenix commands in the flake repository and only in the flake repository
             nil # nix ls
             alejandra # formatter
             git # flakes require git, and so do I
@@ -69,6 +80,23 @@
 
         # provide the formatter for nix fmt
         formatter = pkgs.alejandra;
+
+        # configure treefmt
+        treefmt = {
+          projectRootFile = "flake.nix";
+
+          programs = {
+            alejandra.enable = true;
+            deadnix.enable = true;
+            shellcheck.enable = true;
+            shfmt = {
+              enable = true;
+              # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
+              # 0 causes shfmt to use tabs
+              indent_size = 0;
+            };
+          };
+        };
 
         # packages
         packages = {
@@ -89,6 +117,12 @@
     # Nix helper
     nh = {
       url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # a tree-wide formatter
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -193,7 +227,6 @@
     # Hyprland & Hyprland Contrib repos
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprpicker = {
@@ -227,11 +260,6 @@
 
     # mailserver on nixos
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
-
-    mkm = {
-      url = "github:gladiusglad/mkm-ticketing";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   nixConfig = {
