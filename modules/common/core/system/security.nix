@@ -8,7 +8,7 @@ with lib; let
   /*
   SEE: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
   this makes our system more secure
-  note that it might break some stuff, e.g. webcam
+  do note that it might break some stuff, e.g. webcam
   */
   sys = config.modules.system.security;
 in {
@@ -22,20 +22,33 @@ in {
     # User namespaces are required for sandboxing. Better than nothing imo.
     allowUserNamespaces = true;
 
+    # Disable unprivileged user namespaces, unless containers are enabled
+    unprivilegedUsernsClone = config.virtualisation.containers.enable;
+
+    # apparmor configuration
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;
       packages = [pkgs.apparmor-profiles];
     };
 
+    # virtualisation
     virtualisation = {
       #  flush the L1 data cache before entering guests
       flushL1DataCache = "always";
     };
 
+    polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        polkit.log("user " +  subject.user + " is attempting action " + action.id + " from PID " + subject.pid);
+      });
+    '';
+
     auditd.enable = true;
     audit = {
       enable = true;
+      backlogLimit = 8192;
+      failureMode = "printk";
       rules = [
         "-a exit,always -F arch=b64 -S execve"
       ];
