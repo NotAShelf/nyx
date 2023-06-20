@@ -23,6 +23,7 @@ in {
       slides
       brightnessctl
       tesseract5
+      pamixer
     ];
   };
 }
