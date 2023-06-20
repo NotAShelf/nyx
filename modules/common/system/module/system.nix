@@ -108,6 +108,10 @@ with lib; {
         default = false;
         description = "Enable secure-boot and load necessary packages.";
       };
+
+      tor = {
+        enable = mkEnableOption "Tor daemon" // {default = true;};
+      };
     };
   };
 }

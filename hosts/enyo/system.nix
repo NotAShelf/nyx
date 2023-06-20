@@ -43,6 +43,8 @@
 
         security = {
           secureBoot = false;
+          tor.enable = true;
+          fixWebcam = false;
         };
       };
 
