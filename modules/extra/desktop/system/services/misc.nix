@@ -20,9 +20,15 @@ in {
       udisks2.enable = true;
 
       dbus = {
-        packages = with pkgs; [dconf gcr udisks2];
         enable = true;
+        packages = with pkgs; [dconf gcr udisks2];
+        # Use the faster dbus-broker instead of the classic dbus-daemon
+        implementation = "broker"; # TODO: keep an eye on this setting to see if it breaks anything
       };
+
+      # disable chrony in favor if systemd-timesyncd
+      timesyncd.enable = lib.mkDefault true;
+      chrony.enable = lib.mkDefault false;
     };
 
     systemd = let
