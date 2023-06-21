@@ -32,7 +32,7 @@ in {
       type = types.bool;
       default = cfg.securityLevel == "extreme";
       description = "
-        Enable drm content for sites that require it - such as Netflix 
+        Enable drm content for sites that require it - such as Netflix
         (literally just torrent stuff)
       ";
     };
@@ -90,11 +90,11 @@ in {
             Add =
               [
                 {
-                  Name = "Searx";
+                  Name = "Searxng";
                   Description = "Decentralized search engine";
                   Alias = "sx";
                   Method = "GET";
-                  URLTemplate = "https://searx.si/search?q={searchTerms}";
+                  URLTemplate = "https://search.notashelf.dev/search?q={searchTerms}";
                 }
                 {
                   Name = "Sourcegraph/Nix";
@@ -150,7 +150,7 @@ in {
                   URLTemplate = "https://www.deepl.com/en/translator#${cfg.translate.sourceLang}/${cfg.translate.targetLang}/{searchTerms}%0A";
                 }
               ];
-            Default = "Searx";
+            Default = "Searxng";
             Remove = mkForce [
               "Google"
               "Bing"
