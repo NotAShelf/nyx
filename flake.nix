@@ -69,6 +69,7 @@
           commands = (import ./lib/flake/devShell).shellCommands;
           packages = with pkgs; [
             inputs'.agenix.packages.default # let me run agenix commands in the flake repository and only in the flake repository
+            config.treefmt.build.wrapper
             nil # nix ls
             alejandra # formatter
             git # flakes require git, and so do I
@@ -87,8 +88,10 @@
 
           programs = {
             alejandra.enable = true;
-            deadnix.enable = true;
+            deadnix.enable = false;
             shellcheck.enable = true;
+            stylua.enable = true;
+            rustfmt.enable = true;
             shfmt = {
               enable = true;
               # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
