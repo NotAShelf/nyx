@@ -75,6 +75,13 @@ in {
         mode = "400";
       };
 
+      searx-secretkey = {
+        file = "${self}/secrets/searx-secretkey.age";
+        mode = "400";
+        owner = "searx";
+        group = "searx";
+      };
+
       nextcloud-secret = {
         file = "${self}/secrets/nextcloud-secret.age";
         mode = "400";

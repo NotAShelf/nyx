@@ -85,6 +85,19 @@ in {
             locations."/".proxyPass = "http://127.0.0.1:8008";
           };
 
+        "search.notashelf.dev" =
+          template
+          // {
+            locations."/".proxyPass = "http://127.0.0.1:8888";
+            extraConfig = ''
+              access_log /dev/null;
+              error_log /dev/null;
+              proxy_connect_timeout 60s;
+              proxy_send_timeout 60s;
+              proxy_read_timeout 60s;
+            '';
+          };
+
         # grafana dashboard
         ${config.services.grafana.settings.server.domain} =
           {

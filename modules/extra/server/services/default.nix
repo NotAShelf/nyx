@@ -11,6 +11,7 @@ _: {
     ./mailserver
     ./jellyfin
     ./tor
+    ./searxng
     # ./mkm # holy fuck
     #./irc # TODO
   ];
