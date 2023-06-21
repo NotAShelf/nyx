@@ -21,6 +21,10 @@ with lib; {
       builtins.hashString "md5" config.networking.hostName
     );
 
+    # don't use dhcpd
+    useDHCP = false;
+    useNetworkd = true;
+
     # dns
     nameservers = [
       # cloudflare, yuck
@@ -29,8 +33,10 @@ with lib; {
       "1.0.0.1"
 
       # quad9, said to be the best
-      # shares *less* datg
+      # shares *less* data
       "9.9.9.9"
+
+      # TODO: find a schizo nameserver that does not compromise on speed or availability
     ];
 
     networkmanager = {
