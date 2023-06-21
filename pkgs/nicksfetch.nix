@@ -7,9 +7,8 @@
   pciutils,
   x11Support ? true,
   ueberzug,
-  fetchpatch,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "nicksfetch";
   version = "unstable-2021-12-10";
 

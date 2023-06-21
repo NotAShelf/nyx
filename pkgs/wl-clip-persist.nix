@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
-  stdenv,
   openssl,
   wayland,
   wayland-protocols,

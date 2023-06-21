@@ -37,7 +37,7 @@ in
         pkgs.python310Packages.six
         pkgs.python310Packages.beautifulsoup4
         pkgs.python310Packages.tldextract
-        (pkgs.python310Packages.httpx.overrideAttrs (old: {
+        (pkgs.python310Packages.httpx.overrideAttrs (_old: {
           src = fetchFromGitHub {
             owner = "encode";
             repo = "httpx";
