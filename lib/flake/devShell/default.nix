@@ -1,18 +1,9 @@
 {
   shellCommands = [
     {
-      help = "Run the configured formatter (default: alejandra)";
+      help = "Format the source tree with treefmt";
       name = "fmt";
       command = "nix fmt";
-    }
-
-    {
-      package = "alejandra";
-      category = "formatter";
-    }
-    {
-      package = "nixpkgs-fmt";
-      category = "formatter";
     }
   ];
 
@@ -20,6 +11,10 @@
     {
       name = "FLAKE";
       value = builtins.exec "pwd";
+    }
+    {
+      name = "DIRENV_LOG_FORMAT";
+      value = "";
     }
   ];
 }

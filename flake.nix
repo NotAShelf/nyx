@@ -67,6 +67,7 @@
         devShells.default = inputs'.devshell.legacyPackages.mkShell {
           name = "nyx";
           commands = (import ./lib/flake/devShell).shellCommands;
+          DIRENV_LOG_FORMAT = "";
           packages = with pkgs; [
             inputs'.agenix.packages.default # let me run agenix commands in the flake repository and only in the flake repository
             config.treefmt.build.wrapper
