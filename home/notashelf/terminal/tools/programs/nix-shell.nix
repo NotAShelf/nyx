@@ -9,6 +9,7 @@
       deadnix
       nix-index
       statix
+      perl # for shasum
     ];
 
     sessionVariables = {
@@ -18,6 +19,7 @@
 
   programs.direnv = {
     stdlib = ''
+
       : ''${XDG_CACHE_HOME:=$HOME/.cache}
       declare -A direnv_layout_dirs
       direnv_layout_dir() {
