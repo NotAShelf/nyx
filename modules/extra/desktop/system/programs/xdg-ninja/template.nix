@@ -42,6 +42,7 @@ in {
     NODE_REPL_HISTORY = "${XDG_DATA_HOME}/node_repl_history";
     PLATFORMIO_CORE_DIR = "${XDG_DATA_HOME}/platformio";
     WINEPREFIX = "${XDG_DATA_HOME}/wine";
+    DOTNET_CLI_HOME = "${XDG_DATA_HOME}/dotnet";
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = [
       "\${HOME}/.steam/root/compatibilitytools.d"
     ];
