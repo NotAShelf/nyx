@@ -12,16 +12,16 @@ function scheme_for_appearance(appearance)
 end
 
 return {
-    check_for_updates = false,
+	check_for_updates = false,
 
 	font = wezterm.font("monospace", { weight = "Regular", stretch = "Normal", style = "Normal" }),
 	font_size = 14,
-    audible_bell = "Disabled",
+	audible_bell = "Disabled",
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
 	enable_tab_bar = true,
-    hide_tab_bar_if_only_one_tab = true,
+	hide_tab_bar_if_only_one_tab = true,
 	default_cursor_style = "SteadyUnderline",
-    window_background_opacity = 0.9,
+	window_background_opacity = 0.9,
 
 	window_padding = {
 		left = 20,

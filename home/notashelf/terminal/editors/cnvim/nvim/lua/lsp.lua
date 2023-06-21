@@ -25,5 +25,4 @@ for _, lsp in pairs(servers) do
 	})
 end
 
-
 require("rust-tools").setup()

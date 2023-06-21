@@ -114,6 +114,7 @@ in {
     bind=$MOD,F1,exec,firefox
     bind=$MOD,F2,exec,run-as-service "${fileManager}"
     bind=$MOD,RETURN,exec,run-as-service "${terminal}"
+    bind=$MODSHIFT,RETURN,exec,run-as-service "${terminal}"
     bind=$MODSHIFT,Q,killactive,
     bind=$MODSHIFT,G,changegroupactive,
     bind=$MOD,T,togglegroup,
@@ -200,6 +201,8 @@ in {
     windowrule=idleinhibit focus,mpv
     windowrule=idleinhibit focus,foot
     windowrule=idleinhibit fullscreen,firefox
+
+    windowrule=size 800 600,class:Bitwarden
 
     windowrule=float,udiskie
     windowrule=float,title:^(Volume Control)$

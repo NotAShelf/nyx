@@ -1,4 +1,3 @@
--- require("alpha")
 require("impatient")
 require("options")
 require("statusline")
