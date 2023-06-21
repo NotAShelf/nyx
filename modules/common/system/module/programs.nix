@@ -15,6 +15,7 @@ with lib; {
         jellyfin = mkEnableOption "Override Jellyfin media service";
         matrix = mkEnableOption "Override Matrix-synapse service";
         wireguard = mkEnableOption "Override Wireguard service";
+        searxng = mkEnableOption "Override Searxng service";
         database = {
           mysql = mkEnableOption "Override MySQL database service";
           mongodb = mkEnableOption "Override MongoDB service";
