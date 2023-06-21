@@ -2,8 +2,18 @@
   config,
   lib,
   ...
-}: {
+}: let
+  cfg = config.services.openssh;
+in {
   programs.ssh.startAgent = !config.modules.device.yubikeySupport.enable;
+
+  networking.nftables.ruleset = ''
+    table inet filter {
+      chain input {
+        ${lib.concatMapStringsSep "\n" (port: "tcp dport ${builtins.toString port} accept") cfg.ports}
+      }
+    }
+  '';
 
   services.openssh = {
     enable = true;
