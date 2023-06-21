@@ -50,6 +50,8 @@
 - **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
 - **Encryption Ready** - Supports and actively utilizes FDE (full disk encryption).
 - **Declarative Themes** - Using [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
+- **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake has been modularized.
+- **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
 
 ### Layout
 
@@ -77,6 +79,7 @@
   - [helios](hosts/helios) ⚡ Hetzner VPS for self-hosting some of my infrastructure
   - [atlas](hosts/atlas) 🍓 Proof of concept server host that is used by my Raspberry Pi 400
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
+  - [erebus](hosts/erebus) 🍱 Air-gapped virtual machine/live-iso configuration for sensitive jobs
   - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
     - [artemis](hosts/artemis) 🏹 x86_64-linux VM Host
     - [apollon](hosts/apollon) ⚔️a aarch64-linux VM Host
@@ -126,13 +129,12 @@ If you are here for my "legacy" Arch Linux dotfiles, you can find them [in here]
 
 > I am not a NixOS _expert_. I am a NixOS _user_.
 
-You _probably_ do not want to copy or base your config off of this repository.
-It is simply my NixOS configuration, built around my personal use cases and interests, containing many
-abstractions that you will need to figure out. If you do have a question, do feel free to ask.
-I will do my absolute best to answer it as the circumstances (mainly my own knowledge) allow,
+You _probably_ do not want to copy or base your config off of this repository. It is simply my NixOS configuration, built
+around my personal use cases and interests, containing many abstractions that you will need to figure out.
+If you do have a question, do feel free to ask and I will do my absolute best to answer them as the circumstances (mainly my own knowledge) allow,
 however, do not expect "support" and definitely do not assume this configuration to be following best practices.
 
-Dissect the configurations all you want, take what you need and if you find yourself to
+Do dissect the configurations all you want, take what you need and if you find yourself to
 be excelling somewhere I lack, do feel free to contribute to my atrocities against
 NixOS and everything it stands for. Would be appreciated.
 
@@ -174,7 +176,7 @@ Perhaps consider donating!
 
 ### Anti-credits
 
-> Pretend I haven't credited those people
+> Pretend I haven't credited those people (but I will, because they are equally awesome)
 
 [n3oney](https://github.com/n3oney) -
 
