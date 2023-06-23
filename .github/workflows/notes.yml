@@ -1,11 +1,10 @@
-name: Serve Static Website
+name: "Serve Static Website"
 
 on:
-	workflow_dispatch:
+    workflow_dispatch:
     push:
-        branches:
-            - main
-
+        paths:
+            - docs/**
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -39,8 +38,7 @@ jobs:
                   chmod +x docr
 
             - name: Build Notes Page
-              run: |
-                  ./docr
+              run: ./docr
 
             - name: Deploy to GitHub Pages
               uses: JamesIves/github-pages-deploy-action@4.1.1
