@@ -7,7 +7,6 @@
     packages = with pkgs; [
       alejandra
       deadnix
-      nix-index
       statix
       perl # for shasum
     ];
@@ -19,7 +18,6 @@
 
   programs.direnv = {
     stdlib = ''
-
       : ''${XDG_CACHE_HOME:=$HOME/.cache}
       declare -A direnv_layout_dirs
       direnv_layout_dir() {
