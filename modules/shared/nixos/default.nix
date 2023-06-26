@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./steam.nix
-    ./comma.nix
+    ./steam
+    ./comma
   ];
 }

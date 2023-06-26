@@ -39,6 +39,18 @@
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
 
+        # set of modules exposed by my flake to be consumed by others
+        nixosModules = {
+          # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
+          steam-compat = ./modules/shared/nixos/steam;
+
+          # a module for the comma tool that wraps it with nix-index and disabled the command-not-found integration
+          comma-rewrapped = ./modules/shared/nixos/comma;
+
+          # we do not want to provide a default module
+          default = null;
+        };
+
         # developer templates for easy project initialization
         templates = import ./lib/flake/templates;
 
