@@ -31,7 +31,7 @@
 
       flake = let
         # extended nixpkgs lib, contains my custom functions
-        lib = import ./lib {inherit nixpkgs lib inputs;};
+        lib = import ./lib/nixpkgs {inherit nixpkgs lib inputs;};
       in {
         # TODO
         darwinConfigurations = {};
