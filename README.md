@@ -70,6 +70,7 @@
     - [server](modules/extra) ☁️ Shared modules for "server" purpose hosts
     - [desktop](modules/desktop) 🖥️ Shared modules for "desktop" purpose hosts
     - [virtualization](modules/virtualization) 🪛 Hot-pluggable virtualization module for any host
+    - [hardware](modules/hardware) Home-baked modules for hardware compatibility
   - [shared](modules/shared) ☁️ Modules that can be consumed by external flakes
 - [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
   - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system.
@@ -106,7 +107,7 @@ If you have anything to say or ask about those conigurations (especially if it w
 you were absolutely horrified by my atrocities against Nix or NixOS) I invite you to
 create an issue on open a pull request. I am always happy to learn and improve.
 Some of my mental notes (hopefully to be organized better when I finish my blog)
-can be found in [the documentation](../docs/notes). Should you need explanation on
+can be found in [my notes directory](../docs/notes). Should you need explanation on
 some of the things I've done (or proofread my notes) you may take a look in there.
 
 ### Motivation
