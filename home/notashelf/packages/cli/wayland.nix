@@ -7,7 +7,10 @@
 with lib; let
   ocr = pkgs.writeShellScriptBin "ocr" ''
     #!/bin/bash
-    grim -g "$(slurp -w 0 -b eebebed2)" /tmp/ocr.png && tesseract /tmp/ocr.png /tmp/ocr-output && wl-copy < /tmp/ocr-output.txt && notify-send "OCR " "Text copied!" && rm /tmp/ocr-output.txt -f
+    # generate a random id to identify the current ocr image
+    id=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 6 | head -n 1)
+
+    grim -g "$(slurp -w 0 -b eebebed2)" /tmp/ocr-$id.png && tesseract /tmp/ocr-$id.png /tmp/ocr-output && wl-copy < /tmp/ocr-output.txt && notify-send "OCR " "Text copied!" && rm /tmp/ocr-output.txt -f
   '';
 
   device = osConfig.modules.device;

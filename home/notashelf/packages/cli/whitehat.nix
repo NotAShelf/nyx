@@ -17,6 +17,7 @@ in {
       binutils
       diffoscopeMinimal
       nmap
+      nmapsi4
     ];
   };
 }

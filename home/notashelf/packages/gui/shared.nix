@@ -32,7 +32,7 @@ in {
       gnome.gnome-calendar
       easyeffects
       librewolf
-      zoom-us # I hate this
+      # zoom-us # I hate this
       cinnamon.nemo
       plasma5Packages.dolphin
       plasma5Packages.dolphin-plugins
