@@ -12,15 +12,25 @@
     fstrim.enable = true;
     # firmware updater for machine hardware
     fwupd.enable = true;
+    # I don't use lvm, can be disabled
+    lvm.enable = lib.mkDefault false;
+    # enable smartd monitoering
+    smartd.enable = true;
+
     # limit systemd journal size
     journald.extraConfig = ''
       SystemMaxUse=100M
       RuntimeMaxUse=50M
+      SystemMaxFileSize=50M
     '';
   };
 
   systemd =
-    {}
+    {
+      /*
+      more services go here
+      */
+    }
     // lib.optionalAttrs (config.security.auditd.enable) {
       # a systemd timer to clean /var/log/audit.log daily
       # this can probably be weekly, but daily means we get to clean it every 2-3 days instead of once a week
