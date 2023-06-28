@@ -50,10 +50,13 @@ with lib; {
 
   # faster rebuilding
   documentation = {
-    enable = true;
     doc.enable = false;
-    man.enable = true;
-    dev.enable = false;
+    nixos.enable = false;
+    info.enable = false;
+    man = {
+      enable = lib.mkDefault true;
+      generateCaches = lib.mkDefault true;
+    };
   };
 
   nix = let
