@@ -8,7 +8,6 @@
   inherit (config) colorscheme;
 in {
   home.packages = with pkgs; [
-    gh-cal # github activity stats in the CLI
     gist # manage github gists
     act # local github actions
     zsh-forgit # zsh plugin to load forgit via `git forgit`
@@ -20,7 +19,11 @@ in {
     gh = {
       enable = true;
       enableGitCredentialHelper = false;
-      extensions = [];
+      extensions = with pkgs; [
+        gh-dash # dashboard with pull requests and issues
+        gh-eco # explore the ecosystem
+        gh-cal # contributions calender terminal viewer
+      ];
       settings = {
         git_protocol = "ssh";
         prompt = "enabled";
