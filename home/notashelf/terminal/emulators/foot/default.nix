@@ -29,7 +29,29 @@ in {
           pad = "16x16";
           dpi-aware = "yes";
           vertical-letter-offset = "-0.75";
+
+          notify = "notify-send -a \${app-id} -i \${app-id} \${title} \${body}";
+          selection-target = "clipboard";
         };
+
+        cursor = {
+          style = "beam";
+          beam-thickness = 2;
+        };
+
+        scrollback = {
+          lines = 10000;
+          multiplier = 3;
+        };
+
+        url = {
+          launch = "xdg-open \${url}";
+          label-letters = "sadfjklewcmpgh";
+          osc8-underline = "url-mode";
+          protocols = "http, https, ftp, ftps, file";
+          uri-characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+=\"'()[]";
+        };
+
         colors = {
           alpha = "0.85";
           foreground = "${colors.base05}"; # Text
