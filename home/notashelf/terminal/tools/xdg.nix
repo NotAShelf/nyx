@@ -1,7 +1,8 @@
 {config, ...}: let
   browser = ["firefox.desktop"];
+  mailer = ["thunderbird.desktop"];
   zathura = ["org.pwmt.zathura.desktop.desktop"];
-  filemanager = ["dolphin.desktop"];
+  fileManager = ["org.kde.dolphin.desktop"];
 
   associations = {
     "text/html" = browser;
@@ -17,6 +18,9 @@
     "application/x-extension-xhtml" = browser;
     "application/x-extension-xht" = browser;
 
+    "inode/directory" = fileManager;
+    "application/x-xz-compressed-tar" = ["org.kde.ark.desktop"];
+
     "audio/*" = ["mpv.desktop"];
     "video/*" = ["mpv.dekstop"];
     "image/*" = ["imv.desktop"];
@@ -25,7 +29,7 @@
     "x-scheme-handler/tg" = ["telegramdesktop.desktop"];
     "x-scheme-handler/spotify" = ["spotify.desktop"];
     "x-scheme-handler/discord" = ["WebCord.desktop"];
-    "inode/directory" = filemanager;
+    "x-scheme-handler/mailto" = mailer;
   };
 in {
   xdg = {
