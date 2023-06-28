@@ -41,7 +41,7 @@ in {
       # the docs suck, so we disable them to save space
       html.enable = false;
       json.enable = false;
-      manpages.enable = false;
+      manpages.enable = true;
     };
 
     # let HM manage itself when in standalone mode
