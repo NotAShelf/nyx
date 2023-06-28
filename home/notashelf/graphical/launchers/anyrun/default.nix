@@ -5,13 +5,13 @@
   lib,
   ...
 }: let
-  inherit (inputs.anyrun.packages.${pkgs.system}) anyrun;
   device = osConfig.modules.device;
   env = osConfig.modules.usrEnv;
+  sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
   imports = [inputs.anyrun.homeManagerModules.default];
-  config = lib.mkIf (builtins.elem device.type acceptedTypes && env.isWayland) {
+  config = lib.mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable && env.isWayland)) {
     # home.packages = [anyrun];
 
     programs.anyrun = {
