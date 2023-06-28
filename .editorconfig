@@ -18,3 +18,11 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 2
 tab_width = 2
+
+[*.{diff,patch}]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+
+[*.lock]
+indent_size = unset
