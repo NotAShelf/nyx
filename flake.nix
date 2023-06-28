@@ -8,12 +8,11 @@
     flake-parts,
     ...
   } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+    flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, ...}: {
       systems = [
         # systems for which you want to build the `perSystem` attributes
         "x86_64-linux"
         "aarch64-linux"
-        "i686-linux"
         # ...
       ];
 
@@ -26,7 +25,9 @@
         inputs.treefmt-nix.flakeModule
 
         # parts of the flake
-        ./pkgs
+        ./pkgs # packages exposed by the flake
+
+        ./lib/flake/args # args that is passsed to the flake, moved away from the main file
       ];
 
       flake = let
@@ -37,7 +38,7 @@
         darwinConfigurations = {};
 
         # entry-point for nixos configurations
-        nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
+        nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
         # set of modules exposed by my flake to be consumed by others
         nixosModules = {
@@ -66,15 +67,7 @@
         system,
         ...
       }: {
-        imports = [
-          {
-            _module.args.pkgs = import nixpkgs {
-              config.allowUnfree = true;
-              config.allowUnsupportedSystem = true;
-              inherit system;
-            };
-          }
-        ];
+        imports = [{_module.args.pkgs = config.legacyPackages;}];
 
         devShells.default = inputs'.devshell.legacyPackages.mkShell {
           name = "nyx";
@@ -112,15 +105,8 @@
             };
           };
         };
-
-        # packages
-        packages = {
-          # A copy of Hyprland with its nixpkgs overriden
-          # cannot trigger binary cache pulls, so I push it to my own
-          hyprland-cached = inputs'.hyprland.packages.default;
-        };
       };
-    };
+    });
 
   inputs = {
     # powered by

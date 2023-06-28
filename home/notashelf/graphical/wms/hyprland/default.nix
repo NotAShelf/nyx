@@ -1,10 +1,8 @@
 {
   pkgs,
   lib,
-  config,
-  inputs,
-  self,
   osConfig,
+  inputs',
   ...
 }:
 with lib; let
@@ -12,9 +10,9 @@ with lib; let
     #!/bin/bash
     hyprctl keyword animation "fadeOut,0,8,slow" && ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp -w 0 -b 5e81acd2)" - | swappy -f -; hyprctl keyword animation "fadeOut,1,8,slow"
   '';
-  hyprpicker = inputs.hyprpicker.packages.${pkgs.system}.default;
-  hyprland-share-picker = inputs.xdg-portal-hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
-  grimblast = inputs.hyprland-contrib.packages.${pkgs.system}.grimblast;
+  hyprpicker = inputs'.hyprpicker.packages.default;
+  hyprland-share-picker = inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland;
+  grimblast = inputs'.hyprland-contrib.packages.grimblast;
 
   env = osConfig.modules.usrEnv;
   device = osConfig.modules.device;
@@ -32,7 +30,7 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       systemdIntegration = true;
-      package = inputs.hyprland.packages.${pkgs.system}.default.override {
+      package = inputs'.hyprland.packages.default.override {
         nvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
       };
     };

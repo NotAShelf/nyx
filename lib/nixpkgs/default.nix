@@ -41,6 +41,24 @@ in
       # nixpkgs to the scope in the file it is used in
       mkSystem = nixpkgs.lib.nixosSystem;
 
+      # TODO: docs
+      mkNixosSystem = {
+        modules,
+        system,
+        withSystem,
+        ...
+      } @ args:
+        withSystem system ({
+          inputs',
+          self',
+          ...
+        }:
+          mkSystem {
+            inherit modules system;
+            specialArgs = {inherit inputs lib self inputs' self';} // args.specialArgs or {};
+          });
+
+      /*
       mkNixosSystem = {
         modules,
         system,
@@ -50,6 +68,7 @@ in
           inherit modules system;
           specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
         };
+      */
 
       # mkIso is should be a set that extends mkSystem with necessary modules
       # to create an iso image
