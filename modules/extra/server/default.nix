@@ -6,8 +6,7 @@ _: {
   ];
 
   config = {
-    networking.firewall.allowedTCPPorts = [
-      3001 # mkm
-    ];
+    # we don't need any x libs on a server
+    environment.noXlibs = true;
   };
 }
