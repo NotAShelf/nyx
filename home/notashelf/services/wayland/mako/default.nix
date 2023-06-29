@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+_: {
   programs.mako = {
-    enable = true;
+    enable = false;
 
     backgroundColor = "#303446";
     textColor = "#c6d0f5";

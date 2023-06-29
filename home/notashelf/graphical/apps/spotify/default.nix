@@ -2,7 +2,7 @@
   lib,
   osConfig,
   inputs,
-  self,
+  self',
   pkgs,
   ...
 }:
@@ -15,7 +15,7 @@ in {
   imports = [inputs.spicetify.homeManagerModule];
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.spicetify = {
-      spotifyPackage = self.packages.${pkgs.hostPlatform.system}.spotify-wrapped;
+      spotifyPackage = self'.packages.spotify-wrapped;
       enable = true;
       injectCss = true;
       replaceColors = true;

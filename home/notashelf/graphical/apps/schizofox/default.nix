@@ -12,7 +12,8 @@ with lib; let
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
   options.programs.schizofox = {
-    enable = mkEnableOption "Schizo firefox esr setup with vim bindings, discord screenshare works tho. Inspired by ArkenFox.";
+    enable = mkEnableOption "Schizo firefox ESR setup with vim bindings, inspired by ArkenFox.";
+
     userAgent = mkOption {
       type = types.str;
       example = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0";

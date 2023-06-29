@@ -2,7 +2,6 @@
   config,
   pkgs,
   osConfig,
-  lib,
   ...
 }: let
   inherit (config.colorscheme) colors;

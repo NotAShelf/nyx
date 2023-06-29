@@ -3,7 +3,7 @@
   lib,
   pkgs,
   osConfig,
-  self,
+  self',
   ...
 }:
 with lib; let
@@ -21,7 +21,7 @@ in {
       enable = true;
       # TODO: only override with plugins if system is wayland-enabled
       package = rofiPackage.override {
-        plugins = with self.packages.${pkgs.system};
+        plugins = with self'.packages;
           [
             pkgs.rofi-rbw
           ]

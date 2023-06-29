@@ -1,7 +1,5 @@
 {
   inputs,
-  pkgs,
-  config,
   lib,
   ...
 }: let
@@ -46,24 +44,5 @@ in {
 
     # let HM manage itself when in standalone mode
     programs.home-manager.enable = true;
-
-    /*
-    modules = {
-      programs = {
-        # schizo firefox config based on firefox ESR
-        schizofox = {
-          enable = true;
-          netflixDRMFix = true;
-          extraSecurity = true;
-          extremeSecurity = false;
-          translate = {
-            enable = true;
-            sourceLang = "en";
-            targetLang = "tr";
-          };
-        };
-      };
-    };
-    */
   };
 }

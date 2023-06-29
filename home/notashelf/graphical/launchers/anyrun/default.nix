@@ -1,6 +1,6 @@
 {
   inputs,
-  pkgs,
+  inputs',
   osConfig,
   lib,
   ...
@@ -12,12 +12,10 @@
 in {
   imports = [inputs.anyrun.homeManagerModules.default];
   config = lib.mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable && env.isWayland)) {
-    # home.packages = [anyrun];
-
     programs.anyrun = {
       enable = true;
       config = {
-        plugins = with inputs.anyrun.packages.${pkgs.system}; [
+        plugins = with inputs'.anyrun.packages; [
           applications
           rink
           translate

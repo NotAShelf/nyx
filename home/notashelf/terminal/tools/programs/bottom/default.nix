@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # universal aliases
   home.packages = with pkgs; [
     # replace top and htop with bottom

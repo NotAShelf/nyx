@@ -1,6 +1,7 @@
 {
   self,
   lib,
+  withSystem,
   ...
 }: let
   inputs = self.inputs;
@@ -48,6 +49,7 @@ in {
   # fully free from nvidia
   # fuck nvidia - Linus "the linux" Torvalds
   enyo = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -57,14 +59,14 @@ in {
         virtualization
       ]
       ++ lib.concatLists [shared homes];
-    # specialArgs = {inherit inputs self lib profiles;};
     specialArgs = sharedArgs;
   };
 
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
   # superceded by epimetheus
-  prometheus = lib.mkSystem {
+  prometheus = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -74,12 +76,13 @@ in {
         virtualization
       ]
       ++ lib.concatLists [shared homes];
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 
   # Twin host for prometheus
   # provides full disk encryption with passkey/USB auth
   epimetheus = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -89,13 +92,14 @@ in {
         virtualization
       ]
       ++ lib.concatLists [shared homes];
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 
   # HP Pavillion laptop from 2023
   # possesess a Ryzen 7 7730U, and acts as my portable workstation
   # similar to epimetheus, has full disk encryption with ephemeral root
   hermes = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -105,12 +109,13 @@ in {
         virtualization
       ]
       ++ lib.concatLists [shared homes];
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 
   # Hetzner VPS to replace my previous server machines
   # hosts some of my infrastructure
-  helios = lib.mkSystem {
+  helios = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -120,12 +125,13 @@ in {
         virtualization
       ]
       ++ lib.concatLists [shared homes];
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 
   # Lenovo Ideapad from 2014
   # Hybrid device, acts as a portable server and a "workstation"
-  icarus = lib.mkSystem {
+  icarus = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -134,12 +140,13 @@ in {
         desktop
       ]
       ++ lib.concatLists [shared homes];
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 
   # Raspberry Pi 400
   # My Pi400 homelab, used mostly for testing networking/cloud services
   atlas = lib.mkNixosSystem {
+    inherit withSystem;
     system = "aarch64-linux";
     modules =
       [
@@ -147,7 +154,7 @@ in {
         hw.raspberry-pi-4
       ]
       ++ shared;
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 
   # Live recovery environment that overrides some default programs

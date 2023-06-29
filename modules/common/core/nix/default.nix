@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  inputs',
   self,
   ...
 }:
@@ -39,11 +40,11 @@ with lib; {
       permittedInsecurePackages = []; # default to none, add more as necessary
     };
 
-    overlays = with inputs; [
-      rust-overlay.overlays.default
+    overlays = [
+      inputs.rust-overlay.overlays.default
 
       (self: super: {
-        nixSuper = inputs.nix-super.packages.${pkgs.system}.default;
+        nixSuper = inputs'.nix-super.packages.default;
       })
     ];
   };
