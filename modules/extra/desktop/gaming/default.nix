@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+_: {
   imports = [
     ./gamemode.nix
     ./chess.nix

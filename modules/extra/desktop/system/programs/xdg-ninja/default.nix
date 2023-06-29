@@ -1,4 +1,4 @@
-{...}: let
+_: let
   template = import ./template.nix "nixos";
 in {
   environment = {

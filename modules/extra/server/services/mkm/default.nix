@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  inputs,
+  inputs',
   ...
 }: let
   inherit (lib) mkIf;
@@ -24,7 +24,7 @@ in {
           extraOptions = ["--network=host"];
 
           image = "mkm-web";
-          imageFile = inputs.mkm.packages.${pkgs.system}.dockerImage;
+          imageFile = inputs'.mkm.packages.dockerImage;
         };
       };
     };

@@ -13,7 +13,22 @@
     # TODO: package moar for nix
     less.enable = true;
 
-    # this needs to be enabled globally to be able to use zsh as a login shell
+    # home-manager is quirky as ever, and wants this to be set in system config
+    # instead of just home-manager
     zsh.enable = true;
+
+    # run commands without installing the programs
+    comma.enable = true;
+
+    # type "fuck" to fix the last command that made you go "fuck"
+    thefuck.enable = true;
+
+    # "saying java is good because it runs on all systems is like saying
+    # anal sex is good because it works on all species"
+    # - sun tzu
+    java = {
+      enable = true;
+      package = pkgs.jre;
+    };
   };
 }

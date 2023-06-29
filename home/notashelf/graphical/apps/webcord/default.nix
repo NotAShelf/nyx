@@ -3,8 +3,6 @@
   lib,
   inputs,
   osConfig,
-  config,
-  self,
   ...
 }:
 with lib; let

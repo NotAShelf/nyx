@@ -2,7 +2,7 @@
   pkgs,
   lib,
   osConfig,
-  self,
+  self',
   ...
 }:
 with lib; let
@@ -10,7 +10,7 @@ with lib; let
   video = osConfig.modules.system.video;
   env = osConfig.modules.usrEnv;
 
-  wl-clip-persist = self.packages.${pkgs.system}.wl-clip-persist;
+  wl-clip-persist = self'.packages.wl-clip-persist;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {

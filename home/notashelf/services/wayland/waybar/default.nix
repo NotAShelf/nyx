@@ -3,7 +3,7 @@
   lib,
   config,
   osConfig,
-  inputs,
+  inputs',
   ...
 }:
 with lib; let
@@ -20,7 +20,7 @@ in {
     programs.waybar = {
       enable = true;
       systemd.enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.waybar-hyprland;
+      package = inputs'.hyprland.packages.waybar-hyprland;
       settings = waybar_config;
       style = waybar_style;
     };

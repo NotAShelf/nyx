@@ -1,4 +1,4 @@
-{inputs, ...}: {
+_: {
   imports = [
     ./shared.nix
     ./desktop.nix

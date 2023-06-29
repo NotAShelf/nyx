@@ -2,7 +2,6 @@
   pkgs,
   lib,
   osConfig,
-  config,
   ...
 }: let
   device = osConfig.modules.device;
