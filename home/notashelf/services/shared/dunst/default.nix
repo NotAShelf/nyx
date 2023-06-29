@@ -100,7 +100,7 @@ in {
       in {
         global = {
           follow = "mouse";
-          width = 220;
+          width = 320;
           height = 280;
           origin = "top-center";
           alignment = "left";
