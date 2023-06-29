@@ -85,7 +85,6 @@ in {
       playerctl # CLI interface for playerctld
       mpc_cli # control mpd through the CLI
       cava # music visualizer
-      spek # spectogram analyzer
     ];
 
     programs = {
