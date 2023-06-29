@@ -18,19 +18,6 @@ jobs:
               with:
                   go-version: "1.20"
 
-            - name: Get latest release
-              id: get-release
-              uses: actions/github-script@v4
-              with:
-                  script: |
-                      const releases = await github.repos.listReleases({
-                        owner: context.repo.owner,
-                        repo: context.repo.repo
-                      });
-
-                      const latestRelease = releases.data[0].tag_name;
-                      core.setOutput('release', latestRelease);
-
             - name: Download Go Binary
               run: |
                   curl -LO https://github.com/notashelf/docr/releases/latest/download/docr_*_linux_amd64.tar.gz

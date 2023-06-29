@@ -17,7 +17,6 @@ jobs:
     strategy:
       matrix:
         package:
-          - hyprland-cached
           - wl-clip-persist
           - cloneit
           - fastfetch
