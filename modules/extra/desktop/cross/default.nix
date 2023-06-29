@@ -14,6 +14,10 @@ in {
         aarch64-linux = {
           interpreter = lib.mkForce "${pkgs.qemu}/bin/qemu-aarch64";
         };
+
+        i686-linux = {
+          interpreter = "${pkgs.qemu}/bin/qemu-i686";
+        };
       };
     };
     nix.settings.extra-sandbox-paths = ["/run/binfmt" "${pkgs.qemu}"];
