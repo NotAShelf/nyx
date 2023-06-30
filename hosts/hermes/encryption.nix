@@ -10,7 +10,7 @@
     "usb_storage"
   ];
 
-  services.lvm.enable = true;
+  services.lvm.enable = lib.mkForce true;
 
   boot.initrd.luks.devices."enc" = {
     # improve performance on ssds
