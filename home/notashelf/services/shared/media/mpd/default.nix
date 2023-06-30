@@ -10,24 +10,13 @@
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
+  imports = [./beets];
   config = lib.mkIf (builtins.elem device.type acceptedTypes) {
-    /*
-    # yams service
-    # TODO: figure out a way to provide the lastfm authentication declaratively
-
-    systemd.user.services.yams = {
-      Unit = {
-        Description = "Last.FM scrobbler for MPD";
-        After = ["mpd.service"];
-      };
-      Service = {
-        ExecStart = "${pkgs.yams}/bin/yams -N";
-        Environment = "NON_INTERACTIVE=1";
-        Restart = "always";
-      };
-      Install.WantedBy = ["default.target"];
-    };
-    */
+    home.packages = with pkgs; [
+      playerctl # CLI interface for playerctld
+      mpc_cli # control mpd through the CLI
+      cava # music visualizer
+    ];
 
     services = {
       playerctld.enable = true;
@@ -80,12 +69,6 @@ in {
         };
       };
     };
-
-    home.packages = with pkgs; [
-      playerctl # CLI interface for playerctld
-      mpc_cli # control mpd through the CLI
-      cava # music visualizer
-    ];
 
     programs = {
       beets = {
@@ -235,6 +218,24 @@ in {
           }
         ];
       };
+
+      /*
+      # yams service
+      # TODO: figure out a way to provide the lastfm authentication declaratively
+
+      systemd.user.services.yams = {
+        Unit = {
+          Description = "Last.FM scrobbler for MPD";
+          After = ["mpd.service"];
+        };
+        Service = {
+          ExecStart = "${pkgs.yams}/bin/yams -N";
+          Environment = "NON_INTERACTIVE=1";
+          Restart = "always";
+        };
+        Install.WantedBy = ["default.target"];
+      };
+      */
     };
   };
 }
