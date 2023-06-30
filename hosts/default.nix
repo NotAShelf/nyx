@@ -13,6 +13,7 @@
   # common modules, to be shared across all systems
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
   system = commonModules + /system; # system module for configuring system-specific options easily
+  options = commonModules + /options; # the module that provides the options for my system configuration
 
   # extra modules, likely optional but possibly critical
   server = extraModules + /server; # for devices that act as "servers"
@@ -21,7 +22,7 @@
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
   # profiles
-  profiles = ../modules + /profiles;
+  profiles = ../modules + /profiles; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
   home = ../home; # home-manager configurations for hosts that need home-manager
@@ -39,7 +40,8 @@
     agenix # age encryption for secrets
     sharedModules # consume my flake's own nixosModules
     profiles # a profiles module to provide configuration sets per demand
-    hardware
+    hardware # a module for hardware specific quirks or hardware specific options outside nixos-hardware
+    options # provide options for defined modules across the system
   ];
 
   # extraSpecialArgs that all hosts need
@@ -170,6 +172,7 @@ in {
 
   # an air-gapped nixos liveiso to deal with yubikeys
   erebus = lib.mkNixosIso {
+    inherit withSystem;
     system = "x86_64-linux";
     modules = [
       ./erebus
@@ -179,7 +182,8 @@ in {
 
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
-  artemis = lib.mkSystem {
+  artemis = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -191,7 +195,8 @@ in {
   };
 
   # Apollon is aarch64-linux
-  apollon = lib.mkSystem {
+  apollon = lib.mkNixosSystem {
+    inherit withSystem;
     system = "aarch64-linux";
     modules =
       [

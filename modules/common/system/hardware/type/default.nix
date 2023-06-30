@@ -1,12 +1,6 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
+_: {
   imports = [
     ./laptop
-    #../desktop
     #./desktop
     #./lite
   ];
