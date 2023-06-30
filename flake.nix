@@ -115,21 +115,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    # Nix helper
-    nh = {
-      url = "github:viperML/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # a tree-wide formatter
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # An upstream, feature-rich fork of the Nix package manager
-    nix-super.url = "github:privatevoid-net/nix-super";
-
     # build against nixos unstable, more variants can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     #nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
@@ -142,6 +127,26 @@
 
     # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    # Nix helper
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # a tree-wide formatter
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # An upstream, feature-rich fork of the Nix package manager
+    nix-super.url = "github:privatevoid-net/nix-super";
 
     # project shells
     devshell = {
