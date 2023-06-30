@@ -1849,6 +1849,26 @@
         "type": "github"
       }
     },
+    "nix-ld": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1686849676,
+        "narHash": "sha256-+z9t7BLugZO1WhyYEq6FI38TMh2EwfgfAv3RDFSjwtc=",
+        "owner": "Mic92",
+        "repo": "nix-ld",
+        "rev": "3abd605e56b5b34ec630bb10ba85f98c93cc05b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-ld",
+        "type": "github"
+      }
+    },
     "nix-super": {
       "inputs": {
         "flake-compat": "flake-compat_4",
@@ -2060,11 +2080,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1688123637,
-        "narHash": "sha256-awClJIrg2C4en0VV+PB88pF+mKmfZ9Y8DX8ckH2PrJU=",
+        "lastModified": 1688145347,
+        "narHash": "sha256-0DLscobj8vmw1S/oDLxae0NuXnR3K7metegakhJr0Aw=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "4566430e1f5223fba757f26794b72082dcdefcb2",
+        "rev": "2d22be08ee4121c43b56f685bc77e29a4f95f21a",
         "type": "github"
       },
       "original": {
@@ -2807,6 +2827,7 @@
         "nil": "nil_2",
         "nix-colors": "nix-colors",
         "nix-gaming": "nix-gaming",
+        "nix-ld": "nix-ld",
         "nix-super": "nix-super",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_7",
