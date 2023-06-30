@@ -1,5 +1,5 @@
 {config, ...}: let
-  device = config.module.device;
+  device = config.modules.device;
 in {
   # this should block *most* junk sites
   networking = {
