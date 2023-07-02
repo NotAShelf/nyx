@@ -10,7 +10,7 @@
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  imports = [./beets];
+  #imports = [./beets];
   config = lib.mkIf (builtins.elem device.type acceptedTypes) {
     home.packages = with pkgs; [
       playerctl # CLI interface for playerctld
@@ -71,68 +71,6 @@ in {
     };
 
     programs = {
-      beets = {
-        enable = true;
-        settings = {
-          ui.color = true;
-          directory = musicDir;
-          library = "${musicDir}/musiclibrary.db";
-          clutter = [
-            "Thumbs.DB"
-            ".DS_Store"
-            ".directory"
-          ];
-
-          plugins = [
-            "mpdupdate"
-            "lyrics"
-            "thumbnails"
-            "fetchart"
-            "embedart"
-            # "acousticbrainz" # DEPRECATED
-            "chroma"
-            "fromfilename"
-            "lastgenre"
-            "absubmit"
-            "duplicates"
-            "edit"
-            "mbcollection"
-            "mbsync"
-            "replaygain"
-            "scrub"
-          ];
-
-          import = {
-            move = true;
-            timid = true;
-            detail = true;
-            bell = true;
-            write = true;
-          };
-
-          mpd = {
-            host = "localhost";
-            port = 6600;
-          };
-
-          lyrics = {
-            auto = true;
-          };
-
-          thumbnails.auto = true;
-          fetchart.auto = true;
-
-          embedart = {
-            auto = true;
-            remove_art_file = true;
-          };
-
-          acousticbrainz.auto = true;
-          chroma.auto = true;
-          replaygain.backend = "gstreamer";
-        };
-      };
-
       # ncmpcpp configuration, has cool stuff like visualiser
       ncmpcpp = {
         enable = true;
