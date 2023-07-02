@@ -23,6 +23,7 @@ in {
     # run unpatched linux binaries with nix-ld
     programs.nix-ld.dev = {
       enable = true;
+      /*
       libraries = with pkgs; [
         stdenv.cc.cc
         openssl
@@ -44,6 +45,7 @@ in {
         gdk-pixbuf
         xorg.libX11
       ];
+      */
     };
   };
 }
