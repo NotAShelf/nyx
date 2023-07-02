@@ -86,6 +86,8 @@
       ];
     };
 
+    services.ratbagd.enable = true;
+
     console.earlySetup = true;
   };
 }
