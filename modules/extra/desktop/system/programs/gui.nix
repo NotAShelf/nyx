@@ -45,10 +45,8 @@
       # Open ports in the firewall for Source Dedicated Server
       dedicatedServer.openFirewall = true;
       # Compatibility tools to install
-      # this option is provided by ./gaming/steam.nix
-      extraCompatPackages = [
-        inputs.nix-gaming.packages.${pkgs.system}.proton-ge
-      ];
+      # this option is provided by modules/shared/nixos/steam
+      withProtonGE = true;
     };
 
     # gnome's keyring manager

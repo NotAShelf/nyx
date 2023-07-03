@@ -1,7 +1,6 @@
 _: {
   imports = [
-    ./steam
     ./comma
-    ./onedev
+    ./steam
   ];
 }
