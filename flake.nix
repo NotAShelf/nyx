@@ -48,6 +48,9 @@
           # a module for the comma tool that wraps it with nix-index and disabled the command-not-found integration
           comma-rewrapped = ./modules/shared/nixos/comma;
 
+          # a git-like service I packaged for no apparent reason
+          onedev = ./modules/export/onedev;
+
           # we do not want to provide a default module
           default = null;
         };

@@ -9,6 +9,7 @@
   commonModules = ../modules/common; # the path where common modules reside
   extraModules = ../modules/extra; # the path where extra modules reside
   sharedModules = ../modules/shared; # the path where shared modules reside
+  exportedModules = ../modules/export; # the path where modules that are explicitly for other flakes to consume reside
 
   # common modules, to be shared across all systems
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
@@ -22,7 +23,7 @@
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
   # profiles
-  profiles = ../modules + /profiles; # profiles force enable certain options for quick configurations
+  profile = ../modules + /profile; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
   home = ../home; # home-manager configurations for hosts that need home-manager
@@ -39,7 +40,7 @@
     core # the "sane" default shared across systems
     agenix # age encryption for secrets
     sharedModules # consume my flake's own nixosModules
-    profiles # a profiles module to provide configuration sets per demand
+    profile # a profile module to provide configuration sets per demand
     hardware # a module for hardware specific quirks or hardware specific options outside nixos-hardware
     options # provide options for defined modules across the system
   ];
