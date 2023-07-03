@@ -1,9 +1,4 @@
-{
-  lib,
-  inputs,
-  ...
-}:
-with lib; {
+{inputs, ...}: {
   imports = [inputs.impermanence.nixosModules.impermanence];
 
   /*
@@ -53,7 +48,9 @@ with lib; {
     ];
 
     files = [
+      # important state
       "/etc/machine-id"
+      "/etc/localtime"
       # ssh stuff
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
@@ -64,6 +61,7 @@ with lib; {
     ];
   };
 
+  # for some reason *this* is what makes networkmanager not get screwed completely instead of the impermanence module
   systemd.tmpfiles.rules = [
     "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
     "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
@@ -78,7 +76,6 @@ with lib; {
     after = [
       # LUKS/TPM process
       "systemd-cryptsetup@enc.service"
-      # TODO: add whatever process handles unlocking via key here
     ];
     before = [
       "sysroot.mount"

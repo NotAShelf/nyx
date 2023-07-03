@@ -1,10 +1,8 @@
 {
   config,
-  lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   device = config.modules.device;
 in {
   config = {
@@ -17,6 +15,7 @@ in {
         hasBluetooth = true;
         hasSound = true;
         hasTPM = true;
+        yubikeySupport.enable = true;
       };
       system = {
         username = "notashelf";
@@ -60,7 +59,7 @@ in {
         useHomeManager = true;
       };
       programs = {
-        git.signingKey = "0x148C61C40F80F8D6";
+        git.signingKey = "0x02D1DD3FA08B6B29";
 
         cli.enable = true;
         gui.enable = true;
