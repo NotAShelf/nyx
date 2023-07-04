@@ -25,11 +25,10 @@ in {
           translate
         ];
 
-        # Where Anyrun is located on the screen: Top, Center
-        position = "top";
-
-        # How much the runner is shifted vertically
-        verticalOffset.absolute = 15;
+        # the x coordinate of the runner
+        #x.relative = 800;
+        # the y coordinate of the runner
+        #y.absolute = 500;
 
         # Hide match and plugin info icons
         hideIcons = false;
