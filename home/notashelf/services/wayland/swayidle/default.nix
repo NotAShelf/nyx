@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
@@ -21,14 +22,17 @@ with lib; let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes && env.isWayland) {
+    # start swayidle as part of hyprland instead of sway
+    systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
+
     # screen idle
     services.swayidle = {
       enable = true;
-      extraArgs = ["-d"];
+      extraArgs = ["-d" "-w"];
       events = [
         {
           event = "before-sleep";
-          command = "${swaylock} -fF";
+          command = "${pkgs.systemd}/bin/loginctl lock-session";
         }
         {
           event = "lock";
@@ -36,16 +40,14 @@ in {
         }
       ];
       timeouts = [
-        /*
-        {
-          timeout = 300;
-          command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
-          resumeCommand = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
-        }
-        */
         {
           timeout = 600;
           command = suspendScript.outPath;
+        }
+        {
+          timeout = 900;
+          command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
+          resumeCommand = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
         }
       ];
     };

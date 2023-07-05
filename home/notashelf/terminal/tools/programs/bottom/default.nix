@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  # universal aliases
   home.packages = with pkgs; [
     # replace top and htop with bottom
     # if breaks shit? cope.
