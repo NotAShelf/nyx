@@ -11,7 +11,7 @@ in {
     boot.loader = {
       systemd-boot = {
         enable = mkDefault true;
-        configurationLimit = null;
+        configurationLimit = null; # unlimited
         consoleMode = "max"; # the default is "keep", can be overriden per host if need be
 
         # Fix a security hole in place for backwards compatibility. See desc in

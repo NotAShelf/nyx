@@ -33,6 +33,8 @@ with lib; {
   };
 
   nixpkgs = {
+    pkgs = self.legacyPackages.${config.nixpkgs.system};
+
     config = {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = false;
@@ -76,8 +78,9 @@ with lib; {
     nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
     # Make builds run with low priority so my system stays responsive
-    daemonCPUSchedPolicy = "idle";
+    daemonCPUSchedPolicy = "batch";
     daemonIOSchedClass = "idle";
+    daemonIOSchedPriority = 7;
 
     # set up garbage collection to run daily,
     # removing unused packages after three days
@@ -97,10 +100,10 @@ with lib; {
     settings = {
       # specify the path to the nix registry
       flake-registry = "/etc/nix/registry.json";
-      # Free up to 20GiB whenever there is less than 5GB left.
+      # Free up to 10GiB whenever there is less than 5GB left.
       # this setting is in bytes, so we multiply with 1024 thrice
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";
-      max-free = "${toString (20 * 1024 * 1024 * 1024)}";
+      max-free = "${toString (10 * 1024 * 1024 * 1024)}";
       # automatically optimise symlinks
       auto-optimise-store = true;
       # allow sudo users to mark the following values as trusted
