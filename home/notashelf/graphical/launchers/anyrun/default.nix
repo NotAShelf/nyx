@@ -28,7 +28,10 @@ in {
         # the x coordinate of the runner
         #x.relative = 800;
         # the y coordinate of the runner
-        #y.absolute = 500;
+        #y.absolute = 500.0;
+
+        x.absolute = 800;
+        y.absolute = 500;
 
         # Hide match and plugin info icons
         hideIcons = false;
