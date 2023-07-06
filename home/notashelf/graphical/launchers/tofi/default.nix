@@ -10,7 +10,7 @@ with lib; let
   env = osConfig.modules.usrEnv;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (env.isWayland)) {
+  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
     home.packages = with pkgs; let
       emoji = pkgs.writeShellScriptBin "emoji" ''
         #!/bin/sh

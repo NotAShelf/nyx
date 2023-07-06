@@ -16,7 +16,7 @@ with lib; let
     then pkgs.rofi-wayland
     else pkgs.rofi;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
     programs.rofi = {
       enable = true;
       # TODO: only override with plugins if system is wayland-enabled
