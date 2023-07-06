@@ -41,6 +41,8 @@
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
         # set of modules exposed by my flake to be consumed by others
+        # you can import these by adding my flake to your inputs and then importing the module you prefer
+        # i.e imports = [ inputs.nyx.nixosModules.steam-compat ];
         nixosModules = {
           # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
           steam-compat = ./modules/shared/nixos/steam;
