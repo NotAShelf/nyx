@@ -21,8 +21,8 @@ with lib; {
     );
 
     # don't use dhcpd
-    useDHCP = false;
-    useNetworkd = true;
+    useDHCP = mkDefault false;
+    useNetworkd = mkDefault true;
 
     # dns
     nameservers = [
@@ -49,8 +49,12 @@ with lib; {
     };
   };
 
-  # slows down boot time
-  systemd.services.NetworkManager-wait-online.enable = false;
   # enable wireless database
   hardware.wirelessRegulatoryDatabase = true;
+
+  # slows down boot time
+  systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.network.wait-online.enable = false;
+  systemd.services.systemd-networkd.stopIfChanged = false;
+  systemd.services.systemd-resolved.stopIfChanged = false;
 }
