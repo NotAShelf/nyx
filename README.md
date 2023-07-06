@@ -48,7 +48,7 @@
 - **Extensive Configuration** - Most desktop programs are configured out of the box and shared across hosts, with override options for per-host controls.
 - **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
 - **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
-- **Encryption Ready** - Supports and actively utilizes FDE (full disk encryption).
+- **Encryption Ready** - Supports and actively utilizes full disk encryption.
 - **Declarative Themes** - Using [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
 - **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake has been modularized.
 - **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
@@ -64,7 +64,7 @@
 - [modules](modules) 🍱 modularized NixOS configurations
   - [common](modules/common) ⚙️T The common modules imported by all hosts
     - [core](modules/shared) 🧠 Core NixOS configuration
-    - [boot](modules/boot) 🔧 Default configuration for common bootloaders
+    - [options](modules/options) 🔧 Module options consumed by the rest of the flake
     - [system](modules/system) 💡 A self-made NixOS configuration to dictate system specs
   - [extra](modules/extra) 🚀 Extra modules that are rarely imported
     - [server](modules/extra) ☁️ Shared modules for "server" purpose hosts
@@ -72,18 +72,19 @@
     - [virtualization](modules/virtualization) 🪛 Hot-pluggable virtualization module for any host
     - [hardware](modules/hardware) Home-baked modules for hardware compatibility
   - [shared](modules/shared) ☁️ Modules that can be consumed by external flakes
+  - [export](modules(export) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
 - [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
-  - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system.
-  - [prometheus](hosts/prometheus) 💻 My HP Pavillion with a NVIDIA GPU
-  - [epimetheus](hosts/epimetheus) 💻 The succeeding brother host to prometheus, with full disk encryption
-  - [hermes](hosts/hermes) 💻 My new HP Pavillion with a Ryzen 7 7730U
+  - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system. Daily workstation.
+  - [prometheus](hosts/prometheus) 💻 My HP Pavillion with a a GTX 1050 and i7-7700hq
+    - [epimetheus](hosts/epimetheus) 💻 The succeeding brother host to Prometheus, with full disk encryption
+  - [hermes](hosts/hermes) 💻 HP Pavillion with Ryzen 7 7730U, has now replaced Epimetheus as my portable workstation
   - [helios](hosts/helios) ⚡ Hetzner VPS for self-hosting some of my infrastructure
   - [atlas](hosts/atlas) 🍓 Proof of concept server host that is used by my Raspberry Pi 400
   - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
   - [erebus](hosts/erebus) 🍱 Air-gapped virtual machine/live-iso configuration for sensitive jobs
   - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
-    - [artemis](hosts/artemis) 🏹 x86_64-linux VM Host
-    - [apollon](hosts/apollon) ⚔️a aarch64-linux VM Host
+  - [artemis](hosts/artemis) 🏹 x86_64-linux VM Host for testing
+  - [apollon](hosts/apollon) ⚔️a aarch64-linux VM Host for testing
 - [pkgs](pkgs) 📦 Packages exported by my flake
 
 ## Notes
