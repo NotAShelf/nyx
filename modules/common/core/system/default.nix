@@ -1,4 +1,4 @@
-self: {
+{self, ...}: {
   imports = [
     ./locale.nix
     ./environment.nix
