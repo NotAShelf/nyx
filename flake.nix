@@ -58,7 +58,8 @@
         };
 
         # developer templates for easy project initialization
-        templates = import ./lib/flake/templates;
+        # TODO: rewrite templates for my go-to languages
+        # templates = import ./lib/flake/templates;
 
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
