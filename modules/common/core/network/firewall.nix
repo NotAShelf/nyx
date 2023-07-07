@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib) mkDefault mkForce;
+  device = config.modules.device;
 in {
   environment.etc."fail2ban/filter.d/vaultwarden.conf" = {
     enable = config.services.vaultwarden.enable;
@@ -92,8 +93,9 @@ in {
         8080
       ];
       allowedUDPPorts = [];
-      allowPing = false;
+      allowPing = mkDefault device.type == "server";
       logReversePathDrops = true;
+      logRefusedConnections = mkDefault false;
       checkReversePath = mkForce false; # Don't filter DHCP packets, according to nixops-libvirtd
     };
   };

@@ -21,6 +21,7 @@ with lib; {
     );
 
     # don't use dhcpd
+    # use networkd instead
     useDHCP = mkDefault false;
     useNetworkd = mkDefault true;
 
