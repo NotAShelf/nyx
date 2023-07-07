@@ -63,6 +63,7 @@
     services.btrfs.autoScrub.enable = lib.mkForce false;
 
     boot = {
+      boot.growPartition = true;
       kernel = {
         sysctl = {
           # # Enable IP forwarding
