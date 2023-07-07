@@ -204,6 +204,7 @@ in {
       fbin = "${lib.getExe pkgs.netcat-gnu} p.frzn.dev 9999";
       # nix specific aliases
       rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudo && notify-send \"Done\" ; popd";
+      deploy = "nixos-rebuild switch --flake .#$1 --target-host $1";
       test = "pushd ~dotfiles nixos-rebuild dry-activate";
       cleanup = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
       bloat = "nix path-info -Sh /run/current-system";
@@ -297,18 +298,6 @@ in {
           sha256 = "sha256-RXqEW+jwdul2mKX86Co6HLsb26UrYtLjT3FzmHnwfAA=";
         };
       }
-      /*
-      {
-        name = "skim-tab";
-        file = "skim.plugin.zsh";
-        src = fetchFromGitHub {
-          owner = "casonadams";
-          repo = "skim.zsh";
-          rev = "994a8bbc82c1c12fbb20ba0964dbd7a0cacc3b1e";
-          sha256 = "sha256-fN7mpWIM6r+RkQZZnMH4uRb5Wge7AwmYEzwsrhibeU8=";
-        };
-      }
-      */
     ];
   };
 }
