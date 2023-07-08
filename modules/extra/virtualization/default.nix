@@ -21,6 +21,9 @@ in {
         podman-compose
         podman-desktop
         distrobox # TODO: add a separate option for this
+      ]
+      ++ optionals (sys.waydroid.enable) [
+        waydroid
       ];
 
     virtualisation = mkIf (sys.qemu.enable) {
@@ -30,8 +33,10 @@ in {
         enable = true;
         qemu = {
           package = pkgs.qemu_kvm;
-          ovmf.enable = true;
-          ovmf.packages = [pkgs.OVMFFull.fd];
+          ovmf = {
+            enable = true;
+            packages = [pkgs.OVMFFull.fd];
+          };
           swtpm.enable = true;
         };
       };
