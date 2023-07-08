@@ -54,7 +54,8 @@ in {
         };
       };
 
-      lxd.enable = false;
+      lxd.enable = mkDefault config.virtualisation.waydroid.enable;
+      waydroid.enable = sys.waydroid.enable;
     };
   };
 }

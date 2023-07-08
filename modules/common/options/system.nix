@@ -100,6 +100,7 @@ with lib; {
       docker = {enable = mkEnableOption "docker";};
       podman = {enable = mkEnableOption "podman";};
       qemu = {enable = mkEnableOption "qemu";};
+      waydroid = {enable = mkEnableOption "waydroid";};
     };
 
     # should we optimize tcp networking
