@@ -31,7 +31,8 @@
       ];
 
       flake = let
-        # extended nixpkgs lib, contains my custom functions
+        # extended nixpkgs library, contains my custom functions
+        # such as system builders
         lib = import ./lib/nixpkgs {inherit nixpkgs lib inputs;};
       in {
         # TODO
@@ -61,6 +62,9 @@
         # TODO: rewrite templates for my go-to languages
         # templates = import ./lib/flake/templates;
 
+        # TODO: flake checks to be invoked by nix flake check
+        # checks = import ./lib/flake/checks;
+
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
         images = import ./hosts/images.nix {inherit inputs self lib;};
@@ -75,20 +79,24 @@
       }: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
 
-        devShells.default = inputs'.devshell.legacyPackages.mkShell {
-          name = "nyx";
-          commands = (import ./lib/flake/devShell).shellCommands;
-          packages = with pkgs; [
-            inputs'.agenix.packages.default # let me run agenix commands in the flake repository and only in the flake repository
-            config.treefmt.build.wrapper
-            nil # nix ls
-            alejandra # formatter
-            git # flakes require git, and so do I
-            glow # markdown viewer
-            statix # lints and suggestions
-            deadnix # clean up unused nix code
-          ];
-        };
+        devShells.default = let
+          shellLib = import ./lib/flake/devShell;
+        in
+          inputs'.devshell.legacyPackages.mkShell {
+            name = "nyx";
+            commands = shellLib.shellCommands;
+            env = shellLib.env;
+            packages = with pkgs; [
+              inputs'.agenix.packages.default # provide agenix CLI within flake shell
+              config.treefmt.build.wrapper # treewide formatter
+              nil # nix ls
+              alejandra # nix formatter
+              git # flakes require git, and so do I
+              glow # markdown viewer
+              statix # lints and suggestions
+              deadnix # clean up unused nix code
+            ];
+          };
 
         # provide the formatter for nix fmt
         formatter = pkgs.alejandra;
