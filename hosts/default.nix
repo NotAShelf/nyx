@@ -5,28 +5,27 @@
   ...
 }: let
   inputs = self.inputs;
-
-  commonModules = ../modules/common; # the path where common modules reside
-  extraModules = ../modules/extra; # the path where extra modules reside
-  sharedModules = ../modules/shared; # the path where shared modules reside
-  exportedModules = ../modules/export; # the path where modules that are explicitly for other flakes to consume reside
+  inherit (lib) concatLists mkNixosIso mkNixosSystem;
 
   # common modules, to be shared across all systems
+  commonModules = ../modules/common; # the path where common modules reside
+  options = commonModules + /options; # the module that provides the options for my system configuration
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
   system = commonModules + /system; # system module for configuring system-specific options easily
-  options = commonModules + /options; # the module that provides the options for my system configuration
 
   # extra modules, likely optional but possibly critical
+  extraModules = ../modules/extra; # the path where extra modules reside
   server = extraModules + /server; # for devices that act as "servers"
   desktop = extraModules + /desktop; # for devices that are for daily use
   hardware = extraModules + /hardware; # for specific hardware configurations that are not in nixos-hw
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
+  sharedModules = extraModules + /shared; # the path where shared modules reside
 
   # profiles
   profile = ../modules/profile; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
-  homeDir = ../home; # home-manager configurations for hosts that need home-manager
+  homeDir = ../homes; # home-manager configurations for hosts that need home-manager
   homes = [hm homeDir]; # combine hm flake input and the home module to be imported together
 
   ## flake inputs ##
@@ -51,7 +50,7 @@ in {
   # My main desktop boasting a RX 6700 XT and a Ryzen 5 3600x
   # fully free from nvidia
   # fuck nvidia - Linus "the linux" Torvalds
-  enyo = lib.mkNixosSystem {
+  enyo = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
     modules =
@@ -61,14 +60,14 @@ in {
         desktop
         virtualization
       ]
-      ++ lib.concatLists [shared homes];
+      ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
 
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
   # superceded by epimetheus
-  prometheus = lib.mkNixosSystem {
+  prometheus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
     modules =
@@ -78,13 +77,13 @@ in {
         desktop
         virtualization
       ]
-      ++ lib.concatLists [shared homes];
+      ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
 
   # Twin host for prometheus
   # provides full disk encryption with passkey/USB auth
-  epimetheus = lib.mkNixosSystem {
+  epimetheus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
     modules =
@@ -94,14 +93,14 @@ in {
         desktop
         virtualization
       ]
-      ++ lib.concatLists [shared homes];
+      ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
 
   # HP Pavillion laptop from 2023
   # possesess a Ryzen 7 7730U, and acts as my portable workstation
   # similar to epimetheus, has full disk encryption with ephemeral root
-  hermes = lib.mkNixosSystem {
+  hermes = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
     modules =
@@ -111,13 +110,13 @@ in {
         desktop
         virtualization
       ]
-      ++ lib.concatLists [shared homes];
+      ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
 
   # Hetzner VPS to replace my previous server machines
   # hosts some of my infrastructure
-  helios = lib.mkNixosSystem {
+  helios = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
     modules =
@@ -127,13 +126,13 @@ in {
         server
         virtualization
       ]
-      ++ lib.concatLists [shared homes];
+      ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
 
   # Lenovo Ideapad from 2014
   # Hybrid device, acts as a portable server and a "workstation"
-  icarus = lib.mkNixosSystem {
+  icarus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
     modules =
@@ -142,13 +141,13 @@ in {
         ./icarus
         desktop
       ]
-      ++ lib.concatLists [shared homes];
+      ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
 
   # Raspberry Pi 400
   # My Pi400 homelab, used mostly for testing networking/cloud services
-  atlas = lib.mkNixosSystem {
+  atlas = mkNixosSystem {
     inherit withSystem;
     system = "aarch64-linux";
     modules =
@@ -162,17 +161,17 @@ in {
 
   # Live recovery environment that overrides some default programs
   # and fixes keymap for me
-  gaea = lib.mkNixosIso {
+  gaea = mkNixosIso {
     system = "x86_64-linux";
     modules = [
       # import base iso configuration on top of base nixos modules for the live installer
       ./gaea
     ];
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 
   # an air-gapped nixos liveiso to deal with yubikeys
-  erebus = lib.mkNixosIso {
+  erebus = mkNixosIso {
     inherit withSystem;
     system = "x86_64-linux";
     modules = [
@@ -183,7 +182,7 @@ in {
 
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
-  artemis = lib.mkNixosSystem {
+  artemis = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
     modules =
@@ -192,11 +191,11 @@ in {
         ./artemis
       ]
       ++ shared;
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 
   # Apollon is aarch64-linux
-  apollon = lib.mkNixosSystem {
+  apollon = mkNixosSystem {
     inherit withSystem;
     system = "aarch64-linux";
     modules =
@@ -205,6 +204,6 @@ in {
         ./apollon
       ]
       ++ shared;
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 }
