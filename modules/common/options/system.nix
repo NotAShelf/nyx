@@ -92,6 +92,28 @@ with lib; {
         default = "none";
         description = "The bootloader that should be used for the device.";
       };
+
+      plymouth = {
+        enable = mkEnableOption "plymouth boot splash";
+        withThemes = mkOption {
+          default = false;
+          type = types.bool;
+          description = lib.mdDoc ''
+            Whether or not themes from https://github.com/adi1090x/plymouth-themes
+            should be enabled and configured
+          '';
+        };
+
+        pack = mkOption {
+          type = types.int;
+          default = 3;
+        };
+
+        theme = mkOption {
+          type = types.str;
+          default = "hud_3";
+        };
+      };
     };
 
     # should virtualization (docker, qemu, podman etc.) be enabled
@@ -116,6 +138,9 @@ with lib; {
         default = false;
         description = "Use Tailscale for inter-machine VPN.";
       };
+
+      # TODO: optionally use encrypted DNS
+      # encryptDns = mkOption {};
     };
 
     security = {
@@ -125,11 +150,7 @@ with lib; {
         description = "Fix the purposefully broken webcam by un-blacklisting the related kernel module.";
       };
 
-      secureBoot = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable secure-boot and load necessary packages.";
-      };
+      secureBoot = mkEnableOption "Enable secure-boot and load necessary packages.";
 
       tor = {
         enable = mkEnableOption "Tor daemon" // {default = true;};

@@ -3,5 +3,6 @@ _: {
     ./loader
     ./secure-boot
     ./generic
+    ./plymouth
   ];
 }
