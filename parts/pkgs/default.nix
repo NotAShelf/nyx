@@ -6,7 +6,7 @@ _: {
 
   perSystem = {pkgs, ...}: {
     packages = {
-      nixos-plymouth = pkgs.callPackage ./plymouth-themes.nix {};
+      plymouth-themes = pkgs.callPackage ./plymouth-themes.nix {};
       fastfetch = pkgs.callPackage ./fastfetch.nix {};
       ani-cli = pkgs.callPackage ./ani-cli.nix {};
       mov-cli = pkgs.callPackage ./mov-cli.nix {};

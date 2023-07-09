@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self',
   ...
 }: let
   inherit (pkgs) plymouth;
@@ -15,7 +16,7 @@ in {
     theme = cfg.theme;
   in {
     enable = true;
-    themePackages = [(pkgs.nixos-plymouth.override {inherit pack theme;})];
+    themePackages = [(self'.packages.plymouth-themes.override {inherit pack theme;})];
     # inherit theme;
   };
 
