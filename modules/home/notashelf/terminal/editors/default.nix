@@ -1,8 +1,6 @@
 _: {
   imports = [
-    #./cnvim # deprecated in favor of neovim-flake
-    #./emacs # screw emacs
-    ./helix # for quick dirty edits
+    #./helix # sucks
     ./neovim-flake # full-blown IDE
   ];
 }

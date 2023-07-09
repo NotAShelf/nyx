@@ -11,7 +11,7 @@ with lib; let
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.helix = {
-      enable = true;
+      enable = false;
       package = inputs'.helix.packages.default.overrideAttrs (self: {
         makeWrapperArgs = with pkgs;
           self.makeWrapperArgs
