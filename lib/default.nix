@@ -8,6 +8,7 @@
 
   builders = import ./builders.nix {inherit lib inputs nixpkgs;};
   services = import ./services.nix {inherit lib;};
+  validators = import ./validators.nix {inherit lib;};
 
   # filter files that have the .nix suffix
   filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
@@ -26,14 +27,8 @@
 
   # a basic function to fetch a specified user's public keys from github .keys url
   fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
-
-  # a function that will append a list of groups if they exist in config.users.groups
-  ifTheyExist = config: groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-
-  # a function that returns a boolean based on whether or not the groups exist
-  ifGroupsExist = config: groups: lib.any (group: builtins.hasAttr group config.users.groups) groups;
 in
   nixpkgs.lib.extend (
     self: super:
-      {inherit filterNixFiles importNixFiles boolToNum fetchKeys ifTheyExist ifGroupsExist;} // builders // services
+      {inherit filterNixFiles importNixFiles boolToNum fetchKeys;} // builders // services // validators
   )
