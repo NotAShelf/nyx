@@ -26,7 +26,7 @@
   profile = ../modules/profile; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
-  homeDir = ../modules/home; # home-manager configurations for hosts that need home-manager
+  homeDir = ../home; # home-manager configurations for hosts that need home-manager
   homes = [hm homeDir]; # combine hm flake input and the home module to be imported together
 
   ## flake inputs ##
