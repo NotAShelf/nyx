@@ -76,7 +76,7 @@ with lib; {
       enableInitrdTweaks = mkEnableOption "quality of life tweaks for the initrd stage";
       recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
       loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
-      tmpOnTmpfs = mkEnableOption "whether or not /tmp should live on tmpfs. false means it will be cleared manually on each reboot";
+      tmpOnTmpfs = mkEnableOption "/tmp should living tmpfs. false means it will be cleared manually on each reboot";
 
       extraKernelParams = mkOption {
         type = with types; listOf string;
@@ -97,14 +97,14 @@ with lib; {
 
       plymouth = {
         enable = mkEnableOption "plymouth boot splash";
-        withThemes = mkOption {
-          default = false;
-          type = types.bool;
-          description = lib.mdDoc ''
-            Whether or not themes from https://github.com/adi1090x/plymouth-themes
-            should be enabled and configured
-          '';
-        };
+        withThemes =
+          mkEnableOption null
+          // {
+            description = mdDoc ''
+              Whether or not themes from https://github.com/adi1090x/plymouth-themes
+              should be enabled and configured
+            '';
+          };
 
         pack = mkOption {
           type = types.int;

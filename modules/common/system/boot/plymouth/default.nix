@@ -18,7 +18,7 @@ in {
       theme = cfg.theme;
     in {
       enable = true;
-      themePackages = [(self'.packages.plymouth-themes.override {inherit pack theme;})];
+      themePackages = mkIf (cfg.withThemes) [(self'.packages.plymouth-themes.override {inherit pack theme;})];
       # inherit theme;
     };
 
