@@ -30,6 +30,9 @@ in
         then 1
         else 0;
 
+      # a basic function to fetch a specified user's public keys from github .keys url
+      fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
+
       # make a service that is a part of the graphical session target
       mkGraphicalService = lib.recursiveUpdate {
         Unit.PartOf = ["graphical-session.target"];
