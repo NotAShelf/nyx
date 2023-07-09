@@ -1,4 +1,4 @@
-name: "Serve Static Website"
+name: Serve Static Website
 
 on:
     workflow_dispatch:
