@@ -17,8 +17,12 @@
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
 
         boot = {
-          kernel = pkgs.linuxPackages_xanmod_latest;
+          plymouth = {
+            enable = true;
+            withThemes = true;
+          };
           loader = "systemd-boot";
+          kernel = pkgs.linuxPackages_xanmod_latest;
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
           loadRecommendedModules = true;
