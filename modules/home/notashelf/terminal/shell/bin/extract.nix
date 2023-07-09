@@ -3,9 +3,7 @@
   pkgs,
   ...
 }: ''
-    #> Syntax: bash
-
-    SAVEIFS=$IFS
+   SAVEIFS=$IFS
   IFS="$(printf '\n\t')"
 
   function extract {
@@ -51,5 +49,4 @@
       done
   }
 
-  IFS=$SAVEIFS
-''
+  IFS=$SAVEIFS''

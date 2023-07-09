@@ -39,6 +39,7 @@ in {
       xorg.xhost
       nitch
       skim
+      p7zip
     ];
   };
 }
