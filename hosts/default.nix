@@ -23,11 +23,11 @@
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
   # profiles
-  profile = ../modules + /profile; # profiles force enable certain options for quick configurations
+  profile = ../modules/profile; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
-  home = ../home; # home-manager configurations for hosts that need home-manager
-  homes = [hm home]; # combine hm flake input and the home module to be imported together
+  homeDir = ../modules/home; # home-manager configurations for hosts that need home-manager
+  homes = [hm homeDir]; # combine hm flake input and the home module to be imported together
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices

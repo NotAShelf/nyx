@@ -14,17 +14,13 @@
   wallpkgs = inputs.wallpkgs.packages.${pkgs.system};
 in {
   config = lib.mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
-    systemd.user.services.hyprpaper = {
-      Unit = {
-        Description = "Hyprland wallpaper daemon";
-        Requires = ["graphical-session.target"];
-      };
+    systemd.user.services.hyprpaper = lib.mkHyprlandService {
+      Unit.Description = "Hyprland wallpaper daemon";
       Service = {
         Type = "simple";
         ExecStart = "${lib.getExe hyprpaper}";
         Restart = "on-failure";
       };
-      Install.WantedBy = ["hyprland-session.target"];
     };
     xdg.configFile."hypr/hyprpaper.conf" = {
       text = let
