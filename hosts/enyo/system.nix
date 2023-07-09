@@ -17,6 +17,7 @@
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
 
         boot = {
+          kernel = pkgs.linuxPackages_xanmod_latest;
           loader = "systemd-boot";
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
@@ -77,16 +78,6 @@
       "/home".options = ["compress=zstd"];
       "/nix".options = ["compress=zstd" "noatime"];
     };
-
-    boot = {
-      kernelPackages = pkgs.linuxPackages_xanmod_latest;
-
-      kernelParams = [
-        "nohibernate"
-      ];
-    };
-
-    services.ratbagd.enable = true;
 
     console.earlySetup = true;
   };

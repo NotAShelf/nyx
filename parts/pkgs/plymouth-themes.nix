@@ -7,7 +7,7 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "nix-plymouth-themes";
+  pname = "plymouth-themes";
   version = "1.0.0";
 
   strictDeps = true;
