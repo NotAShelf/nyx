@@ -22,8 +22,10 @@
   };
 
   # https://www.tweag.io/blog/2020-07-31-nixos-flakes/
+  /*
   system.configurationRevision =
     if self ? rev
     then self.rev
     else throw "Refusing to build from a dirty Git tree!";
+  */
 }
