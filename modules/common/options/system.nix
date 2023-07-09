@@ -19,9 +19,11 @@ with lib; {
   options.modules.system = {
     # the default user (not users) you plan to use on a specific device
     # this will dictate the initial home-manager settings if home-manager is
-    # enabled in usrenv
+    # enabled in usrEnv
+    # TODO: allow for a list of usernames, map them individually to homes/<username>
     username = mkOption {
       type = types.str;
+      description = "The username of the non-root superuser for your system";
     };
 
     # no actual use yet, do not use
