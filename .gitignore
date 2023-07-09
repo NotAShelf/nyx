@@ -4,7 +4,3 @@ result
 
 # Ignore VM stuff
 *.qcow2
-
-# Ignore diff and patch files I place in this directory
-*.diff
-*.patch
