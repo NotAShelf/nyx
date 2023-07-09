@@ -25,15 +25,14 @@
         inputs.treefmt-nix.flakeModule
 
         # parts of the flake
-        ./pkgs # packages exposed by the flake
-
-        ./lib/flake/args # args that is passsed to the flake, moved away from the main file
+        ./parts/pkgs # packages exposed by the flake
+        ./parts/args # args that is passsed to the flake, moved away from the main file
       ];
 
       flake = let
         # extended nixpkgs library, contains my custom functions
         # such as system builders
-        lib = import ./lib/nixpkgs {inherit nixpkgs lib inputs;};
+        lib = import ./lib {inherit nixpkgs lib inputs;};
       in {
         # TODO
         darwinConfigurations = {};
@@ -80,12 +79,12 @@
         imports = [{_module.args.pkgs = config.legacyPackages;}];
 
         devShells.default = let
-          shellLib = import ./lib/flake/devShell;
+          devShell = import ./parts/devShell;
         in
           inputs'.devshell.legacyPackages.mkShell {
             name = "nyx";
-            commands = shellLib.shellCommands;
-            env = shellLib.env;
+            commands = devShell.shellCommands;
+            env = devShell.env;
             packages = with pkgs; [
               inputs'.agenix.packages.default # provide agenix CLI within flake shell
               config.treefmt.build.wrapper # treewide formatter
