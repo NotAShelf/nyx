@@ -57,7 +57,7 @@
 
 - [flake](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
-  - [flake](lib/flake) ❄️ Extended functions or configuration imports for my flake.nix
+- [parts](parts) ❄️ Individual parts of my flake, powered by flake-parts
 - [docs](docs)📑 The documentation for my flake repository
   - [notes](docs/notes)📝 Notes from tedious or/and underdocumented processes I have gone through
 - [home](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
