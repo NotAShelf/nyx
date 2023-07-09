@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   config = {
     modules = {
       device = {
@@ -63,7 +67,7 @@
     services.btrfs.autoScrub.enable = lib.mkForce false;
 
     boot = {
-      growPartition = true;
+      growPartition = !config.boot.initrd.systemd.enable;
       kernel = {
         sysctl = {
           # # Enable IP forwarding
