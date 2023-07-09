@@ -10,6 +10,7 @@ on:
       - .github/**
       - assets/**
       - .gitignore
+
 jobs:
   build-installation-images:
     runs-on: ubuntu-latest
@@ -42,13 +43,13 @@ jobs:
 
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
+      
+      - name: Validate flake
+        run: nix flake check
 
-	  - name: Validate flake
-		run: nix flake check
-
-	  - name: Build installation media
+      - name: Build installation media
         run: nix build .#nixosConfigurations."gaea".config.system.build.toplevel
 
-	  - name: Build airtight recovery and maintenance media
-		run: nix build .#nixosConfigurations."erebus".config.system.build.toplevel
+      - name: Build airtight recovery and maintenance media
+        run: nix build .#nixosConfigurations."erebus".config.system.build.toplevel
 
