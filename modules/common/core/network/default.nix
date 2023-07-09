@@ -41,6 +41,7 @@ with lib; {
 
     networkmanager = {
       enable = true;
+      plugins = [];
       dns = "systemd-resolved";
       unmanaged = ["docker0" "rndis0"];
       wifi = {
