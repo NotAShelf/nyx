@@ -48,6 +48,7 @@
 
       usrEnv = {
         useHomeManager = true;
+        isWayland = false;
       };
 
       programs = {
