@@ -5,7 +5,7 @@
   ...
 }:
 with builtins; let
-  inherit (lib) types mkIf mkOption mkEnableOption mdDoc literalExpression concatStringsSep;
+  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD mdDoc literalExpression;
 
   cfg = config.programs.xplr;
   initialConfig = ''
@@ -18,12 +18,7 @@ in {
   options.programs.xplr = {
     enable = mkEnableOption "xplr, terminal UI based file explorer" // {default = true;};
 
-    package = mkOption {
-      type = types.package;
-      default = pkgs.xplr;
-      defaultText = literalExpression "pkgs.xplr";
-      description = mdDoc "xplr package to use";
-    };
+    package = mkPackageOptionMD pkgs "xplr" {};
 
     plugins = mkOption {
       type = with types; nullOr (listOf (either package str));
@@ -31,7 +26,7 @@ in {
       defaultText = literalExpression "[]";
       description = mdDoc ''
         Plugins to be added to your configuration file. Must be a package, an absolute plugin path, or string
-        to be recognized by xplr
+        to be recognized by xplr.
       '';
     };
 
@@ -53,14 +48,12 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     environment = {
       # TODO: wrap the package to set config location
       systemPackages = [cfg.package];
 
-      etc = {
-        "xplr/init.lua".source = pkgs.writeText "init.lua" configFile;
-      };
+      etc."xplr/init.lua".source = pkgs.writeText "init.lua" configFile;
     };
   };
 }
