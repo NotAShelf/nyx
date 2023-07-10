@@ -16,11 +16,15 @@ in {
     boot.plymouth = let
       pack = cfg.pack;
       theme = cfg.theme;
-    in {
-      enable = true;
-      themePackages = mkIf (cfg.withThemes) [(self'.packages.plymouth-themes.override {inherit pack theme;})];
-      # inherit theme;
-    };
+    in
+      {
+        enable = true;
+      }
+      // lib.optionalAttrs cfg.withThemes {
+        themePackages = [(self'.packages.plymouth-themes.override {inherit pack theme;})];
+
+        inherit theme;
+      };
 
     # make plymouth work with sleep
     powerManagement = {
