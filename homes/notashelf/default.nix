@@ -1,5 +1,6 @@
 {
   inputs,
+  self,
   lib,
   ...
 }: let
@@ -8,6 +9,7 @@ in {
   imports = [
     # external home-manager modules
     inputs.hyprland.homeManagerModules.default
+    self.homeManagerModules.xplr
 
     # home package sets
     ./packages

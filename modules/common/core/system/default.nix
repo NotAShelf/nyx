@@ -5,6 +5,7 @@
     ./security.nix
     ./services.nix
     ./programs.nix
+    ./impermanence.nix
   ];
 
   # compress half of the ram to use as swap

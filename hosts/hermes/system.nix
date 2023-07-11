@@ -22,6 +22,7 @@ in {
         fs = ["btrfs" "ext4" "vfat"];
 
         boot = {
+          plymouth.enable = true;
           loader = "systemd-boot";
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
@@ -81,12 +82,6 @@ in {
       "/nix".options = ["compress=zstd" "noatime"];
       "/var/log".options = ["compress=zstd" "noatime"];
       "/persist".options = ["compress=zstd" "noatime"];
-    };
-
-    boot = {
-      kernelParams = [
-        "nohibernate"
-      ];
     };
 
     services.btrfs.autoScrub = {fileSystems = ["/"];};
