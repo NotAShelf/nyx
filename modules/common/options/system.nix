@@ -118,6 +118,7 @@ with lib; {
       };
     };
 
+    # ephemeral root through impermanence and btrfs snapshots
     impermanence = {
       root = {
         enable = mkEnableOption (mdDoc ''

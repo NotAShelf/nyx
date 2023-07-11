@@ -4,16 +4,15 @@
   inputs,
   ...
 }: let
-  inherit (lib) optionalString;
+  inherit (lib) optionalString mkIf;
 
   cfg = config.modules.system.impermanence;
 in {
   imports = [
     inputs.impermanence.nixosModules.impermanence
-    inputs.impermanence.home-manager.impermanence
   ];
 
-  config = {
+  config = mkIf (cfg.root.enable or cfg.home.enable) {
     /*
      TODO:
     since we roll back subvolumes using a script, it could be possible to also roll back home directory except
@@ -42,7 +41,7 @@ in {
       };
     };
 
-    home.persistence."/persist/home/notashelf" = {};
+    # home.persistence."/persist/home/notashelf" = {};
 
     environment.persistence."/persist" = {
       directories = [

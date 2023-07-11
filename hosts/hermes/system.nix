@@ -30,6 +30,12 @@ in {
           tmpOnTmpfs = true;
         };
 
+        impermanence = {
+          root = {
+            enable = true;
+          };
+        };
+
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
@@ -84,12 +90,10 @@ in {
       "/persist".options = ["compress=zstd" "noatime"];
     };
 
-    services.btrfs.autoScrub = {fileSystems = ["/"];};
-
     # fingerprint login
     # doesn't work because thanks drivers
     services.fprintd = {
-      enable = true;
+      enable = false;
       tod.enable = true;
       tod.driver = pkgs.libfprint-2-tod1-goodix;
     };
