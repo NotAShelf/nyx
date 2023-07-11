@@ -11,18 +11,9 @@ with builtins; let
   initialConfig = ''
     version = '${cfg.package.version}'
   '';
-  /*
-  we provide a default version line within the configuration file, which is obtained from the package's attributes
-  merge the initial configFile, a mapped list of plugins and then the user defined configuration to obtain the final configuration
-  if the plugin list is empty, the generated config will be faulty, so we only append the plugin line if the list is not empty
-  */
-
-  # pluginpath is handled separately for readibility
-  pluginPaths =
-    if (cfg.plugins != [])
-    then "package.path=\n" + (concatStringsSep " ..\n" (map (p: ''"${p}/init.lua;"'') cfg.plugins)) + " ..\npackage.path\n"
-    else "";
-  configFile = initialConfig + pluginPaths + cfg.extraConfig;
+  # we provide a default version line within the configuration file, which is obtained from the package's attributes
+  # merge the initial configFile, a mapped list of plugins and then the user defined configuration to obtain the final configuration
+  configFile = initialConfig + ("package.path=\n" + (concatStringsSep " ..\n" (map (p: ''"${p}/init.lua;"'') cfg.plugins)) + " ..\npackage.path\n") + cfg.extraConfig;
 in {
   options.programs.xplr = {
     enable = mkEnableOption "xplr, terminal UI based file explorer" // {default = true;};
@@ -35,7 +26,7 @@ in {
       defaultText = literalExpression "[]";
       description = mdDoc ''
         Plugins to be added to your configuration file. Must be a package, an absolute plugin path, or string
-        to be recognized by xplr.
+        to be recognized by xplr. Paths will be relative to $XDG_CONFIG_HOME/xplr/init.lua unless they are absolute.
       '';
     };
 
@@ -58,11 +49,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment = {
-      # TODO: wrap the package to set config location
-      systemPackages = [cfg.package];
+    # TODO: wrap the package to set config location
+    home.packages = [cfg.package];
 
-      etc."xplr/init.lua".source = pkgs.writeText "init.lua" configFile;
-    };
+    xdg.configFile."xplr/init.lua".source = pkgs.writeText "init.lua" configFile;
   };
 }

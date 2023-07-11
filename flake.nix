@@ -45,15 +45,22 @@
         # i.e imports = [ inputs.nyx.nixosModules.steam-compat ];
         nixosModules = {
           # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
-          steam-compat = ./modules/shared/nixos/steam;
+          steam-compat = ./modules/extra/shared/nixos/steam;
 
           # a module for the comma tool that wraps it with nix-index and disabled the command-not-found integration
-          comma-rewrapped = ./modules/shared/nixos/comma;
+          comma-rewrapped = ./modules/extra/shared/nixos/comma;
 
           # a git-like service I packaged for no apparent reason
-          onedev = ./modules/export/onedev;
+          onedev = ./modules/extra/export/onedev;
 
           # we do not want to provide a default module
+          default = null;
+        };
+
+        homeManagerModules = {
+          xplr = ./modules/extra/shared/home-manager/xplr;
+
+          # against we do not want to provide a default module
           default = null;
         };
 
