@@ -2,6 +2,7 @@
   config,
   pkgs,
   osConfig,
+  lib,
   ...
 }: let
   inherit (config.colorscheme) colors;
@@ -132,7 +133,7 @@ in {
     bind=$MOD,mouse_down,workspace,e+1
     bind=$MOD,mouse_up,workspace,e-1
 
-    bind=$MODSHIFT,H,exec,cat ${propaganda} | wl-copy && notify-send "Propaganda" "ready to spread!"
+    bind=$MODSHIFT,H,exec,cat ${propaganda} | wl-copy && sleep 0.3 && ${lib.getExe pkgs.wtype} -M ctrl -M shift -k v -m shift -m ctrl -s 300 -k Return
 
 
     # move focus
