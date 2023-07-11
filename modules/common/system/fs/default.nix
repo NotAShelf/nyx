@@ -9,7 +9,10 @@ in {
   config = mkMerge [
     (mkIf (builtins.elem "btrfs" sys.fs) {
       # scrub btrfs devices
-      services.btrfs.autoScrub.enable = true;
+      services.btrfs.autoScrub = {
+        enable = true;
+        fileSystems = ["/"];
+      };
 
       # this fixes initrd.systemd.enable for whatever reason
       boot = {
