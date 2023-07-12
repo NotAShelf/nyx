@@ -8,10 +8,18 @@
 with lib; let
   sys = osConfig.modules.system;
   cfg = osConfig.modules.programs;
+
+  monitors = osConfig.modules.device.monitors;
 in {
   mainBar = {
     layer = "top";
     position = "left";
+    # monitor configuration, kind of dirty since it assumes DP-1 is my main monitor
+    output =
+      if (builtins.elem "DP-1" monitors)
+      then "DP-1"
+      else null;
+    all-outputs = true;
     width = 55;
     spacing = 7;
     margin-left = 6;

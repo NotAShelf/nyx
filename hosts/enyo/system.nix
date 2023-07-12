@@ -5,7 +5,7 @@
         type = "desktop";
         cpu = "amd";
         gpu = "amd";
-        monitors = ["HDMI-A-1"];
+        monitors = ["DP-1" "HDMI-A-1"];
         hasBluetooth = true;
         hasSound = true;
         hasTPM = true;
@@ -17,16 +17,16 @@
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
 
         boot = {
-          plymouth = {
-            enable = true;
-            withThemes = true;
-          };
           loader = "systemd-boot";
           kernel = pkgs.linuxPackages_xanmod_latest;
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
+          plymouth = {
+            enable = true;
+            withThemes = true;
+          };
         };
 
         video.enable = true;

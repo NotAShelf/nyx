@@ -7,10 +7,13 @@
 }: let
   inherit (config.colorscheme) colors;
   inherit (import ./propaganda.nix pkgs) propaganda;
+  inherit (lib) mkIf;
 
   pointer = config.home.pointerCursor;
   cfg = osConfig.modules.programs.default;
   monitors = osConfig.modules.device.monitors;
+  # mapMonitors = builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)
+  mapMonitors = builtins.concatStringsSep "\n" (lib.imap0 (i: monitor: ''monitor=${monitor},preferred,${toString (i * 1920)}x0,1'') monitors);
 
   fileManager = osConfig.modules.programs.default.fileManager;
 
@@ -25,8 +28,31 @@ in {
     # start foot server
     exec-once = run-as-service 'foot --server'
 
-    ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)}
+    # generate a list of monitors automatically, like so
+    # monitor=HDMI-A-1,preferred,0x0,1
+    # monitor=DP-1,preferred,1920x0,1
+    ${mapMonitors}
 
+
+
+
+
+    ${
+      if (builtins.elem "DP-1" monitors)
+      then ''
+        workspace = 1, monitor:DP-1, default:true
+        workspace = 2, monitor:DP-1
+        workspace = 3, monitor:DP-1
+        workspace = 4, monitor:DP-1
+        workspace = 5, monitor:DP-1
+        workspace = 6, monitor:HDMI-A-1
+        workspace = 7, monitor:HDMI-A-1
+        workspace = 8, monitor:HDMI-A-1
+        workspace = 9, monitor:HDMI-A-1
+        workspace = 10, monitor:HDMI-A-1
+      ''
+      else ""
+    }
 
     input {
       kb_layout=tr
