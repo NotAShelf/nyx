@@ -164,7 +164,7 @@ in {
           # TODO turn back on in tty
           "vt.global_cursor_default=0"
         ]
-        ++ optionals (sys.boot.extraKernelParams != []) sys.extraKernelParams;
+        ++ optionals (sys.boot.extraKernelParams != []) sys.boot.extraKernelParams;
     };
   };
 }

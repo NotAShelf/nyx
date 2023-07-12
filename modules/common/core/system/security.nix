@@ -10,7 +10,7 @@ with lib; let
   this makes our system more secure
   do note that it might break some stuff, e.g. webcam
   */
-  sys = config.modules.system.security;
+  sys = config.modules.system;
 in {
   security = {
     protectKernelImage = true;
@@ -84,8 +84,7 @@ in {
       enable = mkDefault true;
       execWheelOnly = true;
       extraConfig = ''
-        # rollback results in sudo lectures after each reboot
-        Defaults lecture = never
+        Defaults lecture = never # rollback results in sudo lectures after each reboot
         Defaults pwfeedback
         Defaults env_keep += "EDITOR PATH"
         Defaults timestamp_timeout = 300
@@ -173,7 +172,7 @@ in {
       "hfsplus"
       "squashfs"
       "udf"
-      "btusb"
+
       "hpfs"
       "jfs"
       "minix"
@@ -183,7 +182,10 @@ in {
       "qnx6"
       "sysv"
     ]
-    ++ lib.optionals (!sys.fixWebcam) [
+    ++ lib.optionals (!sys.security.fixWebcam) [
       "uvcvideo" # this is why your webcam no worky
+    ]
+    ++ lib.optionals (!sys.bluetooth.enable) [
+      "btusb" # let bluetooth dongles work
     ];
 }

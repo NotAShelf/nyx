@@ -4,7 +4,7 @@ _: {
     ./fs # filesystem support options
     ./hardware # hardware - i.e bluetooth, sound, tpm etc.
     ./media # enable multimedia
-    ./networking # tcp optimizations
+    ./network # network configuration & tcp optimizations
     ./boot # boot and bootloader configurations
   ];
 }

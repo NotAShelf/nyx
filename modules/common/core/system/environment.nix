@@ -33,7 +33,7 @@ in {
       ];
 
     # disable all packages installed by default, so that my system doesn't have anything
-    # that I myself have added
+    # that I myself haven't added
     defaultPackages = [];
 
     # enable completions for system packages
