@@ -20,13 +20,13 @@
 in
   python3.pkgs.buildPythonPackage rec {
     pname = "mov-cli";
-    version = "1.4.3";
+    version = "1.4.5";
     format = "pyproject";
     src = fetchFromGitHub {
       owner = "mov-cli";
       repo = "mov-cli";
       rev = version;
-      hash = "sha256-vU9bvfszNTkCVk4WbgZ8F9yhmnG6TxQHK/5mw6Pk0Xw=";
+      hash = "sha256-JNp26NKLzwwwbOZmTo1fn8obZrslOfyLnlx1HCAfqfQ=";
     };
 
     propagatedBuildInputs =
