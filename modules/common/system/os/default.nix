@@ -1,11 +1,9 @@
 {self, ...}: {
   imports = [
-    ./locale.nix
-    ./environment.nix
-    ./security.nix
-    ./services.nix
-    ./programs.nix
-    ./impermanence.nix
+    ./environment
+    ./programs
+    ./security
+    ./services
   ];
 
   # compress half of the ram to use as swap

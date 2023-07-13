@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkIf mkOption mkEnableOption types;
+  inherit (lib) mkIf mkOption mkEnableOption types mdDoc;
   inherit (builtins) toString;
   cfg = config.profiles.style;
 in {
@@ -21,7 +21,9 @@ in {
 
           slug = mkOption {
             type = types.str;
-            description = ''The serialized slug for the colorScheme you are using. For "Catppuccin Mocha", it would be "catppuccin-mocha"'';
+            description = mdDoc ''
+              The serialized slug for the colorScheme you are using. For "Catppuccin Mocha", it would be "catppuccin-mocha"
+            '';
             default = "catppuccin-mocha";
           };
         };

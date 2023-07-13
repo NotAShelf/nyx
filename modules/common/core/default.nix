@@ -1,8 +1,8 @@
 _: {
   imports = [
-    ./system
-    ./users
     ./nix
+    ./impermanence
+    ./users
     ./secrets
   ];
 }

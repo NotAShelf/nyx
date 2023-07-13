@@ -7,8 +7,9 @@ with lib; {
     # server has services I would want on a server, and lite is for low-end devices
     # that need only the basics
     # hybrid is for desktops that are also servers (my homelabs, basically)
+    # vms are for quick dirty tests, lighter than the "lite" configuration
     type = mkOption {
-      type = types.enum ["laptop" "desktop" "server" "hybrid" "lite"];
+      type = types.enum ["laptop" "desktop" "server" "hybrid" "lite" "vm"];
     };
 
     # the type of cpu your system has - vm and regular cpus currently do not differ

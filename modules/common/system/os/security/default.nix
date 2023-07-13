@@ -172,7 +172,6 @@ in {
       "hfsplus"
       "squashfs"
       "udf"
-
       "hpfs"
       "jfs"
       "minix"

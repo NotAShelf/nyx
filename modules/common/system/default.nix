@@ -6,5 +6,6 @@ _: {
     ./media # enable multimedia
     ./network # network configuration & tcp optimizations
     ./boot # boot and bootloader configurations
+    ./os # configurations for how the system should operate
   ];
 }
