@@ -197,6 +197,8 @@ Additionally, take a look at my [notes](docs/notes) for my notes on specific pro
 
 This repository is licensed under the [GPL-3.0](LICENSE) license.
 
-<div style="text-align: right;">
+---
+
+<div align="right">
   <a href="#top">Back to the Top</a>
 </div>

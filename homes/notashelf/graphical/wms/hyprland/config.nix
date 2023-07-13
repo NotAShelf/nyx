@@ -33,10 +33,8 @@ in {
     # monitor=DP-1,preferred,1920x0,1
     ${mapMonitors}
 
-
-
-
-
+    # if I have a second monitor, then workspaces can be divided between both monitors
+    # if not, then don't divide workspaces
     ${
       if (builtins.elem "DP-1" monitors)
       then ''
@@ -200,7 +198,7 @@ in {
     submap=reset
 
     # select area to perform OCR on
-    bind = $MODSHIFT,O,exec,run-as-service ocr
+    bind = $MODSHIFT,O,exec,ocr
 
     # screenshot
     # stop animations while screenshotting; makes black border go away
@@ -211,11 +209,9 @@ in {
     #bind = , Print, exec, $screenshotarea
     #bind = $MODSHIFT, S, exec, $screenshotarea
 
-    #bind = $MOD, Print, exec, grimblast --notify --cursor copysave output
-    #bind = $MODSHIFT, R, exec, grimblast --notify --cursor copysave output
-
-    #bind = ALT, Print, exec, grimblast --notify --cursor copysave screen
-    #bind = $ALTSHIFT , S, exec, grimblast --notify --cursor copysave screen
+    bind = $MOD, Print, exec, grimblast --notify --cursor copysave output # copy both screens
+    bind = $MODSHIFT, R, exec, grimblast --notify --cursor copysave screen # copy active screen
+    bind = $MODSHIFT, S, exec, grimblast --notify --cursor copysave area # copy selection area
 
     windowrule=tile,title:Spotify
     windowrule=fullscreen,wlogout
