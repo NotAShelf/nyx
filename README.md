@@ -3,7 +3,7 @@
    for the last confirmed stable version of my NixOS configuration
 </p>
 
-<h1 align="center">
+<h1 id="top" align="center">
   <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
   
   NotAShelf's NixOS Configuration Flake <br>
@@ -115,7 +115,8 @@ some of the things I've done (or proofread my notes) you may take a look in ther
 
 I often switch devices, due to a myriad of reasons, and regardless of the reason,
 I would like to be able to get my new devices up and running in minutes without having to move
-a bunch of files from one device to another. Thanks to the declarative nature of NixOS, not only
+a bunch of files and various configurations from one device to another.
+Thanks to the declarative nature of NixOS, not only
 can I install my previous system to a new host almost entirely identically, I can also bootstrap
 a new host for a new machine in minutes with my personal abstractions.
 
@@ -144,7 +145,7 @@ _Styling PRs will be rejected because I like my Alejandra, thanks but no thanks.
 
 ## Donate
 
-Want to support me, or to show gratitude for something (somehow) nice I did?
+Want to support me, or to show gratitude for something (somewhat) nice I did?
 Perhaps consider donating!
 
 <div align="center">
@@ -195,3 +196,7 @@ Additionally, take a look at my [notes](docs/notes) for my notes on specific pro
 ## License
 
 This repository is licensed under the [GPL-3.0](LICENSE) license.
+
+<div style="text-align: right;">
+  <a href="#top">Back to the Top</a>
+</div>
