@@ -7,13 +7,11 @@
 with lib; let
   env = config.modules.usrEnv;
   sys = config.modules.system;
-  /*
   sessionData = config.services.xserver.displayManager.sessionData.desktops;
   sessionPath = lib.concatStringsSep ":" [
     "${sessionData}/share/xsessions"
     "${sessionData}/share/wayland-sessions"
   ];
-  */
 in {
   config = {
     # unlock GPG keyring on login
@@ -34,6 +32,23 @@ in {
     };
 
     services = {
+      xserver.displayManager.session = [
+        {
+          manage = "desktop";
+          name = "i3-startx";
+          start = ''
+            startx $(which i3)
+          '';
+        }
+        {
+          manage = "desktop";
+          name = "hyprland";
+          start = ''
+            Hyprland
+          '';
+        }
+      ];
+
       greetd = {
         enable = true;
         vt = 2;
@@ -55,8 +70,7 @@ in {
                 "--remember"
                 "--remember-user-session"
                 "--asterisks"
-                # "--power-shutdown '${pkgs.systemd}/bin/systemctl shutdown'"
-                #"--sessions '${sessionPath}'"
+                "--sessions '${sessionPath}'"
               ];
               user = "greeter";
             }
