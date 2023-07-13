@@ -12,8 +12,8 @@ in {
     modules = {
       device = {
         type = "lite";
-        cpu = "intel";
-        gpu = "intel"; # nvidia drivers :b:roke
+        cpu = null;
+        gpu = null; # nvidia drivers :b:roke
         monitors = [];
         hasBluetooth = false;
         hasSound = true;
@@ -24,7 +24,7 @@ in {
         fs = ["btrfs" "vfat"];
 
         boot = {
-          loader = "grub";
+          loader = "systemd-boot";
           enableKernelTweaks = false;
           enableInitrdTweaks = false;
           loadRecommendedModules = false;
@@ -85,9 +85,6 @@ in {
     fileSystems = {
       "/".options = ["compress=zstd" "noatime"];
     };
-
-    services.btrfs.autoScrub = {fileSystems = ["/"];};
-
     console.earlySetup = true;
   };
 }

@@ -12,8 +12,8 @@ in {
     modules = {
       device = {
         type = "lite";
-        cpu = "intel";
-        gpu = "intel"; # nvidia drivers :b:roke
+        cpu = null;
+        gpu = null; # nvidia drivers :b:roke
         monitors = [];
         hasBluetooth = false;
         hasSound = true;
@@ -24,7 +24,7 @@ in {
         fs = ["btrfs" "vfat"];
 
         boot = {
-          loader = "grub";
+          loader = "systemd-boot";
           enableKernelTweaks = false;
           enableInitrdTweaks = false;
           loadRecommendedModules = false;
@@ -32,7 +32,7 @@ in {
         };
 
         video.enable = true;
-        sound.enable = false;
+        sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
 
@@ -52,9 +52,9 @@ in {
         };
       };
       usrEnv = {
-        isWayland = true;
+        isWayland = false;
         desktop = "Hyprland";
-        autologin = true;
+        autologin = false;
         useHomeManager = true;
       };
       programs = {
@@ -87,8 +87,6 @@ in {
     fileSystems = {
       "/".options = ["compress=zstd" "noatime"];
     };
-
-    services.btrfs.autoScrub = {fileSystems = ["/"];};
 
     console.earlySetup = true;
   };
