@@ -7,6 +7,7 @@
 with lib; let
   doas = pkgs.writeScriptBin "sudo" ''exec doas "$@"'';
 in {
+  imports = [./locale.nix];
   environment = {
     # variables that I want to set globally on all systems
     variables = {
