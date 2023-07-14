@@ -53,6 +53,8 @@
           # a git-like service I packaged for no apparent reason
           onedev = ./modules/extra/export/onedev;
 
+          wakapi = ./modules/extra/shared/nixos/wakapi;
+
           # we do not want to provide a default module
           default = null;
         };
