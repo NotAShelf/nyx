@@ -1,6 +1,8 @@
 {lib, ...}: let
   inherit (lib) lists mapAttrsToList filterAttrs hasSuffix;
 
+  # assume the first monitor in the list of monitors is primary
+  # get its name from the list of monitors
   primaryMonitor = config: builtins.elemAt config.modules.device.monitors 0;
 
   # filter files that have the .nix suffix

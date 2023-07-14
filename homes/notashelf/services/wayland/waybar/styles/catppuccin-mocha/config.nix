@@ -15,8 +15,8 @@ in {
     layer = "top";
     position = "left";
     # monitor configuration, kind of dirty since it assumes DP-1 is my main monitor
-    output = builtins.elemAt monitors 0;
-    #all-outputs = true;
+    output = lib.primaryMonitor osConfig; #builtins.elemAt monitors 0;
+    all-outputs = true;
     width = 55;
     spacing = 7;
     margin-left = 6;
@@ -245,12 +245,12 @@ in {
       scroll-step = 5;
       tooltip = true;
       tooltip-format = "{volume}";
+      on-click = "${pkgs.killall}/bin/killall pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
       format = "{icon}";
       format-muted = "󰝟";
       format-icons = {
         default = ["" "" ""];
       };
-      on-click = "${pkgs.killall}/bin/killall pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
     };
 
     cpu = {
@@ -277,7 +277,7 @@ in {
 
     gamemode = {
       format = "󰊴";
-      format-alt = "{glyph} {count}";
+      format-alt = "{glyph}";
       glyph = "󰊴";
       hide-not-running = true;
       use-icon = true;
