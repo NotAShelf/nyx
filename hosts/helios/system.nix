@@ -66,6 +66,7 @@
     ];
 
     services.btrfs.autoScrub.enable = lib.mkForce false;
+    services.smartd.enable = lib.mkForce false;
 
     boot = {
       growPartition = !config.boot.initrd.systemd.enable;
