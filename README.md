@@ -3,7 +3,7 @@
    for the last confirmed stable version of my NixOS configuration
 </p>
 
-<h1 id="top" align="center">
+<h1 id="readme" align="center">
   <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
   
   NotAShelf's NixOS Configuration Flake <br>
@@ -58,9 +58,10 @@
 - [flake](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
 - [parts](parts) ❄️ Individual parts of my flake, powered by flake-parts
+  - [pkgs](pkgs) 📦 Packages exported by my flake
 - [docs](docs)📑 The documentation for my flake repository
   - [notes](docs/notes)📝 Notes from tedious or/and underdocumented processes I have gone through
-- [home](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
+- [homes](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
 - [modules](modules) 🍱 modularized NixOS configurations
   - [common](modules/common) ⚙️T The common modules imported by all hosts
     - [core](modules/shared) 🧠 Core NixOS configuration
@@ -71,8 +72,8 @@
     - [desktop](modules/desktop) 🖥️ Shared modules for "desktop" purpose hosts
     - [virtualization](modules/virtualization) 🪛 Hot-pluggable virtualization module for any host
     - [hardware](modules/hardware) Home-baked modules for hardware compatibility
-  - [shared](modules/shared) ☁️ Modules that can be consumed by external flakes
-  - [export](modules(export) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
+    - [shared](modules/shared) ☁️ Modules that can be consumed by external flakes
+    - [export](modules(export) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
 - [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
   - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system. Daily workstation.
   - [prometheus](hosts/prometheus) 💻 My HP Pavillion with a a GTX 1050 and i7-7700hq
@@ -85,7 +86,6 @@
   - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
   - [artemis](hosts/artemis) 🏹 x86_64-linux VM Host for testing
   - [apollon](hosts/apollon) ⚔️a aarch64-linux VM Host for testing
-- [pkgs](pkgs) 📦 Packages exported by my flake
 
 ## Notes
 
@@ -196,9 +196,10 @@ Additionally, take a look at my [notes](docs/notes) for my notes on specific pro
 ## License
 
 This repository is licensed under the [GPL-3.0](LICENSE) license.
+If you are directly copying a section of my config, please include a copyright notice at the top of the file.
 
 ---
 
 <div align="right">
-  <a href="#top">Back to the Top</a>
+  <a href="#readme">Back to the Top</a>
 </div>
