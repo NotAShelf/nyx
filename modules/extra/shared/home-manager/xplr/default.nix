@@ -13,8 +13,13 @@ with builtins; let
   '';
   # we provide a default version line within the configuration file, which is obtained from the package's attributes
   # merge the initial configFile, a mapped list of plugins and then the user defined configuration to obtain the final configuration
-  configFile = initialConfig + ("package.path=\n" + (concatStringsSep " ..\n" (map (p: ''"${p}/init.lua;"'') cfg.plugins)) + " ..\npackage.path\n") + cfg.extraConfig;
+  pluginPath =
+    if cfg.plugins != []
+    then ("package.path=\n" + (concatStringsSep " ..\n" (map (p: ''"${p}/init.lua;"'') cfg.plugins)) + " ..\npackage.path\n")
+    else "\n";
+  configFile = initialConfig + pluginPath + cfg.config;
 in {
+  meta.maintainers = [maintainers.NotAShelf];
   options.programs.xplr = {
     enable = mkEnableOption "xplr, terminal UI based file explorer" // {default = true;};
 
@@ -31,7 +36,7 @@ in {
     };
 
     # TODO: rename, this is the main configuration
-    extraConfig = mkOption {
+    config = mkOption {
       type = types.lines;
       default = "";
       description = lib.mdDoc ''
@@ -49,7 +54,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # TODO: wrap the package to set config location
     home.packages = [cfg.package];
 
     xdg.configFile."xplr/init.lua".source = pkgs.writeText "init.lua" configFile;

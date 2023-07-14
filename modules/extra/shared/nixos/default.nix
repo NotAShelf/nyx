@@ -2,6 +2,6 @@ _: {
   imports = [
     ./comma
     ./steam
-    ./xplr
+    ./wakapi
   ];
 }
