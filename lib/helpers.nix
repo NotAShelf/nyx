@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib) lists mapAttrsToList filterAttrs hasSuffix;
 
-  primaryMonitor = config: builtins.elemAt 0 config.modules.device.monitors;
+  primaryMonitor = config: builtins.elemAt config.modules.device.monitors 0;
 
   # filter files that have the .nix suffix
   filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
