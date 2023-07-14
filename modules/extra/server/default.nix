@@ -9,7 +9,9 @@ _: {
     sound.enable = false;
     environment = {
       # we don't need any x libs on a server
-      noXlibs = true;
+      # TODO: creates an insane amount of build failures, figure out why
+      # noXlibs = true;
+
       # print the URL instead on servers
       variables.BROWSER = "echo";
     };
