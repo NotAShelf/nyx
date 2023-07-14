@@ -10,5 +10,6 @@ This is where I store my notes on processes I find particularly difficult, inter
 | 14-03-2023 | Nix        | Reproduction steps NixOS setup with ephemeral root using BTRFS subvolumes and full disk encryption |
 | 07-06-2023 | Nix        | Notes on extending or writing your own nixpkgs library to use in your configurations               |
 | 21-06-2023 | Nix/NextJS | A guide on serving statically exported and non-statically exported NextJS Webapps on NixOS         |
+| 14-07-2023 | Nix/NixOS  | Notes on a potentially working distributed builds setup on NixOS with a non-default ssh port       |
 
 ---
