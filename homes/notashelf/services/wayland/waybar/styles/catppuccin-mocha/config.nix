@@ -16,7 +16,6 @@ in {
     position = "left";
     # monitor configuration, kind of dirty since it assumes DP-1 is my main monitor
     output = lib.primaryMonitor osConfig; #builtins.elemAt monitors 0;
-    all-outputs = true;
     width = 55;
     spacing = 7;
     margin-left = 6;
@@ -54,6 +53,7 @@ in {
       on-scroll-down = "${hyprctl} dispatch workspace m-1";
       format = "{icon}";
       active-only = true;
+      all-outputs = true;
       format-icons = {
         "1" = "一";
         "2" = "二";
