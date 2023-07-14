@@ -3,8 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf getExe;
+
   cfg = config.modules.system.video;
   env = config.modules.usrEnv;
 in {

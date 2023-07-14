@@ -18,7 +18,8 @@ in {
       ];
 
       # xdg-desktop-wlr (this section) is no longer needed, xdg-desktop-portal-hyprland
-      # will (and should) override this one, set to false or remove this section
+      # will (and should) override this one
+      # however in case I run a different compositor on a Wayland host, it can be enabled
       wlr = {
         enable = mkForce (env.isWayland && env.desktop != "Hyprland");
         settings = {
