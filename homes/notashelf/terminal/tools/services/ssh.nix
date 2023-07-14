@@ -19,6 +19,26 @@ _: {
           port = 30;
         };
 
+        "helios" = {
+          port = 30;
+        };
+
+        "enyo" = {
+          port = 30;
+        };
+
+        "hermes" = {
+          port = 30;
+        };
+
+        "epimetheus" = {
+          port = 30;
+        };
+
+        "icarus" = {
+          port = 30;
+        };
+
         "nix-builder" = {
           hostname = "helios";
           user = "nix-builder";
