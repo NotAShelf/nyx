@@ -38,12 +38,14 @@ in {
       flushL1DataCache = "always";
     };
 
+    # log polkit request actions
     polkit.extraConfig = ''
       polkit.addRule(function(action, subject) {
         polkit.log("user " +  subject.user + " is attempting action " + action.id + " from PID " + subject.pid);
       });
     '';
 
+    # TODO: make this optional, audit logs get massive really quick
     auditd.enable = true;
     audit = {
       enable = true;
@@ -55,6 +57,7 @@ in {
     };
 
     pam = {
+      # fix "too many files open"
       loginLimits = [
         {
           domain = "@wheel";
@@ -90,38 +93,6 @@ in {
         Defaults timestamp_timeout = 300
         Defaults passprompt="[31m sudo: password for %p@%h, running as %U:[0m "
       '';
-    };
-
-    # doas is pretty wacky and interferes with nix's --remote-sudo
-    doas = {
-      enable = mkDefault (!config.security.sudo.enable);
-      extraRules = [
-        {
-          groups = ["wheel"];
-          persist = true;
-          keepEnv = false;
-        }
-        {
-          groups = ["power"];
-          noPass = true;
-          cmd = "${pkgs.systemd}/bin/poweroff";
-        }
-        {
-          groups = ["power"];
-          noPass = true;
-          cmd = "${pkgs.systemd}/bin/reboot";
-        }
-        {
-          groups = ["nix"];
-          cmd = "nix-collect-garbage";
-          noPass = true;
-        }
-        {
-          groups = ["nix"];
-          cmd = "nixos-rebuild";
-          keepEnv = true;
-        }
-      ];
     };
   };
 
