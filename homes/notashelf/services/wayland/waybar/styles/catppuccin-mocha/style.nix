@@ -72,7 +72,7 @@ in ''
   }
 
   #workspaces button.urgent {
-    background-color: #${base08};
+    color: #${base08};
   }
 
   #custom-power {
@@ -170,8 +170,8 @@ in ''
 
   #custom-lock {
     color: #${base0D};
-    font-size: 25;
-    padding: 14px 0px 14px 0px;
+    font-size: 27;
+    padding: 6px 0px 6px 0px;
   }
 
   #custom-todo {

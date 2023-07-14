@@ -13,7 +13,11 @@
   cfg = osConfig.modules.programs.default;
   monitors = osConfig.modules.device.monitors;
   # mapMonitors = builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)
-  mapMonitors = builtins.concatStringsSep "\n" (lib.imap0 (i: monitor: ''monitor=${monitor},preferred,${toString (i * 1920)}x0,1'') monitors);
+  mapMonitors = builtins.concatStringsSep "\n" (lib.imap0 (i: monitor: ''monitor=${monitor},${
+      if monitor == "DP-1"
+      then "1920x1080@144"
+      else "preferred"
+    },${toString (i * 1920)}x0,1'') monitors);
 
   fileManager = osConfig.modules.programs.default.fileManager;
 
@@ -126,14 +130,10 @@ in {
 
     $MOD = SUPER
 
-    $disable=act_opa=$(hyprctl getoption "decoration:active_opacity" -j | jq -r ".float");inact_opa=$(hyprctl getoption "decoration:inactive_opacity" -j | jq -r ".float");hyprctl --batch "keyword decoration:active_opacity 1;keyword decoration:inactive_opacity 1"
-    $enable=hyprctl --batch "keyword decoration:active_opacity $act_opa;keyword decoration:inactive_opacity $inact_opa"
-
     # logout menu
     bind = $MODSHIFT, Escape, exec, wlogout -p layer-shell
     # lock screen
     bind = $MODSHIFT, L, exec, swaylock
-
 
     bind=$MOD,F1,exec,firefox
     bind=$MOD,F2,exec,run-as-service "${fileManager}"
@@ -197,21 +197,24 @@ in {
     bind=,escape,submap,reset
     submap=reset
 
+    $disable=act_opa=$(hyprctl getoption "decoration:active_opacity" -j | jq -r ".float");inact_opa=$(hyprctl getoption "decoration:inactive_opacity" -j | jq -r ".float");hyprctl --batch "keyword decoration:active_opacity 1;keyword decoration:inactive_opacity 1"
+    $enable=hyprctl --batch "keyword decoration:active_opacity $act_opa;keyword decoration:inactive_opacity $inact_opa"
+
     # select area to perform OCR on
     bind = $MODSHIFT,O,exec,ocr
 
     # screenshot
     # stop animations while screenshotting; makes black border go away
-    bind=$MOD SHIFT,P,exec,$disable; grim - | wl-copy --type image/png && notify-send "Screenshot" "Screenshot copied to clipboard"; $enable
-    bind=$MOD SHIFT,S,exec,$disable; hyprshot; $enable
+    bind = $MODSHIFT,P,exec,$disable; grim - | wl-copy --type image/png && notify-send "Screenshot" "Screenshot copied to clipboard"; $enable
+    bind = $MODSHIFT,S,exec,$disable; hyprshot; $enable
+    bind = $MOD, Print, exec, grimblast --notify --cursor copysave output # copy both screen
+    bind = $ALTSHIFT, S, exec, grimblast --notify --cursor copysave screen # copy active screen
+    bind = $ALTSHIFT, R, exec, grimblast --notify --cursor copysave area # copy selection area
 
-    $screenshotarea = hyprctl keyword animation "fadeOut,0,0,default"; grimblast --notify copysave area; hyprctl keyword animation "fadeOut,1,4,default"
+    #$screenshotarea = hyprctl keyword animation "fadeOut,0,0,default"; grimblast --notify copysave area; hyprctl keyword animation "fadeOut,1,4,default"
     #bind = , Print, exec, $screenshotarea
-    #bind = $MODSHIFT, S, exec, $screenshotarea
+    #bind = $ALTSHIFT, S, exec, $screenshotarea
 
-    bind = $MOD, Print, exec, grimblast --notify --cursor copysave output # copy both screens
-    bind = $MODSHIFT, R, exec, grimblast --notify --cursor copysave screen # copy active screen
-    bind = $MODSHIFT, S, exec, grimblast --notify --cursor copysave area # copy selection area
 
     windowrule=tile,title:Spotify
     windowrule=fullscreen,wlogout

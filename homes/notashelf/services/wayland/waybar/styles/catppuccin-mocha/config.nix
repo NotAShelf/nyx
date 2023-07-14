@@ -15,11 +15,8 @@ in {
     layer = "top";
     position = "left";
     # monitor configuration, kind of dirty since it assumes DP-1 is my main monitor
-    output =
-      if (builtins.elem "DP-1" monitors)
-      then "DP-1"
-      else null;
-    all-outputs = true;
+    output = builtins.elemAt monitors 0;
+    #all-outputs = true;
     width = 55;
     spacing = 7;
     margin-left = 6;
@@ -68,6 +65,19 @@ in {
         "8" = "八";
         "9" = "九";
         "10" = "十";
+      };
+
+      persistent_workspaces = {
+        "1" = ["HDMI-A-1" "DP-1"];
+        "2" = ["HDMI-A-1" "DP-1"];
+        "3" = ["HDMI-A-1" "DP-1"];
+        "4" = ["HDMI-A-1" "DP-1"];
+        "5" = ["HDMI-A-1" "DP-1"];
+        "6" = ["HDMI-A-1" "DP-1"];
+        "7" = ["HDMI-A-1" "DP-1"];
+        "8" = ["HDMI-A-1" "DP-1"];
+        "9" = ["HDMI-A-1" "DP-1"];
+        "10" = ["HDMI-A-1" "DP-1"];
       };
     };
 
