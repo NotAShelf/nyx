@@ -20,8 +20,6 @@ jobs:
 
       - name: Download Go Binary
         run: |
-          apt install jq
-
           # GitHub API endpoint to get the latest release tag
           API_URL="https://api.github.com/repos/notashelf/docr/releases/latest"
 
