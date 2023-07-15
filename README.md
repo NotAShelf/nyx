@@ -199,9 +199,9 @@ Additionally, take a look at my [notes](docs/notes) for my notes on specific pro
 ## License
 
 This repository (except for [docs](docs)) is licensed under the [GPL-3.0](LICENSE) license.
-If you are directly copying a section of my config, please include a copyright notice at the top of the file.
+The notes and documentation available in [docs](docs) is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
-The notes and documentation is under [CC Attribution 0.4](https://creativecommons.org/licenses/by/4.0/legalcode) license.
+If you are directly copying a section of my config, please include a copyright notice at the top of the file. It is not enforced, but would be appreciated.
 
 ---
 
