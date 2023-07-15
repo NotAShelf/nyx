@@ -1,34 +1,73 @@
 name: Serve Static Website
 
 on:
-    workflow_dispatch:
-    push:
-        paths:
-            - docs/**
+  workflow_dispatch:
+  push:
+    paths:
+      - docs/**
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  serve-notes:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-            - name: Set up Go
-              uses: actions/setup-go@v2
-              with:
-                  go-version: "1.20"
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.20"
 
-            - name: Download Go Binary
-              run: |
-                  curl -LO https://github.com/notashelf/docr/releases/latest/download/docr_*_linux_amd64.tar.gz
-                  tar -xf docr_*_linux_amd64.tar.gz
-                  chmod +x docr
+      - name: Download Go Binary
+        run: |
+          apt install jq
 
-            - name: Build Notes Page
-              run: ./docr
+          # GitHub API endpoint to get the latest release tag
+          API_URL="https://api.github.com/repos/notashelf/docr/releases/latest"
 
-            - name: Deploy to GitHub Pages
-              uses: JamesIves/github-pages-deploy-action@4.1.1
-              with:
-                  branch: gh-pages
-                  folder: output/
+          # Get the latest release tag from the GitHub API
+          TAG=$(curl -s "$API_URL" | grep 'tag_name' | cut -d '"' -f 4)
+
+          if [ -z "$TAG" ]; then
+            echo "Failed to retrieve the latest release tag."
+            exit 1
+          fi
+
+          # Compose the URL to download the tar file
+          URL="https://github.com/notashelf/docr/releases/latest/download/docr_${TAG}_linux_amd64.tar.gz"
+
+          # Download the tar files
+          curl -LO "https://github.com/notashelf/docr/releases/latest/download/docr_${TAG}_linux_amd64.tar.gz"
+          curl -LO "https://github.com/notashelf/docr/releases/latest/download/templates.tar.gz"
+
+
+          # Untar the downloaded tar files
+          tar -xf "docr_${TAG}_linux_amd64.tar.gz"
+          tar -xf "templates.tar.gz"
+
+          # Cleanup: Remove the tar file
+          rm "docr_${TAG}_linux_amd64.tar.gz"
+          rm "templates.tar.gz"
+          echo "Download and untar completed successfully."
+
+          # make the binary executable:with
+          chmod +x docr
+
+          cat > settings.json <<EOF
+          {
+            "githubUsername": "NotAShelf",
+            "websiteName": "NotAShelf's Notes",
+            "templateDir": "templates",
+            "markdownDir": "docs/notes",
+            "outputDir": "static"
+          }
+          EOF
+
+      - name: Build Notes Page
+        run: ./docr
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: static/
