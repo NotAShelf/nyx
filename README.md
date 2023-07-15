@@ -1,8 +1,3 @@
-<p align="center">
-   ⚠️ The <code>system-module</code> branch (the one you are currently on) is for the upcoming rework and is not at all stable. See the <code>nixos</code> branch
-   for the last confirmed stable version of my NixOS configuration
-</p>
-
 <h1 id="readme" align="center">
   <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
   
@@ -73,7 +68,7 @@
     - [virtualization](modules/virtualization) 🪛 Hot-pluggable virtualization module for any host
     - [hardware](modules/hardware) Home-baked modules for hardware compatibility
     - [shared](modules/shared) ☁️ Modules that can be consumed by external flakes
-    - [export](modules(export) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
+    - [export](modules/export) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
 - [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
   - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system. Daily workstation.
   - [prometheus](hosts/prometheus) 💻 My HP Pavillion with a a GTX 1050 and i7-7700hq
@@ -173,7 +168,7 @@ Perhaps consider donating!
 [fortuneteller2k](https://github.com/fortuneteller2k) -
 [NobbZ](https://github.com/NobbZ/nixos-config) -
 [ViperML](https://github.com/viperML/dotfiles) -
-[spikespaz](https://github.com/spikespaz/dotfiles) -
+[spikespaz](https://github.com/spikespaz/dotfiles)
 
 ... and many more
 
@@ -181,7 +176,7 @@ Perhaps consider donating!
 
 > Pretend I haven't credited those people (but I will, because they are equally awesome)
 
-[n3oney](https://github.com/n3oney) -
+[n3oney](https://github.com/n3oney)
 
 ### Other Cool Resources
 
@@ -193,11 +188,11 @@ Perhaps consider donating!
 
 > Software that helped this configuration become what it is, or software I find interesting
 
-- [Agenix]()
-- [Hyprland]()
-- [Neovim-flake]()
-- [Docr]()
-- [Nh]()
+- [Agenix](https://github.com/ryantm/agenix)
+- [Hyprland](https://github.com/hyprwm/Hyprland)
+- [Neovim-flake](https://github.com/notashelf/neovim-flake)
+- [Docr](https://github.com/notashelf/docr)
+- [Nh](https://github.com/viperML/ng)
 
 Additionally, take a look at my [notes](docs/notes) for my notes on specific processes on NixOS.
 
