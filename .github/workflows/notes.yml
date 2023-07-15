@@ -56,7 +56,9 @@ jobs:
             "websiteName": "NotAShelf's Notes",
             "templateDir": "templates",
             "markdownDir": "docs/notes",
-            "outputDir": "static"
+            "outputDir": "static",
+            "websiteUrl": "https://notashelf.github.io/nyx",
+            "websiteDescription": "NotAShelf's Notes on Nix & NixOS"
           }
           EOF
 
