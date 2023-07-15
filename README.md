@@ -92,7 +92,7 @@
 ### Preface
 
 If my configuration appears confusing to you, that is because it is confusing.
-Admitably, I am not yet very well wresed in NixOS or the Nix expression language.
+Admitably, I am not yet very well versed in NixOS or the Nix expression language.
 Thus, my configuration is severely limited by my knowledge, despite what my work may
 suggest. While I may not be able to follow best Nix practices, I try to follow a particular
 logic while organizing this configuration. I also attempt to document everything as
@@ -109,7 +109,7 @@ you were absolutely horrified by my atrocities against Nix or NixOS) I invite yo
 create an issue on open a pull request. I am always happy to learn and improve.
 Some of my mental notes (hopefully to be organized better when I finish my blog)
 can be found in [my notes directory](../docs/notes). Should you need explanation on
-some of the things I've done (or proofread my notes) you may take a look in there.
+some of the things I've done, or might do me the favor of proofreading my notes, you may take a look in there.
 
 ### Motivation
 
@@ -191,12 +191,22 @@ Perhaps consider donating!
 - [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
 - [Viper's Blog](https://ayats.org/)
 
+> Software that helped this configuration become what it is, or software I find interesting
+
+- [Agenix]()
+- [Hyprland]()
+- [Neovim-flake]()
+- [Docr]()
+- [Nh]()
+
 Additionally, take a look at my [notes](docs/notes) for my notes on specific processes on NixOS.
 
 ## License
 
-This repository is licensed under the [GPL-3.0](LICENSE) license.
+This repository (except for [docs](docs)) is licensed under the [GPL-3.0](LICENSE) license.
 If you are directly copying a section of my config, please include a copyright notice at the top of the file.
+
+The notes and documentation is under [CC Attribution 0.4](https://creativecommons.org/licenses/by/4.0/legalcode) license.
 
 ---
 
