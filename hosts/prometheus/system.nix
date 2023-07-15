@@ -1,55 +1,104 @@
 {
   config,
-  pkgs,
   lib,
+  inputs,
+  self,
   ...
-}: {
-  environment.systemPackages = with pkgs; [
-    acpi
-  ];
+}:
+with lib; let
+  device = config.modules.device;
+in {
+  config = {
+    modules = {
+      device = {
+        type = "laptop";
+        cpu = "intel";
+        gpu = "intel"; # nvidia drivers :b:roke
+        monitors = ["eDP-1" "HDMI-A-1"];
+        hasBluetooth = true;
+        hasSound = true;
+        hasTPM = true;
+      };
+      system = {
+        username = "notashelf";
+        fs = ["btrfs" "vfat" "ntfs"];
 
-  # we enable and modify tpm2 *per host* because not all devices I own
-  # actually support tmp2, i.e my Pi 400 will error out if tmp2 is enabled anyhow
-  security.tpm2 = {
-    # enable Trusted Platform Module 2 support
-    enable = lib.mkDefault true;
-    # enable Trusted Platform 2 userspace resource manager daemon
-    abrmd.enable = lib.mkDefault true;
-    # set TCTI environment variables to the specified values if enabled
-    # - TPM2TOOLS_TCTI
-    # - TPM2_PKCS11_TCTI
-    tctiEnvironment.enable = lib.mkDefault true;
-    # enable TPM2 PKCS#11 tool and shared library in system path
-    pkcs11.enable = lib.mkDefault true;
-  };
+        boot = {
+          loader = "systemd-boot";
+          enableKernelTweaks = true;
+          enableInitrdTweaks = true;
+          loadRecommendedModules = true;
+          tmpOnTmpfs = true;
+        };
 
-  # filesystem options that are *generally* specific to hosts
-  # TODO: this might be mixed into the common "btrfs" module in the future
-  # might want to finalize my preferred btrfs schema before I do that
-  fileSystems = {
-    "/".options = ["compress=zstd" "noatime"];
-    "/home".options = ["compress=zstd"];
-    "/nix".options = ["compress=zstd" "noatime"];
-  };
+        video.enable = true;
+        sound.enable = true;
+        bluetooth.enable = false;
+        printing.enable = false;
 
-  hardware = {
-    # allow usage of potentially proprietary firmware b lobs
-    enableRedistributableFirmware = true;
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+        networking = {
+          optimizeTcp = true;
+        };
 
-    # my GPU is not properly supported by open source drivers
-    nvidia.open = lib.mkForce false;
-  };
+        virtualization = {
+          enable = false;
+          docker.enable = false;
+          qemu.enable = true;
+          podman.enable = false;
+        };
+      };
+      usrEnv = {
+        isWayland = true;
+        desktop = "Hyprland";
+        autologin = true;
+        useHomeManager = true;
+      };
+      programs = {
+        git.signingKey = "419DBDD3228990BE";
 
-  boot = {
-    # FIXME xanmod causes regular kernel to become unable to be built
-    # latest xanmod Linux kernel for speed and android
-    # boot.kernelPackages = with pkgs; linuxPackages_xanmod_latest;
+        cli.enable = true;
+        gui.enable = true;
 
-    kernelParams = [
-      "i915.enable_fbc=1"
-      "i915.enable_psr=2"
-      "nohibernate"
-    ];
+        gaming = {
+          enable = true;
+          chess.enable = true;
+        };
+        default = {
+          terminal = "foot";
+        };
+        override = {};
+      };
+    };
+
+    fileSystems = {
+      "/".options = ["compress=zstd" "noatime"];
+      "/home".options = ["compress=zstd"];
+      "/nix".options = ["compress=zstd" "noatime"];
+    };
+
+    hardware = {
+      nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
+        open = mkForce false;
+
+        prime = {
+          offload.enable = true;
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+        };
+      };
+    };
+
+    boot = {
+      kernelParams =
+        [
+          "nohibernate"
+        ]
+        ++ optionals ((device.cpu == "intel") && (device.gpu != "hybrid-nv")) [
+          "i915.enable_fbc=1"
+          "i915.enable_psr=2"
+        ];
+    };
+
+    console.earlySetup = true;
   };
 }

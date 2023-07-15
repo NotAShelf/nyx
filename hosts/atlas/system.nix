@@ -3,54 +3,99 @@
   pkgs,
   lib,
   ...
-}: {
-  #nixpkgs.localSystem.system = "aarch64-linux";
+}:
+with lib; let
+  cfg = config.modules.device;
+in {
+  config = {
+    modules = {
+      device = {
+        type = "server";
+        cpu = "pi";
+        gpu = "pi";
+        monitors = ["HDMI-A-1"];
+        hasBluetooth = true;
+        hasSound = true;
+        hasTPM = false;
+      };
+      system = {
+        fs = ["ext4" "vfat"];
+        video.enable = true;
+        sound.enable = true;
+        bluetooth.enable = false;
+        printing.enable = false;
+        virtualization.enable = false;
+        username = "notashelf";
+      };
+      usrEnv = {
+        isWayland = false;
+        desktop = "Hyprland";
+        useHomeManager = true;
+      };
+      programs = {
+        git.signingKey = "0x84184B8533918D88";
 
-  fileSystems = {
-    "/" = {
-      device = lib.mkForce "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-      options = ["noatime"];
-    };
-  };
+        cli.enable = true;
+        gui.enable = false;
 
-  environment.systemPackages = with pkgs; [git neovim];
+        gaming = {
+          enable = false;
+          chess.enable = false;
+        };
 
-  # Enable GPU acceleration
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+        default = {
+          terminal = "foot";
+        };
 
-  boot = {
-    # Use mainline kernel, vendor kernel has some issues compiling due to
-    # missing modules that shouldn't even be in the closure.
-    # https://github.com/NixOS/nixpkgs/issues/111683
-
-    # we define this at config level so that we can use it in the
-    # pi module
-    #kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = lib.mkForce ["bridge" "macvlan" "tap" "tun" "loop" "atkbd" "ctr"];
-    supportedFilesystems = lib.mkForce ["btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" "ext4" "vfat"];
-  };
-
-  services = {
-    xserver = {
-      enable = false;
-      displayManager.lightdm.enable = false;
-      desktopManager.xfce.enable = false;
-    };
-
-    create_ap = {
-      enable = true;
-      settings = {
-        INTERNET_IFACE = "eth0";
-        WIFI_IFACE = "wlan0";
-        SSID = "Pizone";
-        PASSPHRASE = "12345678";
+        override = {};
       };
     };
-  };
 
-  security.tpm2 = {
-    enable = false;
-    abrmd.enable = false;
+    environment.systemPackages = with pkgs; [git neovim];
+    hardware = {
+      # Enable GPU acceleration
+      raspberry-pi."4".fkms-3d.enable = true;
+
+      opengl = {
+        # this only takes effect in 64 bit systems
+        driSupport32Bit = mkForce false;
+      };
+    };
+
+    boot = {
+      kernelModules = lib.mkForce ["bridge" "macvlan" "tap" "tun" "loop" "atkbd" "ctr"];
+      supportedFilesystems = lib.mkForce ["btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" "ext4" "vfat"];
+      loader.grub.enable = mkForce false;
+    };
+
+    services = {
+      xserver = {
+        enable = false;
+        displayManager.lightdm.enable = false;
+        desktopManager.xfce.enable = false;
+      };
+
+      create_ap = {
+        enable = true;
+        settings = {
+          INTERNET_IFACE = "eth0";
+          WIFI_IFACE = "wlan0";
+          SSID = "Pizone";
+          PASSPHRASE = "12345678";
+        };
+      };
+    };
+
+    fileSystems = {
+      "/" = {
+        device = lib.mkForce "/dev/disk/by-label/NIXOS_SD";
+        fsType = "ext4";
+        options = ["noatime"];
+      };
+    };
+
+    hardware = {
+      enableRedistributableFirmware = true;
+    };
   };
 }

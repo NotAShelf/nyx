@@ -1,3 +1,6 @@
 # Ignore nix stuff
-result 
+result
 .direnv/
+
+# Ignore VM stuff
+*.qcow2

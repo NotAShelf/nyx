@@ -1,0 +1,57 @@
+name: Build Recovery Media
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - system-module
+    paths-ignore:
+      - .github/**
+      - assets/**
+      - .gitignore
+      - docs/**
+      - README.md
+      - .*
+
+jobs:
+  build-installation-images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: easimon/maximize-build-space@v6
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Cachix
+        uses: cachix/install-nix-action@v20
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}  github.com=${{ env.ACCESS_TOKEN}}
+            auto-optimise-store = true
+            experimental-features = nix-command flakes
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Cachix setup
+        uses: cachix/cachix-action@v12
+        with:
+          authToken: ${{ secrets.CACHIX_TOKEN }}
+          extraPullNames: nix-community
+          name: notashelf
+
+      - name: Set default git branch (to reduce log spam)
+        run: git config --global init.defaultBranch main
+
+      - name: Validate flake
+        run: nix flake check
+
+      - name: Build installation media
+        run: nix build .#nixosConfigurations."gaea".config.system.build.toplevel
+
+      - name: Build airtight recovery and maintenance media
+        run: nix build .#nixosConfigurations."erebus".config.system.build.toplevel
