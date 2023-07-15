@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - docs/**
+      - .github/workflows/notes.yml
 
 permissions:
   contents: write
@@ -57,8 +58,9 @@ jobs:
             "templateDir": "templates",
             "markdownDir": "docs/notes",
             "outputDir": "static",
-            "websiteUrl": "https://notashelf.github.io/nyx",
-            "websiteDescription": "NotAShelf's Notes on Nix & NixOS"
+            "websiteURL": "https://notashelf.github.io/nyx",
+            "websiteDescription": "NotAShelf's Notes on Various Topics",
+            "timestampsFromFilename": true
           }
           EOF
 
