@@ -20,6 +20,7 @@ in {
       system = {
         username = "notashelf";
         fs = ["btrfs" "ext4" "vfat"];
+        impermanence.root.enable = true;
 
         boot = {
           plymouth.enable = true;
@@ -30,16 +31,10 @@ in {
           tmpOnTmpfs = true;
         };
 
-        impermanence = {
-          root = {
-            enable = true;
-          };
-        };
-
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
-        printing.enable = false;
+        printing.enable = true;
         emulation.enable = true;
 
         networking = {
