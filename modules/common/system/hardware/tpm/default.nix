@@ -17,7 +17,7 @@ in {
       # - TPM2_PKCS11_TCTI
       tctiEnvironment.enable = mkDefault true;
       # enable TPM2 PKCS#11 tool and shared library in system path
-      pkcs11.enable = mkDefault true;
+      pkcs11.enable = mkDefault false;
     };
   };
 }
