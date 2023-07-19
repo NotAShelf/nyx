@@ -12,12 +12,29 @@
   pointer = config.home.pointerCursor;
   cfg = osConfig.modules.programs.default;
   monitors = osConfig.modules.device.monitors;
-  # mapMonitors = builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)
   mapMonitors = builtins.concatStringsSep "\n" (lib.imap0 (i: monitor: ''monitor=${monitor},${
       if monitor == "DP-1"
       then "1920x1080@144"
       else "preferred"
     },${toString (i * 1920)}x0,1'') monitors);
+
+  mapMonitorsToWs = builtins.concatStringsSep "\n" (
+    builtins.genList (
+      x: ''
+        workspace = ${toString (x + 1)}, monitor:${
+          if (x + 1) <= 5
+          then "${builtins.elemAt monitors 0} ${
+            if (x + 1) == 1
+            then ", default:true"
+            else ""
+          }"
+          else "${builtins.elemAt monitors 1}"
+        }
+
+      ''
+    )
+    10
+  );
 
   fileManager = osConfig.modules.programs.default.fileManager;
 
@@ -39,22 +56,10 @@ in {
 
     # if I have a second monitor, then workspaces can be divided between both monitors
     # if not, then don't divide workspaces
-    ${
-      if (builtins.elem "DP-1" monitors)
-      then ''
-        workspace = 1, monitor:DP-1, default:true
-        workspace = 2, monitor:DP-1
-        workspace = 3, monitor:DP-1
-        workspace = 4, monitor:DP-1
-        workspace = 5, monitor:DP-1
-        workspace = 6, monitor:HDMI-A-1
-        workspace = 7, monitor:HDMI-A-1
-        workspace = 8, monitor:HDMI-A-1
-        workspace = 9, monitor:HDMI-A-1
-        workspace = 10, monitor:HDMI-A-1
-      ''
-      else ""
-    }
+    # Q: why not use the split-monitor-workspaces plugin
+    # Â: not what I need, nor what I want
+    ${lib.optionalString (builtins.length monitors != 1) "${mapMonitorsToWs}"}
+
 
     input {
       kb_layout=tr
