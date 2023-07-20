@@ -4,13 +4,14 @@
   config,
   ...
 }: let
-  inherit (lib) mkMerge mkIf;
+  inherit (lib) mkMerge mkIf optionalString;
 
-  device = config.modules.device;
+  cfg = config.modules;
+  device = cfg.device;
 in {
   age.identityPaths = [
-    "/etc/ssh/ssh_host_ed25519_key"
-    "/home/notashelf/.ssh/id_ed25519"
+    "${optionalString (cfg.system.impermanence.root.enable) "/persist"}/etc/ssh/ssh_host_ed25519_key"
+    "${optionalString (cfg.system.impermanence.home.enable) "/persist"}/home/notashelf/.ssh/id_ed25519"
   ];
 
   age.secrets = mkMerge [

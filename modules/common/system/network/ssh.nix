@@ -38,7 +38,7 @@ in {
       ];
     };
 
-    hostKeys = [
+    hostKeys = lib.mkDefault [
       {
         bits = 4096;
         path = "/etc/ssh/ssh_host_rsa_key";

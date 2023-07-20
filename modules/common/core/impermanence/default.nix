@@ -4,7 +4,7 @@
   inputs,
   ...
 }: let
-  inherit (lib) optionalString mkIf;
+  inherit (lib) optionalString mkIf mkForce;
 
   cfg = config.modules.system.impermanence;
 in {
@@ -13,13 +13,6 @@ in {
   ];
 
   config = mkIf (cfg.root.enable or cfg.home.enable) {
-    /*
-     TODO:
-    since we roll back subvolumes using a script, it could be possible to also roll back home directory except
-    important files, with the help of impermanence
-    needs to be looked into
-    */
-
     users = {
       # this option makes it that users are not mutable outside our configurations
       # if you are on nixos, you are probably smart enough to not try and edit users
@@ -80,6 +73,19 @@ in {
       "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
       "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
       "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
+    ];
+
+    services.openssh.hostKeys = mkForce [
+      {
+        bits = 4096;
+        path = "/persist/etc/ssh/ssh_host_rsa_key";
+        type = "rsa";
+      }
+      {
+        bits = 4096;
+        path = "/persist/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
     ];
 
     boot.initrd.systemd.services.rollback = {
