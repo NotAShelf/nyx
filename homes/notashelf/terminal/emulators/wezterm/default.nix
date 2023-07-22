@@ -11,12 +11,10 @@ with lib; let
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
-    home.packages = [
-      pkgs.wezterm
-    ];
     programs.wezterm = {
       enable = true;
-      extraConfig = builtins.readFile ./wezterm.lua;
+      package = pkgs.wezterm;
+      extraConfig = (import ./config.nix {inherit (config.colorscheme) colors;}).config;
     };
   };
 }
