@@ -8,7 +8,7 @@
 in {
   imports = [
     # external home-manager modules
-    inputs.hyprland.homeManagerModules.default
+    #inputs.hyprland.homeManagerModules.default
     self.homeManagerModules.xplr
 
     # home package sets
