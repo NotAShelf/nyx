@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf optionalString imap0;
 
   inherit (config.colorscheme) colors;
   inherit (import ./propaganda.nix pkgs) propaganda;
@@ -13,7 +13,7 @@
   pointer = config.home.pointerCursor;
   cfg = osConfig.modules.programs.default;
   monitors = osConfig.modules.device.monitors;
-  mapMonitors = builtins.concatStringsSep "\n" (lib.imap0 (i: monitor: ''monitor=${monitor},${
+  mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
       if monitor == "DP-1"
       then "1920x1080@144"
       else "preferred"
@@ -37,12 +37,12 @@
     10
   );
 
-  fileManager = osConfig.modules.programs.default.fileManager;
+  defaults = osConfig.modules.programs.default;
 
   terminal =
     if (cfg.terminal == "foot")
     then "footclient"
-    else "kitty";
+    else "${defaults.terminal}";
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -54,7 +54,8 @@ in {
         "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
 
         # start foot server
-        "run-as-service 'foot --server'"
+        # if the home-manager module advertises the server option as true, then don't write this line
+        "${optionalString (defaults.fileManager == "foot" && config.programs.foot.server.enable == false) ''run-as-service 'foot --server'"''}"
 
         # workaround for brightness being reset on root rollback (impermanence)
         "brightness set 90%"
@@ -129,7 +130,6 @@ in {
       animations = {
         enabled = true; # we want animations, half the reason why we're on Hyprland innit
 
-        /*
         bezier = [
           "smoothOut, 0.36, 0, 0.66, -0.56"
           "smoothIn, 0.25, 1, 0.5, 1"
@@ -145,7 +145,6 @@ in {
           "fadeDim, 1, 10, smoothIn"
           "workspaces,1,4,overshot,slidevert"
         ];
-        */
       };
 
       dwindle = {
@@ -169,7 +168,7 @@ in {
 
         # Daily Applications
         "$MOD,F1,exec,firefox" # browser
-        ''$MOD,F2,exec,run-as-service "${fileManager}"'' # file manager
+        ''$MOD,F2,exec,run-as-service "${defaults.fileManager}"'' # file manager
         ''$MOD,RETURN,exec,run-as-service "${terminal}"'' # terminal
         ''$MODSHIFT,RETURN,exec,run-as-service "${terminal}"'' # floating terminal (TODO)
         "$MOD,D,exec, killall rofi || run-as-service $(rofi -show drun)" # application launcher
@@ -307,20 +306,7 @@ in {
       bind=,escape,submap,reset
       submap=reset
 
-      animations {
-        enabled = true
-        bezier = smoothOut, 0.36, 0, 0.66, -0.56
-        bezier = smoothIn, 0.25, 1, 0.5, 1
-        bezier = overshot, 0.4,0.8,0.2,1.2
 
-        animation = windows, 1, 4, overshot, slide
-        animation = windowsOut, 1, 4, smoothOut, slide
-        animation = border,1,10,default
-
-        animation = fade, 1, 10, smoothIn
-        animation = fadeDim, 1, 10, smoothIn
-        animation = workspaces,1,4,overshot,slidevert
-      }
 
       # workspace binds
       # binds * (asterisk) to special workspace

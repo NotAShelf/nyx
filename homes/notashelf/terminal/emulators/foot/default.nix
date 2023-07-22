@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  self',
   ...
 }:
 with lib; let
@@ -17,7 +18,8 @@ in {
     ];
     programs.foot = {
       enable = true;
-      server.enable = false; # broken
+      package = self'.packages.foot-transparent;
+      server.enable = true; # broken
       settings = {
         main = {
           app-id = "foot";
