@@ -19,6 +19,7 @@ _: {
       rofi-emoji-wayland = pkgs.callPackage ./rofi-emoji-wayland.nix {};
       wl-clip-persist = pkgs.callPackage ./wl-clip-persist.nix {};
       rat = pkgs.callPackage ./rat.nix {};
+      foot-transparent = pkgs.callPackage ./foot-transparent.nix {};
     };
   };
 }
