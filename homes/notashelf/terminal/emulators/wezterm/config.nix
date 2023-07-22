@@ -10,12 +10,11 @@ with colors; {
 
       enable_scroll_bar = true,
 
-    	font_size = 16.0,
+    	font_size = 14.0,
     	font = wezterm.font_with_fallback {
-        "monospace",
-      	"JetBrainsMono Nerd Font",
-        "Iosevka Nerd Font Mono",
-        "Lexend",
+        "Iosevka Term",
+        "JetBrains Mono Nerd",
+        "Fira Code",
       },
 
     	audible_bell = "Disabled",
