@@ -25,7 +25,7 @@
   foot,
   llvmPackages,
 }: let
-  version = "1.15.0";
+  version = "15d7885c785fa0898eb72657494e508aaf40beb8";
 
   # build stimuli file for PGO build and the script to generate it
   # independently of the foot's build, so we can cache the result
@@ -104,7 +104,7 @@ in
       owner = "dnkl";
       repo = pname;
       rev = version;
-      hash = "sha256-ji0e5E2yy0wYbzw38nuQRoRcd83FsJh6E5TabtUP1g8=";
+      hash = "sha256-lNKfO/nogTRFG7mnWew36A1Ekk4aT5A866QBCY7xyzk=";
     };
 
     depsBuildBuild = [
@@ -166,6 +166,8 @@ in
       "-Dcustom-terminfo-install-location=${terminfoDir}"
       # Install systemd user units for foot-server
       "-Dsystemd-units-dir=${placeholder "out"}/lib/systemd/user"
+      # make foot great again
+      "-Dfullscreen_alpha=true"
     ];
 
     # build and run binary generating PGO profiles,
