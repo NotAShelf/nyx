@@ -17,7 +17,7 @@
   gtk3,
   cups,
   nspr,
-  nss,
+  nss_latest,
   libpng,
   libnotify,
   libgcrypt,
@@ -25,7 +25,7 @@
   fontconfig,
   dbus,
   expat,
-  ffmpeg,
+  ffmpeg_4,
   curlWithGnuTls,
   zlib,
   gnome,
@@ -35,6 +35,9 @@
   libdrm,
   mesa,
   libxkbcommon,
+  harfbuzz,
+  curl,
+  libgnurl,
   # High-DPI support: Spotify's --force-device-scale-factor argument
   # not added if `null`, otherwise, should be a number.
   deviceScaleFactor ? null,
@@ -44,14 +47,14 @@
   # If an update breaks things, one of those might have valuable info:
   # https://aur.archlinux.org/packages/spotify/
   # https://community.spotify.com/t5/Desktop-Linux
-  version = "1.2.8.923.g4f94bf0d";
+  version = "1.2.11.916.geb595a67";
   # To get the latest stable revision:
   # curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/spotify?channel=stable' | jq '.download_url,.version,.last_updated'
   # To get general information:
   # curl -H 'Snap-Device-Series: 16' 'https://api.snapcraft.io/v2/snaps/info/spotify' | jq '.'
   # More examples of api usage:
   # https://github.com/canonical-websites/snapcraft.io/blob/master/webapp/publisher/snaps/views.py
-  rev = "63";
+  rev = "67";
 
   deps = [
     alsa-lib
@@ -63,12 +66,13 @@
     curlWithGnuTls
     dbus
     expat
-    ffmpeg
+    ffmpeg_4 # Requires libavcodec < 59 as of 1.2.9.743.g85d9593d
     fontconfig
     freetype
     gdk-pixbuf
     glib
     gtk3
+    harfbuzz
     libdrm
     libgcrypt
     libnotify
@@ -76,7 +80,7 @@
     libpulseaudio
     libxkbcommon
     mesa
-    nss
+    nss_latest
     pango
     stdenv.cc.cc
     systemd
@@ -96,6 +100,7 @@
     xorg.libxshmfence
     xorg.libXtst
     zlib
+    curl
   ];
 in
   stdenv.mkDerivation {
@@ -112,7 +117,7 @@ in
     # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
     src = fetchurl {
       url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";
-      hash = "sha256-SygUwyULHE96MIizfoFLj6ccez5S69Rq4IDvwY9SlG8=";
+      sha512 = "3d5a9fda88a076a22bb6d0b6b586334865f03a4e852ca8e022468e3dd3520a81dea314721e26e54ba9309603e08f66588f005ee8970e73eccbf805ff70e89dca";
     };
 
     nativeBuildInputs = [wrapGAppsHook makeShellWrapper squashfsTools];
@@ -141,7 +146,6 @@ in
       fi
       runHook postUnpack
     '';
-
     # Prevent double wrapping
     dontWrapGApps = true;
 
@@ -162,8 +166,8 @@ in
       ln -s ${nspr.out}/lib/libnspr4.so $libdir/libnspr4.so
       ln -s ${nspr.out}/lib/libplc4.so $libdir/libplc4.so
 
-      ln -s ${ffmpeg.lib}/lib/libavcodec.so* $libdir
-      ln -s ${ffmpeg.lib}/lib/libavformat.so* $libdir
+      ln -s ${ffmpeg_4.lib}/lib/libavcodec.so* $libdir
+      ln -s ${ffmpeg_4.lib}/lib/libavformat.so* $libdir
 
       rpath="$out/share/spotify:$libdir"
 
