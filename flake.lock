@@ -319,6 +319,22 @@
         "type": "github"
       }
     },
+    "copilot-cmp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1683831407,
+        "narHash": "sha256-+MzEGnhlrYRvAfskOwmw69OC1CsPXt7s3z+xPe9XPqs=",
+        "owner": "zbirenbaum",
+        "repo": "copilot-cmp",
+        "rev": "c2cdb3c0f5078b0619055af192295830a7987790",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zbirenbaum",
+        "repo": "copilot-cmp",
+        "type": "github"
+      }
+    },
     "copilot-lua": {
       "flake": false,
       "locked": {
@@ -1606,6 +1622,7 @@
         "cmp-vsnip": "cmp-vsnip",
         "codewindow-nvim": "codewindow-nvim",
         "comment-nvim": "comment-nvim",
+        "copilot-cmp": "copilot-cmp",
         "copilot-lua": "copilot-lua",
         "crates-nvim": "crates-nvim",
         "dashboard-nvim": "dashboard-nvim",
@@ -1688,11 +1705,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1690059660,
-        "narHash": "sha256-jkUsggiNUktSUaVUHWFy2pBSlutGbY0AeFwX4x/DeBE=",
+        "lastModified": 1690208998,
+        "narHash": "sha256-cFVWsot3kCQLRsg+xGSK6WqScTdl7lCyjTz9gFseAoE=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "9e23ff355ef1f8e79c9678e58cdc040f011b64d1",
+        "rev": "3c0779601058b7c00e4227fcf94f269d9f983202",
         "type": "github"
       },
       "original": {

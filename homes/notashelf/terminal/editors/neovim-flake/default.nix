@@ -15,11 +15,15 @@ in {
       vim = {
         viAlias = true;
         vimAlias = true;
+        enableEditorconfig = true;
+        preventJunkFiles = true;
+        enableLuaLoader = true;
+
         startPlugins = with pkgs; [vimPlugins.nvim-surround];
         luaConfigRC.test = neovim.lib.nvim.dag.entryAnywhere ''
           require("nvim-surround").setup({})
         '';
-        enableEditorconfig = true;
+
         debugMode = {
           enable = false;
           level = 20;
@@ -37,6 +41,10 @@ in {
         lspSignature.enable = true;
       };
 
+      vim.debugger.nvim-dap = {
+        ui.enable = true;
+      };
+
       vim.languages = {
         enableLSP = true;
         enableFormat = true;
@@ -47,16 +55,19 @@ in {
         html.enable = true;
         clang = {
           enable = true;
-          lsp.server = "clangd";
+          lsp = {
+            enable = true;
+            server = "clangd";
+          };
         };
         sql.enable = false;
         ts.enable = true;
         go.enable = true;
         zig.enable = false;
-        python.enable = true;
+        python.enable = false;
         dart.enable = false;
         elixir.enable = false;
-        svelte.enable = true;
+        svelte.enable = false;
         rust = {
           enable = true;
           crates.enable = true;
@@ -105,13 +116,18 @@ in {
       vim.filetree = {
         nvimTreeLua = {
           enable = true;
+          openOnSetup = false;
+          openTreeOnNewTab = false;
+          indentMarkers = true;
 
           renderer = {
             rootFolderLabel = null;
+            icons.show.git = true;
           };
 
           view = {
             width = 25;
+            adaptiveSize = false;
           };
 
           mappings = {
@@ -140,8 +156,9 @@ in {
       };
 
       vim.minimap = {
+        # cool for vanity but practically useless
         minimap-vim.enable = false;
-        codewindow.enable = true; # lighter, faster, and uses lua for configuration
+        codewindow.enable = false;
       };
 
       vim.dashboard = {
@@ -154,7 +171,20 @@ in {
       };
 
       vim.projects = {
-        project-nvim.enable = true;
+        project-nvim = {
+          enable = true;
+          manualMode = false;
+          detectionMethods = ["lsp" "pattern"];
+          patterns = [
+            ".git"
+            ".hg"
+            "Makefile"
+            "package.json"
+            "flake.nix"
+            "index.*"
+            ".anchor"
+          ];
+        };
       };
 
       vim.utility = {
@@ -177,7 +207,15 @@ in {
       };
 
       vim.terminal = {
-        toggleterm.enable = true;
+        toggleterm = {
+          mappings.open = "<C-t>";
+          enable = true;
+          direction = "tab";
+          lazygit = {
+            enable = true;
+            direction = "tab";
+          };
+        };
       };
 
       vim.ui = {
@@ -187,20 +225,27 @@ in {
         smartcolumn = {
           enable = true;
           columnAt.languages = {
+            markdown = 80;
             nix = 150;
             ruby = 110;
             java = 120;
-            go = [110 150];
+            go = [130];
           };
         };
       };
 
       vim.assistant = {
-        copilot.enable = true;
+        copilot = {
+          enable = true;
+          cmp.enable = true;
+        };
       };
 
       vim.session = {
-        nvim-session-manager.enable = true;
+        nvim-session-manager = {
+          enable = true;
+          autoloadMode = "Disabled"; # misbehaves with dashboard
+        };
       };
 
       vim.gestures = {
@@ -212,18 +257,7 @@ in {
       };
 
       vim.presence = {
-        presence-nvim = {
-          enable = true;
-          auto_update = true;
-          enable_line_number = true;
-          show_time = true;
-          image_text = "The Superior Text Editor";
-          client_id = "793271441293967371";
-          main_image = "neovim";
-          rich_presence = {
-            editing_text = "Editing %s";
-          };
-        };
+        presence-nvim.enable = true;
       };
     };
   };
