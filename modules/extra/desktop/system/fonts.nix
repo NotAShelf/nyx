@@ -10,7 +10,7 @@ with lib; let
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     fonts = {
-      enableDefaultFonts = false;
+      enableDefaultPackages = false;
 
       fontconfig = {
         # this fixes emoji stuff
