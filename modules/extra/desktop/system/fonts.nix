@@ -35,7 +35,7 @@ in {
       };
 
       # font packages that should be installed
-      fonts = with pkgs; [
+      packages = with pkgs; [
         corefonts
         material-icons
         material-design-icons
