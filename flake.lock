@@ -1705,11 +1705,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1690386858,
-        "narHash": "sha256-ns8RZs0if71GNUm8e9vvhMo1AFA+tAXV+bXbL6bj6QY=",
+        "lastModified": 1690532900,
+        "narHash": "sha256-OgrmbebFQFp4anIz23rsxz+vOn/DCK2R+iYMnMvWlCM=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "b95687940d86ff1bc83c61bdc0f2bfe4cc7285a4",
+        "rev": "f2f9c32ecaaeb49aeb6bfc2950122d3f5d60f04c",
         "type": "github"
       },
       "original": {

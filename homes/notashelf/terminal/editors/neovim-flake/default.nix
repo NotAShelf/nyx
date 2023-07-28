@@ -19,10 +19,27 @@ in {
         preventJunkFiles = true;
         enableLuaLoader = true;
 
-        startPlugins = with pkgs; [vimPlugins.nvim-surround];
-        luaConfigRC.test = neovim.lib.nvim.dag.entryAnywhere ''
-          require("nvim-surround").setup({})
-        '';
+        extraPlugins = with pkgs.vimPlugins; {
+          nvim-surround = {
+            package = nvim-surround;
+            setup = "require('nvim-surround').setup({})";
+          };
+
+          aerial = {
+            package = aerial-nvim;
+            setup = ''
+              require('aerial').setup {
+                -- some lua configuration here
+              }
+            '';
+          };
+
+          harpoon = {
+            package = harpoon;
+            setup = "require('harpoon').setup {}";
+            after = ["aerial"];
+          };
+        };
 
         debugMode = {
           enable = false;
