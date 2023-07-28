@@ -22,7 +22,7 @@
   sharedModules = extraModules + /shared; # the path where shared modules reside
 
   # profiles
-  profile = ../modules/profile; # profiles force enable certain options for quick configurations
+  profiles = ../modules/profile; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
   homeDir = ../homes; # home-manager configurations for hosts that need home-manager
@@ -39,7 +39,7 @@
     core # the "sane" default shared across systems
     agenix # age encryption for secrets
     sharedModules # consume my flake's own nixosModules
-    profile # a profile module to provide configuration sets per demand
+    profiles # a profile module to provide configuration sets per demand
     hardware # a module for hardware specific quirks or hardware specific options outside nixos-hardware
     options # provide options for defined modules across the system
   ];
@@ -98,7 +98,7 @@ in {
   };
 
   # HP Pavillion laptop from 2023
-  # possesess a Ryzen 7 7730U, and acts as my portable workstation
+  # equipped a Ryzen 7 7730U, usually acts as my portable workstation
   # similar to epimetheus, has full disk encryption with ephemeral root
   hermes = mkNixosSystem {
     inherit withSystem;
