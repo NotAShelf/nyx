@@ -1,9 +1,12 @@
 {
+  config,
   inputs,
   pkgs,
   ...
 }: let
   neovim = inputs.neovim-flake;
+
+  cfg = config.programs.neovim-flake.settings.vim;
 in {
   imports = [
     neovim.homeManagerModules.default
@@ -22,22 +25,22 @@ in {
         extraPlugins = with pkgs.vimPlugins; {
           nvim-surround = {
             package = nvim-surround;
-            setup = "require('nvim-surround').setup({})";
+            setup = "require('nvim-surround').setup{}";
           };
 
-          aerial = {
-            package = aerial-nvim;
+          hypersonic-nvim = {
+            package = pkgs.fetchFromGitHub {
+              owner = "tomiis4";
+              repo = "hypersonic.nvim";
+              rev = "a98dbd6b5ac1aac3cd895990e08d1ea40e67a9e3";
+              hash = "sha256-nfk+Wgoiwpvgkt6lNfThuuKlj1pGzR9z4LMvas4rJwQ=";
+            };
+
             setup = ''
-              require('aerial').setup {
-                -- some lua configuration here
-              }
+              require('hypersonic').setup({
+                border = '${cfg.ui.borders.globalStyle}',
+              })
             '';
-          };
-
-          harpoon = {
-            package = harpoon;
-            setup = "require('harpoon').setup {}";
-            after = ["aerial"];
           };
         };
 
@@ -59,6 +62,7 @@ in {
       };
 
       vim.debugger.nvim-dap = {
+        enable = true;
         ui.enable = true;
       };
 
@@ -70,24 +74,26 @@ in {
 
         nix.enable = true;
         html.enable = true;
+        sql.enable = false;
+        ts.enable = true;
+        go.enable = true;
+        zig.enable = false;
+        python.enable = true;
+        dart.enable = false;
+        elixir.enable = false;
+        svelte.enable = false;
+
+        rust = {
+          enable = true;
+          crates.enable = true;
+        };
+
         clang = {
           enable = true;
           lsp = {
             enable = true;
             server = "clangd";
           };
-        };
-        sql.enable = false;
-        ts.enable = true;
-        go.enable = true;
-        zig.enable = false;
-        python.enable = false;
-        dart.enable = false;
-        elixir.enable = false;
-        svelte.enable = false;
-        rust = {
-          enable = true;
-          crates.enable = true;
         };
       };
 
@@ -98,12 +104,14 @@ in {
         smoothScroll.enable = true;
         cellularAutomaton.enable = true;
         fidget-nvim.enable = true;
+
         indentBlankline = {
           enable = true;
           fillChar = null;
           eolChar = null;
           showCurrContext = true;
         };
+
         cursorWordline = {
           enable = true;
           lineTimeout = 0;
@@ -137,18 +145,25 @@ in {
           openTreeOnNewTab = false;
           indentMarkers = true;
 
+          sortBy = "extension";
+
           renderer = {
             rootFolderLabel = null;
             icons.show.git = true;
+            icons.show.folderArrow = true;
           };
 
           view = {
-            width = 25;
-            adaptiveSize = false;
+            width = 30;
+            adaptiveSize = true;
           };
 
+          actions.expandAll.exclude = [
+            "result/"
+          ];
+
           mappings = {
-            toggle = "<C-W>";
+            toggle = "<C-w>";
           };
         };
       };
@@ -239,6 +254,13 @@ in {
         noice.enable = true;
         colorizer.enable = true;
         modes-nvim.enable = false;
+
+        breadcrumbs = {
+          enable = true;
+          source = "nvim-navic";
+          navbuddy.enable = false;
+        };
+
         smartcolumn = {
           enable = true;
           columnAt.languages = {
@@ -248,6 +270,11 @@ in {
             java = 120;
             go = [130];
           };
+        };
+
+        borders = {
+          enable = true;
+          globalStyle = "rounded";
         };
       };
 
