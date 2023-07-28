@@ -114,7 +114,7 @@ in {
 
       misc = {
         # disable redundant renders
-        disable_hyprland_logo = false; # wallpaper covers it anyway
+        disable_hyprland_logo = true; # wallpaper covers it anyway
         disable_splash_rendering = true; # "
 
         # window swallowing
