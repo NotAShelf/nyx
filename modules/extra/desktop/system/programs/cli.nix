@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }: let
@@ -29,9 +28,13 @@ in {
       adb.enable = true;
     };
 
-    # if the system is not using wayland, then we need the non-wayland version of wine
-    environment.systemPackages = lib.mkIf (!env.isWayland) [
-      pkgs.wineWowPackages.stable
-    ];
+    # determine which version of wine to be used
+    # then add it to systemPackages
+    environment.systemPackages = with pkgs; let
+      winePackage =
+        if (env.isWayland) == true
+        then wineWowPackages.waylandFull
+        else wineWowPackages.stableFull;
+    in [winePackage];
   };
 }

@@ -15,9 +15,6 @@ in {
     '';
 
     environment = {
-      # Experimental wayland-native wine
-      # https://nixos.wiki/wiki/Wine
-      systemPackages = with pkgs; [wineWowPackages.waylandFull];
       variables = {
         NIXOS_OZONE_WL = "1";
         _JAVA_AWT_WM_NONEREPARENTING = "1";
