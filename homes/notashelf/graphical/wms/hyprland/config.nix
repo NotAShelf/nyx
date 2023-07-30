@@ -306,13 +306,10 @@ in {
       bind=,escape,submap,reset
       submap=reset
 
-
-
       # workspace binds
       # binds * (asterisk) to special workspace
       bind = $MOD, KP_Multiply, togglespecialworkspace
       bind = $MODSHIFT, KP_Multiply, movetoworkspace, special
-
 
       # and mod + [shift +] {1..10} to [move to] ws {1..10}
       ${
