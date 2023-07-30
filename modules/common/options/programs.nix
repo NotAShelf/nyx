@@ -3,6 +3,8 @@ with lib; {
   # this module provides overrides for certain defaults and lets you set
   # default programs for referencing in other config files.
   options.modules = {
+    # "override" is a simple option that sets the programs' state to the oppossite of their default
+    # service overrides
     services = {
       override = {
         nextcloud = mkEnableOption "Override Nextcloud service";
@@ -25,8 +27,8 @@ with lib; {
       };
     };
 
+    # program overrides
     programs = {
-      # "override" is a simple option that sets the programs' state to the oppossite of their default
       override = {
         # override basic desktop applications
         # an example override for the libreoffice program
