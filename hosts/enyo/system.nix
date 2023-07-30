@@ -73,7 +73,9 @@
         default = {
           terminal = "foot";
         };
-        override = {};
+        override = {
+          libreoffice = false;
+        };
       };
     };
 
