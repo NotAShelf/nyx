@@ -217,7 +217,7 @@
 
     # my personal neovim-flake
     neovim-flake = {
-      url = "github:NotAShelf/neovim-flake?ref=dev/extend-filetree";
+      url = "github:NotAShelf/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
