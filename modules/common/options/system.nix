@@ -68,6 +68,7 @@ with lib; {
     # you might need to add more drivers to the printing module for your printer to work
     printing = {
       enable = mkEnableOption "printing";
+      "3d".enable = mkEnableOption "3D printing suite";
     };
 
     # pre-boot and bootloader configurations
