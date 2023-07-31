@@ -53,6 +53,7 @@
           # a git-like service I packaged for no apparent reason
           onedev = ./modules/extra/export/onedev;
 
+          # an open source implementation of wakatime server
           wakapi = ./modules/extra/shared/nixos/wakapi;
 
           # we do not want to provide a default module
