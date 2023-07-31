@@ -1,12 +1,16 @@
 {
-  config,
   inputs,
   pkgs,
   ...
 }: let
   neovim = inputs.neovim-flake;
 
-  cfg = config.programs.neovim-flake.settings.vim;
+  beacon = pkgs.fetchFromGitHub {
+    owner = "DanilaMihailov";
+    repo = "beacon.nvim";
+    rev = "a786c9a89b2c739c69f9500a2f70f2586c06ec27";
+    hash = "sha256-qD0dwccNjhJ7xyM+yG8bSFUyPn7hHZyC0RBy3MW1hz0=";
+  };
 in {
   imports = [
     neovim.homeManagerModules.default
@@ -23,24 +27,24 @@ in {
         enableLuaLoader = true;
 
         extraPlugins = with pkgs.vimPlugins; {
+          aerial = {
+            package = aerial-nvim;
+            setup = "require('aerial').setup {}";
+          };
+
+          harpoon = {
+            package = harpoon;
+            setup = "require('harpoon').setup {}";
+            after = ["aerial"];
+          };
+
           nvim-surround = {
             package = nvim-surround;
             setup = "require('nvim-surround').setup{}";
           };
 
-          hypersonic-nvim = {
-            package = pkgs.fetchFromGitHub {
-              owner = "tomiis4";
-              repo = "hypersonic.nvim";
-              rev = "a98dbd6b5ac1aac3cd895990e08d1ea40e67a9e3";
-              hash = "sha256-nfk+Wgoiwpvgkt6lNfThuuKlj1pGzR9z4LMvas4rJwQ=";
-            };
-
-            setup = ''
-              require('hypersonic').setup({
-                border = '${cfg.ui.borders.globalStyle}',
-              })
-            '';
+          beacon-nvim = {
+            package = beacon;
           };
         };
 
@@ -142,6 +146,15 @@ in {
       vim.filetree = {
         nvimTree = {
           enable = true;
+          openOnSetup = true;
+          disableNetrw = true;
+
+          hijackUnnamedBufferWhenOpening = false;
+          hijackCursor = true;
+          hijackDirectories = {
+            enable = true;
+            autoOpen = false;
+          };
 
           git = {
             enable = true;
@@ -151,6 +164,11 @@ in {
 
           view = {
             cursorline = false;
+            width = {
+              min = 35;
+              max = -1;
+              padding = 1;
+            };
           };
 
           renderer = {
@@ -215,7 +233,7 @@ in {
 
       vim.projects = {
         project-nvim = {
-          enable = true;
+          enable = false;
           manualMode = false;
           detectionMethods = ["lsp" "pattern"];
           patterns = [
