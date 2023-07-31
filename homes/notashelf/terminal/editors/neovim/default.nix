@@ -53,11 +53,12 @@ in {
 
       vim.lsp = {
         formatOnSave = true;
-        lspkind.enable = false;
+        lspkind.enable = true;
+        lsplines.enable = true;
         lightbulb.enable = true;
         lspsaga.enable = false;
         nvimCodeActionMenu.enable = true;
-        trouble.enable = true;
+        trouble.enable = false;
         lspSignature.enable = true;
       };
 
@@ -77,8 +78,8 @@ in {
         sql.enable = false;
         ts.enable = true;
         go.enable = true;
-        zig.enable = false;
         python.enable = true;
+        zig.enable = false;
         dart.enable = false;
         elixir.enable = false;
         svelte.enable = false;
@@ -101,8 +102,8 @@ in {
         enable = true;
         nvimWebDevicons.enable = true;
         scrollBar.enable = true;
-        smoothScroll.enable = true;
-        cellularAutomaton.enable = true;
+        smoothScroll.enable = false;
+        cellularAutomaton.enable = false;
         fidget-nvim.enable = true;
 
         indentBlankline = {
@@ -141,22 +142,6 @@ in {
       vim.filetree = {
         nvimTree = {
           enable = true;
-          openOnSetup = true;
-
-          hijackUnnamedBufferWhenOpening = true;
-
-          sort = {
-            sorter = "name";
-          };
-
-          hijackDirectories = {
-            enable = true;
-            autoOpen = true;
-          };
-
-          updateFocusedFile = {
-            enable = true;
-          };
 
           git = {
             enable = true;
@@ -165,10 +150,7 @@ in {
           };
 
           view = {
-            width = 30;
             cursorline = false;
-            centralizeSelection = false;
-            preserveWindowProportions = true;
           };
 
           renderer = {
@@ -176,30 +158,17 @@ in {
             rootFolderLabel = false;
 
             icons = {
-              webdevColors = true;
-              modifiedPlacement = "before";
+              modifiedPlacement = "after";
               gitPlacement = "after";
-
-              show.git = false;
+              show.git = true;
+              show.modified = true;
             };
           };
-
-          actions = {
-            useSystemClipboard = true;
-
-            expandAll.maxFolderDiscovery = 350;
-          };
-
-          filesystemWatchers = {
-            enable = true;
-          };
-
-          selectPrompts = true;
 
           diagnostics.enable = true;
 
           modified = {
-            enable = false;
+            enable = true;
             showOnDirs = false;
             showOnOpenDirs = true;
           };
@@ -218,7 +187,7 @@ in {
 
       vim.binds = {
         whichKey.enable = true;
-        cheatsheet.enable = true;
+        cheatsheet.enable = false;
       };
 
       vim.telescope.enable = true;
@@ -230,7 +199,7 @@ in {
       };
 
       vim.minimap = {
-        # cool for vanity but practically useless
+        # cool for vanity but practically useless on small screens
         minimap-vim.enable = false;
         codewindow.enable = false;
       };
