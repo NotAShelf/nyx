@@ -1308,11 +1308,11 @@
     },
     "impermanence": {
       "locked": {
-        "lastModified": 1684264534,
-        "narHash": "sha256-K0zr+ry3FwIo3rN2U/VWAkCJSgBslBisvfRIPwMbuCQ=",
+        "lastModified": 1690797372,
+        "narHash": "sha256-GImz19e33SeVcIvBB7NnhbJSbTpFFmNtWLh7Z85Y188=",
         "owner": "nix-community",
         "repo": "impermanence",
-        "rev": "89253fb1518063556edd5e54509c30ac3089d5e6",
+        "rev": "e3a7acd113903269a1b5c8b527e84ce7ee859851",
         "type": "github"
       },
       "original": {
@@ -1426,6 +1426,22 @@
         "owner": "kristapsdz",
         "repo": "lowdown",
         "type": "github"
+      }
+    },
+    "lsp-lines": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684163755,
+        "narHash": "sha256-Zhf2xitLWtE+dWqhvWtLM1K1WdtBvkqqoRLSYIO42oY=",
+        "owner": "~whynothugo",
+        "repo": "lsp_lines.nvim",
+        "rev": "f53af96d4789eef39a082dbcce078d2bfc384ece",
+        "type": "sourcehut"
+      },
+      "original": {
+        "owner": "~whynothugo",
+        "repo": "lsp_lines.nvim",
+        "type": "sourcehut"
       }
     },
     "lsp-signature": {
@@ -1643,6 +1659,7 @@
         "indent-blankline": "indent-blankline",
         "kommentary": "kommentary",
         "leap-nvim": "leap-nvim",
+        "lsp-lines": "lsp-lines",
         "lsp-signature": "lsp-signature",
         "lspkind": "lspkind",
         "lspsaga": "lspsaga",
@@ -1707,16 +1724,15 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1690780638,
-        "narHash": "sha256-AoMIToxALiUN+qVUDQHWXuulzqaH96ILvpIkWtP5GXE=",
+        "lastModified": 1690800610,
+        "narHash": "sha256-EU6sCgUNvR9HttHlri93JArApwHhp3RLscW94OOOuRM=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "da86a1f5bf24964f0bbc25a82bbaee3be05579f9",
+        "rev": "f0dffff72e5f6fc189f747e050880506c6fb0606",
         "type": "github"
       },
       "original": {
         "owner": "NotAShelf",
-        "ref": "dev/extend-filetree",
         "repo": "neovim-flake",
         "type": "github"
       }
@@ -1857,11 +1873,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1690765790,
-        "narHash": "sha256-p4qfu5G6KkL4JG5p97xl2HaqTR/03zG7wIGk+YBlAVY=",
+        "lastModified": 1690795178,
+        "narHash": "sha256-FcWREoZTbD4uB++crs7q/zEzGzPLmUdloMyYD9YxT64=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "21d50ed37b0dba1a8b2223a4433aaaa16ff5137c",
+        "rev": "24e7c105bb9c781bb508cf78f721e5f43b34f74b",
         "type": "github"
       },
       "original": {
@@ -2101,11 +2117,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1690791656,
-        "narHash": "sha256-Z8u+MyjSANTRnily8OsDTCJXI5qB4poZIozaN4+zssI=",
+        "lastModified": 1690794970,
+        "narHash": "sha256-6C2e4BQn1YEEwrWaufF3Dg6RLr2IbXWPR7g+oG1LKSE=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "952d8593e2d934488712bb70ccc78802ce66c5e1",
+        "rev": "68873001ba51389a224eb96a91d441d48ac5c9fd",
         "type": "github"
       },
       "original": {
