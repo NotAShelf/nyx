@@ -143,6 +143,8 @@ in {
           enable = true;
           openOnSetup = true;
 
+          hijackUnnamedBufferWhenOpening = true;
+
           sort = {
             sorter = "name";
           };
@@ -166,6 +168,7 @@ in {
             width = 30;
             cursorline = false;
             centralizeSelection = false;
+            preserveWindowProportions = true;
           };
 
           renderer = {
