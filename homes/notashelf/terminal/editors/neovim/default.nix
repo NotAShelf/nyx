@@ -42,25 +42,10 @@ in {
             package = nvim-surround;
             setup = "require('nvim-surround').setup{}";
           };
-
-          beacon-nvim = {
-            package = beacon;
-            setup = ''
-              vim.cmd([[
-                let g:beacon_timeout = 450
-                let g:beacon_size = 70
-                let g:beacon_minimal_jump = 10
-                let g:beacon_ignore_filetypes = ["toggleterm", "NvimTree", "qf", "help", "TelescopePrompt", "harpoon", "grapple", "fzf", "portal", "nvim-navbuddy"]
-                " highlight Beacon guibg=#3a567d
-                " base = "#3a567d", " bright = "#617897", " dim = "#2e4564"
-              ]])
-            '';
-          };
         };
 
         debugMode = {
           enable = false;
-          level = 20;
           logFile = "/tmp/nvim.log";
         };
       };
@@ -71,9 +56,9 @@ in {
         lsplines.enable = true;
         lightbulb.enable = true;
         lspsaga.enable = false;
+        lspSignature.enable = true;
         nvimCodeActionMenu.enable = true;
         trouble.enable = false;
-        lspSignature.enable = true;
       };
 
       vim.debugger.nvim-dap = {
@@ -159,11 +144,11 @@ in {
           openOnSetup = true;
           disableNetrw = true;
 
-          hijackUnnamedBufferWhenOpening = false;
+          hijackUnnamedBufferWhenOpening = true;
           hijackCursor = true;
           hijackDirectories = {
             enable = true;
-            autoOpen = false;
+            autoOpen = true;
           };
 
           git = {
@@ -235,7 +220,7 @@ in {
 
       vim.dashboard = {
         dashboard-nvim.enable = false;
-        alpha.enable = false;
+        alpha.enable = true;
       };
 
       vim.notify = {
@@ -244,7 +229,7 @@ in {
 
       vim.projects = {
         project-nvim = {
-          enable = false;
+          enable = true;
           manualMode = false;
           detectionMethods = ["lsp" "pattern"];
           patterns = [
@@ -252,7 +237,6 @@ in {
             ".hg"
             "Makefile"
             "package.json"
-            "flake.nix"
             "index.*"
             ".anchor"
           ];
@@ -276,6 +260,7 @@ in {
       vim.notes = {
         mind-nvim.enable = true;
         todo-comments.enable = true;
+        obsidian.enable = false;
       };
 
       vim.terminal = {
@@ -294,6 +279,7 @@ in {
         noice.enable = true;
         colorizer.enable = true;
         modes-nvim.enable = false;
+        illuminate.enable = true;
 
         breadcrumbs = {
           enable = true;
@@ -327,7 +313,7 @@ in {
 
       vim.session = {
         nvim-session-manager = {
-          enable = true;
+          enable = false;
           autoloadMode = "Disabled"; # misbehaves with dashboard
         };
       };
