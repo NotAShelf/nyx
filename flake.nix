@@ -63,7 +63,7 @@
         homeManagerModules = {
           xplr = ./modules/extra/shared/home-manager/xplr;
 
-          # against we do not want to provide a default module
+          # again, we do not want to provide a default module
           default = null;
         };
 
