@@ -173,6 +173,7 @@ in {
           };
 
           view = {
+            preserveWindowProportions = false;
             cursorline = false;
             width = {
               min = 35;
