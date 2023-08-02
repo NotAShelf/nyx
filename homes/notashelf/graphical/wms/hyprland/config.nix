@@ -5,14 +5,14 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf optionalString imap0;
+  inherit (lib) optionalString imap0;
 
   inherit (config.colorscheme) colors;
   inherit (import ./propaganda.nix pkgs) propaganda;
 
   pointer = config.home.pointerCursor;
   cfg = osConfig.modules.programs.default;
-  monitors = osConfig.modules.device.monitors;
+  inherit (osConfig.modules.device) monitors;
   mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
       if monitor == "DP-1"
       then "1920x1080@144"
@@ -107,7 +107,7 @@ in {
 
         # shadow config
         drop_shadow = "yes";
-        shadow_range = 4;
+        shadow_range = 14;
         shadow_render_power = 3;
         "col.shadow" = "rgba(292c3cee)";
       };
