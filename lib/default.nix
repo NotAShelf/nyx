@@ -1,10 +1,11 @@
 {
   nixpkgs,
-  lib,
   inputs,
   ...
 }: let
-  builders = import ./builders.nix {inherit lib inputs nixpkgs;};
+  inherit (nixpkgs) lib;
+
+  builders = import ./builders.nix {inherit inputs lib;};
   services = import ./services.nix {inherit lib;};
   validators = import ./validators.nix {inherit lib;};
   helpers = import ./helpers.nix {inherit lib;};
