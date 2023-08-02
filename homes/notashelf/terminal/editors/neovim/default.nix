@@ -4,13 +4,7 @@
   ...
 }: let
   neovim = inputs.neovim-flake;
-
-  beacon = pkgs.fetchFromGitHub {
-    owner = "DanilaMihailov";
-    repo = "beacon.nvim";
-    rev = "a786c9a89b2c739c69f9500a2f70f2586c06ec27";
-    hash = "sha256-qD0dwccNjhJ7xyM+yG8bSFUyPn7hHZyC0RBy3MW1hz0=";
-  };
+  # neovim-package = inputs'.neovim-nightly.packages.default;
 in {
   imports = [
     neovim.homeManagerModules.default
@@ -20,6 +14,7 @@ in {
     enable = true;
     settings = {
       vim = {
+        package = pkgs.neovim-unwrapped; # this is the default value, but I can use the nightly overlay on demand
         viAlias = true;
         vimAlias = true;
         enableEditorconfig = true;
