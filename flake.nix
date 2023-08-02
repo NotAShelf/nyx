@@ -32,7 +32,7 @@
       flake = let
         # extended nixpkgs library, contains my custom functions
         # such as system builders
-        lib = import ./lib {inherit nixpkgs lib inputs;};
+        lib = import ./lib {inherit nixpkgs inputs;};
       in {
         # TODO
         darwinConfigurations = {};
@@ -67,10 +67,6 @@
           default = null;
         };
 
-        # developer templates for easy project initialization
-        # TODO: rewrite templates for my go-to languages
-        # templates = import ./lib/flake/templates;
-
         # TODO: flake checks to be invoked by nix flake check
         # checks = import ./lib/flake/checks;
 
@@ -83,7 +79,6 @@
         config,
         inputs',
         pkgs,
-        system,
         ...
       }: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
@@ -94,7 +89,7 @@
           inputs'.devshell.legacyPackages.mkShell {
             name = "nyx";
             commands = devShell.shellCommands;
-            env = devShell.env;
+            inherit (devShell) env;
             packages = with pkgs; [
               inputs'.agenix.packages.default # provide agenix CLI within flake shell
               config.treefmt.build.wrapper # treewide formatter
@@ -118,8 +113,6 @@
             alejandra.enable = true;
             deadnix.enable = false;
             shellcheck.enable = true;
-            stylua.enable = true;
-            rustfmt.enable = true;
             shfmt = {
               enable = true;
               # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
@@ -218,6 +211,11 @@
     # my personal neovim-flake
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
