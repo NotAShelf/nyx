@@ -55,7 +55,7 @@ in {
 
         # start foot server
         # if the home-manager module advertises the server option as true, then don't write this line
-        "${optionalString (defaults.fileManager == "foot" && config.programs.foot.server.enable == false) ''run-as-service 'foot --server'"''}"
+        "${optionalString (defaults.fileManager == "foot" && !config.programs.foot.server.enable) ''run-as-service 'foot --server'"''}"
 
         # workaround for brightness being reset on root rollback (impermanence)
         "brightness set 90%"
@@ -99,11 +99,16 @@ in {
         multisample_edges = true; # fixes pixelated corners on relatively better monitors, useless on old monitors
 
         # blur
-        blur_new_optimizations = 1;
-        blur = true;
-        blur_size = 5;
-        blur_passes = 4;
-        blur_xray = true;
+        blur = {
+          enabled = true;
+          size = 4;
+          passes = 3;
+          ignore_opacity = true;
+          new_optimizations = 1;
+          xray = true;
+          contrast = 0.7;
+          brightness = 0.8;
+        };
 
         # shadow config
         drop_shadow = "yes";
