@@ -130,6 +130,8 @@ with lib; {
         "nix-command"
         "recursive-nix"
         "ca-derivations"
+        "repl-flake"
+        "auto-allocate-uids"
       ];
       # don't warn me that my git tree is dirty, I know
       warn-dirty = false;
@@ -159,6 +161,7 @@ with lib; {
         "https://helix.cachix.org" # helix
         "https://anyrun.cachix.org" # anyrun
         "https://notashelf.cachix.org" # cached stuff from my flake outputs
+        "https://neovim-flake.cachix.org" # a cache for my neovim flake
       ];
 
       trusted-public-keys = [
@@ -174,6 +177,7 @@ with lib; {
         "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
         "notashelf.cachix.org-1:VTTBFNQWbfyLuRzgm2I7AWSDJdqAa11ytLXHBhrprZk="
+        "neovim-flake.cachix.org-1:iyQ6lHFhnB5UkVpxhQqLJbneWBTzM8LBYOFPLNH4qZw="
       ];
     };
   };
