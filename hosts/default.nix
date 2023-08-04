@@ -4,7 +4,7 @@
   withSystem,
   ...
 }: let
-  inputs = self.inputs;
+  inherit (self) inputs;
   inherit (lib) concatLists mkNixosIso mkNixosSystem;
 
   # common modules, to be shared across all systems
@@ -182,7 +182,6 @@ in {
 
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
-  /*
   artemis = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -194,10 +193,8 @@ in {
       ++ shared;
     specialArgs = sharedArgs;
   };
-  */
 
   # Apollon is aarch64-linux
-  /*
   apollon = mkNixosSystem {
     inherit withSystem;
     system = "aarch64-linux";
@@ -209,5 +206,4 @@ in {
       ++ shared;
     specialArgs = sharedArgs;
   };
-  */
 }
