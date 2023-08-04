@@ -5,11 +5,16 @@
 }: {
   systemd =
     {
-      /*
-      more services go here
-      */
+      # Systemd OOMd
+      # Fedora enables these options by default. See the 10-oomd-* files here:
+      # https://src.fedoraproject.org/rpms/systemd/tree/acb90c49c42276b06375a66c73673ac3510255
+      oomd = {
+        enableRootSlice = true;
+        enableUserServices = true;
+        enableSystemSlice = true;
+      };
     }
-    // lib.optionalAttrs (config.security.auditd.enable) {
+    // lib.optionalAttrs config.security.auditd.enable {
       # a systemd timer to clean /var/log/audit.log daily
       # this can probably be weekly, but daily means we get to clean it every 2-3 days instead of once a week
       timers."clean-audit-log" = {

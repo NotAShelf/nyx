@@ -1,25 +1,20 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{lib, ...}:
 with lib; {
   options.modules.usrEnv = {
+    # this option will determine what window manager/compositor/desktop environment
+    # the system will use
+    # TODO: make this a list
+    desktop = mkOption {
+      type = types.enum ["Hyprland" "sway" "awesome" "i3"];
+      default = "Hyprland";
+    };
+
     # should wayland module be loaded? this will include:
     # wayland compatibility options, wayland-only services and programs
     # and the wayland nixpkgs overlay
     isWayland = mkOption {
       type = types.bool;
       default = true;
-    };
-
-    # this option will determine what window manager/compositor/desktop environment
-    # the system will use
-    # TODO: make this a list
-    desktop = mkOption {
-      type = types.enum ["Hyprland" "awesome" "i3"];
-      default = "Hyprland";
     };
 
     autologin = mkOption {

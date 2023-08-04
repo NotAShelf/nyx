@@ -5,11 +5,9 @@
   ...
 }:
 with lib; let
-  /*
-  SEE: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
-  this makes our system more secure
-  do note that it might break some stuff, e.g. webcam
-  */
+  # SEE: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
+  # this makes our system more secure
+  # do note that it might break some stuff, e.g. webcam
   sys = config.modules.system;
 in {
   security = {
