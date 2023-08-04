@@ -33,7 +33,7 @@ in {
 
         video.enable = true;
         sound.enable = true;
-        bluetooth.enable = false;
+        bluetooth.enable = true;
         printing.enable = true;
         emulation.enable = true;
 
