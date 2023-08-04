@@ -5,6 +5,13 @@
 }: let
   neovim = inputs.neovim-flake;
   # neovim-package = inputs'.neovim-nightly.packages.default;
+
+  htms = pkgs.fetchFromGitHub {
+    owner = "calops";
+    repo = "hmts.nvim";
+    rev = "v0.1.0";
+    hash = "sha256-SBNTtuzwSmGgwALD/JqLwXGLow+Prn7dJrQNODPeOAY=";
+  };
 in {
   imports = [
     neovim.homeManagerModules.default
@@ -21,6 +28,12 @@ in {
         preventJunkFiles = true;
         enableLuaLoader = true;
 
+        treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+          lua
+          markdown
+          markdown-inline
+        ];
+
         extraPlugins = with pkgs.vimPlugins; {
           aerial = {
             package = aerial-nvim;
@@ -36,6 +49,11 @@ in {
           nvim-surround = {
             package = nvim-surround;
             setup = "require('nvim-surround').setup{}";
+          };
+
+          htms = {
+            package = htms;
+            after = ["treesitter"];
           };
         };
 
