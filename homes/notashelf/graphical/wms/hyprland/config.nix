@@ -112,8 +112,8 @@ in {
 
         # shadow config
         drop_shadow = "yes";
-        shadow_range = 14;
-        shadow_render_power = 3;
+        shadow_range = 20;
+        shadow_render_power = 5;
         "col.shadow" = "rgba(292c3cee)";
       };
 
@@ -124,7 +124,7 @@ in {
 
         # window swallowing
         enable_swallow = true; # hide windows that spawn other windows
-        swallow_regex = "foot|thunar|nemo";
+        swallow_regex = "foot|thunar|nemo"; # windows for which swallow is applied
 
         # dpms
         mouse_move_enables_dpms = true; # enable dpms on mouse/touchpad action
@@ -181,6 +181,7 @@ in {
         "$MOD,period,exec, killall rofi || rofi -show emoji" # emoji plugin for rofi
 
         ''$MOD,R,exec, killall tofi || run-as-service $(tofi-drun --prompt-text "  Run")'' # alternative app launcher
+        "$MODSHIFT,R,exec, killall anyrun || run-as-service $(anyrun)" # alternative application launcher with more features
 
         # window operators
         "$MODSHIFT,Q,killactive," # kill focused window

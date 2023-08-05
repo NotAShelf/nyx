@@ -22,11 +22,11 @@
   sharedModules = extraModules + /shared; # the path where shared modules reside
 
   # profiles
-  profiles = ../modules/profile; # profiles force enable certain options for quick configurations
+  profiles = ../modules/profiles; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
-  homeDir = ../homes; # home-manager configurations for hosts that need home-manager
-  homes = [hm homeDir]; # combine hm flake input and the home module to be imported together
+  homesDir = ../homes; # home-manager configurations for hosts that need home-manager
+  homes = [hm homesDir]; # combine hm flake input and the home module to be imported together
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
