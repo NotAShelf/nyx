@@ -9,6 +9,7 @@ with lib; {
     ./networking.nix
     ./security.nix
     ./boot.nix
+    ./activation.nix
   ];
   config = {
     warnings =

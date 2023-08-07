@@ -11,35 +11,38 @@ in {
     enableInitrdTweaks = mkEnableOption "quality of life tweaks for the initrd stage";
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
-    tmpOnTmpfs = mkEnableOption "/tmp should living tmpfs. false means it will be cleared manually on each reboot";
+    tmpOnTmpfs = mkEnableOption "/tmp living on tmpfs. false means it will be cleared manually on each reboot";
 
     extraKernelParams = mkOption {
       type = with types; listOf string;
       default = [];
+      description = "Extra kernel parameters to be added to the kernel command line.";
     };
 
     kernel = mkOption {
       type = types.raw;
       default = pkgs.linuxPackages_latest;
+      description = "The kernel to use for the system.";
     };
 
-    # the bootloader that should be used
     loader = mkOption {
       type = types.enum ["none" "grub" "systemd-boot"];
       default = "none";
       description = "The bootloader that should be used for the device.";
     };
 
+    device = mkOption {
+      type = with types; nullOr str;
+      default = "nodev";
+      description = "The device to install the bootloader to.";
+    };
+
     plymouth = {
       enable = mkEnableOption "plymouth boot splash";
-      withThemes =
-        mkEnableOption null
-        // {
-          description = mdDoc ''
-            Whether or not themes from https://github.com/adi1090x/plymouth-themes
-            should be enabled and configured
-          '';
-        };
+      withThemes = mkEnableOption (mdDoc ''
+        Whether or not themes from https://github.com/adi1090x/plymouth-themes
+        should be enabled and configured
+      '');
 
       pack = mkOption {
         type = types.enum [1 2 3 4];
