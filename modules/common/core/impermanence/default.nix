@@ -17,12 +17,13 @@ in {
       # this option makes it that users are not mutable outside our configurations
       # if you are on nixos, you are probably smart enough to not try and edit users
       # manually outside your configuration.nix or whatever
-      mutableUsers = false; # TODO: maybe check the existence of /persist/passwords with an assertion
-
       # P.S: This option requires you to define a password file for your users
       # inside your configuration.nix - you can generate this password with
       # mkpasswd -m sha-512 > /persist/passwords/notashelf after you confirm /persist/passwords exists
+      mutableUsers = false;
 
+      # each existing user needs to have a passwordFile defined here
+      # otherwise, they will not be available for a login
       users = {
         root = {
           # passwordFile needs to be in a volume marked with `neededForBoot = true`
@@ -35,7 +36,6 @@ in {
     };
 
     # home.persistence."/persist/home/notashelf" = {};
-
     environment.persistence."/persist" = {
       directories = [
         "/etc/nixos"
@@ -98,6 +98,7 @@ in {
         "systemd-cryptsetup@enc.service"
       ];
       before = [
+        # mount the root fs
         "sysroot.mount"
       ];
       unitConfig.DefaultDependencies = "no";
@@ -110,7 +111,7 @@ in {
         mount -o subvol=/ /dev/mapper/enc /mnt
 
         # If home is meant to be impermanent, also mount the home subvolume to be deleted later
-        ${optionalString (cfg.home.enable) "mount -o subvol=/home /dev/mapper/enc /mnt/home"}
+        ${optionalString cfg.home.enable "mount -o subvol=/home /dev/mapper/enc /mnt/home"}
 
         # While we're tempted to just delete /root and create
         # a new snapshot from /root-blank, /root is already
@@ -133,9 +134,11 @@ in {
 
         echo "restoring blank /root subvolume..."
         btrfs subvolume snapshot /mnt/root-blank /mnt/root
-        ${optionalString (cfg.home.enable) ''echo "restoring blank /home subvolume..." ''}
-        ${optionalString (cfg.home.enable) "mount -o subvol=/home /dev/mapper/enc /mnt/home"}
 
+        ${optionalString cfg.home.enable ''
+          echo "restoring blank /home subvolume..."
+          mount -o subvol=/home /dev/mapper/enc /mnt/home
+        ''}
 
         # Once we're done rolling back to a blank snapshot,
         # we can unmount /mnt and continue on the boot process.
