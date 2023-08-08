@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   config = {
     modules = {
       device = {
@@ -15,6 +19,7 @@
       system = {
         username = "notashelf";
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
+        activation.diffGenerations = false;
 
         boot = {
           loader = "systemd-boot";

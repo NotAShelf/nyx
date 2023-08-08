@@ -4,9 +4,16 @@
   ...
 }: let
   inherit (lib) mkIf;
-  device = config.modules.device;
+  inherit (config.modules) device;
 in {
   imports = [./systemd.nix];
+
+  # compress half of the ram to use as swap
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
+
   services = {
     # monitor and control temparature
     thermald.enable = true;
@@ -17,7 +24,7 @@ in {
     # firmware updater for machine hardware
     fwupd.enable = true;
     # I don't use lvm, can be disabled
-    lvm.enable = lib.mkDefault false;
+    lvm.enable = false;
     # enable smartd monitoering
     smartd.enable = true;
 

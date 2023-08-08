@@ -1,8 +1,8 @@
 _: {
   imports = [
-    ./loader
-    ./secure-boot
-    ./generic
-    ./plymouth
+    ./loader # per-bootloader configurations
+    ./secure-boot # secure boot module
+    ./generic # generic configuration, such as kernel and tmpfs setup
+    ./plymouth # plymouth boot splash
   ];
 }

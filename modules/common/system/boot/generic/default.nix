@@ -9,12 +9,13 @@ with lib; let
 in {
   config = {
     boot = {
+      # kernel console loglevel
       consoleLogLevel = 0;
-
       # always use the latest kernel instead of the old-ass lts one
-      kernelPackages = lib.mkOverride 500 pkgs.linuxPackages_latest;
-
+      kernelPackages = lib.mkOverride 500 sys.boot.kernel;
+      # additional packages supplying kernel modules
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
+      # configuration to be appended to the generated modprobe.conf
       extraModprobeConfig = "options hid_apple fnmode=1";
 
       # settings shared between bootloaders
@@ -22,6 +23,7 @@ in {
       loader = {
         # if set to 0, space needs to be held to get the boot menu to appear
         timeout = mkForce 2;
+        # whether to copy the necessary boot files into /boot, so /nix/store is not needed by the boot loader.
         generationsDir.copyKernels = true;
 
         # allow installation to modify EFI variables
@@ -82,9 +84,6 @@ in {
       # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
       kernelParams =
         [
-          # enables calls to ACPI methods through /proc/acpi/call
-          "acpi_call"
-
           # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
           # auto means kernel will automatically decide the pti state
           "pti=auto" # on | off
@@ -92,14 +91,11 @@ in {
           # make stack-based attacks on the kernel harder
           "randomize_kstack_offset=on"
 
-          # this has been defaulted to none back in 2016 - break really old binaries for security
+          # controls the behavior of vsyscalls. this has been defaulted to none back in 2016 - break really old binaries for security
           "vsyscall=none"
 
-          # https://tails.boum.org/contribute/design/kernel_hardening/
+          # reduce most of the exposure of a heap attack to a single cache
           "slab_nomerge"
-
-          # needs to be on for powertop
-          # "debugfs=on"
 
           # only allow signed modules
           "module.sig_enforce=1"
@@ -113,11 +109,10 @@ in {
           # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
           "page_alloc.shuffle=1"
 
-          # WARNING: this will leak unhashed memory addresses to dmesg
           # for debugging kernel-level slab issues
-          # "slub_debug=FZP"
+          "slub_debug=FZP"
 
-          # always-enable sysrq keys. Useful for debugging
+          # always-enable sysrq keys. Useful for debugging, but also insecure
           "sysrq_always_enabled=0"
 
           # disable the intel_idle driver and use acpi_idle instead
@@ -134,9 +129,6 @@ in {
 
           # linux security modules
           "lsm=landlock,lockdown,yama,apparmor,bpf"
-
-          # 7 = KERN_DEBUG for debugging
-          "loglevel=7"
 
           # disables resume and restores original swap space
           "noresume"
@@ -161,7 +153,6 @@ in {
           "rd.udev.log_level=3"
 
           # disable the cursor in vt to get a black screen during intermissions
-          # TODO turn back on in tty
           "vt.global_cursor_default=0"
         ]
         ++ optionals (sys.boot.extraKernelParams != []) sys.boot.extraKernelParams;

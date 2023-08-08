@@ -29,7 +29,7 @@ in {
           term = "xterm-256color";
           font = "monospace:size=14";
           pad = "16x16";
-          dpi-aware = "yes";
+          dpi-aware = "false";
           vertical-letter-offset = "-0.75";
 
           notify = "notify-send -a \${app-id} -i \${app-id} \${title} \${body}";
