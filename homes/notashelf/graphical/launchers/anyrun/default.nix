@@ -29,7 +29,7 @@ in {
         #x.relative = 800;
         # the y coordinate of the runner
         #y.absolute = 500.0;
-        y.fraction = 0.0;
+        y.fraction = 0.02;
 
         # Hide match and plugin info icons
         hideIcons = false;
@@ -51,6 +51,24 @@ in {
 
         # Limit amount of entries shown in total
         maxEntries = null;
+      };
+
+      extraConfigFiles = {
+        "symbols.ron".text = ''
+          Config(
+            // The prefix that the search needs to begin with to yield symbol results
+            prefix: ":s",
+
+            // Custom user defined symbols to be included along the unicode symbols
+            symbols: {
+              // "name": "text to be copied"
+              "shrug": "¯\\_(ツ)_/¯",
+            },
+
+            // The number of entries to be displayed
+            max_entries: 3,
+          )
+        '';
       };
 
       extraCss = ''
