@@ -11,6 +11,7 @@ in {
     modules = {
       style = {
         forceGtk = mkEnableOption "Force GTK applications to use the GTK theme";
+        useKvantum = mkEnableOption "Use Kvantum to theme QT applications" // {default = !cfg.forceGtk;};
 
         # choose a colorscheme
         colorScheme = {
@@ -24,11 +25,11 @@ in {
           # "name-of-the-scheme"
           slug = mkOption {
             type = types.str;
+            default = lib.serializeTheme "${cfg.colorScheme.name}";
             description = mdDoc ''
               The serialized slug for the colorScheme you are using. Defaults to a lowercased version of the theme name with spaces
               replaced with hyphens. Only change if the slug is expected to be different."
             '';
-            default = lib.serializeTheme "${cfg.colorScheme.name}";
           };
         };
 
