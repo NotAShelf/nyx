@@ -9,12 +9,13 @@ with lib; let
 in {
   config = {
     boot = {
+      # kernel console loglevel
       consoleLogLevel = 0;
-
       # always use the latest kernel instead of the old-ass lts one
-      kernelPackages = lib.mkOverride 500 pkgs.linuxPackages_latest;
-
+      kernelPackages = lib.mkOverride 500 sys.boot.kernel;
+      # additional packages supplying kernel modules
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
+      # configuration to be appended to the generated modprobe.conf
       extraModprobeConfig = "options hid_apple fnmode=1";
 
       # settings shared between bootloaders
@@ -22,6 +23,7 @@ in {
       loader = {
         # if set to 0, space needs to be held to get the boot menu to appear
         timeout = mkForce 2;
+        # whether to copy the necessary boot files into /boot, so /nix/store is not needed by the boot loader.
         generationsDir.copyKernels = true;
 
         # allow installation to modify EFI variables
@@ -127,9 +129,6 @@ in {
 
           # linux security modules
           "lsm=landlock,lockdown,yama,apparmor,bpf"
-
-          # 7 = KERN_DEBUG for debugging
-          "loglevel=7"
 
           # disables resume and restores original swap space
           "noresume"
