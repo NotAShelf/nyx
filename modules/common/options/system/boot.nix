@@ -14,7 +14,7 @@ in {
     tmpOnTmpfs = mkEnableOption "/tmp living on tmpfs. false means it will be cleared manually on each reboot";
 
     extraKernelParams = mkOption {
-      type = with types; listOf string;
+      type = with types; listOf str;
       default = [];
       description = "Extra kernel parameters to be added to the kernel command line.";
     };

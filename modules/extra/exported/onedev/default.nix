@@ -27,7 +27,7 @@ in {
 
       user = mkOption {
         default = "onedev";
-        type = with types; nullOr string;
+        type = with types; nullOr str;
       };
     };
   };

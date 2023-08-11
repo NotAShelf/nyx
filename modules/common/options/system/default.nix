@@ -38,7 +38,7 @@ with lib; {
     };
 
     fs = mkOption {
-      type = types.listOf types.string;
+      type = with types; listOf str;
       default = ["vfat" "ext4" "btrfs"]; # TODO: zfs, ntfs
       description = mdDoc ''
         A list of filesystems available supported by the system
