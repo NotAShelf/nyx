@@ -13,8 +13,9 @@ in ''
 
   window#waybar {
     background-color: #${base00};
-    border: .5px solid #${base00};
+    border: .5px solid #${base01};
     border-radius: 20px;
+    box-shadow: 2 3 2 2px #151515;
     color: #${base05};
     margin: 16px 16px;
     transition-property: background-color;
