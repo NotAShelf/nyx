@@ -7,14 +7,16 @@
   inherit (self) inputs;
   inherit (lib) concatLists mkNixosIso mkNixosSystem;
 
+  modulePath = ../modules;
+
   # common modules, to be shared across all systems
-  commonModules = ../modules/common; # the path where common modules reside
+  commonModules = modulePath + /common; # the path where common modules reside
   options = commonModules + /options; # the module that provides the options for my system configuration
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
   system = commonModules + /system; # system module for configuring system-specific options easily
 
   # extra modules, likely optional but possibly critical
-  extraModules = ../modules/extra; # the path where extra modules reside
+  extraModules = modulePath + /extra; # the path where extra modules reside
   server = extraModules + /server; # for devices that act as "servers"
   desktop = extraModules + /desktop; # for devices that are for daily use
   hardware = extraModules + /hardware; # for specific hardware configurations that are not in nixos-hw
@@ -22,7 +24,7 @@
   sharedModules = extraModules + /shared; # the path where shared modules reside
 
   # profiles
-  profiles = ../modules/profiles; # profiles force enable certain options for quick configurations
+  profiles = modulePath + /profiles; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
   homesDir = ../homes; # home-manager configurations for hosts that need home-manager
