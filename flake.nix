@@ -63,6 +63,8 @@
         homeManagerModules = {
           xplr = ./modules/extra/shared/home-manager/xplr;
 
+          gtklock = ./modules/extra/shared/home-manager/gtklock;
+
           # again, we do not want to provide a default module
           default = null;
         };
