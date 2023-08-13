@@ -7,9 +7,8 @@
   inherit (lib) mkDefault;
 in {
   imports = [
-    # external home-manager modules
+    # imported home-manager modules
     self.homeManagerModules.xplr
-    self.homeManagerModules.gtklock
 
     # home package sets
     ./packages
