@@ -8,8 +8,6 @@
 with lib; let
   sys = osConfig.modules.system;
   cfg = osConfig.modules.programs;
-
-  monitors = osConfig.modules.device.monitors;
 in {
   mainBar = {
     layer = "top";

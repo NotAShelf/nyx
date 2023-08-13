@@ -26,7 +26,6 @@ in {
       unzip
       ripgrep
       rsync
-      bandwhich
       grex
       fd
       xh

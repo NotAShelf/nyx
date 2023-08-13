@@ -10,13 +10,15 @@ with lib; {
     ./security.nix
     ./boot.nix
     ./activation.nix
+    ./virtualization.nix
   ];
   config = {
     warnings =
       if config.modules.system.fs == []
       then [
-        ''          You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
-                      Consider setting `config.modules.system.fs` in your configuration
+        ''
+          You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
+          Consider setting `config.modules.system.fs` in your configuration
         ''
       ]
       else [];
@@ -27,9 +29,16 @@ with lib; {
     # this will dictate the initial home-manager settings if home-manager is
     # enabled in usrEnv
     # TODO: allow for a list of usernames, map them individually to homes/<username>
-    username = mkOption {
-      type = types.str;
+    users = mkOption {
+      type = with types; listOf str;
+      default = ["notashelf"];
       description = "The username of the non-root superuser for your system";
+    };
+
+    mainUser = mkOption {
+      type = types.enum config.modules.system.users;
+      description = "The username of the main user for your system";
+      default = builtins.elemAt config.modules.system.users 0;
     };
 
     # no actual use yet, do not use
@@ -38,7 +47,7 @@ with lib; {
     };
 
     fs = mkOption {
-      type = types.listOf types.string;
+      type = with types; listOf str;
       default = ["vfat" "ext4" "btrfs"]; # TODO: zfs, ntfs
       description = mdDoc ''
         A list of filesystems available supported by the system
@@ -75,15 +84,6 @@ with lib; {
     printing = {
       enable = mkEnableOption "printing";
       "3d".enable = mkEnableOption "3D printing suite";
-    };
-
-    # should virtualization (docker, qemu, podman etc.) be enabled
-    virtualization = {
-      enable = mkEnableOption "virtualization";
-      docker = {enable = mkEnableOption "docker";};
-      podman = {enable = mkEnableOption "podman";};
-      qemu = {enable = mkEnableOption "qemu";};
-      waydroid = {enable = mkEnableOption "waydroid";};
     };
   };
 }

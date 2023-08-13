@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  swaylock = lib.getExe pkgs.swaylock-effects;
+  locker = lib.getExe pkgs."${env.screenLock}";
 
   systemctl = "${pkgs.systemd}/bin/systemctl";
   suspendScript = pkgs.writeShellScript "suspend-script" ''
@@ -16,12 +16,13 @@ with lib; let
       ${systemctl} suspend
     fi
   '';
-  device = osConfig.modules.device;
+  dev = osConfig.modules.device;
   env = osConfig.modules.usrEnv;
+  vid = osConfig.modules.system.video;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && env.isWayland) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && (vid.enable && env.isWayland)) {
     # start swayidle as part of hyprland instead of sway
     systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
 
@@ -36,16 +37,16 @@ in {
         }
         {
           event = "lock";
-          command = "${swaylock} -fF";
+          command = "${locker}";
         }
       ];
       timeouts = [
         {
-          timeout = 600;
+          timeout = 900;
           command = suspendScript.outPath;
         }
         {
-          timeout = 900;
+          timeout = 1200;
           command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
           resumeCommand = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
         }

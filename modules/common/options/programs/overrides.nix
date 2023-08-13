@@ -1,6 +1,8 @@
 {lib, ...}: let
   inherit (lib) mkEnableOption;
 in {
+  # this module provides overrides for certain defaults and lets you set
+  # default programs for referencing in other config files.
   options.modules = {
     # "override" is a simple option that sets the programs' state to the oppossite of their default
     # service overrides

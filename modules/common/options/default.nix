@@ -4,5 +4,6 @@ _: {
     ./system
     ./device
     ./usrEnv
+    ./theme
   ];
 }

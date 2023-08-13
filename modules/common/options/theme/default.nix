@@ -4,27 +4,32 @@
   config,
   ...
 }: let
-  inherit (lib) mkIf mkOption mkEnableOption types mdDoc;
-  inherit (builtins) toString;
-  cfg = config.profiles.style;
+  inherit (lib) mkOption mkEnableOption types mdDoc;
+  cfg = config.modules.style;
 in {
   options = {
-    profiles = {
-      # style module that provides a color profile
+    modules = {
       style = {
+        forceGtk = mkEnableOption "Force GTK applications to use the GTK theme";
+        useKvantum = mkEnableOption "Use Kvantum to theme QT applications";
+
+        # choose a colorscheme
         colorScheme = {
+          # "Name Of The Scheme"
           name = mkOption {
-            type = types.str;
+            type = with types; nullOr (enum ["Catppuccin Mocha" "Tokyo Night"]);
             description = "The colorscheme that should be used globally to theme your system.";
             default = "Catppuccin Mocha";
           };
 
+          # "name-of-the-scheme"
           slug = mkOption {
             type = types.str;
+            default = lib.serializeTheme "${cfg.colorScheme.name}";
             description = mdDoc ''
-              The serialized slug for the colorScheme you are using. For "Catppuccin Mocha", it would be "catppuccin-mocha"
+              The serialized slug for the colorScheme you are using. Defaults to a lowercased version of the theme name with spaces
+              replaced with hyphens. Only change if the slug is expected to be different."
             '';
-            default = "catppuccin-mocha";
           };
         };
 
@@ -34,11 +39,13 @@ in {
             description = "The package providing the cursors";
             default = pkgs.catppuccin-cursors.mochaDark;
           };
+
           name = mkOption {
             type = types.str;
             description = "The name of the cursor inside the package";
             default = "Catppuccin-Mocha-Dark-Cursors";
           };
+
           size = mkOption {
             type = types.int;
             description = "The size of the cursor";
@@ -46,6 +53,7 @@ in {
           };
         };
 
+        # qt specific options
         qt = {
           style = {
             package = mkOption {
@@ -61,21 +69,25 @@ in {
           };
         };
 
+        # gtk specific options
         gtk = {
-          usePortal = mkEnableOption "" // {default = true;};
+          usePortal = mkEnableOption "native desktop portal use for filepickers";
+
           theme = {
             name = mkOption {
               type = types.str;
-              default = "Catppuccin-Mocha-Compact-Blue-Dark";
+              default = "Catppuccin-Mocha-Standard-Blue-dark";
               description = "The name for the GTK theme package";
             };
+
             package = mkOption {
               type = types.package;
               description = "The theme package to be used for GTK programs";
               default = pkgs.catppuccin-gtk.override {
-                size = "compact";
+                size = "standard";
                 accents = ["blue"];
                 variant = "mocha";
+                tweaks = ["normal"];
               };
             };
           };
@@ -87,6 +99,7 @@ in {
 
               default = "Papirus-Dark";
             };
+
             package = mkOption {
               type = types.package;
               description = "The GTK icon theme to be used";
@@ -103,9 +116,10 @@ in {
               description = "The name of the font that will be used for GTK applications";
               default = "Lexend";
             };
+
             size = mkOption {
               type = types.int;
-              descriptiion = "The size of the font";
+              description = "The size of the font";
               default = 14;
             };
           };

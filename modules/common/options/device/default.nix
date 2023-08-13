@@ -29,7 +29,7 @@ with lib; {
     };
 
     monitors = mkOption {
-      type = types.listOf types.string;
+      type = with types; listOf str;
       default = [];
       description = ''
         this does not affect any drivers and such, it is only necessary for

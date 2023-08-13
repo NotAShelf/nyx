@@ -58,7 +58,7 @@ in {
           # this option is usually defined in host/<hostname>/system.nix
           initial_session = mkIf env.autologin {
             command = "${env.desktop}";
-            user = "${sys.username}";
+            user = "${sys.mainUser}";
           };
 
           default_session =
@@ -76,7 +76,7 @@ in {
             }
             else {
               command = "${env.desktop}";
-              user = "${sys.username}";
+              user = "${sys.mainUser}";
             };
         };
       };

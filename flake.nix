@@ -26,7 +26,7 @@
 
         # parts of the flake
         ./parts/pkgs # packages exposed by the flake
-        ./parts/args # args that is passsed to the flake, moved away from the main file
+        ./parts/args # args that are passsed to the flake, moved away from the main file
       ];
 
       flake = let

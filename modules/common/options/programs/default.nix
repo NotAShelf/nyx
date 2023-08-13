@@ -5,8 +5,6 @@
 }:
 with lib; {
   imports = [./overrides.nix];
-  # this module provides overrides for certain defaults and lets you set
-  # default programs for referencing in other config files.
   options.modules = {
     programs = {
       cli = {
@@ -21,7 +19,7 @@ with lib; {
 
         emulation.enable = mkEnableOption "Enable programs required to emulate other platforms";
 
-        chess.enable = mkEnableOption "Chess programs and engines";
+        chess.enable = mkEnableOption "Chess programs and engines" // {default = config.modules.programs.gaming.enable;};
 
         gamescope.enable = mkEnableOption "Gamescope compositing manager" // {default = config.modules.programs.gaming.enable;};
       };

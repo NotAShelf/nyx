@@ -4,5 +4,6 @@ _: {
     ./spotifyd
     ./easyeffects
     ./noisetorch
+    ./rnnoise
   ];
 }

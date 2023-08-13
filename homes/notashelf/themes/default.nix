@@ -1,5 +1,5 @@
 {inputs, ...}: let
-  # inherit (inputs.nix-colors) colorSchemes;
+  #inherit (inputs.nix-colors) colorSchemes;
   # Custom colorscheme list #
   # default-dark = (import ./palettes/default-dark.nix).colorscheme;
   # Custom, well known #
@@ -17,6 +17,7 @@ in {
     inputs.nix-colors.homeManagerModule
     ./gtk.nix
     ./qt.nix
+    ./global.nix
   ];
   # Use the colorscheme available at github:tinted-theming/base16-schemes
   #colorscheme = colorSchemes.ashes;

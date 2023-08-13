@@ -7,26 +7,28 @@
 with lib; let
   sys = config.modules.system.virtualization;
 in {
-  config = mkIf (sys.enable) {
+  config = mkIf sys.enable {
     # TODO: # Enable CRIU alongside podman
     # programs.criu.enable = lib.mkDefault true;
 
     environment.systemPackages = with pkgs;
       []
-      ++ optionals (sys.qemu.enable) [
+      ++ optionals sys.qemu.enable [
         virt-manager
         virt-viewer
       ]
-      ++ optionals (sys.docker.enable) [
+      ++ optionals sys.docker.enable [
         podman-compose
         podman-desktop
-        distrobox # TODO: add a separate option for this
       ]
-      ++ optionals (sys.waydroid.enable) [
+      ++ optionals sys.waydroid.enable [
         waydroid
+      ]
+      ++ optionals sys.distrobox.enable [
+        distrobox
       ];
 
-    virtualisation = mkIf (sys.qemu.enable) {
+    virtualisation = mkIf sys.qemu.enable {
       kvmgt.enable = true;
       spiceUSBRedirection.enable = true;
       libvirtd = {
@@ -41,7 +43,7 @@ in {
         };
       };
 
-      podman = mkIf (sys.docker.enable) {
+      podman = mkIf sys.docker.enable {
         enable = true;
         dockerCompat = true;
         dockerSocket.enable = true;
