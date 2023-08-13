@@ -13,13 +13,13 @@
   commonModules = modulePath + /common; # the path where common modules reside
   options = commonModules + /options; # the module that provides the options for my system configuration
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
-  system = commonModules + /system; # system module for configuring system-specific options easily
+  server = commonModules + /types/server; # for devices that are of the server type - provides online services
+  laptop = commonModules + /types/laptop; # for devices that are of the laptop type - provides power optimizations
+  workstation = commonModules + /types/workstation; # for devices that are of workstation type - any device that is for daily use
+  # TODO: desktop
 
   # extra modules, likely optional but possibly critical
   extraModules = modulePath + /extra; # the path where extra modules reside
-  server = extraModules + /server; # for devices that act as "servers"
-  desktop = extraModules + /desktop; # for devices that are for daily use
-  hardware = extraModules + /hardware; # for specific hardware configurations that are not in nixos-hw
   sharedModules = extraModules + /shared; # the path where shared modules reside
 
   # profiles
@@ -36,12 +36,10 @@
 
   # a list of shared modules that ALL systems need
   shared = [
-    system # the skeleton module for config.modules.*
     core # the "sane" default shared across systems
     agenix # age encryption for secrets
     sharedModules # consume my flake's own nixosModules
     profiles # a profile module to provide configuration sets per demand
-    hardware # a module for hardware specific quirks or hardware specific options outside nixos-hardware
     options # provide options for defined modules across the system
   ];
 
@@ -58,7 +56,7 @@ in {
       [
         {networking.hostName = "enyo";}
         ./enyo
-        desktop
+        workstation
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -74,7 +72,8 @@ in {
       [
         {networking.hostName = "prometheus";}
         ./prometheus
-        desktop
+        workstation
+        laptop
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -89,7 +88,8 @@ in {
       [
         {networking.hostName = "epimetheus";}
         ./epimetheus
-        desktop
+        workstation
+        laptop
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -105,7 +105,8 @@ in {
       [
         {networking.hostName = "hermes";}
         ./hermes
-        desktop
+        workstation
+        laptop
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -135,7 +136,8 @@ in {
       [
         {networking.hostName = "icarus";}
         ./icarus
-        desktop
+        workstation
+        laptop
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -176,6 +178,7 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  /*
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
   artemis = mkNixosSystem {
@@ -202,4 +205,5 @@ in {
       ++ shared;
     specialArgs = sharedArgs;
   };
+  */
 }

@@ -9,9 +9,9 @@ in {
     supportsDryActivation = true;
     text = ''
       if [[ -e /run/current-system ]]; then
-        echo "--- diff to current-system"
+        echo "=== diff to current-system ==="
         ${config.nix.package}/bin/nix --extra-experimental-features nix-command store diff-closures /run/current-system "$systemConfig"
-        echo "---"
+        echo "=== end of the system diff ==="
       fi
     '';
   };

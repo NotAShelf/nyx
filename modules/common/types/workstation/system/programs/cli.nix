@@ -29,6 +29,14 @@ in {
 
       # show network usage
       bandwhich.enable = true;
+
+      # "saying java is good because it runs on all systems is like saying
+      # anal sex is good because it works on all species"
+      # - sun tzu
+      java = {
+        enable = true;
+        package = pkgs.jre;
+      };
     };
 
     # determine which version of wine to be used
