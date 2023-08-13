@@ -12,6 +12,13 @@
     rev = "v0.1.0";
     hash = "sha256-SBNTtuzwSmGgwALD/JqLwXGLow+Prn7dJrQNODPeOAY=";
   };
+
+  regexplainer = pkgs.fetchFromGitHub {
+    owner = "bennypowers";
+    repo = "nvim-regexplainer";
+    rev = "4250c8f3c1307876384e70eeedde5149249e154f";
+    hash = "sha256-15DLbKtOgUPq4DcF71jFYu31faDn52k3P1x47GL3+b0=";
+  };
 in {
   imports = [
     neovim.homeManagerModules.default
@@ -54,6 +61,10 @@ in {
           htms = {
             package = htms;
             after = ["treesitter"];
+          };
+
+          regexplainer = {
+            package = regexplainer;
           };
         };
 
