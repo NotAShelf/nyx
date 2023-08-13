@@ -6,5 +6,6 @@ _: {
     ./swayidle
     ./swaylock
     ./waybar
+    ./gtklock
   ];
 }

@@ -7,27 +7,32 @@
 with builtins; let
   cfg = config.programs.gtklock;
 
-  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD mdDoc literalExpression optionals;
+  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD mdDoc literalExpression optionals optionalString;
   inherit (lib.generators) toINI;
+
+  # the main config includes two very niche options: style (which takes a path) and modules, which takes a list of module paths
+  # concatted by ";"
+  # for type checking purposes, I prefer templating the main section of the config and let the user safely choose options
+  # extraConfig takes an attrset, and converts it to the correct INI format - it's mostly just strings and integers, so that's fine
 
   baseConfig = ''
     [main]
-    gtk-theme=${cfg.config.gtk-theme or ""}
-    style=${cfg.config.style or ""}
-    modules=${concatStringsSep "," cfg.config.modules or ""}
+    ${optionalString (cfg.config.gtk-theme != "") "gtk-theme=${cfg.config.gtk-theme}"}
+    ${optionalString (cfg.config.style != "") "style=${cfg.config.style}"}
+    ${optionalString (cfg.config.modules != []) "modules=${concatStringsSep ";" cfg.config.modules}"}
   '';
 
   finalConfig = baseConfig + optionals (cfg.extraConfig != null) (toINI {} cfg.extraConfig);
 in {
   meta.maintainers = [maintainers.NotAShelf];
   options.programs.gtklock = {
-    enable = mkEnableOption "GTK-based lockscreen for Wayland" // {default = true;};
+    enable = mkEnableOption "GTK-based lockscreen for Wayland";
     package = mkPackageOptionMD pkgs "gtklock" {};
 
     config = {
       gtk-theme = mkOption {
-        type = with types; nullOr str;
-        default = null;
+        type = types.str;
+        default = "";
         description = mdDoc ''
           GTK theme to use for gtklock.
         '';
@@ -35,8 +40,8 @@ in {
       };
 
       style = mkOption {
-        type = with types; nullOr (oneOf [str path]);
-        default = null;
+        type = with types; oneOf [str path];
+        default = "";
         description = mdDoc ''
           The css file to be used for gtklock.
         '';
@@ -52,13 +57,16 @@ in {
       };
 
       modules = mkOption {
-        type = with types; nullOr (listOf (either package str));
-        default = null;
+        type = with types; listOf (either package str);
+        default = [];
         description = mdDoc ''
           A list of gtklock modulesto use. Can either be packages, absolute paths, or strings.
         '';
         example = literalExpression ''
-          ["${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so"];
+          [
+            "${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so"
+            "${pkgs.gtklock-playerctl-module.outPath}/lib/gtklock/playerctl-module.so"
+          ];
         '';
       };
     };

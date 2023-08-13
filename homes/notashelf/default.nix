@@ -9,6 +9,7 @@ in {
   imports = [
     # imported home-manager modules
     self.homeManagerModules.xplr
+    self.homeManagerModules.gtklock
 
     # home package sets
     ./packages
