@@ -45,7 +45,7 @@ with lib; {
     overlays = [
       inputs.rust-overlay.overlays.default
 
-      (self: super: {
+      (_: _: {
         nixSuper = inputs'.nix-super.packages.default;
       })
     ];

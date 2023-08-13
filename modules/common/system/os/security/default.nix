@@ -72,11 +72,8 @@ in {
       ];
 
       services = {
-        swaylock = {
-          text = ''
-            auth include login
-          '';
-        };
+        swaylock.text = "auth include login";
+        gtklock.text = "auth include login";
       };
     };
 

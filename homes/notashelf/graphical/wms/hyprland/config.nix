@@ -3,6 +3,7 @@
   pkgs,
   osConfig,
   lib,
+  defaults,
   ...
 }: let
   inherit (lib) optionalString imap0;
@@ -11,7 +12,7 @@
   inherit (import ./propaganda.nix pkgs) propaganda;
 
   pointer = config.home.pointerCursor;
-  cfg = osConfig.modules.programs.default;
+  env = osConfig.modules.usrEnv;
   inherit (osConfig.modules.device) monitors;
   mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
       if monitor == "DP-1"
@@ -37,12 +38,14 @@
     10
   );
 
-  defaults = osConfig.modules.programs.default;
+  # defaults = osConfig.modules.programs.default;
 
   terminal =
-    if (cfg.terminal == "foot")
+    if (defaults.terminal == "foot")
     then "footclient"
     else "${defaults.terminal}";
+
+  locker = lib.getExe pkgs.${env.screenLock};
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -167,7 +170,7 @@ in {
       bind = [
         # Misc
         "$MODSHIFT, Escape, exec, wlogout -p layer-shell" # logout menu
-        "$MODSHIFT, L, exec, swaylock" # lock the screen with swaylock
+        "$MODSHIFT, L, exec, ${locker}" # lock the screen with swaylock
         "$MODSHIFT,E,exit," # exit Hyprland session
         ''$MODSHIFT,H,exec,cat ${propaganda} | wl-copy && notify-send "Propaganda" "ready to spread!" && sleep 0.3 && ${lib.getExe pkgs.wtype} -M ctrl -M shift -k v -m shift -m ctrl -s 300 -k Return'' # spread hyprland propaganda
 

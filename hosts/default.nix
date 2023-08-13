@@ -20,7 +20,6 @@
   server = extraModules + /server; # for devices that act as "servers"
   desktop = extraModules + /desktop; # for devices that are for daily use
   hardware = extraModules + /hardware; # for specific hardware configurations that are not in nixos-hw
-  virtualization = extraModules + /virtualization; # hotpluggable virtalization module
   sharedModules = extraModules + /shared; # the path where shared modules reside
 
   # profiles
@@ -60,7 +59,6 @@ in {
         {networking.hostName = "enyo";}
         ./enyo
         desktop
-        virtualization
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -77,7 +75,6 @@ in {
         {networking.hostName = "prometheus";}
         ./prometheus
         desktop
-        virtualization
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -93,7 +90,6 @@ in {
         {networking.hostName = "epimetheus";}
         ./epimetheus
         desktop
-        virtualization
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -110,7 +106,6 @@ in {
         {networking.hostName = "hermes";}
         ./hermes
         desktop
-        virtualization
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -126,7 +121,6 @@ in {
         {networking.hostName = "helios";}
         ./helios
         server
-        virtualization
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;

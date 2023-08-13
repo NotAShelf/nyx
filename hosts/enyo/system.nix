@@ -17,10 +17,8 @@
       };
 
       system = {
-        username = "notashelf";
+        mainUser = "notashelf";
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
-        activation.diffGenerations = false;
-
         boot = {
           loader = "systemd-boot";
           kernel = pkgs.linuxPackages_xanmod_latest;
@@ -30,7 +28,7 @@
           tmpOnTmpfs = true;
           plymouth = {
             enable = true;
-            withThemes = true;
+            withThemes = false;
           };
         };
 
