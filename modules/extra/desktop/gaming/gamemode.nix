@@ -8,27 +8,30 @@
 with lib; let
   programs = makeBinPath (with pkgs; [
     inputs.hyprland.packages.${pkgs.system}.default
-    gojq
+    pkgs.coreutils
+    pkgs.power-profiles-daemon
     systemd
   ]);
 
   startscript = pkgs.writeShellScript "gamemode-start" ''
     export PATH=$PATH:${programs}
     export HYPRLAND_INSTANCE_SIGNATURE=$(ls -w1 /tmp/hypr | tail -1)
-    hyprctl --batch 'keyword decoration:blur 0 ; keyword animations:enabled 0 ; keyword misc:no_vfr 0'
+    hyprctl --batch 'keyword decoration:blur 0 ; keyword animations:enabled 0 ; keyword misc:vfr 0'
     ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations activated'
+    powerprofilesctl set performance
   '';
 
   endscript = pkgs.writeShellScript "gamemode-end" ''
     export PATH=$PATH:${programs}
     export HYPRLAND_INSTANCE_SIGNATURE=$(ls -w1 /tmp/hypr | tail -1)
-    hyprctl --batch 'keyword decoration:blur 1 ; keyword animations:enabled 1 ; keyword misc:no_vfr 1'
+    hyprctl --batch 'keyword decoration:blur 1 ; keyword animations:enabled 1 ; keyword misc:vfr 1'
     ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
+    powerprofilesctl set power-saver
   '';
 
   cfg = config.modules.programs;
 in {
-  config = mkIf (cfg.gaming.enable) {
+  config = mkIf cfg.gaming.enable {
     programs.gamemode = {
       enable = true;
       enableRenice = true;
