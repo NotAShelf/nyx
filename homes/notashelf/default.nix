@@ -8,8 +8,8 @@
 in {
   imports = [
     # external home-manager modules
-    #inputs.hyprland.homeManagerModules.default
     self.homeManagerModules.xplr
+    self.homeManagerModules.gtklock
 
     # home package sets
     ./packages
@@ -29,12 +29,12 @@ in {
     home = {
       username = "notashelf";
       homeDirectory = "/home/notashelf";
+      extraOutputsToInstall = ["doc" "devdoc"];
 
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
       # I will personally strangle every moron who just puts nothing but "DONT CHANGE" next
       # to this value
       stateVersion = mkDefault "23.05";
-      extraOutputsToInstall = ["doc" "devdoc"];
     };
 
     manual = {

@@ -7,14 +7,14 @@
 }:
 python3.pkgs.buildPythonPackage rec {
   pname = "mov-cli";
-  version = "1.4.5";
+  version = "1.5.1";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "mov-cli";
     repo = "mov-cli";
     rev = "${version}";
-    hash = "sha256-JNp26NKLzwwwbOZmTo1fn8obZrslOfyLnlx1HCAfqfQ=";
+    hash = "sha256-ixv9guHfXy1kQbpAWAVwPtpxX5IwAQ8CQ2hvhM7sewg=";
   };
 
   propagatedBuildInputs = [
