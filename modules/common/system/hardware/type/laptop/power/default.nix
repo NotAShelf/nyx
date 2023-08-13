@@ -10,9 +10,18 @@ with lib; let
   MHz = x: x * 1000;
 in {
   config = mkIf (device.type == "laptop" || device.type == "hybrid") {
+    hardware.acpilight.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      acpi
+      powertop
+    ];
+
     services = {
       # superior power management
       auto-cpufreq.enable = true;
+
+      power-profiles-daemon.enable = true;
 
       # temperature target on battery
       undervolt = {
