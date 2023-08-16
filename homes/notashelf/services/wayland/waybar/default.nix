@@ -20,7 +20,7 @@ in {
     programs.waybar = {
       enable = true;
       systemd.enable = true;
-      package = inputs'.hyprland.packages.waybar-hyprland;
+      package = pkgs.waybar-hyprland;
       settings = waybar_config;
       style = waybar_style;
     };
