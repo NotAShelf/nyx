@@ -14,7 +14,6 @@ with builtins; let
   # concatted by ";"
   # for type checking purposes, I prefer templating the main section of the config and let the user safely choose options
   # extraConfig takes an attrset, and converts it to the correct INI format - it's mostly just strings and integers, so that's fine
-
   baseConfig = ''
     [main]
     ${optionalString (cfg.config.gtk-theme != "") "gtk-theme=${cfg.config.gtk-theme}"}
