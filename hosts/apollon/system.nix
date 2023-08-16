@@ -20,7 +20,7 @@ in {
         hasTPM = false;
       };
       system = {
-        username = "notashelf";
+        mainUser = "notashelf";
         fs = ["btrfs" "vfat"];
 
         boot = {

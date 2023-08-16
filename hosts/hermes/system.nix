@@ -18,7 +18,7 @@ in {
         yubikeySupport.enable = true;
       };
       system = {
-        username = "notashelf";
+        mainUser = "notashelf";
         fs = ["btrfs" "ext4" "vfat"];
         impermanence.root.enable = true;
 

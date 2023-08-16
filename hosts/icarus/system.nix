@@ -11,7 +11,7 @@ _: {
         hasTPM = true;
       };
       system = {
-        username = "notashelf";
+        mainUser = "notashelf";
         fs = ["btrfs" "ext4" "vfat"];
 
         boot = {

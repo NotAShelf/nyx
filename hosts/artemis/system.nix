@@ -24,7 +24,7 @@ in {
         fs = ["btrfs" "vfat"];
 
         boot = {
-          loader = "systemd-boot";
+          mainUser = "notashelf";
           enableKernelTweaks = false;
           enableInitrdTweaks = false;
           loadRecommendedModules = false;

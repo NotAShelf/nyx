@@ -25,7 +25,7 @@ in {
         bluetooth.enable = false;
         printing.enable = false;
         virtualization.enable = false;
-        username = "notashelf";
+        mainUser = "notashelf";
       };
       usrEnv = {
         isWayland = false;

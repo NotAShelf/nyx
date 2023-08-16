@@ -15,7 +15,7 @@
       };
 
       system = {
-        username = "notashelf";
+        mainUser = "notashelf";
         fs = ["btrfs" "vfat" "exfat"];
         video.enable = false;
         sound.enable = false;

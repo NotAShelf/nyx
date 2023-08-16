@@ -6,7 +6,7 @@ _: {
     ./schizofox
     ./office
     ./media
-    ./vscode
+    #./vscode
     ./chromium
     ./spotify
     ./thunderbird

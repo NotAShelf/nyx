@@ -12,10 +12,5 @@
     .system
     .build
     .sdImage;
-  gaea =
-    (self.nixosConfigurations.gaea)
-    .config
-    .system
-    .build
-    .isoImage;
+  gaea = self.nixosConfigurations.gaea.config.system.build.isoImage;
 }
