@@ -13,6 +13,7 @@ in {
 
     services.grafana = {
       enable = true;
+      dataDir = "/srv/storage/grafana";
 
       settings = {
         server = {
@@ -21,6 +22,9 @@ in {
           # Grafana needs to know on which domain and URL it's running on:
           http_addr = "127.0.0.1";
           domain = "dash.notashelf.dev";
+
+          # true means HTTP compression is enabled
+          enable_gzip = true;
         };
       };
     };
