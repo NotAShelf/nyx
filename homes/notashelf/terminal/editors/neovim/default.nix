@@ -136,7 +136,7 @@ in {
           showCurrContext = true;
         };
 
-        cursorWordline = {
+        cursorline = {
           enable = true;
           lineTimeout = 0;
         };
