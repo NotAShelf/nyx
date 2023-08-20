@@ -2,7 +2,7 @@ _: {
   config = {
     modules = {
       device = {
-        type = "laptop";
+        type = "lite";
         cpu = "intel";
         gpu = "intel";
         monitors = ["eDP-1"];
