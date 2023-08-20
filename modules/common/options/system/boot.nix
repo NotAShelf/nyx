@@ -56,5 +56,14 @@ in {
         description = mdDoc "The theme name from the selected theme pack";
       };
     };
+
+    memtest = {
+      enable = mkEnableOption "memtest86+";
+      package = mkOption {
+        type = types.package;
+        default = pkgs.memtest86plus;
+        description = "The memtest package to use.";
+      };
+    };
   };
 }
