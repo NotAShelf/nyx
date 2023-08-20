@@ -65,6 +65,7 @@ in {
               };
               description = "The theme package to be used for QT programs";
             };
+
             name = mkOption {
               type = types.str;
               default = "Catppuccin-Mocha-Dark";
@@ -74,7 +75,7 @@ in {
 
           kdeglobals.source = mkOption {
             type = types.path;
-            default = "${cfg.qt.theme.package}/";
+            default = "${cfg.qt.theme.package}/share/color-schemes/CatppuccinMochaBlue.colors";
           };
         };
 
