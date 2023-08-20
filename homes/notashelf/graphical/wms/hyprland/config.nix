@@ -38,8 +38,6 @@
     10
   );
 
-  # defaults = osConfig.modules.programs.default;
-
   terminal =
     if (defaults.terminal == "foot")
     then "footclient"
@@ -91,6 +89,8 @@ in {
 
         # active border color
         "col.active_border" = "0xff${colors.base0F}";
+        "col.group_border_active" = "rgba(88888888)";
+        "col.group_border" = "rgba(00000088)";
 
         # whether to apply the sensitivity to raw input (e.g. used by games where you aim using your mouse)
         apply_sens_to_raw = 0;
@@ -133,6 +133,11 @@ in {
         mouse_move_enables_dpms = true; # enable dpms on mouse/touchpad action
         key_press_enables_dpms = true; # enable dpms on keyboard action
         disable_autoreload = true; # autoreload is unnecessary on nixos, because the config is readonly anyway
+
+        # groupbar stuff
+        # this removes the ugly gradient around grouped windows - which sucks
+        groupbar_titles_font_size = 16;
+        groupbar_gradients = false;
       };
 
       animations = {
