@@ -5,7 +5,7 @@
 
     colorScheme = {
       name = "Catppuccin Mocha";
-      slug = "catppccin-mocha";
+      slug = "catppuccin-mocha";
     };
 
     pointerCursor = {
@@ -15,7 +15,7 @@
     };
 
     qt = {
-      style = {
+      theme = {
         package = pkgs.catppuccin-kde;
         name = "Catppuccin-Mocha-Dark";
       };
