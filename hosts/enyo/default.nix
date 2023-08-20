@@ -4,5 +4,6 @@ _: {
     ./system.nix
     ./mounts.nix
     ./wireguard.nix
+    ./style.nix
   ];
 }
