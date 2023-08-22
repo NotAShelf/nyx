@@ -61,6 +61,7 @@ with lib; {
   systemd = let
     ethernetDevices = [
       "wlp1s0f0u8" # wifi dongle
+      "enp7s0" # ethernet interface on the motherboard
     ];
   in {
     network.wait-online.enable = false;
