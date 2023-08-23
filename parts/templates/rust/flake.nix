@@ -4,7 +4,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
   };
 
-  outputs = {nixpkgs}: let
+  outputs = {
+    self,
+    nixpkgs,
+  }: let
     systems = ["x86_64-linux" "aarch64-linux"];
     forEachSystem = nixpkgs.lib.genAttrs systems;
 
