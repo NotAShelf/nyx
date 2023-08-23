@@ -19,7 +19,7 @@ with lib; let
   sys = osConfig.modules.system;
 in {
   imports = [./config.nix];
-  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
+  config = mkIf (sys.video.enable && (env.isWayland && (env.desktop == "Hyprland"))) {
     home.packages = [
       hyprshot
       grimblast
@@ -31,7 +31,7 @@ in {
       enable = true;
       systemdIntegration = true;
       package = inputs'.hyprland.packages.default.override {
-        nvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
+        enableNvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
       };
     };
   };
