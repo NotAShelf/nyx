@@ -27,6 +27,7 @@
         # parts of the flake
         ./parts/pkgs # packages exposed by the flake
         ./parts/args # args that are passsed to the flake, moved away from the main file
+        ./parts/templates # exposed templates for nodejs, rust and C++ # TODO: bash, python and go
       ];
 
       flake = let
@@ -34,24 +35,21 @@
         # such as system builders
         lib = import ./lib {inherit nixpkgs inputs;};
       in {
-        # TODO
-        darwinConfigurations = {};
+        # TODO: I still don't have a darwin machine to test my configs on - avoid pushing
+        # darwinConfigurations = {};
 
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
         # set of modules exposed by my flake to be consumed by others
-        # you can import these by adding my flake to your inputs and then importing the module you prefer
-        # i.e imports = [ inputs.nyx.nixosModules.steam-compat ];
+        # those can be imported by adding this flake as an input and then importing the nixosModules.<moduleName>
+        # i.e imports = [ inputs.nyx.nixosModules.steam-compat ]; or modules = [ inputs.nyx.nixosModules.steam-compat ];
         nixosModules = {
           # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
           steam-compat = ./modules/extra/shared/nixos/steam;
 
           # a module for the comma tool that wraps it with nix-index and disabled the command-not-found integration
           comma-rewrapped = ./modules/extra/shared/nixos/comma;
-
-          # a git-like service I packaged for no apparent reason
-          onedev = ./modules/extra/export/onedev;
 
           # an open source implementation of wakatime server
           wakapi = ./modules/extra/shared/nixos/wakapi;
@@ -78,20 +76,23 @@
       };
 
       perSystem = {
-        config,
         inputs',
+        config,
         pkgs,
         ...
       }: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
 
+        # provide the formatter for nix fmt
+        formatter = pkgs.alejandra;
+
         devShells.default = let
-          devShell = import ./parts/devShell;
+          extra = import ./parts/devShell;
         in
           inputs'.devshell.legacyPackages.mkShell {
             name = "nyx";
-            commands = devShell.shellCommands;
-            inherit (devShell) env;
+            commands = extra.shellCommands;
+            env = extra.shellEnv;
             packages = with pkgs; [
               inputs'.agenix.packages.default # provide agenix CLI within flake shell
               config.treefmt.build.wrapper # treewide formatter
@@ -103,9 +104,6 @@
               deadnix # clean up unused nix code
             ];
           };
-
-        # provide the formatter for nix fmt
-        formatter = pkgs.alejandra;
 
         # configure treefmt
         treefmt = {
@@ -133,9 +131,11 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    # build against nixos unstable, more variants can be added if deemed necessary
+    # build against nixos unstable, more versions with pinned branches can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    #nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
+
+    # nixpkgs with a pinned commit
+    # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
@@ -146,7 +146,7 @@
     # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    # Nix helper
+    # Nix wrapper for building and testing my system
     nh = {
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -163,7 +163,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # An upstream, feature-rich fork of the Nix package manager
+    # feature-rich and convenient fork of the Nix package manager
     nix-super.url = "github:privatevoid-net/nix-super";
 
     # project shells
@@ -231,14 +231,6 @@
     wallpkgs = {
       url = "github:NotAShelf/wallpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    helix = {
-      url = "github:SoraTenshi/helix/new-daily-driver";
-      inputs = {
-        rust-overlay.follows = "rust-overlay";
-        nixpkgs.follows = "nixpkgs";
-      };
     };
 
     # anyrun program launcher
