@@ -280,6 +280,22 @@
 
     # mailserver on nixos
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+
+    # schizophrenic firefox configuration
+    schizofox = {
+      url = "github:schizofox/schizofox";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        nixpak.follows = "nixpak";
+      };
+    };
+
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   nixConfig = {
