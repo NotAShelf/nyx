@@ -1,81 +1,203 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <title>Hey!</title>
+    <title>notashelf@nyx</title>
+
+    <style>
+      :root {
+        --main-bg-color: #11111b;
+        --box-bg-color: #1e1e2e;
+        --box-shadow-color: #181825;
+        --text-color: #cdd6f4;
+        --command-color: #bac2de;
+
+        --first-child-color: #f38ba8;
+        --second-child-color: #cba6f7;
+        --third-child-color: #a6e3a1;
+        --fourth-child-color: #89b4fa;
+        --fifth-child-color: #fab387;
+        --sixth-child-color: #f9e2af;
+
+        --column-count: 3;
+      }
+
+      html {
+        align-items: center;
+        background-color: var(--main-bg-color);
+        display: flex;
+        font:
+          22px/1 "Inconsolata",
+          monospace;
+        height: 100%;
+        justify-content: center;
+      }
+
+      body {
+        background-color: var(--box-bg-color);
+        border-radius: 2px;
+        box-shadow: 1px 1px 6px var(--box-shadow-color);
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        min-height: 17ch;
+        min-width: 50vw;
+        padding: 2em;
+        border-radius: 15px;
+      }
+
+      input,
+      input:hover,
+      input:focus,
+      input:active {
+        background: transparent;
+        border: 0;
+        border-style: none;
+        border-color: transparent;
+        outline: none;
+        outline-offset: 0;
+        box-shadow: none;
+        caret-color: transparent;
+        font:
+          22px/1 "Inconsolata",
+          monospace;
+        color: var(--text-color);
+        height: 20px;
+        cursor: default !important;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      p span {
+        color: var(--command-color);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:focus,
+      a:hover {
+        font-weight: bold;
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav {
+        column-gap: 2em;
+        display: grid;
+        grid-template-columns: repeat(var(--column-count), auto);
+        padding: 1em 0;
+      }
+
+      ul:nth-child(5n + 1) li:first-child {
+        color: var(--first-child-color);
+      }
+
+      ul:nth-child(5n + 2) li:first-child {
+        color: var(--second-child-color);
+      }
+
+      ul:nth-child(5n + 3) li:first-child {
+        color: var(--third-child-color);
+      }
+
+      ul:nth-child(5n + 4) li:first-child {
+        color: var(--fourth-child-color);
+      }
+
+      ul:nth-child(5n + 5) li:first-child {
+        color: var(--fifth-child-color);
+      }
+
+      li:first-child {
+        font-weight: bold;
+      }
+
+      li:last-child {
+        margin: 0 0 1em;
+      }
+    </style>
+    <script>
+      function setFocusToTextBox() {
+        document.getElementById("input").focus();
+      }
+    </script>
   </head>
-  <style>
-    body {
-      background-color: #303446;
-      font-family: "Work Sans", sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 90vh;
-      min-width: 90%;
-      border: #303446;
-    }
-    h1 {
-      color: #f4b8e4;
-    }
-    .box {
-      background-color: #414559;
-      color: #c6d0f5;
-      padding: 3rem;
-      margin: 10px;
-      border-radius: 5px;
-    }
-    ul {
-      list-style: none;
-      margin-left: 0;
-      padding-left: 0;
-    }
+  <body onload="setFocusToTextBox()">
+    <p><span>notashelf@nyx ~ $ &gt; </span>ls</p~>
 
-    li {
-      padding-left: 1em;
-      margin: 0.7em;
-      text-indent: -1em;
-    }
+    <nav>
+      <ul>
+        <li>~/general</li>
+        <li><a href="https://google.com">> google</a></li>
+        <li><a href="https://youtube.com">> youtube</a></li>
+        <li><a href="https://monkeytype.com/">> monkeytype</a></li>
+      </ul>
 
-    li:before {
-      content: "~";
-      color: #f4b8e4;
-      font-weight: 500;
-      padding-right: 5px;
-    }
-    a {
-      text-decoration: none;
-      color: #c6d0f5;
-      font-weight: 500;
-    }
-  </style>
-  <body>
-    <div class="box">
-      <h1>~/desktop</h1>
       <ul>
-        <li><a href="https://twitter.com/home">twitter</a></li>
-        <li><a href="https://www.youtube.com/">youtube</a></li>
-        <li><a href="https://github.com">github</a></li>
-        <li><a href="https://monkeytype.com/">monkeytype</a></li>
+        <li>~/social</li>
+        <li><a href="https://twitter.com/">> twitter</a></li>
+        <li><a href="https://web.telegram.org">> telegram</a></li>
+        <li><a href="https://reddit.com">> reddit</a></li>
       </ul>
-    </div></br>
-    <div class="box">
-      <h1>~/docs/nixos</h1>
+
       <ul>
-         <li><a href="https://nixos.wiki/">nixos wiki</a></li>
-         <li><a href="https://nixos.org/manual/nixos/unstable">nixos manual</a></li>
-         <li><a href="https://mipmip.github.io/home-manager-option-search">home-manager option search</a></li>
-         <li><a href="https://github.com/nix-community/awesome-nix"</a>awesome nix projects</li>
+        <li>~/dev</li>
+        <li><a href="https://github.com">> github</a></li>
+        <li><a href="https://google.com/">> google</a></li>
+        <li><a href="https://go.dev/doc/">> golang</a></li>
       </ul>
-    </div>
-    <div class="box">
-      <h1>~/docs/hyprland</h1>
+
       <ul>
-          <li><a href="https://github.com/hyprwm/hyprland">hyprland github</a></li>
-          <li><a href="https://wiki.hyprland.org/">hyprland wiki</a></li>
-          <li><a href="https://wiki.archlinux.org/wayland">wayland archwiki</a></li>
-          <li><a href="https://github.com/swaywm/sway/wiki/Useful-add-ons-for-sway">useful utilities</a></li>
+        <li>~/nix</li>
+        <li><a href="https://nixos.org/manual/nixos/unstable/">> nixos</a></li>
+        <li>
+          <a href="https://nixos.org/manual/nixpkgs/stable/">> nixpkgs</a>
+        </li>
+        <li><a href="https://noogle.dev/">> noogle</a></li>
       </ul>
-    </div>
+
+      <ul>
+        <li>~/hyprland</li>
+        <li><a href="https://wiki.hyprland.org">> wiki</a></li>
+        <li>
+          <a href="https://https://github.com/hyprwm/hyprland">> github</a>
+        </li>
+        <li>
+          <a href="https://github.com/swaywm/sway/wiki/Useful-add-ons-for-sway"
+            >> utilities</a
+          >
+        </li>
+      </ul>
+
+      <ul>
+        <li>~/misc</li>
+        <li><a href="https://webmail.notashelf.dev">> webmail</a></li>
+        <li><a href="https://notashelf.github.io/nyx">> notes</a></li>
+        <li><a href="https://cloud.notashelf.dev">> cloud</a></li>
+      </ul>
+    </nav>
+
+
+    <form action="http://www.google.com/search">
+      <p>
+        <span>notashelf@nyx ~ $ &gt; </span>
+        <input
+          type="text"
+          name="q"
+          size="60"
+          id="input"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </p>
+    </form>
   </body>
 </html>
-
