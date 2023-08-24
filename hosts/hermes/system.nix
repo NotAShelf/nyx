@@ -67,7 +67,7 @@ in {
         gui.enable = true;
 
         gaming = {
-          enable = false;
+          enable = true;
           chess.enable = false;
         };
         default = {
