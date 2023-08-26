@@ -89,5 +89,7 @@
     };
 
     console.earlySetup = true;
+
+    services.syncthing.enable = true;
   };
 }
