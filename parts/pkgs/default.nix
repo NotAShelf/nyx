@@ -20,6 +20,7 @@ _: {
       wl-clip-persist = pkgs.callPackage ./wl-clip-persist.nix {};
       rat = pkgs.callPackage ./rat.nix {};
       foot-transparent = pkgs.callPackage ./foot-transparent.nix {};
+      present = pkgs.callPackage ./present.nix {};
     };
   };
 }
