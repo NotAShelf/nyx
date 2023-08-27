@@ -45,9 +45,27 @@ with lib; {
     overlays = [
       inputs.rust-overlay.overlays.default
 
-      (_: _: {
+      (_: prev: {
         nixSuper = inputs'.nix-super.packages.default;
+
+        # temp fix until https://github.com/NixOS/nixpkgs/pull/249382 is merged
+        gtklock = prev.gtklock.overrideAttrs (_: super: {
+          nativeBuildInputs = super.nativeBuildInputs ++ [prev.wrapGAppsHook];
+          buildInputs = super.buildInputs ++ [prev.librsvg];
+        });
       })
+
+      /*
+      (
+        _: prev: {
+          # temp fix until https://github.com/NixOS/nixpkgs/pull/249382 is merged
+          gtklock = prev.gtklock.overrideAttrs (_: super: {
+            nativeBuildInputs = super.nativeBuildInputs ++ [prev.wrapGAppsHook];
+            buildInputs = super.buildInputs ++ [prev.librsvg];
+          });
+        }
+      )
+      */
     ];
   };
 
