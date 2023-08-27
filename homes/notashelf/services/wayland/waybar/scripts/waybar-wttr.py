@@ -1,64 +1,77 @@
 #!/usr/bin/env python
 
+import os
 import json
 import requests
-from datetime import datetime
+import logging
+from datetime import datetime, timedelta
 
-WEATHER_CODES = {
-    '113': '☀️ ',
-    '116': '⛅ ',
-    '119': '☁️ ',
-    '122': '☁️ ',
-    '143': '☁️ ',
-    '176': '🌧️',
-    '179': '🌧️',
-    '182': '🌧️',
-    '185': '🌧️',
-    '200': '⛈️ ',
-    '227': '🌨️',
-    '230': '🌨️',
-    '248': '☁️ ',
-    '260': '☁️ ',
-    '263': '🌧️',
-    '266': '🌧️',
-    '281': '🌧️',
-    '284': '🌧️',
-    '293': '🌧️',
-    '296': '🌧️',
-    '299': '🌧️',
-    '302': '🌧️',
-    '305': '🌧️',
-    '308': '🌧️',
-    '311': '🌧️',
-    '314': '🌧️',
-    '317': '🌧️',
-    '320': '🌨️',
-    '323': '🌨️',
-    '326': '🌨️',
-    '329': '❄️ ',
-    '332': '❄️ ',
-    '335': '❄️ ',
-    '338': '❄️ ',
-    '350': '🌧️',
-    '353': '🌧️',
-    '356': '🌧️',
-    '359': '🌧️',
-    '362': '🌧️',
-    '365': '🌧️',
-    '368': '🌧️',
-    '371': '❄️',
-    '374': '🌨️',
-    '377': '🌨️',
-    '386': '🌨️',
-    '389': '🌨️',
-    '392': '🌧️',
-    '395': '❄️ '
-}
+logging.basicConfig(level=logging.ERROR)
+logger = logging.getLogger(__name__)
 
-data = {}
+CACHE_EXPIRATION = 60
+XDG_CACHE_HOME = os.getenv("XDG_CACHE_HOME", os.path.expanduser("~/.cache"))
+CACHE_DIR = os.path.join(XDG_CACHE_HOME, "waybar-wttr")
+FALLBACK_CACHE_DIR = "/tmp"
+CACHE_FILE = os.path.join(CACHE_DIR, "weather_cache.json")
+
+SUNNY = "☀️"
+CLOUDY = "☁️"
+RAIN = "🌧️"
+SNOW = "❄️"
+THUNDERSTORM = "⛈️"
+PARTLY_CLOUDY = "⛅️"
+CLEAR = "☀️"
+
+HOURS_AGO_THRESHOLD = 2
+TEMP_THRESHOLD_COLD = 10
+TEMP_THRESHOLD_HOT = 0
 
 
-weather = requests.get("https://wttr.in/?format=j1").json()
+def ensure_cache_directory():
+    try:
+        if not os.path.exists(CACHE_DIR):
+            os.makedirs(CACHE_DIR, exist_ok=True)
+    except Exception as e:
+        logger.error(f"Error creating cache directory: {e}")
+
+
+def get_weather_data():
+    ensure_cache_directory()
+    try:
+        response = requests.get("https://wttr.in/?format=j1")
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error fetching weather data: {e}")
+        return None
+
+
+def get_cached_weather_data():
+    try:
+        if os.path.exists(CACHE_FILE):
+            with open(CACHE_FILE, "r") as cache_file:
+                cached_data = json.load(cache_file)
+                cache_time = datetime.strptime(
+                    cached_data["timestamp"], "%Y-%m-%d %H:%M:%S"
+                )
+                if datetime.now() - cache_time < timedelta(minutes=CACHE_EXPIRATION):
+                    return cached_data["data"]
+    except Exception as e:
+        logger.error(f"Error loading cached data: {e}")
+    return None
+
+
+def cache_weather_data(data):
+    try:
+        with open(CACHE_FILE, "w") as cache_file:
+            cached_data = {
+                "data": data,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            }
+            json.dump(cached_data, cache_file)
+    except Exception as e:
+        logger.error(f"Error caching data: {e}")
 
 
 def format_time(time):
@@ -66,11 +79,24 @@ def format_time(time):
 
 
 def format_temp(temp):
-    return (hour['FeelsLikeC']+"°").ljust(3)
+    return f"{temp}°".ljust(4)
 
 
-def format_chances(hour):
-    chances = {
+def get_emoji_for_condition(condition):
+    emoji_map = {
+        "Sunny": SUNNY,
+        "Cloudy": CLOUDY,
+        "Rain": RAIN,
+        "Snow": SNOW,
+        "Thunder": THUNDERSTORM,
+        "Partly Cloudy": PARTLY_CLOUDY,
+        "Clear": CLEAR,
+    }
+    return emoji_map.get(condition, "")
+
+
+def format_conditions(hour):
+    condition_probabilities = {
         "chanceoffog": "Fog",
         "chanceoffrost": "Frost",
         "chanceofovercast": "Overcast",
@@ -78,43 +104,65 @@ def format_chances(hour):
         "chanceofsnow": "Snow",
         "chanceofsunshine": "Sunshine",
         "chanceofthunder": "Thunder",
-        "chanceofwindy": "Wind"
+        "chanceofwindy": "Wind",
     }
-
+    if "chanceofpartlycloudy" in hour:
+        condition_probabilities["chanceofpartlycloudy"] = "Partly Cloudy"
     conditions = []
-    for event in chances.keys():
-        if int(hour[event]) > 0:
-            conditions.append(chances[event]+" "+hour[event]+"%")
+    for event, description in condition_probabilities.items():
+        if event in hour:
+            probability = int(hour[event])
+            if probability > 0:
+                emoji = get_emoji_for_condition(description)
+                conditions.append(f"{emoji} {description} {probability}%")
     return ", ".join(conditions)
 
-tempint = int(weather['current_condition'][0]['FeelsLikeC'])
-extrachar = ''
-if tempint > 0 and tempint < 10:
-    extrachar = '+'
 
-
-data['text'] = ' '+WEATHER_CODES[weather['current_condition'][0]['weatherCode']] + \
-    "\n "+extrachar+weather['current_condition'][0]['FeelsLikeC']+"°"
-
-data['tooltip'] = f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} {weather['current_condition'][0]['temp_C']}°</b>\n"
-data['tooltip'] += f"Feels like: {weather['current_condition'][0]['FeelsLikeC']}°\n"
-data['tooltip'] += f"Wind: {weather['current_condition'][0]['windspeedKmph']}Km/h\n"
-data['tooltip'] += f"Humidity: {weather['current_condition'][0]['humidity']}%\n"
-for i, day in enumerate(weather['weather']):
-    data['tooltip'] += f"\n<b>"
-    if i == 0:
-        data['tooltip'] += "Today, "
-    if i == 1:
-        data['tooltip'] += "Tomorrow, "
-    data['tooltip'] += f"{day['date']}</b>\n"
-    data['tooltip'] += f"⬆️ {day['maxtempC']}° ⬇️ {day['mintempC']}° "
-    data['tooltip'] += f"🌅 {day['astronomy'][0]['sunrise']} 🌇 {day['astronomy'][0]['sunset']}\n"
-    for hour in day['hourly']:
+def format_weather_data(weather_data):
+    current_condition = weather_data["current_condition"][0]
+    temp = int(current_condition["FeelsLikeC"])
+    temp_sign = "+" if TEMP_THRESHOLD_HOT > temp > TEMP_THRESHOLD_COLD else ""
+    formatted_data = {
+        "text": f" {SUNNY} \n {temp_sign}{temp}°",
+        "tooltip": f"<b>{current_condition['weatherDesc'][0]['value']} {current_condition['temp_C']}°</b>\n"
+        f"Feels like: {current_condition['FeelsLikeC']}°\n"
+        f"Wind: {current_condition['windspeedKmph']}Km/h\n"
+        f"Humidity: {current_condition['humidity']}%\n",
+    }
+    for i, day in enumerate(weather_data["weather"]):
+        formatted_data["tooltip"] += f"\n<b>"
         if i == 0:
-            if int(format_time(hour['time'])) < datetime.now().hour-2:
+            formatted_data["tooltip"] += "Today, "
+        if i == 1:
+            formatted_data["tooltip"] += "Tomorrow, "
+        formatted_data["tooltip"] += f"{day['date']}</b>\n"
+        formatted_data["tooltip"] += f"⬆️ {day['maxtempC']}° ⬇️ {day['mintempC']}° "
+        formatted_data[
+            "tooltip"
+        ] += f"🌅 {day['astronomy'][0]['sunrise']} 🌇 {day['astronomy'][0]['sunset']}\n"
+        now = datetime.now()
+        for hour in day["hourly"]:
+            hour_time = format_time(hour["time"])
+            if i == 0 and int(hour_time) < now.hour - HOURS_AGO_THRESHOLD:
                 continue
-        data['tooltip'] += f"{format_time(hour['time'])} {WEATHER_CODES[hour['weatherCode']]} {format_temp(hour['FeelsLikeC'])} {hour['weatherDesc'][0]['value']}, {format_chances(hour)}\n"
+            formatted_data[
+                "tooltip"
+            ] += f"{hour_time} {get_emoji_for_condition(hour['weatherDesc'][0]['value'])} {format_temp(hour['FeelsLikeC'])} {hour['weatherDesc'][0]['value']}, {format_conditions(hour)}\n"
+    return formatted_data
 
 
-print(json.dumps(data))
+def main():
+    ensure_cache_directory()
+    cached_data = get_cached_weather_data()
+    if cached_data:
+        print(json.dumps(cached_data))
+        return
+    weather_data = get_weather_data()
+    if weather_data:
+        formatted_data = format_weather_data(weather_data)
+        cache_weather_data(formatted_data)
+        print(json.dumps(formatted_data))
 
+
+if __name__ == "__main__":
+    main()

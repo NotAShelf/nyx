@@ -129,10 +129,7 @@ in {
     "custom/weather" = let
       waybar-wttr = pkgs.stdenv.mkDerivation {
         name = "waybar-wttr";
-        buildInputs = [
-          (pkgs.python39.withPackages
-            (pythonPackages: with pythonPackages; [requests]))
-        ];
+        buildInputs = [(pkgs.python39.withPackages (pythonPackages: with pythonPackages; [requests]))];
         unpackPhase = "true";
         installPhase = ''
           mkdir -p $out/bin
@@ -147,11 +144,13 @@ in {
       exec = "${waybar-wttr}/bin/waybar-wttr";
       return-type = "json";
     };
+
     "custom/lock" = {
       tooltip = false;
       on-click = "${pkgs.bash}/bin/bash -c '(sleep 0.5s; ${lib.getExe pkgs.swaylock-effects} --grace 0)' & disown";
       format = "";
     };
+
     "custom/swallow" = {
       tooltip = false;
       on-click = let
@@ -171,10 +170,11 @@ in {
         '';
       format = "󰊰";
     };
+
     "custom/power" = {
       tooltip = false;
       on-click = let
-        doas = pkgs.doas + "/bin/doas";
+        sudo = pkgs.sudo + "/bin/sudo";
         rofi = config.programs.rofi.package + "/bin/rofi";
         poweroff = pkgs.systemd + "/bin/poweroff";
         reboot = pkgs.systemd + "/bin/reboot";
@@ -191,9 +191,9 @@ in {
           	${rofi} -dmenu -p ' Are you sure?')"
 
           if [ "$sure" = "$off" ]; then
-          	${doas} ${poweroff}
+          	${sudo} ${poweroff}
           elif [ "$sure" = "$reboot" ]; then
-          	${doas} ${reboot}
+          	${sudo} ${reboot}
           fi
         '';
       format = "󰐥";
@@ -204,7 +204,8 @@ in {
         %M}'';
       tooltip-format = ''
         <big>{:%Y %B}</big>
-        <tt><small>{calendar}</small></tt>'';
+        <tt><small>{calendar}</small></tt>
+      '';
     };
 
     backlight = let
