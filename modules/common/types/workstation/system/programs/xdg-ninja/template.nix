@@ -1,13 +1,14 @@
 system: let
   # copy paste done right
-  XDG_DATA_HOME = "\$HOME/.local/share";
-  XDG_CONFIG_HOME = "\$HOME/.config";
-  XDG_CACHE_HOME = "\$HOME/.cache";
-  XDG_STATE_HOME = "\HOME/.local/shate";
+  XDG_DATA_HOME = "\${HOME}/.local/share";
+  XDG_CONFIG_HOME = "\${HOME}/.config";
+  XDG_CACHE_HOME = "\$HOME}/.cache";
+  XDG_STATE_HOME = "\${HOME}/.local/shate";
   XDG_RUNTIME_DIR = "/run/user/\${UID}";
   XDG_BIN_HOME = "\${HOME}/.local/bin";
 in {
-  glEnv = rec {
+  # global env
+  glEnv = {
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";
     XDG_STATE_HOME = "\${HOME}/.local/state";
@@ -15,6 +16,7 @@ in {
     XDG_BIN_HOME = "\${HOME}/.local/bin";
     PATH = ["\${XDG_BIN_HOME}"];
   };
+
   sysEnv = {
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
     CUDA_CACHE_PATH = "${XDG_CACHE_HOME}/nv";
@@ -43,9 +45,7 @@ in {
     PLATFORMIO_CORE_DIR = "${XDG_DATA_HOME}/platformio";
     WINEPREFIX = "${XDG_DATA_HOME}/wine";
     DOTNET_CLI_HOME = "${XDG_DATA_HOME}/dotnet";
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = [
-      "\${HOME}/.steam/root/compatibilitytools.d"
-    ];
+    MPLAYER_HOME = "${XDG_CONFIG_HOME}/mplayer";
   };
 
   npmrc.text = ''
