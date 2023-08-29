@@ -7,9 +7,11 @@
   lib,
   ...
 }: let
-  defaults = config.modules.programs.default;
+  inherit (config) modules;
+  env = modules.usrEnv;
+  defaults = modules.programs.default;
 in {
-  home-manager = {
+  home-manager = lib.mkIf env.useHomeManager {
     verbose = true;
     useUserPackages = true;
     useGlobalPkgs = true;

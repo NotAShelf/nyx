@@ -35,7 +35,7 @@ with lib; {
       type = types.bool;
       default = true;
       description = lib.mdDoc ''
-        Whether to use home-manager or not. Username MUST be set if this option is enabled.
+        Whether to use home-manager or not. Username **MUST** be set if this option is enabled.
       '';
     };
 
