@@ -9,7 +9,7 @@ with lib; let
 
   acceptedTypes = ["laptop" "desktop" "lite"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
+  config = mkIf ((builtins.elem device.type acceptedTypes) && programs.gaming.enable) {
     programs.mangohud = {
       enable = true;
       settings = {

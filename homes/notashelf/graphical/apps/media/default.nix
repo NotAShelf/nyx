@@ -1,12 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  osConfig,
-  ...
-}: {
+_: {
   imports = [
     ./mpv.nix
     ./packages.nix
+    ./taggers.nix
   ];
 }
