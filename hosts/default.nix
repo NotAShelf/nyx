@@ -51,7 +51,6 @@ in {
   # My main desktop boasting a RX 6700 XT and a Ryzen 5 3600x
   # fully free from nvidia
   # fuck nvidia - Linus "the linux" Torvalds
-  /*
   enyo = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -64,7 +63,6 @@ in {
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
-  */
 
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
