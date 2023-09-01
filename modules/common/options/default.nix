@@ -5,5 +5,7 @@ _: {
     ./device
     ./usrEnv
     ./theme
+
+    ./renamed.nix
   ];
 }
