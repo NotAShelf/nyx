@@ -15,7 +15,6 @@ in {
         hasBluetooth = true;
         hasSound = true;
         hasTPM = true;
-        yubikeySupport.enable = true;
       };
       system = {
         mainUser = "notashelf";
@@ -30,6 +29,8 @@ in {
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
         };
+
+        yubikeySupport.enable = true;
 
         video.enable = true;
         sound.enable = true;

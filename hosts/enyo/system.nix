@@ -13,7 +13,6 @@
         hasBluetooth = true;
         hasSound = true;
         hasTPM = true;
-        yubikeySupport.enable = true;
       };
 
       system = {
@@ -31,6 +30,8 @@
             withThemes = false;
           };
         };
+
+        yubikeySupport.enable = true;
 
         video.enable = true;
         sound.enable = true;

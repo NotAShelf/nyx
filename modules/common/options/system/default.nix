@@ -64,6 +64,15 @@ with lib; {
       enable = mkEnableOption "cpu architecture emulation via qemu";
     };
 
+    yubikeySupport = {
+      enable = mkEnableOption "yubikey support";
+      deviceType = mkOption {
+        type = with types; nullOr enum ["NFC5" "nano"];
+        default = null;
+        description = "A list of devices to enable Yubikey support for";
+      };
+    };
+
     # should sound related programs and audio-dependent programs be enabled
     sound = {
       enable = mkEnableOption "sound (Pipewire)";

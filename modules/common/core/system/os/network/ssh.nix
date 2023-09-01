@@ -5,7 +5,7 @@
 }: let
   cfg = config.services.openssh;
 in {
-  programs.ssh.startAgent = !config.modules.device.yubikeySupport.enable;
+  programs.ssh.startAgent = !config.modules.system.yubikeySupport.enable;
 
   networking.nftables.ruleset = ''
     table inet filter {

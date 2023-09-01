@@ -57,14 +57,5 @@ with lib; {
       default = false;
       description = "Whether the system has tpm support";
     };
-
-    yubikeySupport = {
-      enable = mkEnableOption "yubikey support";
-      deviceType = mkOption {
-        type = with types; nullOr enum ["NFC5" "nano"];
-        default = null;
-        description = "A list of devices to enable Yubikey support for";
-      };
-    };
   };
 }
