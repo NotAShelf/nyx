@@ -11,6 +11,8 @@ with lib; {
     ./boot.nix
     ./activation.nix
     ./virtualization.nix
+    ./emulation.nix
+    ./encryption.nix
   ];
   config = {
     warnings =
@@ -25,25 +27,30 @@ with lib; {
   };
 
   options.modules.system = {
-    # the default user (not users) you plan to use on a specific device
-    # this will dictate the initial home-manager settings if home-manager is
-    # enabled in usrEnv
-    # TODO: allow for a list of usernames, map them individually to homes/<username>
-    users = mkOption {
-      type = with types; listOf str;
-      default = ["notashelf"];
-      description = "The username of the non-root superuser for your system";
-    };
-
     mainUser = mkOption {
       type = types.enum config.modules.system.users;
       description = "The username of the main user for your system";
       default = builtins.elemAt config.modules.system.users 0;
     };
 
+    users = mkOption {
+      type = with types; listOf str;
+      default = ["notashelf"];
+      description = "A list of home-manager users on the system.";
+    };
+
     # no actual use yet, do not use
     hostname = mkOption {
       type = types.str;
+    };
+
+    autologin = mkOption {
+      type = types.bool;
+      default = false;
+      description = lib.mdDoc ''
+        Whether to enable passwordless login. This is generally useful on systems with
+        FDE (Full Disk Encryption) enabled. It is a security risk for systems without FDE.
+      '';
     };
 
     fs = mkOption {
@@ -55,13 +62,6 @@ with lib; {
 
         It would be a good idea to keep vfat and ext4 so you can mount USBs.
       '';
-    };
-
-    # should we enable emulation for additional architechtures?
-    # enabling this option will make it so that you can build for, e.g.
-    # aarch64 on x86_&4 and vice verse - not recommended on weaker machines
-    emulation = {
-      enable = mkEnableOption "cpu architecture emulation via qemu";
     };
 
     yubikeySupport = {

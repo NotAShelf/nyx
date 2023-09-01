@@ -3,23 +3,32 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf mkForce;
+
   sys = config.modules.system;
 in {
-  config = mkIf (sys.emulation.enable) {
+  config = mkIf sys.emulation.enable {
+    nix.settings.extra-sandbox-paths = ["/run/binfmt" "${pkgs.qemu}"];
+
     boot.binfmt = {
-      emulatedSystems = ["aarch64-linux" "i686-linux"];
+      emulatedSystems = sys.emulation.systems;
       registrations = {
+        # aarch64 interpreter
         aarch64-linux = {
-          interpreter = lib.mkForce "${pkgs.qemu}/bin/qemu-aarch64";
+          interpreter = mkForce "${pkgs.qemu}/bin/qemu-aarch64";
         };
 
+        # i686 interpreter
         i686-linux = {
           interpreter = "${pkgs.qemu}/bin/qemu-i686";
         };
+
+        # x86_64
+        x86_64-linux = {
+          interpreter = "${pkgs.qemu}/bin/qemu-x86_64";
+        };
       };
     };
-    nix.settings.extra-sandbox-paths = ["/run/binfmt" "${pkgs.qemu}"];
   };
 }
