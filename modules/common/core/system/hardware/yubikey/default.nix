@@ -22,12 +22,12 @@
 
     environment.systemPackages = with pkgs; [
       # Yubico's official tools
-      yubikey-manager
-      yubikey-manager-qt
-      yubikey-personalization
-      yubikey-personalization-gui
-      yubico-piv-tool
-      yubioath-flutter
+      yubikey-manager # cli
+      yubikey-manager-qt # gui
+      yubikey-personalization # cli
+      yubikey-personalization-gui # gui
+      yubico-piv-tool # cli
+      yubioath-flutter # gui
     ];
   };
 }
