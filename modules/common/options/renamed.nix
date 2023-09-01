@@ -4,5 +4,6 @@ in {
   imports = [
     (mkRenamedOptionModule ["modules" "device" "yubikeySupport"] ["modules" "system" "yubikeySupport"])
     (mkRenamedOptionModule ["modules" "system" "security" "secureBoot"] ["modules" "system" "boot" "secureBoot"])
+    (mkRenamedOptionModule ["modules" "usrEnv" "autoLogin"] ["modules" "system" "autoLogin"])
   ];
 }
