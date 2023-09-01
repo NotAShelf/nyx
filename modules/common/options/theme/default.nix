@@ -7,6 +7,7 @@
   inherit (lib) mkOption mkEnableOption types mdDoc;
   cfg = config.modules.style;
 in {
+  imports = [./gtk.nix ./qt.nix];
   options = {
     modules = {
       style = {
@@ -50,88 +51,6 @@ in {
             type = types.int;
             description = "The size of the cursor";
             default = 24;
-          };
-        };
-
-        # qt specific options
-        qt = {
-          theme = {
-            package = mkOption {
-              type = types.package;
-              default = pkgs.catppuccin-kde.override {
-                flavour = ["mocha"];
-                accents = ["blue"];
-                winDecStyles = ["modern"];
-              };
-              description = "The theme package to be used for QT programs";
-            };
-
-            name = mkOption {
-              type = types.str;
-              default = "Catppuccin-Mocha-Dark";
-              description = "The name for the QT theme package";
-            };
-          };
-
-          kdeglobals.source = mkOption {
-            type = types.path;
-            default = "${cfg.qt.theme.package}/share/color-schemes/CatppuccinMochaBlue.colors";
-          };
-        };
-
-        # gtk specific options
-        gtk = {
-          usePortal = mkEnableOption "native desktop portal use for filepickers";
-
-          theme = {
-            name = mkOption {
-              type = types.str;
-              default = "Catppuccin-Mocha-Standard-Blue-dark";
-              description = "The name for the GTK theme package";
-            };
-
-            package = mkOption {
-              type = types.package;
-              description = "The theme package to be used for GTK programs";
-              default = pkgs.catppuccin-gtk.override {
-                size = "standard";
-                accents = ["blue"];
-                variant = "mocha";
-                tweaks = ["normal"];
-              };
-            };
-          };
-
-          iconTheme = {
-            name = mkOption {
-              type = types.str;
-              description = "The name for the icon theme that will be used for GTK programs";
-
-              default = "Papirus-Dark";
-            };
-
-            package = mkOption {
-              type = types.package;
-              description = "The GTK icon theme to be used";
-              default = pkgs.catppuccin-papirus-folders.override {
-                accent = "blue";
-                flavor = "mocha";
-              };
-            };
-          };
-
-          font = {
-            name = mkOption {
-              type = types.str;
-              description = "The name of the font that will be used for GTK applications";
-              default = "Lexend";
-            };
-
-            size = mkOption {
-              type = types.int;
-              description = "The size of the font";
-              default = 14;
-            };
           };
         };
       };
