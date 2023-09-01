@@ -27,7 +27,7 @@ with lib; {
       default = false;
       description = lib.mdDoc ''
         Whether to enable passwordless login. This is generally useful on systems with
-        FDE (Full Disk Encryption) enabled. It is a security risk for systems without FDE.
+        FDE (Full Disk Encryption) enabled. It is a security risk on any other system.
       '';
     };
 
@@ -35,7 +35,7 @@ with lib; {
       type = types.bool;
       default = true;
       description = lib.mdDoc ''
-        Whether to use home-manager or not. Username **MUST** be set if this option is enabled.
+        Whether to use home-manager or not. Username via `usrEnv.mainUser` **MUST** be set if this option is enabled.
       '';
     };
 
