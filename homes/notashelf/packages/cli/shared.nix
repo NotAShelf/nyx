@@ -6,7 +6,7 @@
   self,
   ...
 }: {
-  config = (lib.mkIf osConfig.modules.programs.cli.enable) {
+  config = (lib.mkIf osConfig.modules.usrEnv.programs.cli.enable) {
     home.packages = with pkgs; [
       # packages from inputs
       inputs.agenix.packages.${pkgs.system}.default

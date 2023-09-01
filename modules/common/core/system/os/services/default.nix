@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkDefault;
   inherit (config.modules) device;
 in {
   imports = [./systemd.nix];
@@ -24,7 +24,7 @@ in {
     # firmware updater for machine hardware
     fwupd.enable = true;
     # I don't use lvm, can be disabled
-    lvm.enable = false;
+    lvm.enable = mkDefault false;
     # enable smartd monitoering
     smartd.enable = true;
 

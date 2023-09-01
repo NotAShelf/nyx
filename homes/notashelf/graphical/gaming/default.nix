@@ -5,16 +5,17 @@
   ...
 }:
 with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
+  programs = osConfig.modules.usrEnv.programs;
 
   acceptedTypes = ["laptop" "desktop" "lite"];
 in {
   imports = [
     ./minecraft
+    ./mangohud
+    ./steam
   ];
 
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
+  config = mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && programs.gaming.enable) {
     home = {
       packages = with pkgs; [
         gamescope

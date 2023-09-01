@@ -6,7 +6,7 @@
 }: let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.cli.whitehat.enable) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.cli.whitehat.enable) {
     home.packages = with pkgs; [
       # CLI
       binwalk

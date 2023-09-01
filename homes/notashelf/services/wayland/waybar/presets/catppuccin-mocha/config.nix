@@ -7,7 +7,7 @@
 }:
 with lib; let
   sys = osConfig.modules.system;
-  cfg = osConfig.modules.programs;
+  env = osConfig.modules.usrEnv;
 in {
   mainBar = {
     layer = "top";
@@ -34,8 +34,8 @@ in {
     modules-center = [];
     modules-right = [
       "cpu"
-      (optionalString (sys.bluetooth.enable) "bluetooth")
-      (optionalString (cfg.gaming.enable) "gamemode")
+      (optionalString sys.bluetooth.enable "bluetooth")
+      (optionalString env.programs.gaming.enable "gamemode")
       "pulseaudio"
       "network"
       "custom/swallow"

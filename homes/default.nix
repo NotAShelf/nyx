@@ -7,7 +7,7 @@
   lib,
   ...
 }: let
-  defaults = config.modules.programs.default;
+  inherit (config.modules.usrEnv.programs) defaults;
 in {
   home-manager = {
     verbose = true;

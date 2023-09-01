@@ -2,16 +2,7 @@
   imports = [./style.nix ./hardware-configuration.nix];
   config = {
     modules = {
-      device = {
-        type = "laptop";
-        cpu = "amd";
-        gpu = "amd";
-        monitors = ["eDP-1"];
-        hasBluetooth = true;
-        hasSound = true;
-        hasTPM = true;
-      };
-
+      device = import ./device.nix;
       usrEnv =
         {
           isWayland = true;

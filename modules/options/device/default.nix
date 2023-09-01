@@ -4,4 +4,3 @@ _: {
     ./hardware.nix
   ];
 }
-

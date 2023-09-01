@@ -13,10 +13,9 @@ with lib; let
     grim -g "$(slurp -w 0 -b eebebed2)" /tmp/ocr-$id.png && tesseract /tmp/ocr-$id.png /tmp/ocr-output && wl-copy < /tmp/ocr-output.txt && notify-send "OCR " "Text copied!" && rm /tmp/ocr-output.txt -f
   '';
 
-  env = osConfig.modules.usrEnv;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && env.isWayland) {
+  config = mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.usrEnv.programs.cli.enable) {
     home.packages = with pkgs; [
       # CLI
       ocr

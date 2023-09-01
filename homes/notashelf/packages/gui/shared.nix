@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  programs = osConfig.modules.programs;
+  programs = osConfig.modules.usrEnv.programs;
 
   device = osConfig.modules.device;
   sys = osConfig.modules.system;

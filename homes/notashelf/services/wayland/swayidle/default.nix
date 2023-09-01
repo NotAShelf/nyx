@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  locker = lib.getExe pkgs."${env.screenLock}";
+  locker = lib.getExe pkgs."${env.programs.defaults.screenlocker}";
 
   systemctl = "${pkgs.systemd}/bin/systemctl";
   suspendScript = pkgs.writeShellScript "suspend-script" ''

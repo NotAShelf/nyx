@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkOption types;
+  cfg = config.modules.usrEnv.programs;
 in {
   options.modules.usrEnv.programs = {
     # package bundles
@@ -63,10 +64,10 @@ in {
       minecraft.enable = mkEnableOption "Enable Minecraft";
 
       # gaming clients and utilities
-      steam.enable = mkEnableOption "Enable Steam" // {default = config.modules.programs.gaming.enable;};
-      gamescope.enable = mkEnableOption "Gamescope compositing manager" // {default = config.modules.programs.gaming.enable;};
-      mangohud.enable = mkEnableOption "Enable MangoHud" // {default = config.modules.programs.gaming.enable;};
-      lutris.enable = mkEnableOption "Enable Lutris" // {default = config.modules.programs.gaming.enable;}; # TODO
+      steam.enable = mkEnableOption "Enable Steam" // {default = cfg.gaming.enable;};
+      gamescope.enable = mkEnableOption "Gamescope compositing manager" // {default = cfg.gaming.enable;};
+      mangohud.enable = mkEnableOption "Enable MangoHud" // {default = cfg.gaming.enable;};
+      lutris.enable = mkEnableOption "Enable Lutris" // {default = cfg.gaming.enable;}; # TODO
     };
 
     # default program options
