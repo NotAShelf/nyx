@@ -72,7 +72,7 @@
 
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
-        images = import ./hosts/images.nix {inherit inputs self lib;};
+        # images = import ./hosts/images.nix {inherit inputs self lib;};
       };
 
       perSystem = {

@@ -8,22 +8,24 @@
   inherit (lib) concatLists mkNixosIso mkNixosSystem;
 
   modulePath = ../modules;
+  options = modulePath + /options; # the module that provides the options for my system configuration
 
   # common modules, to be shared across all systems
   commonModules = modulePath + /common; # the path where common modules reside
-  options = commonModules + /options; # the module that provides the options for my system configuration
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
+  profiles = commonModules + /profiles; # profiles force enable certain options for quick configurations
+
   server = commonModules + /types/server; # for devices that are of the server type - provides online services
   laptop = commonModules + /types/laptop; # for devices that are of the laptop type - provides power optimizations
+  desktop = commonModules + /types/desktop; # for devices that are of the desktop type - any device that is stationary
+
   workstation = commonModules + /types/workstation; # for devices that are of workstation type - any device that is for daily use
-  # TODO: desktop
 
   # extra modules, likely optional but possibly critical
   extraModules = modulePath + /extra; # the path where extra modules reside
   sharedModules = extraModules + /shared; # the path where shared modules reside
 
   # profiles
-  profiles = modulePath + /profiles; # profiles force enable certain options for quick configurations
 
   ## home-manager ##
   homesDir = ../homes; # home-manager configurations for hosts that need home-manager
@@ -49,6 +51,7 @@ in {
   # My main desktop boasting a RX 6700 XT and a Ryzen 5 3600x
   # fully free from nvidia
   # fuck nvidia - Linus "the linux" Torvalds
+  /*
   enyo = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -61,10 +64,12 @@ in {
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
+  */
 
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
   # superceded by epimetheus
+  /*
   prometheus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -78,9 +83,11 @@ in {
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
+  */
 
   # Twin host for prometheus
   # provides full disk encryption with passkey/USB auth
+  /*
   epimetheus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -94,6 +101,7 @@ in {
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
+  */
 
   # HP Pavillion laptop from 2023
   # equipped a Ryzen 7 7730U, usually acts as my portable workstation
@@ -114,6 +122,7 @@ in {
 
   # Hetzner VPS to replace my previous server machines
   # hosts some of my infrastructure
+  /*
   helios = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -126,9 +135,11 @@ in {
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
+  */
 
   # Lenovo Ideapad from 2014
   # Hybrid device, acts as a portable server and a "workstation"
+  /*
   icarus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -142,6 +153,7 @@ in {
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
+
 
   # Raspberry Pi 400
   # My Pi400 homelab, used mostly for testing networking/cloud services

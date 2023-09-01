@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  imports = [./locale.nix];
+  imports = [
+    ./locale.nix # locale settings
+    ./display # display protocol (wayland/xorg)
+  ];
   environment = {
     # variables that I want to set globally on all systems
     variables = {

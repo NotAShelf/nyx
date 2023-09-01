@@ -2,13 +2,12 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf isAcceptedDevice;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
     xdg.configFile."easyeffects/output/quiet.json".source = ./quiet.json;
     services.easyeffects = {
       enable = true;

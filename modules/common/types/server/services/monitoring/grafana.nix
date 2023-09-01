@@ -3,12 +3,8 @@
   lib,
   ...
 }:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
-  acceptedTypes = ["server" "hybrid"];
-in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.grafana)) {
+with lib; {
+  config = mkIf config.modules.services.grafana.enable {
     networking.firewall.allowedTCPPorts = [config.services.grafana.settings.server.http_port];
 
     services.grafana = {
@@ -17,13 +13,17 @@ in {
 
       settings = {
         analytics = {
+          # don't report anything
           reporting_enabled = false;
+
+          # don't check for updates, we can't update imperatively
           check_for_updates = false;
         };
 
         server = {
           # Listening address and TCP port
           http_port = 3000;
+
           # Grafana needs to know on which domain and URL it's running on:
           http_addr = "127.0.0.1";
           domain = "dash.notashelf.dev";
@@ -31,12 +31,12 @@ in {
           # true means HTTP compression is enabled
           enable_gzip = true;
 
-          # Currently using sqlite database
-          #database = {
-          #  type = "postgres";
-          #  user = "grafana";
-          #  host = "/var/run/postgresql/";
-          #};
+          # use postgresql instead of sqlite
+          database = {
+            type = "postgres";
+            user = "grafana";
+            host = "/var/run/postgresql/";
+          };
         };
       };
     };

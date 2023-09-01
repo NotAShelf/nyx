@@ -4,12 +4,9 @@
   ...
 }: let
   inherit (lib) mkIf;
-
-  cfg = config.modules.services.override;
-  device = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.vaultwarden)) {
+  config = mkIf ((lib.isAcceptedDevice config acceptedTypes) && config.modules.services.vaultwarden.enable) {
     # this forces the system to create backup folder
     systemd.services.backup-vaultwarden.serviceConfig = {
       User = "root";

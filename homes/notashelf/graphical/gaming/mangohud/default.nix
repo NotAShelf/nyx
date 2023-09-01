@@ -2,14 +2,8 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
-
-  acceptedTypes = ["laptop" "desktop" "lite"];
-in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && programs.gaming.enable) {
+}: {
+  config = lib.mkIf osConfig.modules.usrEnv.programs.gaming.mangohud.enable {
     programs.mangohud = {
       enable = true;
       settings = {

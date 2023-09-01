@@ -15,11 +15,13 @@
     inherit defaultLocale;
 
     extraLocaleSettings = {
+      # I want my system language to be english
       LANG = defaultLocale;
       LC_COLLATE = defaultLocale;
       LC_CTYPE = defaultLocale;
       LC_MESSAGES = defaultLocale;
 
+      # address strings, measurements, time and such should use the Turkish formatting instead of American bs
       LC_ADDRESS = tr;
       LC_IDENTIFICATION = tr;
       LC_MEASUREMENT = tr;
@@ -30,7 +32,6 @@
       LC_TELEPHONE = tr;
       LC_TIME = tr;
     };
-
     supportedLocales = lib.mkDefault [
       "en_US.UTF-8/UTF-8"
       "tr_TR.UTF-8/UTF-8"

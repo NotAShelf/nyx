@@ -5,10 +5,9 @@
   ...
 }:
 with lib; let
-  device = osConfig.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf osConfig.modules.usrEnv.programs.vscode.enable {
     programs.vscode = {
       enable = true;
       enableExtensionUpdateCheck = true;

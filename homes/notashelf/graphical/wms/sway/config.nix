@@ -3,23 +3,19 @@
   config,
   osConfig,
   ...
-}:
-with lib; let
-  env = osConfig.modules.usrEnv;
-  device = osConfig.modules.device;
-  sys = osConfig.modules.system;
+}: let
   prg = osConfig.module.programs;
 in {
-  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "sway"))) {
+  config = {
     wayland.windowManager.sway.config = {
       keybindings = let
         m = config.wayland.windowManager.sway.config.modifier;
       in
         lib.mkOptionDefault {
-          "${m}+Return" = "exec ${prg.fileManager}";
+          "${m}+e" = "exec ${prg.fileManager}";
           "${m}+q" = "kill";
-          "${m}+space" = "exec ${prg.launcher}";
-          "${m}+t" = "floating toggle";
+          "${m}+d" = "exec ${prg.launcher}";
+          "${m}+v" = "floating toggle";
 
           # screenshots
           "Print" = "grim -g \"$(slurp)\" - | wl-copy -t image/png";

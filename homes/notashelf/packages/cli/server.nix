@@ -3,14 +3,10 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-
-  device = osConfig.modules.device;
+}: let
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf ((programs.cli.enable) && (builtins.elem device.type acceptedTypes)) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.cli.enable) {
     home.packages = with pkgs; [
       wireguard-tools
     ];

@@ -3,14 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
-
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.cli.whitehat.enable) {
     home.packages = with pkgs; [
       # CLI
       binwalk

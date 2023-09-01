@@ -28,10 +28,11 @@ in {
         distrobox
       ];
 
-    virtualisation = mkIf sys.qemu.enable {
-      kvmgt.enable = true;
-      spiceUSBRedirection.enable = true;
-      libvirtd = {
+    virtualisation = {
+      # qemu
+      kvmgt.enable = sys.qemu.enable && config.modules.device.type == "intel";
+      spiceUSBRedirection.enable = sys.qemu.enable;
+      libvirtd = mkIf sys.qemu.enable {
         enable = true;
         qemu = {
           package = pkgs.qemu_kvm;
@@ -43,6 +44,7 @@ in {
         };
       };
 
+      # podman
       podman = mkIf sys.docker.enable {
         enable = true;
         dockerCompat = true;
@@ -61,8 +63,8 @@ in {
         };
       };
 
-      lxd.enable = mkDefault config.virtualisation.waydroid.enable;
       waydroid.enable = sys.waydroid.enable;
+      lxd.enable = mkDefault config.virtualisation.waydroid.enable;
     };
   };
 }

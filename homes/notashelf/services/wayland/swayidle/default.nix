@@ -16,13 +16,11 @@ with lib; let
       ${systemctl} suspend
     fi
   '';
-  dev = osConfig.modules.device;
   env = osConfig.modules.usrEnv;
-  vid = osConfig.modules.system.video;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && (vid.enable && env.isWayland)) {
+  config = mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig)) {
     # start swayidle as part of hyprland instead of sway
     systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
 

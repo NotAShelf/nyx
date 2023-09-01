@@ -12,7 +12,7 @@ with lib; let
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes && env.screenLock == "gtklock") && (vid.enable && env.isWayland)) {
+  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && (env.programs.defaults.screenlocker == "gtklock") && (isWayland osConfig)) {
     programs.gtklock = {
       enable = true;
       package = pkgs.gtklock;

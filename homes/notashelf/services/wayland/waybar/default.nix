@@ -6,7 +6,6 @@
   ...
 }:
 with lib; let
-  inherit (osConfig.modules) device;
   inherit (osConfig.modules.style.colorScheme) slug;
 
   waybar_config = import ./presets/${slug}/config.nix {inherit osConfig config lib pkgs;};
@@ -14,7 +13,7 @@ with lib; let
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig)) {
     home.packages = with pkgs.python39Packages; [requests];
     programs.waybar = {
       enable = true;

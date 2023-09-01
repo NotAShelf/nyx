@@ -1,0 +1,3 @@
+_: {
+  options.modules.programs = {};
+}

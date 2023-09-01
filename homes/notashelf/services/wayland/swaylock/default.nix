@@ -6,13 +6,11 @@
   ...
 }:
 with lib; let
-  dev = osConfig.modules.device;
-  vid = osConfig.modules.system.video;
   env = osConfig.modules.usrEnv;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes && env.screenLock == "swaylock") && (vid.enable && env.isWayland)) {
+  config = mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (env.programs.defaults.screenlocker == "swaylock") && (lib.isWayland osConfig)) {
     programs.swaylock = let
       inherit (config.colorscheme) colors;
     in {

@@ -6,14 +6,13 @@
   ...
 }: let
   env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
 
-  monitors = osConfig.modules.device.monitors;
+  inherit (osConfig.modules.device) monitors;
 
   hyprpaper = inputs.hyprpaper.packages.${pkgs.system}.default;
   wallpkgs = inputs.wallpkgs.packages.${pkgs.system};
 in {
-  config = lib.mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
+  config = lib.mkIf ((lib.isWayland osConfig) && (env.desktop == "Hyprland")) {
     systemd.user.services.hyprpaper = lib.mkHyprlandService {
       Unit.Description = "Hyprland wallpaper daemon";
       Service = {

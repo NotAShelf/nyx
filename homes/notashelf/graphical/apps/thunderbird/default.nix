@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf osConfig.modules.usrEnv.programs.thunderbird.enable {
     home.packages = with pkgs; [thunderbird];
 
     programs.thunderbird = {

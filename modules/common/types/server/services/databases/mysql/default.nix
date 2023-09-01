@@ -3,13 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
-  acceptedTypes = ["server" "hybrid"];
-in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.database.mysql)) {
+}: {
+  config = lib.mkIf config.modules.services.database.mysql.enable {
     services.mysql = {
       enable = true;
       package = pkgs.mariadb;

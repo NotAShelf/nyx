@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./cloud
+    ./nextcloud
     ./dunst
     ./media
     ./polkit

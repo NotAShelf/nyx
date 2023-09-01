@@ -12,7 +12,7 @@ with lib; let
 in {
   security = {
     protectKernelImage = true;
-    lockKernelModules = false; # breaks virtd, wireguard and iptables
+    lockKernelModules = sys.security.lockModules; # breaks virtd, wireguard and iptables
 
     # force-enable the Page Table Isolation (PTI) Linux kernel feature
     forcePageTableIsolation = true;
@@ -21,7 +21,7 @@ in {
     allowUserNamespaces = true;
 
     # Disable unprivileged user namespaces, unless containers are enabled
-    unprivilegedUsernsClone = config.virtualisation.containers.enable;
+    unprivilegedUsernsClone = !config.virtualisation.containers.enable;
 
     # apparmor configuration
     apparmor = {
@@ -72,6 +72,7 @@ in {
       ];
 
       services = {
+        # let screenlockers unlock the system
         swaylock.text = "auth include login";
         gtklock.text = "auth include login";
       };
@@ -82,7 +83,7 @@ in {
       enable = mkDefault true;
       execWheelOnly = true;
       extraConfig = ''
-        Defaults lecture = never # rollback results in sudo lectures after each reboot
+        Defaults lecture = never # btrfs rollbacks result in sudo lectures after each reboot
         Defaults pwfeedback
         Defaults env_keep += "EDITOR PATH"
         Defaults timestamp_timeout = 300

@@ -70,11 +70,10 @@ with lib; let
           -t 888 \
           -u low
     '';
-  device = osConfig.modules.device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf (lib.isAcceptedDevice osConfig acceptedTypes) {
     home.packages = [
       volume
       microphone
@@ -82,7 +81,7 @@ in {
     ];
     services.dunst = {
       enable = true;
-      package = pkgs.dunst.overrideAttrs (oldAttrs: {
+      package = pkgs.dunst.overrideAttrs (_: {
         src = pkgs.fetchFromGitHub {
           owner = "sioodmy";
           repo = "dunst";

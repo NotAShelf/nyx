@@ -21,7 +21,6 @@ in {
         bitwarden
         obsidian
         nextcloud-client
-        udiskie
         gnome.gnome-tweaks
         gnome.gnome-calendar
         easyeffects

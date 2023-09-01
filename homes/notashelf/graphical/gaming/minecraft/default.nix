@@ -3,13 +3,7 @@
   pkgs,
   osConfig,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
-
-  acceptedTypes = ["laptop" "desktop" "lite"];
-
+}: let
   catppuccin-mocha = pkgs.fetchzip {
     url = "https://raw.githubusercontent.com/catppuccin/prismlauncher/main/themes/Mocha/Catppuccin-Mocha.zip";
     sha256 = "8uRqCoe9iSIwNnK13d6S4XSX945g88mVyoY+LZSPBtQ=";
@@ -30,7 +24,7 @@ with lib; let
     zulu
   ];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
+  config = lib.mkIf osConfig.modules.usrEnv.programs.gaming.minecraft.enable {
     home = {
       # copy the catppuccin theme to the themes directory of PrismLauncher
       file.".local/share/PrismLauncher/themes/mocha" = {
@@ -38,7 +32,7 @@ in {
         recursive = true;
       };
 
-      packages = with pkgs; [
+      packages = [
         # the successor to polyMC, which is now mostly abandoned
         (pkgs.prismlauncher.override {
           # get java versions required by various minecraft versions

@@ -1,19 +1,15 @@
 {
   lib,
   osConfig,
-  inputs,
   self',
+  inputs,
   pkgs,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  override = osConfig.modules.programs.override.program;
-  acceptedTypes = ["laptop" "desktop" "hybrid"];
+}: let
   spicePkgs = inputs.spicetify.packages.${pkgs.system}.default;
 in {
   imports = [inputs.spicetify.homeManagerModule];
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf osConfig.modules.usrEnv.programs.spotify.enable {
     programs.spicetify = {
       spotifyPackage = self'.packages.spotify-wrapped;
       enable = true;

@@ -2,14 +2,14 @@
   imports = [
     ./bottom
     ./newsboat
+    ./tealdeer
     ./ranger
     ./xplr
     ./bat
+    ./git
 
-    ./git.nix
     ./nix-shell.nix
     ./run-transient-services.nix
-    ./tealdeer.nix
   ];
   programs = {
     man.enable = true;

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  config = lib.mkIf config.modules.device.yubikeySupport.enable {
+  config = lib.mkIf config.modules.system.yubikeySupport.enable {
     hardware.gpgSmartcards.enable = true;
 
     services = {

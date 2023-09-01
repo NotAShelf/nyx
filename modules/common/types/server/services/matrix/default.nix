@@ -2,14 +2,9 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
-  acceptedTypes = ["server" "hybrid"];
-
   clientConfig = {
     "m.homeserver".base_url = "https://${config.networking.hostName}${config.networking.domain}";
     "m.identity_server" = {};
@@ -24,7 +19,7 @@ with lib; let
     return 200 '${builtins.toJSON data}';
   '';
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.matrix) {
+  config = mkIf config.modules.services.matrix-synapse.enable {
     services.postgresql = {
       enable = true;
       initialScript = pkgs.writeText "synapse-init.sql" ''

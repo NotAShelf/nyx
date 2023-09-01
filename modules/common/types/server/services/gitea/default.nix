@@ -5,13 +5,9 @@
   ...
 }:
 with lib; let
-  device = config.modules.device;
-  acceptedTypes = ["server" "hybrid"];
-  cfg = config.modules.services.override;
   domain = "git.notashelf.dev";
 in {
-  # TODO: add gitea service override
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.gitea)) {
+  config = mkIf config.modules.services.gitea.enable {
     networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];
 
     services = {

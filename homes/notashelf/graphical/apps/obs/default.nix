@@ -6,11 +6,8 @@
 }:
 with lib; let
   env = osConfig.modules.usrEnv;
-  device = osConfig.modules.device;
-
-  acceptedTypes = ["laptop" "desktop"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf env.programs.obs.enable {
     programs = {
       obs-studio = {
         enable = true;
@@ -20,7 +17,7 @@ in {
             obs-pipewire-audio-capture
             obs-vkcapture
           ]
-          ++ optional (env.isWayland)
+          ++ optional env.isWayland
           pkgs.obs-studio-plugins.wlrobs;
       };
     };

@@ -5,13 +5,10 @@
   ...
 }:
 with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
   acceptedTypes = ["server" "hybrid"];
-
   port = 8888;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.searxng) {
+  config = mkIf (lib.isAcceptedTypes config acceptedTypes && config.modules.services.searxng.enable) {
     networking.firewall.allowedTCPPorts = [port];
 
     users = {
@@ -90,22 +87,6 @@ in {
             engine = "google";
             shortcut = "g";
             use_mobile_ui = false;
-          }
-          {
-            name = "noogle";
-            engine = "google";
-            shortcut = "ng";
-          }
-          {
-            name = "hoogle";
-            engine = "xpath";
-            search_url = "https://hoogle.haskell.org/?hoogle={query}&start={pageno}";
-            results_xpath = "//div[@class=\"result\"]";
-            title_xpath = "./div[@class=\"ans\"]";
-            url_xpath = "./div[@class=\"ans\"]//a/@href";
-            content_xpath = "./div[contains(@class, \"doc\")]";
-            categories = "it";
-            shortcut = "h";
           }
         ];
       };

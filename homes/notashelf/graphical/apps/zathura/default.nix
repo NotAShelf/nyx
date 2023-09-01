@@ -1,17 +1,10 @@
 {
-  config,
   lib,
   pkgs,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
-
-  inherit (config.colorscheme) colors;
-in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+}: {
+  config = lib.mkIf osConfig.modules.usrEnv.programs.zathura.enable {
     xdg.configFile."zathura/catppuccin-mocha".source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha";
       hash = "sha256-/HXecio3My2eXTpY7JoYiN9mnXsps4PAThDPs4OCsAk=";

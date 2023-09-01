@@ -14,6 +14,13 @@
   };
 
   programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+
+    nix-direnv = {
+      enable = true;
+    };
+
     stdlib = ''
       : ''${XDG_CACHE_HOME:=$HOME/.cache}
       declare -A direnv_layout_dirs
@@ -24,11 +31,5 @@
           )}"
       }
     '';
-    enableZshIntegration = true;
-
-    enable = true;
-    nix-direnv = {
-      enable = true;
-    };
   };
 }

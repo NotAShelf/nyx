@@ -3,12 +3,8 @@
   lib,
   ...
 }:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
-  acceptedTypes = ["server" "hybrid"];
-in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.grafana)) {
+with lib; {
+  config = mkIf config.modules.services.prometheus.enable {
     services = {
       # Prometheus exporter for Grafana
       prometheus = {

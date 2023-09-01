@@ -2,27 +2,21 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
-  acceptedTypes = ["server" "hybrid"];
-in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.database.redis)) {
+}: {
+  config = lib.mkIf config.modules.services.database.redis.enable {
     services.redis = {
       vmOverCommit = true;
       servers = {
         nextcloud = {
           enable = true;
           user = "nextcloud";
-          port = 0;
         };
 
         searxng = {
           enable = true;
           user = "searx";
           port = 6370;
-          unixSocketPerm = 660;
+          unixSocketPerm = 660; # required to use the socket by non-redis users
         };
       };
     };

@@ -5,11 +5,8 @@
   inputs,
   self,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-in {
-  config = (mkIf programs.cli.enable) {
+}: {
+  config = (lib.mkIf osConfig.modules.programs.cli.enable) {
     home.packages = with pkgs; [
       # packages from inputs
       inputs.agenix.packages.${pkgs.system}.default
@@ -35,7 +32,6 @@ in {
       dconf
       cached-nix-shell
       ttyper
-      xorg.xhost
       nitch
       skim
       p7zip
