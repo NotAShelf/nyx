@@ -37,6 +37,7 @@
             echo "Done!"
           fi
         '';
+
         serviceConfig = {
           Type = "oneshot";
           User = "root";

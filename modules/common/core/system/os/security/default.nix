@@ -43,10 +43,10 @@ in {
       });
     '';
 
-    # TODO: make this optional, audit logs get massive really quick
-    auditd.enable = true;
+    # system audit
+    auditd.enable = sys.security.auditd.enable;
     audit = {
-      enable = true;
+      enable = sys.security.auditd.enable;
       backlogLimit = 8192;
       failureMode = "printk";
       rules = [
