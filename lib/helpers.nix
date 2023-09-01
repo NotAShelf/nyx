@@ -30,8 +30,18 @@
   }:
     builtins.all (s: builtins.any (x: x == s) list) targetStrings;
 
-  # replace whitespaces with hyphens
+  # function to generate theme slugs from theme names
+  # "A String With Whitespaces" -> "a-string-with-whitespaces"
   serializeTheme = inputString: lib.strings.toLower (builtins.replaceStrings [" "] ["-"] inputString);
+
+  # convenience function check if the declared device type is of an accepted type
+  # takes config and a list of accepted device types
+  # `isAcceptedDevice osConfig ["foo" "bar"];`
+  isAcceptedDevice = conf: builtins.elem conf.modules.device.type;
+
+  # assert if the device is wayland-ready by checking sys.video and env.isWayland options
+  # `(lib.isWayland config)` where config is in scope
+  isWayland = conf: conf.modules.system.video.enable && conf.modules.usrEnvisWayland;
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme;
+  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland;
 }
