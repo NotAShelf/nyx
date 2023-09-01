@@ -12,6 +12,7 @@ in {
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
     tmpOnTmpfs = mkEnableOption "/tmp living on tmpfs. false means it will be cleared manually on each reboot";
+    secureBoot = mkEnableOption "Enable secure-boot and load necessary packages.";
 
     extraKernelParams = mkOption {
       type = with types; listOf str;
