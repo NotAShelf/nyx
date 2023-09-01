@@ -1,19 +1,18 @@
 {lib, ...}:
 with lib; {
-  imports = [
-    ./capabilities.nix
-    ./hardware.nix
-  ];
   options.modules.device = {
-    # the type of the device
-    # laptop and desktop include mostly common modules, but laptop has battery
-    # optimizations on top of common programs
-    # server has services I would want on a server, and lite is for low-end devices
-    # that need only the basics
-    # hybrid is for desktops that are also servers (my homelabs, basically)
-    # vms are for quick dirty tests, lighter than the "lite" configuration
     type = mkOption {
       type = types.enum ["laptop" "desktop" "server" "hybrid" "lite" "vm"];
+      default = "";
+      description = ''
+        The type/purpose of the device that will be used within the rest of the configuration.
+          - laptop: portable devices with batter optimizations
+          - desktop: stationary devices configured for maximum performance
+          - server: server and infrastructure
+          - hybrid: provide both desktop and server functionality
+          - lite: a lite device, such as a raspberry pi
+          - vm: a virtual machine
+      '';
     };
 
     # the type of cpu your system has - vm and regular cpus currently do not differ
@@ -40,26 +39,6 @@ with lib; {
         declaring things like monitors in window manager configurations
         you can avoid declaring this, but I'd rather if you did declare
       '';
-    };
-
-    # bluetooth is an insecure protocol if left unchedked, so while this defaults to true
-    # but the bluetooth.enable option does and should not.
-    hasBluetooth = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Whether or not the system has bluetooth support";
-    };
-
-    hasSound = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Whether the system has sound support (usually true except for servers)";
-    };
-
-    hasTPM = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Whether the system has tpm support";
     };
   };
 }
