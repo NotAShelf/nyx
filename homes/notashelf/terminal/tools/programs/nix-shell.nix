@@ -5,7 +5,7 @@
       deadnix
       statix
       nix-tree
-      perl # for shasum
+      # perl # for shasum
     ];
 
     sessionVariables = {
@@ -14,19 +14,8 @@
   };
 
   programs.direnv = {
-    stdlib = ''
-      : ''${XDG_CACHE_HOME:=$HOME/.cache}
-      declare -A direnv_layout_dirs
-      direnv_layout_dir() {
-          echo "''${direnv_layout_dirs[$PWD]:=$(
-              echo -n "$XDG_CACHE_HOME"/direnv/layouts/
-              echo -n "$PWD" | shasum | cut -d ' ' -f 1
-          )}"
-      }
-    '';
-    enableZshIntegration = true;
-
     enable = true;
+    enableZshIntegration = true;
     nix-direnv = {
       enable = true;
     };
