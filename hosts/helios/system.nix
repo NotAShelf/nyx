@@ -23,6 +23,7 @@
         printing.enable = false;
 
         boot = {
+          secureBoot = false;
           loader = "grub";
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
@@ -39,10 +40,6 @@
         networking = {
           optimizeTcp = false;
           useTailscale = true;
-        };
-
-        security = {
-          secureBoot = false;
         };
       };
 

@@ -18,8 +18,11 @@
       system = {
         mainUser = "notashelf";
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
+        autoLogin = true;
+
         boot = {
           loader = "systemd-boot";
+          secureBoot = false;
           kernel = pkgs.linuxPackages_xanmod_latest;
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
@@ -51,7 +54,6 @@
         };
 
         security = {
-          secureBoot = false;
           tor.enable = true;
           fixWebcam = false;
         };
@@ -61,7 +63,6 @@
         isWayland = true;
         desktop = "Hyprland";
         useHomeManager = true;
-        autologin = true;
       };
 
       programs = {

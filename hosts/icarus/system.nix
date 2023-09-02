@@ -13,8 +13,10 @@ _: {
       system = {
         mainUser = "notashelf";
         fs = ["btrfs" "ext4" "vfat"];
+        autoLogin = true;
 
         boot = {
+          secureBoot = false;
           loader = "systemd-boot";
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
@@ -35,7 +37,6 @@ _: {
 
         security = {
           fixWebcam = false;
-          secureBoot = false;
         };
 
         virtualization = {
@@ -45,12 +46,13 @@ _: {
           podman.enable = false;
         };
       };
+
       usrEnv = {
         isWayland = true;
         desktop = "Hyprland";
-        autologin = true;
         useHomeManager = true;
       };
+
       programs = {
         git.signingKey = "0x148C61C40F80F8D6";
 
