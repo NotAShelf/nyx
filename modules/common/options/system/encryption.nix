@@ -3,15 +3,14 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib) mkEnableOption mkOption types mkIf;
 in {
-  config = {
+  config = mkIf config.modules.system.encryption.enable {
     warnings =
       if config.modules.system.encryption.device == ""
       then [
         ''
-          You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
-          Consider setting `config.modules.system.fs` in your configuration
+          You have enabled LUKS encryption, but have not selected a device, you may not be able to decrypt your disk on boot.
         ''
       ]
       else [];
