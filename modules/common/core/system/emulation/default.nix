@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkForce;
+  inherit (lib) mkIf;
 
   sys = config.modules.system;
 in {
@@ -16,7 +16,7 @@ in {
       registrations = {
         # aarch64 interpreter
         aarch64-linux = {
-          interpreter = mkForce "${pkgs.qemu}/bin/qemu-aarch64";
+          interpreter = "${pkgs.qemu}/bin/qemu-aarch64";
         };
 
         # i686 interpreter
