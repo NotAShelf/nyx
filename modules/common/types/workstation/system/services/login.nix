@@ -52,17 +52,17 @@ in {
       greetd = {
         enable = true;
         vt = 2;
-        restart = !env.autologin;
+        restart = !sys.autoLogin;
         settings = {
           # pick up desktop variant (i.e Hyprland) and username from usrEnv
           # this option is usually defined in host/<hostname>/system.nix
-          initial_session = mkIf env.autologin {
+          initial_session = mkIf sys.autoLogin {
             command = "${env.desktop}";
             user = "${sys.mainUser}";
           };
 
           default_session =
-            if (!env.autologin)
+            if (!sys.autoLogin)
             then {
               command = lib.concatStringsSep " " [
                 (lib.getExe pkgs.greetd.tuigreet)
