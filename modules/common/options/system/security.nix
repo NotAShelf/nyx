@@ -2,6 +2,8 @@
   inherit (lib) mkOption mkEnableOption mdDoc types;
 in {
   options.modules.system.security = {
+    fixWebcam = mkEnableOption (mdDoc "Fix the purposefully broken webcam by un-blacklisting the related kernel module.");
+    tor.enable = mkEnableOption (mdDoc "Tor daemon");
     lockModules = mkEnableOption (mdDoc ''
       Enable kernel module locking to prevent kernel modules that are not specified in the config from being loaded
     '');
@@ -13,7 +15,7 @@ in {
 
         size = mkOption {
           type = types.int;
-          default = 524288000;
+          default = 524288000; # roughly 500 megabytes
           description = "The maximum size of the audit log in bytes.";
         };
 
@@ -25,8 +27,5 @@ in {
         };
       };
     };
-
-    fixWebcam = mkEnableOption (mdDoc "Fix the purposefully broken webcam by un-blacklisting the related kernel module.");
-    tor.enable = mkEnableOption (mdDoc "Tor daemon");
   };
 }
