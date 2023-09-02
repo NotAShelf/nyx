@@ -8,5 +8,6 @@ _: {
     ./emulation # emulation via binfmt for cross-building
     ./activation # activation system for nixos-rebuild
     ./virtualization # hypervisor and virtualisation related options - docker, QEMU, waydroid etc.
+    ./encryption # LUKS encryption
   ];
 }
