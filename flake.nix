@@ -246,7 +246,7 @@
 
     # Hyprland & Hyprland Contrib repos
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland/5035f5fc682f3307e2130e10d5ba209495113edb";
     };
 
     hyprpicker = {
