@@ -44,7 +44,7 @@ with lib; {
       type = types.str;
     };
 
-    autologin = mkOption {
+    autoLogin = mkOption {
       type = types.bool;
       default = false;
       description = lib.mdDoc ''
