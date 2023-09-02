@@ -23,11 +23,6 @@ in {
         i686-linux = {
           interpreter = "${pkgs.qemu}/bin/qemu-i686";
         };
-
-        # x86_64
-        x86_64-linux = {
-          interpreter = "${pkgs.qemu}/bin/qemu-x86_64";
-        };
       };
     };
   };
