@@ -16,14 +16,18 @@ with lib; {
   ];
   config = {
     warnings =
-      if config.modules.system.fs == []
-      then [
+      (optionals (config.modules.system.fs == []) [
         ''
           You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
           Consider setting `config.modules.system.fs` in your configuration
         ''
-      ]
-      else [];
+      ])
+      ++ (optionals (config.modules.system.users == []) [
+        ''
+          You have not added any users to be supported by your system. You may end up with an unbootable system!
+          Consider setting `config.modules.system.users` in your configuration
+        ''
+      ]);
   };
 
   options.modules.system = {
