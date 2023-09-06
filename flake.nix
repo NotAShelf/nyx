@@ -244,6 +244,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # schizophrenic firefox configuration
+    schizofox = {
+      url = "github:schizofox/schizofox";
+      # url = "/home/notashelf/Dev/Schizofox/schizofox";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        nixpak.follows = "nixpak";
+      };
+    };
+
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
     # Hyprland & Hyprland Contrib repos
     hyprland = {
       url = "github:hyprwm/Hyprland/5035f5fc682f3307e2130e10d5ba209495113edb";
@@ -278,25 +295,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # nix index database
+    nix-index-db = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # mailserver on nixos
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
-
-    # schizophrenic firefox configuration
-    schizofox = {
-      url = "github:schizofox/schizofox";
-      # url = "/home/notashelf/Dev/Schizofox/schizofox";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        nixpak.follows = "nixpak";
-      };
-    };
-
-    nixpak = {
-      url = "github:nixpak/nixpak";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
   };
 
   nixConfig = {
