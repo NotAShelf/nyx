@@ -9,11 +9,6 @@ with lib; let
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
-    qt = {
-      enable = true;
-      platformTheme = "qt5ct";
-    };
-
     # enable polkit for privilege escalation
     security.polkit.enable = true;
 
