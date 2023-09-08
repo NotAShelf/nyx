@@ -125,6 +125,12 @@
     });
 
   inputs = {
+    # until a new release is out and in nixpkgs:
+    waybar = {
+      url = "github:Alexays/Waybar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # powered by
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -263,7 +269,7 @@
 
     # Hyprland & Hyprland Contrib repos
     hyprland = {
-      url = "github:hyprwm/Hyprland/5035f5fc682f3307e2130e10d5ba209495113edb";
+      url = "github:hyprwm/Hyprland";
     };
 
     hyprpicker = {

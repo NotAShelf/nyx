@@ -24,7 +24,7 @@ in {
     exclusive = true;
     modules-left = [
       "custom/search"
-      "wlr/workspaces"
+      "hyprland/workspaces"
       "custom/lock"
       "backlight"
       "battery"
@@ -43,7 +43,7 @@ in {
       "custom/power"
     ];
 
-    "wlr/workspaces" = let
+    "hyprland/workspaces" = let
       hyprctl = config.wayland.windowManager.hyprland.package + "/bin/hyprctl";
     in {
       on-click = "activate";
