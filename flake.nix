@@ -76,7 +76,7 @@
 
         # extensible flake schemas
         # TODO: we want to define homeManagerModules and images as schemas
-        schemas = (import ./parts/schemas) // inputs.flake-schemas.schemas;
+        schemas = inputs.flake-schemas.schemas // (import ./parts/schemas);
       };
 
       perSystem = {

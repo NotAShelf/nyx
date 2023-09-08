@@ -1,5 +1,5 @@
 {
-  lib = {
+  homeManagerModules = {
     version = 1;
     doc = "The `homeManagerModules` flake output defines Home-Manager modules exported by the flake.";
     inventory = output: let
@@ -8,7 +8,7 @@
           if builtins.isAttrs value
           then {
             # Tell `nix flake show` what this is.
-            what = "library function";
+            what = "exported home-manager module";
             # Make `nix flake check` enforce our naming convention.
             evalChecks.camelCase = builtins.match "[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?" name == [];
           }
