@@ -14,8 +14,9 @@
   programs = {
     man.enable = true;
 
-    exa = {
+    eza = {
       enable = true;
+      icons = true;
       extraOptions = [
         "--group-directories-first"
         "--header"
@@ -30,6 +31,11 @@
     dircolors = {
       enable = true;
       enableZshIntegration = true;
+      settings = {
+        OTHER_WRITABLE = "30;46";
+        ".sh" = "01;32";
+        ".csh" = "01;32";
+      };
     };
   };
 }
