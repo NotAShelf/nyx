@@ -188,7 +188,7 @@ in {
       docs = "$HOME/Documents";
       notes = "$HOME/Cloud/Notes";
       dev = "$HOME/Dev";
-      dotfiles = "$HOME/.config/nyx";
+      dots = "$HOME/.config/nyx";
       dl = "$HOME/Downloads";
       vids = "$HOME/Media/Videos";
       music = "$HOME/Media/Music";
