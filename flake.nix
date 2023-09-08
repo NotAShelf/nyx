@@ -73,6 +73,10 @@
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
         images = import ./hosts/images.nix {inherit inputs self lib;};
+
+        # extensible flake schemas
+        # TODO: we want to define homeManagerModules and images as schemas
+        schemas = (import ./parts/schemas) // inputs.flake-schemas.schemas;
       };
 
       perSystem = {
@@ -136,6 +140,8 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
 
     # build against nixos unstable, more versions with pinned branches can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
