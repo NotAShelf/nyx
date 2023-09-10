@@ -3,6 +3,7 @@
 
   # assume the first monitor in the list of monitors is primary
   # get its name from the list of monitors
+  # `primaryMonitor` -> "DP-1"
   primaryMonitor = config: builtins.elemAt config.modules.device.monitors 0;
 
   # filter files that have the .nix suffix
@@ -15,6 +16,7 @@
     import;
 
   # return an int (1/0) based on boolean value
+  # `boolToNum true` -> 1
   boolToNum = bool:
     if bool
     then 1
@@ -24,6 +26,7 @@
   fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
 
   # a helper function that checks if a list contains a list of given strings
+  # `containsStrings { targetStrings = ["foo" "bar"]; list = ["foo" "bar" "baz"]; }` -> true
   containsStrings = {
     list,
     targetStrings,
