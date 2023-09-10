@@ -142,6 +142,7 @@
     };
 
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
+    nixSchemas.url = "github:DeterminateSystems/nix/flake-schemas";
 
     # build against nixos unstable, more versions with pinned branches can be added if deemed necessary
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
