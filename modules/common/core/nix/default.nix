@@ -45,14 +45,9 @@ with lib; {
     overlays = [
       inputs.rust-overlay.overlays.default
 
-      (_: prev: {
+      (_: _: {
         nixSuper = inputs'.nix-super.packages.default;
-
-        # temp fix until https://github.com/NixOS/nixpkgs/pull/249382 is merged
-        gtklock = prev.gtklock.overrideAttrs (_: super: {
-          nativeBuildInputs = super.nativeBuildInputs ++ [prev.wrapGAppsHook];
-          buildInputs = super.buildInputs ++ [prev.librsvg];
-        });
+        nixSchemas = inputs'.nixSchemas.packages.default;
       })
     ];
   };
@@ -73,27 +68,27 @@ with lib; {
   in {
     package = pkgs.nixSuper; # pkgs.nixVersions.unstable;
 
-    # pin the registry to avoid downloading and evaluating a new nixpkgs
-    # version everytime
-    # this will add each flake input as a registry
-    # to make nix3 commands consistent with your flake
+    # pin the registry to avoid downloading and evaluating a new nixpkgs version every time
+    # this will add each flake input as a registry to make nix3 commands consistent with your flake
+    # additionally we also set `registry.default`, which was added by nix-super
     registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
 
     # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
+    # Making legacy nix commands consistent as well
     nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
-    # Make builds run with low priority so my system stays responsive
+    # make builds run with low priority so my system stays responsive
+    # this is especially helpful if you have auto-upgrade on
     daemonCPUSchedPolicy = "batch";
     daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
 
-    # set up garbage collection to run daily,
-    # removing unused packages after three days
+    # set up garbage collection to run weekly,
+    # removing unused packages that are older than 5 days
     gc = {
       automatic = true;
       dates = "Mon *-*-* 03:00";
-      options = "--delete-older-than 3d";
+      options = "--delete-older-than 5d";
     };
 
     # automatically optimize nix store my removing hard links
@@ -132,12 +127,12 @@ with lib; {
       # enable new nix command and flakes
       # and also "unintended" recursion as well as content addresssed nix
       extra-experimental-features = [
-        "flakes"
-        "nix-command"
-        "recursive-nix"
-        "ca-derivations"
-        "repl-flake"
-        "auto-allocate-uids"
+        "flakes" # flakes
+        "nix-command" # experimental nix commands
+        "recursive-nix" # let nix invoke itself
+        "ca-derivations" # content addressed nix
+        "repl-flake" # allow passing installables to nix repl
+        "auto-allocate-uids" # allow Nix to automatically pick UIDs, rather than creating nixbld* user accounts
       ];
       # don't warn me that my git tree is dirty, I know
       warn-dirty = false;
@@ -150,7 +145,7 @@ with lib; {
       keep-derivations = true;
       keep-outputs = true;
 
-      # use binary cache, its not gentoo
+      # use binary cache, this is not gentoo
       # external builders can also pick up those substituters
       builders-use-substitutes = true;
       # substituters to use
@@ -164,8 +159,8 @@ with lib; {
         "https://nix-gaming.cachix.org" # nix-gaming
         "https://nixpkgs-unfree.cachix.org" # unfree-package cache
         "https://numtide.cachix.org" # another unfree package cache
-        "https://helix.cachix.org" # helix
-        "https://anyrun.cachix.org" # anyrun
+        "https://helix.cachix.org" # helix editor
+        "https://anyrun.cachix.org" # anyrun program launcher
         "https://notashelf.cachix.org" # cached stuff from my flake outputs
         "https://neovim-flake.cachix.org" # a cache for my neovim flake
       ];
