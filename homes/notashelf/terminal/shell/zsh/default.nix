@@ -14,45 +14,34 @@ in {
     syntaxHighlighting.enable = true;
     sessionVariables = {LC_ALL = "en_US.UTF-8";};
 
+    history = {
+      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      share = true;
+      save = 10000;
+      size = 10000;
+      expireDuplicatesFirst = true;
+      ignoreDups = true;
+      ignoreSpace = true;
+    };
+
+    dirHashes = {
+      docs = "$HOME/Documents";
+      notes = "$HOME/Cloud/Notes";
+      dev = "$HOME/Dev";
+      dots = "$HOME/.config/nyx";
+      dl = "$HOME/Downloads";
+      vids = "$HOME/Media/Videos";
+      music = "$HOME/Media/Music";
+      screenshots = "$HOME/Pictures/Screenshots";
+      media = "$HOME/Media";
+    };
+
     completionInit = ''
       autoload -U compinit
       zstyle ':completion:*' menu select
       zmodload zsh/complist
       compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
       _comp_options+=(globdots)
-
-    '';
-
-    initExtra = ''
-      set -k
-      export FZF_DEFAULT_OPTS="
-      --color gutter:-1
-      --color bg:-1
-      --color bg+:-1
-      --color fg:#${colors.base04}
-      --color fg+:#${colors.base06}
-      --color hl:#${colors.base0D}
-      --color hl+:#${colors.base0D}
-      --color header:#${colors.base0D}
-      --color info:#${colors.base0A}
-      --color marker:#${colors.base0C}
-      --color pointer:#${colors.base0C}
-      --color prompt:#${colors.base0A}
-      --color spinner:#${colors.base0C}
-      --color preview-bg:#${colors.base01}
-      --color preview-fg:#${colors.base0D}
-      --prompt ' '
-      --pointer ''
-      --layout=reverse
-      -m --bind ctrl-space:toggle,pgup:preview-up,pgdn:preview-down
-      "
-
-      zmodload zsh/zle
-      zmodload zsh/zpty
-      zmodload zsh/complist
-
-      # Colors
-      autoload -Uz colors && colors
 
       # Group matches and describe.
       zstyle ':completion:*' sort false
@@ -90,62 +79,55 @@ in {
       zstyle ':completion:*:jobs' numbers true
       zstyle ':completion:*:jobs' verbose true
 
+      # Sort completions
+      zstyle ":completion:*:git-checkout:*" sort false
+      zstyle ':completion:*' file-sort modification
+      zstyle ':completion:*:eza' sort false
+      zstyle ':completion:files' sort false
+
       # fzf-tab
       zstyle ':fzf-tab:complete:_zlua:*' query-string input
       zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
       zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
       zstyle ':fzf-tab:complete:kill:*' popup-pad 0 3
-      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
       zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
       zstyle ':fzf-tab:*' switch-group ',' '.'
-      zstyle ":completion:*:git-checkout:*" sort false
-      zstyle ':completion:*' file-sort modification
-      zstyle ':completion:*:exa' sort false
-      zstyle ':completion:files' sort false
+    '';
+
+    initExtra = ''
+      set -k
+      export FZF_DEFAULT_OPTS="
+      --color gutter:-1
+      --color bg:-1
+      --color bg+:-1
+      --color fg:#${colors.base04}
+      --color fg+:#${colors.base06}
+      --color hl:#${colors.base0D}
+      --color hl+:#${colors.base0D}
+      --color header:#${colors.base0D}
+      --color info:#${colors.base0A}
+      --color marker:#${colors.base0C}
+      --color pointer:#${colors.base0C}
+      --color prompt:#${colors.base0A}
+      --color spinner:#${colors.base0C}
+      --color preview-bg:#${colors.base01}
+      --color preview-fg:#${colors.base0D}
+      --prompt ' '
+      --pointer ''
+      --layout=reverse
+      -m --bind ctrl-space:toggle,pgup:preview-up,pgdn:preview-down
+      "
+
+      zmodload zsh/zle
+      zmodload zsh/zpty
+      zmodload zsh/complist
+
+      # Colors
+      autoload -Uz colors && colors
 
       # Autosuggest
       ZSH_AUTOSUGGEST_USE_ASYNC="true"
-
-      while read -r option
-      do
-        setopt $option
-      done <<-EOF
-      AUTO_CD
-      AUTO_LIST
-      AUTO_MENU
-      AUTO_PARAM_SLASH
-      AUTO_PUSHD
-      APPEND_HISTORY
-      ALWAYS_TO_END
-      COMPLETE_IN_WORD
-      CORRECT
-      EXTENDED_HISTORY
-      HIST_EXPIRE_DUPS_FIRST
-      HIST_FCNTL_LOCK
-      HIST_IGNORE_ALL_DUPS
-      HIST_IGNORE_DUPS
-      HIST_IGNORE_SPACE
-      HIST_REDUCE_BLANKS
-      HIST_SAVE_NO_DUPS
-      HIST_VERIFY
-      INC_APPEND_HISTORY
-      INTERACTIVE_COMMENTS
-      MENU_COMPLETE
-      NO_NOMATCH
-      PUSHD_IGNORE_DUPS
-      PUSHD_TO_HOME
-      PUSHD_SILENT
-      SHARE_HISTORY
-      EOF
-
-      while read -r option
-      do
-        unsetopt $option
-      done <<-EOF
-      CORRECT_ALL
-      HIST_BEEP
-      MENU_COMPLETE
-      EOF
 
       # Vi mode
       bindkey -v
@@ -173,28 +155,7 @@ in {
         ${pkgs.comma}/bin/comma "$@"
       }
     '';
-
-    history = {
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
-      share = true;
-      save = 10000;
-      size = 10000;
-      expireDuplicatesFirst = true;
-      ignoreDups = true;
-      ignoreSpace = true;
-    };
-
-    dirHashes = {
-      docs = "$HOME/Documents";
-      notes = "$HOME/Cloud/Notes";
-      dev = "$HOME/Dev";
-      dots = "$HOME/.config/nyx";
-      dl = "$HOME/Downloads";
-      vids = "$HOME/Media/Videos";
-      music = "$HOME/Media/Music";
-      screenshots = "$HOME/Pictures/Screenshots";
-      media = "$HOME/Media";
-    };
+    # + (builtins.readFile ./opts.zsh);
 
     shellAliases = with pkgs; {
       # make sudo use aliases
@@ -224,15 +185,15 @@ in {
       ps = "${lib.getExe procs}";
       mp = "mkdir -p";
       fcd = "cd $(find -type d | fzf)";
-      ls = "${lib.getExe exa} -h --git --icons --color=auto --group-directories-first -s extension";
+      ls = "${lib.getExe eza} -h --git --icons --color=auto --group-directories-first -s extension";
       l = "ls -lF --time-style=long-iso --icons";
       # system aliases
       sc = "sudo systemctl";
       jc = "sudo journalctl";
       scu = "systemctl --user ";
       jcu = "journalctl --user";
-      la = "${lib.getExe exa} -lah --tree";
-      tree = "${lib.getExe exa} --tree --icons --tree";
+      la = "${lib.getExe eza} -lah --tree";
+      tree = "${lib.getExe eza} --tree --icons --tree";
       http = "${lib.getExe python3} -m http.server";
       burn = "pkill -9";
       diff = "diff --color=auto";
