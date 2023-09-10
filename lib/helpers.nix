@@ -33,6 +33,18 @@
   }:
     builtins.all (s: builtins.any (x: x == s) list) targetStrings;
 
+  # indexOf is a function that returns the index of an element in a list
+  # `indexOf ["foo" "bar" "baz"] "bar"` -> 1
+  indexOf = list: elem: let
+    f = f: i:
+      if i == (builtins.length list)
+      then null
+      else if (builtins.elemAt list i) == elem
+      then i
+      else f f (i + 1);
+  in
+    f f 0;
+
   # function to generate theme slugs from theme names
   # "A String With Whitespaces" -> "a-string-with-whitespaces"
   serializeTheme = inputString: lib.strings.toLower (builtins.replaceStrings [" "] ["-"] inputString);
@@ -46,5 +58,5 @@
   # `(lib.isWayland config)` where config is in scope
   isWayland = conf: conf.modules.system.video.enable && conf.modules.usrEnvisWayland;
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland;
+  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland indexOf;
 }
