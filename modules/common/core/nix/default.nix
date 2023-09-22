@@ -117,7 +117,7 @@ with lib; {
       sandbox = true;
       # supported system features
       # TODO: "gccarch-core2" "gccarch-haswell"
-      system-features = ["nixos-tests" "kvm" "recursive-nix" "big-parallel"];
+      system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
       # extra architectures supported by my builders
       extra-platforms = config.boot.binfmt.emulatedSystems;
       # continue building derivations if one fails
