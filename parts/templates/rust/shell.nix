@@ -3,6 +3,7 @@
   rust-analyzer,
   rustfmt,
   clippy,
+  cargo,
 }: let
   mainPkg = callPackage ./default.nix {};
 in
@@ -13,6 +14,7 @@ in
         rust-analyzer
         rustfmt
         clippy
+        cargo
       ]
       ++ (oa.nativeBuildInputs or []);
   })
