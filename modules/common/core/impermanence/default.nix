@@ -27,10 +27,10 @@ in {
       users = {
         root = {
           # passwordFile needs to be in a volume marked with `neededForBoot = true`
-          passwordFile = "/persist/passwords/root";
+          hashedPasswordFile = "/persist/passwords/root";
         };
         notashelf = {
-          passwordFile = "/persist/passwords/notashelf";
+          hashedPasswordFile = "/persist/passwords/notashelf";
         };
       };
     };
