@@ -1,10 +1,10 @@
 {
   lib,
   config,
-  pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals;
+
   sys = config.modules.system;
 in {
   config = {
@@ -12,11 +12,15 @@ in {
       # kernel console loglevel
       consoleLogLevel = 0;
       # always use the latest kernel instead of the old-ass lts one
-      kernelPackages = lib.mkOverride 500 sys.boot.kernel;
+      kernelPackages = mkOverride 500 sys.boot.kernel;
       # additional packages supplying kernel modules
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
       # configuration to be appended to the generated modprobe.conf
       extraModprobeConfig = "options hid_apple fnmode=1";
+      # whether to enable support for Linux MD RAID arrays
+      # I don't know why this defaults to true, how many people use RAID anyway?
+      # also on > 23.11, this will throw a warning if neither MAILADDR nor PROGRAM are set
+      swraid.enable = mkDefault false;
 
       # settings shared between bootloaders
       # they are set unless system.boot.loader != none
