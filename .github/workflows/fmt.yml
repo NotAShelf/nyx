@@ -1,12 +1,10 @@
-name: Formatting Check
+name: Validate Flake FOrmatting
 
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  checks:
-    name: Check expressions
+  check-formatting:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v18

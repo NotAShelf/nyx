@@ -1,10 +1,9 @@
-name: Nix Flake Check
+name: Check Flake Validity
 
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  checks:
-    name: Check expressions
+  check-flake:
     runs-on: ubuntu-latest
 
     steps:

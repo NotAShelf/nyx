@@ -1,4 +1,4 @@
-name: Push built binaries to Cache
+name: Build & Cache Flake Packages
 
 on:
   workflow_dispatch:
