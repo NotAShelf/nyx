@@ -1,4 +1,4 @@
-name: Validate Flake FOrmatting
+name: Validate Flake Formatting
 
 on: [push, pull_request, workflow_dispatch]
 
