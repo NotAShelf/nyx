@@ -26,5 +26,11 @@
 
     # enable completions for system packages
     pathsToLink = ["/share/zsh" "/share/bash-completion" "/share/nix-direnv"];
+
+    # https://github.com/NixOS/nixpkgs/issues/72394#issuecomment-549110501
+    # why??
+    etc."mdadm.conf".text = ''
+      MAILADDR root
+    '';
   };
 }
