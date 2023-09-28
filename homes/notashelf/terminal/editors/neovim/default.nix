@@ -31,9 +31,11 @@ in {
         package = pkgs.neovim-unwrapped; # this is the default value, but I can use the nightly overlay on demand
         viAlias = true;
         vimAlias = true;
+
         enableEditorconfig = true;
         preventJunkFiles = true;
         enableLuaLoader = true;
+        useSystemClipboard = true;
 
         treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           lua
