@@ -37,18 +37,6 @@
     # network inspection utility
     wireshark.enable = true;
 
-    # enable steam
-    steam = {
-      enable = true;
-      # Open ports in the firewall for Steam Remote Play
-      remotePlay.openFirewall = true;
-      # Open ports in the firewall for Source Dedicated Server
-      dedicatedServer.openFirewall = true;
-      # Compatibility tools to install
-      # this option is provided by modules/shared/nixos/steam
-      withProtonGE = true;
-    };
-
     # gnome's keyring manager
     seahorse.enable = true;
 

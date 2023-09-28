@@ -46,7 +46,7 @@
         # i.e imports = [ inputs.nyx.nixosModules.steam-compat ]; or modules = [ inputs.nyx.nixosModules.steam-compat ];
         nixosModules = {
           # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
-          steam-compat = ./modules/extra/shared/nixos/steam;
+          # steam-compat = ./modules/extra/shared/nixos/steam; # moved to nix-gaming
 
           # a module for the comma tool that wraps it with nix-index and disabled the command-not-found integration
           comma-rewrapped = ./modules/extra/shared/nixos/comma;
@@ -55,7 +55,7 @@
           wakapi = ./modules/extra/shared/nixos/wakapi;
 
           # we do not want to provide a default module
-          default = null;
+          default = builtins.throw "There is no default module, sorry!";
         };
 
         homeManagerModules = {
