@@ -1,7 +1,7 @@
 _: {
   imports = [
-    ./system.nix
-    ./virtualization.nix
-    ./yubikey.nix
+    ./system # system configuration
+    ./virtualization.nix # configure virtual machine
+    ./yubikey.nix # configure yubikey toolkit
   ];
 }
