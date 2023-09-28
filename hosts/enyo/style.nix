@@ -10,7 +10,7 @@
     gtk = {
       usePortal = true;
       theme = {
-        name = "Catppuccin-Mocha-Standard-Blue-dark";
+        name = "Catppuccin-Mocha-Standard-Blue-Dark";
         package = pkgs.catppuccin-gtk.override {
           size = "standard";
           accents = ["blue"];
