@@ -2,15 +2,12 @@
   pkgs,
   lib,
   osConfig,
-  self',
   ...
 }:
 with lib; let
   device = osConfig.modules.device;
   video = osConfig.modules.system.video;
   env = osConfig.modules.usrEnv;
-
-  wl-clip-persist = self'.packages.wl-clip-persist;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
@@ -27,7 +24,7 @@ in {
       wl-clip-persist = lib.mkGraphicalService {
         Unit.Description = "Persistent clipboard for Wayland";
         Service = {
-          ExecStart = "${lib.getExe wl-clip-persist} --clipboard both";
+          ExecStart = "${lib.getExe pkgs.wl-clip-persist} --clipboard both";
           Restart = "always";
         };
       };
