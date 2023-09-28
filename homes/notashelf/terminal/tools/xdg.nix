@@ -1,5 +1,5 @@
 {config, ...}: let
-  browser = ["firefox.desktop"];
+  browser = ["Schizofox.desktop"];
   mailer = ["thunderbird.desktop"];
   zathura = ["org.pwmt.zathura.desktop.desktop"];
   fileManager = ["org.kde.dolphin.desktop"];
