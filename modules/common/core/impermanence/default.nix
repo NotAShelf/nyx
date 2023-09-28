@@ -66,6 +66,9 @@ in {
         # other
         # TODO: optionalstring for /var/lib/${lxd, docker}
       ];
+      /*
+      builtins.concatMap (key: [key.path (key.path + ".pub")]) config.services.openssh.hostKeys
+      */
     };
 
     # for some reason *this* is what makes networkmanager not get screwed completely instead of the impermanence module

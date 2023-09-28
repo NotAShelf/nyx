@@ -3,13 +3,15 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkDefault;
+
   # SEE: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
   # this makes our system more secure
   # do note that it might break some stuff, e.g. webcam
   sys = config.modules.system;
 in {
+  imports = [./clamav.nix];
   security = {
     protectKernelImage = true;
     lockKernelModules = false; # breaks virtd, wireguard and iptables
@@ -86,7 +88,6 @@ in {
         Defaults pwfeedback
         Defaults env_keep += "EDITOR PATH"
         Defaults timestamp_timeout = 300
-        Defaults passprompt="[31m sudo: password for %p@%h, running as %U:[0m "
       '';
     };
   };
