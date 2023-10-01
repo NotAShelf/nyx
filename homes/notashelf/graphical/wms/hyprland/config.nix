@@ -76,7 +76,6 @@ in {
       decoration = {
         # fancy corners
         rounding = 7;
-        multisample_edges = true; # fixes pixelated corners on relatively better monitors, useless on old monitors
 
         # blur
         blur = {
