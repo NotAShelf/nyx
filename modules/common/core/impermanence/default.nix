@@ -37,21 +37,23 @@ in {
 
     # home.persistence."/persist/home/notashelf" = {};
     environment.persistence."/persist" = {
-      directories = [
-        "/etc/nixos"
-        "/etc/nix"
-        "/etc/NetworkManager/system-connections"
-        "/etc/secureboot"
-        "/var/db/sudo"
-        "/var/lib/flatpak"
-        "/var/lib/libvirt"
-        "/var/lib/bluetooth"
-        "/var/lib/nixos"
-        "/var/lib/pipewire"
-        "/var/lib/systemd/coredump"
-        "/var/cache/tailscale"
-        "/var/lib/tailscale"
-      ];
+      directories =
+        [
+          "/etc/nixos"
+          "/etc/nix"
+          "/etc/NetworkManager/system-connections"
+          "/etc/secureboot"
+          "/var/db/sudo"
+          "/var/lib/flatpak"
+          "/var/lib/libvirt"
+          "/var/lib/bluetooth"
+          "/var/lib/nixos"
+          "/var/lib/pipewire"
+          "/var/lib/systemd/coredump"
+          "/var/cache/tailscale"
+          "/var/lib/tailscale"
+        ]
+        ++ [config.programs.ccache.cacheDir];
 
       files = [
         # important state
