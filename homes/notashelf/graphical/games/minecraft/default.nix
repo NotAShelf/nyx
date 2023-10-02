@@ -21,13 +21,12 @@ with lib; let
     zulu8
     # Java 11
     temurin-jre-bin-11
-    graalvm11-ce
     # Java 17
     temurin-jre-bin-17
-    graalvm17-ce
     # Latest
     temurin-jre-bin
     zulu
+    graalvm-ce
   ];
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
