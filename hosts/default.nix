@@ -178,7 +178,6 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
-  /*
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
   artemis = mkNixosSystem {
@@ -193,6 +192,7 @@ in {
     specialArgs = sharedArgs;
   };
 
+  /*
   # Apollon is aarch64-linux
   apollon = mkNixosSystem {
     inherit withSystem;
