@@ -100,14 +100,15 @@ in {
 
         nix.enable = true;
         html.enable = true;
-        sql.enable = false;
         ts.enable = true;
         go.enable = true;
         python.enable = true;
+        lua.enable = true;
         zig.enable = false;
         dart.enable = false;
         elixir.enable = false;
         svelte.enable = false;
+        sql.enable = false;
 
         rust = {
           enable = true;
