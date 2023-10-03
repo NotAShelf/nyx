@@ -35,9 +35,15 @@ in {
           instance_name = "NotASearx";
           debug = false;
           privacypolicy_url = false;
-          donation_url = false;
+          donation_url = "https://ko-fi.com/notashelf";
           contact_url = "mailto:raf@notashelf.dev";
           enable_metrics = true;
+          formats = ["json" "rss"];
+        };
+
+        ui = {
+          query_in_title = true;
+          results_on_new_tab = true;
         };
 
         search = {
@@ -65,11 +71,6 @@ in {
 
         engines = [
           {
-            name = "archwiki";
-            engine = "archlinux";
-            shortcut = "aw";
-          }
-          {
             name = "wikipedia";
             engine = "wikipedia";
             shortcut = "w";
@@ -81,19 +82,26 @@ in {
             shortcut = "ddg";
           }
           {
-            name = "github";
-            engine = "github";
-            shortcut = "gh";
-          }
-          {
             name = "google";
             engine = "google";
             shortcut = "g";
             use_mobile_ui = false;
           }
           {
+            name = "archwiki";
+            engine = "archlinux";
+            shortcut = "aw";
+          }
+          {
+            name = "github";
+            engine = "github";
+            categories = "it";
+            shortcut = "gh";
+          }
+          {
             name = "noogle";
             engine = "google";
+            categories = "it";
             shortcut = "ng";
           }
           {
