@@ -1,10 +1,11 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: let
+  inherit (lib) mdDoc mkOption types;
+in {
   options.modules.device = {
     type = mkOption {
       type = types.enum ["laptop" "desktop" "server" "hybrid" "lite" "vm"];
       default = "";
-      description = ''
+      description = mdDoc ''
         The type/purpose of the device that will be used within the rest of the configuration.
           - laptop: portable devices with batter optimizations
           - desktop: stationary devices configured for maximum performance
@@ -28,16 +29,26 @@ with lib; {
     gpu = mkOption {
       type = types.enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd" null];
       default = null;
-      description = "the manifacturer/type of the primary system gpu";
+      description = "The manifacturer/type of the primary system gpu";
     };
 
     monitors = mkOption {
       type = with types; listOf str;
       default = [];
-      description = ''
-        this does not affect any drivers and such, it is only necessary for
-        declaring things like monitors in window manager configurations
-        you can avoid declaring this, but I'd rather if you did declare
+      description = mdDoc ''
+        A list of monitors connected to the system.
+
+        This does not affect any drivers and such, it is only necessary for
+        declaring things like monitors in window manager configurations.
+        It is not necessary to declare this, but wallpaper and workspace
+        configurations will be affected by the monitors list
+
+        ::: {.tip}
+          Monitors should be listed from left to right in the order they are placed
+          assuming the leftmost (first element) is the primary one. This is not a
+          solution to the possibility of a monitor being placed above or below another
+          but it currently works.
+        :::
       '';
     };
   };

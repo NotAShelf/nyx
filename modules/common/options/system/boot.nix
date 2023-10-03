@@ -1,6 +1,7 @@
 {
-  pkgs,
+  config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkEnableOption mkOption types mdDoc;
@@ -11,13 +12,25 @@ in {
     enableInitrdTweaks = mkEnableOption "quality of life tweaks for the initrd stage";
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
-    tmpOnTmpfs = mkEnableOption "/tmp living on tmpfs. false means it will be cleared manually on each reboot";
-    secureBoot = mkEnableOption "Enable secure-boot and load necessary packages.";
+    tmpOnTmpfs = mkEnableOption "`/tmp` living on tmpfs. false means it will be cleared manually on each reboot";
+    secureBoot = mkEnableOption "secure-boot and load necessary packages.";
+
+    extraModprobeConfig = mkOption {
+      type = types.str;
+      default = ''options hid_apple fnmode=1'';
+      description = "Extra modprobe config that will be passed to system modprobe config.";
+    };
 
     extraKernelParams = mkOption {
       type = with types; listOf str;
       default = [];
       description = "Extra kernel parameters to be added to the kernel command line.";
+    };
+
+    extraModulePackages = mkOption {
+      type = with types; listOf package;
+      default = with config.boot.kernelPackages; [acpi_call];
+      description = "Extra kernel modules to be loaded.";
     };
 
     kernel = mkOption {

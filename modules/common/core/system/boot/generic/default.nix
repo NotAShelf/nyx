@@ -14,9 +14,9 @@ in {
       # always use the latest kernel instead of the old-ass lts one
       kernelPackages = mkOverride 500 sys.boot.kernel;
       # additional packages supplying kernel modules
-      extraModulePackages = with config.boot.kernelPackages; [acpi_call];
+      extraModulePackages = mkDefault sys.extraModulePackages;
       # configuration to be appended to the generated modprobe.conf
-      extraModprobeConfig = "options hid_apple fnmode=1";
+      extraModprobeConfig = mkDefault sys.extraModprobeConfig;
       # whether to enable support for Linux MD RAID arrays
       # I don't know why this defaults to true, how many people use RAID anyway?
       # also on > 23.11, this will throw a warning if neither MAILADDR nor PROGRAM are set
