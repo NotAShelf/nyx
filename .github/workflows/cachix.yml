@@ -23,7 +23,7 @@ jobs:
           remove-haskell: true
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Cachix
         uses: cachix/install-nix-action@v23
@@ -71,7 +71,7 @@ jobs:
           remove-haskell: true
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Cachix
         uses: cachix/install-nix-action@v23
