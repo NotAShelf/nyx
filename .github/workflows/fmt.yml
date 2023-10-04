@@ -6,8 +6,8 @@ jobs:
   check-formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v18
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v23
         with:
           install_url: https://nixos.org/nix/install
           extra_nix_config: |
