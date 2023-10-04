@@ -53,6 +53,7 @@ jobs:
           # make the binary executable:with
           chmod +x docr
 
+          # write my installer's settings
           cat > settings.json <<EOF
           {
             "githubUsername": "NotAShelf",
