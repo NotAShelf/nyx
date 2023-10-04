@@ -25,9 +25,12 @@
         inputs.treefmt-nix.flakeModule
 
         # parts of the flake
-        ./parts/pkgs # packages exposed by the flake
-        ./parts/args # args that are passsed to the flake, moved away from the main file
-        ./parts/templates # exposed templates for nodejs, rust and C++ # TODO: bash, python and go
+        ./flake/pkgs # packages exposed by the flake
+        ./flake/args # args that are passsed to the flake, moved away from the main file
+        ./flake/templates # flake templates # TODO: bash and python
+        ./flake/schemas # home-baked schemas for upcoming nix schemas
+        ./flake/treefmt # treefmt configuration
+        ./flake/modules # nixos and home-manager modules provided by this flake
       ];
 
       flake = let
@@ -41,42 +44,13 @@
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
-        # set of modules exposed by my flake to be consumed by others
-        # those can be imported by adding this flake as an input and then importing the nixosModules.<moduleName>
-        # i.e imports = [ inputs.nyx.nixosModules.steam-compat ]; or modules = [ inputs.nyx.nixosModules.steam-compat ];
-        nixosModules = {
-          # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
-          # steam-compat = ./modules/extra/shared/nixos/steam; # moved to nix-gaming
-
-          # a module for the comma tool that wraps it with nix-index and disabled the command-not-found integration
-          comma-rewrapped = ./modules/extra/shared/nixos/comma;
-
-          # an open source implementation of wakatime server
-          wakapi = ./modules/extra/shared/nixos/wakapi;
-
-          # we do not want to provide a default module
-          default = builtins.throw "There is no default module, sorry!";
-        };
-
-        homeManagerModules = {
-          xplr = ./modules/extra/shared/home-manager/xplr;
-
-          gtklock = ./modules/extra/shared/home-manager/gtklock;
-
-          # again, we do not want to provide a default module
-          default = null;
-        };
-
         # TODO: flake checks to be invoked by nix flake check
         # checks = import ./lib/flake/checks;
 
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
+        # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
         images = import ./hosts/images.nix {inherit inputs self lib;};
-
-        # extensible flake schemas
-        # TODO: we want to define homeManagerModules and images as schemas
-        schemas = inputs.flake-schemas.schemas // (import ./parts/schemas);
       };
 
       perSystem = {
@@ -91,7 +65,7 @@
         formatter = pkgs.alejandra;
 
         devShells.default = let
-          extra = import ./parts/devShell;
+          extra = import ./flake/devShell;
         in
           inputs'.devshell.legacyPackages.mkShell {
             name = "nyx";
@@ -108,23 +82,6 @@
               deadnix # clean up unused nix code
             ];
           };
-
-        # configure treefmt
-        treefmt = {
-          projectRootFile = "flake.nix";
-
-          programs = {
-            alejandra.enable = true;
-            deadnix.enable = false;
-            shellcheck.enable = true;
-            shfmt = {
-              enable = true;
-              # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
-              # 0 causes shfmt to use tabs
-              indent_size = 0;
-            };
-          };
-        };
       };
     });
 
@@ -135,20 +92,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # build against nixos unstable, more versions with pinned branches can be added if deemed necessary
+    # stable? never heard of her
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # nixpkgs with a pinned commit
+    # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
+
     # powered by
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    # this will work one day
+    # (eelco please)
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
+
+    # doesn't build
     nixSchemas.url = "github:DeterminateSystems/nix/flake-schemas";
 
-    # build against nixos unstable, more versions with pinned branches can be added if deemed necessary
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # nixpkgs with a pinned commit
-    # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
+    # feature-rich and convenient fork of the Nix package manager
+    nix-super.url = "github:privatevoid-net/nix-super";
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
@@ -175,9 +140,6 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # feature-rich and convenient fork of the Nix package manager
-    nix-super.url = "github:privatevoid-net/nix-super";
 
     # project shells
     devshell = {

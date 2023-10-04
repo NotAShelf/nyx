@@ -14,9 +14,9 @@ in {
       # always use the latest kernel instead of the old-ass lts one
       kernelPackages = mkOverride 500 sys.boot.kernel;
       # additional packages supplying kernel modules
-      extraModulePackages = mkDefault sys.extraModulePackages;
+      extraModulePackages = mkDefault sys.boot.extraModulePackages;
       # configuration to be appended to the generated modprobe.conf
-      extraModprobeConfig = mkDefault sys.extraModprobeConfig;
+      extraModprobeConfig = mkDefault sys.boot.extraModprobeConfig;
       # whether to enable support for Linux MD RAID arrays
       # I don't know why this defaults to true, how many people use RAID anyway?
       # also on > 23.11, this will throw a warning if neither MAILADDR nor PROGRAM are set

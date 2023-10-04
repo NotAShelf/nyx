@@ -33,7 +33,8 @@ with lib; {
   };
 
   nixpkgs = {
-    pkgs = self.legacyPackages.${config.nixpkgs.system};
+    # https://github.com/NixOS/nixpkgs/commit/eb8ce7930d14dafcc7eff56c2f9efca6a3b2f622
+    # pkgs = self.legacyPackages.${config.nixpkgs.system};
 
     config = {
       allowUnfree = true; # really a pain in the ass to deal with when disabled

@@ -1,4 +1,5 @@
 {
+  # define homeManagerModules as a schema
   homeManagerModules = {
     version = 1;
     doc = "The `homeManagerModules` flake output defines Home-Manager modules exported by the flake.";
@@ -18,4 +19,5 @@
     in
       recurse output;
   };
+  # TODO: images
 }

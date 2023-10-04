@@ -13,6 +13,7 @@ with lib; {
     ./virtualization.nix
     ./emulation.nix
     ./encryption.nix
+    ./services.nix
   ];
   config = {
     warnings =
