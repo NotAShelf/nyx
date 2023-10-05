@@ -26,11 +26,12 @@
 
         # parts of the flake
         ./flake/pkgs # packages exposed by the flake
-        ./flake/args # args that are passsed to the flake, moved away from the main file
         ./flake/templates # flake templates # TODO: bash and python
         ./flake/schemas # home-baked schemas for upcoming nix schemas
         ./flake/treefmt # treefmt configuration
         ./flake/modules # nixos and home-manager modules provided by this flake
+
+        ./flake/args.nix # args that are passsed to the flake, moved away from the main file
       ];
 
       flake = let
@@ -44,9 +45,6 @@
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
-        # TODO: flake checks to be invoked by nix flake check
-        # checks = import ./lib/flake/checks;
-
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
         # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
@@ -55,6 +53,7 @@
 
       perSystem = {
         inputs',
+        self',
         config,
         pkgs,
         ...
@@ -71,6 +70,7 @@
             name = "nyx";
             commands = extra.shellCommands;
             env = extra.shellEnv;
+
             packages = with pkgs; [
               inputs'.agenix.packages.default # provide agenix CLI within flake shell
               config.treefmt.build.wrapper # treewide formatter
@@ -92,18 +92,33 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # build against nixos unstable, more versions with pinned branches can be added if deemed necessary
+    # We build against nixos unstable, because stable takes way too long to get things into
+    # more versions with or without pinned branches can be added if deemed necessary
     # stable? never heard of her
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # nixpkgs with a pinned commit
     # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
 
-    # powered by
+    # Home Manager
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Automated, pre-built packages for Wayland
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Powered by
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    # Ever wanted nix error messages to be even more cryptic?
+    # Try flake-utils today! (Devs I beg you please stop)
+    flake-utils.url = "github:numtide/flake-utils";
 
     # this will work one day
     # (eelco please)
@@ -112,14 +127,8 @@
     # doesn't build
     nixSchemas.url = "github:DeterminateSystems/nix/flake-schemas";
 
-    # feature-rich and convenient fork of the Nix package manager
+    # Feature-rich and convenient fork of the Nix package manager
     nix-super.url = "github:privatevoid-net/nix-super";
-
-    # Automated, pre-built packages for Wayland
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Repo for hardare-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -130,24 +139,54 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # nix-ld lets us run unpatched dynamic binaries without (much) hassle
     nix-ld = {
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # a tree-wide formatter
+    # A tree-wide formatter
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # project shells
+    # Project shells
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Easy color integration
+    # guess what this does
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
+    # Impermanence
+    # doesn't offer much about properly used symlinks but it *is* convenient
+    impermanence.url = "github:nix-community/impermanence";
+
+    # secure-boot on nixos
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
+    # nix-index database
+    nix-index-db = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # easy color integration
     nix-colors = {
       url = "github:misterio77/nix-colors";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -159,28 +198,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Secrets management via agenix
+    # Secrets management
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
 
-    # Home Manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Rust overlay
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     # Nix Language server
@@ -190,18 +221,19 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
-    # my personal neovim-flake
+    # Personal neovim-flake
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # neovim nightly packages for nix
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # use my own arrpc-flake to provide arRPC package
+    # arrpc-flake to provide arRPC package and home-manager module
     arrpc = {
       url = "github:NotAShelf/arrpc-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -216,6 +248,10 @@
     # anyrun program launcher
     anyrun = {
       url = "github:Kirottu/anyrun";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
     };
 
     # spicetify for theming spotify
@@ -235,11 +271,15 @@
       };
     };
 
+    # sandbox wrappers for programs
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+
+    # mailserver on nixos
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
     # Hyprland & Hyprland Contrib repos
     hyprland = {
@@ -266,23 +306,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # impermanence
-    impermanence.url = "github:nix-community/impermanence";
-
-    # secure-boot on nixos
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
+    # This exists, I guess
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
     };
-
-    # nix index database
-    nix-index-db = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # mailserver on nixos
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
   };
 
   nixConfig = {

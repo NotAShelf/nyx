@@ -3,12 +3,10 @@
   lib,
   pkgs,
   modulesPath,
-  inputs,
   ...
 }: {
   imports = [
     (modulesPath + "/virtualisation/qemu-vm.nix")
-    inputs.disko.nixosModules.default
   ];
 
   config = {
