@@ -12,7 +12,8 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-        logger: pretty
+        with:
+          logger: pretty
 
       - name: Check Flake
         run: nix flake check --accept-flake-config
