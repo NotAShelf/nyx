@@ -55,7 +55,7 @@ in {
         ];
         dnsBlacklistOverrides = ''
           notashelf.dev OK
-          mail.notashelf.dedv OK
+          mail.notashelf.dev OK
           127.0.0.0/8 OK
           192.168.0.0/16 OK
         '';
@@ -118,6 +118,11 @@ in {
         "cloud@notashelf.dev" = {
           aliases = ["cloud"];
           hashedPasswordFile = config.age.secrets.mailserver-cloud-secret.path;
+        };
+
+        "noreply@notashelf.dev" = {
+          aliases = ["noreply"];
+          hashedPasswordFile = config.age.secrets.mailserver-noreply-secret.path;
         };
       };
 

@@ -119,6 +119,11 @@ in {
         owner = "nextcloud";
         mode = "400";
       };
+
+      mailserver-noreply-secret = {
+        file = "${self}/secrets/mailserver-noreply-secret.age";
+        mode = "400";
+      };
     })
   ];
 }
