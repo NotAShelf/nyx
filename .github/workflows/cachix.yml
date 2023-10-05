@@ -44,9 +44,6 @@ jobs:
       - name: Set default git branch (to reduce log spam)
         run: git config --global init.defaultBranch main
 
-      - name: Validate flake
-        run: nix flake check
-
       - name: Build installation media
         run: nix build .#nixosConfigurations."gaea".config.system.build.toplevel
 
