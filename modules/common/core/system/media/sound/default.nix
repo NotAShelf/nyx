@@ -1,32 +1,45 @@
 {
-  lib,
   config,
+  lib,
   pkgs,
+  inputs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf mkDefault;
+
   cfg = config.modules.system.sound;
   device = config.modules.device;
 in {
+  imports = [inputs.nix-gaming.nixosModules.pipewireLowLatency];
+
   config = mkIf (cfg.enable && device.hasSound) {
     # enable sound support and media keys if device has sound
     sound = {
       enable = true;
       mediaKeys.enable = true;
     };
+
     # able to change scheduling policies, e.g. to SCHED_RR
     security.rtkit.enable = config.services.pipewire.enable;
 
     # we replace pulseaudio with the incredibly based pipewire
     services.pipewire = {
       enable = mkDefault true;
-      alsa = {
-        enable = true;
-        support32Bit = with pkgs; (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86);
-      };
+      wireplumber.enable = true;
       pulse.enable = true;
       jack.enable = true;
-      wireplumber.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = with pkgs; (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86); # we're on x86 linux, so we can support 32 bit
+      };
+
+      lowLatency = {
+        # enable this module
+        enable = true;
+        # defaults (no need to be set unless modified)
+        quantum = 64;
+        rate = 48000;
+      };
     };
 
     # if for some reason pipewire is disabled, we may enable pulseaudio as backup
