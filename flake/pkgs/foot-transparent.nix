@@ -25,7 +25,7 @@
   foot,
   llvmPackages,
 }: let
-  version = "15d7885c785fa0898eb72657494e508aaf40beb8";
+  version = "1.15.3";
 
   # build stimuli file for PGO build and the script to generate it
   # independently of the foot's build, so we can cache the result
@@ -104,7 +104,7 @@ in
       owner = "dnkl";
       repo = pname;
       rev = version;
-      hash = "sha256-lNKfO/nogTRFG7mnWew36A1Ekk4aT5A866QBCY7xyzk=";
+      hash = "sha256-jn/S0xjxZPnkGYpTRIpL3dKxGe7+Z+EmOGHiE0UkQqg=";
     };
 
     depsBuildBuild = [
