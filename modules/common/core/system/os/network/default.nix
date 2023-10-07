@@ -16,7 +16,7 @@ with lib; {
   };
 
   networking = {
-    # generate a host ID by hasing the hostname
+    # generate a host ID by hashing the hostname
     hostId = builtins.substring 0 8 (
       builtins.hashString "md5" config.networking.hostName
     );
@@ -39,6 +39,7 @@ with lib; {
       "9.9.9.9"
 
       # TODO: find a schizo nameserver that does not compromise on speed or availability
+      # or just set up my own, which will be slow
     ];
 
     networkmanager = {
@@ -49,7 +50,10 @@ with lib; {
       wifi = {
         macAddress = "random"; # use a random mac address on every boot
         powersave = true; # enable wifi powersaving
+        scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
       };
+
+      ethernet.macAddress = "random";
     };
   };
 
