@@ -262,8 +262,8 @@
 
     # schizophrenic firefox configuration
     schizofox = {
-      url = "github:schizofox/schizofox/gerg";
-      #url = "/home/notashelf/Dev/schizofox?ref=gerg";
+      url = "github:schizofox/schizofox";
+      # url = "/home/notashelf/Dev/Schizofox/schizofox";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
