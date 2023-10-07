@@ -9,5 +9,6 @@ _: {
     ./activation # activation system for nixos-rebuild
     ./virtualization # hypervisor and virtualisation related options - docker, QEMU, waydroid etc.
     ./encryption # LUKS encryption
+    ./security # anything from kernel hardening to audit daemeons
   ];
 }
