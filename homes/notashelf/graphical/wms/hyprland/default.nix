@@ -27,7 +27,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemdIntegration = true;
+      systemd.enable = true;
       package = inputs'.hyprland.packages.default.override {
         enableNvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
       };
