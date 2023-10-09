@@ -5,8 +5,17 @@
   ...
 }: let
   inherit (self) inputs;
+
+  # mkNixosIso and mkNixosSystem are my own builders for assembling a nixos system
   inherit (lib) concatLists mkNixosIso mkNixosSystem;
 
+  ## flake inputs ##
+  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
+  agenix = inputs.agenix.nixosModules.default; # secret encryption via age
+  hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
+
+  # serializing the modulePath to a variable
+  # this is incase the modulePath changes depth (i.e modules becomes nixos/modules)
   modulePath = ../modules;
 
   # common modules, to be shared across all systems
@@ -18,7 +27,7 @@
   workstation = commonModules + /types/workstation; # for devices that are of workstation type - any device that is for daily use
   # TODO: desktop
 
-  # extra modules, likely optional but possibly critical
+  # extra modules - optional but likely critical to a successful build
   extraModules = modulePath + /extra; # the path where extra modules reside
   sharedModules = extraModules + /shared; # the path where shared modules reside
 
@@ -28,11 +37,6 @@
   ## home-manager ##
   homesDir = ../homes; # home-manager configurations for hosts that need home-manager
   homes = [hm homesDir]; # combine hm flake input and the home module to be imported together
-
-  ## flake inputs ##
-  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
-  agenix = inputs.agenix.nixosModules.default; # secret encryption via age
-  hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
   # a list of shared modules that ALL systems need
   shared = [

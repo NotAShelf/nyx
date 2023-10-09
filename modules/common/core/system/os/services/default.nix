@@ -17,8 +17,6 @@ in {
   services = {
     # monitor and control temparature
     thermald.enable = true;
-    # handle ACPI events
-    acpid.enable = true;
     # discard blocks that are not in use by the filesystem, good for SSDs
     fstrim.enable = true;
     # firmware updater for machine hardware

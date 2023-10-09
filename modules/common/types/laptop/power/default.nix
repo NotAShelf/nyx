@@ -18,9 +18,10 @@ in {
     ];
 
     services = {
-      # superior power management
-      auto-cpufreq.enable = true;
+      # handle ACPI events
+      acpid.enable = true;
 
+      # allows changing system behavior based upon user-selected power profiles
       power-profiles-daemon.enable = true;
 
       # temperature target on battery
@@ -29,18 +30,22 @@ in {
         package = pkgs.undervolt;
       };
 
-      auto-cpufreq.settings = {
-        battery = {
-          governor = "powersave";
-          scaling_min_freq = mkDefault (MHz 1200);
-          scaling_max_freq = mkDefault (MHz 1800);
-          turbo = "never";
-        };
-        charger = {
-          governor = "performance";
-          scaling_min_freq = mkDefault (MHz 1800);
-          scaling_max_freq = mkDefault (MHz 3000);
-          turbo = "auto";
+      # superior power management
+      auto-cpufreq = {
+        enable = true;
+        settings = {
+          battery = {
+            governor = "powersave";
+            scaling_min_freq = mkDefault (MHz 1200);
+            scaling_max_freq = mkDefault (MHz 1800);
+            turbo = "never";
+          };
+          charger = {
+            governor = "performance";
+            scaling_min_freq = mkDefault (MHz 1800);
+            scaling_max_freq = mkDefault (MHz 3000);
+            turbo = "auto";
+          };
         };
       };
 
@@ -63,11 +68,12 @@ in {
     };
     boot = {
       kernelModules = ["acpi_call"];
-      extraModulePackages = with config.boot.kernelPackages; [
-        acpi_call
-        cpupower
-        pkgs.cpupower-gui
-      ];
+      extraModulePackages = with config.boot.kernelPackages;
+        [
+          acpi_call
+          cpupower
+        ]
+        ++ [pkgs.cpupower-gui];
     };
   };
 }

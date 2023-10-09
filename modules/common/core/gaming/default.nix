@@ -1,7 +1,8 @@
 _: {
   imports = [
+    ./games
+
     ./gamemode.nix
-    ./chess.nix
     ./steam.nix
   ];
 }

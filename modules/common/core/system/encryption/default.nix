@@ -21,10 +21,14 @@ in {
     boot.initrd.luks.devices."${cfg.device}" = {
       # improve performance on ssds
       bypassWorkqueues = true;
+
+      # handle LUKS decryption before LVM
       preLVM = true;
 
       # the device with the maching id will be searched for the key file
       keyFile = mkIf (cfg.keyFile != null) "${cfg.keyFile}";
+
+      # the size of the key file in bytes
       keyFileSize = cfg.keySize;
 
       # if keyfile is not there, fall back to cryptsetup password

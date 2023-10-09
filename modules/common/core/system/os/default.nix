@@ -6,5 +6,7 @@ _: {
     ./users # per user configurations
     ./display # display protocol (wayland/xorg)
     ./network # network configuration & tcp optimizations
+    ./fs # filesystem support options
+    ./boot # boot and bootloader configurations
   ];
 }

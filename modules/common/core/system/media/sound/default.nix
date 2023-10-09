@@ -6,6 +6,9 @@
   ...
 }: let
   inherit (lib) mkIf mkDefault;
+  inherit (pkgs.stdenv) hostPlatform;
+
+  isx86Linux = hostPlatform.isLinux && hostPlatform.isx86;
 
   cfg = config.modules.system.sound;
   device = config.modules.device;
@@ -28,9 +31,10 @@ in {
       wireplumber.enable = true;
       pulse.enable = true;
       jack.enable = true;
+
       alsa = {
         enable = true;
-        support32Bit = with pkgs; (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86); # we're on x86 linux, so we can support 32 bit
+        support32Bit = isx86Linux; # we're on x86 linux, so we can support 32 bit
       };
 
       lowLatency = {
@@ -45,6 +49,7 @@ in {
     # if for some reason pipewire is disabled, we may enable pulseaudio as backup
     # I don't like PA, but I won't discard it altogether
     hardware.pulseaudio.enable = !config.services.pipewire.enable;
+
     # write bluetooth rules if and only if pipewire is enabled AND the device has bluetooth
     environment.etc = mkIf (config.services.pipewire.enable && device.hasBluetooth) {
       "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''

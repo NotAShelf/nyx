@@ -60,9 +60,7 @@ in {
 
           # extremely experimental, just the way I like it on a production machine
           systemd.enable = true;
-        })
 
-        (mkIf sys.boot.enableKernelTweaks {
           # List of modules that are always loaded by the initrd
           kernelModules = [
             "xhci_pci"
@@ -87,52 +85,19 @@ in {
 
       # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
       kernelParams =
-        [
+        optionals sys.boot.enableKernelTweaks [
           # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
           # auto means kernel will automatically decide the pti state
           "pti=auto" # on | off
 
-          # make stack-based attacks on the kernel harder
-          "randomize_kstack_offset=on"
-
-          # controls the behavior of vsyscalls. this has been defaulted to none back in 2016 - break really old binaries for security
-          "vsyscall=none"
-
-          # reduce most of the exposure of a heap attack to a single cache
-          "slab_nomerge"
-
-          # only allow signed modules
-          "module.sig_enforce=1"
-
-          # blocks access to all kernel memory, even preventing administrators from being able to inspect and probe the kernel
-          "lockdown=confidentiality"
-
-          # enable buddy allocator free poisoning
-          "page_poison=1"
-
-          # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
-          "page_alloc.shuffle=1"
-
-          # for debugging kernel-level slab issues
-          "slub_debug=FZP"
-
-          # always-enable sysrq keys. Useful for debugging, but also insecure
-          "sysrq_always_enabled=0"
-
           # disable the intel_idle driver and use acpi_idle instead
           "idle=nomwait"
-
-          # ignore access time (atime) updates on files, except when they coincide with updates to the ctime or mtime
-          "rootflags=noatime"
 
           # enable IOMMU for devices used in passthrough and provide better host performance
           "iommu=pt"
 
           # disable usb autosuspend
           "usbcore.autosuspend=-1"
-
-          # linux security modules
-          "lsm=landlock,lockdown,yama,apparmor,bpf"
 
           # disables resume and restores original swap space
           "noresume"
@@ -147,7 +112,7 @@ in {
           "logo.nologo"
 
           # tell the kernel to not be verbose
-          # "quiet"
+          "quiet" # it's always no noise november for the kernel
 
           # disable systemd status messages
           # rd prefix means systemd-udev will be used instead of initrd

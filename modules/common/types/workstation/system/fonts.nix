@@ -23,9 +23,20 @@ in {
             "Iosevka Nerd Font"
             "Noto Color Emoji"
           ];
-          sansSerif = ["Lexend" "Noto Color Emoji"];
-          serif = ["Noto Serif" "Noto Color Emoji"];
-          emoji = ["Noto Color Emoji"];
+
+          sansSerif = [
+            "Lexend"
+            "Noto Color Emoji"
+          ];
+
+          serif = [
+            "Noto Serif"
+            "Noto Color Emoji"
+          ];
+
+          emoji = [
+            "Noto Color Emoji"
+          ];
         };
       };
 
