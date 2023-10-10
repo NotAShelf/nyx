@@ -38,7 +38,9 @@ in {
       # if your system is low on ram, you should avoid tmpfs to prevent hangups while compiling
       tmp = {
         # /tmp on tmpfs, lets it live on your ram
-        useTmpfs = mkDefault true;
+        # it defaults to FALSE, which means you will use disk space instead of ram
+        # enable tmpfs tmp on anything except servers and builders
+        useTmpfs = sys.boot.tmpOnTmpfs;
 
         # If not using tmpfs, which is naturally purged on reboot, we must clean
         # /tmp ourselves. /tmp should be volatile storage!
@@ -47,7 +49,8 @@ in {
 
       # initrd and kernel tweaks
       # if you intend to copy paste this section, read what each parameter or module does before doing so
-      # or perish, I am not responsible for your broken system.
+      # or perish, I am not responsible for your broken system. if you copy paste this section without reading
+      # and later realise your mistake, you are a moron.
       initrd = mkMerge [
         (mkIf sys.boot.enableInitrdTweaks {
           # Verbosity of the initrd
@@ -58,6 +61,7 @@ in {
           # saves 30~ mb space according to the nix derivation
           systemd.strip = true;
 
+          # enable systemd in initrd
           # extremely experimental, just the way I like it on a production machine
           systemd.enable = true;
 
