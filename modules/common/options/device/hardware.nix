@@ -22,14 +22,21 @@ in {
     cpu = mkOption {
       type = types.enum ["pi" "intel" "vm-intel" "amd" "vm-amd" null];
       default = null;
+      description = ''
+        The manifaturer/type of the primary system CPU. Determines with ucode services will be
+        enabled and provides additional kernel packages
+      '';
     };
 
     # TODO: make this a list
-    # TODO: raspberry pi specific GPUs
+    # TODO: configuration for raspberry pi specific GPUs
     gpu = mkOption {
       type = types.enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd" null];
       default = null;
-      description = "The manifacturer/type of the primary system gpu";
+      description = ''
+        The manifaturer/type of the primary system GPU. Allows the correct GPU
+        drivers to be loaded, potentially optimizing video output
+      '';
     };
 
     monitors = mkOption {
