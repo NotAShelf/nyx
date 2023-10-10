@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   security = {
     # no, you are not brekaing my system because of "muh rust" again
     # sudo-rs is still a feature-incomplete sudo fork that can and will mess things up
@@ -33,7 +37,7 @@
           groups = ["sudo" "wheel"];
           commands = [
             {
-              command = "nixos-rebuild";
+              command = "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
               options = ["NOPASSWD"];
             }
           ];
