@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals;
+  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals optionalString;
 
   sys = config.modules.system;
 in {
@@ -67,22 +67,23 @@ in {
 
           # List of modules that are always loaded by the initrd
           kernelModules = [
+            "nvme"
             "xhci_pci"
             "ahci"
             "btrfs"
             "sd_mod"
             "dm_mod"
-            "usb_storage"
-            "rtsx_pci_sdmmc"
+            "tpm"
           ];
 
           # the set of kernel modules in the initial ramdisk used during the boot process
           availableKernelModules = [
-            "nvme"
             "usbhid"
             "sd_mod"
             "dm_mod"
-            "tpm"
+            "uas"
+            "usb_storage"
+            "rtsx_pci_sdmmc" # Realtek PCI-Express SD/MMC Card Interface driver
           ];
         })
       ];
@@ -115,9 +116,6 @@ in {
           # disable boot logo if any
           "logo.nologo"
 
-          # tell the kernel to not be verbose
-          "quiet" # it's always no noise november for the kernel
-
           # disable systemd status messages
           # rd prefix means systemd-udev will be used instead of initrd
           "rd.systemd.show_status=auto"
@@ -127,6 +125,9 @@ in {
 
           # disable the cursor in vt to get a black screen during intermissions
           "vt.global_cursor_default=0"
+
+          # tell the kernel to not be verbose
+          (optionalString sys.boot.silentBoot "quiet")
         ]
         ++ optionals (sys.boot.extraKernelParams != []) sys.boot.extraKernelParams;
     };

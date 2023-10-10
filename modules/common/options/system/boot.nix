@@ -13,7 +13,22 @@ in {
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
     tmpOnTmpfs = mkEnableOption "`/tmp` living on tmpfs. false means it will be cleared manually on each reboot";
-    secureBoot = mkEnableOption "secure-boot and load necessary packages.";
+
+    secureBoot = mkEnableOption ''
+      secure-boot with the necessary packages. Requires systemd-boot to be disabled
+    '';
+
+    silentBoot =
+      mkEnableOption (lib.mdDoc ''
+        almost entirely silent boot process through `quiet` kernel parameter
+      '')
+      // {default = config.modules.system.boot.plymouth.enable;};
+
+    kernel = mkOption {
+      type = types.raw;
+      default = pkgs.linuxPackages_latest;
+      description = "The kernel to use for the system.";
+    };
 
     extraModprobeConfig = mkOption {
       type = types.str;
@@ -31,12 +46,6 @@ in {
       type = with types; listOf package;
       default = with config.boot.kernelPackages; [acpi_call];
       description = "Extra kernel modules to be loaded.";
-    };
-
-    kernel = mkOption {
-      type = types.raw;
-      default = pkgs.linuxPackages_latest;
-      description = "The kernel to use for the system.";
     };
 
     loader = mkOption {
