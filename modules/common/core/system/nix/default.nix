@@ -56,7 +56,7 @@ with lib; {
   # faster rebuilding
   documentation = {
     doc.enable = false;
-    nixos.enable = false;
+    nixos.enable = true;
     info.enable = false;
     man = {
       enable = lib.mkDefault true;
