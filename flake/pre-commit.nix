@@ -1,18 +1,53 @@
 {inputs, ...}: {
   imports = [inputs.pre-commit-hooks.flakeModule];
 
-  perSystem.pre-commit = {
-    check.enable = true;
+  perSystem = {
+    config,
+    pkgs,
+    ...
+  }: let
+    # configure a general exclude list
+    excludes = ["flake.lock" "r'.+\.age$'"];
 
-    settings = {
-      # the lockfile should be ignored to avoid breaking flake invocations
-      excludes = ["flake.lock"];
+    # mkHook just defaults failfast to true
+    # and sets the description from the name
+    mkHook = name: prev:
+      {
+        inherit excludes;
+        description = "pre-commit hook for ${name}";
+        fail_fast = true;
+      }
+      // prev;
+  in {
+    pre-commit = {
+      check.enable = true;
 
-      # hooks that we wish to enable
-      hooks = {
-        alejandra.enable = true;
-        prettier.enable = true;
-        editorconfig-checker.enable = true;
+      settings = {
+        # inherit the global exclude list
+        inherit excludes;
+
+        # hooks that we want to enable
+        hooks = {
+          alejandra = mkHook "Alejandra" {enable = true;};
+          actionlint = mkHook "actionlint" {enable = true;};
+          prettier = mkHook "prettier" {enable = true;};
+          editorconfig-checker = mkHook "editorconfig" {enable = true;};
+          treefmt = mkHook "treefmt" {enable = true;};
+        };
+
+        # why is this settings.settings.<hook> instead of <hook>.settings?
+        # fuck you that's why
+        # - numtide, probably
+        settings = {
+          prettier = {
+            binPath = "${pkgs.prettierd}/bin/prettierd";
+            write = true;
+          };
+
+          treefmt = {
+            package = config.treefmt.build.wrapper;
+          };
+        };
       };
     };
   };
