@@ -43,6 +43,8 @@ in {
         "net.core.bpf_jit_enable" = false;
         # Disable ftrace debugging
         "kernel.ftrace_enabled" = false;
+        # Avoid kernel memory address exposures via dmesg (this value can also be set by CONFIG_SECURITY_DMESG_RESTRICT).
+        "kernel.dmesg_restrict" = 1;
       };
     };
 
