@@ -2,7 +2,7 @@ name: Bump Flake Inputs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *" # daily
 
 jobs:
   update-lockfile:
@@ -10,14 +10,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.1.0
+
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-      - name: update
+
+      - name: Update Lockfile
         uses: DeterminateSystems/update-flake-lock@main
         with:
           pr-title: "CI: bump flake inputs"
 
-      - name: merge
+      - name: Merge Changes
         run: |
           gh pr merge ${{ steps.update.outputs.pull-request-number }} --squash --delete-branch
         env:
