@@ -27,9 +27,14 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = true;
-      package = inputs'.hyprland.packages.default.override {
-        enableNvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
+      package = inputs'.hyprland.packages.default;
+
+      enableNvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
+      xwayland.enable = true;
+
+      systemd = {
+        enable = true;
+        variables = ["--all"];
       };
     };
   };
