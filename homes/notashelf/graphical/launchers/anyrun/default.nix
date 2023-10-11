@@ -15,15 +15,17 @@ in {
     programs.anyrun = {
       enable = true;
       config = {
-        plugins = with inputs'.anyrun.packages; [
-          applications
-          rink
-          translate
-          randr
-          shell
-          symbols
-          translate
-        ];
+        plugins = with inputs'.anyrun.packages;
+          [
+            applications
+            rink
+            translate
+            randr
+            shell
+            symbols
+            translate
+          ]
+          ++ [inputs'.anyrun-nixos-options.packages.default];
 
         # the x coordinate of the runner
         #x.relative = 800;
@@ -50,14 +52,23 @@ in {
         showResultsImmediately = false;
 
         # Limit amount of entries shown in total
-        maxEntries = null;
+        maxEntries = 10;
       };
 
       extraConfigFiles = {
+        "applications.ron".text = ''
+          // Also show the Desktop Actions defined in the desktop files, e.g. "New Window" from LibreWolf
+          desktop_actions: true,
+          max_entries: 10,
+          // The terminal used for running terminal based desktop entries, if left as `None` a static list of terminals is used
+          // to determine what terminal to use.
+          terminal: Some("footclient"),
+        '';
+
         "symbols.ron".text = ''
           Config(
             // The prefix that the search needs to begin with to yield symbol results
-            prefix: ":s",
+            prefix: ":sy",
 
             // Custom user defined symbols to be included along the unicode symbols
             symbols: {
@@ -67,6 +78,28 @@ in {
 
             // The number of entries to be displayed
             max_entries: 3,
+          )
+        '';
+
+        "translate.ron".text = ''
+          Config(
+            prefix: ":tr",
+            language_delimiter: ">",
+            max_entries: 3,
+          )
+        '';
+
+        "nixos-options.ron".text = let
+          nixos-options = osConfig.system.build.manual.optionsJSON + "/share/doc/nixos/options.json";
+          neovim-flake-options = inputs'.neovim-flake.packages.docs-json + "/share/doc/neovim-flake/options.json";
+          options = builtins.toJSON {
+            ":nix" = [nixos-options];
+            ":vim" = [neovim-flake-options];
+          };
+        in ''
+          Config(
+            options: ${options},
+            min_score: 5,
           )
         '';
       };
