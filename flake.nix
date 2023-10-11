@@ -32,6 +32,8 @@
         ./flake/modules # nixos and home-manager modules provided by this flake
 
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
+        ./flake/pre-commit.nix # pre-commit hooks
+        ./flake/checks.nix # checks for the flake
       ];
 
       flake = let
@@ -39,7 +41,7 @@
         # such as system builders
         lib = import ./lib {inherit nixpkgs inputs;};
       in {
-        # TODO: I still don't have a darwin machine to test my configs on - avoid pushing
+        # TODO: I still don't have machine to test my darwin configs on - avoid pushing
         # darwinConfigurations = {};
 
         # entry-point for nixos configurations
@@ -63,25 +65,33 @@
         # provide the formatter for nix fmt
         formatter = pkgs.alejandra;
 
-        devShells.default = let
-          extra = import ./flake/devShell;
-        in
-          inputs'.devshell.legacyPackages.mkShell {
-            name = "nyx";
-            commands = extra.shellCommands;
-            env = extra.shellEnv;
+        devShells.default = pkgs.mkShell {
+          name = "nyx";
+          meta.description = "The default development shell for my NixOS configuration";
 
-            packages = with pkgs; [
-              inputs'.agenix.packages.default # provide agenix CLI within flake shell
-              config.treefmt.build.wrapper # treewide formatter
-              nil # nix ls
-              alejandra # nix formatter
-              git # flakes require git, and so do I
-              glow # markdown viewer
-              statix # lints and suggestions
-              deadnix # clean up unused nix code
-            ];
-          };
+          shellHook = ''
+            ${config.pre-commit.installationScript}
+          '';
+
+          # tell direnv to shut up
+          DIRENV_LOG_FORMAT = "";
+
+          # packages available in the dev shell
+          packages = with pkgs; [
+            inputs'.agenix.packages.default # provide agenix CLI within flake shell
+            config.treefmt.build.wrapper # treewide formatter
+            nil # nix ls
+            alejandra # nix formatter
+            git # flakes require git, and so do I
+            glow # markdown viewer
+            statix # lints and suggestions
+            deadnix # clean up unused nix code
+          ];
+
+          inputsFrom = [
+            config.treefmt.build.devShell
+          ];
+        };
       };
     });
 
@@ -224,7 +234,12 @@
     # Personal neovim-flake
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nil.follows = "nil";
+        flake-utils.follows = "flake-utils";
+        flake-parts.follows = "flake-parts";
+      };
     };
 
     # neovim nightly packages for nix
@@ -248,8 +263,11 @@
     # anyrun program launcher
     anyrun = {
       url = "github:Kirottu/anyrun";
+    };
+
+    anyrun-nixos-options = {
+      url = "github:n3oney/anyrun-nixos-options";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
       };
     };

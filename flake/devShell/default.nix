@@ -1,3 +1,5 @@
+# stuff for devshells
+# no effect under pkgs.mkShell
 {
   shellCommands = [
     {
