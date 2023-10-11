@@ -51,6 +51,8 @@ in {
         follow_mouse = 1;
         # do not imitate natural scroll
         touchpad.natural_scroll = "no";
+        # ez numlock enable
+        numlock_by_default = true;
       };
 
       general = {
@@ -66,8 +68,6 @@ in {
 
         # active border color
         "col.active_border" = "0xff${colors.base0F}";
-        "col.group_border_active" = "rgba(88888888)";
-        "col.group_border" = "rgba(00000088)";
 
         # whether to apply the sensitivity to raw input (e.g. used by games where you aim using your mouse)
         apply_sens_to_raw = 0;
@@ -96,6 +96,29 @@ in {
         "col.shadow" = "rgba(292c3cee)";
       };
 
+      group = {
+        # new windows in a group spawn after current or at group tail
+        insert_after_current = true;
+        # focus on the window that has just been moved out of the group
+        focus_removed_window = true;
+
+        "col.border_active" = "rgba(88888888)";
+        "col.border_inactive" = "rgba(00000088)";
+
+        groupbar = {
+          # groupbar stuff
+          # this removes the ugly gradient around grouped windows - which sucks
+          gradients = false;
+          font_size = 14;
+
+          # titles look ugly, and I usually know what I'm looking at
+          render_titles = false;
+
+          # scrolling in the groupbar changes group active window
+          scrolling = true;
+        };
+      };
+
       misc = {
         # disable redundant renders
         disable_hyprland_logo = true; # wallpaper covers it anyway
@@ -109,11 +132,6 @@ in {
         mouse_move_enables_dpms = true; # enable dpms on mouse/touchpad action
         key_press_enables_dpms = true; # enable dpms on keyboard action
         disable_autoreload = true; # autoreload is unnecessary on nixos, because the config is readonly anyway
-
-        # groupbar stuff
-        # this removes the ugly gradient around grouped windows - which sucks
-        groupbar_titles_font_size = 16;
-        groupbar_gradients = false;
       };
 
       animations = {
