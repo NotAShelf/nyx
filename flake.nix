@@ -86,6 +86,12 @@
             glow # markdown viewer
             statix # lints and suggestions
             deadnix # clean up unused nix code
+            (pkgs.writeShellApplication {
+              name = "update";
+              text = ''
+                nix flake update && git commit flake.lock -m "flake: bump inputs"
+              '';
+            })
           ];
 
           inputsFrom = [
