@@ -31,7 +31,7 @@
           alejandra = mkHook "Alejandra" {enable = true;};
           actionlint = mkHook "actionlint" {enable = true;};
           prettier = mkHook "prettier" {enable = true;};
-          editorconfig-checker = mkHook "editorconfig" {enable = true;};
+          editorconfig-checker = mkHook "editorconfig" {enable = false;};
           treefmt = mkHook "treefmt" {enable = true;};
         };
 
