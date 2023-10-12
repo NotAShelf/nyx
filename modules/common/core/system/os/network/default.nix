@@ -2,8 +2,11 @@
   config,
   lib,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) mkIf mkDefault;
+
+  dev = config.modules.device;
+in {
   imports = [
     ./ssh.nix
     ./blocker.nix
@@ -47,13 +50,14 @@ with lib; {
       plugins = []; # disable all plugins, we don't need them
       dns = "systemd-resolved"; # use systemd-resolved as dns backend
       unmanaged = ["docker0" "rndis0"];
+
       wifi = {
         macAddress = "random"; # use a random mac address on every boot
         powersave = true; # enable wifi powersaving
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
       };
 
-      ethernet.macAddress = "random";
+      ethernet.macAddress = mkIf (dev.type != "server") "random";
     };
   };
 

@@ -2,12 +2,14 @@
   lib,
   config,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
+  cfg = config.modules.services;
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     networking.domain = "notashelf.dev";
 
     security = {
@@ -19,17 +21,16 @@ in {
 
     services.nginx = {
       enable = true;
+      recommendedTlsSettings = true;
+      recommendedOptimisation = true;
+      recommendedGzipSettings = true;
+      recommendedProxySettings = true;
       commonHttpConfig = ''
         real_ip_header CF-Connecting-IP;
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
         add_header X-Frame-Options DENY;
         add_header X-Content-Type-Options nosniff;
       '';
-
-      recommendedTlsSettings = true;
-      recommendedOptimisation = true;
-      recommendedGzipSettings = true;
-      recommendedProxySettings = true;
 
       virtualHosts = let
         template = {
@@ -44,33 +45,37 @@ in {
             serverAliases = ["notashelf.dev"];
             root = "/home/notashelf/Dev/web";
           };
+
         # jellyfin
         "fin.notashelf.dev" =
-          template
-          // {
+          {
             locations."/" = {
               proxyPass = "http://127.0.0.1:8096/";
               proxyWebsockets = true;
               extraConfig = "proxy_pass_header Authorization;";
             };
-          };
+          }
+          // template;
+
         # vaultwawrden
         "vault.notashelf.dev" =
-          template
-          // {
+          {
             locations."/" = {
               proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
               extraConfig = "proxy_pass_header Authorization;";
             };
-          };
+          }
+          // template;
+
         # gitea
         "git.notashelf.dev" =
-          template
-          // {
-            locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
-          };
+          {
+            locations."/".proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+          }
+          // template;
+
         # nextcloud
-        ${config.services.nextcloud.hostName} = template;
+        "cloud.notashelf.dev" = template;
 
         # mailserver
         "mail.notashelf.dev" = template;
@@ -78,16 +83,18 @@ in {
         # webmail
         "webmail.notashelf.dev" = template;
 
+        # mastodon
+        "social.notashelf.dev" = template;
+
         # matrix-synapse
         "matrix.notashelf.dev" =
-          template
-          // {
+          {
             locations."/".proxyPass = "http://127.0.0.1:8008";
-          };
+          }
+          // template;
 
         "search.notashelf.dev" =
-          template
-          // {
+          {
             locations."/".proxyPass = "http://127.0.0.1:8888";
             extraConfig = ''
               access_log /dev/null;
@@ -96,19 +103,20 @@ in {
               proxy_send_timeout 60s;
               proxy_read_timeout 60s;
             '';
-          };
+          }
+          // template;
 
         # grafana dashboard
-        ${config.services.grafana.settings.server.domain} =
+        "dash.notashelf.dev" =
           {
-            addSSL = true;
-            enableACME = true;
-          }
-          // {
             locations."/" = {
               proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
               proxyWebsockets = true;
             };
+          }
+          // {
+            addSSL = true;
+            enableACME = true;
           };
       };
     };

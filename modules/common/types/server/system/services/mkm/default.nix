@@ -1,14 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   inputs',
   ...
 }: let
   inherit (lib) mkIf;
-  cfg = config.modules.services.override;
+  cfg = config.modules.services;
 in {
-  config = mkIf (!cfg.mkm) {
+  config = mkIf cfg.mkm.enable {
     virtualisation.oci-containers = {
       backend = "podman";
       containers = {

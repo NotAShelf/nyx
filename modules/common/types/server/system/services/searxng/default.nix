@@ -3,15 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
+  cfg = config.modules.services;
   acceptedTypes = ["server" "hybrid"];
 
   port = 8888;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.searxng) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.searxng.enable) {
     networking.firewall.allowedTCPPorts = [port];
 
     users = {

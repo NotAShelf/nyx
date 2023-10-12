@@ -2,12 +2,13 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     services = {
       tor.settings = {
         DnsPort = 9053;

@@ -4,17 +4,18 @@
   pkgs,
   inputs,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
+  cfg = config.modules.services;
   acceptedTypes = ["server" "hybrid"];
 in {
   imports = [
     inputs.simple-nixos-mailserver.nixosModule
   ];
 
-  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.mailserver) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.mailserver.enable) {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 

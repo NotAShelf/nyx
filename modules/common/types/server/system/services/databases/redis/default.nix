@@ -2,23 +2,24 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
+  cfg = config.modules.services;
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.database.redis)) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.database.redis.enable) {
     services.redis = {
       vmOverCommit = true;
-      servers = {
+      servers = mkIf cfg.nextcloud.enable {
         nextcloud = {
           enable = true;
           user = "nextcloud";
           port = 0;
         };
 
-        searxng = {
+        searxng = mkIf cfg.searxng.enable {
           enable = true;
           user = "searx";
           port = 6370;

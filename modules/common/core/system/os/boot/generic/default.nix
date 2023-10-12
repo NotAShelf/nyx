@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals optionalString;
+  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals optional;
 
   sys = config.modules.system;
 in {
@@ -127,9 +127,10 @@ in {
           "vt.global_cursor_default=0"
 
           # tell the kernel to not be verbose
-          (optionalString sys.boot.silentBoot "quiet")
+          #
         ]
-        ++ optionals (sys.boot.extraKernelParams != []) sys.boot.extraKernelParams;
+        ++ sys.boot.extraKernelParams
+        ++ optional sys.boot.silentBoot ["quiet"];
     };
   };
 }

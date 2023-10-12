@@ -3,13 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.override;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
+  cfg = config.modules.services;
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!cfg.database.postgresql)) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.database.postgresql.enable) {
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql;

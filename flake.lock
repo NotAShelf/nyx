@@ -2251,11 +2251,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1697049401,
-        "narHash": "sha256-I/wCJBpW/K23h3o42bUD3OIeRQ5TRVoecu/RGIpfx6w=",
+        "lastModified": 1697100850,
+        "narHash": "sha256-qSAzJVzNRIo+r3kBjL8TcpJctcgcHlnZyqdzpWgtg0M=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "d6b554a85caac840430a822aae963c811e9c7e26",
+        "rev": "fb6af288f6cf0f00d3af60cf9d5110433b954565",
         "type": "github"
       },
       "original": {
@@ -2477,11 +2477,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1697048442,
-        "narHash": "sha256-sjcml2uP9aIhDVLRoCx1Ar+ZqGPussyseoA2QSgtu9o=",
+        "lastModified": 1697098776,
+        "narHash": "sha256-kvhjca1RLVxEyUiAHgZftp51lJDICMaVkclD3SHxaek=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "941e5c403f01de6161c7d233845d309c64d021a6",
+        "rev": "8ca67f97319a954d41e08e65bbbd9b4552f81e05",
         "type": "github"
       },
       "original": {
@@ -4094,11 +4094,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696797466,
-        "narHash": "sha256-ZWUlM14Sj2tWWmOZfMcvpDLTejuzbaUBdJUIEnJ7l+0=",
+        "lastModified": 1697088776,
+        "narHash": "sha256-RbVeHWAfDCQaRzmD2HQCej9dKtTq6UHRdPNlFhQJ1cg=",
         "owner": "Alexays",
         "repo": "Waybar",
-        "rev": "30cc88a4c5aa538fef87e70f20db3d4a396eda58",
+        "rev": "a3774dc58643e6761cb29f75320026da2b2e166d",
         "type": "github"
       },
       "original": {
