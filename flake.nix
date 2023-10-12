@@ -33,7 +33,6 @@
 
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
         ./flake/pre-commit.nix # pre-commit hooks
-        #./flake/checks.nix # checks for the flake
       ];
 
       flake = let

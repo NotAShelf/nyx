@@ -1421,11 +1421,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1697059673,
-        "narHash": "sha256-9dIM1ei+O6zcFFM0pgmBhbHv83tli2y8ikjKb1phouc=",
+        "lastModified": 1697127995,
+        "narHash": "sha256-da9pd4ZTs4JzSgjj0sriX3e97vsZ9LcP3ciZq4An2EY=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "06cc42441cd5b24444f7c79495851dedde8bc732",
+        "rev": "e4bcd2e2da3136fb55886c4f02dd4a01099e687b",
         "type": "github"
       },
       "original": {
@@ -2213,11 +2213,11 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1695405275,
-        "narHash": "sha256-R4TX73TAzrW03Rdsa4HNz5ASKx5S1AKa/3SAntUHglg=",
+        "lastModified": 1697134154,
+        "narHash": "sha256-4mHvLo6kWAKPlBoHZ4a1pWubu3cwLiLC4o+tkN5oFy8=",
         "owner": "privatevoid-net",
         "repo": "nix-super",
-        "rev": "cae2c834f2a19db35cd46d233f5b59086b24a6f1",
+        "rev": "90e32c2a424f989fe17a4003707139b2477357e0",
         "type": "github"
       },
       "original": {
@@ -2477,11 +2477,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1697098776,
-        "narHash": "sha256-kvhjca1RLVxEyUiAHgZftp51lJDICMaVkclD3SHxaek=",
+        "lastModified": 1697137944,
+        "narHash": "sha256-p0nhzCAOWSWOER7KMlx8eW818txty2NxLX8AfeR+4rY=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "8ca67f97319a954d41e08e65bbbd9b4552f81e05",
+        "rev": "090c471a5bf3e137c106df899a5abdd9af6a586f",
         "type": "github"
       },
       "original": {
@@ -2664,16 +2664,16 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1695124524,
-        "narHash": "sha256-trXDytVCqf3KryQQQrHOZKUabu1/lB8/ndOAuZKQrOE=",
-        "owner": "edolstra",
+        "lastModified": 1695283060,
+        "narHash": "sha256-CJz71xhCLlRkdFUSQEL0pIAAfcnWFXMzd9vXhPrnrEg=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a3d30b525535e3158221abc1a957ce798ab159fe",
+        "rev": "31ed632c692e6a36cfc18083b88ece892f863ed4",
         "type": "github"
       },
       "original": {
-        "owner": "edolstra",
-        "ref": "fix-aws-sdk-cpp",
+        "owner": "NixOS",
+        "ref": "nixos-23.05-small",
         "repo": "nixpkgs",
         "type": "github"
       }
