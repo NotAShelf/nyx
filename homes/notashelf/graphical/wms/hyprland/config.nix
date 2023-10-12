@@ -80,8 +80,8 @@ in {
         # blur
         blur = {
           enabled = true;
-          size = 4;
-          passes = 3;
+          size = 12;
+          passes = 2;
           ignore_opacity = true;
           new_optimizations = 1;
           xray = true;
