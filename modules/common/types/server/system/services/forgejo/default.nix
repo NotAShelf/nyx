@@ -24,7 +24,7 @@ in {
         database.user = "git";
         stateDir = "/srv/storage/forgejo/data";
 
-        mailerPasswordFile = config.age.secrets.mailserver-gitea-secret.path;
+        mailerPasswordFile = config.age.secrets.mailserver-forgejo-secret.path;
 
         dump = {
           enable = true;
@@ -64,7 +64,7 @@ in {
             ENABLED = true;
             PROTOCOL = "smtps";
             SMTP_ADDR = "mail.notashelf.dev";
-            USER = "gitea@notashelf.dev";
+            USER = "git@notashelf.dev";
           };
         };
       };

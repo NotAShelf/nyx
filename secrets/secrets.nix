@@ -24,7 +24,7 @@ in {
 
   # secrets for specific mailserver accounts
   "mailserver-secret.age".publicKeys = [enyo helios notashelf];
-  "mailserver-gitea-secret.age".publicKeys = [enyo helios notashelf];
+  "mailserver-forgejo-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-vaultwarden-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-matrix-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-cloud-secret.age".publicKeys = [enyo helios notashelf];

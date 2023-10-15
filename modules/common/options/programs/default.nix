@@ -2,8 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) mkEnableOption mkOption types;
+in {
   imports = [./overrides.nix];
   options.modules = {
     programs = {

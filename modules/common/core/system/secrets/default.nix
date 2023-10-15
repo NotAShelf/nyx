@@ -95,8 +95,8 @@ in {
         mode = "400";
       };
 
-      mailserver-gitea-secret = {
-        file = "${self}/secrets/mailserver-gitea-secret.age";
+      mailserver-forgejo-secret = {
+        file = "${self}/secrets/mailserver-forgejo-secret.age";
         owner = "git";
         group = "git";
         mode = "400";
@@ -122,6 +122,7 @@ in {
 
       mailserver-noreply-secret = {
         file = "${self}/secrets/mailserver-noreply-secret.age";
+        owner = "mastodon";
         mode = "400";
       };
     })

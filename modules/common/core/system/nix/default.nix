@@ -134,6 +134,7 @@ with lib; {
         "ca-derivations" # content addressed nix
         "repl-flake" # allow passing installables to nix repl
         "auto-allocate-uids" # allow Nix to automatically pick UIDs, rather than creating nixbld* user accounts
+        "configurable-impure-env" # allow impure environments
       ];
       # don't warn me that my git tree is dirty, I know
       warn-dirty = false;

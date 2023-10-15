@@ -98,12 +98,22 @@ in {
       loginAccounts = {
         "raf@notashelf.dev" = {
           hashedPasswordFile = config.age.secrets.mailserver-secret.path;
-          aliases = ["raf" "me@notashelf.dev" "admin" "admin@notashelf.dev" "root" "root@notashelf.dev" "postmaster" "postmaster@notashelf.dev"];
+          aliases = [
+            "me"
+            "raf"
+            "me@notashelf.dev"
+            "admin"
+            "admin@notashelf.dev"
+            "root"
+            "root@notashelf.dev"
+            "postmaster"
+            "postmaster@notashelf.dev"
+          ];
         };
 
-        "gitea@notashelf.dev" = {
-          aliases = ["gitea"];
-          hashedPasswordFile = config.age.secrets.mailserver-gitea-secret.path;
+        "git@notashelf.dev" = {
+          aliases = ["git"];
+          hashedPasswordFile = config.age.secrets.mailserver-forgejo-secret.path;
         };
 
         "vaultwarden@notashelf.dev" = {
