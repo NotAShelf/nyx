@@ -3,11 +3,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption;
+  inherit (lib) mkEnableOption ifOneEnabled;
   cfg = config.modules.services;
-  # ifOneEnabled takes a parent option and 3 child options and checks if at least one of them is enabled
-  # => ifOneEnabled config.modules.services "service1" "service2" "service3"
-  ifOneEnabled = cfg: a: b: c: cfg.a || cfg.b || cfg.c;
 
   # mkEnableOption is the same as mkEnableOption but with the default value being equal to cfg.monitoring.enable
   mkEnableOption' = desc: mkEnableOption "${desc}" // {default = cfg.monitoring.enable;};

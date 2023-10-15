@@ -3,7 +3,7 @@
 
   # assume the first monitor in the list of monitors is primary
   # get its name from the list of monitors
-  # `primaryMonitor` -> "DP-1"
+  # `primaryMonitor osConfig` -> "DP-1"
   primaryMonitor = config: builtins.elemAt config.modules.device.monitors 0;
 
   # filter files that have the .nix suffix
@@ -23,6 +23,7 @@
     else 0;
 
   # a basic function to fetch a specified user's public keys from github .keys url
+  # `fetchKeys "username` -> "ssh-rsa AAAA...== username@hostname"
   fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
 
   # a helper function that checks if a list contains a list of given strings
@@ -56,7 +57,12 @@
 
   # assert if the device is wayland-ready by checking sys.video and env.isWayland options
   # `(lib.isWayland config)` where config is in scope
-  isWayland = conf: conf.modules.system.video.enable && conf.modules.usrEnvisWayland;
+  # `isWayland osConfig` -> true
+  isWayland = conf: conf.modules.system.video.enable && conf.modules.usrEnv.isWayland;
+
+  # ifOneEnabled takes a parent option and 3 child options and checks if at least one of them is enabled
+  # `ifOneEnabled config.modules.services "service1" "service2" "service3"`
+  ifOneEnabled = cfg: a: b: c: (cfg.a || cfg.b || cfg.c);
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland indexOf;
+  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland indexOf ifOneEnabled;
 }
