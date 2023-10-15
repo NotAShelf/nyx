@@ -1,6 +1,6 @@
 {
-  description = "My NixOS configuration with *very* questionable stability";
   # https://github.com/notashelf/nyx
+  description = "My NixOS configuration with *very* questionable stability";
 
   outputs = {
     self,
@@ -32,7 +32,7 @@
         ./flake/modules # nixos and home-manager modules provided by this flake
 
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
-        ./flake/pre-commit.nix # pre-commit hooks
+        ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devshell
       ];
 
       flake = let
@@ -87,6 +87,7 @@
             (pkgs.writeShellApplication {
               name = "update";
               text = ''
+                ${pkgs.runtimeShell}
                 nix flake update && git commit flake.lock -m "flake: bump inputs"
               '';
             })
@@ -237,7 +238,7 @@
 
     # Personal neovim-flake
     neovim-flake = {
-      url = "github:NotAShelf/neovim-flake";
+      url = "github:NotAShelf/neovim-flake/bash-lsp";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nil.follows = "nil";
@@ -304,9 +305,7 @@
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
     # Hyprland & Hyprland Contrib repos
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-    };
+    hyprland.url = "github:hyprwm/Hyprland";
 
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
