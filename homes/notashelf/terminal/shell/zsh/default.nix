@@ -154,8 +154,9 @@ in {
       command_not_found_handler() {
         ${pkgs.comma}/bin/comma "$@"
       }
+
+      source ${./opts.zsh}
     '';
-    # + (builtins.readFile ./opts.zsh);
 
     shellAliases = with pkgs; {
       # make sudo use aliases
@@ -164,9 +165,6 @@ in {
       # https://github.com/solusipse/fiche
       fbin = "${lib.getExe pkgs.netcat-gnu} p.frzn.dev 9999";
       # nix specific aliases
-      rebuild = "nix-store --verify; pushd ~dotfiles ; nixos-rebuild switch --flake .#$1 --use-remote-sudo && notify-send \"Done\" ; popd";
-      deploy = "nixos-rebuild switch --flake .#$1 --target-host $1";
-      test = "pushd ~dotfiles nixos-rebuild dry-activate";
       cleanup = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
       bloat = "nix path-info -Sh /run/current-system";
       curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
@@ -198,14 +196,13 @@ in {
       burn = "pkill -9";
       diff = "diff --color=auto";
       killall = "pkill";
+
       # faster navigation
       ".." = "cd ..";
       "..." = "cd ../../";
       "...." = "cd ../../../";
       "....." = "cd ../../../../";
       "......" = "cd ../../../../../";
-      # things I do to keep my home directory clean
-      wget = "wget --hsts-file='\${XDG_DATA_HOME}/wget-hsts'";
     };
 
     plugins = with pkgs; [

@@ -1,6 +1,7 @@
-# zsh options
-# # https://zsh.sourceforge.io/Doc/Release/Options.html
-
+# my helper functions for setting zsh options that I normally use on my shell
+# a description of each option can be found in the Zsh manual
+# https://zsh.sourceforge.io/Doc/Release/Options.html
+# do note that this slows down shell startup times
 
 # Define a function to set Zsh options
 function set_zsh_options() {
