@@ -28,7 +28,7 @@ in {
     enable = true;
     settings = {
       vim = {
-        package = pkgs.neovim-unwrapped; # this is the default value, but I can use the nightly overlay on demand
+        package = pkgs.neovim-unwrapped;
         viAlias = true;
         vimAlias = true;
 
@@ -38,22 +38,26 @@ in {
         useSystemClipboard = true;
 
         treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-          lua
+          regex # for regexplainer
           markdown
           markdown-inline
         ];
 
         extraPlugins = with pkgs.vimPlugins; {
+          friendly-snippets = {package = friendly-snippets;};
+
           aerial = {
             package = aerial-nvim;
             setup = "require('aerial').setup {}";
           };
 
+          /*
           harpoon = {
             package = harpoon;
             setup = "require('harpoon').setup {}";
             after = ["aerial"];
           };
+          */
 
           nvim-surround = {
             package = nvim-surround;
@@ -67,6 +71,14 @@ in {
 
           regexplainer = {
             package = regexplainer;
+          };
+
+          undotree = {
+            package = undotree;
+            setup = ''
+              vim.g.undotree_ShortIndicators = true
+              vim.g.undotree_TreeVertShape = '│'
+            '';
           };
         };
 
@@ -103,12 +115,17 @@ in {
         ts.enable = true;
         go.enable = true;
         python.enable = true;
-        lua.enable = true;
+        bash.enable = true;
         zig.enable = false;
         dart.enable = false;
         elixir.enable = false;
         svelte.enable = false;
         sql.enable = false;
+
+        lua = {
+          enable = true;
+          lsp.neodev.enable = true;
+        };
 
         rust = {
           enable = true;
@@ -187,11 +204,7 @@ in {
           view = {
             preserveWindowProportions = false;
             cursorline = false;
-            width = {
-              min = 35;
-              max = -1;
-              padding = 1;
-            };
+            width = 35;
           };
 
           renderer = {
@@ -224,7 +237,10 @@ in {
         nvimBufferline.enable = true;
       };
 
-      vim.treesitter.context.enable = true;
+      vim.treesitter = {
+        fold = true;
+        context.enable = true;
+      };
 
       vim.binds = {
         whichKey.enable = true;
@@ -266,6 +282,8 @@ in {
             "package.json"
             "index.*"
             ".anchor"
+            "flake.nix"
+            "index.*"
           ];
         };
       };
@@ -292,8 +310,8 @@ in {
 
       vim.terminal = {
         toggleterm = {
-          mappings.open = "<C-t>";
           enable = true;
+          mappings.open = "<C-t>";
           direction = "tab";
           lazygit = {
             enable = true;
