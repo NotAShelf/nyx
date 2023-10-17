@@ -9,6 +9,9 @@ in {
     # imported home-manager modules
     self.homeManagerModules.gtklock # a home-manager module for gtklock, gotta upstream it eventually
 
+    # development related tools and packages
+    ./dev
+
     # home package sets
     ./packages
 
