@@ -32,7 +32,7 @@ in {
         # extra config
         extraConfig = {
           SINGLE_USER_MODE = "true";
-          WEB_DOMAIN = "mastodon.${config.services.mastodon.localDomain}";
+          WEB_DOMAIN = "social.notashelf.dev";
         };
       };
     };
