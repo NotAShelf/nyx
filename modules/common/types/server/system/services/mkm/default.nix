@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  cfg = config.modules.services;
+  cfg = config.modules.system.services;
 in {
   config = mkIf cfg.mkm.enable {
     virtualisation.oci-containers = {

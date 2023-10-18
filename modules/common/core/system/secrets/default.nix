@@ -97,8 +97,8 @@ in {
 
       mailserver-forgejo-secret = {
         file = "${self}/secrets/mailserver-forgejo-secret.age";
-        owner = "git";
-        group = "git";
+        owner = "forgejo";
+        group = "forgejo";
         mode = "400";
       };
 

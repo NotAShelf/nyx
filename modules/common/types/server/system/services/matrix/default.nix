@@ -7,7 +7,7 @@
 }:
 with lib; let
   dev = config.modules.device;
-  cfg = config.modules.services;
+  cfg = config.modules.system.services;
   acceptedTypes = ["server" "hybrid"];
 
   port = 8008;

@@ -6,7 +6,7 @@
   inherit (lib) mkIf;
 
   dev = config.modules.device;
-  cfg = config.modules.services;
+  cfg = config.modules.system.services;
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.mastodon.enable) {

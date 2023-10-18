@@ -9,7 +9,7 @@ with lib; let
   domain = "cloud.notashelf.dev";
 
   dev = config.modules.device;
-  cfg = config.modules.services;
+  cfg = config.modules.system.services;
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.nextcloud.enable) {
@@ -17,6 +17,12 @@ in {
       file = "${self}/secrets/nextcloud-secret.age";
       owner = "nextcloud";
     };
+
+    modules.system.services.database = {
+      redis.enable = true;
+      postgresql.enable = true;
+    };
+
     services = {
       nextcloud = {
         enable = true;
@@ -45,27 +51,18 @@ in {
           trustedProxies = ["https://${toString domain}"];
           adminuser = "notashelf";
           adminpassFile = config.age.secrets.nextcloud-secret.path;
+          defaultPhoneRegion = "TR";
+
+          # database
           dbtype = "pgsql";
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
-          defaultPhoneRegion = "TR";
         };
         nginx.recommendedHttpHeaders = true;
         https = true;
       };
-
-      # database service
-      postgresql = {
-        enable = mkForce true;
-        ensureDatabases = [config.services.nextcloud.config.dbname];
-        ensureUsers = [
-          {
-            name = config.services.nextcloud.config.dbuser;
-            ensurePermissions."DATABASE ${config.services.nextcloud.config.dbname}" = "ALL PRIVILEGES";
-          }
-        ];
-      };
     };
+
     systemd.services = {
       phpfpm-nextcloud.aliases = ["nextcloud.service"];
       "nextcloud-setup" = {

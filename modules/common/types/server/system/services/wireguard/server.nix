@@ -5,7 +5,7 @@
 }: let
   inherit (lib) mkIf;
 
-  cfg = config.modules.services;
+  cfg = config.modules.system.services;
   dev = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
 in {

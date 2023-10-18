@@ -13,6 +13,6 @@ _: {
     ./tor # tor relay
     ./searxng # searx search engine
     ./mkm # holy fuck
-    ./mastodon
+    ./mastodon # decentralized social
   ];
 }
