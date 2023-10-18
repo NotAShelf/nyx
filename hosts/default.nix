@@ -196,8 +196,8 @@ in {
     specialArgs = sharedArgs;
   };
 
-  /*
-  # Apollon is aarch64-linux
+  # Apollon is also x86_64-linux
+  # but is for testing server-specific services
   apollon = mkNixosSystem {
     inherit withSystem;
     system = "aarch64-linux";
@@ -205,9 +205,9 @@ in {
       [
         {networking.hostName = "apollon";}
         ./apollon
+        server
       ]
       ++ shared;
     specialArgs = sharedArgs;
   };
-  */
 }
