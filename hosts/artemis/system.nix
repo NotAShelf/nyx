@@ -73,8 +73,8 @@
     boot.initrd.postDeviceCommands = with pkgs; ''
       if ! test -b /dev/vda1; then
         ${parted}/bin/parted --script /dev/vda -- mklabel gpt
-        ${parted}/bin/parted --script /dev/vda -- mkpart primary 1MiB 50%
-        ${parted}/bin/parted --script /dev/vda -- mkpart primary 50% 100%
+        ${parted}/bin/parted --script /dev/vda -- mkpart primary 1MiB 25%
+        ${parted}/bin/parted --script /dev/vda -- mkpart primary 25% 100%
         sync
       fi
 
