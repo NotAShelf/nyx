@@ -58,33 +58,26 @@
 
 ### 📚 Layout
 
-- [flake](flake.nix) Ground zero of my system configuration
+- [flake.nix](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
-- [parts](parts) ❄️ Individual parts of my flake, powered by flake-parts
-  - [pkgs](pkgs) 📦 Packages exported by my flake
+- [secrets](secrets) 🔒 Agenix secrets
+- [flake](flake) ❄️ Individual parts of my flake, powered by flake-parts
+  - [pkgs](flake/pkgs) 📦 packages exported by my flake
+  - [schemes](flake/schemes) 🪡 home-baked flake schemas for upcoming [flake schemas](https://determinate.systems/posts/flake-schemas)
+  - [templates](flake/templates) 📖 templates for initializing flakes. Provides some language-specific flakes
 - [docs](docs)📑 The documentation for my flake repository
-  - [notes](docs/notes)📝 Notes from tedious or/and underdocumented processes I have gone through
+  - [todo](docs/todo) 📝 My to-do notes
+  - [notes](docs/notes) 📓 Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
 - [homes](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
 - [modules](modules) 🍱 modularized NixOS configurations
-  - [common](modules/common) ⚙️T The common modules imported by all hosts
-    - [core](modules/shared) 🧠 Core NixOS configuration
-    - [options](modules/options) 🔧 Module options consumed by the rest of the flake
+  - [core](modules/common) ⚙️T The core module that all systems depend on
+    - [common](modules/shared) 🧠 Module configurations shared between hosts
+    - [options](modules/options) 🔧 Definitions for module options used by common modules
     - [types](modules/types) 💡 A profile-like system that is organized per device type
   - [extra](modules/extra) 🚀 Extra modules that are rarely imported
-    - [shared](modules/shared) ☁️ Modules that can be consumed by external flakes
-    - [export](modules/export) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
+    - [shared](modules/shared) ☁️ Modules that are both shared for outside consumption, and imported by the flake itself
+    - [exported](modules/exported) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
 - [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
-  - [erebus](hosts/erebus) 🍱 Air-gapped virtual machine/live-iso configuration for sensitive jobs
-  - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
-  - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system. Daily workstation.
-  - [hermes](hosts/hermes) 💻 HP Pavillion with Ryzen 7 7730U, has now replaced Epimetheus as my portable workstation
-  - [helios](hosts/helios) ⚡ Hetzner VPS for self-hosting some of my infrastructure
-  - [prometheus](hosts/prometheus) 💻 My HP Pavillion with a a GTX 1050 and i7-7700hq
-  - [epimetheus](hosts/epimetheus) 💻 The succeeding brother host to Prometheus on the same machine, with full disk encryption
-  - [atlas](hosts/atlas) 🍓 Proof of concept server host that is used by my Raspberry Pi 400
-  - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
-  - [artemis](hosts/artemis) 🏹 x86_64-linux VM Host for testing
-  - [apollon](hosts/apollon) ⚔️a aarch64-linux VM Host for testing
 
 ## 🗒️ Notes
 
