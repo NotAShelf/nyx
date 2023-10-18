@@ -66,7 +66,7 @@ in {
           cache = {
             ENABLED = true;
             ADAPTER = "redis";
-            HOST = lib.mkForce "/run/redis-default/redis.sock";
+            HOST = "redis://:forgejo@localhost:6371";
           };
 
           mailer = {

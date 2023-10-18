@@ -44,7 +44,7 @@ in {
 
         ui = {
           query_in_title = true;
-          results_on_new_tab = true;
+          results_on_new_tab = false;
         };
 
         search = {
@@ -62,7 +62,7 @@ in {
 
         redis = {
           #url = "unix:///run/redis-searxng/redis.sock?db=0";
-          url = "redis://localhost:6370/0";
+          url = "redis://forgejo@localhost:6370/0";
         };
 
         outgoing = {

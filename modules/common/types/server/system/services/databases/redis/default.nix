@@ -22,14 +22,19 @@ in {
         forgejo = mkIf cfg.forgejo.enable {
           enable = true;
           user = "forgejo";
-          port = 0;
+          port = 6371;
+          databases = 16;
+          logLevel = "debug";
+          requirePass = "forgejo";
         };
 
         searxng = mkIf cfg.searxng.enable {
           enable = true;
           user = "searx";
           port = 6370;
-          unixSocketPerm = 660;
+          databases = 16;
+          logLevel = "debug";
+          requirePass = "searxng";
         };
       };
     };
