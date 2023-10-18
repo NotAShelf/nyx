@@ -24,20 +24,21 @@ in {
       miniflux.enable = mkEnableOption "Miniflux service";
       mastodon.enable = mkEnableOption "Mastodon service";
 
-      # monitoring tools
-      monitoring = {
-        enable = mkEnableOption "system monitoring services" // {default = ifOneEnabled cfg "grafana" "prometheus" "loki";};
-        prometheus.enable = mkEnableOption' "Prometheus monitoring service";
-        grafana.enable = mkEnableOption' "Grafana monitoring service";
-        loki.enable = mkEnableOption' "Loki monitoring service";
-      };
-
       # database backends
       database = {
         mysql.enable = mkEnableOption "MySQL database service";
         mongodb.enable = mkEnableOption "MongoDB service";
         redis.enable = mkEnableOption "Redis service";
         postgresql.enable = mkEnableOption "Postgresql service";
+        garage.enable = mkEnableOption "Garage S3 service";
+      };
+
+      # monitoring tools
+      monitoring = {
+        enable = mkEnableOption "system monitoring services" // {default = ifOneEnabled cfg "grafana" "prometheus" "loki";};
+        prometheus.enable = mkEnableOption' "Prometheus monitoring service";
+        grafana.enable = mkEnableOption' "Grafana monitoring service";
+        loki.enable = mkEnableOption' "Loki monitoring service";
       };
     };
   };

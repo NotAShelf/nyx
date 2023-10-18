@@ -4,5 +4,6 @@ _: {
     ./postgresql
     ./mysql
     ./redis
+    ./garage
   ];
 }
