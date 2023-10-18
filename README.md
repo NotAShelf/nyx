@@ -1,36 +1,39 @@
-<h1 id="nyx" align="center">
-  <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
+<p id="top" align="center">
+    <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="96px" height="96px" />
+</p>
+
+<h1 align="center">
   Nýx
 </h1>
 
 <p align="center">
-  An overengineered NixOS flake containing various configurations <br>
+  An overengineered NixOS flake containing various configurations
 </p>
 
 <h2 id="nyx" align="center">
 <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
+  <br>
   <div align="center">
-   <p></p>
-    <a href="">
-      <img src="https://img.shields.io/github/issues/notashelf/nyx?color=fab387&labelColor=303446&style=for-the-badge">
-    </a>
     <a href="https://github.com/notashelf/nyx/stargazers">
-      <img src="https://img.shields.io/github/stars/notashelf/nyx?color=ca9ee6&labelColor=303446&style=for-the-badge">
+      <img src="https://img.shields.io/github/stars/notashelf/nyx?color=F5BDE6&labelColor=303446&style=for-the-badge&logo=starship&logoColor=F5BDE6">
     </a>
     <a href="https://github.com/notashelf/nyx/">
-      <img src="https://img.shields.io/github/repo-size/notashelf/nyx?color=ea999c&labelColor=303446&style=for-the-badge">
+      <img src="https://img.shields.io/github/repo-size/notashelf/nyx?color=C6A0F6&labelColor=303446&style=for-the-badge&logo=github&logoColor=C6A0F6">
     </a>
     <a href="https://github.com/notashelf/nyx/blob/main/LICENSE">
-      <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&logoColor=ca9ee6&colorA=313244&colorB=cba6f7"/>
+      <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&colorA=313244&colorB=F5A97F&logo=unlicense&logoColor=F5A97F&"/>
     </a>
     <a href="https://liberapay.com/notashelf/donate">
-      <img src="https://img.shields.io/liberapay/patrons/notashelf.svg?logo=liberapay?color=e5c890&labelColor=303446&style=for-the-badge"></a>
+      <img src="https://img.shields.io/liberapay/patrons/notashelf.svg?color=e5c890&labelColor=303446&style=for-the-badge&logo=liberapay&logoColor=E5C890"></a>
     <br>
   </div>
 </h2>
 
+<p id="preview" align="center">
+   <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" /> 
+</p>
 <p align="center">
-   <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" />
+   Screeenshot last updated <b>2023-06-13</b>
 </p>
 
 ## 📦 Overview
@@ -39,6 +42,8 @@
 
 - **Shared Configurations** - Reduces re-used boilerplate code by sharing modules and profiles across hosts.
 - **Fully Modular** - Utilizes NixOS' module system to avoid hardcoding any of the options.
+- **All-in-one** - Servers, desktops, laptops, virtual machines and anything you can think of. Managed in one place.
+- **Detached Homes** - Home-manager configurations are able to be detached for non-NixOS usage
 - **Profiles** - Provides serialized configuration sets for easily changing large portions of configurations with less options.
 - **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides.
 - **Secrets Management** - Manage secrets through Agenix.
@@ -47,8 +52,8 @@
 - **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
 - **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
 - **Encryption Ready** - Supports and actively utilizes full disk encryption.
-- **Declarative Themes** - Using [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
-- **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake has been modularized.
+- **Declarative Themes** - Using my module options, [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
+- **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake is fully modular.
 - **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
 
 ### 📚 Layout
@@ -133,23 +138,6 @@ configs that are shared between multiple devices. All things considered, it is
 an excellent idea to learn Nix (the programming language) and NixOS.
 
 If you are here for my "legacy" Arch Linux dotfiles, you can find them [in here](https://github.com/NotAShelf/dotfiles).
-
-## Donate
-
-Want to support me, or to show gratitude for something (somewhat) nice I did?
-Perhaps consider donating!
-
-<div align="center">
-
-<a href="https://liberapay.com/notashelf/donate">
-   <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
-</a>
-
-<a href="https://ko-fi.com/notashelf">
-   <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on kofi" /> 
-</a>
-
-</div>
 
 ## Credits & Special Thanks to
 
