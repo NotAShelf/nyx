@@ -15,7 +15,7 @@
       add_newline = false;
       scan_timeout = 3;
 
-      format = "[ ](bold green) $hostname$username$hosntame$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$nix_shell${elemsConcatted}\n$character";
+      format = "$hostname$username[ ](bold green) $hosntame$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$nix_shell${elemsConcatted}\n$character";
 
       # configure specific elements
       character = {
@@ -29,7 +29,7 @@
       line_break.disabled = false;
 
       hostname = {
-        format = "@[$hostname](bold blue)";
+        format = "@[$hostname](bold blue) "; # the whitespace at the end is actually important
         ssh_only = true;
         disabled = false;
       };
