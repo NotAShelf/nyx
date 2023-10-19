@@ -16,7 +16,7 @@
 
       system = {
         mainUser = "notashelf";
-        fs = ["btrfs" "vfat" "exfat"];
+        fs = ["vfat" "exfat" "ext4"];
         video.enable = false;
         sound.enable = false;
         bluetooth.enable = false;
@@ -56,13 +56,6 @@
       };
     };
 
-    zramSwap.enable = true;
-    services.openssh.enable = true;
-    users.users.root.openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIABG2T60uEoq4qTZtAZfSBPtlqWs2b4V4O+EptQ6S/ru"
-    ];
-
-    services.btrfs.autoScrub.enable = lib.mkForce false;
     services.smartd.enable = lib.mkForce false;
 
     boot = {
