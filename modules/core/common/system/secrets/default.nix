@@ -75,6 +75,13 @@ in {
         mode = "400";
       };
 
+      garage-env = {
+        file = "${self}/secrets/garage-env.age";
+        mode = "400";
+        owner = "garage";
+        group = "garage";
+      };
+
       searx-secretkey = {
         file = "${self}/secrets/searx-secretkey.age";
         mode = "400";
