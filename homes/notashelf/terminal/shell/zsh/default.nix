@@ -22,6 +22,7 @@ in {
       expireDuplicatesFirst = true;
       ignoreDups = true;
       ignoreSpace = true;
+      ignorePatterns = ["rm *" "pkill *" "kill *"];
     };
 
     dirHashes = {
