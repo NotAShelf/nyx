@@ -16,8 +16,15 @@ in {
 
       mastodon = {
         enable = true;
+        user = "mastodon";
         configureNginx = true;
         localDomain = "social.notashelf.dev";
+
+        redis = {
+          createLocally = false;
+          host = "localhost";
+          port = 6372;
+        };
 
         # configure smtp
         smtp = {

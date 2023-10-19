@@ -19,6 +19,15 @@ in {
           port = 0;
         };
 
+        searxng = mkIf cfg.searxng.enable {
+          enable = true;
+          user = "searx";
+          port = 6370;
+          databases = 16;
+          logLevel = "debug";
+          requirePass = "searxng";
+        };
+
         forgejo = mkIf cfg.forgejo.enable {
           enable = true;
           user = "forgejo";
@@ -28,13 +37,12 @@ in {
           requirePass = "forgejo";
         };
 
-        searxng = mkIf cfg.searxng.enable {
+        mastodon = mkIf cfg.forgejo.enable {
           enable = true;
-          user = "searx";
-          port = 6370;
+          user = "mastodon";
+          port = 6372;
           databases = 16;
           logLevel = "debug";
-          requirePass = "searxng";
         };
       };
     };
