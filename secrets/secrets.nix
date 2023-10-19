@@ -21,6 +21,7 @@ in {
   "vaultwarden-env.age".publicKeys = [enyo helios notashelf];
   "wg-server.age".publicKeys = [enyo helios notashelf];
   "searx-secretkey.age".publicKeys = [enyo helios notashelf];
+  "garage-env.age".publicKeys = [enyo helios notashelf];
 
   # secrets for specific mailserver accounts
   "mailserver-secret.age".publicKeys = [enyo helios notashelf];
