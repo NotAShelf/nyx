@@ -19,6 +19,7 @@ _: {
       mongodb.enable = false;
       redis.enable = true;
       postgresql.enable = true;
+      garage.enable = true;
     };
   };
 }
