@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: let
   neovim = inputs.neovim-flake;
@@ -19,10 +20,16 @@
     rev = "4250c8f3c1307876384e70eeedde5149249e154f";
     hash = "sha256-15DLbKtOgUPq4DcF71jFYu31faDn52k3P1x47GL3+b0=";
   };
+  /*
+  highlight-undo = pkgs.fetchFromGitHub {
+    owner = "tzachar";
+    repo = "highlight-undo.nvim";
+    rev = "50a6884a8476be04ecce8f1c4ed692c5000ef0a1";
+    hash = "sha256:1krkrbj2ahdqcqvngjx05fm4vxvm5f8pia65bs6xww3aas3ivvxy";
+  };
+  */
 in {
-  imports = [
-    neovim.homeManagerModules.default
-  ];
+  imports = [neovim.homeManagerModules.default];
 
   programs.neovim-flake = {
     enable = true;
@@ -43,8 +50,17 @@ in {
           markdown-inline
         ];
 
-        extraPlugins = with pkgs.vimPlugins; {
+        extraPlugins = let
+          inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree;
+        in {
           friendly-snippets = {package = friendly-snippets;};
+
+          /*
+          highlight-undo = {
+            package = highlight-undo;
+            setup = "require('highlight-undo').setup {}";
+          };
+          */
 
           aerial = {
             package = aerial-nvim;
