@@ -7,7 +7,11 @@
   inherit (lib) mkOption mkEnableOption types mdDoc;
   cfg = config.modules.style;
 in {
-  imports = [./gtk.nix ./qt.nix];
+  imports = [
+    ./gtk.nix
+    ./qt.nix
+  ];
+
   options = {
     modules = {
       style = {
@@ -18,7 +22,7 @@ in {
         colorScheme = {
           # "Name Of The Scheme"
           name = mkOption {
-            type = with types; nullOr (enum ["Catppuccin Mocha" "Tokyo Night"]);
+            type = with types; nullOr (enum (import ./palettes.nix));
             description = "The colorscheme that should be used globally to theme your system.";
             default = "Catppuccin Mocha";
           };
@@ -52,6 +56,14 @@ in {
             description = "The size of the cursor";
             default = 24;
           };
+        };
+
+        wallpapers = mkOption {
+          type = with types; (either ((listOf str) str));
+          description = "Wallpaper or wallpapers to use";
+          default = [
+            "${pkgs.catppuccino-wallpapers}/share/backgrounds/catppuccino-mocha.png"
+          ];
         };
       };
     };
