@@ -28,8 +28,8 @@
         ./flake/pkgs # packages exposed by the flake
         ./flake/templates # flake templates # TODO: bash and python
         ./flake/schemas # home-baked schemas for upcoming nix schemas
-        ./flake/treefmt # treefmt configuration
         ./flake/modules # nixos and home-manager modules provided by this flake
+        ./flake/treefmt # treefmt configuration
 
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
         ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devshell
@@ -238,7 +238,7 @@
 
     # Personal neovim-flake
     neovim-flake = {
-      url = "github:NotAShelf/neovim-flake/bash-lsp";
+      url = "github:NotAShelf/neovim-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nil.follows = "nil";
