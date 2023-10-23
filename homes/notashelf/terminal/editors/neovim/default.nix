@@ -164,6 +164,7 @@ in {
         smoothScroll.enable = false;
         cellularAutomaton.enable = false;
         fidget-nvim.enable = true;
+        highlight-undo.enable = true;
 
         indentBlankline = {
           enable = true;
