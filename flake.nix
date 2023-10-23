@@ -9,8 +9,8 @@
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, ...}: {
+      # systems for which the `perSystem` attributes will be built
       systems = [
-        # systems for which you want to build the `perSystem` attributes
         "x86_64-linux"
         "aarch64-linux"
         # and more if they can be supported ...
