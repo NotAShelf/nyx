@@ -1985,11 +1985,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1697929389,
-        "narHash": "sha256-d9RbebM4u0ApRKxu60T9cRNIeZvcpOtdy72czQnrgKs=",
+        "lastModified": 1698039754,
+        "narHash": "sha256-gRmd1Vzsuqz29mKK0IhJMIcc5lm6FAdo7/TFRmcPwW4=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "29de5b56c031eb7e567673d0eea3dade5ecd3688",
+        "rev": "7b175abeb69956e31a7e577b1b31b5adc7ca7ae8",
         "type": "github"
       },
       "original": {
