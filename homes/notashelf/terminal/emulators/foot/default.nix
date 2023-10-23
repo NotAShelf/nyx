@@ -54,7 +54,11 @@ in {
           uri-characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+=\"'()[]";
         };
 
-        colors = import ./presets/${slug}/colors.nix {inherit (config) colorscheme;};
+        colors =
+          {
+            alpha = "0.85";
+          }
+          // (import ./presets/${slug}/colors.nix {inherit (config) colorscheme;});
 
         /*
         colors = {
