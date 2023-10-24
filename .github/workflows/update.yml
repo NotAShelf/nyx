@@ -15,12 +15,13 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Update Lockfile
+        id: update-lock
         uses: DeterminateSystems/update-flake-lock@main
         with:
           pr-title: "CI: bump flake inputs"
 
       - name: Merge Changes
         run: |
-          gh pr merge ${{ steps.update.outputs.pull-request-number }} --squash --delete-branch
+          gh pr merge ${{ steps.update-lock.outputs.pull-request-number }} --squash --delete-branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
