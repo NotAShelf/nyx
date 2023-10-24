@@ -44,6 +44,26 @@
               options = ["NOPASSWD"];
             }
             {
+              command = "/nix/store/*/bin/switch-to-configuration";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/run/current-system/sw/bin/nix-store";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/run/current-system/sw/bin/nix-env";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = ''/bin/sh -c "readlink -e /nix/var/nix/profiles/system || readlink -e /run/current-system"'';
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/run/current-system/sw/bin/nix-collect-garbage";
+              options = ["NOPASSWD"];
+            }
+            {
               # let wheel group collect garbage without password
               command = "/run/current-system/sw/bin/nix-collect-garbage";
               options = ["NOPASSWD"];
