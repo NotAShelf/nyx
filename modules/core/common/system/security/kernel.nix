@@ -4,11 +4,18 @@
   pkgs,
   ...
 }: let
+  inherit (lib) optionals;
+
   sys = config.modules.system;
 in {
   security = {
     protectKernelImage = true;
-    lockKernelModules = false; # breaks virtd, wireguard and iptables
+
+    # breaks virtd, wireguard and iptables by disallowing them from loading
+    # modules during runtime. You may enable this module if you wish, but do
+    # make sure that the necessary modules are loaded declaratively before
+    # doing so. Failing to add those modules may result in an unbootable system!
+    lockKernelModules = false;
 
     # force-enable the Page Table Isolation (PTI) Linux kernel feature
     forcePageTableIsolation = true;
@@ -87,13 +94,16 @@ in {
       "fbcon=nodefer"
     ];
 
-    blacklistedKernelModules =
+    blacklistedKernelModules = lib.concatLists [
+      # Obscure network protocols
       [
-        # Obscure network protocols
         "ax25"
         "netrom"
         "rose"
-        # Old or rare or insufficiently audited filesystems
+      ]
+
+      # Old or rare or insufficiently audited filesystems
+      [
         "adfs"
         "affs"
         "bfs"
@@ -127,11 +137,19 @@ in {
         "qnx6"
         "sysv"
       ]
-      ++ lib.optionals (!sys.security.fixWebcam) [
+
+      # you might possibly want your webcam to work
+      # we whitelsit the module if the system wants
+      # webcam to work
+      (optionals (!sys.security.fixWebcam) [
         "uvcvideo" # this is why your webcam no worky
-      ]
-      ++ lib.optionals (!sys.bluetooth.enable) [
+      ])
+
+      # if bluetooth is enabled, whitelist the module
+      # necessary for bluetooth dongles to work
+      (optionals (!sys.bluetooth.enable) [
         "btusb" # let bluetooth dongles work
-      ];
+      ])
+    ];
   };
 }
