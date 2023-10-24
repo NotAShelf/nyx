@@ -7,7 +7,7 @@
     ...
   }: let
     # configure a general exclude list
-    excludes = ["flake.lock" "r'.+\.age$'"];
+    excludes = ["flake.lock" "r'.+\.age$'" "r'.+\.sh$'"];
 
     # mkHook just defaults failfast to true
     # and sets the description from the name
@@ -16,6 +16,7 @@
         inherit excludes;
         description = "pre-commit hook for ${name}";
         fail_fast = true;
+        verbose = true;
       }
       // prev;
   in {
@@ -30,9 +31,12 @@
         hooks = {
           alejandra = mkHook "Alejandra" {enable = true;};
           actionlint = mkHook "actionlint" {enable = true;};
-          prettier = mkHook "prettier" {enable = true;};
-          editorconfig-checker = mkHook "editorconfig" {enable = false;};
           treefmt = mkHook "treefmt" {enable = true;};
+          prettier = mkHook "prettier" {enable = true;};
+          editorconfig-checker = mkHook "editorconfig" {
+            enable = false;
+            always_run = true;
+          };
         };
 
         # why is this settings.settings.<hook> instead of <hook>.settings?
