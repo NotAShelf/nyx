@@ -7,7 +7,7 @@
 with lib; let
   sys = config.modules.system;
 in {
-  config = mkIf (sys.video.enable) {
+  config = mkIf sys.video.enable {
     hardware = {
       opengl = {
         enable = true;

@@ -5,17 +5,13 @@
   inputs,
   ...
 }: let
-  inherit (lib) mkIf mkDefault;
-  inherit (pkgs.stdenv) hostPlatform;
-
-  isx86Linux = hostPlatform.isLinux && hostPlatform.isx86;
-
+  inherit (lib) mkIf mkDefault isx86Linux;
   cfg = config.modules.system.sound;
-  device = config.modules.device;
+  dev = config.modules.device;
 in {
   imports = [inputs.nix-gaming.nixosModules.pipewireLowLatency];
 
-  config = mkIf (cfg.enable && device.hasSound) {
+  config = mkIf (cfg.enable && dev.hasSound) {
     # enable sound support and media keys if device has sound
     sound = {
       enable = true;
@@ -34,7 +30,7 @@ in {
 
       alsa = {
         enable = true;
-        support32Bit = isx86Linux; # we're on x86 linux, so we can support 32 bit
+        support32Bit = isx86Linux pkgs; # we're on x86 linux, so we can support 32 bit
       };
 
       lowLatency = {
@@ -51,7 +47,7 @@ in {
     hardware.pulseaudio.enable = !config.services.pipewire.enable;
 
     # write bluetooth rules if and only if pipewire is enabled AND the device has bluetooth
-    environment.etc = mkIf (config.services.pipewire.enable && device.hasBluetooth) {
+    environment.etc = mkIf (config.services.pipewire.enable && dev.hasBluetooth) {
       "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
         bluez_monitor.properties = {
           ["bluez5.enable-sbc-xq"] = true,

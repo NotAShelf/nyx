@@ -1,5 +1,6 @@
 {
   # https://github.com/notashelf/nyx
+  # if you're copying this, for whatever reason, please consider
   description = "My NixOS configuration with *very* questionable stability";
 
   outputs = {
