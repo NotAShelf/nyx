@@ -14,7 +14,7 @@
       # this is especially useful if you are using --target-host option in nixos-rebuild switch
       # however it's also a massive security flaw - which is why it should be replaced with the
       # extraRules you will see below
-      wheelNeedsPassword = lib.mkDefault true;
+      wheelNeedsPassword = lib.mkDefault false;
 
       # only allow members of the wheel group to execute sudo
       # by setting the executable’s permissions accordingly
@@ -31,6 +31,7 @@
       # additional sudo rules
       # this is a better approach for making certain commands sudo-less instead of
       # allowing the wheel users to run *anything* without password
+      # FIXME: something is missing, causing the rebuilds to ask for sudo regardless
       extraRules = [
         {
           # allow wheel group to run nixos-rebuild without password
@@ -40,7 +41,7 @@
             {
               # whitelist switch-to-configuration, allows --target-host option
               # to deploy to remote servers without reading password from STDIN
-              command = "/run/current-system/bin/switch-to-configuration";
+              command = "/run/current-system/*/switch-to-configuration";
               options = ["NOPASSWD"];
             }
             {
