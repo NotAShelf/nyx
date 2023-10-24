@@ -1,6 +1,23 @@
 name: Flake Check
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "**.nix"
+      - "**.lock"
+      - ".github/workflows/check.yml"
+      - "!**.sh"
+      - "!.editorconfig"
+      - "!**.md"
+  push:
+    paths:
+      - "**.nix"
+      - "**.lock"
+      - ".github/workflows/check.yml"
+      - "!**.sh"
+      - "!.editorconfig"
+      - "!**.md"
 
 jobs:
   check-flake:
@@ -16,4 +33,4 @@ jobs:
           logger: pretty
 
       - name: Check Flake
-        run: nix flake check
+        run: nix flake check --accept-flake-config
