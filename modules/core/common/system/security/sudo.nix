@@ -20,7 +20,7 @@ in {
       # this is especially useful if you are using --target-host option in nixos-rebuild switch
       # however it's also a massive security flaw - which is why it should be replaced with the
       # extraRules you will see below
-      wheelNeedsPassword = lib.mkDefault true;
+      wheelNeedsPassword = lib.mkDefault false;
 
       # only allow members of the wheel group to execute sudo
       # by setting the executable’s permissions accordingly
