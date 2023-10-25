@@ -20,14 +20,13 @@
     rev = "4250c8f3c1307876384e70eeedde5149249e154f";
     hash = "sha256-15DLbKtOgUPq4DcF71jFYu31faDn52k3P1x47GL3+b0=";
   };
-  /*
-  highlight-undo = pkgs.fetchFromGitHub {
-    owner = "tzachar";
-    repo = "highlight-undo.nvim";
-    rev = "50a6884a8476be04ecce8f1c4ed692c5000ef0a1";
-    hash = "sha256:1krkrbj2ahdqcqvngjx05fm4vxvm5f8pia65bs6xww3aas3ivvxy";
+
+  specs-nvim = pkgs.fetchFromGitHub {
+    owner = "edluffy";
+    repo = "specs.nvim";
+    rev = "2743e412bbe21c9d73954c403d01e8de7377890d";
+    hash = "sha256-mYTzltCEKO8C7BJ3WrB/iFa1Qq1rgJlcjW6NYHPfmPk=";
   };
-  */
 in {
   imports = [neovim.homeManagerModules.default];
 
@@ -51,42 +50,53 @@ in {
         ];
 
         extraPlugins = let
-          inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree;
+          inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree harpoon;
         in {
           friendly-snippets = {package = friendly-snippets;};
+          regexplainer = {package = regexplainer;};
+          specs-nvim = {
+            package = specs-nvim;
+            setup = ''
+              require('specs').setup {
+                show_jumps  = true,
+                ignore_filetypes = {
+                  'NvimTree',
+                  'undotree',
+                },
 
-          /*
-          highlight-undo = {
-            package = highlight-undo;
-            setup = "require('highlight-undo').setup {}";
+                ignore_buftypes = {
+                  nofile = true,
+                },
+              }
+
+              -- toggle specs using the <C-b> keybind
+              vim.api.nvim_set_keymap('n', '<C-b>', ':lua require("specs").show_specs()', { noremap = true, silent = true })
+
+              -- bind specs to navigation keys
+              vim.api.nvim_set_keymap('n', 'n', 'n:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
+              vim.api.nvim_set_keymap('n', 'N', 'N:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
+            '';
           };
-          */
 
           aerial = {
             package = aerial-nvim;
             setup = "require('aerial').setup {}";
           };
 
-          /*
           harpoon = {
             package = harpoon;
             setup = "require('harpoon').setup {}";
             after = ["aerial"];
           };
-          */
 
           nvim-surround = {
             package = nvim-surround;
-            setup = "require('nvim-surround').setup{}";
+            setup = "require('nvim-surround').setup {}";
           };
 
           htms = {
             package = htms;
             after = ["treesitter"];
-          };
-
-          regexplainer = {
-            package = regexplainer;
           };
 
           undotree = {
