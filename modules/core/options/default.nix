@@ -7,5 +7,6 @@ _: {
     ./theme
 
     ./renamed.nix
+    ./removed.nix
   ];
 }
