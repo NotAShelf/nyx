@@ -52,6 +52,14 @@ in {
         drmFix = true;
         disableWebgl = false;
         startPageURL = "file://${./startpage.html}";
+        bookmarks = [
+          {
+            Title = "Nyx";
+            URL = "https://github.com/NotAShelf/nyx";
+            Placement = "toolbar";
+            Folder = "Github";
+          }
+        ];
       };
 
       extensions.extraExtensions = {
@@ -60,15 +68,6 @@ in {
         "sponsorBlocker@ajay.app".install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
         "{446900e4-71c2-419f-a6a7-df9c091e268b}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
       };
-
-      bookmarks = [
-        {
-          Title = "Nyx";
-          URL = "https://github.com/NotAShelf/nyx";
-          Placement = "toolbar";
-          Folder = "Github";
-        }
-      ];
     };
   };
 }
