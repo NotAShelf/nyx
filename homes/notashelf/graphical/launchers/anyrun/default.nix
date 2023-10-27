@@ -57,12 +57,21 @@ in {
 
       extraConfigFiles = {
         "applications.ron".text = ''
-          // Also show the Desktop Actions defined in the desktop files, e.g. "New Window" from LibreWolf
-          desktop_actions: true,
-          max_entries: 10,
-          // The terminal used for running terminal based desktop entries, if left as `None` a static list of terminals is used
-          // to determine what terminal to use.
-          terminal: Some("footclient"),
+          Config(
+            // Also show the Desktop Actions defined in the desktop files, e.g. "New Window" from LibreWolf
+            desktop_actions: true,
+            max_entries: 10,
+            // The terminal used for running terminal based desktop entries, if left as `None` a static list of terminals is used
+            // to determine what terminal to use.
+            terminal: Some("footclient"),
+          )
+        '';
+
+        "randr.ron".text = ''
+          Config(
+            prefix: ":ra",
+            max_entries: 5,
+          )
         '';
 
         "symbols.ron".text = ''
@@ -133,7 +142,7 @@ in {
         }
 
         box#main {
-          background: rgba(30, 30, 46, 0.7);
+          background: rgba(30, 30, 46, 1);
           border: 1px solid #28283d;
           border-radius: 24px;
           padding: 8px;
