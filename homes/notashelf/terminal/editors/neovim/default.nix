@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: let
   neovim = inputs.neovim-flake;
@@ -19,29 +20,74 @@
     rev = "4250c8f3c1307876384e70eeedde5149249e154f";
     hash = "sha256-15DLbKtOgUPq4DcF71jFYu31faDn52k3P1x47GL3+b0=";
   };
+
+  specs-nvim = pkgs.fetchFromGitHub {
+    owner = "edluffy";
+    repo = "specs.nvim";
+    rev = "2743e412bbe21c9d73954c403d01e8de7377890d";
+    hash = "sha256-mYTzltCEKO8C7BJ3WrB/iFa1Qq1rgJlcjW6NYHPfmPk=";
+  };
 in {
-  imports = [
-    neovim.homeManagerModules.default
-  ];
+  imports = [neovim.homeManagerModules.default];
 
   programs.neovim-flake = {
     enable = true;
     settings = {
       vim = {
-        package = pkgs.neovim-unwrapped; # this is the default value, but I can use the nightly overlay on demand
+        package = pkgs.neovim-unwrapped;
         viAlias = true;
         vimAlias = true;
+
         enableEditorconfig = true;
         preventJunkFiles = true;
         enableLuaLoader = true;
+        useSystemClipboard = true;
 
         treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-          lua
+          regex # for regexplainer
           markdown
           markdown-inline
         ];
 
-        extraPlugins = with pkgs.vimPlugins; {
+        extraPlugins = let
+          inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree harpoon;
+        in {
+          friendly-snippets = {package = friendly-snippets;};
+          regexplainer = {package = regexplainer;};
+          specs-nvim = {
+            package = specs-nvim;
+            setup = ''
+              require('specs').setup {
+                show_jumps  = true,
+                popup = {
+                  delay_ms = 0, -- delay before popup displays
+                  inc_ms = 15, -- time increments used for fade/resize effects
+                  blend = 15, -- starting blend, between 0-100 (fully transparent), see :h winblend
+                  width = 10,
+                  winhl = "PMenu",
+                  fader = require('specs').linear_fader,
+                  resizer = require('specs').shrink_resizer
+                },
+
+                ignore_filetypes = {
+                  'NvimTree',
+                  'undotree',
+                },
+
+                ignore_buftypes = {
+                  nofile = true,
+                },
+              }
+
+              -- toggle specs using the <C-b> keybind
+              vim.api.nvim_set_keymap('n', '<C-b>', ':lua require("specs").show_specs()', { noremap = true, silent = true })
+
+              -- bind specs to navigation keys
+              vim.api.nvim_set_keymap('n', 'n', 'n:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
+              vim.api.nvim_set_keymap('n', 'N', 'N:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
+            '';
+          };
+
           aerial = {
             package = aerial-nvim;
             setup = "require('aerial').setup {}";
@@ -55,7 +101,7 @@ in {
 
           nvim-surround = {
             package = nvim-surround;
-            setup = "require('nvim-surround').setup{}";
+            setup = "require('nvim-surround').setup {}";
           };
 
           htms = {
@@ -63,8 +109,12 @@ in {
             after = ["treesitter"];
           };
 
-          regexplainer = {
-            package = regexplainer;
+          undotree = {
+            package = undotree;
+            setup = ''
+              vim.g.undotree_ShortIndicators = true
+              vim.g.undotree_TreeVertShape = '│'
+            '';
           };
         };
 
@@ -83,6 +133,7 @@ in {
         lspSignature.enable = true;
         nvimCodeActionMenu.enable = true;
         trouble.enable = false;
+        nvim-docs-view.enable = true;
       };
 
       vim.debugger.nvim-dap = {
@@ -98,14 +149,20 @@ in {
 
         nix.enable = true;
         html.enable = true;
-        sql.enable = false;
         ts.enable = true;
         go.enable = true;
         python.enable = true;
+        bash.enable = true;
         zig.enable = false;
         dart.enable = false;
         elixir.enable = false;
         svelte.enable = false;
+        sql.enable = false;
+
+        lua = {
+          enable = true;
+          lsp.neodev.enable = true;
+        };
 
         rust = {
           enable = true;
@@ -128,6 +185,7 @@ in {
         smoothScroll.enable = false;
         cellularAutomaton.enable = false;
         fidget-nvim.enable = true;
+        highlight-undo.enable = true;
 
         indentBlankline = {
           enable = true;
@@ -184,11 +242,7 @@ in {
           view = {
             preserveWindowProportions = false;
             cursorline = false;
-            width = {
-              min = 35;
-              max = -1;
-              padding = 1;
-            };
+            width = 35;
           };
 
           renderer = {
@@ -221,7 +275,10 @@ in {
         nvimBufferline.enable = true;
       };
 
-      vim.treesitter.context.enable = true;
+      vim.treesitter = {
+        fold = true;
+        context.enable = true;
+      };
 
       vim.binds = {
         whichKey.enable = true;
@@ -263,6 +320,8 @@ in {
             "package.json"
             "index.*"
             ".anchor"
+            "flake.nix"
+            "index.*"
           ];
         };
       };
@@ -289,8 +348,8 @@ in {
 
       vim.terminal = {
         toggleterm = {
-          mappings.open = "<C-t>";
           enable = true;
+          mappings.open = "<C-t>";
           direction = "tab";
           lazygit = {
             enable = true;

@@ -4,9 +4,7 @@
   lib,
   ...
 }:
-with lib; let
-  cfg = config.modules.device;
-in {
+with lib; {
   config = {
     modules = {
       device = {
@@ -18,6 +16,7 @@ in {
         hasSound = true;
         hasTPM = false;
       };
+
       system = {
         fs = ["ext4" "vfat"];
         video.enable = true;
@@ -27,11 +26,13 @@ in {
         virtualization.enable = false;
         mainUser = "notashelf";
       };
+
       usrEnv = {
         isWayland = false;
         desktop = "Hyprland";
         useHomeManager = true;
       };
+
       programs = {
         git.signingKey = "0x84184B8533918D88";
 

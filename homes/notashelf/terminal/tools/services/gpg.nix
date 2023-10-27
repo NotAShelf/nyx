@@ -10,7 +10,7 @@ in {
     gpg-agent = {
       enable = true;
       pinentryFlavor =
-        if (sys.video.enable)
+        if sys.video.enable
         then "gnome3" # requires services.dbus.packages = [ pkgs.gcr ]
         else "curses";
       enableSshSupport = true;

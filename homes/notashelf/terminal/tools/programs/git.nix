@@ -41,6 +41,7 @@ in {
       };
       ignores = [
         ".cache/"
+        ".ccls-cache/"
         ".idea/"
         "*.swp"
         "*.elc"

@@ -1,4 +1,4 @@
-name: Push built binaries to Cache
+name: Build & Cache Flake Packages
 
 on:
   workflow_dispatch:
@@ -9,23 +9,13 @@ on:
       - .github/**
       - assets/**
       - .gitignore
-
+      - docs/**
+      - README.md
 jobs:
-  build-and-cache:
+  build-installation-images:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        package:
-          - wl-clip-persist
-          - cloneit
-          - fastfetch
-          - rofi-calc-wayland
-          - rofi-emoji-wayland
-          - rat
-          - spotify-wrapped
-
     steps:
-      - uses: easimon/maximize-build-space@v6
+      - uses: easimon/maximize-build-space@v8
         with:
           overprovision-lvm: true
           remove-android: true
@@ -33,10 +23,55 @@ jobs:
           remove-haskell: true
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Cachix
-        uses: cachix/install-nix-action@v20
+        uses: cachix/install-nix-action@v23
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}  github.com=${{ env.ACCESS_TOKEN}}
+            auto-optimise-store = true
+            experimental-features = nix-command flakes
+
+      - name: Cachix setup
+        uses: cachix/cachix-action@v12
+        with:
+          authToken: ${{ secrets.CACHIX_TOKEN }}
+          extraPullNames: nix-community
+          name: notashelf
+
+      - name: Set default git branch (to reduce log spam)
+        run: git config --global init.defaultBranch main
+
+      - name: Build installation media
+        run: nix build .#nixosConfigurations."gaea".config.system.build.toplevel
+
+      - name: Build airtight recovery and maintenance media
+        run: nix build .#nixosConfigurations."erebus".config.system.build.toplevel
+
+  build-and-cache:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - cloneit
+          - rofi-calc-wayland
+          - rofi-emoji-wayland
+
+    steps:
+      - uses: easimon/maximize-build-space@v8
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Cachix
+        uses: cachix/install-nix-action@v23
         with:
           extra_nix_config: |
             auto-optimise-store = true
@@ -44,7 +79,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Cachix setup
-        uses: cachix/cachix-action@v12
+        uses: cachix/cachix-action@v13
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
           extraPullNames: nix-community

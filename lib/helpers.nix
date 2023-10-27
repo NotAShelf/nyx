@@ -1,10 +1,6 @@
 {lib, ...}: let
   inherit (lib) lists mapAttrsToList filterAttrs hasSuffix;
 
-  # assume the first monitor in the list of monitors is primary
-  # get its name from the list of monitors
-  primaryMonitor = config: builtins.elemAt config.modules.device.monitors 0;
-
   # filter files that have the .nix suffix
   filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
 
@@ -15,23 +11,39 @@
     import;
 
   # return an int (1/0) based on boolean value
+  # `boolToNum true` -> 1
   boolToNum = bool:
     if bool
     then 1
     else 0;
 
   # a basic function to fetch a specified user's public keys from github .keys url
+  # `fetchKeys "username` -> "ssh-rsa AAAA...== username@hostname"
   fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
 
   # a helper function that checks if a list contains a list of given strings
+  # `containsStrings { targetStrings = ["foo" "bar"]; list = ["foo" "bar" "baz"]; }` -> true
   containsStrings = {
     list,
     targetStrings,
   }:
     builtins.all (s: builtins.any (x: x == s) list) targetStrings;
 
-  # replace whitespaces with hyphens
+  # indexOf is a function that returns the index of an element in a list
+  # `indexOf ["foo" "bar" "baz"] "bar"` -> 1
+  indexOf = list: elem: let
+    f = f: i:
+      if i == (builtins.length list)
+      then null
+      else if (builtins.elemAt list i) == elem
+      then i
+      else f f (i + 1);
+  in
+    f f 0;
+
+  # function to generate theme slugs from theme names
+  # "A String With Whitespaces" -> "a-string-with-whitespaces"
   serializeTheme = inputString: lib.strings.toLower (builtins.replaceStrings [" "] ["-"] inputString);
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme;
+  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf;
 }

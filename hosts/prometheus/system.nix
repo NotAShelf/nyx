@@ -22,6 +22,7 @@ in {
       system = {
         mainUser = "notashelf";
         fs = ["btrfs" "vfat" "ntfs"];
+        autoLogin = true;
 
         boot = {
           loader = "systemd-boot";
@@ -50,9 +51,9 @@ in {
       usrEnv = {
         isWayland = true;
         desktop = "Hyprland";
-        autologin = true;
         useHomeManager = true;
       };
+
       programs = {
         git.signingKey = "419DBDD3228990BE";
 

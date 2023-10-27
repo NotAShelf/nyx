@@ -1,41 +1,49 @@
-<h1 id="readme" align="center">
-  <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="100px" /> <br>
-  
-  NotAShelf's NixOS Configuration Flake <br>
+<p id="top" align="center">
+    <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="96px" height="96px" />
+</p>
 
-<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
-
-  <div align="center">
-
-  <div align="center">
-   <p></p>
-   <a href="">
-      <img src="https://img.shields.io/github/issues/notashelf/nyx?color=fab387&labelColor=303446&style=for-the-badge">
-   </a>
-   <a href="https://github.com/notashelf/nyx/stargazers">
-      <img src="https://img.shields.io/github/stars/notashelf/nyx?color=ca9ee6&labelColor=303446&style=for-the-badge">
-   </a>
-   <a href="https://github.com/notashelf/nyx/">
-      <img src="https://img.shields.io/github/repo-size/notashelf/nyx?color=ea999c&labelColor=303446&style=for-the-badge">
-   </a>
-   <a href="https://github.com/notashelf/nyx/blob/main/LICENSE">
-    <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&logoColor=ca9ee6&colorA=313244&colorB=cba6f7"/>
-   </a>
-   <a href="https://liberapay.com/notashelf/donate"><img src="https://img.shields.io/liberapay/patrons/notashelf.svg?logo=liberapay?color=e5c890&labelColor=303446&style=for-the-badge"></a>
-   <br>
-</div>
+<h1 align="center">
+  Nýx
 </h1>
 
 <p align="center">
-   <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" />
+  An overengineered NixOS flake containing various configurations
+</p>
+
+<h2 id="nyx" align="center">
+<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
+  <br>
+  <div align="center">
+    <a href="https://github.com/notashelf/nyx/stargazers">
+      <img src="https://img.shields.io/github/stars/notashelf/nyx?color=F5BDE6&labelColor=303446&style=for-the-badge&logo=starship&logoColor=F5BDE6">
+    </a>
+    <a href="https://github.com/notashelf/nyx/">
+      <img src="https://img.shields.io/github/repo-size/notashelf/nyx?color=C6A0F6&labelColor=303446&style=for-the-badge&logo=github&logoColor=C6A0F6">
+    </a>
+    <a href="https://github.com/notashelf/nyx/blob/main/LICENSE">
+      <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=GPL-3&colorA=313244&colorB=F5A97F&logo=unlicense&logoColor=F5A97F&"/>
+    </a>
+    <a href="https://liberapay.com/notashelf/donate">
+      <img src="https://img.shields.io/liberapay/patrons/notashelf.svg?color=e5c890&labelColor=303446&style=for-the-badge&logo=liberapay&logoColor=E5C890"></a>
+    <br>
+  </div>
+</h2>
+
+<p id="preview" align="center">
+   <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" /> 
+</p>
+<p align="center">
+   Screeenshot last updated <b>2023-06-13</b>
 </p>
 
 ## 📦 Overview
 
-### Notable Features
+### 📓 Notable Features
 
 - **Shared Configurations** - Reduces re-used boilerplate code by sharing modules and profiles across hosts.
 - **Fully Modular** - Utilizes NixOS' module system to avoid hardcoding any of the options.
+- **All-in-one** - Servers, desktops, laptops, virtual machines and anything you can think of. Managed in one place.
+- **Detached Homes** - Home-manager configurations are able to be detached for non-NixOS usage
 - **Profiles** - Provides serialized configuration sets for easily changing large portions of configurations with less options.
 - **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides.
 - **Secrets Management** - Manage secrets through Agenix.
@@ -44,54 +52,55 @@
 - **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
 - **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
 - **Encryption Ready** - Supports and actively utilizes full disk encryption.
-- **Declarative Themes** - Using [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
-- **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake has been modularized.
+- **Declarative Themes** - Using my module options, [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
+- **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake is fully modular.
 - **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
 
-### Layout
+### 📚 Layout
 
-- [flake](flake.nix) Ground zero of my system configuration
+- [flake.nix](flake.nix) Ground zero of my system configuration
 - [lib](lib) 📚 Personal library of functions and utilities
-- [parts](parts) ❄️ Individual parts of my flake, powered by flake-parts
-  - [pkgs](pkgs) 📦 Packages exported by my flake
+- [secrets](secrets) 🔒 Agenix secrets
+- [flake](flake) ❄️ Individual parts of my flake, powered by flake-parts
+  - [pkgs](flake/pkgs) 📦 packages exported by my flake
+  - [schemes](flake/schemes) 🪡 home-baked flake schemas for upcoming [flake schemas](https://determinate.systems/posts/flake-schemas)
+  - [templates](flake/templates) 📖 templates for initializing flakes. Provides some language-specific flakes
 - [docs](docs)📑 The documentation for my flake repository
-  - [notes](docs/notes)📝 Notes from tedious or/and underdocumented processes I have gone through
+  - [todo](docs/todo) 📝 My to-do notes
+  - [notes](docs/notes) 📓 Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
 - [homes](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
 - [modules](modules) 🍱 modularized NixOS configurations
-  - [common](modules/common) ⚙️T The common modules imported by all hosts
-    - [core](modules/shared) 🧠 Core NixOS configuration
-    - [options](modules/options) 🔧 Module options consumed by the rest of the flake
-    - [system](modules/system) 💡 A self-made NixOS configuration to dictate system specs
+  - [core](modules/common) ⚙️T The core module that all systems depend on
+    - [common](modules/shared) 🧠 Module configurations shared between hosts
+    - [options](modules/options) 🔧 Definitions for module options used by common modules
+    - [types](modules/types) 💡 A profile-like system that is organized per device type
   - [extra](modules/extra) 🚀 Extra modules that are rarely imported
-    - [server](modules/extra) ☁️ Shared modules for "server" purpose hosts
-    - [desktop](modules/desktop) 🖥️ Shared modules for "desktop" purpose hosts
-    - [virtualization](modules/virtualization) 🪛 Hot-pluggable virtualization module for any host
-    - [hardware](modules/hardware) Home-baked modules for hardware compatibility
-    - [shared](modules/shared) ☁️ Modules that can be consumed by external flakes
-    - [export](modules/export) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
+    - [shared](modules/shared) ☁️ Modules that are both shared for outside consumption, and imported by the flake itself
+    - [exported](modules/exported) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
 - [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
-  - [enyo](hosts/enyo) 🖥️ My desktop computer boasting a full AMD system. Daily workstation.
-  - [prometheus](hosts/prometheus) 💻 My HP Pavillion with a a GTX 1050 and i7-7700hq
-    - [epimetheus](hosts/epimetheus) 💻 The succeeding brother host to Prometheus, with full disk encryption
-  - [hermes](hosts/hermes) 💻 HP Pavillion with Ryzen 7 7730U, has now replaced Epimetheus as my portable workstation
-  - [helios](hosts/helios) ⚡ Hetzner VPS for self-hosting some of my infrastructure
-  - [atlas](hosts/atlas) 🍓 Proof of concept server host that is used by my Raspberry Pi 400
-  - [icarus](hosts/icarus) 💻 My 2014 Lenovo Yoga Ideapad that acts as a portable server and workstation
-  - [erebus](hosts/erebus) 🍱 Air-gapped virtual machine/live-iso configuration for sensitive jobs
-  - [gaea](hosts/gaea) 🌱 Custom iso build to precede all creation
-  - [artemis](hosts/artemis) 🏹 x86_64-linux VM Host for testing
-  - [apollon](hosts/apollon) ⚔️a aarch64-linux VM Host for testing
 
-## Notes
+## 🗒️ Notes
+
+### Disclaimer
+
+> I am not a NixOS _expert_. I am a NixOS _user_.
+
+You _probably_ do not want to copy or base your config off of this repository. It is simply _my_ NixOS configuration, built
+around my personal use cases and interests, containing many abstractions that you will need to figure out. If you do have a question, do feel free to ask
+and I will do my absolute best to answer them as the circumstances (mainly my own knowledge) allow, however, do not expect "support"
+and definitely do not assume this configuration to be following best practices that should be taken as-is.
+
+Do dissect the configurations all you want, take what you need and if you find yourself to
+be excelling somewhere I lack, do feel free to contribute to my atrocities against
+NixOS and everything it stands for. Would be appreciated.
 
 ### Preface
 
-If my configuration appears confusing to you, that is because it is confusing.
-Admitably, I am not yet very well versed in NixOS or the Nix expression language.
-Thus, my configuration is severely limited by my knowledge, despite what my work may
-suggest. While I may not be able to follow best Nix practices, I try to follow a particular
-logic while organizing this configuration. I also attempt to document everything as
-I humanly can.
+If my configuration appears confusing to you, that is because it _is_ confusing
+to anyone who is not me. These are _my_ configurations and naturally, they are designed
+within my sense of what is "logical". Which means it will not make much sense to you.
+If it does, that is great. You may perhaps "audit" my configuration and provide me with suggestions.
+If it does not, well, that is unfortunate, however, you are welcome to ask me when you get stuck.
 
 The resulting configuration was based off of _many_ others which I have linked below.
 If you like anything about this particular repository, you will probaby be interested
@@ -123,39 +132,16 @@ an excellent idea to learn Nix (the programming language) and NixOS.
 
 If you are here for my "legacy" Arch Linux dotfiles, you can find them [in here](https://github.com/NotAShelf/dotfiles).
 
-### Disclaimer
-
-> I am not a NixOS _expert_. I am a NixOS _user_.
-
-You _probably_ do not want to copy or base your config off of this repository. It is simply my NixOS configuration, built
-around my personal use cases and interests, containing many abstractions that you will need to figure out.
-If you do have a question, do feel free to ask and I will do my absolute best to answer them as the circumstances (mainly my own knowledge) allow,
-however, do not expect "support" and definitely do not assume this configuration to be following best practices.
-
-Do dissect the configurations all you want, take what you need and if you find yourself to
-be excelling somewhere I lack, do feel free to contribute to my atrocities against
-NixOS and everything it stands for. Would be appreciated.
-
-_Styling PRs will be rejected because I like my Alejandra, thanks but no thanks._
-
-## Donate
-
-Want to support me, or to show gratitude for something (somewhat) nice I did?
-Perhaps consider donating!
-
-<div align="center">
-
-<a href="https://liberapay.com/notashelf/donate">
-   <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
-</a>
-
-<a href="https://ko-fi.com/notashelf">
-   <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on kofi" /> 
-</a>
-
-</div>
-
 ## Credits & Special Thanks to
+
+### Awesome People
+
+My special thanks go to [fufexan](https://github.com/fufexan) for convincing me to use NixOS
+and sticking around to answer my most stupid and derangedd questions, as well as my atrocious
+abstractions.
+
+And to [sioodmy](https://github.com/sioodmy) which my configuration is initially based on. The
+simplicity of his configuration flake allowed me to take a foothold in the Nix world.
 
 ### System Configurations
 
@@ -168,15 +154,17 @@ Perhaps consider donating!
 [fortuneteller2k](https://github.com/fortuneteller2k) -
 [NobbZ](https://github.com/NobbZ/nixos-config) -
 [ViperML](https://github.com/viperML/dotfiles) -
-[spikespaz](https://github.com/spikespaz/dotfiles)
+[spikespaz](https://github.com/spikespaz/dotfiles) -
+[privatevoid/depot](https://github.com/privatevoid-net/depot)
 
-... and many more
+... and surely there are more, but I tend to forget.
 
 ### Anti-credits
 
 > Pretend I haven't credited those people (but I will, because they are equally awesome)
 
-[n3oney](https://github.com/n3oney)
+[n3oney](https://github.com/n3oney) -
+[gerg-l (bald frog)](https://github.com/gerg-l)
 
 ### Other Cool Resources
 
@@ -196,12 +184,13 @@ Perhaps consider donating!
 
 Additionally, take a look at my [notes](docs/notes) for my notes on specific processes on NixOS.
 
-## License
+## 📜 License
 
-This repository (except for [docs](docs)) is licensed under the [GPL-3.0](LICENSE) license.
-The notes and documentation available in [docs](docs) is licensed under the [CC BY License](docs/LICENSE).
+This repository (except for [anything in docs directory](docs)) is licensed under the [GPL-3.0](LICENSE) license.
+The notes and documentation available in [docs directory](docs) is licensed under the [CC BY License](docs/LICENSE).
 
-If you are directly copying a section of my config, please include a copyright notice at the top of the file. It is not enforced, but would be appreciated.
+If you are directly copying a section of my config, please include a copyright notice at the top of the file.
+It is not enforced, but would be appreciated.
 
 ---
 

@@ -14,29 +14,6 @@
   pointer = config.home.pointerCursor;
   env = osConfig.modules.usrEnv;
   inherit (osConfig.modules.device) monitors;
-  mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
-      if monitor == "DP-1"
-      then "1920x1080@144"
-      else "preferred"
-    },${toString (i * 1920)}x0,1'') monitors);
-
-  mapMonitorsToWs = builtins.concatStringsSep "\n" (
-    builtins.genList (
-      x: ''
-        workspace = ${toString (x + 1)}, monitor:${
-          if (x + 1) <= 5
-          then "${builtins.elemAt monitors 0} ${
-            if (x + 1) == 1
-            then ", default:true"
-            else ""
-          }"
-          else "${builtins.elemAt monitors 1}"
-        }
-
-      ''
-    )
-    10
-  );
 
   terminal =
     if (defaults.terminal == "foot")
@@ -74,6 +51,8 @@ in {
         follow_mouse = 1;
         # do not imitate natural scroll
         touchpad.natural_scroll = "no";
+        # ez numlock enable
+        numlock_by_default = true;
       };
 
       general = {
@@ -89,8 +68,6 @@ in {
 
         # active border color
         "col.active_border" = "0xff${colors.base0F}";
-        "col.group_border_active" = "rgba(88888888)";
-        "col.group_border" = "rgba(00000088)";
 
         # whether to apply the sensitivity to raw input (e.g. used by games where you aim using your mouse)
         apply_sens_to_raw = 0;
@@ -99,13 +76,12 @@ in {
       decoration = {
         # fancy corners
         rounding = 7;
-        multisample_edges = true; # fixes pixelated corners on relatively better monitors, useless on old monitors
 
         # blur
         blur = {
           enabled = true;
-          size = 4;
-          passes = 3;
+          size = 12;
+          passes = 2;
           ignore_opacity = true;
           new_optimizations = 1;
           xray = true;
@@ -118,6 +94,29 @@ in {
         shadow_range = 20;
         shadow_render_power = 5;
         "col.shadow" = "rgba(292c3cee)";
+      };
+
+      group = {
+        # new windows in a group spawn after current or at group tail
+        insert_after_current = true;
+        # focus on the window that has just been moved out of the group
+        focus_removed_window = true;
+
+        "col.border_active" = "rgba(88888888)";
+        "col.border_inactive" = "rgba(00000088)";
+
+        groupbar = {
+          # groupbar stuff
+          # this removes the ugly gradient around grouped windows - which sucks
+          gradients = false;
+          font_size = 14;
+
+          # titles look ugly, and I usually know what I'm looking at
+          render_titles = false;
+
+          # scrolling in the groupbar changes group active window
+          scrolling = true;
+        };
       };
 
       misc = {
@@ -133,11 +132,6 @@ in {
         mouse_move_enables_dpms = true; # enable dpms on mouse/touchpad action
         key_press_enables_dpms = true; # enable dpms on keyboard action
         disable_autoreload = true; # autoreload is unnecessary on nixos, because the config is readonly anyway
-
-        # groupbar stuff
-        # this removes the ugly gradient around grouped windows - which sucks
-        groupbar_titles_font_size = 16;
-        groupbar_gradients = false;
       };
 
       animations = {
@@ -184,12 +178,11 @@ in {
         ''$MOD,F2,exec,run-as-service "${defaults.fileManager}"'' # file manager
         ''$MOD,RETURN,exec,run-as-service "${terminal}"'' # terminal
         ''$MODSHIFT,RETURN,exec,run-as-service "${terminal}"'' # floating terminal (TODO)
-        "$MOD,D,exec, killall rofi || run-as-service $(rofi -show drun)" # application launcher
+        ''$MOD,D,exec, killall rofi || run-as-service $(rofi -show drun)'' # application launcher
         "$MOD,equal,exec, killall rofi || rofi -show calc" # calc plugin for rofi
         "$MOD,period,exec, killall rofi || rofi -show emoji" # emoji plugin for rofi
-
         ''$MOD,R,exec, killall tofi || run-as-service $(tofi-drun --prompt-text "  Run")'' # alternative app launcher
-        "$MODSHIFT,R,exec, killall anyrun || run-as-service $(anyrun)" # alternative application launcher with more features
+        ''$MODSHIFT,R,exec, killall anyrun || run-as-service $(anyrun)'' # alternative application launcher with more features
 
         # window operators
         "$MODSHIFT,Q,killactive," # kill focused window
@@ -294,24 +287,47 @@ in {
       ];
     };
 
-    extraConfig = ''
+    extraConfig = let
+      # divide workspaces between monitors
+      mapMonitorsToWs = builtins.concatStringsSep "\n" (
+        builtins.genList (
+          x: ''
+            workspace = ${toString (x + 1)}, monitor:${
+              if (x + 1) <= 5
+              then "${builtins.elemAt monitors 0} ${
+                if (x + 1) == 1
+                then ", default:true"
+                else ""
+              }"
+              else "${builtins.elemAt monitors 1}"
+            }
+
+          ''
+        )
+        10
+      );
+
+      # generate monitor config strings
+      mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
+          if monitor == "DP-1"
+          then "1920x1080@144"
+          else "preferred"
+        }, ${toString (i * 1920)}x0,1'')
+      monitors);
+    in ''
       # generate a list of monitors automatically, like so
-      # monitor=HDMI-A-1,preferred,0x0,1
+      #monitor=HDMI-A-1,preferred,0x0,1
       # monitor=DP-1,preferred,1920x0,1
       ${mapMonitors}
 
-      # if I have a second monitor, then workspaces can be divided between both monitors
-      # P.S. I really don't know what I will do if I get a third monitor
+      # if I have a second monitor, indicated by the element count of the monitors list, divide the workspaces
+      # inbetween two workspaces -> 1-5 on mon1 and 6-10 on mon2
       # if not, then don't divide workspaces
-      # Q: why not use the split-monitor-workspaces plugin
-      # Â: not what I need, nor what I want
+      # P.S. I really don't know what I will do if I get a third monitor
       ${lib.optionalString (builtins.length monitors != 1) "${mapMonitorsToWs}"}
-
-
 
       # a submap for resizing windows
       bind = $MOD, S, submap, resize # enter resize window to resize the active window
-
       submap=resize
       binde=,right,resizeactive,10 0
       binde=,left,resizeactive,-10 0
@@ -327,8 +343,7 @@ in {
 
       # and mod + [shift +] {1..10} to [move to] ws {1..10}
       ${
-        builtins.concatStringsSep
-        "\n"
+        builtins.concatStringsSep "\n"
         (builtins.genList (
             x: let
               ws = let
@@ -342,7 +357,6 @@ in {
           )
           10)
       }
-
     '';
   };
 }

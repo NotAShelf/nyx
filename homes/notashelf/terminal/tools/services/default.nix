@@ -6,7 +6,7 @@ _: {
   ];
   config = {
     services = {
-      udiskie.enable = true;
+      udiskie.enable = false;
     };
   };
 }

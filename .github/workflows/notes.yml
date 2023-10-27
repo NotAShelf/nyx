@@ -1,4 +1,4 @@
-name: Serve Static Website
+name: Serve Static Notes
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download Go Binary
         run: |
@@ -53,6 +53,7 @@ jobs:
           # make the binary executable:with
           chmod +x docr
 
+          # write my installer's settings
           cat > settings.json <<EOF
           {
             "githubUsername": "NotAShelf",

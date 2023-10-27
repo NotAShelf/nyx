@@ -24,7 +24,7 @@ in {
     exclusive = true;
     modules-left = [
       "custom/search"
-      "wlr/workspaces"
+      "hyprland/workspaces"
       "custom/lock"
       "backlight"
       "battery"
@@ -34,8 +34,8 @@ in {
     modules-center = [];
     modules-right = [
       "cpu"
-      (optionalString (sys.bluetooth.enable) "bluetooth")
-      (optionalString (cfg.gaming.enable) "gamemode")
+      (optionalString sys.bluetooth.enable "bluetooth")
+      "gamemode"
       "pulseaudio"
       "network"
       "custom/swallow"
@@ -43,7 +43,7 @@ in {
       "custom/power"
     ];
 
-    "wlr/workspaces" = let
+    "hyprland/workspaces" = let
       hyprctl = config.wayland.windowManager.hyprland.package + "/bin/hyprctl";
     in {
       on-click = "activate";
@@ -63,19 +63,6 @@ in {
         "8" = "八";
         "9" = "九";
         "10" = "十";
-      };
-
-      persistent_workspaces = {
-        "1" = ["HDMI-A-1" "DP-1"];
-        "2" = ["HDMI-A-1" "DP-1"];
-        "3" = ["HDMI-A-1" "DP-1"];
-        "4" = ["HDMI-A-1" "DP-1"];
-        "5" = ["HDMI-A-1" "DP-1"];
-        "6" = ["HDMI-A-1" "DP-1"];
-        "7" = ["HDMI-A-1" "DP-1"];
-        "8" = ["HDMI-A-1" "DP-1"];
-        "9" = ["HDMI-A-1" "DP-1"];
-        "10" = ["HDMI-A-1" "DP-1"];
       };
     };
 

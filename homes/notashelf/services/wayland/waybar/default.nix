@@ -3,6 +3,7 @@
   lib,
   config,
   osConfig,
+  inputs',
   ...
 }:
 with lib; let
@@ -19,7 +20,7 @@ in {
     programs.waybar = {
       enable = true;
       systemd.enable = true;
-      package = pkgs.waybar;
+      package = inputs'.waybar.packages.default;
       settings = waybar_config;
       style = waybar_style;
     };

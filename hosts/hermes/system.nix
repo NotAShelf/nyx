@@ -15,7 +15,6 @@ in {
         hasBluetooth = true;
         hasSound = true;
         hasTPM = true;
-        yubikeySupport.enable = true;
       };
       system = {
         mainUser = "notashelf";
@@ -23,6 +22,7 @@ in {
         impermanence.root.enable = true;
 
         boot = {
+          secureBoot = false;
           plymouth.enable = true;
           loader = "systemd-boot";
           enableKernelTweaks = true;
@@ -30,6 +30,14 @@ in {
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
         };
+
+        encryption = {
+          enable = true;
+          device = "enc";
+        };
+
+        yubikeySupport.enable = true;
+        autoLogin = true;
 
         video.enable = true;
         sound.enable = true;
@@ -44,22 +52,23 @@ in {
 
         security = {
           fixWebcam = false;
-          secureBoot = false;
+          lockModules = true;
         };
 
         virtualization = {
-          enable = false;
-          docker.enable = false;
+          enable = true;
+          docker.enable = true;
           qemu.enable = false;
           podman.enable = false;
         };
       };
+
       usrEnv = {
         isWayland = true;
         desktop = "Hyprland";
-        autologin = true;
         useHomeManager = true;
       };
+
       programs = {
         git.signingKey = "0x02D1DD3FA08B6B29";
 

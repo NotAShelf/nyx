@@ -13,14 +13,16 @@
         hasBluetooth = true;
         hasSound = true;
         hasTPM = true;
-        yubikeySupport.enable = true;
       };
 
       system = {
         mainUser = "notashelf";
         fs = ["btrfs" "vfat" "ntfs" "exfat"];
+        autoLogin = true;
+
         boot = {
           loader = "systemd-boot";
+          secureBoot = false;
           kernel = pkgs.linuxPackages_xanmod_latest;
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
@@ -31,6 +33,8 @@
             withThemes = false;
           };
         };
+
+        yubikeySupport.enable = true;
 
         video.enable = true;
         sound.enable = true;
@@ -50,9 +54,10 @@
         };
 
         security = {
-          secureBoot = false;
           tor.enable = true;
           fixWebcam = false;
+          lockModules = true;
+          auditd.enable = true;
         };
       };
 
@@ -60,7 +65,6 @@
         isWayland = true;
         desktop = "Hyprland";
         useHomeManager = true;
-        autologin = true;
       };
 
       programs = {
@@ -84,12 +88,13 @@
 
     fileSystems = {
       "/".options = ["compress=zstd" "noatime"];
-      "/home".options = ["compress=zstd"];
       "/nix".options = ["compress=zstd" "noatime"];
+      "/var/log".options = ["compress=zstd" "noatime"];
+      "/home".options = ["compress=zstd"];
     };
 
     console.earlySetup = true;
 
-    services.syncthing.enable = true;
+    services.syncthing.enable = false;
   };
 }

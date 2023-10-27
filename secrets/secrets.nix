@@ -21,11 +21,13 @@ in {
   "vaultwarden-env.age".publicKeys = [enyo helios notashelf];
   "wg-server.age".publicKeys = [enyo helios notashelf];
   "searx-secretkey.age".publicKeys = [enyo helios notashelf];
+  "garage-env.age".publicKeys = [enyo helios notashelf];
 
   # secrets for specific mailserver accounts
   "mailserver-secret.age".publicKeys = [enyo helios notashelf];
-  "mailserver-gitea-secret.age".publicKeys = [enyo helios notashelf];
+  "mailserver-forgejo-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-vaultwarden-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-matrix-secret.age".publicKeys = [enyo helios notashelf];
   "mailserver-cloud-secret.age".publicKeys = [enyo helios notashelf];
+  "mailserver-noreply-secret.age".publicKeys = [enyo helios notashelf];
 }

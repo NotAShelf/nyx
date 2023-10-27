@@ -5,20 +5,28 @@
   ...
 }: let
   inherit (self) inputs;
+
+  # mkNixosIso and mkNixosSystem are my own builders for assembling a nixos system
   inherit (lib) concatLists mkNixosIso mkNixosSystem;
 
+  ## flake inputs ##
+  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
+  agenix = inputs.agenix.nixosModules.default; # secret encryption via age
+  hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
+
+  # serializing the modulePath to a variable
+  # this is incase the modulePath changes depth (i.e modules becomes nixos/modules)
   modulePath = ../modules;
 
   # common modules, to be shared across all systems
-  commonModules = modulePath + /common; # the path where common modules reside
-  options = commonModules + /options; # the module that provides the options for my system configuration
-  core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
-  server = commonModules + /types/server; # for devices that are of the server type - provides online services
-  laptop = commonModules + /types/laptop; # for devices that are of the laptop type - provides power optimizations
-  workstation = commonModules + /types/workstation; # for devices that are of workstation type - any device that is for daily use
-  # TODO: desktop
+  coreModules = modulePath + /core; # the path where common modules reside
+  options = coreModules + /options; # the module that provides the options for my system configuration
+  common = coreModules + /common; # the self-proclaimed sane defaults for all my systems
+  workstation = coreModules + /types/workstation; # for devices that are of workstation type - any device that is for daily use
+  server = coreModules + /types/server; # for devices that are of the server type - provides online services
+  laptop = coreModules + /types/laptop; # for devices that are of the laptop type - provides power optimizations
 
-  # extra modules, likely optional but possibly critical
+  # extra modules - optional but likely critical to a successful build
   extraModules = modulePath + /extra; # the path where extra modules reside
   sharedModules = extraModules + /shared; # the path where shared modules reside
 
@@ -29,18 +37,13 @@
   homesDir = ../homes; # home-manager configurations for hosts that need home-manager
   homes = [hm homesDir]; # combine hm flake input and the home module to be imported together
 
-  ## flake inputs ##
-  hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
-  agenix = inputs.agenix.nixosModules.default; # secret encryption via age
-  hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
-
   # a list of shared modules that ALL systems need
   shared = [
-    core # the "sane" default shared across systems
-    agenix # age encryption for secrets
-    sharedModules # consume my flake's own nixosModules
+    common # the "sane" default shared across systems
     profiles # a profile module to provide configuration sets per demand
     options # provide options for defined modules across the system
+    sharedModules # consume my flake's own nixosModules
+    agenix # age encryption for secrets
   ];
 
   # extraSpecialArgs that all hosts need
@@ -157,8 +160,8 @@ in {
     specialArgs = sharedArgs;
   };
 
-  # Live recovery environment that overrides some default programs
-  # and fixes keymap for me
+  # Self-made live recovery environment that overrides or/and configures certain default programs
+  # provides tools and fixes the keymaps for my keyboard
   gaea = mkNixosIso {
     system = "x86_64-linux";
     modules = [
@@ -169,6 +172,7 @@ in {
   };
 
   # an air-gapped nixos liveiso to deal with yubikeys
+  # isolated from all networking
   erebus = mkNixosIso {
     inherit withSystem;
     system = "x86_64-linux";
@@ -178,7 +182,6 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
-  /*
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
   artemis = mkNixosSystem {
@@ -193,7 +196,8 @@ in {
     specialArgs = sharedArgs;
   };
 
-  # Apollon is aarch64-linux
+  # Apollon is also x86_64-linux
+  # but is for testing server-specific services
   apollon = mkNixosSystem {
     inherit withSystem;
     system = "aarch64-linux";
@@ -201,9 +205,9 @@ in {
       [
         {networking.hostName = "apollon";}
         ./apollon
+        server
       ]
       ++ shared;
     specialArgs = sharedArgs;
   };
-  */
 }

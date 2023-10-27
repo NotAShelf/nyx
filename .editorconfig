@@ -14,12 +14,16 @@ indent_style = space
 indent_size = 2
 trim_trailing_whitespace = false
 
+[*.sh]
+indent_style = space
+indent_size = 2
+
 [*.{nix,yml,yaml}]
 indent_style = space
 indent_size = 2
 tab_width = 2
 
-[*.{diff,patch}]
+[*.{diff,patch,age}]
 end_of_line = unset
 insert_final_newline = unset
 trim_trailing_whitespace = unset

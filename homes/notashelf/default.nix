@@ -1,5 +1,4 @@
 {
-  inputs,
   self,
   lib,
   ...
@@ -8,8 +7,10 @@
 in {
   imports = [
     # imported home-manager modules
-    self.homeManagerModules.xplr
-    self.homeManagerModules.gtklock
+    self.homeManagerModules.gtklock # a home-manager module for gtklock, gotta upstream it eventually
+
+    # development related tools and packages
+    ./dev
 
     # home package sets
     ./packages

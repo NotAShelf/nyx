@@ -6,6 +6,7 @@
     Install.WantedBy = ["graphical-session.target"];
   };
 
+  # make a service that is a part of the hyprland session target
   mkHyprlandService = lib.recursiveUpdate {
     Unit.PartOf = ["graphical-session.target"];
     Unit.After = ["graphical-session.target"];

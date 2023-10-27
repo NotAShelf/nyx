@@ -20,13 +20,20 @@ in {
       system = {
         mainUser = "notashelf";
         fs = ["btrfs" "ext4" "vfat"];
+        autoLogin = true;
 
         boot = {
+          secureBoot = false;
           loader = "systemd-boot";
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
+        };
+
+        encryption = {
+          enable = true;
+          device = "enc";
         };
 
         video.enable = true;
@@ -41,7 +48,6 @@ in {
 
         security = {
           fixWebcam = false;
-          secureBoot = false;
         };
 
         virtualization = {
@@ -54,9 +60,9 @@ in {
       usrEnv = {
         isWayland = true;
         desktop = "Hyprland";
-        autologin = true;
         useHomeManager = true;
       };
+
       programs = {
         git.signingKey = "0x05A3BD53FEB32B81";
 
