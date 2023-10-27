@@ -4,29 +4,37 @@
   pkgs,
   inputs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf makeBinPath optionalString;
+  env = config.modules.usrEnv;
+
   programs = makeBinPath (with pkgs; [
-    inputs.hyprland.packages.${pkgs.system}.default
-    pkgs.coreutils
-    pkgs.power-profiles-daemon
+    inputs.hyprland.packages.${stdenv.system}.default
+    coreutils
+    power-profiles-daemon
     systemd
   ]);
 
   startscript = pkgs.writeShellScript "gamemode-start" ''
-    export PATH=$PATH:${programs}
-    export HYPRLAND_INSTANCE_SIGNATURE=$(ls -w1 /tmp/hypr | tail -1)
-    hyprctl --batch 'keyword decoration:blur 0 ; keyword animations:enabled 0 ; keyword misc:vfr 0'
-    powerprofilesctl set performance
-    ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations activated'
+    ${optionalString (env.desktop == "Hyprland") ''
+      export PATH=$PATH:${programs}
+      export HYPRLAND_INSTANCE_SIGNATURE=$(ls -w1 /tmp/hypr | tail -1)
+      hyprctl --batch 'keyword decoration:blur 0 ; keyword animations:enabled 0 ; keyword misc:vfr 0'
+    ''}
+
+      powerprofilesctl set performance
+      ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations activated'
   '';
 
   endscript = pkgs.writeShellScript "gamemode-end" ''
-    export PATH=$PATH:${programs}
-    export HYPRLAND_INSTANCE_SIGNATURE=$(ls -w1 /tmp/hypr | tail -1)
-    hyprctl --batch 'keyword decoration:blur 1 ; keyword animations:enabled 1 ; keyword misc:vfr 1'
-    powerprofilesctl set balanced
-    ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
+    ${optionalString (env.desktop == "Hyprland") ''
+      export PATH=$PATH:${programs}
+      export HYPRLAND_INSTANCE_SIGNATURE=$(ls -w1 /tmp/hypr | tail -1)
+      hyprctl --batch 'keyword decoration:blur 1 ; keyword animations:enabled 1 ; keyword misc:vfr 1'
+    ''}
+
+      powerprofilesctl set balanced
+      ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
   '';
 
   cfg = config.modules.programs;
