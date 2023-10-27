@@ -2,14 +2,13 @@
   config,
   lib,
   pkgs,
-  inputs',
   ...
 }: let
   sys = config.modules.system;
   env = config.modules.usrEnv;
   inherit (lib) mkForce mkIf;
 in {
-  config = mkIf (sys.video.enable) {
+  config = mkIf sys.video.enable {
     xdg.portal = {
       enable = true;
 
