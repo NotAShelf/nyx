@@ -1,11 +1,11 @@
 {
   lib,
   pkgs,
-  python3,
+  python3Packages,
   fetchFromGitHub,
   fetchPypi,
 }:
-python3.pkgs.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "mov-cli";
   version = "1.5.1";
   format = "pyproject";
@@ -17,14 +17,14 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-ixv9guHfXy1kQbpAWAVwPtpxX5IwAQ8CQ2hvhM7sewg=";
   };
 
-  propagatedBuildInputs = [
-    pkgs.python310Packages.poetry-core
-    pkgs.python310Packages.pycryptodome
-    pkgs.python310Packages.lxml
-    pkgs.python310Packages.six
-    pkgs.python310Packages.beautifulsoup4
-    pkgs.python310Packages.tldextract
-    (pkgs.python310Packages.httpx.overrideAttrs (_old: {
+  propagatedBuildInputs = with python3Packages; [
+    poetry-core
+    pycryptodome
+    lxml
+    six
+    beautifulsoup4
+    tldextract
+    (python3Packages.httpx.overrideAttrs (_old: {
       src = fetchFromGitHub {
         owner = "encode";
         repo = "httpx";
@@ -33,7 +33,7 @@ python3.pkgs.buildPythonPackage rec {
       };
     }))
     (
-      python3.pkgs.buildPythonPackage rec {
+      python3Packages.buildPythonPackage rec {
         pname = "krfzf_py";
         version = "0.0.4";
         src = fetchPypi {
