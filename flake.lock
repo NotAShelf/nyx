@@ -1931,11 +1931,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1698373499,
-        "narHash": "sha256-sJnBvszvbYHOjJJ0lUHYyFekUWSI56g4oeqdexMOI5Q=",
+        "lastModified": 1698388524,
+        "narHash": "sha256-Gxb6cUMP721UBuhOFEduwZp05T5D+Bs1Je7n3EriCN8=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "197de16a07434104eea6afad2d25abf257d63bc2",
+        "rev": "a338e4bf9f64091efc51e015b3698eab0697b7b1",
         "type": "github"
       },
       "original": {
