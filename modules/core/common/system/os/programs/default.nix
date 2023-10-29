@@ -4,13 +4,14 @@
   ...
 }: {
   programs = {
+    # starship prompt
     bash = {
       promptInit = ''
         eval "$(${lib.getExe pkgs.starship} init bash)"
       '';
     };
+
     # less pager
-    # TODO: package moar for nix
     less.enable = true;
 
     # home-manager is quirky as ever, and wants this to be set in system config
