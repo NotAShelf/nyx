@@ -1,6 +1,14 @@
-# this ABSOLUTELY needs a nixos module
-{self', ...}: {
-  config = {
+{
+  config,
+  lib,
+  self',
+  ...
+}: let
+  inherit (lib) mkIf;
+
+  sys = config.modules.system;
+in {
+  config = mkIf sys.services.reposilite.enable {
     services.reposilite = {
       enable = true;
       package = self'.packages.reposilite;

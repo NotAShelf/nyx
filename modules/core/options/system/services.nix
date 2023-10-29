@@ -23,6 +23,7 @@ in {
       searxng.enable = mkEnableOption "Searxng service";
       miniflux.enable = mkEnableOption "Miniflux service";
       mastodon.enable = mkEnableOption "Mastodon service";
+      reposilite.enable = mkEnableOption "Repeosilite service";
 
       # database backends
       database = {

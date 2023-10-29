@@ -1,7 +1,10 @@
 _: {
   imports = [
-    ./databases # mariadb and redis, mongo refuses to build
+    # essentials
+    ./databases # mysql, postgreqsl, redis and more
     ./nginx # nginx webserver
+
+    # other services
     ./forgejo # lightweight git service, fork of gitea
     ./nextcloud # cloud storage (not a backup solution)
     ./wireguard # vpn server - works but I cannot get my system to us the wireguard interface
@@ -12,7 +15,10 @@ _: {
     ./jellyfin # media server
     ./tor # tor relay
     ./searxng # searx search engine
-    ./mkm # holy fuck
     ./mastodon # decentralized social
+    ./reposilite # self-hosted maven repository
+
+    # misc
+    ./mkm # holy fuck
   ];
 }
