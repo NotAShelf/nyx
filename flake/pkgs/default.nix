@@ -20,6 +20,7 @@ _: {
       rat = pkgs.callPackage ./rat.nix {};
       foot-transparent = pkgs.callPackage ./foot-transparent.nix {};
       present = pkgs.callPackage ./present.nix {};
+      reposilite = pkgs.callPackage ./reposilite.nix {};
     };
   };
 }
