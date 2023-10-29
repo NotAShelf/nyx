@@ -113,15 +113,15 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
 
-    # Home Manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Home Manager
+    home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -173,12 +173,26 @@
     };
 
     # guess what this does
+    # come on, try
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
       };
+    };
+
+    # sandbox wrappers for programs
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
+    # This exists, I guess
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
     };
 
     # Impermanence
@@ -283,10 +297,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    /*
+    nix flake for the prism launcher, provides more up-to-date packages than nixpkgs
+    the inputs section below is to avoid cluttering system with more inputs than necessary
+    which prismlauncher has a heck ton of
+    https://github.com/PrismLauncher/PrismLauncher/blob/develop/flake.nix#L4
+    */
+    prism-launcher = {
+      url = "github:PrismLauncher/PrismLauncher";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
     # schizophrenic firefox configuration
     schizofox = {
       url = "github:schizofox/schizofox";
-      # url = "/home/notashelf/Dev/Schizofox/schizofox";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -294,43 +323,18 @@
       };
     };
 
-    # sandbox wrappers for programs
-    nixpak = {
-      url = "github:nixpak/nixpak";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-
     # mailserver on nixos
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
     # Hyprland & Hyprland Contrib repos
     hyprland.url = "github:hyprwm/Hyprland";
-
-    xdg-portal-hyprland = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      #inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      #inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
 
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # This exists, I guess
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
     };
   };
 
