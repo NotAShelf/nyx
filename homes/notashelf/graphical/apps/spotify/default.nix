@@ -27,8 +27,8 @@ in {
         new-releases
       ];
 
-      theme = spicePkgs.themes.catppuccin-mocha;
-      colorScheme = "flamingo";
+      theme = spicePkgs.themes.catppuccin;
+      colorScheme = "mocha";
 
       enabledExtensions = with spicePkgs.extensions; [
         fullAppDisplay
