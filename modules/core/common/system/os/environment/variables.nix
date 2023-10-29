@@ -8,6 +8,7 @@ _: {
     # editors
     EDITOR = "nvim";
     VISUAL = "nvim";
+    SUDO_EDITOR = "nvim";
 
     # pager stuff
     SYSTEMD_PAGERSECURE = "true";
