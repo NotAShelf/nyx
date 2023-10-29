@@ -66,16 +66,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Cachix
-        uses: cachix/install-nix-action@v23
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
         with:
-          extra_nix_config: |
-            auto-optimise-store = true
-            experimental-features = nix-command flakes
-          nix_path: nixpkgs=channel:nixos-unstable
+          logger: pretty
 
       - name: Cachix setup
-        uses: cachix/cachix-action@v13
+        uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
           extraPullNames: nix-community
