@@ -8,6 +8,7 @@ _: {
     wireguard.enable = true;
     searxng.enable = true;
     mastodon.enable = true;
+    reposilite.enable = true;
 
     monitoring = {
       grafana.enable = true;
