@@ -4,7 +4,7 @@
   self',
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf sslTemplate;
 
   sys = config.modules.system;
 in {
@@ -12,14 +12,27 @@ in {
     services.reposilite = {
       enable = true;
       package = self'.packages.reposilite;
+      openFirewall = true;
 
       settings = {
-        user = "reposilite";
-        group = "reposilite";
-
         port = 8084;
         dataDir = "/srv/storage/reposilite";
+
+        user = "reposilite";
+        group = "reposilite";
       };
+    };
+
+    services.nginx.virtualHosts = {
+      "repo.notashelf.dev" =
+        {
+          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.reposilite.settings.port}";
+          extraConfig = ''
+            access_log /var/log/nginx/reverse-access.log;
+            error_log /var/log/nginx/reverse-error.log;
+          '';
+        }
+        // sslTemplate;
     };
   };
 }

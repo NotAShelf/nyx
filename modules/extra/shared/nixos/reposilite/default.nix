@@ -16,18 +16,6 @@ in {
       description = "Package to install";
     };
 
-    user = mkOption {
-      type = types.str;
-      default = "reposilite";
-      description = "User to run reposilite as";
-    };
-
-    group = mkOption {
-      type = types.str;
-      default = "reposilite";
-      description = "Group to run reposilite as";
-    };
-
     openFirewall = mkOption {
       type = types.bool;
       default = false;
@@ -46,6 +34,18 @@ in {
         default = "/var/lib/reposilite";
         description = "Working directory";
       };
+
+      user = mkOption {
+        type = types.str;
+        default = "reposilite";
+        description = "User to run reposilite as";
+      };
+
+      group = mkOption {
+        type = types.str;
+        default = "reposilite";
+        description = "Group to run reposilite as";
+      };
     };
   };
 
@@ -60,9 +60,7 @@ in {
       }
     ];
 
-    environment.systemPackages = [
-      cfg.package
-    ];
+    environment.systemPackages = [cfg.package];
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
       cfg.settings.port
@@ -70,12 +68,12 @@ in {
 
     users = {
       groups.reposilite = {
-        name = "reposilite";
+        name = cfg.settings.group;
       };
 
       users.reposilite = {
-        group = "reposilite";
-        home = cfg.dataDir;
+        group = cfg.settings.user;
+        home = cfg.settings.dataDir;
         isSystemUser = true;
         createHome = true;
       };
@@ -84,12 +82,20 @@ in {
     systemd.services."reposilite" = {
       description = "Reposilite - Maven repository";
       wantedBy = ["multi-user.target"];
-      script = ''
-        ${getExe cfg.package} --working-directory "${cfg.settings.dataDir}" --port "${toString cfg.port}"
+      script = let
+        inherit (cfg.settings) dataDir port;
+      in ''
+        ${getExe cfg.package} --working-directory "${dataDir}" --port "${toString port}"
       '';
 
       serviceConfig = {
-        inherit (cfg) user group;
+        inherit (cfg.settings) user group;
+
+        WorkingDirectory = cfg.settings.dataDir;
+        SuccessExitStatus = 0;
+        TimeoutStopSec = 10;
+        Restart = "on-failure";
+        RestartSec = 5;
       };
     };
   };
