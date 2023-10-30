@@ -158,6 +158,7 @@ in {
         elixir.enable = false;
         svelte.enable = false;
         sql.enable = false;
+        java.enable = true;
 
         lua = {
           enable = true;
