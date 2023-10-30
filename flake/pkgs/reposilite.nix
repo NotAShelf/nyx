@@ -31,6 +31,7 @@ in
       description = "A lightweight repository manager for Maven artifacts";
       homepage = "https://reposilite.com";
       license = lib.licenses.asl20;
+      mainPackage = "reposilite";
       maintainers = with lib.maintainers; [NotAShelf];
     };
   }
