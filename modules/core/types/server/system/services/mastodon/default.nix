@@ -17,6 +17,7 @@ in {
       mastodon = {
         enable = true;
         user = "mastodon";
+
         configureNginx = true;
         localDomain = "social.notashelf.dev";
 
@@ -24,6 +25,13 @@ in {
           createLocally = false;
           host = "localhost";
           port = 6372;
+        };
+
+        database = {
+          createLocally = true;
+          host = "/run/postgresql";
+          name = "mastodon";
+          user = "mastodon";
         };
 
         # configure smtp
