@@ -12,17 +12,6 @@ in {
     networking.firewall.allowedTCPPorts = [config.services.grafana.settings.server.http_port];
 
     services = {
-      postgresql = {
-        enable = true;
-        ensureDatabases = ["grafana"];
-        ensureUsers = [
-          {
-            name = "grafana";
-            ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
-          }
-        ];
-      };
-
       grafana = {
         enable = true;
         settings = {
