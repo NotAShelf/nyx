@@ -16,6 +16,18 @@ in {
       description = "Package to install";
     };
 
+    user = mkOption {
+      type = types.str;
+      default = "reposilite";
+      description = "User to run reposilite as";
+    };
+
+    group = mkOption {
+      type = types.str;
+      default = "reposilite";
+      description = "Group to run reposilite as";
+    };
+
     openFirewall = mkOption {
       type = types.bool;
       default = false;
@@ -33,18 +45,6 @@ in {
         type = types.path;
         default = "/var/lib/reposilite";
         description = "Working directory";
-      };
-
-      user = mkOption {
-        type = types.str;
-        default = "reposilite";
-        description = "User to run reposilite as";
-      };
-
-      group = mkOption {
-        type = types.str;
-        default = "reposilite";
-        description = "Group to run reposilite as";
       };
     };
   };
@@ -85,7 +85,7 @@ in {
       description = "Reposilite - Maven repository";
       wantedBy = ["multi-user.target"];
       script = ''
-        ${getExe cfg.package} --working-directory "${cfg.dataDir}" --port "${toString cfg.port}"
+        ${getExe cfg.package} --working-directory "${cfg.settings.dataDir}" --port "${toString cfg.port}"
       '';
 
       serviceConfig = {
