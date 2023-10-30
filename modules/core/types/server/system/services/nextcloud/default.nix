@@ -27,16 +27,12 @@ in {
       nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
-        caching.redis = true;
-        extraOptions = {
-          redis = {
-            host = "/run/redis-default/redis.sock";
-            dbindex = 0;
-            timeout = 1.5;
-          };
-        };
-        hostName = "cloud.notashelf.dev";
-        home = "/opt/nextcloud";
+
+        nginx.recommendedHttpHeaders = true;
+        https = true;
+        hostName = domain;
+
+        home = "/srv/storage/nextcloud";
         maxUploadSize = "4G";
         enableImagemagick = true;
 
@@ -58,8 +54,15 @@ in {
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
         };
-        nginx.recommendedHttpHeaders = true;
-        https = true;
+
+        caching.redis = true;
+        extraOptions = {
+          redis = {
+            host = "/run/redis-default/redis.sock";
+            dbindex = 0;
+            timeout = 1.5;
+          };
+        };
       };
     };
 
