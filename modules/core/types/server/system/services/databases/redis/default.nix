@@ -37,7 +37,7 @@ in {
           requirePass = "forgejo";
         };
 
-        mastodon = mkIf cfg.forgejo.enable {
+        mastodon = mkIf cfg.matodon.enable {
           enable = true;
           user = "mastodon";
           port = 6372;
