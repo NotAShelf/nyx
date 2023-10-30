@@ -2,6 +2,6 @@
   inherit (lib) mkRemovedOptionModule;
 in {
   imports = [
-    (mkRemovedOptionModule ["modules" "services" "override"])
+    (mkRemovedOptionModule ["modules" "services" "override"] "test")
   ];
 }
