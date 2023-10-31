@@ -50,6 +50,8 @@ in {
           WEB_DOMAIN = "social.notashelf.dev";
         };
       };
+
+      nginx.virtualHosts."social.notashelf.dev" = lib.sslTemplate;
     };
   };
 }

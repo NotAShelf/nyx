@@ -32,7 +32,6 @@ in {
 
     services = {
       postgresql = {
-        enable = true;
         initialScript = pkgs.writeText "synapse-init.sql" ''
           CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
           CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
@@ -43,7 +42,7 @@ in {
       };
 
       nginx.virtualHosts = {
-        "${config.networking.domain}" = {
+        "notashelf.dev" = {
           locations = {
             "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
             "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
@@ -51,6 +50,12 @@ in {
             "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString port}";
           };
         };
+
+        "matrix.notashelf.dev" =
+          {
+            locations."/".proxyPass = "http://127.0.0.1:8008";
+          }
+          // lib.sslTemplate;
       };
 
       matrix-synapse = {
