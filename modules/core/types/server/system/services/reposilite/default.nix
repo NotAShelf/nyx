@@ -12,14 +12,15 @@ in {
     services.reposilite = {
       enable = true;
       package = self'.packages.reposilite;
+      dataDir = "/srv/storage/reposilite";
+
       openFirewall = true;
+
+      user = "reposilite";
+      group = "reposilite";
 
       settings = {
         port = 8084;
-        dataDir = "/srv/storage/reposilite";
-
-        user = "reposilite";
-        group = "reposilite";
       };
     };
 
