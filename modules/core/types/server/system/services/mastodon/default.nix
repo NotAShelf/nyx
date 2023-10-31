@@ -10,6 +10,11 @@
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.mastodon.enable) {
+    modules.system.services.database = {
+      postgresql.enable = true;
+      redis.enable = true;
+    };
+
     services = {
       elasticsearch.enable = true;
       postgresql.enable = true;

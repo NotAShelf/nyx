@@ -69,7 +69,7 @@ in {
             HOST = "redis://:forgejo@localhost:6371";
           };
 
-          mailer = {
+          mailer = mkIf config.modules.system.services.mailserver.enable {
             ENABLED = true;
             PROTOCOL = "smtps";
             SMTP_ADDR = "mail.notashelf.dev";

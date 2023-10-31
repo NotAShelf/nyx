@@ -15,6 +15,10 @@ in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.searxng.enable) {
     networking.firewall.allowedTCPPorts = [port];
 
+    modules.system.services.database = {
+      redis.enable = true;
+    };
+
     users = {
       users.searx = {
         isSystemUser = true;
@@ -63,7 +67,7 @@ in {
 
           redis = {
             #url = "unix:///run/redis-searxng/redis.sock?db=0";
-            url = "redis://forgejo@localhost:6370/0";
+            url = "redis://searxng@localhost:6370/0";
           };
 
           outgoing = {

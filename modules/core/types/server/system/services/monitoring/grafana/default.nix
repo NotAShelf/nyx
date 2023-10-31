@@ -11,6 +11,10 @@ in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.monitoring.grafana.enable) {
     networking.firewall.allowedTCPPorts = [config.services.grafana.settings.server.http_port];
 
+    modules.system.services.database = {
+      postgresql.enable = true;
+    };
+
     services = {
       grafana = {
         enable = true;
