@@ -69,7 +69,7 @@ in {
             HOST = "redis://:forgejo@localhost:6371";
           };
 
-          mailer = {
+          mailer = mkIf config.modules.system.services.mailserver.enable {
             ENABLED = true;
             PROTOCOL = "smtps";
             SMTP_ADDR = "mail.notashelf.dev";
@@ -94,6 +94,12 @@ in {
           type = "tar.zst";
         };
       };
+
+      nginx.virtualHosts."git.notashelf.dev" =
+        {
+          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+        }
+        // lib.sslTemplate;
     };
   };
 }

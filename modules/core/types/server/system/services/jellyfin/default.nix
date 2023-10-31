@@ -17,5 +17,15 @@ in
         user = "jellyfin";
         openFirewall = true;
       };
+
+      nginx.virtualHosts. "fin.notashelf.dev" =
+        {
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:8096/";
+            proxyWebsockets = true;
+            extraConfig = "proxy_pass_header Authorization;";
+          };
+        }
+        // lib.sslTemplate;
     };
   }

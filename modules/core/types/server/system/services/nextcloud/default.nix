@@ -68,6 +68,8 @@ in {
           };
         };
       };
+
+      nginx.virtualHosts."cloud.notashelf.dev" = lib.sslTemplate;
     };
 
     systemd.services = {

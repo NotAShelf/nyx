@@ -11,6 +11,10 @@ in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.monitoring.grafana.enable) {
     networking.firewall.allowedTCPPorts = [config.services.grafana.settings.server.http_port];
 
+    modules.system.services.database = {
+      postgresql.enable = true;
+    };
+
     services = {
       grafana = {
         enable = true;
@@ -29,7 +33,7 @@ in {
             enforce_domain = true;
           };
 
-          "auth.anonymous".enabled = true;
+          "auth.anonymous".enabled = false;
           "auth.basic".enabled = false;
 
           users = {
@@ -44,6 +48,7 @@ in {
             ssl_mode = "disable";
           };
         };
+
         provision = {
           datasources.settings = {
             datasources = [
@@ -57,6 +62,18 @@ in {
           };
         };
       };
+
+      nginx.virtualHosts."dash.notashelf.dev" =
+        {
+          locations."/" = {
+            proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
+            proxyWebsockets = true;
+          };
+        }
+        // {
+          addSSL = true;
+          enableACME = true;
+        };
     };
   };
 }

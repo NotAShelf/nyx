@@ -19,65 +19,6 @@ in {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 
-    services = {
-      roundcube = {
-        enable = true;
-        database.username = "roundcube";
-        maxAttachmentSize = 50;
-        dicts = with pkgs.aspellDicts; [en tr de];
-        # this is the url of the vhost, not necessarily the same as the fqdn of
-        # the mailserver
-        hostName = "webmail.notashelf.dev";
-        extraConfig = ''
-          $config['imap_host'] = array(
-            'tls://mail.notashelf.dev' => "NotAShelf's Mail Server",
-            'ssl://imap.gmail.com:993' => 'Google Mail',
-          );
-          $config['username_domain'] = array(
-            'mail.notashelf.dev' => 'notashelf.dev',
-            'mail.gmail.com' => 'gmail.com',
-          );
-          $config['x_frame_options'] = false;
-          # starttls needed for authentication, so the fqdn required to match
-          # the certificate
-          $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
-          $config['smtp_user'] = "%u";
-          $config['smtp_pass'] = "%p";
-          $config['plugins'] = [ "carddav" ];
-        '';
-      };
-
-      postfix = {
-        dnsBlacklists = [
-          "all.s5h.net"
-          "b.barracudacentral.org"
-          "bl.spamcop.net"
-          "blacklist.woody.ch"
-        ];
-        dnsBlacklistOverrides = ''
-          notashelf.dev OK
-          mail.notashelf.dev OK
-          127.0.0.0/8 OK
-          192.168.0.0/16 OK
-        '';
-        headerChecks = [
-          {
-            action = "IGNORE";
-            pattern = "/^User-Agent.*Roundcube Webmail/";
-          }
-        ];
-
-        config = {
-          smtp_helo_name = config.mailserver.fqdn;
-        };
-      };
-
-      phpfpm.pools.roundcube.settings = {
-        "listen.owner" = config.services.nginx.user;
-        "listen.group" = config.services.nginx.group;
-      };
-    };
-
     mailserver = {
       enable = true;
       mailDirectory = "/srv/storage/mail/vmail";
@@ -167,6 +108,70 @@ in {
         # this only applies to plain text attachments, binary attachments are never indexed
         indexAttachments = true;
         enforced = "body";
+      };
+    };
+
+    services = {
+      roundcube = {
+        enable = true;
+        database.username = "roundcube";
+        maxAttachmentSize = 50;
+        dicts = with pkgs.aspellDicts; [en tr de];
+        # this is the url of the vhost, not necessarily the same as the fqdn of
+        # the mailserver
+        hostName = "webmail.notashelf.dev";
+        extraConfig = ''
+          $config['imap_host'] = array(
+            'tls://mail.notashelf.dev' => "NotAShelf's Mail Server",
+            'ssl://imap.gmail.com:993' => 'Google Mail',
+          );
+          $config['username_domain'] = array(
+            'mail.notashelf.dev' => 'notashelf.dev',
+            'mail.gmail.com' => 'gmail.com',
+          );
+          $config['x_frame_options'] = false;
+          # starttls needed for authentication, so the fqdn required to match
+          # the certificate
+          $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
+          $config['smtp_user'] = "%u";
+          $config['smtp_pass'] = "%p";
+          $config['plugins'] = [ "carddav" ];
+        '';
+      };
+
+      postfix = {
+        dnsBlacklists = [
+          "all.s5h.net"
+          "b.barracudacentral.org"
+          "bl.spamcop.net"
+          "blacklist.woody.ch"
+        ];
+        dnsBlacklistOverrides = ''
+          notashelf.dev OK
+          mail.notashelf.dev OK
+          127.0.0.0/8 OK
+          192.168.0.0/16 OK
+        '';
+        headerChecks = [
+          {
+            action = "IGNORE";
+            pattern = "/^User-Agent.*Roundcube Webmail/";
+          }
+        ];
+
+        config = {
+          smtp_helo_name = config.mailserver.fqdn;
+        };
+      };
+
+      phpfpm.pools.roundcube.settings = {
+        "listen.owner" = config.services.nginx.user;
+        "listen.group" = config.services.nginx.group;
+      };
+
+      nginx.virtualHosts = {
+        "mail.notashelf.dev" = lib.sslTemplate;
+        "webmail.notashelf.dev" = lib.sslTemplate;
       };
     };
   };
