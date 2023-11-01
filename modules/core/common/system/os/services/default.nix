@@ -9,9 +9,11 @@ in {
   imports = [./systemd.nix];
 
   # compress half of the ram to use as swap
+  # basically, get more memory per memory
   zramSwap = {
     enable = true;
     algorithm = "zstd";
+    memoryPercent = 90; # defaults to 50
   };
 
   services = {
@@ -32,8 +34,9 @@ in {
 
     # https://wiki.archlinux.org/title/Systemd/Journal#Persistent_journals
     # limit systemd journal size
-    # journals get big, fast and on desktops they are not very needed
-    # on servers, however, they are important and persisting them is a good idea
+    # journals get big really fasti and on desktops they are not audited often
+    # on servers, however, they are important for both security and stability
+    # thus, persisting them as is remains a good idea
     journald.extraConfig = mkIf (device.type != "server") ''
       SystemMaxUse=100M
       RuntimeMaxUse=50M
