@@ -8,12 +8,21 @@
   cfg = config.modules.system.encryption;
 in {
   config = mkIf cfg.enable {
-    # mildly improves performance for the disk encryption
-    boot.initrd.availableKernelModules = [
-      "aesni_intel"
-      "cryptd"
-      "usb_storage"
-    ];
+    boot = {
+      # mildly improves performance for the disk encryption
+      initrd.availableKernelModules = [
+        "aesni_intel"
+        "cryptd"
+        "usb_storage"
+      ];
+
+      kernelParams = [
+        # Disable password timeout
+        "luks.options=timeout=0"
+        "rd.luks.options=timeout=0"
+        "rootflags=x-systemd.device-timeout=0"
+      ];
+    };
 
     services.lvm.enable = true;
 
