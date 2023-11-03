@@ -3,15 +3,23 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkDefault;
+  inherit (lib) mkIf mkForce mkDefault;
 
   dev = config.modules.device;
 in {
   imports = [
+    ./firewall
+
     ./ssh.nix
     ./blocker.nix
     ./tailscale.nix
+    ./optimise.nix
   ];
+
+  users = {
+    groups.tcpcryptd = {};
+    users.tcpcryptd.group = "tcpcryptd";
+  };
 
   services = {
     # systemd DNS resolver daemon
@@ -20,15 +28,22 @@ in {
 
   networking = {
     # generate a host ID by hashing the hostname
-    hostId = builtins.substring 0 8 (
-      builtins.hashString "md5" config.networking.hostName
-    );
+    hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
 
     # global dhcp has been deprecated upstream
     # use networkd instead
     # individual interfaces are still managed through dhcp in hardware configurations
-    useDHCP = mkDefault false;
-    useNetworkd = mkDefault true;
+    useDHCP = mkForce false;
+    useNetworkd = mkForce true;
+
+    # interfaces are assigned names that contain topology information (e.g. wlp3s0) and thus should be consistent across reboots
+    # this already defaults to true, we set it in case it changes upstream
+    usePredictableInterfaceNames = mkDefault true;
+
+    # enable opportunistic TCP encryption
+    # this is NOT a pancea, however, if the receiver supports encryption and the attacker is passive
+    # privacy will be more plausible (but not guaranteed, unlike what the option docs suggest)
+    tcpcrypt.enable = true;
 
     # dns
     nameservers = [
@@ -45,6 +60,7 @@ in {
       # or just set up my own, which will be slow
     ];
 
+    # we use networkmanager manage network devices locally
     networkmanager = {
       enable = true;
       plugins = []; # disable all plugins, we don't need them
@@ -52,12 +68,13 @@ in {
       unmanaged = ["docker0" "rndis0"];
 
       wifi = {
+        backend = "iwd"; # experimental iwd backend
         macAddress = "random"; # use a random mac address on every boot
         powersave = true; # enable wifi powersaving
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
       };
 
-      ethernet.macAddress = mkIf (dev.type != "server") "random";
+      ethernet.macAddress = mkIf (dev.type != "server") "random"; # causes server to be unreachable over SSH
     };
   };
 
@@ -72,6 +89,9 @@ in {
       "enp7s0" # ethernet interface on the motherboard
     ];
   in {
+    # TODO: according to 23.11 release notes, wait-online target has been long fixed
+    #  we would like to test if it is *actually* fixed, and remove the wait-online lines if they are
+    #  no longer necessary
     network.wait-online.enable = false;
     services =
       {
