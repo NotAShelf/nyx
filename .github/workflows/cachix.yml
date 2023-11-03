@@ -1,4 +1,4 @@
-name: Build & Cache Flake Packages
+name: Build & Cache Images
 
 on:
   workflow_dispatch:
@@ -7,10 +7,10 @@ on:
       - main
     paths-ignore:
       - .github/**
-      - assets/**
-      - .gitignore
       - docs/**
+      - .gitignore
       - README.md
+      - LICENSE
 jobs:
   build-installation-images:
     runs-on: ubuntu-latest
@@ -45,40 +45,3 @@ jobs:
 
       - name: Build airtight recovery and maintenance media
         run: nix build .#nixosConfigurations."erebus".config.system.build.toplevel
-
-  build-and-cache:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        package:
-          - rofi-calc-wayland
-          - rofi-emoji-wayland
-
-    steps:
-      - uses: easimon/maximize-build-space@v8
-        with:
-          overprovision-lvm: true
-          remove-android: true
-          remove-dotnet: true
-          remove-haskell: true
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-        with:
-          logger: pretty
-
-      - name: Cachix setup
-        uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_TOKEN }}
-          extraPullNames: nix-community
-          name: notashelf
-
-      - name: Set default git branch (to reduce log spam)
-        run: git config --global init.defaultBranch main
-
-      - name: Build from the matrix
-        run: nix build .#${{ matrix.package }} --print-build-logs
