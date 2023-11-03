@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-    ./patches/0001-Patch-plugindir-to-output.patch
+    ./patches/0001-patch-plugindir-to-output.patch
   ];
 
   postPatch = ''
