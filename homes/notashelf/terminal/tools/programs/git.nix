@@ -61,6 +61,7 @@ in {
           minus-style = "syntax ${base08}";
           line-numbers = true;
           options.navigate = true;
+          features = "decorations side-by-side navigate";
         };
 
         branch.autosetupmerge = "true";

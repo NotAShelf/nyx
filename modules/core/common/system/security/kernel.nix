@@ -9,21 +9,23 @@
   sys = config.modules.system;
 in {
   security = {
-    protectKernelImage = true;
+    protectKernelImage = true; # disables hibernation
 
-    # breaks virtd, wireguard and iptables by disallowing them from loading
+    # Breaks virtd, wireguard and iptables by disallowing them from loading
     # modules during runtime. You may enable this module if you wish, but do
     # make sure that the necessary modules are loaded declaratively before
     # doing so. Failing to add those modules may result in an unbootable system!
     lockKernelModules = false;
 
-    # force-enable the Page Table Isolation (PTI) Linux kernel feature
+    # Force-enable the Page Table Isolation (PTI) Linux kernel feature
+    # helps mitigate Meltdown and prevent some KASLR bypasses.
     forcePageTableIsolation = true;
 
     # User namespaces are required for sandboxing. Better than nothing imo.
     allowUserNamespaces = true;
 
     # Disable unprivileged user namespaces, unless containers are enabled
+    # required by podman to run containers in rootless mode.
     unprivilegedUsernsClone = config.virtualisation.containers.enable;
 
     # apparmor configuration
@@ -43,7 +45,7 @@ in {
         "kernel.sysrq" = 0;
         # Restrict ptrace() usage to processes with a pre-defined relationship
         # (e.g., parent/child)
-        "kernel.yama.ptrace_scope" = 2;
+        #"kernel.yama.ptrace_scope" = 2;
         # Hide kptrs even for processes with CAP_SYSLOG
         "kernel.kptr_restrict" = 2;
         # Disable bpf() JIT (to eliminate spray attacks)
@@ -97,9 +99,25 @@ in {
     blacklistedKernelModules = lib.concatLists [
       # Obscure network protocols
       [
-        "ax25"
-        "netrom"
-        "rose"
+        "dccp" # Datagram Congestion Control Protocol
+        "sctp" # Stream Control Transmission Protocol
+        "rds" # Reliable Datagram Sockets
+        "tipc" # Transparent Inter-Process Communication
+        "n-hdlc" # High-level Data Link Control
+        "netrom" # NetRom
+        "x25" # X.25
+        "ax25" # Amatuer X.25
+        "rose" # ROSE
+        "decnet" # DECnet
+        "econet" # Econet
+        "af_802154" # IEEE 802.15.4
+        "ipx" # Internetwork Packet Exchange
+        "appletalk" # Appletalk
+        "psnap" # SubnetworkAccess Protocol
+        "p8022" # IEEE 802.3
+        "p8023" # Novell raw IEEE 802.3
+        "can" # Controller Area Network
+        "atm" # ATM
       ]
 
       # Old or rare or insufficiently audited filesystems
@@ -136,6 +154,7 @@ in {
         "qnx4"
         "qnx6"
         "sysv"
+        "vivid" # Video Test Driver (unnecessary)
       ]
 
       # you might possibly want your webcam to work
@@ -148,6 +167,7 @@ in {
       # if bluetooth is enabled, whitelist the module
       # necessary for bluetooth dongles to work
       (optionals (!sys.bluetooth.enable) [
+        "bluetooth" # let bluetooth work
         "btusb" # let bluetooth dongles work
       ])
     ];

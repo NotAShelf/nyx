@@ -24,23 +24,22 @@ in {
       # opencl drivers
       rocm-opencl-icd
       rocm-opencl-runtime
+
+      # mesa
+      mesa
+
+      # vulkan
+      vulkan-tools
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
     ];
 
     hardware.opengl.extraPackages32 = with pkgs; [
       driversi686Linux.amdvlk
       rocm-opencl-icd
       rocm-opencl-runtime
-    ];
-
-    environment.systemPackages = with pkgs; [
-      blender-hip
-      vulkan-tools
-      mesa
-      libdrm
       driversi686Linux.mesa
-      haskellPackages.vulkan
-      vulkan-loader
-      vulkan-utility-libraries
     ];
   };
 }
