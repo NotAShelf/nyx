@@ -2,18 +2,16 @@
   osConfig,
   lib,
   pkgs,
-  inputs,
-  self,
+  inputs',
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
+}: let
+  prg = osConfig.modules.programs;
 in {
-  config = (mkIf programs.cli.enable) {
+  config = lib.mkIf prg.cli.enable {
     home.packages = with pkgs; [
       # packages from inputs
-      inputs.agenix.packages.${pkgs.system}.default
-      self.packages.${pkgs.hostPlatform.system}.cloneit
+      inputs'.agenix.packages.default
+      inputs'.nyxpkgs.packages.cloneit
 
       # CLI packages from nixpkgs
       catimg

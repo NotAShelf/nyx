@@ -2,14 +2,13 @@
   pkgs,
   lib,
   osConfig,
-  self,
+  inputs',
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  dev = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf (builtins.elem dev.type acceptedTypes) {
     home.packages = with pkgs; [
       ffmpeg-full
       yt-dlp
@@ -21,10 +20,11 @@ in {
       cantata
       easytag
       kid3
+
       # get ani-cli and mov-cli from my own derivations
       # I don't want to wait for nixpkgs
-      self.packages.${pkgs.hostPlatform.system}.mov-cli
-      self.packages.${pkgs.hostPlatform.system}.ani-cli
+      inputs'.nyxpkgs.packages.mov-cli
+      inputs'.nyxpkgs.packages.ani-cli
     ];
   };
 }

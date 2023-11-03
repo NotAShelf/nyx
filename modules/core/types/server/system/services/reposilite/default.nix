@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  self',
+  inputs',
   ...
 }: let
   inherit (lib) mkIf sslTemplate;
@@ -11,7 +11,7 @@ in {
   config = mkIf sys.services.reposilite.enable {
     services.reposilite = {
       enable = true;
-      package = self'.packages.reposilite;
+      package = inputs'.nyxpkgs.packages.reposilite;
       dataDir = "/srv/storage/reposilite";
 
       openFirewall = true;

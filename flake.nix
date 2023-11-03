@@ -250,6 +250,9 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
+    # Personal package overlay
+    nyxpkgs.url = "github:NotAShelf/nyxpkgs";
+
     # Personal neovim-flake
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake";
@@ -280,9 +283,7 @@
     };
 
     # anyrun program launcher
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-    };
+    anyrun.url = "github:Kirottu/anyrun";
 
     anyrun-nixos-options = {
       url = "github:n3oney/anyrun-nixos-options";

@@ -279,6 +279,10 @@ in {
         "workspace special silent, title:^(Firefox — Sharing Indicator)$"
         "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
 
+        # EA launcher puts a tiny window in the current workspae
+        # throw it away
+        "workspace special silent, title:^(title: Wine System Tray)$"
+
         "workspace 4, title:^(.*(Disc|WebC)ord.*)$"
         "tile, class:^(Spotify)$"
         "workspace 3 silent, class:^(Spotify)$"

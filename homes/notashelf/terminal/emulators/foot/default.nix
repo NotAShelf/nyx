@@ -3,7 +3,7 @@
   lib,
   config,
   pkgs,
-  self',
+  inputs',
   ...
 }: let
   inherit (osConfig.modules.style.colorScheme) slug;
@@ -18,7 +18,7 @@ in {
     ];
     programs.foot = {
       enable = true;
-      package = self'.packages.foot-transparent;
+      package = inputs'.nyxpkgs.packages.foot-transparent;
       server.enable = true; # broken
       settings = {
         main = {
