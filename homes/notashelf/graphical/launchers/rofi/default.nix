@@ -3,11 +3,12 @@
   lib,
   pkgs,
   osConfig,
-  self',
+  inputs',
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf optionals;
+
+  dev = osConfig.modules.device;
   env = osConfig.modules.usrEnv;
   sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
@@ -17,19 +18,19 @@ with lib; let
     then pkgs.rofi-wayland
     else pkgs.rofi;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
+  config = mkIf (builtins.elem dev.type acceptedTypes && sys.video.enable) {
     programs.rofi = {
       enable = true;
       # TODO: only override with plugins if system is wayland-enabled
       package = rofiPackage.override {
-        plugins = with self'.packages;
+        plugins =
           [
             pkgs.rofi-rbw
           ]
-          ++ optionals (env.isWayland) [
+          ++ optionals env.isWayland (with inputs'.nyxpkgs.packages; [
             rofi-calc-wayland
             rofi-emoji-wayland
-          ];
+          ]);
       };
       font = "Iosevka Nerd Font 14";
       extraConfig = {

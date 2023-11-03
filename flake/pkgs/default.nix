@@ -10,8 +10,6 @@ _: {
       anime4k = pkgs.callPackage ./anime4k.nix {};
       spotify-wrapped = pkgs.callPackage ./spotify-wrapped.nix {};
       nicksfetch = pkgs.callPackage ./nicksfetch.nix {};
-      rofi-calc-wayland = pkgs.callPackage ./rofi-calc-wayland.nix {};
-      rofi-emoji-wayland = pkgs.callPackage ./rofi-emoji-wayland.nix {};
       present = pkgs.callPackage ./present.nix {};
     };
   };
