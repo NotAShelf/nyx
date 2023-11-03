@@ -11,7 +11,7 @@ in {
   config = mkIf sys.services.reposilite.enable {
     services.reposilite = {
       enable = true;
-      package = inputs'.nyxpkgs.packages.reposilite;
+      package = inputs'.nyxpkgs.packages.reposilite-bin;
       dataDir = "/srv/storage/reposilite";
 
       openFirewall = true;
