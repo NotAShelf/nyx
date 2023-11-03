@@ -64,7 +64,7 @@ in {
         iosevka-bin
         noto-fonts
         noto-fonts-cjk
-        noto-fonts-emoji
+        noto-fonts-color-emoji
         emacs-all-the-icons-fonts
 
         (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono" "FiraCode"];})
