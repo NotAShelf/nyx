@@ -26,7 +26,9 @@
   services.getty.helpLine = "The 'root' account has an empty password.";
 
   isoImage.isoBaseName = lib.mkForce config.networking.hostName;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # words cannot express how much I hate zfs
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   environment = {
     # needed for i3blocks
