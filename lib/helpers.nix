@@ -17,6 +17,10 @@
     then 1
     else 0;
 
+  # convert a list of integers to a list of string
+  # `intListToStringList [1 2 3]` -> ["1" "2" "3"]
+  intListToStringList = list: map (toString list);
+
   # a basic function to fetch a specified user's public keys from github .keys url
   # `fetchKeys "username` -> "ssh-rsa AAAA...== username@hostname"
   fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
@@ -45,5 +49,5 @@
   # "A String With Whitespaces" -> "a-string-with-whitespaces"
   serializeTheme = inputString: lib.strings.toLower (builtins.replaceStrings [" "] ["-"] inputString);
 in {
-  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf;
+  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf intListToStringList;
 }
