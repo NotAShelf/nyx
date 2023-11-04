@@ -1,4 +1,4 @@
-<p id="top" align="center">
+<p align="center">
     <img src="https://camo.githubusercontent.com/8c73ac68e6db84a5c58eef328946ba571a92829b3baaa155b7ca5b3521388cc9/68747470733a2f2f692e696d6775722e636f6d2f367146436c41312e706e67" width="96px" height="96px" />
 </p>
 
@@ -178,9 +178,14 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 
 - [Agenix](https://github.com/ryantm/agenix)
 - [Hyprland](https://github.com/hyprwm/Hyprland)
-- [Neovim-flake](https://github.com/notashelf/neovim-flake)
-- [Docr](https://github.com/notashelf/docr)
 - [Nh](https://github.com/viperML/ng)
+
+> Stuff that I make and was designed for/is used in this repository
+
+- [neovim-flake](https://github.com/notashelf/neovim-flake)
+- [docr](https://github.com/notashelf/docr)
+- [nyxpkgs](https://github.com/notashelf/nyxpkgs)
+- [schizofox](https://github.com/schizofox/schizofox)
 
 Additionally, take a look at my [notes](docs/notes) for my notes on specific processes on NixOS.
 
