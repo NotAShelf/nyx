@@ -1,0 +1,38 @@
+" vim:ft=vim
+
+" Editing / Do something with the files
+nnoremap cd :cd
+nnoremap cD :diff<CR>
+vnoremap cD :diff<CR>
+
+" start shell
+nmap S :shell<Cr>
+
+" Display sorting dialog
+nnoremap s :sort<cr>
+
+" preview window
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+" panel resize
+nnoremap < <C-w>5<
+nnoremap > <C-w>5>
+
+" tabs
+nnoremap <C-t> :tabnew<CR>
+
+" drag and drop
+nmap <C-h> :dragon<CR>
+vmap <C-h> :dragon<CR>
+
+" Yank current directory path into the clipboard
+nnoremap yd :!echo -n %d | wl-copy %i<cr>:echo expand('%"d') "is yanked to clipboard"<cr>
+" Yank current file path into the clipboard
+nnoremap yf :!echo -n %c:p | wl-copy %i<cr>:echo expand('%"c:p') "is yanked to clipboard"<cr>
+
+nnoremap q :q<cr>
+
+"nnoremap ö q
+

@@ -1,0 +1,3 @@
+" vim:ft=vim
+
+fileviewer *.* bat --color=always --decorations=never %c

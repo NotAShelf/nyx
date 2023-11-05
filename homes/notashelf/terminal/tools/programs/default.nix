@@ -5,6 +5,7 @@
     ./ranger
     ./xplr
     ./bat
+    ./vifm
 
     ./git.nix
     ./nix-shell.nix

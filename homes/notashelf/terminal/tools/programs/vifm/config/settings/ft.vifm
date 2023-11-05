@@ -1,0 +1,136 @@
+" vim:ft=vim
+" filextype: What should it do (which program should it use), when you want to open it
+" fileviewer: What should it do for the prievew?
+
+filextype *.pdf zathura %c &
+
+filextype *.ps,*.eps,*.ps.gz
+        \ {View in sioyek}
+        \ sioyek  %f &
+
+filextype *.xml,*.ipe ipe %c &
+
+filextype *.djvu
+        \ {View in sioyek}
+        \ sioyek  %f & ,
+        \ {View in apvlv}
+        \ apvlv %f,
+
+filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus,*.MOD
+       \ {Play using ffplay}
+       \ ffplay -nodisp -autoexit %c &,
+       \ {Play using MPlayer}
+       \ mplayer %f &,
+fileviewer *.mp3 mp3info
+fileviewer *.flac soxi
+
+filextype *.avi,*.mp4,*.wmv,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+         \*.fl[icv],*.m2v,*.mov,*.webm,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+         \*.as[fx]
+        \ {View using ffplay}
+        \ ffplay -fs -autoexit -volume 100 %f &,
+
+filextype *.html,*.htm
+        \ firefox %f &,
+filetype *.html,*.htm links, lynx
+fileviewer *.html
+	\ w3m %c
+
+filetype *.o,*.out objdump -d %f | less
+fileviewer *.o,*.out objdump -d %f
+
+filetype *.[1-8] man ./%c
+fileviewer *.[1-8] man ./%c | col -b
+
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.svg,*.ico,*.gif
+        "\ viewnior %c &
+        " \ vimiv --log-level info --debug vimico %c &
+        \ vimiv %c &
+
+filextype *.ora
+        \ {Edit in MyPaint}
+        \ mypaint %f,
+
+filextype *.vym
+        \ {Open with VYM}
+        \ vym %f &,
+
+filetype *.md5
+       \ {Check MD5 hash sum}
+       \ md5sum -c %f %S,
+
+filetype *.sha1
+       \ {Check SHA1 hash sum}
+       \ sha1sum -c %f %S,
+
+filetype *.sha256
+       \ {Check SHA256 hash sum}
+       \ sha256sum -c %f %S,
+
+filetype *.sha512
+       \ {Check SHA512 hash sum}
+       \ sha512sum -c %f %S,
+
+filetype *.asc
+       \ {Check signature}
+       \ !!gpg --verify %c,
+
+filetype *.torrent ktorrent %f &
+fileviewer *.torrent dumptorrent -v %c
+
+filetype *.zip,*.jar,*.war,*.ear,*.oxt,*.apkg
+       \ {Mount with fuse-zip}
+       \ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR,
+       \ {View contents}
+       \ zip -sf %c | less,
+       \ {Extract here}
+       \ tar -xf %c
+filetype *.zip unzip %f
+filetype *.tar.gz tar -xvf %f
+fileviewer *.zip,*.jar,*.war,*.ear,*.oxt zip -sf %c
+
+filetype *.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz,*.tar.xz,*.txz
+       \ {Mount with archivemount}
+       \ FUSE_MOUNT|archivemount %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.tgz,*.tar.gz tar -tzf %c
+fileviewer *.tar.bz2,*.tbz2 tar -tjf %c
+fileviewer *.tar.txz,*.txz xz --list %c
+fileviewer *.tar tar -tf %c
+
+filetype *.rar
+       \ {Mount with rar2fs}
+       \ FUSE_MOUNT|rar2fs %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.rar unrar v %c
+
+filetype *.iso
+       \ {Mount with fuseiso}
+       \ FUSE_MOUNT|fuseiso %SOURCE_FILE %DESTINATION_DIR,
+
+filetype *.ssh
+       \ {Mount with sshfs}
+       \ FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR %FOREGROUND,
+
+filetype *.ftp
+       \ {Mount with curlftpfs}
+       \ FUSE_MOUNT2|curlftpfs -o ftp_port=-,,disable_eprt %PARAM %DESTINATION_DIR %FOREGROUND,
+
+filetype *.7z
+       \ {Mount with fuse-7z}
+       \ FUSE_MOUNT|fuse-7z %SOURCE_FILE %DESTINATION_DIR,
+fileviewer *.7z 7z l %c
+
+filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
+fileviewer *.odt odt2txt %f
+fileviewer *.docx docx2txt %f -
+
+filetype *.tudu tudu -f %c
+
+filextype *.pro qtcreator %f &
+
+filextype */
+        \ pacmanfm %f &,
+
+fileviewer *.md glow %c
+
+filetype *.xopp xournalpp %f &
+

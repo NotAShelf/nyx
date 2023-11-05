@@ -1,0 +1,114 @@
+" vim:ft=vim
+
+" editor
+set vicmd="nvim"
+
+" This makes vifm perform file operations on its own instead of relying on
+" standard utilities like `cp`.  While using `cp` and alike is a more universal
+" solution, it's also much slower when processing large amounts of files and
+" doesn't support progress measuring.
+set syscalls
+
+" miller view
+set millerview
+set milleroptions="lsize:1,csize:2,rsize:0,rpreview:all"
+
+set sizefmt=units:si,precision:2,space
+
+" The display on the bottom left
+set rulerformat="%2l/%2S %[MAX: %2L%]"
+
+set findprg="fd %A"
+set grepprg="rg -n -H %i %a %s"
+
+" set fillchars=vborder:│
+
+" execute files
+set runexec
+
+set tuioptions="pu"
+
+" controls details of file operations
+set iooptions=fastfilecloning
+
+" Trash Directory
+" The default is to move files that are deleted with dd or :d to
+" the trash directory.  If you change this you will not be able to move
+" files by deleting them and then using p to put the file in the new location.
+" I recommend not changing this until you are familiar with vifm.
+" This probably shouldn't be an option.
+set trash
+set trashdir="~/.local/share/Trash/files"
+
+" This is how many directories to store in the directory history.
+set history=100
+
+" number of spaces of a tab"
+set tabstop=4
+
+" With this option turned on you can run partially entered commands with
+" unambiguous beginning using :! (e.g. :!Te instead of :!Terminal or :!Te<tab>).
+set fastrun
+
+" Natural sort of (version) numbers within text.
+set sortnumbers
+
+" Maximum number of changes that can be undone.
+set undolevels=100
+
+" If you installed the vim.txt help file set vimhelp.
+" If would rather use a plain text help file set novimhelp.
+set vimhelp
+
+" If you would like to run an executable file when you
+" press return on the file name set this.
+set norunexec
+
+set rnu
+set dotdirs=
+
+" colorscheme custom
+
+" Format for displaying time in file list. For example:
+" TIME_STAMP_FORMAT=%m/%d-%H:%M
+" See man date or man strftime for details.
+set timefmt=%d.%m.%Y\ \ %H:%M
+
+" Show list of matches on tab completion in command-line mode
+set wildmenu
+" Display completions in a form of popup with descriptions of the matches
+set wildstyle=popup
+
+" Display suggestions in normal, visual and view modes for keys, marks and
+" registers (at most 5 files).  In other view, when available.
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers,delay:0
+
+" Ignore case in search patterns unless it contains at least one uppercase
+" letter
+set ignorecase
+set smartcase
+
+" Don't highlight search results automatically
+set nohlsearch
+
+" Use increment searching (search while typing)
+set incsearch
+
+" Try to leave some space from cursor to upper/lower border in lists
+set scrolloff=4
+
+" Don't do too many requests to slow file systems
+if !has('win')
+    set slowfs=curlftpfs
+endif
+
+set statusline=" %A %10u:%-7g %20d Free Space: %a"
+
+set vifminfo=dhistory,chistory,state,tui,shistory,
+    \phistory,fhistory,dirstack,registers,bookmarks,bmarks
+
+" ------------
+" panels
+" ------------
+set viewcolumns=-{name},{size}
+

@@ -1,0 +1,4 @@
+" vim:ft=vim
+cabbrev t touch
+cabbrev mk mkdir
+

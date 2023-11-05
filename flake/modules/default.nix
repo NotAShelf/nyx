@@ -1,5 +1,5 @@
 {self, ...}: let
-  mkModule = path:
+  mkFlakeModule = path:
     if builtins.isPath path
     then self + path
     else builtins.throw "${path} is not a real path! Are you stupid?";
@@ -10,22 +10,24 @@ in {
     # i.e imports = [ inputs.nyx.nixosModules.steam-compat ]; or modules = [ inputs.nyx.nixosModules.steam-compat ];
     nixosModules = {
       # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
-      steam-compat = /modules/extra/shared/nixos/steam; # moved to nix-gaming
+      # steam-compat = /modules/extra/shared/nixos/steam; # moved to nix-gaming
 
       # a module for the comma tool that wraps it with nix-index and disabled the command-not-found integration
-      comma-rewrapped = mkModule /modules/extra/shared/nixos/comma;
+      comma-rewrapped = mkFlakeModule /modules/extra/shared/nixos/comma;
 
       # an open source implementation of wakatime server
-      wakapi = mkModule /modules/extra/shared/nixos/wakapi;
+      wakapi = mkFlakeModule /modules/extra/shared/nixos/wakapi;
 
       # we do not want to provide a default module
       default = builtins.throw "There is no default module, sorry!";
     };
 
     homeManagerModules = {
-      xplr = mkModule /modules/extra/shared/home-manager/xplr;
+      # xplr = mkModule /modules/extra/shared/home-manager/xplr; # now available in home-manager
 
-      gtklock = mkModule /modules/extra/shared/home-manager/gtklock;
+      gtklock = mkFlakeModule /modules/extra/shared/home-manager/gtklock;
+
+      vifm = mkFlakeModule /modules/extra/shared/home-manager/vifm;
 
       # again, we do not want to provide a default module
       default = builtins.throw "There is no default module, sorry!";
