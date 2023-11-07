@@ -2,6 +2,7 @@
   lib,
   pkgs,
   osConfig,
+  inputs',
   ...
 }:
 with lib; let
@@ -29,7 +30,7 @@ with lib; let
     graalvm-ce
   ];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
+  config = mkIf ((builtins.elem device.type acceptedTypes) && programs.gaming.enable) {
     home = {
       # copy the catppuccin theme to the themes directory of PrismLauncher
       file.".local/share/PrismLauncher/themes/mocha" = {
@@ -37,12 +38,13 @@ in {
         recursive = true;
       };
 
-      packages = with pkgs; [
+      packages = [
         # the successor to polyMC, which is now mostly abandoned
-        (pkgs.prismlauncher.override {
+        (inputs'.prism-launcher.packages.prismlauncher.override {
           # get java versions required by various minecraft versions
           # "write once run everywhere" my ass
           jdks = javaPackages;
+          additionalPrograms = with pkgs; [gamemode mangohud];
         })
       ];
     };
