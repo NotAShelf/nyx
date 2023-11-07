@@ -26,6 +26,9 @@
     <a href="https://liberapay.com/notashelf/donate">
       <img src="https://img.shields.io/liberapay/patrons/notashelf.svg?color=e5c890&labelColor=303446&style=for-the-badge&logo=liberapay&logoColor=E5C890"></a>
     <br>
+    <a = href="https://nixos.org">
+      <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3">
+    </a>
   </div>
 </h2>
 
