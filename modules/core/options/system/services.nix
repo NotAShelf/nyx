@@ -3,8 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption ifOneEnabled;
-  cfg = config.modules.services;
+  inherit (lib) mkEnableOption;
+  sys = config.modules.system;
+  cfg = sys.services;
 
   # mkEnableOption is the same as mkEnableOption but with the default value being equal to cfg.monitoring.enable
   mkEnableOption' = desc: mkEnableOption "${desc}" // {default = cfg.monitoring.enable;};
@@ -36,7 +37,7 @@ in {
 
       # monitoring tools
       monitoring = {
-        enable = mkEnableOption "system monitoring services" // {default = ifOneEnabled cfg "grafana" "prometheus" "loki";};
+        enable = mkEnableOption "system monitoring services";
         prometheus.enable = mkEnableOption' "Prometheus monitoring service";
         grafana.enable = mkEnableOption' "Grafana monitoring service";
         loki.enable = mkEnableOption' "Loki monitoring service";

@@ -18,7 +18,10 @@ in {
 
   users = {
     groups.tcpcryptd = {};
-    users.tcpcryptd.group = "tcpcryptd";
+    users.tcpcryptd = {
+      isSystemUser = true;
+      group = "tcpcryptd";
+    };
   };
 
   services = {
@@ -43,7 +46,8 @@ in {
     # enable opportunistic TCP encryption
     # this is NOT a pancea, however, if the receiver supports encryption and the attacker is passive
     # privacy will be more plausible (but not guaranteed, unlike what the option docs suggest)
-    tcpcrypt.enable = true;
+    # FIXME: does not work, throws an ambigious assertion that I cannot understand
+    tcpcrypt.enable = false;
 
     # dns
     nameservers = [

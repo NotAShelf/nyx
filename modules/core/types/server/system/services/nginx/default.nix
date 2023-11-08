@@ -2,14 +2,10 @@
   lib,
   config,
   ...
-}: let
-  inherit (lib) mkIf;
-
-  dev = config.modules.device;
-  cfg = config.modules.services;
-  acceptedTypes = ["server" "hybrid"];
-in {
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
+}: {
+  # TODO:
+  # local option for enabling nginx, which all web services would enable on their own
+  config = {
     networking.domain = "notashelf.dev";
 
     security = {
@@ -21,10 +17,16 @@ in {
 
     services.nginx = {
       enable = true;
+      statusPage = false; # FIXME: this makes the /nginx_status endpoint availabe, but nextcloud hijacks it and returns a SSL error
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
+
+      # lets be more picky on our ciphers and protocols
+      sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
+      sslProtocols = "TLSv1.3 TLSv1.2";
+
       commonHttpConfig = ''
         real_ip_header CF-Connecting-IP;
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
@@ -33,13 +35,14 @@ in {
       '';
 
       virtualHosts = {
-        # website + other stuff
-        "notashelf.dev" =
-          {
-            serverAliases = ["notashelf.dev"];
-            root = "/home/notashelf/Dev/web";
-          }
-          // lib.sslTemplate;
+        "${config.networking.domain}" = {
+          default = true;
+          locations."/".proxyPass = "http://localhost";
+          extraConfig = ''
+            access_log /var/log/nginx/base-access.log;
+            error_log /var/log/nginx/base-error.log;
+          '';
+        };
       };
     };
   };

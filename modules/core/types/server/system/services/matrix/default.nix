@@ -14,7 +14,7 @@ with lib; let
   bindAddress = "::1";
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
   clientConfig = {
-    "m.homeserver".base_url = "https://${config.networking.hostName}${config.networking.domain}";
+    "m.homeserver".base_url = "https://${config.networking.domain}";
     "m.identity_server" = {};
   };
 
@@ -46,14 +46,16 @@ in {
       };
 
       nginx.virtualHosts = {
-        "notashelf.dev" = {
-          locations = {
-            "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
-            "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
-            "/_matrix".proxyPass = "http://[${bindAddress}]:${toString port}";
-            "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString port}";
-          };
-        };
+        "notashelf.dev" =
+          {
+            locations = {
+              "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+              "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+              "/_matrix".proxyPass = "http://[${bindAddress}]:${toString port}";
+              "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString port}";
+            };
+          }
+          // lib.sslTemplate;
 
         "matrix.notashelf.dev" =
           {

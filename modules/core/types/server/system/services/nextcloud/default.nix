@@ -70,7 +70,12 @@ in {
           "opcache.interned_strings_buffer" = "16";
         };
 
-        caching.redis = true;
+        caching = {
+          apcu = true;
+          memcached = true;
+          redis = true;
+        };
+
         extraOptions = {
           redis = {
             host = "/run/redis-default/redis.sock";
