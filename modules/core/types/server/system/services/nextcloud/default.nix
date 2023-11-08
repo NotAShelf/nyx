@@ -46,17 +46,28 @@ in {
         };
 
         config = {
+          # admin user settings
+          # only effective during setup
+          adminuser = "notashelf";
+          adminpassFile = config.age.secrets.nextcloud-secret.path;
+
+          # force https
           overwriteProtocol = "https";
           extraTrustedDomains = ["https://${toString domain}"];
           trustedProxies = ["https://${toString domain}"];
-          adminuser = "notashelf";
-          adminpassFile = config.age.secrets.nextcloud-secret.path;
-          defaultPhoneRegion = "TR";
 
           # database
           dbtype = "pgsql";
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
+
+          # other stuff
+          defaultPhoneRegion = "TR";
+        };
+
+        phpOptions = {
+          # fix the opcache "buffer is almost full" error in admin overview
+          "opcache.interned_strings_buffer" = "16";
         };
 
         caching.redis = true;
