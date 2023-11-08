@@ -2,12 +2,16 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   dev = config.modules.device;
-  cfg = config.modules.system.services;
+  sys = config.modules.system;
+  cfg = sys.services;
+
   acceptedTypes = ["server" "hybrid"];
 in {
+  # imports = [./dashboards.nix];
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.monitoring.grafana.enable) {
     networking.firewall.allowedTCPPorts = [config.services.grafana.settings.server.http_port];
 
@@ -19,11 +23,6 @@ in {
       grafana = {
         enable = true;
         settings = {
-          analytics = {
-            reporting_enabled = false;
-            check_for_updates = false;
-          };
-
           server = {
             http_addr = "0.0.0.0";
             http_port = 3000;
@@ -33,13 +32,6 @@ in {
             enforce_domain = true;
           };
 
-          "auth.anonymous".enabled = false;
-          "auth.basic".enabled = false;
-
-          users = {
-            allow_signup = false;
-          };
-
           database = {
             type = "postgres";
             host = "/run/postgresql";
@@ -47,17 +39,59 @@ in {
             user = "grafana";
             ssl_mode = "disable";
           };
+
+          security = {
+            cookie_secure = true;
+            disable_gravatar = true;
+          };
+
+          analytics = {
+            reporting_enabled = false;
+            check_for_updates = false;
+          };
+
+          "auth.anonymous".enabled = false;
+          "auth.basic".enabled = false;
+
+          users = {
+            allow_signup = false;
+          };
         };
 
         provision = {
+          enable = true;
           datasources.settings = {
             datasources = [
-              {
+              (mkIf sys.services.monitoring.prometheus.enable {
                 name = "Prometheus";
                 type = "prometheus";
-                url = "http://localhost:9090";
+                access = "proxy";
                 orgId = 1;
-              }
+                uid = "Y4SSG429DWCGDQ3R";
+                url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+                isDefault = true;
+                version = 1;
+                editable = true;
+                jsonData = {
+                  graphiteVersion = "1.1";
+                  tlsAuth = false;
+                  tlsAuthWithCACert = false;
+                };
+              })
+
+              (mkIf sys.services.monitoring.loki.enable {
+                name = "Loki";
+                type = "loki";
+                access = "proxy";
+                url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
+              })
+
+              (mkIf sys.services.database.postgresql.enable {
+                name = "PostgreSQL";
+                type = "postgres";
+                access = "proxy";
+                url = "http://127.0.0.1:9103";
+              })
             ];
           };
         };
@@ -66,7 +100,7 @@ in {
       nginx.virtualHosts."dash.notashelf.dev" =
         {
           locations."/" = {
-            proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
+            proxyPass = with config.services.grafana.settings.server; "http://${toString http_addr}:${toString http_port}/";
             proxyWebsockets = true;
           };
         }
