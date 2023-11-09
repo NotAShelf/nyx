@@ -28,7 +28,7 @@
       sslProtocols = "TLSv1.3 TLSv1.2";
 
       commonHttpConfig = ''
-        real_ip_header CF-Connecting-IP;
+        #real_ip_header CF-Connecting-IP;
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
         add_header X-Frame-Options DENY;
         add_header X-Content-Type-Options nosniff;
@@ -37,7 +37,6 @@
       virtualHosts = {
         "${config.networking.domain}" = {
           default = true;
-          locations."/".proxyPass = "http://localhost";
           extraConfig = ''
             access_log /var/log/nginx/base-access.log;
             error_log /var/log/nginx/base-error.log;
