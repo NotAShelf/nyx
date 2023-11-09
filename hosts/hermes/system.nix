@@ -45,7 +45,8 @@
 
         networking = {
           optimizeTcp = true;
-          useTailscale = true;
+          tailscale.client.enable = true;
+          nftables.enable = true;
         };
 
         security = {

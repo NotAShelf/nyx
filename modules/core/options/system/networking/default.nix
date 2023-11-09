@@ -3,6 +3,7 @@
 in {
   imports = [./nftables.nix];
   options.modules.system.networking = {
+    nftables.enable = mkEnableOption "nftables firewall";
     optimizeTcp = mkEnableOption "TCP optimizations";
 
     tailscale = {
