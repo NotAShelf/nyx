@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption;
+  inherit (lib) mkEnableOption mkOption types;
 in {
   options.modules.system.networking = {
     optimizeTcp = mkEnableOption "TCP optimizations";
@@ -11,6 +11,17 @@ in {
 
         This option is mutually exlusive with {option}`tailscale.client.enable` as they both
         configure Taiscale, but with different flags
+      '';
+    };
+
+    wirelessBackend = mkOption {
+      type = types.enum ["iwd" "wpa_supplicant"];
+      default = "iwd";
+      description = ''
+        Backend that will be used for wireless connections using either `networking.wireless`
+        or `networking.networkmanager.wifi.backend`
+
+        Defaults to wpa_supplicant until iwd is stable.
       '';
     };
 

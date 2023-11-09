@@ -6,6 +6,7 @@
   inherit (lib) mkIf mkForce mkDefault;
 
   dev = config.modules.device;
+  sys = config.modules.system;
 in {
   imports = [
     ./firewall
@@ -16,11 +17,11 @@ in {
     ./optimise.nix
   ];
 
-  users = {
+  users = mkIf config.networking.tcpcrypt.enable {
     groups.tcpcryptd = {};
     users.tcpcryptd = {
-      isSystemUser = true;
       group = "tcpcryptd";
+      isSystemUser = true;
     };
   };
 
@@ -46,8 +47,8 @@ in {
     # enable opportunistic TCP encryption
     # this is NOT a pancea, however, if the receiver supports encryption and the attacker is passive
     # privacy will be more plausible (but not guaranteed, unlike what the option docs suggest)
-    # FIXME: does not work, throws an ambigious assertion that I cannot understand
-    tcpcrypt.enable = false;
+
+    tcpcrypt.enable = false; # FIXME: the systemd service does something wrong, investigate
 
     # dns
     nameservers = [
@@ -61,8 +62,21 @@ in {
       "9.9.9.9"
 
       # TODO: find a schizo nameserver that does not compromise on speed or availability
-      # or just set up my own, which will be slow
+      # or just set up my own, which would be slow
     ];
+
+    wireless = {
+      enable = sys.networking.wirelessBackend == "wpa_supplicant";
+      userControlled.enable = true;
+      iwd = {
+        enable = sys.networking.wirelessBackend == "iwd";
+        settings = {
+          Settings = {
+            AutoConnect = true;
+          };
+        };
+      };
+    };
 
     # we use networkmanager manage network devices locally
     networkmanager = {
@@ -72,7 +86,7 @@ in {
       unmanaged = ["docker0" "rndis0"];
 
       wifi = {
-        backend = "iwd"; # experimental iwd backend
+        backend = sys.networking.wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
         macAddress = "random"; # use a random mac address on every boot
         powersave = true; # enable wifi powersaving
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
@@ -93,9 +107,8 @@ in {
       "enp7s0" # ethernet interface on the motherboard
     ];
   in {
-    # TODO: according to 23.11 release notes, wait-online target has been long fixed
-    #  we would like to test if it is *actually* fixed, and remove the wait-online lines if they are
-    #  no longer necessary
+    # according to 23.11 release notes, wait-online target has been long fixed
+    # spoiler, it's not.
     network.wait-online.enable = false;
     services =
       {
