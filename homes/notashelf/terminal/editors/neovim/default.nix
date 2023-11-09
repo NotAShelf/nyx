@@ -50,9 +50,10 @@ in {
         ];
 
         extraPlugins = let
-          inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree harpoon;
+          inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree harpoon mkdir-nvim;
         in {
           friendly-snippets = {package = friendly-snippets;};
+          mkdir-nvim = {package = mkdir-nvim;};
           regexplainer = {package = regexplainer;};
           specs-nvim = {
             package = specs-nvim;
