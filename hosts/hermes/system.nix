@@ -2,9 +2,7 @@
   config,
   pkgs,
   ...
-}: let
-  device = config.modules.device;
-in {
+}: {
   config = {
     modules = {
       device = {
