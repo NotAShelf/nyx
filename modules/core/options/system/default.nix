@@ -14,7 +14,7 @@ in {
     ./impermanence.nix
 
     # network and overlal hardening
-    ./networking.nix
+    ./networking
     ./security.nix
     ./encryption.nix
 

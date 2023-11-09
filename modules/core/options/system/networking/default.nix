@@ -1,6 +1,7 @@
 {lib, ...}: let
   inherit (lib) mkEnableOption mkOption types;
 in {
+  imports = [./nftables.nix];
   options.modules.system.networking = {
     optimizeTcp = mkEnableOption "TCP optimizations";
 
