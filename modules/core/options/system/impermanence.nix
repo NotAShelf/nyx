@@ -1,19 +1,19 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption mdDoc;
+  inherit (lib) mkEnableOption mkOption;
 in {
   options.modules.system.impermanence = {
     root = {
-      enable = mkEnableOption (mdDoc ''
-        Enable the Impermanence module for persisting important state directories.
+      enable = mkEnableOption ''
+        the Impermanence module for persisting important state directories.
         By default, Impermanence will not touch user's $HOME, which is not ephemeral unlike root.
-      '');
+      '';
 
       extraFiles = mkOption {
         default = [];
         example = [
           "/etc/nix/id_rsa"
         ];
-        description = mdDoc ''
+        description = ''
           Additional files in the root to link to persistent storage.
         '';
       };
@@ -23,7 +23,7 @@ in {
         example = [
           "/var/lib/libvirt"
         ];
-        description = mdDoc ''
+        description = ''
           Additional directories in the root to link to persistent
           storage.
         '';
@@ -31,10 +31,10 @@ in {
     };
 
     home = {
-      enable = mkEnableOption (mdDoc ''
-        Enable the Impermanence module for persisting important state directories.
+      enable = mkEnableOption ''
+        the Impermanence module for persisting important state directories.
         This option will also make user's home ephemeral, on top of the root subvolume
-      '');
+      '';
 
       home = {
         mountDotfiles = lib.mkOption {

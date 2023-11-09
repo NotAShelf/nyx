@@ -1,11 +1,11 @@
 {lib, ...}: let
-  inherit (lib) mdDoc mkOption types;
+  inherit (lib) mkOption types;
 in {
   options.modules.device = {
     type = mkOption {
       type = types.enum ["laptop" "desktop" "server" "hybrid" "lite" "vm"];
       default = "";
-      description = mdDoc ''
+      description = ''
         The type/purpose of the device that will be used within the rest of the configuration.
           - laptop: portable devices with batter optimizations
           - desktop: stationary devices configured for maximum performance
@@ -42,7 +42,7 @@ in {
     monitors = mkOption {
       type = with types; listOf str;
       default = [];
-      description = mdDoc ''
+      description = ''
         A list of monitors connected to the system.
 
         This does not affect any drivers and such, it is only necessary for

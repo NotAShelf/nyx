@@ -1,10 +1,11 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: let
+  inherit (lib) mkOption types;
+in {
   options.modules.usrEnv = {
     desktop = mkOption {
       type = types.enum ["Hyprland" "sway" "awesome" "i3"];
       default = "Hyprland";
-      description = lib.mdDoc ''
+      description = ''
         The desktop environment to be used.
       '';
     };
@@ -12,7 +13,7 @@ with lib; {
     isWayland = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc ''
+      description = ''
         Whether to enable Wayland compatibility module. This generally includes:
           - Wayland nixpkgs overlay
           - Wayland only services
@@ -25,7 +26,7 @@ with lib; {
     useHomeManager = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc ''
+      description = ''
         Whether to use home-manager or not. Username via `usrEnv.mainUser` **MUST** be set if this option is enabled.
       '';
     };
@@ -33,7 +34,7 @@ with lib; {
     screenLock = mkOption {
       type = with types; nullOr (enum ["swaylock" "gtklock"]);
       default = "gtklock";
-      description = lib.mdDoc ''
+      description = ''
         The lockscreen module to be loaded by home-manager.
       '';
     };
@@ -41,7 +42,7 @@ with lib; {
     noiseSupressor = mkOption {
       type = with types; nullOr (enum ["rnnoise" "noisetorch"]);
       default = "rnnoise";
-      description = lib.mdDoc ''
+      description = ''
         The noise supressor to be used for desktop systems with sound enabled.
       '';
     };

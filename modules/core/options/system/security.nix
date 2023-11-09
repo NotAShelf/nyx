@@ -3,24 +3,27 @@
   lib,
   ...
 }: let
-  inherit (lib) mkOption mkEnableOption mdDoc types;
+  inherit (lib) mkOption mkEnableOption types;
 in {
   options.modules.system.security = {
-    fixWebcam = mkEnableOption (mdDoc "Fix the purposefully broken webcam by un-blacklisting the related kernel module.");
-    tor.enable = mkEnableOption (mdDoc "Tor daemon");
-    lockModules = mkEnableOption (mdDoc ''
-      Enable kernel module locking to prevent kernel modules that are not specified in the config from being loaded
-    '');
+    fixWebcam = mkEnableOption "the purposefully disabled webcam by un-blacklisting the related kernel module.";
+    tor.enable = mkEnableOption "Tor daemon";
+    lockModules = mkEnableOption ''
+      kernel module locking to prevent kernel modules that are not specified in the config from being loaded
+
+      This is a highly breaking option, and will break many things including virtualization
+      and firewall if the required modules are not explicitly loaded in your kernel configuration.
+    '';
 
     auditd = {
-      enable = mkEnableOption (mdDoc "Enable the audit daemon.");
+      enable = mkEnableOption "the audit daemon.";
       autoPrune = {
-        enable = mkEnableOption (mdDoc "Enable auto-pruning of audit logs.");
+        enable = mkEnableOption "auto-pruning of old audit logs.";
 
         size = mkOption {
           type = types.int;
           default = 524288000; # roughly 500 megabytes
-          description = "The maximum size of the audit log in bytes.";
+          description = "The maximum size of the audit log in bytes. The default is 500MBs";
         };
 
         dates = mkOption {
@@ -33,23 +36,23 @@ in {
     };
 
     clamav = {
-      enable = mkEnableOption (mdDoc "Enable ClamAV daemon.");
-
+      enable = mkEnableOption "ClamAV daemon.";
       daemon = {
         settings = mkOption {
           type = with types; attrsOf (oneOf [bool int str (listOf str)]);
           default = {
             LogFile = "/var/log/clamd.log";
             LogTime = true;
+            DetectPUA = true;
             VirusEvent = lib.escapeShellArgs [
               "${pkgs.libnotify}/bin/notify-send"
               "--"
               "ClamAV Virus Scan"
               "Found virus: %v"
             ];
-            DetectPUA = true;
           };
-          description = lib.mdDoc ''
+
+          description = ''
             ClamAV configuration. Refer to <https://linux.die.net/man/5/clamd.conf>,
             for details on supported values.
           '';
@@ -57,12 +60,12 @@ in {
       };
 
       updater = {
-        enable = mkEnableOption (lib.mdDoc "ClamAV freshclam updater");
+        enable = mkEnableOption "ClamAV freshclam updater";
 
         frequency = mkOption {
           type = types.int;
           default = 12;
-          description = lib.mdDoc ''
+          description = ''
             Number of database checks per day.
           '';
         };
@@ -70,7 +73,7 @@ in {
         interval = mkOption {
           type = types.str;
           default = "hourly";
-          description = lib.mdDoc ''
+          description = ''
             How often freshclam is invoked. See systemd.time(7) for more
             information about the format.
           '';
@@ -79,7 +82,7 @@ in {
         settings = mkOption {
           type = with types; attrsOf (oneOf [bool int str (listOf str)]);
           default = {};
-          description = lib.mdDoc ''
+          description = ''
             freshclam configuration. Refer to <https://linux.die.net/man/5/freshclam.conf>,
             for details on supported values.
           '';

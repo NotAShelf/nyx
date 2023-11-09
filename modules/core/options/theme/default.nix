@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkOption mkEnableOption types mdDoc;
+  inherit (lib) mkOption mkEnableOption types;
   cfg = config.modules.style;
 in {
   imports = [
@@ -30,10 +30,15 @@ in {
           # "name-of-the-scheme"
           slug = mkOption {
             type = types.str;
-            default = lib.serializeTheme "${cfg.colorScheme.name}";
-            description = mdDoc ''
-              The serialized slug for the colorScheme you are using. Defaults to a lowercased version of the theme name with spaces
-              replaced with hyphens. Only change if the slug is expected to be different."
+            default = lib.serializeTheme "${toString cfg.colorScheme.name}"; # toString to avoid type errors if null
+            description = ''
+              The serialized slug for the colorScheme you are using.
+
+              Defaults to a lowercased version of the theme name with spaces
+              replaced with hyphens.
+
+              Must only be changed if the slug is expected to be different than
+              the serialized theme name."
             '';
           };
         };

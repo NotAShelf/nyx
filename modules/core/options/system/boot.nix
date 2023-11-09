@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types mdDoc;
+  inherit (lib) mkEnableOption mkOption types;
 in {
   # pre-boot and bootloader configurations
   options.modules.system.boot = {
@@ -19,9 +19,9 @@ in {
     '';
 
     silentBoot =
-      mkEnableOption (lib.mdDoc ''
+      mkEnableOption ''
         almost entirely silent boot process through `quiet` kernel parameter
-      '')
+      ''
       // {default = config.modules.system.boot.plymouth.enable;};
 
     kernel = mkOption {
@@ -54,29 +54,31 @@ in {
       description = "The bootloader that should be used for the device.";
     };
 
-    device = mkOption {
-      type = with types; nullOr str;
-      default = "nodev";
-      description = "The device to install the bootloader to.";
+    grub = {
+      device = mkOption {
+        type = with types; nullOr str;
+        default = "nodev";
+        description = "The device to install the bootloader to.";
+      };
     };
 
     plymouth = {
-      enable = mkEnableOption "plymouth boot splash";
-      withThemes = mkEnableOption (mdDoc ''
+      enable = mkEnableOption "Plymouth boot splash";
+      withThemes = mkEnableOption ''
         Whether or not themes from https://github.com/adi1090x/plymouth-themes
         should be enabled and configured
-      '');
+      '';
 
       pack = mkOption {
         type = types.enum [1 2 3 4];
         default = 3;
-        description = mdDoc "The pack number for the theme to be selected from.";
+        description = "The pack number for the theme to be selected from.";
       };
 
       theme = mkOption {
         type = types.str;
         default = "hud_3";
-        description = mdDoc "The theme name from the selected theme pack";
+        description = "The theme name from the selected theme pack";
       };
     };
 

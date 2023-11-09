@@ -72,7 +72,7 @@ in {
             database = mkOption {
               type = types.str;
               default = "sqlite reposilite.db";
-              description = lib.mdDoc ''
+              description = ''
                 Database configuration. Supported storage providers:
                   - mysql localhost:3306 database user password
                   - sqlite reposilite.db
@@ -156,7 +156,7 @@ in {
             bypassExternalCache = mkOption {
               type = types.bool;
               default = true;
-              description = lib.mdDoc ''
+              description = ''
                 Bypass external cache and use internal one.
                 Adds cache bypass headers to each request from `/api/*` scope served by this instance
               '';

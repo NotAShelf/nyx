@@ -3,8 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) concatStrings mapAttrsToList concatMapAttrs optionalAttrs optionalString foldl' stringLength elem substring head lowerChars toUpper isBool isList boolToString types mkIf optional mkOption mkEnableOption;
+
   cfg = config.services.wakapi;
   user = config.users.users.wakapi.name;
   group = config.users.groups.wakapi.name;
@@ -44,20 +45,20 @@ with lib; let
     configEnv;
 in {
   options.services.wakapi = with types; {
-    enable = mkEnableOption (mdDoc "wakapi");
+    enable = mkEnableOption "wakapi";
 
     package = mkOption {
       type = package;
       default = pkgs.wakapi;
       defaultText = literalExpression "pkgs.wakapi";
-      description = lib.mdDoc "wakapi package to use.";
+      description = "wakapi package to use.";
     };
 
     stateDirectory = mkOption {
       type = str;
       default = "wakapi";
       defaultText = literalExpression "wakapi";
-      description = lib.mdDoc "The state directory for the systemd service. Will be located in /var/lib";
+      description = "The state directory for the systemd service. Will be located in /var/lib";
     };
 
     config = mkOption {
@@ -72,7 +73,7 @@ in {
           WAKAPI_PORT=3000
         }
       '';
-      description = lib.mdDoc ''
+      description = ''
         The configuration of wakatime is done through environment variables,
         therefore it is recommended to use upper snake case (e.g. {env}`WAKAPI_DATA_CLEANUP_TIME`).
 
@@ -98,7 +99,7 @@ in {
       type = with types; nullOr path;
       default = null;
       example = "/etc/wakapi.env";
-      description = lib.mdDoc ''
+      description = ''
         Additional environment file as defined in {manpage}`systemd.exec(5)`.
 
         Sensitive secrets such as {env}`WAKAPI_PASSWORD_SALT` and {env}`WAKAPI_DB_PASSWORD`
@@ -111,7 +112,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     users.users.wakapi = {
       inherit group;
       isSystemUser = true;

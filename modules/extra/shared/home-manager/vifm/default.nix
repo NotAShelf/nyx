@@ -5,7 +5,7 @@
   ...
 }:
 with builtins; let
-  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD mdDoc literalExpression;
+  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD literalExpression;
 
   cfg = config.programs.vifm;
 in {
@@ -18,7 +18,7 @@ in {
     config = mkOption {
       type = types.lines;
       default = "";
-      description = mdDoc "Vifm configuration to be written in vifmrc";
+      description = "Vifm configuration to be written in vifmrc";
 
       example = literalExpression ''
         " vim:ft=vifm
@@ -43,8 +43,7 @@ in {
     home.packages = [cfg.package];
 
     xdg.configFile."vifm/vifmrc".source = pkgs.writeText "vifmrc" (
-      (lib.concatStringsSep "\n" (lib.forEach cfg.extraConfigFiles (x: "source ${x}")))
-      + "\n" # newline to separate extra config files from main config
+      (lib.concatLines (lib.forEach cfg.extraConfigFiles (x: "source ${x}")))
       + cfg.config
     );
   };

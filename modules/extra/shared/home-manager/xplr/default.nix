@@ -5,7 +5,7 @@
   ...
 }:
 with builtins; let
-  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD mdDoc literalExpression;
+  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD literalExpression;
 
   cfg = config.programs.xplr;
   initialConfig = ''
@@ -29,7 +29,7 @@ in {
       type = with types; nullOr (listOf (either package str));
       default = [];
       defaultText = literalExpression "[]";
-      description = mdDoc ''
+      description = ''
         Plugins to be added to your configuration file. Must be a package, an absolute plugin path, or string
         to be recognized by xplr. Paths will be relative to $XDG_CONFIG_HOME/xplr/init.lua unless they are absolute.
       '';
@@ -39,7 +39,7 @@ in {
     config = mkOption {
       type = types.lines;
       default = "";
-      description = lib.mdDoc ''
+      description = ''
         Extra xplr configuration.
       '';
 
