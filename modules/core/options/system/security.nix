@@ -15,6 +15,25 @@ in {
       and firewall if the required modules are not explicitly loaded in your kernel configuration.
     '';
 
+    selinux = {
+      enable = mkEnableOption "system SELinux support + kernel patches";
+      state = mkOption {
+        type = with types; enum ["enforcing" "permissive" "disabled"];
+        default = "enforcing";
+        description = ''
+          SELinux state to boot with. The default is enforcing.
+        '';
+      };
+
+      type = mkOption {
+        type = with types; enum ["targeted" "minimum" "mls"];
+        default = "targeted";
+        description = ''
+          SELinux policy type to boot with. The default is targeted.
+        '';
+      };
+    };
+
     auditd = {
       enable = mkEnableOption "the audit daemon.";
       autoPrune = {
