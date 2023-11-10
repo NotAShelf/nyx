@@ -1,6 +1,6 @@
 {
-  lib,
   dag,
+  lib,
   ...
 }: let
   mkTable = desc: body:
