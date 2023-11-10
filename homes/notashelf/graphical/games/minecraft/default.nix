@@ -4,10 +4,11 @@
   osConfig,
   inputs',
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  prg = osConfig.modules.programs;
+  dev = osConfig.modules.device;
 
   acceptedTypes = ["laptop" "desktop" "lite"];
 
@@ -30,7 +31,7 @@ with lib; let
     graalvm-ce
   ];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && programs.gaming.enable) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.gaming.enable) {
     home = {
       # copy the catppuccin theme to the themes directory of PrismLauncher
       file.".local/share/PrismLauncher/themes/mocha" = {

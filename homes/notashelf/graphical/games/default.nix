@@ -3,10 +3,11 @@
   pkgs,
   osConfig,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  prg = osConfig.modules.programs;
+  dev = osConfig.modules.device;
 
   acceptedTypes = ["laptop" "desktop" "lite"];
 in {
@@ -14,7 +15,7 @@ in {
     ./minecraft
   ];
 
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.gaming.enable) {
     home = {
       packages = with pkgs; [
         gamescope

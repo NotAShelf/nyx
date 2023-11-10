@@ -5,13 +5,13 @@
   lib,
   ...
 }: let
-  device = osConfig.modules.device;
+  dev = osConfig.modules.device;
   env = osConfig.modules.usrEnv;
   sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
   imports = [inputs.anyrun.homeManagerModules.default];
-  config = lib.mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable && env.isWayland)) {
+  config = lib.mkIf (builtins.elem dev.type acceptedTypes && (sys.video.enable && env.isWayland)) {
     programs.anyrun = {
       enable = true;
       config = {

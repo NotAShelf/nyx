@@ -4,13 +4,14 @@
   pkgs,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = osConfig.modules.device;
   sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
+  config = mkIf (builtins.elem dev.type acceptedTypes && sys.video.enable) {
     home.packages = with pkgs; let
       emoji = pkgs.writeShellScriptBin "emoji" ''
         #!/bin/sh
