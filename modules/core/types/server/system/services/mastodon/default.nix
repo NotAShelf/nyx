@@ -17,13 +17,13 @@ in {
 
     services = {
       elasticsearch.enable = true;
-      postgresql.enable = true;
 
       mastodon = {
         enable = true;
         user = "mastodon";
 
-        configureNginx = true;
+        elasticsearch.host = "127.0.0.1";
+
         localDomain = "social.notashelf.dev";
 
         redis = {
@@ -53,10 +53,40 @@ in {
         extraConfig = {
           SINGLE_USER_MODE = "true";
           WEB_DOMAIN = "social.notashelf.dev";
+          AUTHORIZED_FETCH = "true";
         };
       };
 
-      nginx.virtualHosts."social.notashelf.dev" = lib.sslTemplate;
+      # this does what configureNginx option under the mastodon service is supposed to
+      # to be able to fine-grain the service, we move it to its own configuration block
+      # and also, I don't trust nixpkgs maintainers to properly maintain a service - so this is a safety net
+      # in case they break another thing without proper documentation
+      # /rant
+      nginx = {
+        virtualHosts."social.notashelf.dev" =
+          {
+            root = "${config.services.mastodon.package}/public/";
+            #forceSSL = true;
+            #enableACME = true;
+
+            locations = {
+              "/system/".alias = "/var/lib/mastodon/public-system/";
+
+              "@proxy" = {
+                proxyPass = "http://unix:/run/mastodon-web/web.socket";
+                proxyWebsockets = true;
+              };
+
+              "/api/v1/streaming/" = {
+                proxyPass = "http://unix:/run/mastodon-streaming/streaming.socket";
+                proxyWebsockets = true;
+              };
+            };
+          }
+          // lib.sslTemplate;
+      };
     };
+
+    users.groups.mastodon.members = [config.services.nginx.user];
   };
 }
