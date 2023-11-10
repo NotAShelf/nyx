@@ -27,6 +27,13 @@
     rev = "2743e412bbe21c9d73954c403d01e8de7377890d";
     hash = "sha256-mYTzltCEKO8C7BJ3WrB/iFa1Qq1rgJlcjW6NYHPfmPk=";
   };
+
+  transfer-nvim = pkgs.fetchFromGitHub {
+    owner = "coffebar";
+    repo = "transfer.nvim";
+    rev = "54807d02fcccdcf6a0f9b23364e829e0d19f5bb0";
+    hash = "sha256-l+lG6Dxb3K3B2QJYYRodOo1cOYJm6enXpS/go4togDY=";
+  };
 in {
   imports = [neovim.homeManagerModules.default];
 
@@ -54,30 +61,36 @@ in {
         in {
           friendly-snippets = {package = friendly-snippets;};
           mkdir-nvim = {package = mkdir-nvim;};
+
+          /*
+          # enabling this causes specs to error, I don't know why
+          # the module name "transfer" is probably not correct - FIXME: look into the src
+          transfer-nvim = {
+            package = transfer-nvim;
+            setup = "require('transfer').setup{}";
+            after = ["specs-nvim"];
+          };
+          */
+
           regexplainer = {package = regexplainer;};
           specs-nvim = {
             package = specs-nvim;
             setup = ''
               require('specs').setup {
-                show_jumps  = true,
+                show_jumps = true,
                 popup = {
-                  delay_ms = 0, -- delay before popup displays
-                  inc_ms = 15, -- time increments used for fade/resize effects
-                  blend = 15, -- starting blend, between 0-100 (fully transparent), see :h winblend
+                  delay_ms = 0,
+                  inc_ms = 15,
+                  blend = 15,
                   width = 10,
                   winhl = "PMenu",
                   fader = require('specs').linear_fader,
                   resizer = require('specs').shrink_resizer
                 },
 
-                ignore_filetypes = {
-                  'NvimTree',
-                  'undotree',
-                },
+                ignore_filetypes = {'NvimTree', 'undotree'},
 
-                ignore_buftypes = {
-                  nofile = true,
-                },
+                ignore_buftypes = {nofile = true},
               }
 
               -- toggle specs using the <C-b> keybind
