@@ -15,6 +15,28 @@ in {
       and firewall if the required modules are not explicitly loaded in your kernel configuration.
     '';
 
+    mitigations = {
+      disable = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Whether to disable spectre and meltdown mitigations in the kernel. This is rather a sandbox
+          option than something you should consider on a production/mission critical system. Unless
+          you know what *exactly* you are doing, do not enable this.
+        '';
+      };
+
+      acceptRisk = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          You are either really stupid, or very knowledable. In either case,
+          this must be explicitly true in order to ensure users know what they are doing
+          when they disable security mitigations.
+        '';
+      };
+    };
+
     selinux = {
       enable = mkEnableOption "system SELinux support + kernel patches";
       state = mkOption {
