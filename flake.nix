@@ -111,12 +111,15 @@
     # more versions with or without pinned branches can be added if deemed necessary
     # stable? never heard of her
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+
+    # sometimes nixpkgs breaks something I need, pin a working commit when that occurs
     # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # Home Manager
