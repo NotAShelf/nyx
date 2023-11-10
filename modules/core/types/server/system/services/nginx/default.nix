@@ -37,7 +37,7 @@
       virtualHosts = {
         "${config.networking.domain}" = {
           default = true;
-          aliases = ["www.${config.networking.domain}"];
+          serverAliases = ["www.${config.networking.domain}"];
           extraConfig = ''
             access_log /var/log/nginx/base-access.log;
             error_log /var/log/nginx/base-error.log;
