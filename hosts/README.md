@@ -4,19 +4,19 @@ This file is the main entry point for my Nixos Configurations. All of them, with
 
 ## 🖥️ Host Specifications
 
-| Name         | Description                                                                                   |
-| :----------- | :-------------------------------------------------------------------------------------------- |
-| `gaea`       | Custom iso build to precede all creation                                                      |
-| `erebus`     | Air-gapped virtual machine/live-iso configuration for sensitive jobs                          |
-| `enyo`       | Desktop computer boasting a full AMD system. Daily workstation                                |
-| `hermes`     | HP Pavillion with Ryzen 7 7730U, and my main portable workstation Used on-the-go              |
-| `helios`     | Hetzner VPS for self-hosting some of my infrastructure                                        |
-| `prometheus` | My HP Pavillion with a a GTX 1050 and i7-7700hq [^1]                                          |
-| `epimetheus` | The succeeding brother host to Prometheus on the same machine, featuring full disk encryption |
-| `atlas`      | Proof of concept server host that is used by my Raspberry Pi 400                              |
-| `icarus`     | My 2014 Lenovo Yoga Ideapad that acts as a portable server. Not actively used                 |
-| `artemis`    | x86_64-linux VM Host for testing basic NixOS concepts                                         |
-| `apollon`    | x86_64-linux VM Host for testing for testing networked services, generally used on servers    |
+| Name             | Description                                                                                   |
+| :--------------- | :-------------------------------------------------------------------------------------------- |
+| `gaea`           | Custom iso build to precede all creation                                                      |
+| `erebus`         | Air-gapped virtual machine/live-iso configuration for sensitive jobs                          |
+| `enyo`           | Desktop computer boasting a full AMD system. Daily workstation                                |
+| `hermes`         | HP Pavillion with Ryzen 7 7730U, and my main portable workstation Used on-the-go              |
+| `helios`         | Hetzner VPS for self-hosting some of my infrastructure                                        |
+| `prometheus`[^1] | My HP Pavillion with a a GTX 1050 and i7-7700hq                                               |
+| `epimetheus`     | The succeeding brother host to Prometheus on the same machine, featuring full disk encryption |
+| `atlas`          | Proof of concept server host that is used by my Raspberry Pi 400                              |
+| `icarus`         | My 2014 Lenovo Yoga Ideapad that acts as a portable server. Not actively used                 |
+| `artemis`        | x86_64-linux VM Host for testing basic NixOS concepts                                         |
+| `apollon`        | x86_64-linux VM Host for testing for testing networked services, generally used on servers    |
 
 [1]: Deprecated
 
@@ -38,4 +38,4 @@ This file is the main entry point for my Nixos Configurations. All of them, with
   - `system.nix` should follow my local module system: `config.modules.{device,system,usrEnv,theme}`
   - `hardware-configuration.nix` should ONLY have the things exclusive to the host. Such as filesystem configurations
   - `default.nix` may not contain anything other than an `imports = [ ... ]` importing rest of the files
-- Additional host-specific configurations may either go into `system.nix` (i.e kernel configuration) or have their own file (i.e Wireguard or hardware mount configurations)
+- Additional host-specific configurations may either go into `system.nix` (i.e kernel configuration) or have their own file (i.e Wireguard or hardware mount configurations) with their own file (i.e `mounts.nix`)
