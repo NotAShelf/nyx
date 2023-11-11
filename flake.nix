@@ -221,13 +221,18 @@
     # easy color integration
     nix-colors = {
       url = "github:misterio77/nix-colors";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
+      inputs.nixpkgs-lib.follows = "nixpkgs-small";
     };
 
     # Nix gaming packages
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
+    };
+
+    atticd = {
+      url = "github:zhaofengli/attic";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # Secrets management
@@ -260,7 +265,7 @@
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-small";
         nil.follows = "nil";
         flake-utils.follows = "flake-utils";
         flake-parts.follows = "flake-parts";
@@ -276,13 +281,13 @@
     # arrpc-flake to provide arRPC package and home-manager module
     arrpc = {
       url = "github:NotAShelf/arrpc-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # use my own wallpapers repository to provide various wallpapers as nix packages
     wallpkgs = {
       url = "github:NotAShelf/wallpkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # anyrun program launcher
@@ -298,7 +303,7 @@
     # spicetify for theming spotify
     spicetify = {
       url = "github:the-argus/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     /*
@@ -321,7 +326,7 @@
     schizofox = {
       url = "github:schizofox/schizofox";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-small";
         flake-parts.follows = "flake-parts";
         nixpak.follows = "nixpak";
       };
@@ -338,7 +343,7 @@
 
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
   };
 

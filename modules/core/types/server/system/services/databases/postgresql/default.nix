@@ -23,6 +23,7 @@ in {
         "vaultwarden"
         "roundcube"
         "headscale"
+        "atticd"
       ];
 
       ensureUsers = [
@@ -53,6 +54,10 @@ in {
         {
           name = "headscale";
           ensurePermissions."DATABASE headscale" = "ALL PRIVILEGES";
+        }
+        {
+          name = "atticd";
+          ensurePermissions."DATABASE atticd" = "ALL PRIVILEGES";
         }
       ];
 

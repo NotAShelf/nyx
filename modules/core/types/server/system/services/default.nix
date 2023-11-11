@@ -18,6 +18,7 @@ _: {
     ./mastodon # decentralized social
     ./reposilite # self-hosted maven repository
     ./headscale # tailscale server
+    ./atticd # nix binary cache
 
     # misc
     ./mkm # holy fuck

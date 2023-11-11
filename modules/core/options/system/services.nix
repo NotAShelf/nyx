@@ -26,6 +26,7 @@ in {
       mastodon.enable = mkEnableOption "Mastodon service";
       reposilite.enable = mkEnableOption "Repeosilite service";
       headscale.enable = mkEnableOption "Headscale service";
+      atticd.enable = mkEnableOption "Atticd service";
 
       # database backends
       database = {
