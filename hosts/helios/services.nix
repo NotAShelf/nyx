@@ -9,6 +9,7 @@ _: {
     searxng.enable = true;
     mastodon.enable = true;
     reposilite.enable = true;
+    headscale.enable = true;
 
     monitoring = {
       grafana.enable = true;
