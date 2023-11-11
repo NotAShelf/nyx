@@ -3158,11 +3158,11 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1699406070,
-        "narHash": "sha256-LPAfWTggeDNCjf8JXYYi65byKUZtowcWS+MBPk1gGvw=",
+        "lastModified": 1699724259,
+        "narHash": "sha256-03Y7p0g5w8XQ/uywQaA0/zBST3501ZSOWNmAwspWXOY=",
         "owner": "NotAShelf",
         "repo": "nyxpkgs",
-        "rev": "3da067df4e4ccdb92fd9e02a596c806b10a03de0",
+        "rev": "fdeee115e006503188168f2557767e3ee3ba2d68",
         "type": "github"
       },
       "original": {

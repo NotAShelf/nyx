@@ -17,6 +17,7 @@ _: {
     ./searxng # searx search engine
     ./mastodon # decentralized social
     ./reposilite # self-hosted maven repository
+    ./headscale # tailscale server
 
     # misc
     ./mkm # holy fuck
