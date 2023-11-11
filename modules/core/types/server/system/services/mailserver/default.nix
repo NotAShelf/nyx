@@ -6,16 +6,16 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (config.age) secrets;
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services;
 in {
   imports = [
     inputs.simple-nixos-mailserver.nixosModule
   ];
 
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.mailserver.enable) {
+  config = mkIf cfg.mailserver.enable {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 
@@ -38,7 +38,7 @@ in {
       domains = ["notashelf.dev"];
       loginAccounts = {
         "raf@notashelf.dev" = {
-          hashedPasswordFile = config.age.secrets.mailserver-secret.path;
+          hashedPasswordFile = secrets.mailserver-secret.path;
           aliases = [
             "me"
             "raf"
@@ -52,29 +52,29 @@ in {
           ];
         };
 
-        "git@notashelf.dev" = {
-          aliases = ["git"];
-          hashedPasswordFile = config.age.secrets.mailserver-forgejo-secret.path;
-        };
-
-        "vaultwarden@notashelf.dev" = {
-          aliases = ["vaultwarden"];
-          hashedPasswordFile = config.age.secrets.mailserver-vaultwarden-secret.path;
-        };
-
-        "matrix@notashelf.dev" = {
-          aliases = ["matrix"];
-          hashedPasswordFile = config.age.secrets.mailserver-matrix-secret.path;
-        };
-
-        "cloud@notashelf.dev" = {
-          aliases = ["cloud"];
-          hashedPasswordFile = config.age.secrets.mailserver-cloud-secret.path;
-        };
-
         "noreply@notashelf.dev" = {
           aliases = ["noreply"];
-          hashedPasswordFile = config.age.secrets.mailserver-noreply-secret.path;
+          hashedPasswordFile = secrets.mailserver-noreply-secret.path;
+        };
+
+        "git@notashelf.dev" = mkIf cfg.forgejo.enable {
+          aliases = ["git" "forgejo"];
+          hashedPasswordFile = secrets.mailserver-forgejo-secret.path;
+        };
+
+        "vaultwarden@notashelf.dev" = mkIf cfg.vaultwarden.enable {
+          aliases = ["vaultwarden" "vault"];
+          hashedPasswordFile = secrets.mailserver-vaultwarden-secret.path;
+        };
+
+        "matrix@notashelf.dev" = mkIf cfg.matrix.enable {
+          aliases = ["matrix"];
+          hashedPasswordFile = secrets.mailserver-matrix-secret.path;
+        };
+
+        "cloud@notashelf.dev" = mkIf cfg.nextcloud.enable {
+          aliases = ["cloud" "nextcloud"];
+          hashedPasswordFile = secrets.mailserver-cloud-secret.path;
         };
       };
 

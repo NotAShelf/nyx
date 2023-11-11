@@ -22,9 +22,16 @@ in {
         enable = true;
         user = "mastodon";
 
-        elasticsearch.host = "127.0.0.1";
-
+        configureNginx = false;
+        trustedProxy = "127.0.0.1";
         localDomain = "social.notashelf.dev";
+        streamingPort = 55000;
+        webPort = 55001;
+        sidekiqPort = 55002;
+        enableUnixSocket = true;
+        sidekiqThreads = 12;
+
+        elasticsearch.host = "127.0.0.1";
 
         redis = {
           createLocally = false;
