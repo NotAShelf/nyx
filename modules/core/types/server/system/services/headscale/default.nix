@@ -1,8 +1,6 @@
 {
-  inputs',
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
@@ -11,7 +9,7 @@
   sys = config.modules.system;
   cfg = sys.services.headscale;
 in {
-  config = mkIf true {
+  config = mkIf cfg.enable {
     environment.systemPackages = [config.services.headscale.package];
 
     services = {
@@ -39,7 +37,7 @@ in {
 
           ip_prefixes = [
             "100.64.0.0/10"
-            "fdef:6567:bd7a::/48"
+            "fd7a:115c:a1e0::/48"
           ];
 
           db_type = "postgres";

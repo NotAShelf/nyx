@@ -25,6 +25,7 @@ in {
       miniflux.enable = mkEnableOption "Miniflux service";
       mastodon.enable = mkEnableOption "Mastodon service";
       reposilite.enable = mkEnableOption "Repeosilite service";
+      headscale.enable = mkEnableOption "Headscale service";
 
       # database backends
       database = {
