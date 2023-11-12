@@ -1,6 +1,8 @@
 {
+  inputs',
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
@@ -20,6 +22,8 @@ in {
 
       mastodon = {
         enable = true;
+        package = inputs'.nyxpkgs.packages.mastodon-bird-ui;
+
         user = "mastodon";
 
         configureNginx = false;
