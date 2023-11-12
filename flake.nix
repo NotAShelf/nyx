@@ -101,12 +101,6 @@
     });
 
   inputs = {
-    # until a new release is out and in nixpkgs:
-    waybar = {
-      url = "github:Alexays/Waybar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # We build against nixos unstable, because stable takes way too long to get things into
     # more versions with or without pinned branches can be added if deemed necessary
     # stable? never heard of her

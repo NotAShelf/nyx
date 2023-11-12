@@ -3,10 +3,9 @@
   lib,
   config,
   osConfig,
-  inputs',
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
   inherit (osConfig.modules) device;
   inherit (osConfig.modules.style.colorScheme) slug;
 
@@ -20,7 +19,7 @@ in {
     programs.waybar = {
       enable = true;
       systemd.enable = true;
-      package = inputs'.waybar.packages.default;
+      package = pkgs.waybar;
       settings = waybar_config;
       style = waybar_style;
     };
