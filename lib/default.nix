@@ -2,10 +2,9 @@
   inherit (inputs.nixpkgs) lib;
   inherit (lib) foldl recursiveUpdate;
 
-  # jesus christ this is insanely cursed
-  # wrap the import with a pre-inherited lib to avoid typing it over and over again
-  # the cost? your sanity.
-  # credits to @nrabulinski for this, I cannot be held accountible for his crimes against humanity
+  # the below function is by far the most cursed I've put in my configuration
+  # if you are, for whatever reason, copying my configuration - PLEASE omit this
+  # credits go to @nrabulinski for this
   import' = path: let
     func = import path;
     args = lib.functionArgs func;
@@ -15,9 +14,6 @@
   in
     (func defaultArgs) // functor;
 
-  # a modified version of NUR's dag type
-  dag = import' ./dag.nix;
-
   # helpful utility functions used around the system
   builders = import' ./builders.nix {inherit inputs;};
   services = import' ./services.nix;
@@ -26,6 +22,9 @@
   hardware = import' ./hardware.nix;
 
   # abstractions over networking functions
+  # dag library is a modified version of the one found in
+  # rycee's NUR repository
+  dag = import' ./network/dag.nix;
   firewall = import' ./network/firewall.nix {inherit dag;};
   namespacing = import' ./network/namespacing.nix;
 

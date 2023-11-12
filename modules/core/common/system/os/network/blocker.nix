@@ -1,10 +1,10 @@
 {config, ...}: let
-  device = config.modules.device;
+  dev = config.modules.device;
 in {
   # this should block *most* junk sites
   networking = {
     stevenblack = {
-      enable = device.type != "server"; # don't touch hosts file on a server
+      enable = dev.type != "server"; # don't touch hosts file on a server
       block = [
         "fakenews"
         "gambling"

@@ -3,14 +3,17 @@
   lib,
   ...
 }: let
+  inherit (lib) mkOption mkEnableOption optionalString concatMapStringsSep concatStringsSep filterAttrs types;
+  inherit (dag) dagOf topoSort;
+
   mkTable = desc: body:
     lib.mkOption {
       default = {};
-      type = lib.types.submodule ({config, ...}: {
+      type = types.submodule ({config, ...}: {
         options =
           {
-            enable = lib.mkEnableOption desc;
-            objects = lib.mkOption {
+            enable = mkEnableOption desc;
+            objects = mkOption {
               type = with lib.types; listOf str;
               description = "Objects associated with this table.";
             };
@@ -19,7 +22,7 @@
 
         config = let
           buildChainDag = chain:
-            lib.concatMapStringsSep "\n" ({
+            concatMapStringsSep "\n" ({
               name,
               data,
             }: let
@@ -40,11 +43,11 @@
                   (
                     if builtins.length data.value == 1
                     then builtins.head values
-                    else "{ ${lib.concatStringsSep ", " values} }"
+                    else "{ ${concatStringsSep ", " values} }"
                   );
             in ''
               ${protocol} ${field} ${value} ${policy} comment ${name}
-            '') ((dag.topoSort chain).result or (throw "Cycle in DAG"));
+            '') ((topoSort chain).result or (throw "Cycle in DAG"));
           buildChain = chainType: chain:
             lib.mapAttrsToList (chainName: chainDag: ''
               chain ${chainName} {
@@ -52,7 +55,7 @@
 
                 ${buildChainDag chainDag}
               }
-            '') (lib.filterAttrs (_: g: builtins.length (builtins.attrNames g) > 0) chain);
+            '') (filterAttrs (_: g: builtins.length (builtins.attrNames g) > 0) chain);
         in {
           objects = let
             chains =
@@ -78,15 +81,16 @@
       description = "Containers for chains, sets, and other stateful objects.";
     };
 
-  mkChain = _: description:
-    lib.mkOption {
+  mkChain = family: description:
+    mkOption {
       inherit description;
       default = {};
-      type = dag.types.dagOf (lib.types.submodule {
+      type = dagOf (types.submodule {
         options = {
-          protocol = lib.mkOption {
+          protocol = mkOption {
+            description = "Protocol to match.";
             default = null;
-            type = with lib.types;
+            type = with types;
               nullOr (either (enum [
                   "ether"
                   "vlan"
@@ -106,11 +110,11 @@
                   "comp"
                 ])
                 str);
-            description = "Protocol to match.";
           };
-          field = lib.mkOption {
+
+          field = mkOption {
             default = null;
-            type = with lib.types;
+            type = with types;
               nullOr (enum [
                 "dport"
                 "sport"
@@ -123,26 +127,37 @@
               ]);
             description = "Value to match.";
           };
-          value = lib.mkOption {
+
+          value = mkOption {
             default = null;
-            type = with lib.types; let
+            type = with types; let
               valueType = oneOf [port str];
             in
               nullOr (coercedTo valueType (v: [v]) (listOf valueType));
             description = "Associated value.";
           };
-          policy = lib.mkOption {
-            type = lib.types.enum [
+
+          policy = mkOption {
+            description = "What to do with matching packets.";
+            type = types.enum [
               "accept"
               "reject"
               "drop"
               "log"
             ];
-            description = "What to do with matching packets.";
           };
         };
       });
     };
+
+  mkRuleset = ruleset:
+    concatStringsSep "\n" (lib.mapAttrsToList (name: table:
+      optionalString (builtins.length table.objects > 0) ''
+        table ${name} nixos {
+          ${concatStringsSep "\n" table.objects}
+        }
+      '')
+    ruleset);
 
   mkIngressChain = mkChain "Process all packets before they enter the system";
   mkPrerouteChain = mkChain "Process all packets entering the system";
@@ -151,5 +166,5 @@
   mkOutputChain = mkChain "Process packets sent by local processes";
   mkPostrouteChain = mkChain "Process all packets leaving the system";
 in {
-  inherit mkTable mkIngressChain mkPrerouteChain mkInputChain mkForwardChain mkOutputChain mkPostrouteChain;
+  inherit mkTable mkRuleset mkIngressChain mkPrerouteChain mkInputChain mkForwardChain mkOutputChain mkPostrouteChain;
 }
