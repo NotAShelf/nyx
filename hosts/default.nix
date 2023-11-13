@@ -33,7 +33,7 @@
   # profiles
   profiles = modulePath + /profiles; # profiles force enable certain options for quick configurations
 
-  ## home-manager ##
+  # home-manager #
   homesDir = ../homes; # home-manager configurations for hosts that need home-manager
   homes = [hm homesDir]; # combine hm flake input and the home module to be imported together
 
@@ -67,7 +67,7 @@ in {
 
   # HP Pavillion from 2016
   # My main nixos profile, active on my laptop(s)
-  # superceded by epimetheus
+  # superseded by epimetheus
   prometheus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";

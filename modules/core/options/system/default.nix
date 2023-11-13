@@ -25,6 +25,9 @@ in {
     # package and program related options
     ./services.nix
     ./programs.nix
+
+    # systemd-nspawn containers
+    ./containers.nix
   ];
   config = {
     warnings =

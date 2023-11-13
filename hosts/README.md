@@ -9,10 +9,10 @@ This file is the main entry point for my Nixos Configurations. All of them, with
 | `gaea`           | Custom iso build to precede all creation                                                      |
 | `erebus`         | Air-gapped virtual machine/live-iso configuration for sensitive jobs                          |
 | `enyo`           | Desktop computer boasting a full AMD system. Daily workstation                                |
-| `hermes`         | HP Pavillion with Ryzen 7 7730U, and my main portable workstation Used on-the-go              |
 | `helios`         | Hetzner VPS for self-hosting some of my infrastructure                                        |
 | `prometheus`[^1] | My HP Pavillion with a a GTX 1050 and i7-7700hq                                               |
 | `epimetheus`     | The succeeding brother host to Prometheus on the same machine, featuring full disk encryption |
+| `hermes`         | HP Pavillion with a Ryzen 7 7730U, and my main portable workstation. Used on-the-go           |
 | `atlas`          | Proof of concept server host that is used by my Raspberry Pi 400                              |
 | `icarus`         | My 2014 Lenovo Yoga Ideapad that acts as a portable server. Not actively used                 |
 | `artemis`        | x86_64-linux VM Host for testing basic NixOS concepts                                         |
@@ -26,8 +26,9 @@ This file is the main entry point for my Nixos Configurations. All of them, with
 
 > Guidelines for importing files within the `hosts` directory
 
-- Only importing downwards. This means no `imports = [ ../../foo/bar/some-module.nix ];`
-- Only one level of imports. This means `imports = [./foo.nix]` is fine, but `imports = [ ./foo/bar/baz.nix ]` is not
+- Only importing downwards. This means no `imports = [ ../../foo/bar/some-module.nix ];` - this is a classic pattern in NixOS configurations, but only gets more out of hand in time.
+- Only one level of imports. This means `imports = [./foo.nix]` is fine, but `imports = [ ./foo/bar/baz.nix ]` is not.
+- Do not import defined modules outside hosts/default.nix. Meaning `hosts/enyo/default.nix` cannot have `../../../modules/..` in its configurations.
 
 ### Module System
 
