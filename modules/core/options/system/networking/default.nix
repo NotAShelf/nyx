@@ -5,7 +5,6 @@
 }: let
   inherit (lib) mkEnableOption mkOption types;
 
-  dev = config.modules.device;
   sys = config.modules.system;
   cfg = sys.networking.tailscale;
 in {
@@ -44,7 +43,7 @@ in {
 
       isClient = mkOption {
         type = types.bool;
-        default = true;
+        default = cfg.enable;
         example = true;
         description = ''
           Whether the target host should utilize Tailscale client features";
