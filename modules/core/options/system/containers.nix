@@ -28,7 +28,7 @@ in {
 
     enabledContainers = mkOption {
       type = with types; listOf (enum cfg.availableContainers);
-      default = ["alpha" "beta"];
+      default = [];
       example = literalExpression ''["alpha" "beta"]'';
       description = ''
         A list of enabled containers selected from the list of available containers.
