@@ -39,7 +39,10 @@
 
         networking = {
           optimizeTcp = false;
-          useTailscale = true;
+          tailscale = {
+            enable = true;
+            isServer = true;
+          };
         };
       };
 

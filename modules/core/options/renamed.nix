@@ -12,5 +12,7 @@ in {
     (mkRenamedOptionModule ["modules" "system" "security" "secureBoot"] ["modules" "system" "boot" "secureBoot"])
     (mkRenamedOptionModule ["modules" "system" "services" "gitea" "enable"] ["modules" "system" "services" "forgejo" "enable"])
     (mkRenamedOptionModule ["modules" "system" "networking" "useTailscale"] ["modules" "system" "networking" "tailscale" "client" "enable"])
+    (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "client" "enable"] ["modules" "system" "networking" "tailscale" "isClient"])
+    (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "server" "enable"] ["modules" "system" "networking" "tailscale" "isServer"])
   ];
 }
