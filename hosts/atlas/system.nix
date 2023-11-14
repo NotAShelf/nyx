@@ -25,6 +25,11 @@ with lib; {
         printing.enable = false;
         virtualization.enable = false;
         mainUser = "notashelf";
+
+        networking.tailscale = {
+          enable = true;
+          isClient = true;
+        };
       };
 
       usrEnv = {

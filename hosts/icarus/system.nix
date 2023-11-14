@@ -32,7 +32,10 @@ _: {
 
         networking = {
           optimizeTcp = true;
-          useTailscale = true;
+          tailscale = {
+            enable = true;
+            isClient = true;
+          };
         };
 
         security = {

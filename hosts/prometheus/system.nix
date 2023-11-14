@@ -39,6 +39,10 @@ in {
 
         networking = {
           optimizeTcp = true;
+          tailscale = {
+            enable = true;
+            isClient = true;
+          };
         };
 
         virtualization = {
