@@ -4,7 +4,8 @@
 
   # the below function is by far the most cursed I've put in my configuration
   # if you are, for whatever reason, copying my configuration - PLEASE omit this
-  # credits go to @nrabulinski for this
+  # and do your imports manually
+  # credits go to @nrabulinski
   import' = path: let
     func = import path;
     args = lib.functionArgs func;
@@ -15,18 +16,18 @@
     (func defaultArgs) // functor;
 
   # helpful utility functions used around the system
-  builders = import' ./builders.nix {inherit inputs;};
-  services = import' ./services.nix;
-  validators = import' ./validators.nix;
-  helpers = import' ./helpers.nix;
-  hardware = import' ./hardware.nix;
+  builders = import' ./builders.nix {inherit inputs;}; # system builders
+  services = import' ./services.nix; # systemd-service generators
+  validators = import' ./validators.nix; # validate system conditions
+  helpers = import' ./helpers.nix; # helper functions
+  hardware = import' ./hardware.nix; # hardware capability checks
 
   # abstractions over networking functions
   # dag library is a modified version of the one found in
   # rycee's NUR repository
-  dag = import' ./network/dag.nix;
-  firewall = import' ./network/firewall.nix {inherit dag;};
-  namespacing = import' ./network/namespacing.nix;
+  dag = import' ./network/dag.nix; # dag is in network because it's designed for network only use
+  firewall = import' ./network/firewall.nix {inherit dag;}; # build nftables tables and chains
+  namespacing = import' ./network/namespacing.nix; # TODO
 
   # aliases for commonly used strings or functions
   aliases = import' ./aliases.nix;
@@ -34,9 +35,6 @@
   # recursively merges two attribute sets
   # it is used to convert the importedLibs list into an attrset
   # there is probably a better way to do it, more cleanly - but I wouldn't know
-  # thus, you are subjected to my insanity. you're welcome :)
-  #
-  # p.s. if you're copying this (literally, why?), I want a MLA 9th ed citation for the quote above, thanks
   mergeRecursively = lhs: rhs: recursiveUpdate lhs rhs;
   importedLibs = [builders services validators helpers hardware aliases firewall namespacing dag];
 in

@@ -9,5 +9,6 @@ _: {
     ./security # anything from kernel hardening to audit daemeons
     ./nix # configuration for the nix package manager and build tool
     ./impermanence # impermanence configuration
+    ./containers # hotpluggable systemd-nspawn containers
   ];
 }
