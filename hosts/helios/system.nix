@@ -42,6 +42,7 @@
           tailscale = {
             enable = true;
             isServer = true;
+            isClient = false;
           };
         };
       };
