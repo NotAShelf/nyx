@@ -151,13 +151,13 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 > I ~~shamelessly stole from~~ got inspired by those folks
 
 [sioodmy](https://github.com/sioodmy) -
-[rxyhn](https://github.com/rxyhn) -
 [fufexan](https://github.com/fufexan) -
-[hlissner](https://github.com/hlissner) -
-[fortuneteller2k](https://github.com/fortuneteller2k) -
+[rxyhn](https://github.com/rxyhn) -
 [NobbZ](https://github.com/NobbZ/nixos-config) -
 [ViperML](https://github.com/viperML/dotfiles) -
 [spikespaz](https://github.com/spikespaz/dotfiles) -
+[hlissner](https://github.com/hlissner) -
+[fortuneteller2k](https://github.com/fortuneteller2k) -
 [privatevoid/depot](https://github.com/privatevoid-net/depot)
 
 ... and surely there are more, but I tend to forget.
@@ -173,24 +173,25 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 
 > Resource that helped shape and improve this configuation, or resources that I strongly recommend that you read.
 
-- [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
 - [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
+- [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
 - [Viper's Blog](https://ayats.org/)
+- [Solène's Blog](https://dataswamp.org/~solene)
 
 > Software that helped this configuration become what it is, or software I find interesting
 
 - [Agenix](https://github.com/ryantm/agenix)
 - [Hyprland](https://github.com/hyprwm/Hyprland)
-- [Nh](https://github.com/viperML/ng)
+- [nh](https://github.com/viperML/ng)
 
-> Stuff that I make and was designed for/is used in this repository
+> Stuff that I make and/or was designed for/is used in this repository
 
 - [neovim-flake](https://github.com/notashelf/neovim-flake)
 - [docr](https://github.com/notashelf/docr)
 - [nyxpkgs](https://github.com/notashelf/nyxpkgs)
 - [schizofox](https://github.com/schizofox/schizofox)
 
-Additionally, take a look at my [notes](docs/notes) for my notes on specific processes on NixOS.
+Additionally, take a look at my [notes/blog](docs/notes) for my notes on specific processes on NixOS.
 
 ## 📜 License
 
