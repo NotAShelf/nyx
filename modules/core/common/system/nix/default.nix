@@ -109,15 +109,14 @@ with lib; {
       # automatically optimise symlinks
       auto-optimise-store = true;
       # allow sudo users to mark the following values as trusted
-      allowed-users = ["@wheel" "nix-builder"];
+      allowed-users = ["root" "@wheel" "nix-builder"];
       # only allow sudo users to manage the nix store
-      trusted-users = ["@wheel" "nix-builder"];
+      trusted-users = ["root" "@wheel" "nix-builder"];
       # let the system decide the number of max jobs
       max-jobs = "auto";
       # build inside sandboxed environments
       sandbox = true;
       # supported system features
-      # TODO: "gccarch-core2" "gccarch-haswell"
       system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
       # extra architectures supported by my builders
       extra-platforms = config.boot.binfmt.emulatedSystems;
@@ -164,6 +163,7 @@ with lib; {
         "https://anyrun.cachix.org" # anyrun program launcher
         "https://nyx.cachix.org" # cached stuff from my flake outputs
         "https://neovim-flake.cachix.org" # a cache for my neovim flake
+        "https://cache.garnix.io" # garnix binary cache, hosts prismlauncher
       ];
 
       trusted-public-keys = [
@@ -180,6 +180,7 @@ with lib; {
         "notashelf.cachix.org-1:VTTBFNQWbfyLuRzgm2I7AWSDJdqAa11ytLXHBhrprZk="
         "neovim-flake.cachix.org-1:iyQ6lHFhnB5UkVpxhQqLJbneWBTzM8LBYOFPLNH4qZw="
         "nyx.cachix.org-1:xH6G0MO9PrpeGe7mHBtj1WbNzmnXr7jId2mCiq6hipE="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
     };
   };
