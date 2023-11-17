@@ -1,7 +1,7 @@
 # Overview
 
 If you have seen the sheer depth of my security-related tweaks within this repository, then you are probably aware that
-I consider consider security a high priority must-have for my system configurations. If you happen to be browsing through
+I consider consider security a high-proprity goal, and a must-have for my system configurations. If you happen to be browsing through
 this repository and will or did take your time to report a vulnerability, then I owe you a thank you.
 
 ## The Process
