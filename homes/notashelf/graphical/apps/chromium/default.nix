@@ -3,13 +3,14 @@
   pkgs,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf optionals;
+
+  dev = osConfig.modules.device;
   env = osConfig.modules.usrEnv;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     programs.chromium = {
       enable = true;
       extensions = [
@@ -69,12 +70,12 @@ in {
             "--disable-speech-api"
             "--disable-speech-synthesis-api"
           ]
-          ++ optionals (env.isWayland) [
+          ++ optionals env.isWayland [
             # Wayland
+
             # Disabled because hardware acceleration doesn't work
             # when disabling --use-gl=egl, it's not gonna show any emoji
             # and it's gonna be slow as hell
-
             # "--use-gl=egl"
 
             "--ozone-platform=wayland"

@@ -2,8 +2,9 @@
   lib,
   config,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf mkForce;
+
   cfg = config.modules.system;
 in {
   config = mkIf (cfg.boot.loader == "none") {

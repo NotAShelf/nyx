@@ -1,5 +1,6 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: let
+  inherit (lib) mkOption types;
+in {
   options.modules.device = {
     # bluetooth is an insecure protocol if left unchedked, so while this defaults to true
     # but the bluetooth.enable option does and should not.

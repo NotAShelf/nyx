@@ -3,14 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  prg = osConfig.modules.programs;
+  dev = osConfig.modules.device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.cli.enable) {
     home.packages = with pkgs; [
       # CLI
       libnotify

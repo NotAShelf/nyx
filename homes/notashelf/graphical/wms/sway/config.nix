@@ -5,11 +5,11 @@
   pkgs,
   defaults,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   env = osConfig.modules.usrEnv;
   sys = osConfig.modules.system;
-  prg = osConfig.modules.programs;
 
   terminal =
     if (defaults.terminal == "foot")

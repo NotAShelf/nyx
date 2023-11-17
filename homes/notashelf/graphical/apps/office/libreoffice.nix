@@ -3,13 +3,14 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  override = osConfig.modules.programs.override;
+}: let
+  inherit (lib) mkIf;
+
+  dev = osConfig.modules.device;
+  prg = osConfig.modules.programs;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (!override.libreoffice)) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.libreoffice.enable) {
     home.packages = with pkgs; [
       libreoffice-qt
       hunspell

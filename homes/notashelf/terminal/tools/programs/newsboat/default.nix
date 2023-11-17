@@ -4,20 +4,23 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf getExe;
+
   mpv = "${getExe pkgs.mpv}";
   glow = "${getExe pkgs.glow}";
   pandoc = "${getExe pkgs.pandoc}";
 
-  device = osConfig.modules.device;
+  dev = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     programs.newsboat = {
       enable = true;
+
+      inherit ((import ./urls.nix)) urls;
+
       autoReload = true;
-      urls = (import ./urls.nix).urls;
       extraConfig = ''
         download-full-page yes
         download-retries 3

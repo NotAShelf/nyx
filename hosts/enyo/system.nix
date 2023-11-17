@@ -82,12 +82,12 @@
           enable = true;
           chess.enable = true;
         };
+
         default = {
           terminal = "foot";
         };
-        override = {
-          libreoffice = false;
-        };
+
+        libreoffice.enable = true;
       };
     };
 

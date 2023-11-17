@@ -3,8 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) mkForce;
+in {
   config = {
     modules = {
       device = {

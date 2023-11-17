@@ -2,10 +2,10 @@
   config,
   lib,
   pkgs,
-  self,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   dev = config.modules.device;
   cfg = config.modules.system.services;
   acceptedTypes = ["server" "hybrid"];

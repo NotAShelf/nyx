@@ -4,12 +4,13 @@
   osConfig,
   inputs',
   ...
-} @ args:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = osConfig.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "server" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     programs.helix = {
       enable = false;
       package = inputs'.helix.packages.default.overrideAttrs (self: {
@@ -45,15 +46,17 @@ in {
           "}" = "goto_next_paragraph";
           "X" = "extend_line_above";
           "esc" = ["collapse_selection" "keep_primary_selection"];
-          space.space = "file_picker";
-          space.w = ":w";
-          space.q = ":bc";
           "C-q" = ":xa";
           "C-w" = "file_picker";
-          space.u = {
-            f = ":format"; # format using LSP formatter
-            w = ":set whitespace.render all";
-            W = ":set whitespace.render none";
+          "space" = {
+            "space" = "file_picker";
+            "w" = ":w";
+            "q" = ":bc";
+            "u" = {
+              "f" = ":format"; # format using LSP formatter
+              "w" = ":set whitespace.render all";
+              "W" = ":set whitespace.render none";
+            };
           };
         };
         keys.select = {

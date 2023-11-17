@@ -4,16 +4,16 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) optionalString primaryMonitor;
+
   sys = osConfig.modules.system;
-  cfg = osConfig.modules.programs;
 in {
   mainBar = {
     layer = "top";
     position = "left";
     # monitor configuration, kind of dirty since it assumes DP-1 is my main monitor
-    output = lib.primaryMonitor osConfig; #builtins.elemAt monitors 0;
+    output = primaryMonitor osConfig;
     width = 55;
     spacing = 7;
     margin-left = 6;

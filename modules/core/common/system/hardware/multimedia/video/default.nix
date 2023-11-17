@@ -3,8 +3,9 @@
   lib,
   config,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   sys = config.modules.system;
 in {
   config = mkIf sys.video.enable {
