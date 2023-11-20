@@ -5,9 +5,16 @@
   ...
 }: let
   inherit (lib) mkIf;
+
+  hostConfig = config;
 in {
   config = mkIf (builtins.elem "alpha" config.modules.system.containers.enabledContainers) {
-    systemd.services."container@alpha".after = ["container@firewall.service"];
+    systemd = {
+      services."container@alpha".after = ["container@firewall.service"];
+      tmpfiles.rules = [
+        "D /srv/containers/home 755 root root"
+      ];
+    };
 
     containers."alpha" = {
       autoStart = false;
@@ -17,25 +24,27 @@ in {
       localAddress = "10.1.0.1";
       hostAddress = "10.1.0.2";
       config = _: {
-        services.openssh.enable = true;
+        _module.args = {inherit lib;};
+        nixpkgs.pkgs = pkgs;
 
         users = {
           groups.alpha = {};
-          users = {
-            root.hashedPassword = "!"; # disable root login
-            alpha = {
-              isNormalUser = true;
-              createHome = true;
-              group = "alpha";
-            };
+          users.alpha = {
+            isNormalUser = true;
+            extraGroups = ["alpha"];
+            home = "/home/alpha";
+            createHome = true;
+            initialPassword = "alpha";
           };
         };
 
         environment.systemPackages = with pkgs; [
           gcc
+          openjdk17_headless
+          gitMinimal
         ];
 
-        networking.interfaces.ve-sandbox = {
+        networking.interfaces.ve-alpha = {
           useDHCP = true;
           ipv4 = {
             addresses = [
@@ -58,7 +67,16 @@ in {
       bindMounts = {
         "/home" = {
           hostPath = "/srv/containers/home";
-          isReadOnly = true;
+          isReadOnly = false;
+        };
+
+        "/run/systemd/ask-password" = {
+          hostPath = "/run/systemd/ask-password";
+          isReadOnly = false;
+        };
+        "/run/systemd/ask-password-block" = {
+          hostPath = "/run/systemd/ask-password-block";
+          isReadOnly = false;
         };
       };
     };

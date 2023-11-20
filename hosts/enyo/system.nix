@@ -34,6 +34,10 @@
           };
         };
 
+        containers = {
+          enabledContainers = ["alpha"];
+        };
+
         yubikeySupport.enable = true;
 
         video.enable = true;
