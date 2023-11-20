@@ -18,7 +18,11 @@ in {
       hexchat
       netflix
       bitwarden
-      obsidian
+      (symlinkJoin {
+        name = "Obsidian";
+        paths = with pkgs; [obsidian pandoc];
+      })
+
       nextcloud-client
       easyeffects
       librewolf
