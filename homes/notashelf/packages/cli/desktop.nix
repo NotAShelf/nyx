@@ -20,7 +20,6 @@ in {
       cmake
       bitwarden-cli
       trash-cli
-      python39Packages.requests
       slides
       brightnessctl
       tesseract5

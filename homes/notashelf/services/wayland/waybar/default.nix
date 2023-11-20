@@ -15,7 +15,7 @@
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
-    home.packages = with pkgs.python39Packages; [requests];
+    home.packages = with pkgs.python3Packages; [requests];
     programs.waybar = {
       enable = true;
       systemd.enable = true;
