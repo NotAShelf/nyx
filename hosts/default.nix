@@ -182,6 +182,21 @@ in {
     specialArgs = {inherit inputs self lib;};
   };
 
+  # Pretty beefy VM running on my dedicated server
+  # is mostly for testing, but can run services at will
+  leto = mkNixosSystem {
+    inherit withSystem;
+    system = "x86_64-linux";
+    modules =
+      [
+        {networking.hostName = "leto";}
+        ./leto
+        server
+      ]
+      ++ concatLists [shared homes];
+    specialArgs = sharedArgs;
+  };
+
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
   artemis = mkNixosSystem {
