@@ -7,28 +7,36 @@ let
   enyo = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKAYCaA6JEnTt2BI6MJn8t2Qc3E45ARZua1VWhQpSPQi";
   hermes = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEPShBrtrNRNaYUtIWhn0RHDr759mMcfZjqjJRAfCnWU";
   icarus = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHWh3pRk2edQkELicwkYFVGKy90sFlluECfTasjCQr1m";
+  leto = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvw6R8RS6e1tpf5rnFMv+xWQsNk082wRlwTaaFKmIrx0iotP1nE5Tux+uKhx1u71se3LwtzvxvaAcZgqnowq1tZWCeqDWcz7uanDogsmjc+vS54P//gmhWAeAX9ClHIdFBpZSc1+R+aKws9KjJQBOUZi9/07f77AjmxbSDMVeCv5mMF++WjKlE8oJKaa2lLyhxeF5mr2GoNfCkF7FknTrX+mZ6EqW3g0FHHbhqCim4fdTZUberja/W4m2UwWXewgfTUVNowONB8035/BWbBwnxK8i2f2cqdXqF1SVN5SK14Bq7etIc0lJVmLcPz+R6kZPWu6NBF0D92eGBozdzCuJWy/NO/Y6G5Y2tSdFAkkTlpJPM4PA4pQP2XHuohgYOceMtDb4N75ZC10uNiDR/DnwVIa1dzjFQ1ZMfgZ94EwGd9Vy0oklQGrbkAXHA+DPFnc3PTuRUyMgOavI2RxIgYT8LQYWpxc0wGRiBXY/CqbaKSWERxxSlu4Js/0MfRq0GVyxAqE1Lg6C4oodXB4a6j/0/nF4jWLMxVTx3LH4hljV9o1JKbf3sApv9gUoF4Kwv3dv19iJhjcQLF9gKV8qCeIRC5Dp6cV0XI/IhmAMp5rCOVBqIUxYPWJBZYCatxS3gwVGqQPo/X6OLx35C5N5IVRVYd+D59s1crKTDvkZpGH1zOw==";
+
+  # aliases
+  servers = [helios icarus leto];
+  workstations = [enyo hermes icarus];
+
+  # helpers
+  mkGeneric = list: list ++ [notashelf];
 in {
   # core system secrets
-  "spotify.age".publicKeys = [enyo hermes icarus notashelf];
-  "nix-builderKey.age".publicKeys = [enyo helios hermes icarus notashelf];
-  "wg-client.age".publicKeys = [enyo helios hermes icarus notashelf];
+  "spotify.age".publicKeys = mkGeneric workstations;
+  "nix-builderKey.age".publicKeys = mkGeneric (workstations ++ servers);
+  "wg-client.age".publicKeys = mkGeneric (workstations ++ servers);
 
   # service specific secrets
-  "matrix-secret.age".publicKeys = [enyo helios notashelf];
-  "nextcloud-secret.age".publicKeys = [enyo helios notashelf];
-  "mongodb-secret.age".publicKeys = [enyo helios notashelf];
-  "mkm-web.age".publicKeys = [enyo helios notashelf];
-  "vaultwarden-env.age".publicKeys = [enyo helios notashelf];
-  "wg-server.age".publicKeys = [enyo helios notashelf];
-  "searx-secretkey.age".publicKeys = [enyo helios notashelf];
-  "garage-env.age".publicKeys = [enyo helios notashelf];
-  "attic-env.age".publicKeys = [enyo helios notashelf];
+  "matrix-secret.age".publicKeys = mkGeneric servers;
+  "nextcloud-secret.age".publicKeys = mkGeneric servers;
+  "mongodb-secret.age".publicKeys = mkGeneric servers;
+  "mkm-web.age".publicKeys = mkGeneric servers;
+  "vaultwarden-env.age".publicKeys = mkGeneric servers;
+  "wg-server.age".publicKeys = mkGeneric servers;
+  "searx-secretkey.age".publicKeys = mkGeneric servers;
+  "garage-env.age".publicKeys = mkGeneric servers;
+  "attic-env.age".publicKeys = mkGeneric servers;
 
   # secrets for specific mailserver accounts
-  "mailserver-secret.age".publicKeys = [enyo helios notashelf];
-  "mailserver-forgejo-secret.age".publicKeys = [enyo helios notashelf];
-  "mailserver-vaultwarden-secret.age".publicKeys = [enyo helios notashelf];
-  "mailserver-matrix-secret.age".publicKeys = [enyo helios notashelf];
-  "mailserver-cloud-secret.age".publicKeys = [enyo helios notashelf];
-  "mailserver-noreply-secret.age".publicKeys = [enyo helios notashelf];
+  "mailserver-secret.age".publicKeys = mkGeneric servers;
+  "mailserver-forgejo-secret.age".publicKeys = mkGeneric servers;
+  "mailserver-vaultwarden-secret.age".publicKeys = mkGeneric servers;
+  "mailserver-matrix-secret.age".publicKeys = mkGeneric servers;
+  "mailserver-cloud-secret.age".publicKeys = mkGeneric servers;
+  "mailserver-noreply-secret.age".publicKeys = mkGeneric servers;
 }
