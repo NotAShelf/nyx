@@ -1,6 +1,7 @@
 {
-  pkgs,
+  config,
   lib,
+  pkgs,
   ...
 }: {
   programs = {
@@ -32,7 +33,12 @@
       silent = true;
 
       # faster, persistent implementation of use_nix and use_flake
-      nix-direnv.enable = true;
+      nix-direnv = {
+        enable = true;
+        package = pkgs.nix-direnv.override {
+          nix = config.nix.package;
+        };
+      };
     };
   };
 }
