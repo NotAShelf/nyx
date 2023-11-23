@@ -132,8 +132,11 @@ with lib; {
         "recursive-nix" # let nix invoke itself
         "ca-derivations" # content addressed nix
         "repl-flake" # allow passing installables to nix repl
-        "auto-allocate-uids" # allow Nix to automatically pick UIDs, rather than creating nixbld* user accounts
+        "auto-allocate-uids" # allow nix to automatically pick UIDs, rather than creating nixbld* user accounts
         "configurable-impure-env" # allow impure environments
+        "cgroups" # allow nix to execute builds inside cgroups
+        "git-hashing" # allow store objects which are hashed via Git's hashing algorithm
+        "verified-fetches" # enable verification of git commit signatures for fetchGit
       ];
       # don't warn me that my git tree is dirty, I know
       warn-dirty = false;
@@ -141,6 +144,8 @@ with lib; {
       http-connections = 50;
       # whether to accept nix configuration from a flake without prompting
       accept-flake-config = true;
+      # execute builds inside cgroups
+      use-cgroups = true;
 
       # for direnv GC roots
       keep-derivations = true;
