@@ -101,6 +101,20 @@ in {
         group = "atticd";
       };
 
+      forgejo-runner-token = mkIf cfg.forgejo.enable {
+        file = "${self}/secrets/forgejo-runner-token.age";
+        mode = "400";
+        owner = "gitea-runner";
+        group = "gitea-runner";
+      };
+
+      forgejo-runner-config = mkIf cfg.forgejo.enable {
+        file = "${self}/secrets/forgejo-runner-config.age";
+        mode = "400";
+        owner = "gitea-runner";
+        group = "gitea-runner";
+      };
+
       # mailserver secrets
       mailserver-secret = mkIf cfg.mailserver.enable {
         file = "${self}/secrets/mailserver-secret.age";

@@ -11,7 +11,8 @@
   cfg = config.modules.system.services;
   domain = "git.notashelf.dev";
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.forgejo.enable) {
+  imports = [./runner.nix];
+  config = mkIf cfg.forgejo.enable {
     networking.firewall.allowedTCPPorts = [
       # make sure the service is reachable from outside
       config.services.forgejo.settings.server.HTTP_PORT
@@ -35,20 +36,29 @@ in {
         settings = {
           default.APP_NAME = "The Secret Shelf";
 
-          ui.DEFAULT_THEME = "arc-green";
-
           actions = {
             ENABLED = true;
-            DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
+            DEFAULT_ACTIONS_URL = "https://git.notashelf.dev";
+          };
+
+          other = {
+            SHOW_FOOTER_VERSION = false;
+            SHOW_FOOTER_TEMPLATE_LOAD_TIME = false;
+          };
+
+          session = {
+            COOKIE_SECURE = true;
+            SAME_SITE = "strict";
           };
 
           server = {
+            PROTOCOL = "http+unix";
             HTTP_PORT = 7000;
             ROOT_URL = "https://${domain}";
             DOMAIN = "${domain}";
             DISABLE_ROUTER_LOG = true;
             SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
-            LANDING_PAGE = "/explore/repos";
+            LANDING_PAGE = "/explore";
 
             START_SSH_SERVER = true;
             SSH_PORT = 2222;
@@ -76,10 +86,12 @@ in {
             USER = "git@notashelf.dev";
           };
 
+          ui.DEFAULT_THEME = "arc-green";
           attachment.ALLOWED_TYPES = "*/*";
           service.DISABLE_REGISTRATION = true;
           packages.ENABLED = false;
           repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
+          log.LEVEL = "Debug";
           "repository.upload" = {
             FILE_MAX_SIZE = 100;
             MAX_FILES = 10;
@@ -97,7 +109,11 @@ in {
 
       nginx.virtualHosts."git.notashelf.dev" =
         {
-          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+          #locations."/".proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+          locations."/" = {
+            recommendedProxySettings = true;
+            proxyPass = "http://unix:/run/forgejo/forgejo.sock";
+          };
         }
         // lib.sslTemplate;
     };

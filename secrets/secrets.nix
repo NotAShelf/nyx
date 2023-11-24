@@ -31,6 +31,8 @@ in {
   "searx-secretkey.age".publicKeys = mkGeneric servers;
   "garage-env.age".publicKeys = mkGeneric servers;
   "attic-env.age".publicKeys = mkGeneric servers;
+  "forgejo-runner-token.age".publicKeys = mkGeneric servers;
+  "forgejo-runner-config.age".publicKeys = mkGeneric servers;
 
   # secrets for specific mailserver accounts
   "mailserver-secret.age".publicKeys = mkGeneric servers;
