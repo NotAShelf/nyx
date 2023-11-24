@@ -4,8 +4,9 @@
   pkgs,
   modulesPath,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) optionalString mkDefault;
+in {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
@@ -14,6 +15,7 @@ with lib; {
     ./iso.nix
     ./network.nix
     ./nix.nix
+    ./ssh.nix
   ];
 
   users.extraUsers.root.password = "";
@@ -94,4 +96,12 @@ with lib; {
 
   # disable sound related programs
   sound.enable = false;
+
+  # provide all hardware drivers, including proprietary ones
+  hardware.enableRedistributableFirmware = true;
+
+  # since we don't inherit the core module, this needs to be set here manually
+  # otherwise we'll see the stateVersion error - which doesn't actually matter inside the ISO
+  # but still annoying and slows down nix flake check
+  system.stateVersion = "23.11";
 }

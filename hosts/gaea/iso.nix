@@ -21,5 +21,13 @@
     # hopefully makes the ISO bootable over ventoy
     makeEfiBootable = true;
     makeUsbBootable = true;
+
+    # include memtest86+ in the ISO
+    contents = [
+      {
+        source = pkgs.memtest86plus + "/memtest.bin";
+        target = "boot/memtest.bin";
+      }
+    ];
   };
 }
