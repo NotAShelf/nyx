@@ -429,4 +429,22 @@ in {
       };
     };
   };
+
+  xdg.desktopEntries.neovim = lib.mkForce {
+    name = "Neovim";
+    type = "Application";
+    mimeType = ["text/plain"];
+
+    icon = builtins.fetchurl {
+      url = "https://raw.githubusercontent.com/NotAShelf/neovim-flake/main/assets/neovim-flake-logo-work.svg";
+      sha256 = "19n7n9xafyak35pkn4cww0s5db2cr97yz78w5ppbcp9jvxw6yyz3";
+    };
+
+    exec = "${pkgs.writeShellScript "foot-neovim" ''
+      filename="$(readlink -f "$1")"
+      dirname="$(dirname "$filename")"
+
+      ${lib.getExe pkgs.foot} -D "$dirname" ${lib.getExe pkgs.zsh} -c "${lib.getExe pkgs.direnv} exec . nvim '$filename'"
+    ''} %f";
+  };
 }
