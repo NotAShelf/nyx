@@ -2,7 +2,6 @@
   inputs',
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
@@ -12,14 +11,15 @@
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.mastodon.enable) {
-    modules.system.services.database = {
-      postgresql.enable = true;
-      redis.enable = true;
+    modules.system.services = {
+      elasticsearch.enable = true;
+      database = {
+        postgresql.enable = true;
+        redis.enable = true;
+      };
     };
 
     services = {
-      elasticsearch.enable = true;
-
       mastodon = {
         enable = true;
         package = inputs'.nyxpkgs.packages.mastodon-bird-ui;

@@ -19,6 +19,8 @@ _: {
     ./reposilite # self-hosted maven repository
     ./headscale # tailscale server
     ./atticd # nix binary cache
+    ./uptime-kuma # uptime monitor
+    ./elasticsearch # elasticsearch
 
     # misc
     ./mkm # holy fuck

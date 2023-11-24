@@ -27,6 +27,7 @@ in {
       reposilite.enable = mkEnableOption "Repeosilite service";
       headscale.enable = mkEnableOption "Headscale service";
       atticd.enable = mkEnableOption "Atticd service";
+      elasticsearch.enable = mkEnableOption "Elasticsearch service";
 
       # database backends
       database = {
@@ -39,7 +40,7 @@ in {
 
       # monitoring tools
       monitoring = {
-        enable = mkEnableOption "system monitoring services";
+        enable = mkEnableOption "system monitoring stack";
         prometheus.enable = mkEnableOption' "Prometheus monitoring service";
         grafana.enable = mkEnableOption' "Grafana monitoring service";
         loki.enable = mkEnableOption' "Loki monitoring service";
