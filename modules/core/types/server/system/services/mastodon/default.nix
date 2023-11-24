@@ -29,7 +29,8 @@ in {
         configureNginx = false;
         trustedProxy = "127.0.0.1";
         localDomain = "social.notashelf.dev";
-        streamingPort = 55000;
+        streamingProcesses = 2;
+
         webPort = 55001;
         sidekiqPort = 55002;
         enableUnixSocket = true;
