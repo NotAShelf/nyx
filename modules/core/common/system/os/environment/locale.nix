@@ -35,6 +35,19 @@
       "en_US.UTF-8/UTF-8"
       "tr_TR.UTF-8/UTF-8"
     ];
+
+    # ime configuration
+    inputMethod = {
+      enabled = "fcitx5"; # Needed for fcitx5 to work in qt6
+      fcitx5.addons = with pkgs; [
+        fcitx5-gtk
+        fcitx5-lua
+        libsForQt5.fcitx5-qt
+
+        # themes
+        fcitx5-material-color
+      ];
+    };
   };
 
   console = let
