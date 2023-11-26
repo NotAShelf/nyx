@@ -7,6 +7,9 @@
 }: {
   networking.hostName = lib.mkImageMediaOverride "gaea";
 
+  # disallow rebuild switches
+  system.switch.enable = false;
+
   isoImage = let
     rev = self.shortRev or "dirty";
   in {
