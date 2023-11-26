@@ -1,4 +1,4 @@
-{inputs, ...}: let
+{inputs}: let
   inherit (inputs.nixpkgs) lib;
   inherit (lib) foldl recursiveUpdate;
 
@@ -21,6 +21,7 @@
   validators = import' ./validators.nix; # validate system conditions
   helpers = import' ./helpers.nix; # helper functions
   hardware = import' ./hardware.nix; # hardware capability checks
+  xdg = import' ./xdg; # xdg user directories & templates
 
   # abstractions over networking functions
   # dag library is a modified version of the one found in
@@ -36,7 +37,7 @@
   # it is used to convert the importedLibs list into an attrset
   # there is probably a better way to do it, more cleanly - but I wouldn't know
   mergeRecursively = lhs: rhs: recursiveUpdate lhs rhs;
-  importedLibs = [builders services validators helpers hardware aliases firewall namespacing dag];
+  importedLibs = [builders services validators helpers hardware aliases firewall namespacing dag xdg];
 in
   # extend nixpkgs lib
   lib.extend (_: _: foldl mergeRecursively {} importedLibs)

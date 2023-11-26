@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   browser = ["Schizofox.desktop"];
   mailer = ["thunderbird.desktop"];
   zathura = ["org.pwmt.zathura.desktop.desktop"];
@@ -31,8 +35,17 @@
     "x-scheme-handler/discord" = ["WebCord.desktop"];
     "x-scheme-handler/mailto" = mailer;
   };
+
+  template = import lib.xdgTemplate "home-manager";
 in {
+  #home.sessionVariables = template.sysEnv;
   xdg = {
+    enable = true;
+    configFile = {
+      "npm/npmrc" = template.npmrc;
+      "python/pythonrc" = template.pythonrc;
+    };
+
     userDirs = {
       enable = true;
       createDirectories = true;

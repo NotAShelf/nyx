@@ -38,7 +38,7 @@
       flake = let
         # extended nixpkgs library, contains my custom functions
         # such as system builders
-        lib = import ./lib {inherit nixpkgs inputs;};
+        lib = import ./lib {inherit inputs;};
       in {
         # TODO: I still don't have machine to test my darwin configs on - avoid pushing
         # darwinConfigurations = {};

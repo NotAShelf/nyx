@@ -15,22 +15,20 @@ in {
 
   sysEnv = {
     # general programs
-    GNUPGHOME = "${XDG_DATA_HOME}/gnupg";
-    LESSHISTFILE = "${XDG_DATA_HOME}/less/history";
     CUDA_CACHE_PATH = "${XDG_CACHE_HOME}/nv";
+    ERRFILE = "${XDG_CACHE_HOME}/X11/xsession-errors";
+    GNUPGHOME = "${XDG_DATA_HOME}/gnupg";
+    KDEHOME = "${XDG_CONFIG_HOME}/kde";
+    LESSHISTFILE = "${XDG_DATA_HOME}/less/history";
     STEPPATH = "${XDG_DATA_HOME}/step";
     WAKATIME_HOME = "${XDG_DATA_HOME}/wakatime";
+    XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
     INPUTRC = "${XDG_CONFIG_HOME}/readline/inputrc";
     PLATFORMIO_CORE_DIR = "${XDG_DATA_HOME}/platformio";
     WINEPREFIX = "${XDG_DATA_HOME}/wine";
     DOTNET_CLI_HOME = "${XDG_DATA_HOME}/dotnet";
     MPLAYER_HOME = "${XDG_CONFIG_HOME}/mplayer";
     SQLITE_HISTORY = "${XDG_CACHE_HOME}/sqlite_history";
-
-    # desktop styff
-    KDEHOME = "${XDG_CONFIG_HOME}/kde";
-    XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
-    ERRFILE = "${XDG_CACHE_HOME}/X11/xsession-errors"; # X11 itself is an ERR
 
     # programming languages/package managers/tools
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
@@ -56,37 +54,41 @@ in {
     init-module=''${XDG_CONFIG_HOME}/npm/config/npm-init.js
   '';
 
-  pythonrc.text = ''
-    import os
-    import atexit
-    import readline
-    from pathlib import Path
+  pythonrc.text =
+    /*
+    python
+    */
+    ''
+      import os
+      import atexit
+      import readline
+      from pathlib import Path
 
-    if readline.get_current_history_length() == 0:
+      if readline.get_current_history_length() == 0:
 
-        state_home = os.environ.get("XDG_STATE_HOME")
-        if state_home is None:
-            state_home = Path.home() / ".local" / "state"
-        else:
-            state_home = Path(state_home)
+          state_home = os.environ.get("XDG_STATE_HOME")
+          if state_home is None:
+              state_home = Path.home() / ".local" / "state"
+          else:
+              state_home = Path(state_home)
 
-        history_path = state_home / "python_history"
-        if history_path.is_dir():
-            raise OSError(f"'{history_path}' cannot be a directory")
+          history_path = state_home / "python_history"
+          if history_path.is_dir():
+              raise OSError(f"'{history_path}' cannot be a directory")
 
-        history = str(history_path)
+          history = str(history_path)
 
-        try:
-            readline.read_history_file(history)
-        except OSError: # Non existent
-            pass
+          try:
+              readline.read_history_file(history)
+          except OSError: # Non existent
+              pass
 
-        def write_history():
-            try:
-                readline.write_history_file(history)
-            except OSError:
-                pass
+          def write_history():
+              try:
+                  readline.write_history_file(history)
+              except OSError:
+                  pass
 
-        atexit.register(write_history)
-  '';
+          atexit.register(write_history)
+    '';
 }

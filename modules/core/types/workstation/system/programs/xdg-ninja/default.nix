@@ -1,5 +1,5 @@
-_: let
-  template = import ./template.nix "nixos";
+{lib, ...}: let
+  template = import lib.xdgTemplate "nixos";
 in {
   environment = {
     variables = template.glEnv;
