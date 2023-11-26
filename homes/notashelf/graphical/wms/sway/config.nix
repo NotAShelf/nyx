@@ -23,6 +23,7 @@ in {
       config = {
         assigns = {
           "1: web" = [{class = "^Firefox$";}];
+          "9: steam" = [{class = "^Steam$";}];
         };
 
         workspaceAutoBackAndForth = true;
