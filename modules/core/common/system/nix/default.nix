@@ -10,6 +10,7 @@
 with lib; {
   imports = [
     ./builders.nix # import builders config
+    ./modules.nix # module to yoink modules from nixpkgs PRs
   ];
 
   system = {
@@ -40,7 +41,7 @@ with lib; {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = false;
       allowUnsupportedSystem = true;
-      permittedInsecurePackages = ["electron-24.8.6"]; # default to none, add more as necessary
+      permittedInsecurePackages = []; # default to none, add more as necessary
     };
 
     overlays = [
@@ -85,11 +86,11 @@ with lib; {
     daemonIOSchedPriority = 7;
 
     # set up garbage collection to run weekly,
-    # removing unused packages that are older than 5 days
+    # removing unused packages that are older than 7 days
     gc = {
       automatic = true;
       dates = "Mon *-*-* 03:00";
-      options = "--delete-older-than 5d";
+      options = "--delete-older-than 7d";
     };
 
     # automatically optimize nix store my removing hard links
