@@ -81,12 +81,19 @@ in {
     # we use networkmanager manage network devices locally
     networkmanager = {
       enable = true;
-      plugins = []; # disable all plugins, we don't need them
+      plugins = mkForce []; # disable all plugins, we don't need them
       dns = "systemd-resolved"; # use systemd-resolved as dns backend
-      unmanaged = ["docker0" "rndis0"];
+      unmanaged = [
+        "docker0"
+        "rndis0"
+        "interface-name:br-*"
+        "interface-name:docker*"
+        "interface-name:virbr*"
+        "driver:wireguard" # don't manage wireguard, we want to do it outselves
+      ];
 
       wifi = {
-        backend = sys.networking.wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
+        backend = sys.networking.wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_supp. until iwd support is stable
         macAddress = "random"; # use a random mac address on every boot
         powersave = true; # enable wifi powersaving
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
