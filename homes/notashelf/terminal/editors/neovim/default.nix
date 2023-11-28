@@ -1,4 +1,5 @@
 {
+  inputs',
   inputs,
   pkgs,
   lib,
@@ -206,7 +207,7 @@ in {
           enable = true;
           fillChar = null;
           eolChar = null;
-          showCurrContext = true;
+          scope.enabled = true;
         };
 
         cursorline = {
@@ -444,7 +445,7 @@ in {
       filename="$(readlink -f "$1")"
       dirname="$(dirname "$filename")"
 
-      ${lib.getExe pkgs.foot} -D "$dirname" ${lib.getExe pkgs.zsh} -c "${lib.getExe pkgs.direnv} exec . nvim '$filename'"
+      ${lib.getExe inputs'.nyxpkgs.packages.foot-transparent} -D "$dirname" ${lib.getExe pkgs.zsh} -c "${lib.getExe pkgs.direnv} exec . nvim '$filename'"
     ''} %f";
   };
 }
