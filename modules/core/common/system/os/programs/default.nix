@@ -46,7 +46,7 @@
     nano = {
       enable = true;
       nanorc = ''
-        include ${pkgs.nanorc}/share/*.nanorc
+        include ${pkgs.nanorc}/share/*.nanorc # extended syntax highlighting
 
         # Options
         # https://github.com/davidhcefx/Modern-Nano-Keybindings
