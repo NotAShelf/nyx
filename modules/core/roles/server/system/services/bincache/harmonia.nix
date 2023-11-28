@@ -1,21 +1,30 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib) mkIf;
 
   sys = config.modules.system;
-  cfg = sys.services.bincache.atticd;
+  cfg = sys.services.bincache.harmonia;
 in {
   config = mkIf cfg.enable {
+    users = {
+      groups.harmonia = {};
+      users.harmonia = {
+        isSystemUser = true;
+        createHome = true;
+        group = "harmonia";
+        home = "/srv/storage/harmonia";
+      };
+    };
+
     services = {
       harmonia = {
         enable = true;
-        # FIXME: generate a public/private key pair like this:
-        # $ nix-store --generate-binary-cache-key cache.yourdomain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
-        signKeyPath = "/var/lib/secrets/harmonia.secret";
+        # NOTE: generated via
+        # $ nix-store --generate-binary-cache-key cache.domain.tld-1 /var/lib/secrets/harmonia.secret /var/lib/secrets/harmonia.pub
+        signKeyPath = config.age.secrets.harmonia-privateKey.path;
       };
     };
 

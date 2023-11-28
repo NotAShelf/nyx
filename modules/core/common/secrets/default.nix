@@ -94,11 +94,18 @@ in {
         group = "nextcloud";
       };
 
-      attic-env = mkIf cfg.atticd.enable {
+      attic-env = mkIf cfg.bincache.atticd.enable {
         file = "${self}/secrets/attic-env.age";
         mode = "400";
         owner = "atticd";
         group = "atticd";
+      };
+
+      harmonia-privateKey = mkIf cfg.bincache.harmonia.enable {
+        file = "${self}/secrets/harmonia-privateKey.age";
+        mode = "770";
+        owner = "harmonia";
+        group = "harmonia";
       };
 
       forgejo-runner-token = mkIf cfg.forgejo.enable {

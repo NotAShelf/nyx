@@ -10,7 +10,7 @@
     matrix.enable = true;
 
     bincache = {
-      #harmonia.enable = true;
+      harmonia.enable = true;
     };
 
     networking = {

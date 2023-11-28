@@ -17,7 +17,9 @@
 
     services.nginx = {
       enable = true;
-      statusPage = false; # FIXME: this makes the /nginx_status endpoint availabe, but nextcloud hijacks it and returns a SSL error
+      # FIXME: this normally makes the /nginx_status endpoint availabe, but nextcloud hijacks it and returns a SSL error
+      # we need it for prometheus, so it would be *great* to figure out a solution
+      statusPage = false;
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
       recommendedGzipSettings = true;
