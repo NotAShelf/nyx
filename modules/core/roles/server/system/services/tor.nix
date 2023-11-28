@@ -5,13 +5,12 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services;
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
+  config = mkIf cfg.tor.enable {
     services = {
       tor.settings = {
-        DnsPort = 9053;
         AutomapHostsOnResolve = true;
         AutomapHostsSuffixes = [".exit" ".onion"];
         EnforceDistinctSubnets = true;
@@ -19,6 +18,7 @@ in {
         EntryNodes = "{pl}";
         NewCircuitPeriod = 120;
         DNSPort = 9053;
+        BandWidthRate = "15 MBytes";
       };
 
       # tor.relay.onionServices = {

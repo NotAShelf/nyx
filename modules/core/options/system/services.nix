@@ -20,14 +20,32 @@ in {
       irc.enable = mkEnableOption "Quassel IRC service";
       jellyfin.enable = mkEnableOption "Jellyfin media service";
       matrix.enable = mkEnableOption "Matrix-synapse service";
-      wireguard.enable = mkEnableOption "Wireguard service";
       searxng.enable = mkEnableOption "Searxng service";
       miniflux.enable = mkEnableOption "Miniflux service";
       mastodon.enable = mkEnableOption "Mastodon service";
       reposilite.enable = mkEnableOption "Repeosilite service";
-      headscale.enable = mkEnableOption "Headscale service";
-      atticd.enable = mkEnableOption "Atticd service";
       elasticsearch.enable = mkEnableOption "Elasticsearch service";
+
+      # monitoring tools
+      monitoring = {
+        enable = mkEnableOption "system monitoring stack";
+        prometheus.enable = mkEnableOption' "Prometheus monitoring service";
+        grafana.enable = mkEnableOption' "Grafana monitoring service";
+        loki.enable = mkEnableOption' "Loki monitoring service";
+        uptime-kuma.enable = mkEnableOption' "Uptime Kuma monitoring service";
+      };
+
+      # networking
+      networking = {
+        wireguard.enable = mkEnableOption "Wireguard service";
+        headscale.enable = mkEnableOption "Headscale service";
+      };
+
+      # binary cache backends
+      bincache = {
+        atticd.enable = mkEnableOption "Atticd binary cache service";
+        harmonia.enable = mkEnableOption "Harmonia binary cache service";
+      };
 
       # database backends
       database = {
@@ -36,14 +54,6 @@ in {
         redis.enable = mkEnableOption "Redis service";
         postgresql.enable = mkEnableOption "Postgresql service";
         garage.enable = mkEnableOption "Garage S3 service";
-      };
-
-      # monitoring tools
-      monitoring = {
-        enable = mkEnableOption "system monitoring stack";
-        prometheus.enable = mkEnableOption' "Prometheus monitoring service";
-        grafana.enable = mkEnableOption' "Grafana monitoring service";
-        loki.enable = mkEnableOption' "Loki monitoring service";
       };
     };
   };

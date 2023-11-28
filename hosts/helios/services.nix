@@ -1,20 +1,28 @@
-_: {
+{
   modules.system.services = {
     nextcloud.enable = true;
     mailserver.enable = true;
     vaultwarden.enable = true;
     forgejo.enable = true;
-    matrix.enable = true;
-    wireguard.enable = true;
     searxng.enable = true;
     mastodon.enable = true;
     reposilite.enable = true;
-    headscale.enable = true;
+    matrix.enable = true;
+
+    bincache = {
+      #harmonia.enable = true;
+    };
+
+    networking = {
+      headscale.enable = true;
+      wireguard.enable = true;
+    };
 
     monitoring = {
       grafana.enable = true;
       prometheus.enable = true;
       loki.enable = true;
+      uptime-kuma.enable = true;
     };
 
     database = {

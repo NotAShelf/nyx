@@ -22,9 +22,9 @@
   coreModules = modulePath + /core; # the path where common modules reside
   options = coreModules + /options; # the module that provides the options for my system configuration
   common = coreModules + /common; # the self-proclaimed sane defaults for all my systems
-  workstation = coreModules + /types/workstation; # for devices that are of workstation type - any device that is for daily use
-  server = coreModules + /types/server; # for devices that are of the server type - provides online services
-  laptop = coreModules + /types/laptop; # for devices that are of the laptop type - provides power optimizations
+  workstation = coreModules + /roles/workstation; # for devices that are of workstation type - any device that is for daily use
+  server = coreModules + /roles/server; # for devices that are of the server type - provides online services
+  laptop = coreModules + /roles/laptop; # for devices that are of the laptop type - provides power optimizations
 
   # extra modules - optional but likely critical to a successful build
   extraModules = modulePath + /extra; # the path where extra modules reside

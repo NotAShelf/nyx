@@ -6,12 +6,9 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  acceptedTypes = ["server" "hybrid"];
   cfg = config.modules.system.services;
   domain = "git.notashelf.dev";
 in {
-  imports = [./runner.nix];
   config = mkIf cfg.forgejo.enable {
     networking.firewall.allowedTCPPorts = [
       # make sure the service is reachable from outside

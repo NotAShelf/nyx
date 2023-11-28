@@ -12,7 +12,7 @@
   port = 8100;
 
   sys = config.modules.system;
-  cfg = sys.services.atticd;
+  cfg = sys.services.bincache.atticd;
 in {
   imports = [inputs.atticd.nixosModules.atticd];
   config = mkIf cfg.enable {
@@ -22,7 +22,6 @@ in {
 
     users = {
       groups.atticd = {};
-
       users."atticd" = {
         isSystemUser = true;
         group = "atticd";
