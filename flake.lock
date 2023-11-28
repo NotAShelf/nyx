@@ -2535,11 +2535,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1701166698,
-        "narHash": "sha256-dwMnXepSEX7acRz1v5piUS86n2VZ7RnSbduMbjIfHDg=",
+        "lastModified": 1701177603,
+        "narHash": "sha256-9YFT0aZG2klu+u/l6RIdY/9jCE6NrAJ5YIFDpfgFszU=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "9a88060e7e15cbaea4ba8867668a109406ce867d",
+        "rev": "13be0f8a0be8c12cfe17ae61fb1eeea1ad9705bf",
         "type": "github"
       },
       "original": {
