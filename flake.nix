@@ -252,6 +252,12 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
+    # neovim nightly packages for nix
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Personal package overlay
     nyxpkgs.url = "github:NotAShelf/nyxpkgs";
 
@@ -266,10 +272,9 @@
       };
     };
 
-    # neovim nightly packages for nix
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+    air-quality-monitor = {
+      url = "github:NotAShelf/air-quality-monitor";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # arrpc-flake to provide arRPC package and home-manager module
