@@ -39,6 +39,7 @@
 
         networking = {
           optimizeTcp = false;
+          tarpit.enable = true;
           tailscale = {
             enable = true;
             isServer = true;

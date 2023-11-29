@@ -93,6 +93,22 @@ in {
                 url = "http://127.0.0.1:9103";
               })
             ];
+
+            # typos go here
+            deleteDatasources = [
+              {
+                name = "postgres";
+                orgId = 0;
+              }
+              {
+                name = "redis";
+                orgId = 0;
+              }
+              {
+                name = "Endlessh-go";
+                orgId = 0;
+              }
+            ];
           };
         };
       };

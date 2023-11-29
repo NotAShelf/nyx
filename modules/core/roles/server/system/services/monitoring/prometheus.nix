@@ -15,6 +15,8 @@ in {
       prometheus = {
         enable = true;
         port = 9100;
+
+        # relatively frequent scraping intervals
         globalConfig = {
           scrape_interval = "10s";
           scrape_timeout = "2s";
@@ -25,6 +27,7 @@ in {
           node = {
             enable = true;
             port = 9101;
+            enabledCollectors = ["systemd" "processes"];
           };
 
           redis = {
@@ -42,6 +45,15 @@ in {
           nginx = {
             enable = false;
             port = 9104;
+          };
+
+          smartctl = {
+            inherit (config.services.smartd) enable;
+            openFirewall = config.services.smartd.enable;
+            # Defaults:
+            user = "smartctl-exporter";
+            group = "disk";
+            port = 9110;
           };
         };
 
@@ -67,16 +79,11 @@ in {
             scrape_interval = "30s";
             static_configs = [{targets = ["localhost:9103"];}];
           }
-          /*
           {
             job_name = "nginx";
-            static_configs = [
-              {
-                targets = ["127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}"];
-              }
-            ];
+            scrape_interval = "30s";
+            static_configs = [{targets = ["localhost:9104"];}];
           }
-          */
           {
             job_name = "endlessh-go";
             scrape_interval = "30s";
