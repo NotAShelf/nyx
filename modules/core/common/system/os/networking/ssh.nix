@@ -12,8 +12,17 @@ in {
     ports = [30]; # the port(s) openssh daemon should listen on
     startWhenNeeded = true; # automatically start the ssh daemon when it's required
     settings = {
-      PermitRootLogin = lib.mkForce "no"; # no root login
-      PasswordAuthentication = false; # no password auth
+      # no root login
+      PermitRootLogin = "no";
+
+      # no password auth
+      # force publickey authentication only
+      PasswordAuthentication = false;
+      AuthenticationMethods = "publickey";
+      PubkeyAuthentication = "yes";
+      ChallengeResponseAuthentication = "no";
+      UsePAM = "no";
+
       KbdInteractiveAuthentication = lib.mkDefault false; # still don't know what this does
       UseDns = false; # no
       X11Forwarding = false; # ew xorg
@@ -27,6 +36,10 @@ in {
         "diffie-hellman-group18-sha512"
         "sntrup761x25519-sha512@openssh.com"
       ];
+
+      # kick out inactive sessions
+      ClientAliveCountMax = 5;
+      ClientAliveInterval = 60;
     };
 
     hostKeys = lib.mkDefault [

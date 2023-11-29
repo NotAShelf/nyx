@@ -77,6 +77,12 @@ in {
             ];
           }
           */
+          {
+            job_name = "endlessh-go";
+            scrape_interval = "30s";
+            static_configs = [{targets = ["localhost:9105"];}];
+          }
+
           # TODO: exterenal scrape jobs - over tailscale/wireguard mesh
         ];
       };

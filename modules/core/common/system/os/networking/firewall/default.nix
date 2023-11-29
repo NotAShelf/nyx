@@ -11,6 +11,7 @@ in {
   imports = [
     ./fail2ban.nix
     ./nftables.nix
+    ./tarpit.nix
   ];
 
   config = {

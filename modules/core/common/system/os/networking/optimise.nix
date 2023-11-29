@@ -6,7 +6,7 @@
   sys = config.modules.system.networking;
   inherit (lib) mkIf;
 in {
-  config = mkIf (sys.optimizeTcp) {
+  config = mkIf sys.optimizeTcp {
     boot = {
       kernelModules = ["tls" "tcp_bbr"];
       kernel.sysctl = {
@@ -51,7 +51,7 @@ in {
         "net.ipv4.tcp_congestion_control" = "bbr";
         "net.core.default_qdisc" = "cake";
 
-        # Other stuff I am too lazy to document
+        # Other stuff that I am too lazy to document
         "net.core.optmem_max" = 65536;
         "net.core.rmem_default" = 1048576;
         "net.core.rmem_max" = 16777216;
