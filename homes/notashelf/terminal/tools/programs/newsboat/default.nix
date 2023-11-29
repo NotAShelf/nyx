@@ -17,17 +17,22 @@ in {
   config = mkIf (builtins.elem dev.type acceptedTypes) {
     programs.newsboat = {
       enable = true;
+      autoReload = true;
 
       inherit ((import ./urls.nix)) urls;
 
-      autoReload = true;
       extraConfig = ''
+        error-log /dev/null
+
         download-full-page yes
         download-retries 3
-        error-log /dev/null
         cookie-cache ~/.cache/newsboat/cookies.txt
+
         auto-reload yes
         max-items 0
+        scrolloff 999
+        reload-threads 100
+
         bind-key j down
         bind-key k up
         bind-key j next articlelist
@@ -71,6 +76,7 @@ in {
 
         # macros
         macro v set browser "${mpv} %u" ; open-in-browser ; set browser "firefox %u" -- "Open video on mpv"
+        macro , open-in-browser
       '';
     };
   };

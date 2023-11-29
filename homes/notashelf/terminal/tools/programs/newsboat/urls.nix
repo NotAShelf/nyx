@@ -12,6 +12,11 @@
       url = "https://hnrss.org/newest";
       tags = ["tech"];
     }
+    {
+      title = "Hacker News Daily";
+      url = "https://www.daemonology.net/hn-daily/index.rss";
+      tags = ["tech"];
+    }
     # Reddit
     {
       title = "/r/neovim";
@@ -35,5 +40,20 @@
       url = "https://krebsonsecurity.com/feed/";
       tags = ["tech" "security"];
     }
+
+    # Unsorted
+    {url = "https://nitter.net/GergelyOrosz/rss";}
+    {url = "https://feeds.feedburner.com/ThePragmaticEngineer";}
+    {url = "https://www.reddit.com/r/ExperiencedDevs/.rss";}
+    {url = "https://news.ycombinator.com/rss";}
+    {url = "https://programming.dev/feeds/local.xml?sort=Active";}
+    {url = "https://programming.dev/feeds/c/functional_programming.xml?sort=Active";}
+    {url = "https://programming.dev/feeds/c/linux.xml?sort=Active";}
+    {url = "https://programming.dev/feeds/c/experienced_devs.xml?sort=Active";}
+    {url = "https://programming.dev/feeds/c/nix.xml?sort=Active";}
+    {url = "https://programming.dev/feeds/c/commandline.xml?sort=Active";}
+    {url = "https://beehaw.org/feeds/c/technology.xml?sort=Active";}
+    {url = "https://lobste.rs/rss";}
+    {url = "https://kiszamolo.hu/feed";}
   ];
 }
