@@ -31,7 +31,7 @@ jobs:
           logger: pretty
 
       - name: Cachix setup
-        uses: cachix/cachix-action@v12
+        uses: cachix/cachix-action@v13
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
           extraPullNames: nix-community
