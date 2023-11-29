@@ -6,16 +6,22 @@
   inherit (lib) mkIf;
 
   sys = config.modules.system;
+  cfg = config.services.loki;
 in {
   config = mkIf sys.services.monitoring.loki.enable {
     # https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
     services.loki = {
       enable = true;
       dataDir = "/srv/storage/loki";
+      extraFlags = ["--config.expand-env=true"];
 
       configuration = {
-        server.http_listen_port = 3030;
         auth_enabled = false;
+
+        server = {
+          http_listen_port = 3030;
+          log_level = "warn";
+        };
 
         ingester = {
           lifecycler = {
@@ -34,31 +40,28 @@ in {
           max_transfer_retries = 0;
         };
 
-        schema_config = {
-          configs = [
-            {
-              from = "2022-06-06";
-              store = "boltdb-shipper";
-              object_store = "filesystem";
-              schema = "v11";
-              index = {
-                prefix = "index_";
-                period = "24h";
-              };
-            }
-          ];
-        };
+        schema_config.configs = [
+          {
+            from = "2022-05-14";
+            store = "boltdb";
+            object_store = "filesystem";
+            schema = "v11";
+            index = {
+              prefix = "index_";
+              period = "168h";
+            };
+          }
+        ];
 
         storage_config = {
+          boltdb.directory = "${cfg.dataDir}/boltdb-index";
+          filesystem.directory = "${cfg.dataDir}/storage-chunks";
+
           boltdb_shipper = {
             active_index_directory = "/srv/storage/loki/boltdb-shipper-active";
             cache_location = "/srv/storage/loki/boltdb-shipper-cache";
             cache_ttl = "24h";
             shared_store = "filesystem";
-          };
-
-          filesystem = {
-            directory = "/srv/storage/loki/chunks";
           };
         };
 
@@ -77,8 +80,8 @@ in {
         };
 
         compactor = {
-          working_directory = "/srv/storage/loki";
           shared_store = "filesystem";
+          working_directory = "${cfg.dataDir}/compactor-work";
           compactor_ring = {
             kvstore = {
               store = "inmemory";
