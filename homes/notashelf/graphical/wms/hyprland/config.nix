@@ -87,6 +87,8 @@ in {
           xray = true;
           contrast = 0.7;
           brightness = 0.8;
+          vibrancy = 0.2;
+          special = true; # expensive, but helps distinguish special workspaces
         };
 
         # shadow config
@@ -136,6 +138,7 @@ in {
 
       animations = {
         enabled = true; # we want animations, half the reason why we're on Hyprland innit
+        first_launch_animation = true; # fade in on first launch
 
         bezier = [
           "smoothOut, 0.36, 0, 0.66, -0.56"
@@ -158,6 +161,7 @@ in {
         pseudotile = false;
         preserve_split = "yes";
         no_gaps_when_only = false;
+        special_scale_factor = 0.9; # restore old special workspace behaviour
       };
 
       # keyword to toggle "monocle" - a.k.a no_gaps_when_only
