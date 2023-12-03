@@ -1,0 +1,42 @@
+.launcher {
+    color: $onSurface;
+    background: $surface;
+    font-family: $font;
+    border-radius: 12px;
+    margin: 0 0 12px 0;
+    padding: 6px;
+}
+
+.launcherApp {
+    border-radius: 12px;
+    margin: 3px;
+    padding: 3px;
+    &:focus {
+        background: $surfaceVariant;
+    }
+}
+
+.launcherEntry {
+    caret-color: $onSurface;
+    background: $surfaceVariant;
+    border-radius: 12px;
+    margin: 6px;
+    padding: 3px 12px;
+}
+
+.launcherItem {}
+
+.launcherItemIcon {
+    margin: 3px 6px;
+}
+
+.launcherItemTitle {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.launcherItemDescription {
+    font-size: 12px;
+}
+
+

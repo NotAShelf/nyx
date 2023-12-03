@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Script by https://github.com/exoess
+
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <position> <size>"
+    exit 1
+fi
+
+open_window() {
+    hyprctl dispatch exec "[float; move $(echo $1 | sed 's/,/ /'); size $(echo $2 | sed 's/x/ /')] $3"
+}
+
+open_window "$1" "$2" "$3"

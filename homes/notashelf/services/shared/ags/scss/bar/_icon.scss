@@ -1,0 +1,12 @@
+.icon {
+    background: $surfaceVariant;
+    font-family: $iconFont;
+    border-radius: 12px;
+    margin: 6px;
+    padding: 6px;
+    min-height: 1.5rem;
+    transition: all 0.2s $materialAccel;
+    &:hover {
+        background: lighten($surfaceVariant, 5%)
+    }
+}

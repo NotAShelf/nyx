@@ -1,0 +1,25 @@
+// Components
+@import 'icon';
+@import 'workspaces';
+@import 'tray';
+@import 'battery';
+@import 'clock';
+
+.bar {
+    color: $onSurface;
+    background: $surface;
+    font-family: $font;
+    border-radius: 12px;
+}
+
+.systemInfo {
+    background: $surfaceVariant;
+    font-family: $iconFont;
+    border-radius: 12px;
+    margin: 6px 6px 0 6px;
+    padding: 6px;
+}
+
+.wifiIcon {
+    margin: 3px;
+}

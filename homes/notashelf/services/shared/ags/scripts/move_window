@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Script by https://github.com/exoess
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <position> <size>"
+    exit 1
+fi
+
+move_window() {
+    hyprctl --batch "dispatch moveactive exact $(echo $1 | sed 's/,/ /'); dispatch resizeactive exact $(echo $2 | sed 's/x/ /')"
+}
+
+move_window "$1" "$2"

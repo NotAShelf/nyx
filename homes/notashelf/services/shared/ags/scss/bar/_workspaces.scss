@@ -1,0 +1,20 @@
+.workspaces {
+    background: $surfaceVariant;
+    border-radius: 12px;
+    margin: 6px;
+    padding: 6px;
+    button {
+        font-family: $iconFont;
+        margin: 3px;
+        transition:
+            all 0.3s $materialStandard,
+            border 0.35s $materialStandard;
+        &:hover {
+            color: $primary;
+        }
+        &.focused {
+            color: $primary;
+        }
+    }
+}
+

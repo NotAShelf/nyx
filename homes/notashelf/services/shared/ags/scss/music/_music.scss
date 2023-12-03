@@ -1,0 +1,67 @@
+// Components
+@import 'musicControls';
+
+.music {
+    background: $surface;
+    font-family: $font;
+    border-radius: 0;
+}
+
+.uwustagramHeader {
+    background: $surfaceVariant;
+    font-weight: bold;
+    padding: 12px;
+}
+
+.uwustagramArtist {
+    font-weight: 500;
+    padding: 12px;
+}
+
+.artistIcon {
+    font-family: $iconFont;
+    font-size: 1.5em;
+    margin: 0 6px 0 0;
+}
+
+.uwustagramCover {
+    opacity: 0.25;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    min-height: 240px;
+    min-width: 240px;
+}
+
+.uwustagramCoverOverlay {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    margin: 48px;
+    box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.5);
+}
+
+.uwustagramButtons {
+    font-family: $iconFont;
+    font-size: 1rem;
+    padding: 12px;
+}
+
+.uwustagramTitle {
+    font-weight: 500;
+    padding: 12px 24px 0 24px;
+}
+
+.uwustagramProgress {
+    padding: 24px;
+    min-width: 60px;
+    & trough {
+        background: $surfaceVariant;
+        border-radius: 12px;
+        min-height: 6px;
+    }
+    & progress {
+        background: $primary;
+        border-radius: 12px;
+        min-width: 6px;
+    }
+}
