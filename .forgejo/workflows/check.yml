@@ -1,7 +1,7 @@
 on: [push]
 jobs:
   check:
-    runs-on: nixos
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: https://code.forgejo.org/actions/checkout@v3
