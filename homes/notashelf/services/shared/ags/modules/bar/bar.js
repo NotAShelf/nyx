@@ -8,6 +8,7 @@ import { Tray } from "./tray.js";
 import { BatteryWidget } from "./battery.js";
 import { Clock } from "./clock.js";
 import { PowerMenu } from "./power.js";
+import { Swallow } from "./swallow.js";
 
 const Top = () =>
 	Box({
@@ -35,6 +36,7 @@ const Bottom = () =>
 				vertical: true,
 				children: [
 					BatteryWidget(),
+					Swallow(),
 					Widget.Label({
 						className: "wifiIcon",
 						label: "󰤨",

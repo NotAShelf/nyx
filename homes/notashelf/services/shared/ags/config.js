@@ -8,12 +8,17 @@ import { Desktop } from "./modules/desktop/desktop.js";
 import { Popups } from "./modules/popups/popups.js";
 import { Music } from "./modules/music/music.js";
 
-// Apply css
-const applyScss = () => {
-	// Compile scss
+const css = App.configDir + "/style.css";
+const compileScss = () => {
 	Utils.exec(
 		`sassc ${App.configDir}/scss/main.scss ${App.configDir}/style.css`,
 	);
+};
+
+// Apply css
+const applyScss = () => {
+	// Compile scss
+	compileScss();
 	console.log("Scss compiled");
 
 	// Apply compiled css
@@ -38,3 +43,22 @@ export default {
 	},
 	windows: [Bar(), launcher, Desktop(), Popups(), Music()],
 };
+
+Utils.subprocess(
+	[
+		"inotifywait",
+		"--recursive",
+		"--event",
+		"create,modify",
+		"-m",
+		App.configDir + "/style",
+	],
+	() => {
+		print("scss change detected");
+		Utils.exec(
+			`sassc ${App.configDir}/scss/main.scss ${App.configDir}/style.css`,
+		);
+		App.resetCss();
+		App.applyCss(css);
+	},
+);

@@ -6,8 +6,8 @@
   ...
 }: let
   dependencies = with pkgs; [
+    (callPackage ./hyprctl-swallow {})
     config.wayland.windowManager.hyprland.package
-    bash
     coreutils
     gawk
     inotify-tools
@@ -17,9 +17,10 @@
     gtk3
     brightnessctl
     komikku
+    libnotify
   ];
 
-  fs = pkgs.lib.fileset;
+  fs = lib.fileset;
   baseSrc = fs.unions [
     ./config.js
     ./imports.js

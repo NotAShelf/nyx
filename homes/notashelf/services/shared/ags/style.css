@@ -25,7 +25,6 @@
 	background: #313244;
 	border-radius: 12px;
 	margin: 6px;
-	padding: 6px;
 }
 
 .workspaces button {
@@ -62,7 +61,11 @@
 
 /* Additional Icons */
 .battery {
-	margin: 3px;
+	margin: 6px 3px;
+}
+
+.swallow {
+	margin: 6px 3px;
 }
 
 .clock {
@@ -96,7 +99,7 @@
 }
 
 .wifiIcon {
-	margin: 3px;
+	margin: 6px 3px;
 }
 
 .launcher {
