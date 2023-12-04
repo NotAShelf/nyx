@@ -1,9 +1,9 @@
 import { Widget, Utils, App } from "../../imports.js";
 const { Button, Label } = Widget;
 
-export const Launcher = () =>
+export const toggleLauncher = () =>
 	Button({
-		className: "icon",
+		className: "launcher",
 		cursor: "pointer",
 		child: Label("󱢦"),
 		onClicked: () => App.toggleWindow("launcher"),

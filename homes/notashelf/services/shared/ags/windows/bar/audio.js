@@ -1,4 +1,5 @@
 import { Audio, Widget } from "../../imports.js";
+const { Box, Label } = Widget;
 
 const audio = {
 	mic: {
@@ -22,7 +23,7 @@ const audio = {
 	mixer: "",
 };
 
-export const AudioIndicator = () =>
+const AudioIcon = () =>
 	Widget.Icon({
 		connections: [
 			[
@@ -51,3 +52,11 @@ export const AudioIndicator = () =>
 			],
 		],
 	});
+
+export const AudioWidget = () => {
+	return Box({
+		className: "audioWidget",
+		child: AudioIcon(),
+		visible: true,
+	});
+};

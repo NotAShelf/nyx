@@ -3,11 +3,16 @@ const { Box, Label } = Widget;
 
 const BatIcon = () =>
 	Label({
-		binds: [["visible", Battery, "available"]],
 		className: "batIcon",
 		connections: [
 			[
 				Battery,
+				(icon) => {
+					icon.toggleClassName("charging", Battery.charging);
+					icon.toggleClassName("charged", Battery.charged);
+					icon.toggleClassName("low", Battery.percent < 30);
+				},
+
 				(self) => {
 					const icons = [
 						["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
@@ -36,6 +41,6 @@ export const BatteryWidget = () => {
 	return Box({
 		className: "battery",
 		child: BatIcon(),
-		visible: true,
+		binds: [["visible", Battery, "available"]],
 	});
 };

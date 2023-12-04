@@ -1,32 +1,20 @@
-import App from "resource:///com/github/Aylur/ags/app.js";
-import Widget from "resource:///com/github/Aylur/ags/widget.js";
-import Service from "resource:///com/github/Aylur/ags/service.js";
-import Variable from "resource:///com/github/Aylur/ags/variable.js";
-import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
+export const require = async (file) => (await import(resource(file))).default;
+export const resource = (file) => `resource:///com/github/Aylur/ags/${file}.js`;
+export const fromService = async (file) => await require(`service/${file}`);
 
-import Applications from "resource:///com/github/Aylur/ags/service/applications.js";
-import Audio from "resource:///com/github/Aylur/ags/service/audio.js";
-import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
-import Bluetooth from "resource:///com/github/Aylur/ags/service/bluetooth.js";
-import Hyprland from "resource:///com/github/Aylur/ags/service/hyprland.js";
-import Mpris from "resource:///com/github/Aylur/ags/service/mpris.js";
-import Network from "resource:///com/github/Aylur/ags/service/network.js";
-//import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import SystemTray from "resource:///com/github/Aylur/ags/service/systemtray.js";
+export const Service = await require("service");
+export const App = await require("app");
 
-export {
-	App,
-	Widget,
-	Service,
-	Variable,
-	Utils,
-	Applications,
-	Audio,
-	Battery,
-	Bluetooth,
-	Hyprland,
-	Mpris,
-	Network,
-	//Notifications,
-	SystemTray,
-};
+export const Utils = await import(resource("utils"));
+export const Variable = await require("variable");
+export const Widget = await require("widget");
+
+export const Battery = await fromService("battery");
+export const Bluetooth = await fromService("bluetooth");
+export const Hyprland = await fromService("hyprland");
+export const Mpris = await fromService("mpris");
+export const Network = await fromService("network");
+export const Applications = await fromService("applications");
+export const Audio = await fromService("audio");
+export const Notifications = await fromService("notifications");
+export const SystemTray = await fromService("systemtray");

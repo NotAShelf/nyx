@@ -7,7 +7,7 @@
 }
 
 /* Launcher/NixOS Icon */
-.icon {
+.launcher {
 	background: #313244;
 	border-radius: 12px;
 	margin: 6px;
@@ -16,7 +16,7 @@
 	transition: all 0.2s cubic-bezier(0.3, 0, 1, 1);
 }
 
-.icon:hover {
+.launcher:hover {
 	background: #7f76a3;
 }
 
@@ -113,22 +113,14 @@
 	margin: 6px 3px;
 }
 
-.bluetooth {
+.bluetoothWidget {
 	margin: 6px 3px;
 	color: #f8f8f0;
 }
 
-.bluetoothIcon {
+.audioWidget {
 	margin: 6px 3px;
 	color: #f8f8f0;
-}
-
-.launcher {
-	color: #f8f8f0;
-	background: #1e1e2e;
-	border-radius: 12px;
-	margin: 0 0 12px 0;
-	padding: 6px;
 }
 
 .launcherApp {

@@ -2,7 +2,7 @@ import { Widget } from "../../imports.js";
 const { Window, Box, CenterBox } = Widget;
 
 // Widgets
-import { Launcher } from "./launcher.js";
+import { toggleLauncher } from "./launcher.js";
 import { Workspaces } from "./workspaces.js";
 import { Tray } from "./tray.js";
 import { BatteryWidget } from "./battery.js";
@@ -10,8 +10,9 @@ import { Clock } from "./clock.js";
 import { PowerMenu } from "./power.js";
 import { Swallow } from "./swallow.js";
 import { Lock } from "./lock.js";
-import { BluetoothIcon } from "./bluetooth.js";
-import { AudioIndicator } from "./audio.js";
+import { BluetoothWidget } from "./bluetooth.js";
+import { AudioWidget } from "./audio.js";
+import { NetworkWidget } from "./net.js";
 
 const Top = () =>
 	Box({
@@ -19,11 +20,11 @@ const Top = () =>
 		vertical: true,
 		vpack: "start",
 		children: [
-			Launcher(),
+			toggleLauncher(),
 			Box({
 				className: "utilButtons",
 				vertical: true,
-				children: [Lock(), Swallow()],
+				children: [Lock()],
 			}),
 		],
 	});
@@ -46,12 +47,16 @@ const Bottom = () =>
 				vertical: true,
 				children: [
 					BatteryWidget(),
-					BluetoothIcon(),
-					AudioIndicator(),
+					BluetoothWidget(),
+					AudioWidget(),
+					Swallow(),
+					NetworkWidget(),
+					/*
 					Widget.Label({
 						className: "wifiIcon",
 						label: "󰤨",
 					}),
+					*/
 				],
 			}),
 			Clock(),

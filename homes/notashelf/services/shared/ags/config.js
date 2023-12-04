@@ -2,11 +2,12 @@ import { Utils, App } from "./imports.js";
 import DirectoryMonitorService from "./services/directoryMonitorService.js";
 
 // Windows
-import { launcher } from "./windows/launcher/launcher.js";
-import { Bar } from "./windows/bar/bar.js";
-import { Desktop } from "./windows/desktop/desktop.js";
-import { Popups } from "./windows/popups/popups.js";
-import { Music } from "./windows/music/music.js";
+import { launcher } from "./windows/launcher/index.js";
+import { Bar } from "./windows/bar/index.js";
+import { Desktop } from "./windows/desktop/index.js";
+import { Popups } from "./windows/popups/index.js";
+import { Music } from "./windows/music/index.js";
+import { Notifications } from "./windows/notifications/index.js";
 
 const css = App.configDir + "/style.css";
 const compileScss = () => {

@@ -1,48 +1,64 @@
 import { Bluetooth, Widget } from "../../imports.js";
-const { Box } = Widget;
+const { Box, Label } = Widget;
 
-export const BluetoothModule = Widget.Icon({
-	className: "bluetooth module",
-
-	binds: [
-		[
-			"icon",
-			Bluetooth,
-			"connected-devices",
-			(connected) => {
-				if (!Bluetooth.enabled) return "bluetooth-disabled";
-				if (connected.length > 0) return "bluetooth-paired";
-				return "bluetooth-active";
-			},
+export const BluetoothModule = () =>
+	Widget.Icon({
+		className: "bluetoothModule",
+		connections: [
+			[
+				Bluetooth,
+				(self) => {
+					self.children = Bluetooth.connectedDevices.map(
+						({ iconName, name }) =>
+							Label({
+								indicator: Widget.Icon(iconName + "-symbolic"),
+								child: Widget.Label(name),
+							}),
+					);
+				},
+				"notify::connected-devices",
+			],
 		],
-		[
-			"tooltip-text",
-			Bluetooth,
-			"connected-devices",
-			(connected) => {
-				if (!Bluetooth.enabled) return "Bluetooth off";
 
-				if (connected.length > 0) {
-					let dev = Bluetooth.getDevice(connected.at(0).address);
-					let battery_str = "";
+		binds: [
+			[
+				"icon",
+				Bluetooth,
+				"connected-devices",
+				(connected) => {
+					if (!Bluetooth.enabled) return "bluetooth-disabled";
+					if (connected.length > 0) return "bluetooth-paired";
+					return "bluetooth-active";
+				},
+			],
+			[
+				"tooltip-text",
+				Bluetooth,
+				"connected-devices",
+				(connected) => {
+					if (!Bluetooth.enabled) return "Bluetooth off";
 
-					if (dev.battery_percentage > 0) {
-						battery_str += " " + dev.battery_percentage + "%";
+					if (connected.length > 0) {
+						let dev = Bluetooth.getDevice(connected.at(0).address);
+						let battery_str = "";
+
+						if (dev.battery_percentage > 0) {
+							battery_str += " " + dev.battery_percentage + "%";
+						}
+
+						return dev.name + battery_str;
 					}
 
-					return dev.name + battery_str;
-				}
-
-				return "Bluetooth on";
-			},
+					return "Bluetooth on";
+				},
+			],
 		],
-	],
-});
+	});
 
-export const BluetoothIcon = () => {
+export const BluetoothWidget = () => {
 	return Box({
-		className: "bluetoothIcon",
-		child: BluetoothModule,
-		visible: true,
+		className: "bluetoothWidget",
+		child: BluetoothModule(),
+		visible: Bluetooth.connectedDevices.length > 0,
 	});
 };

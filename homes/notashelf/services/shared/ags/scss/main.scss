@@ -1,9 +1,6 @@
-*:not(tooltip) {
-	all: unset;
-}
-
 // Colors
 @import "colors";
+@import "prelude";
 
 // Vars
 $font: Roboto;
