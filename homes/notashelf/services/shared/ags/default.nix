@@ -6,7 +6,7 @@
   ...
 }: let
   dependencies = with pkgs; [
-    (callPackage ./hyprctl-swallow {})
+    (callPackage ./packages/hyprctl-swallow {})
     config.wayland.windowManager.hyprland.package
     coreutils
     gawk
@@ -16,7 +16,6 @@
     sassc
     gtk3
     brightnessctl
-    komikku
     libnotify
   ];
 
@@ -25,7 +24,7 @@
     ./config.js
     ./imports.js
     ./style.css
-    ./modules
+    ./windows
     ./scripts
     ./scss
     ./services

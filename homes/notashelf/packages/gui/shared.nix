@@ -3,15 +3,15 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
+}: let
+  inherit (lib) mkIf;
+  prg = osConfig.modules.programs;
 
-  device = osConfig.modules.device;
+  dev = osConfig.modules.device;
   sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf ((programs.gui.enable && sys.video.enable) && (builtins.elem device.type acceptedTypes)) {
+  config = mkIf ((prg.gui.enable && sys.video.enable) && (builtins.elem dev.type acceptedTypes)) {
     home.packages = with pkgs; [
       schildichat-desktop
       qbittorrent
@@ -40,6 +40,7 @@ in {
       # gnome packages
       gnome.gnome-tweaks
       gnome.gnome-calendar
+      komikku
 
       # override gnome-control-center to trick it into thinking we're running gnome
       # <https://github.com/NixOS/nixpkgs/issues/230493>

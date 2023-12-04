@@ -9,13 +9,14 @@ import { BatteryWidget } from "./battery.js";
 import { Clock } from "./clock.js";
 import { PowerMenu } from "./power.js";
 import { Swallow } from "./swallow.js";
+import { Lock } from "./lock.js";
 
 const Top = () =>
 	Box({
 		className: "barTop",
 		vertical: true,
 		vpack: "start",
-		children: [CardsIcon()],
+		children: [CardsIcon(), Lock()],
 	});
 
 const Center = () =>
