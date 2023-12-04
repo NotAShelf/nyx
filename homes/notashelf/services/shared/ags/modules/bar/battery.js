@@ -23,10 +23,16 @@ const BatIcon = () =>
 	});
 
 export const BatteryWidget = () => {
-	const directoryItemCount = Utils.exec("ls -A /sys/class/backlight | wc -l");
-	const directoryNotEmpty = parseInt(directoryItemCount.trim(), 10) > 0;
+	/*
+	const directoryItemCount = Utils.exec(
+		`sh -c "ls -A /sys/class/backlight | wc -l"`,
+	);
+	console.log(directoryItemCount);
+	const directoryNotEmpty = parseInt(directoryItemCount) > 0;
+	console.log(directoryNotEmpty);
+	*/
 
-	if (directoryNotEmpty) {
+	if (true) {
 		return Box({
 			className: "battery",
 			child: BatIcon(),
