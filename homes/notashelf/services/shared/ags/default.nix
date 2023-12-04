@@ -50,19 +50,21 @@ in {
     };
 
     systemd.user.services.ags = {
+      Install.WantedBy = ["graphical-session.target"];
       Unit = {
-        Description = "Aylur's Gtk Shell";
+        Group = "video";
+        Description = "Aylur's Gtk Shell (Ags)";
         PartOf = [
           "tray.target"
           "graphical-session.target"
         ];
       };
+
       Service = {
         Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
         ExecStart = "${cfg.package}/bin/ags";
         Restart = "on-failure";
       };
-      Install.WantedBy = ["graphical-session.target"];
     };
   };
 }
