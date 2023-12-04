@@ -34,7 +34,6 @@ jobs:
         uses: cachix/cachix-action@v13
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
-          extraPullNames: nix-community
           name: notashelf
 
       - name: Set default git branch (to reduce log spam)
@@ -43,5 +42,5 @@ jobs:
       - name: Build installation media
         run: nix build .#nixosConfigurations."gaea".config.system.build.toplevel
 
-      - name: Build airtight recovery and maintenance media
+      - name: Build airtight recovery/maintenance media
         run: nix build .#nixosConfigurations."erebus".config.system.build.toplevel

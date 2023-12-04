@@ -6,8 +6,8 @@ on:
     branches:
       - main
     paths:
-      - docs/**
-      - .github/workflows/notes.yml
+      - "docs/**"
+      - ".github/workflows/notes.yml"
 
 permissions:
   contents: write

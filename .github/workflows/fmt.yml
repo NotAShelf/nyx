@@ -1,12 +1,30 @@
 name: Validate Flake Formatting
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "**.nix"
+      - ".github/workflows/fmt.yml"
+      - "!**.lock"
+      - "!**.sh"
+      - "!.editorconfig"
+      - "!**.md"
+  push:
+    paths:
+      - "**.nix"
+      - ".github/workflows/fmt.yml"
+      - "!**.lock"
+      - "!**.sh"
+      - "!.editorconfig"
+      - "!**.md"
 
 jobs:
   check-formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
