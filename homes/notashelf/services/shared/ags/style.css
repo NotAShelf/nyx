@@ -68,6 +68,10 @@
 	margin: 6px 3px;
 }
 
+.lock {
+	margin: 6px 3px;
+}
+
 .clock {
 	background: #313244;
 	font-weight: 500;
@@ -98,8 +102,25 @@
 	padding: 6px;
 }
 
+.utilButtons {
+	background: #313244;
+	border-radius: 12px;
+	margin: 6px 6px 0 6px;
+	padding: 6px;
+}
+
 .wifiIcon {
 	margin: 6px 3px;
+}
+
+.bluetooth {
+	margin: 6px 3px;
+	color: #f8f8f0;
+}
+
+.bluetoothIcon {
+	margin: 6px 3px;
+	color: #f8f8f0;
 }
 
 .launcher {
@@ -115,6 +136,7 @@
 	margin: 3px;
 	padding: 3px;
 }
+
 .launcherApp:focus {
 	background: #716799;
 }

@@ -1,8 +1,9 @@
-import { Widget, Utils, Battery } from "../../imports.js";
+import { Widget, Battery } from "../../imports.js";
 const { Box, Label } = Widget;
 
 const BatIcon = () =>
 	Label({
+		binds: [["visible", Battery, "available"]],
 		className: "batIcon",
 		connections: [
 			[
@@ -32,11 +33,9 @@ export const BatteryWidget = () => {
 	console.log(directoryNotEmpty);
 	*/
 
-	if (true) {
-		return Box({
-			className: "battery",
-			child: BatIcon(),
-			visible: true,
-		});
-	}
+	return Box({
+		className: "battery",
+		child: BatIcon(),
+		visible: true,
+	});
 };

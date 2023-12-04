@@ -2,8 +2,8 @@ import { Utils, App } from "./imports.js";
 import DirectoryMonitorService from "./services/directoryMonitorService.js";
 
 // Windows
-import { Bar } from "./windows/bar/bar.js";
 import { launcher } from "./windows/launcher/launcher.js";
+import { Bar } from "./windows/bar/bar.js";
 import { Desktop } from "./windows/desktop/desktop.js";
 import { Popups } from "./windows/popups/popups.js";
 import { Music } from "./windows/music/music.js";
@@ -37,11 +37,11 @@ DirectoryMonitorService.connect("changed", applyScss);
 // Main config
 export default {
 	style: `${App.configDir}/style.css`,
+	windows: [launcher, Bar(), Desktop(), Popups(), Music()],
 	closeWindowDelay: {
 		launcher: 300,
 		music: 300,
 	},
-	windows: [Bar(), launcher, Desktop(), Popups(), Music()],
 };
 
 Utils.subprocess(
