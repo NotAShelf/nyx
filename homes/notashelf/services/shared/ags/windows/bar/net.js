@@ -1,37 +1,74 @@
 import { Network, Widget } from "../../imports.js";
-const { Button } = Widget;
+import { Icon } from "../../icons.js";
+const { Stack, Box } = Widget;
 
-const Net = Widget.Icon({
-  className: "networkModule",
-  binds: [
-    [
-      "icon",
-      Network,
-      "connectivity",
-      (conn) => {
-        if (conn == "none") return "";
-        if (Network.primary == "wired") return "network-wired";
+const WifiIndicator = () =>
+	Box({
+		children: [
+			Widget.Label({
+				has_tooltip: true,
+				binds: [
+					[
+						"label",
+						Network.wifi,
+						"strength",
+						(/** @type {number} */ strength) => {
+							if (strength < 0.1) return Icon.wifi.none;
+							if (strength < 0.26) return Icon.wifi.bad;
+							if (strength < 0.51) return Icon.wifi.low;
+							if (strength < 0.76) return Icon.wifi.normal;
+							if (strength < 1.1) return Icon.wifi.good;
+							else return Icon.wifi.none;
+						},
+					],
+				],
+				connections: [
+					[
+						Network.wifi,
+						(self) =>
+							(self.tooltip_markup = `Strength: ${
+								Network.wifi.strength * 100
+							}`),
+					],
+				],
+			}),
+		],
+	});
 
-        return Network.wifi.icon_name;
-      },
-    ],
-    [
-      "tooltip-text",
-      Network,
-      "connectivity",
-      (conn) => {
-        if (conn == "none") return "";
-        if (Network.primary == "wired") return "Wired";
-
-        return Network.wifi.ssid;
-      },
-    ],
-  ],
-});
+const WiredIndicator = () =>
+	Widget.Label({
+		binds: [
+			[
+				"label",
+				Network.wired,
+				"internet",
+				(internet) => {
+					if (internet === "connected") return Icon.wired.power;
+					if (internet === "connecting") return Icon.wired.poweroff;
+					if (internet === "disconnected") return Icon.wired.poweroff;
+					return Icon.wired.poweroff;
+				},
+			],
+		],
+		connections: [
+			[
+				Network.wired,
+				(self) =>
+					(self.tooltip_markup = `Connection: ${Network.wired.internet}`),
+			],
+		],
+	});
 
 export const NetworkWidget = () =>
-  Button({
-    className: "network",
-    child: Net,
-    cursor: "pointer",
-  });
+	Box({
+		class_name: "network",
+		children: [
+			Stack({
+				items: [
+					["wifi", WifiIndicator()],
+					["wired", WiredIndicator()],
+				],
+				binds: [["shown", Network, "primary", (p) => p || "wifi"]],
+			}),
+		],
+	});
