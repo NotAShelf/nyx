@@ -23,6 +23,7 @@
   baseSrc = fs.unions [
     ./config.js
     ./imports.js
+    ./icons.js
     ./windows
     ./scripts
     ./scss
