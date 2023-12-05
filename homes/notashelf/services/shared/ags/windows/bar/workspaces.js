@@ -40,10 +40,6 @@ export const Workspaces = () =>
 							btn.visible = Hyprland.workspaces.some(
 								(ws) => ws.id === btn._index,
 							);
-							btn.label =
-								btn._index === Hyprland.active.workspace.id
-									? ""
-									: "";
 						}),
 				],
 			],

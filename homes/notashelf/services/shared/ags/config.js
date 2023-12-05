@@ -7,16 +7,15 @@ import { Bar } from "./windows/bar/index.js";
 import { Desktop } from "./windows/desktop/index.js";
 import { Popups } from "./windows/popups/index.js";
 import { Music } from "./windows/music/index.js";
-// import { Notifications } from "./windows/notifications/index.js";
 
-// const css = App.configDir + "/style.css";
+// Compile scss into css
 const compileScss = () => {
 	Utils.exec(
 		`sassc ${App.configDir}/scss/main.scss ${App.configDir}/style.css`,
 	);
 };
 
-// Apply css
+// Apply compield css
 const applyScss = () => {
 	// Compile scss
 	compileScss();
@@ -28,12 +27,17 @@ const applyScss = () => {
 	console.log("Compiled css applied");
 };
 
-// Apply css then check for changes
-applyScss();
+const compileAndApplyScss = () => {
+	compileScss();
+	applyScss();
+};
+
+// Compile and apply scss
+compileAndApplyScss();
 
 // Check for any changes
 DirectoryMonitorService.recursiveDirectoryMonitor(`${App.configDir}/scss`);
-DirectoryMonitorService.connect("changed", applyScss);
+DirectoryMonitorService.connect("changed", compileAndApplyScss);
 
 // Main config
 export default {
