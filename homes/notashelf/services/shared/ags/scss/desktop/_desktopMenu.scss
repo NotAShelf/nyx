@@ -1,0 +1,25 @@
+.desktopMenu {
+    color: $onSurface;
+    background: $surface;
+    font-family: $font;
+    border-radius: 12px;
+    padding: 6px 3px;
+}
+
+.desktopMenuItem {
+    border-radius: 12px;
+    margin: 0 3px;
+    padding: 6px 12px;
+    &:hover {
+        background: $surfaceVariant;
+    }
+}
+
+.desktopMenuItemIcon {
+    font-family: $iconFont;
+    padding: 0 6px 0 0;
+}
+
+.separator {
+    background: $surfaceVariant;
+}

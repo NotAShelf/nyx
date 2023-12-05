@@ -1,15 +1,16 @@
-{
+args @ {
   config,
   lib,
   pkgs,
   ...
-} @ args:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf mkDefault;
+
+  dev = config.modules.device;
 
   MHz = x: x * 1000;
 in {
-  config = mkIf (device.type == "laptop" || device.type == "hybrid") {
+  config = mkIf (dev.type == "laptop" || dev.type == "hybrid") {
     hardware.acpilight.enable = true;
 
     environment.systemPackages = with pkgs; [

@@ -291,13 +291,15 @@
 
     # anyrun program launcher
     anyrun.url = "github:Kirottu/anyrun";
-
     anyrun-nixos-options = {
       url = "github:n3oney/anyrun-nixos-options";
       inputs = {
         flake-parts.follows = "flake-parts";
       };
     };
+
+    # aylur's gtk shell (ags)
+    ags.url = "github:Aylur/ags";
 
     # spicetify for theming spotify
     spicetify = {

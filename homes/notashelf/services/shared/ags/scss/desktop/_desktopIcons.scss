@@ -1,0 +1,17 @@
+.desktopIcons {
+    margin: 24px 0 0 24px;
+}
+
+.desktopIcon {
+    border-radius: 6px;
+    padding: 6px;
+    transition: all 200ms cubic-bezier(0, 0, 1, 1);
+    &:hover {
+        background: transparentize($primary, 0.5);
+    }
+}
+
+.desktopIconLabel {
+    color: $surface;
+    font-family: 'SourceHanSansJP';
+}
