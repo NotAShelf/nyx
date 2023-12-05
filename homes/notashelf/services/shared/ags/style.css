@@ -1,0 +1,325 @@
+*:not(tooltip) {
+  all: unset;
+  font-family: Material Design Icons, Iosevka Nerd Font Mono, Inter, Roboto, sans-serif; }
+
+.launcherIcon {
+  background: #313244;
+  font-family: SymbolsNerdFontMono;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px;
+  min-height: 1.5rem;
+  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
+  .launcherIcon:hover {
+    background: #3c3d53; }
+
+/*
+.workspaces {
+  background: $surfaceVariant;
+  border-radius: 12px;
+  margin: 6px;
+  padding: 6px;
+  button {
+    font-family: $iconFont;
+    margin: 3px;
+    transition:
+      all 0.3s $materialStandard,
+      border 0.35s $materialStandard;
+    &:hover {
+      color: $primary;
+    }
+    &.focused {
+      color: $blue;
+    }
+  }
+}
+*/
+.workspaces {
+  background: transparent;
+  padding: 14px; }
+  .workspaces button {
+    margin: 5px 3px;
+    min-width: 0.6rem;
+    min-height: 0.6rem;
+    color: transparent;
+    background: #cdd6f4;
+    border-radius: 99px;
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+    .workspaces button.hover {
+      background: #1e1e2e; }
+    .workspaces button.focused {
+      border-radius: 18px;
+      background: #89b4fa;
+      padding: 8px 0px; }
+
+.tray {
+  margin: 0; }
+
+.trayChevron {
+  font-family: SymbolsNerdFontMono; }
+
+.trayIcons {
+  margin: 3px 0 0 0; }
+
+.trayIcon {
+  margin: 0 0 3px 0; }
+
+.battery {
+  margin: 3px; }
+
+.clock {
+  background: #313244;
+  color: #cdd6f4;
+  font-family: RobotoMono;
+  font-weight: 500;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px; }
+
+.lock {
+  background: #313244;
+  font-size: 24px;
+  border-radius: 12px;
+  margin: 2px 4px;
+  padding: 2px; }
+
+.swallow {
+  margin: 6px 3px; }
+
+.network {
+  margin: 6px 3px; }
+
+.audio {
+  margin: 6px 3px; }
+
+.bluetooth {
+  margin: 6px 3px;
+  color: #cdd6f4; }
+
+.power {
+  color: #f38ba8;
+  background: #313244;
+  font-size: 24px;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px; }
+
+.bar {
+  color: #cdd6f4;
+  background: #1e1e2e;
+  font-family: Roboto;
+  border-radius: 12px;
+  padding: 2px; }
+
+.systemInfo {
+  color: #cdd6f4;
+  background: #313244;
+  font-family: SymbolsNerdFontMono;
+  border-radius: 12px;
+  margin: 4px 4px 4px 4px;
+  padding: 6px; }
+
+.utilButtons {
+  color: #cdd6f4;
+  background: #313244;
+  font-family: SymbolsNerdFontMono;
+  border-radius: 12px;
+  margin: 4px 4px 4px 4px;
+  padding: 6px; }
+
+.launcher {
+  color: #cdd6f4;
+  background: #1e1e2e;
+  font-family: Roboto;
+  border-radius: 12px;
+  margin: 0 0 16px 0;
+  padding: 6px; }
+
+.launcherApp {
+  border-radius: 12px;
+  margin: 3px;
+  padding: 3px; }
+  .launcherApp:focus {
+    background: #313244; }
+
+.launcherEntry {
+  caret-color: #cdd6f4;
+  background: #313244;
+  border-radius: 10px;
+  margin: 6px;
+  padding: 3px 12px; }
+
+.launcherItemIcon {
+  margin: 3px 6px; }
+
+.launcherItemTitle {
+  font-size: 16px;
+  font-weight: bold; }
+
+.launcherItemDescription {
+  font-size: 12px; }
+
+.desktopMenu {
+  color: #cdd6f4;
+  background: #313244;
+  font-family: Roboto;
+  border-radius: 12px;
+  padding: 6px 3px; }
+
+.desktopMenuItem {
+  border-radius: 12px;
+  margin: 0 3px;
+  padding: 6px 12px; }
+  .desktopMenuItem:hover {
+    background: #313244; }
+
+.desktopMenuItemIcon {
+  font-family: SymbolsNerdFontMono;
+  padding: 0 6px 0 0; }
+
+.separator {
+  background: #313244; }
+
+.desktopIcons {
+  margin: 24px 0 0 24px; }
+
+.desktopIcon {
+  border-radius: 6px;
+  padding: 6px;
+  transition: all 200ms cubic-bezier(0, 0, 1, 1); }
+  .desktopIcon:hover {
+    background: rgba(30, 30, 46, 0.5); }
+
+.desktopIconLabel {
+  color: #313244;
+  font-family: Roboto; }
+
+.brightnessPopup {
+  color: #cdd6f4;
+  background: #1e1e2e;
+  font-family: Roboto;
+  border-radius: 10px;
+  border: black;
+  margin: 6px 0;
+  padding: 4px; }
+
+.brtPopupIcon {
+  font-family: SymbolsNerdFontMono;
+  margin: 0 6px; }
+
+.brtPopupLabel {
+  font-weight: 400;
+  margin: 3px; }
+
+.brtPopupBar {
+  min-width: 200px; }
+  .brtPopupBar scale {
+    min-height: 12px; }
+  .brtPopupBar trough {
+    background: #313244;
+    border-radius: 12px;
+    min-height: 12px; }
+  .brtPopupBar highlight {
+    background: #b4befe;
+    border-radius: 12px;
+    min-width: 12px; }
+
+.volumePopup {
+  color: #cdd6f4;
+  background: #1e1e2e;
+  font-family: Roboto;
+  border-radius: 10px;
+  border: black;
+  margin: 6px 0;
+  padding: 4px; }
+
+.volPopupIcon {
+  font-family: SymbolsNerdFontMono;
+  margin: 0 6px; }
+
+.volPopupLabel {
+  font-weight: 400;
+  margin: 3px; }
+
+.volPopupBar {
+  min-width: 200px; }
+  .volPopupBar scale {
+    min-height: 12px; }
+  .volPopupBar trough {
+    background: #313244;
+    border-radius: 12px;
+    min-height: 12px; }
+  .volPopupBar highlight {
+    background: #b4befe;
+    border-radius: 12px;
+    min-width: 12px; }
+
+.uwustagramControls {
+  margin: 0 24px 48px; }
+
+.controlsPrev {
+  font-family: SymbolsNerdFontMono;
+  font-size: 1.5rem; }
+
+.controlsPlayPause {
+  font-family: SymbolsNerdFontMono;
+  font-size: 2.5rem;
+  margin: 0 24px; }
+
+.controlsNext {
+  font-family: SymbolsNerdFontMono;
+  font-size: 1.5rem; }
+
+.music {
+  background: #313244;
+  font-family: Roboto;
+  border-radius: 0; }
+
+.uwustagramHeader {
+  background: #313244;
+  font-weight: bold;
+  padding: 12px; }
+
+.uwustagramArtist {
+  font-weight: 500;
+  padding: 12px; }
+
+.artistIcon {
+  font-family: SymbolsNerdFontMono;
+  font-size: 1.5em;
+  margin: 0 6px 0 0; }
+
+.uwustagramCover {
+  opacity: 0.25;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  min-height: 240px;
+  min-width: 240px; }
+
+.uwustagramCoverOverlay {
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  margin: 48px;
+  box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.5); }
+
+.uwustagramButtons {
+  font-family: SymbolsNerdFontMono;
+  font-size: 1rem;
+  padding: 12px; }
+
+.uwustagramTitle {
+  font-weight: 500;
+  padding: 12px 24px 0 24px; }
+
+.uwustagramProgress {
+  padding: 24px;
+  min-width: 60px; }
+  .uwustagramProgress trough {
+    background: #313244;
+    border-radius: 12px;
+    min-height: 6px; }
+  .uwustagramProgress progress {
+    background: #1e1e2e;
+    border-radius: 12px;
+    min-width: 6px; }

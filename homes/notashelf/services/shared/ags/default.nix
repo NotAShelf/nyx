@@ -29,6 +29,7 @@
     ./scss
     ./services
     ./utils
+    ./style.css
   ];
 
   filterNixFiles = fs.fileFilter (file: lib.hasSuffix ".nix" file.name) ./.;
