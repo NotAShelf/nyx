@@ -1,20 +1,47 @@
+/*
 .workspaces {
-    background: $surfaceVariant;
-    border-radius: 12px;
-    margin: 6px;
-    padding: 6px;
-    button {
-        font-family: $iconFont;
-        margin: 3px;
-        transition:
-            all 0.3s $materialStandard,
-            border 0.35s $materialStandard;
-        &:hover {
-            color: $primary;
-        }
-        &.focused {
-            color: $primary;
-        }
+  background: $surfaceVariant;
+  border-radius: 12px;
+  margin: 6px;
+  padding: 6px;
+  button {
+    font-family: $iconFont;
+    margin: 3px;
+    transition:
+      all 0.3s $materialStandard,
+      border 0.35s $materialStandard;
+    &:hover {
+      color: $primary;
     }
+    &.focused {
+      color: $blue;
+    }
+  }
 }
+*/
 
+.workspaces {
+  background: transparent;
+  padding: 14px;
+  button {
+    margin: 5px 3px;
+
+    color: transparent;
+    background: $onSurface;
+    border-radius: 99px;
+
+    transition:
+      all 0.3s $materialStandard,
+      border 0.35s $materialStandard;
+
+    &.hover {
+      background: $primary;
+    }
+
+    &.focused {
+      border-radius: 18px;
+      background: $blue;
+      padding: 8px 0px;
+    }
+  }
+}

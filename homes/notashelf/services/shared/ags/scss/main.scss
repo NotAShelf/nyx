@@ -1,6 +1,5 @@
-// Colors
-@import "colors";
 @import "prelude";
+@import "colors";
 
 // Vars
 $font: Roboto;
@@ -10,7 +9,7 @@ $materialStandard: cubic-bezier(0.2, 0, 0, 1);
 $materialDecel: cubic-bezier(0, 0, 0, 1);
 $materialAccel: cubic-bezier(0.3, 0, 1, 1);
 
-// Components
+// Modules
 @import "bar/bar";
 @import "launcher/launcher";
 @import "desktop/desktop";
