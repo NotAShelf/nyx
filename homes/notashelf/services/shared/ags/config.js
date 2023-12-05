@@ -8,43 +8,34 @@ import { Desktop } from "./windows/desktop/index.js";
 import { Popups } from "./windows/popups/index.js";
 import { Music } from "./windows/music/index.js";
 
-// Compile scss into css
-const compileScss = () => {
-	Utils.exec(
-		`sassc ${App.configDir}/scss/main.scss ${App.configDir}/style.css`,
-	);
-};
+const scss = App.configDir + "/scss/main.scss";
+const css = App.configDir + "/style.css";
 
-// Apply compield css
-const applyScss = () => {
-	// Compile scss
-	compileScss();
-	console.log("Scss compiled");
-
-	// Apply compiled css
-	App.resetCss();
-	App.applyCss(`${App.configDir}/style.css`);
-	console.log("Compiled css applied");
-};
-
-const compileAndApplyScss = () => {
-	compileScss();
-	applyScss();
-};
-
-// Compile and apply scss
-compileAndApplyScss();
-
-// Check for any changes
-DirectoryMonitorService.recursiveDirectoryMonitor(`${App.configDir}/scss`);
-DirectoryMonitorService.connect("changed", compileAndApplyScss);
+Utils.exec(`sassc ${scss} ${css}`);
 
 // Main config
 export default {
-	style: `${App.configDir}/style.css`,
+	style: css,
 	windows: [launcher, Bar(), Desktop(), Popups(), Music()],
 	closeWindowDelay: {
 		launcher: 300,
 		music: 300,
 	},
 };
+
+Utils.subprocess(
+	[
+		"inotifywait",
+		"--recursive",
+		"--event",
+		"create,modify",
+		"-m",
+		App.configDir + "/style",
+	],
+	() => {
+		print("scss change detected");
+		Utils.exec(`sassc ${scss} ${css}`);
+		App.resetCss();
+		App.applyCss(css);
+	},
+);
