@@ -8,6 +8,8 @@
   dependencies = with pkgs; [
     (callPackage ./packages/hyprctl-swallow {})
     config.wayland.windowManager.hyprland.package
+    inputs.hyprpicker.packages.${pkgs.system}.default
+    bashInteractive
     coreutils
     gawk
     inotify-tools
