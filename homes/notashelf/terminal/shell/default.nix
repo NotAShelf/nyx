@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./starship
     ./bin

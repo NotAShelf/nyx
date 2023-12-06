@@ -51,6 +51,11 @@ in {
       zstyle ':completion:*' special-dirs true
       zstyle ':completion:*' rehash true
 
+      # open commands in $EDITOR
+      autoload -z edit-command-line
+      zle -N edit-command-line
+      bindkey "^e" edit-command-line
+
       zstyle ':completion:*' menu yes select # search
       zstyle ':completion:*' list-grouped false
       zstyle ':completion:*' list-separator '''
@@ -97,6 +102,10 @@ in {
     '';
 
     initExtra = ''
+      # set my zsh options, first things first
+      # TODO: apparently there is a module option to do what I'm doing? gotta test the efficiency.
+      source ${./opts.zsh}
+
       set -k
       export FZF_DEFAULT_OPTS="
       --color gutter:-1
@@ -150,13 +159,6 @@ in {
       *)
           ;;
       esac
-
-      # run programs that are not in PATH with comma
-      command_not_found_handler() {
-        ${pkgs.comma}/bin/comma "$@"
-      }
-
-      source ${./opts.zsh}
     '';
 
     shellAliases = with pkgs; {
