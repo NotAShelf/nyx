@@ -84,6 +84,7 @@
             glow # markdown viewer
             statix # lints and suggestions
             deadnix # clean up unused nix code
+            nodejs # for ags and eslint_d
             (pkgs.writeShellApplication {
               name = "update";
               text = ''
