@@ -17,6 +17,7 @@
     gtk3
     brightnessctl
     libnotify
+    networkmanagerapplet
   ];
 
   fs = lib.fileset;

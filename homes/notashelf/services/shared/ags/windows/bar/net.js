@@ -1,6 +1,6 @@
-import { Network, Widget } from "../../imports.js";
+import { Network, Widget, Utils } from "../../imports.js";
 import { Icon } from "../../icons.js";
-const { Stack, Box } = Widget;
+const { Stack, Box, Button } = Widget;
 
 const WifiIndicator = () =>
 	Box({
@@ -60,15 +60,15 @@ const WiredIndicator = () =>
 	});
 
 export const NetworkWidget = () =>
-	Box({
-		class_name: "network",
-		children: [
-			Stack({
-				items: [
-					["wifi", WifiIndicator()],
-					["wired", WiredIndicator()],
-				],
-				binds: [["shown", Network, "primary", (p) => p || "wifi"]],
-			}),
-		],
+	Button({
+		className: "network",
+		cursor: "pointer",
+		onClicked: () => Utils.exec("nm-connection-editor"),
+		child: Stack({
+			items: [
+				["wifi", WifiIndicator()],
+				["wired", WiredIndicator()],
+			],
+			binds: [["shown", Network, "primary", (p) => p || "wifi"]],
+		}),
 	});
