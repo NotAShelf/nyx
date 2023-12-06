@@ -9,8 +9,8 @@
 }:
 with lib; {
   imports = [
+    ./transcend # module that merges trees outside central nixpkgs with our system's
     ./builders.nix # import builders config
-    ./modules.nix # module to yoink modules from nixpkgs PRs
   ];
 
   system = {
