@@ -12,27 +12,27 @@
 @import "power";
 
 .bar {
-  color: $onSurface;
-  background: $primary;
-  font-family: $font;
-  border-radius: 12px;
-  padding: 2px;
+	color: $onSurface;
+	background: $primary;
+	font-family: $font;
+	border-radius: 12px;
+	padding: 2px;
 }
 
 .systemInfo {
-  color: $onSurface;
-  background: $surfaceVariant;
-  font-family: $iconFont;
-  border-radius: 12px;
-  margin: 4px 4px 4px 4px;
-  padding: 6px;
+	color: $onSurface;
+	background: $surfaceVariant;
+	font-family: $iconFont;
+	border-radius: 12px;
+	margin: 4px 4px 4px 4px;
+	padding: 6px;
 }
 
-.utilButtons {
-  color: $onSurface;
-  background: $surfaceVariant;
-  font-family: $iconFont;
-  border-radius: 12px;
-  margin: 4px 4px 4px 4px;
-  padding: 6px;
+.utilsBox {
+	color: $onSurface;
+	background: $surfaceVariant;
+	font-family: $iconFont;
+	border-radius: 12px;
+	margin: 4px 4px 4px 4px;
+	padding: 6px;
 }

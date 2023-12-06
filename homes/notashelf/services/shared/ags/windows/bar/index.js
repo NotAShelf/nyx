@@ -11,14 +11,22 @@ import { PowerMenu } from "./power.js";
 import { Swallow } from "./swallow.js";
 import { BluetoothWidget } from "./bluetooth.js";
 import { AudioWidget } from "./audio.js";
-import { NetworkWidget } from "./net.js";
+import { NetworkWidget } from "./network.js";
+import { SystemInfo } from "./system.js";
 
 const Top = () =>
 	Box({
 		className: "barTop",
 		vertical: true,
 		vpack: "start",
-		children: [launcherIcon()],
+		children: [
+			launcherIcon(),
+			Box({
+				className: "utilsBox",
+				vertical: true,
+				children: [SystemInfo()],
+			}),
+		],
 	});
 
 const Center = () =>
@@ -38,17 +46,11 @@ const Bottom = () =>
 				className: "systemInfo",
 				vertical: true,
 				children: [
-					BatteryWidget(),
 					BluetoothWidget(),
 					AudioWidget(),
 					Swallow(),
 					NetworkWidget(),
-					/*
-          Widget.Label({
-            className: "wifiIcon",
-            label: "󰤨",
-          }),
-          */
+					BatteryWidget(),
 				],
 			}),
 			Clock(),
