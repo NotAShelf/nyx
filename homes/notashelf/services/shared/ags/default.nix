@@ -55,7 +55,6 @@ in {
     systemd.user.services.ags = {
       Install.WantedBy = ["graphical-session.target"];
       Unit = {
-        Group = "video";
         Description = "Aylur's Gtk Shell (Ags)";
         PartOf = [
           "tray.target"

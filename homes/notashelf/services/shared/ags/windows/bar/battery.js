@@ -7,12 +7,6 @@ const BatIcon = () =>
 		connections: [
 			[
 				Battery,
-				(icon) => {
-					icon.toggleClassName("charging", Battery.charging);
-					icon.toggleClassName("charged", Battery.charged);
-					icon.toggleClassName("low", Battery.percent < 30);
-				},
-
 				(self) => {
 					const icons = [
 						["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
@@ -23,24 +17,17 @@ const BatIcon = () =>
 						icons[Battery.charging ? 1 : 0][
 							Math.floor(Battery.percent / 10)
 						].toString();
+
+					self.tooltipText = `${Math.floor(Battery.percent)}%`;
 				},
 			],
 		],
 	});
 
-export const BatteryWidget = () => {
-	/*
-	const directoryItemCount = Utils.exec(
-		`sh -c "ls -A /sys/class/backlight | wc -l"`,
-	);
-	console.log(directoryItemCount);
-	const directoryNotEmpty = parseInt(directoryItemCount) > 0;
-	console.log(directoryNotEmpty);
-	*/
-
-	return Box({
+export const BatteryWidget = () =>
+	Box({
 		className: "battery",
+		cursor: "pointer",
 		child: BatIcon(),
-		binds: [["visible", Battery, "available"]],
+		binds: ["visible", Battery, "available"],
 	});
-};

@@ -1,6 +1,6 @@
 import { Network, Widget, Utils } from "../../imports.js";
 import { Icon } from "../../icons.js";
-const { Stack, Box, Button } = Widget;
+const { Stack, Box, Button, Label } = Widget;
 
 const WifiIndicator = () =>
 	Box({
@@ -17,7 +17,7 @@ const WifiIndicator = () =>
 							if (strength < 0.26) return Icon.wifi.bad;
 							if (strength < 0.51) return Icon.wifi.low;
 							if (strength < 0.76) return Icon.wifi.normal;
-							if (strength < 1.1) return Icon.wifi.good;
+							if (strength < 10000) return Icon.wifi.good;
 							else return Icon.wifi.none;
 						},
 					],
@@ -36,7 +36,8 @@ const WifiIndicator = () =>
 	});
 
 const WiredIndicator = () =>
-	Widget.Label({
+	Label({
+		cursor: "pointer",
 		binds: [
 			[
 				"label",
@@ -65,10 +66,10 @@ export const NetworkWidget = () =>
 		cursor: "pointer",
 		onClicked: () => Utils.exec("nm-connection-editor"),
 		child: Stack({
+			binds: [["shown", Network, "primary", (p) => p || "wifi"]],
 			items: [
 				["wifi", WifiIndicator()],
 				["wired", WiredIndicator()],
 			],
-			binds: [["shown", Network, "primary", (p) => p || "wifi"]],
 		}),
 	});
