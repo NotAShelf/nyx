@@ -5,11 +5,13 @@
   lib,
   ...
 }: let
+  hyprctl-swallow = pkgs.callPackage ./packages/hyprctl-swallow {};
+
   dependencies = with pkgs; [
-    (callPackage ./packages/hyprctl-swallow {})
     config.wayland.windowManager.hyprland.package
     inputs.hyprpicker.packages.${pkgs.system}.default
-    bashInteractive
+    hyprctl-swallow
+    bash
     coreutils
     gawk
     inotify-tools
@@ -24,14 +26,9 @@
 
   fs = lib.fileset;
   baseSrc = fs.unions [
-    ./config.js
-    ./imports.js
-    ./icons.js
-    ./windows
-    ./scripts
+    ./js
     ./scss
-    ./services
-    ./utils
+    ./config.js
     ./style.css
   ];
 

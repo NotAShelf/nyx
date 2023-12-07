@@ -29,8 +29,8 @@ rules:
   eol-last: error
   indent:
     - error
-    - 2
-    - SwitchCase: 1
+    - 4
+    - SwitchCase: 2
   keyword-spacing:
     - error
     - before: true
@@ -45,7 +45,7 @@ rules:
   prefer-const: error
   quotes:
     - error
-    - single
+    - double
     - avoidEscape: true
   semi:
     - error
