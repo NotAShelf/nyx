@@ -29,7 +29,7 @@ rules:
   eol-last: error
   indent:
     - error
-    - 4
+    - 2
     - SwitchCase: 1
   keyword-spacing:
     - error

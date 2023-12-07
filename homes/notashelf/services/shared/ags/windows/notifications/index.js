@@ -1,12 +1,12 @@
 import { Widget, Utils } from '../../imports.js';
 
 const NotificationIcon = ({ appEntry, appIcon, image }) => {
-    if (image) {
-        return Widget.Box({
-            vpack: 'start',
-            hexpand: false,
-            className: 'icon img',
-            css: `
+  if (image) {
+    return Widget.Box({
+      vpack: 'start',
+      hexpand: false,
+      className: 'icon img',
+      css: `
                 background-image: url("${image}");
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -14,116 +14,116 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
                 min-width: 78px;
                 min-height: 78px;
             `,
-        });
-    }
+    });
+  }
 
-    let icon = 'dialog-information-symbolic';
-    if (Utils.lookUpIcon(appIcon))
-        icon = appIcon;
+  let icon = 'dialog-information-symbolic';
+  if (Utils.lookUpIcon(appIcon))
+    icon = appIcon;
 
-    if (Utils.lookUpIcon(appEntry))
-        icon = appEntry;
+  if (Utils.lookUpIcon(appEntry))
+    icon = appEntry;
 
-    return Widget.Box({
-        vpack: 'start',
-        hexpand: false,
-        className: 'icon',
-        css: `
+  return Widget.Box({
+    vpack: 'start',
+    hexpand: false,
+    className: 'icon',
+    css: `
             min-width: 78px;
             min-height: 78px;
         `,
-        children: [
-            Widget.Icon({
-                icon,
-                size: 58,
-                hpack: 'center',
-                hexpand: true,
-                vpack: 'center',
-                vexpand: true,
-            }),
-        ],
-    });
+    children: [
+      Widget.Icon({
+        icon,
+        size: 58,
+        hpack: 'center',
+        hexpand: true,
+        vpack: 'center',
+        vexpand: true,
+      }),
+    ],
+  });
 };
 
 export const Notifications = n =>
-    Widget.EventBox({
-        className: `notification ${n.urgency}`,
-        onPrimaryClick: () => n.dismiss(),
-        properties: [['hovered', false]],
-        onHover: self => {
-            if (self._hovered)
-                return;
+  Widget.EventBox({
+    className: `notification ${n.urgency}`,
+    onPrimaryClick: () => n.dismiss(),
+    properties: [['hovered', false]],
+    onHover: self => {
+      if (self._hovered)
+        return;
 
-            // if there are action buttons and they are hovered
-            // EventBox onHoverLost will fire off immediately,
-            // so to prevent this we delay it
-            Utils.timeout(300, () => (self._hovered = true));
-        },
-        onHoverLost: self => {
-            if (!self._hovered)
-                return;
+      // if there are action buttons and they are hovered
+      // EventBox onHoverLost will fire off immediately,
+      // so to prevent this we delay it
+      Utils.timeout(300, () => (self._hovered = true));
+    },
+    onHoverLost: self => {
+      if (!self._hovered)
+        return;
 
-            self._hovered = false;
-            n.dismiss();
-        },
-        vexpand: false,
-        child: Widget.Box({
-            vertical: true,
-            children: [
+      self._hovered = false;
+      n.dismiss();
+    },
+    vexpand: false,
+    child: Widget.Box({
+      vertical: true,
+      children: [
+        Widget.Box({
+          children: [
+            NotificationIcon(n),
+            Widget.Box({
+              hexpand: true,
+              vertical: true,
+              children: [
                 Widget.Box({
-                    children: [
-                        NotificationIcon(n),
-                        Widget.Box({
-                            hexpand: true,
-                            vertical: true,
-                            children: [
-                                Widget.Box({
-                                    children: [
-                                        Widget.Label({
-                                            className: 'title',
-                                            xalign: 0,
-                                            justification: 'left',
-                                            hexpand: true,
-                                            maxWidthChars: 24,
-                                            truncate: 'end',
-                                            wrap: true,
-                                            label: n.summary,
-                                            useMarkup: true,
-                                        }),
-                                        Widget.Button({
-                                            className: 'close-button',
-                                            vpack: 'start',
-                                            child: Widget.Icon(
-                                                'window-close-symbolic',
-                                            ),
-                                            onClicked: n.close.bind(n),
-                                        }),
-                                    ],
-                                }),
-                                Widget.Label({
-                                    className: 'description',
-                                    hexpand: true,
-                                    useMarkup: true,
-                                    xalign: 0,
-                                    justification: 'left',
-                                    label: n.body,
-                                    wrap: true,
-                                }),
-                            ],
-                        }),
-                    ],
+                  children: [
+                    Widget.Label({
+                      className: 'title',
+                      xalign: 0,
+                      justification: 'left',
+                      hexpand: true,
+                      maxWidthChars: 24,
+                      truncate: 'end',
+                      wrap: true,
+                      label: n.summary,
+                      useMarkup: true,
+                    }),
+                    Widget.Button({
+                      className: 'close-button',
+                      vpack: 'start',
+                      child: Widget.Icon(
+                        'window-close-symbolic',
+                      ),
+                      onClicked: n.close.bind(n),
+                    }),
+                  ],
                 }),
-                Widget.Box({
-                    className: 'actions',
-                    children: n.actions.map(({ id, label }) =>
-                        Widget.Button({
-                            className: 'action-button',
-                            onClicked: () => n.invoke(id),
-                            hexpand: true,
-                            child: Widget.Label(label),
-                        }),
-                    ),
+                Widget.Label({
+                  className: 'description',
+                  hexpand: true,
+                  useMarkup: true,
+                  xalign: 0,
+                  justification: 'left',
+                  label: n.body,
+                  wrap: true,
                 }),
-            ],
+              ],
+            }),
+          ],
         }),
-    });
+        Widget.Box({
+          className: 'actions',
+          children: n.actions.map(({ id, label }) =>
+            Widget.Button({
+              className: 'action-button',
+              onClicked: () => n.invoke(id),
+              hexpand: true,
+              child: Widget.Label(label),
+            }),
+          ),
+        }),
+      ],
+    }),
+  });

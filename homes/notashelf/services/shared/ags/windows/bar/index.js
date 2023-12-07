@@ -15,63 +15,63 @@ import { NetworkWidget } from './network.js';
 import { SystemInfo } from './system.js';
 
 const Top = () =>
-    Box({
-        className: 'barTop',
+  Box({
+    className: 'barTop',
+    vertical: true,
+    vpack: 'start',
+    children: [
+      launcherIcon(),
+      Box({
+        className: 'utilsBox',
         vertical: true,
-        vpack: 'start',
-        children: [
-            launcherIcon(),
-            Box({
-                className: 'utilsBox',
-                vertical: true,
-                children: [SystemInfo()],
-            }),
-        ],
-    });
+        children: [SystemInfo()],
+      }),
+    ],
+  });
 
 const Center = () =>
-    Box({
-        className: 'barCenter',
-        vertical: true,
-        children: [Workspaces()],
-    });
+  Box({
+    className: 'barCenter',
+    vertical: true,
+    children: [Workspaces()],
+  });
 
 const Bottom = () =>
-    Box({
-        className: 'barBottom',
+  Box({
+    className: 'barBottom',
+    vertical: true,
+    vpack: 'end',
+    children: [
+      Tray(),
+      Box({
+        className: 'systemInfo',
         vertical: true,
-        vpack: 'end',
         children: [
-            Tray(),
-            Box({
-                className: 'systemInfo',
-                vertical: true,
-                children: [
-                    BluetoothWidget(),
-                    AudioWidget(),
-                    Swallow(),
-                    NetworkWidget(),
-                    BatteryWidget(),
-                ],
-            }),
-            Clock(),
-            PowerMenu(),
+          BluetoothWidget(),
+          AudioWidget(),
+          Swallow(),
+          NetworkWidget(),
+          BatteryWidget(),
         ],
-    });
+      }),
+      Clock(),
+      PowerMenu(),
+    ],
+  });
 
 export const Bar = ({ monitor } = {}) =>
-    Window({
-        name: 'bar',
-        anchor: ['top', 'bottom', 'left'],
-        exclusivity: 'exclusive',
-        layer: 'top',
-        margins: [11, 0, 11, 11],
-        monitor,
-        child: CenterBox({
-            className: 'bar',
-            vertical: true,
-            startWidget: Top(),
-            centerWidget: Center(),
-            endWidget: Bottom(),
-        }),
-    });
+  Window({
+    name: 'bar',
+    anchor: ['top', 'bottom', 'left'],
+    exclusivity: 'exclusive',
+    layer: 'top',
+    margins: [11, 0, 11, 11],
+    monitor,
+    child: CenterBox({
+      className: 'bar',
+      vertical: true,
+      startWidget: Top(),
+      centerWidget: Center(),
+      endWidget: Bottom(),
+    }),
+  });
