@@ -1,13 +1,22 @@
 #!/usr/bin/env bash
-# Script by https://github.com/exoess
-
-if [ "$#" -ne 3 ]; then
-    echo "Usage: $0 <position> <size>"
-    exit 1
-fi
 
 open_window() {
-    hyprctl dispatch exec "[float; move $(echo $1 | sed 's/,/ /'); size $(echo $2 | sed 's/x/ /')] $3"
+	local position="$1"
+	local size="$2"
+	local command="$3"
+
+	# Validate input
+	if [[ -z "$position" || -z "$size" || -z "$command" ]]; then
+		echo "Error: Position, size, and command are required." 1>&2
+		exit 1
+	fi
+
+	hyprctl dispatch exec "[float; move ${position//,/ }; size ${size//x/ }] $command"
 }
+
+if [[ $# -ne 3 ]]; then
+	echo "Usage: $0 <position> <size> <command>"
+	exit 1
+fi
 
 open_window "$1" "$2" "$3"

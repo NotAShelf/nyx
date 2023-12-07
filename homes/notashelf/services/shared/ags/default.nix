@@ -5,12 +5,9 @@
   lib,
   ...
 }: let
-  hyprctl-swallow = pkgs.callPackage ./packages/hyprctl-swallow {};
-
   dependencies = with pkgs; [
     config.wayland.windowManager.hyprland.package
     inputs.hyprpicker.packages.${pkgs.system}.default
-    hyprctl-swallow
     bash
     coreutils
     gawk

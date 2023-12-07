@@ -1,129 +1,71 @@
-import { Widget, Utils } from '../../imports.js';
+import Notifications from "resource:///com/github/Aylur/ags/service/notifications.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
+import Notification from "../misc/Notification.js";
 
-const NotificationIcon = ({ appEntry, appIcon, image }) => {
-  if (image) {
+/** @param {import('types/widgets/revealer').default} parent */
+const Popups = (parent) => {
+    const map = new Map();
+
+    const onDismissed = (_, id, force = false) => {
+        if (!id || !map.has(id)) return;
+
+        if (map.get(id).isHovered() && !force) return;
+
+        if (map.size - 1 === 0) parent.reveal_child = false;
+
+        Utils.timeout(200, () => {
+            map.get(id)?.destroy();
+            map.delete(id);
+        });
+    };
+
+    /** @param {import('types/widgets/box').default} box */
+    const onNotified = (box, id) => {
+        if (!id || Notifications.dnd) return;
+
+        const n = Notifications.getNotification(id);
+        if (!n) return;
+
+        if (options.notifications.black_list.value.includes(n.app_name || ""))
+            return;
+
+        map.delete(id);
+        map.set(id, Notification(n));
+        box.children = Array.from(map.values()).reverse();
+        Utils.timeout(10, () => {
+            parent.reveal_child = true;
+        });
+    };
+
     return Widget.Box({
-      vpack: 'start',
-      hexpand: false,
-      className: 'icon img',
-      css: `
-                background-image: url("${image}");
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-                min-width: 78px;
-                min-height: 78px;
-            `,
+        vertical: true,
+        connections: [
+            [Notifications, onNotified, "notified"],
+            [Notifications, onDismissed, "dismissed"],
+            [Notifications, (box, id) => onDismissed(box, id, true), "closed"],
+        ],
     });
-  }
-
-  let icon = 'dialog-information-symbolic';
-  if (Utils.lookUpIcon(appIcon))
-    icon = appIcon;
-
-  if (Utils.lookUpIcon(appEntry))
-    icon = appEntry;
-
-  return Widget.Box({
-    vpack: 'start',
-    hexpand: false,
-    className: 'icon',
-    css: `
-            min-width: 78px;
-            min-height: 78px;
-        `,
-    children: [
-      Widget.Icon({
-        icon,
-        size: 58,
-        hpack: 'center',
-        hexpand: true,
-        vpack: 'center',
-        vexpand: true,
-      }),
-    ],
-  });
 };
 
-export const Notifications = n =>
-  Widget.EventBox({
-    className: `notification ${n.urgency}`,
-    onPrimaryClick: () => n.dismiss(),
-    properties: [['hovered', false]],
-    onHover: self => {
-      if (self._hovered)
-        return;
-
-      // if there are action buttons and they are hovered
-      // EventBox onHoverLost will fire off immediately,
-      // so to prevent this we delay it
-      Utils.timeout(300, () => (self._hovered = true));
-    },
-    onHoverLost: self => {
-      if (!self._hovered)
-        return;
-
-      self._hovered = false;
-      n.dismiss();
-    },
-    vexpand: false,
-    child: Widget.Box({
-      vertical: true,
-      children: [
-        Widget.Box({
-          children: [
-            NotificationIcon(n),
-            Widget.Box({
-              hexpand: true,
-              vertical: true,
-              children: [
-                Widget.Box({
-                  children: [
-                    Widget.Label({
-                      className: 'title',
-                      xalign: 0,
-                      justification: 'left',
-                      hexpand: true,
-                      maxWidthChars: 24,
-                      truncate: 'end',
-                      wrap: true,
-                      label: n.summary,
-                      useMarkup: true,
-                    }),
-                    Widget.Button({
-                      className: 'close-button',
-                      vpack: 'start',
-                      child: Widget.Icon(
-                        'window-close-symbolic',
-                      ),
-                      onClicked: n.close.bind(n),
-                    }),
-                  ],
-                }),
-                Widget.Label({
-                  className: 'description',
-                  hexpand: true,
-                  useMarkup: true,
-                  xalign: 0,
-                  justification: 'left',
-                  label: n.body,
-                  wrap: true,
-                }),
-              ],
+/** @param {import('types/widgets/revealer').RevealerProps['transition']} transition */
+const PopupList = (transition = "slide_down") =>
+    Widget.Box({
+        css: "padding: 1px",
+        children: [
+            Widget.Revealer({
+                transition,
+                setup: (self) => (self.child = Popups(self)),
             }),
-          ],
-        }),
-        Widget.Box({
-          className: 'actions',
-          children: n.actions.map(({ id, label }) =>
-            Widget.Button({
-              className: 'action-button',
-              onClicked: () => n.invoke(id),
-              hexpand: true,
-              child: Widget.Label(label),
-            }),
-          ),
-        }),
-      ],
-    }),
-  });
+        ],
+    });
+
+/** @param {number} monitor */
+export default (monitor) =>
+    Widget.Window({
+        monitor,
+        name: `notifications${monitor}`,
+        class_name: "notifications",
+        binds: [["anchor", ["top", "right"]]],
+        child: PopupList(),
+    });
