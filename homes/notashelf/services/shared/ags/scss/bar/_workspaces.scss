@@ -23,6 +23,7 @@
 .workspaces {
 	background: transparent;
 	padding: 14px;
+
 	button {
 		margin: 5px 3px;
 		min-width: 0.6rem;
@@ -43,7 +44,7 @@
 		&.focused {
 			border-radius: 18px;
 			background: $blue;
-			padding: 8px 0px;
+			padding: 8px 0;
 		}
 	}
 }

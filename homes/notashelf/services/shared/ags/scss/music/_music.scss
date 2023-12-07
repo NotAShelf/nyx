@@ -48,17 +48,19 @@
 
 .uwustagramTitle {
     font-weight: 500;
-    padding: 12px 24px 0 24px;
+    padding: 12px 24px 0;
 }
 
 .uwustagramProgress {
     padding: 24px;
     min-width: 60px;
+
     & trough {
         background: $surfaceVariant;
         border-radius: 12px;
         min-height: 6px;
     }
+
     & progress {
         background: $primary;
         border-radius: 12px;

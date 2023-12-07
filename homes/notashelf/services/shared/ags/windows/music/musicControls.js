@@ -8,7 +8,7 @@ export const uwustagramControls = () => Box({
         Button({
             className: 'controlsPrev',
             label: '󰒮',
-            onClicked: () => Mpris.players[0].previous()
+            onClicked: () => Mpris.players[0].previous(),
         }),
         Button({
             className: 'controlsPlayPause',
@@ -20,12 +20,12 @@ export const uwustagramControls = () => Box({
                     return;
 
                 self.label = `${player !== null && player.playBackStatus == 'Playing' ? '󰏦' : '󰐍'}`;
-            }]]
+            }]],
         }),
         Button({
             className: 'controlsNext',
             label: '󰒭',
-            onClicked: () => Mpris.players[0].next()
-        })
-    ]
+            onClicked: () => Mpris.players[0].next(),
+        }),
+    ],
 });

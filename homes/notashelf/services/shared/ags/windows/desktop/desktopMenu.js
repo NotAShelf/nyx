@@ -13,8 +13,8 @@ function ItemWithIcon(icon, itemLabel, onClick) {
                 Label(itemLabel),
             ],
         }),
-        onActivate: onClick
-    })
+        onActivate: onClick,
+    });
 }
 
 const Separator = () => MenuItem({
@@ -23,35 +23,35 @@ const Separator = () => MenuItem({
         css: `
             min-height: 1px;
             margin: 3px 6px;
-        `
-    })
-})
+        `,
+    }),
+});
 
 const rioMenu = () => {
     return [
         ItemWithIcon(
             '󰆍',
             'Terminal',
-            () => Utils.exec('sh -c "$HOME/.config/ags/scripts/open_window `slurp -d -c 999999 -w 2` foot"')
+            () => Utils.exec('sh -c "$HOME/.config/ags/scripts/open_window `slurp -d -c 999999 -w 2` foot"'),
         ),
         ItemWithIcon(
             '󰘖',
             'Resize',
-            () => Utils.exec('sh -c "$HOME/.config/ags/scripts/move_window `slurp -d -c 999999 -w 2`"')
+            () => Utils.exec('sh -c "$HOME/.config/ags/scripts/move_window `slurp -d -c 999999 -w 2`"'),
         ),
         ItemWithIcon(
             '󰁁',
             'Move',
-            () => Utils.exec('hyprctl dispatch submap move')
+            () => Utils.exec('hyprctl dispatch submap move'),
         ),
         ItemWithIcon(
             '󰅖',
             'Delete',
-            () => Utils.exec('hyprctl kill')
+            () => Utils.exec('hyprctl kill'),
         ),
-        Separator()
-    ]
-}
+        Separator(),
+    ];
+};
 
 const Powermenu = () => {
     return MenuItem({
@@ -63,7 +63,7 @@ const Powermenu = () => {
                     label: '󰐥',
                 }),
                 Label('Powermenu'),
-            ]
+            ],
         }),
         submenu: Widget.Menu({
             className: 'desktopMenu',
@@ -72,11 +72,11 @@ const Powermenu = () => {
                 ItemWithIcon('󰍃', 'Log Out', () => Utils.exec('pkill Hyprland')),
                 ItemWithIcon('󰖔', 'Suspend', () => Utils.exec('systemctl suspend')),
                 ItemWithIcon('󰜉', 'Reboot', () => Utils.exec('systemctl reboot')),
-                ItemWithIcon('󰐥', 'Shutdown', () => Utils.exec('systemctl poweroff'))
+                ItemWithIcon('󰐥', 'Shutdown', () => Utils.exec('systemctl poweroff')),
             ],
-        })
-    })
-}
+        }),
+    });
+};
 
 export const DesktopMenu = () => EventBox({
     onSecondaryClick: (_, event) => Widget.Menu({
@@ -90,7 +90,7 @@ export const DesktopMenu = () => EventBox({
                     ? [ItemWithIcon('󰝚', 'Music', () => App.toggleWindow('music')), Separator()]
                     : [];
             })(),
-            Powermenu()
+            Powermenu(),
         ],
     }).popup_at_pointer(event),
 });

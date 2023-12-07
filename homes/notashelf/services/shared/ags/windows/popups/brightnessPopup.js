@@ -8,15 +8,15 @@ const BrightnessIcon = () => Label({
         const icons = ['󰃚', '󰃛', '󰃜', '󰃝', '󰃞', '󰃟', '󰃠'];
 
         self.label = icons[(Math.floor((Brightness.screen * 100) / 14))].toString();
-    }]]
+    }]],
 });
 
 
 const PercentLabel = () => Label({
     className: 'brtPopupLabel',
     label: 'Brightness',
-    connections: [[Brightness, self => self.label = `Brightness • ${Math.floor(Brightness.screen * 100)}`]]
-})
+    connections: [[Brightness, self => self.label = `Brightness • ${Math.floor(Brightness.screen * 100)}`]],
+});
 
 const PercentBar = () => Slider({
     className: 'brtPopupBar',
@@ -35,8 +35,8 @@ export const BrightnessPopup = () => Box({
             vertical: true,
             children: [
                 PercentLabel(),
-                PercentBar()
-            ]
+                PercentBar(),
+            ],
         }),
         properties: [['count', 0]],
         connections: [[Brightness, self => {
@@ -47,7 +47,7 @@ export const BrightnessPopup = () => Box({
 
                 if (self._count === 0)
                     self.revealChild = false;
-            })
-        }]]
-    })
+            });
+        }]],
+    }),
 });

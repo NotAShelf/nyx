@@ -1,18 +1,18 @@
-import { Widget } from "../../imports.js";
+import { Widget } from '../../imports.js';
 
 // Widgets
-import { BrightnessPopup } from "./brightnessPopup.js";
-import { VolumePopup } from "./volumePopup.js";
+import { BrightnessPopup } from './brightnessPopup.js';
+import { VolumePopup } from './volumePopup.js';
 
 export const Popups = () =>
-	Widget.Window({
-		name: "popups",
-		className: "popups",
-		anchor: ["bottom", "right"],
-		layer: "overlay",
-		margins: [0, 12, 8, 0],
-		child: Widget.Box({
-			vertical: true,
-			children: [BrightnessPopup(), VolumePopup()],
-		}),
-	});
+    Widget.Window({
+        name: 'popups',
+        className: 'popups',
+        anchor: ['bottom', 'right'],
+        layer: 'overlay',
+        margins: [0, 13, 13, 0],
+        child: Widget.Box({
+            vertical: true,
+            children: [BrightnessPopup(), VolumePopup()],
+        }),
+    });

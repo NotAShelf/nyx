@@ -1,77 +1,77 @@
-import { Widget } from "../../imports.js";
+import { Widget } from '../../imports.js';
 const { Window, Box, CenterBox } = Widget;
 
 // Widgets
-import { launcherIcon } from "./launcher.js";
-import { Workspaces } from "./workspaces.js";
-import { Tray } from "./tray.js";
-import { BatteryWidget } from "./battery.js";
-import { Clock } from "./clock.js";
-import { PowerMenu } from "./power.js";
-import { Swallow } from "./swallow.js";
-import { BluetoothWidget } from "./bluetooth.js";
-import { AudioWidget } from "./audio.js";
-import { NetworkWidget } from "./network.js";
-import { SystemInfo } from "./system.js";
+import { launcherIcon } from './launcher.js';
+import { Workspaces } from './workspaces.js';
+import { Tray } from './tray.js';
+import { BatteryWidget } from './battery.js';
+import { Clock } from './clock.js';
+import { PowerMenu } from './power.js';
+import { Swallow } from './swallow.js';
+import { BluetoothWidget } from './bluetooth.js';
+import { AudioWidget } from './audio.js';
+import { NetworkWidget } from './network.js';
+import { SystemInfo } from './system.js';
 
 const Top = () =>
-	Box({
-		className: "barTop",
-		vertical: true,
-		vpack: "start",
-		children: [
-			launcherIcon(),
-			Box({
-				className: "utilsBox",
-				vertical: true,
-				children: [SystemInfo()],
-			}),
-		],
-	});
+    Box({
+        className: 'barTop',
+        vertical: true,
+        vpack: 'start',
+        children: [
+            launcherIcon(),
+            Box({
+                className: 'utilsBox',
+                vertical: true,
+                children: [SystemInfo()],
+            }),
+        ],
+    });
 
 const Center = () =>
-	Box({
-		vertical: true,
-		children: [Workspaces()],
-	});
+    Box({
+        className: 'barCenter',
+        vertical: true,
+        children: [Workspaces()],
+    });
 
 const Bottom = () =>
-	Box({
-		className: "barBottom",
-		vertical: true,
-		vpack: "end",
-		children: [
-			Tray(),
-			Box({
-				className: "systemInfo",
-				vertical: true,
-				children: [
-					BluetoothWidget(),
-					AudioWidget(),
-					Swallow(),
-					NetworkWidget(),
-					BatteryWidget(),
-				],
-			}),
-			Clock(),
-			PowerMenu(),
-		],
-	});
+    Box({
+        className: 'barBottom',
+        vertical: true,
+        vpack: 'end',
+        children: [
+            Tray(),
+            Box({
+                className: 'systemInfo',
+                vertical: true,
+                children: [
+                    BluetoothWidget(),
+                    AudioWidget(),
+                    Swallow(),
+                    NetworkWidget(),
+                    BatteryWidget(),
+                ],
+            }),
+            Clock(),
+            PowerMenu(),
+        ],
+    });
 
 export const Bar = ({ monitor } = {}) =>
-	Window({
-		//className: 'bar',
-		name: "bar",
-		anchor: ["top", "bottom", "left"],
-		exclusivity: "exclusive",
-		layer: "top",
-		margins: [4, 0, 12, 12],
-		monitor,
-		child: CenterBox({
-			className: "bar",
-			vertical: true,
-			startWidget: Top(),
-			centerWidget: Center(),
-			endWidget: Bottom(),
-		}),
-	});
+    Window({
+        name: 'bar',
+        anchor: ['top', 'bottom', 'left'],
+        exclusivity: 'exclusive',
+        layer: 'top',
+        margins: [11, 0, 11, 11],
+        monitor,
+        child: CenterBox({
+            className: 'bar',
+            vertical: true,
+            startWidget: Top(),
+            centerWidget: Center(),
+            endWidget: Bottom(),
+        }),
+    });

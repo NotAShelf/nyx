@@ -3,7 +3,7 @@
   background: $primary;
   font-family: $font;
   border-radius: 12px;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   padding: 6px;
 }
 
@@ -11,6 +11,7 @@
   border-radius: 12px;
   margin: 3px;
   padding: 3px;
+
   &:focus {
     background: $surfaceVariant;
   }
