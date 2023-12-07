@@ -7,6 +7,7 @@
 }: let
   dependencies = with pkgs; [
     config.wayland.windowManager.hyprland.package
+    config.programs.foot.package
     inputs.hyprpicker.packages.${pkgs.system}.default
     bash
     coreutils
@@ -19,6 +20,7 @@
     brightnessctl
     libnotify
     networkmanagerapplet
+    slurp
   ];
 
   fs = lib.fileset;
