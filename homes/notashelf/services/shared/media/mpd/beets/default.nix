@@ -6,11 +6,11 @@
   ...
 }: let
   musicDir = "${config.home.homeDirectory}/Media/Music";
-  device = osConfig.modules.device;
+  dev = osConfig.modules.device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf (builtins.elem dev.type acceptedTypes) {
     programs = {
       beets = {
         enable = true;

@@ -6,30 +6,33 @@
   ...
 }: let
   musicDir = "${config.home.homeDirectory}/Media/Music";
-  device = osConfig.modules.device;
+  dev = osConfig.modules.device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  #imports = [./beets];
-  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
+  imports = [./beets];
+  config = lib.mkIf (builtins.elem dev.type acceptedTypes) {
     home.packages = with pkgs; [
       playerctl # CLI interface for playerctld
-      mpc_cli # control mpd through the CLI
-      cava # music visualizer
+      mpc_cli # CLI interface for mpd
+      cava # CLI music visualizer (cavalier is a gui alternative)
     ];
 
     services = {
       playerctld.enable = true;
       mpris-proxy.enable = true;
+      mpd-mpris.enable = true;
 
       # mpd service
       mpd = {
         enable = true;
         musicDirectory = musicDir;
         network = {
-          listenAddress = "any";
+          startWhenNeeded = true;
+          listenAddress = "127.0.0.1";
           port = 6600;
         };
+
         extraConfig = ''
           audio_output {
             type    "pipewire"
@@ -51,7 +54,7 @@ in {
         settings = {
           format = {
             details = "$title";
-            state = "$artist";
+            state = "On $album by $artist";
             large_text = "$album";
             small_image = "";
           };
@@ -62,10 +65,10 @@ in {
       mpdris2 = {
         enable = true;
         notifications = true;
+        multimediaKeys = true;
         mpd = {
           # for some reason config.xdg.userDirs.music is not a "path" - possibly because it has $HOME in its name?
-          musicDirectory = "${config.home.homeDirectory}/Media/Music";
-          host = "127.0.0.1";
+          inherit (config.services.mpd) musicDirectory;
         };
       };
     };
@@ -77,7 +80,7 @@ in {
         package = pkgs.ncmpcpp.override {
           visualizerSupport = true;
         };
-        mpdMusicDir = musicDir;
+        mpdMusicDir = config.services.mpd.musicDirectory;
         settings = {
           # Miscelaneous
           ncmpcpp_directory = "${config.xdg.configHome}/ncmpcpp";
