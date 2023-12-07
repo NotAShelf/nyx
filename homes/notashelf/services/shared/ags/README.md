@@ -10,4 +10,6 @@ repositories.
 
 - [Exoess](https://github.com/exoess/.files) - initially based on their configuration
 - [Fufexan](https://github.com/fufexan/dotfiles/tree/main/home/programs/ags) - cool dude overall
-- [Sora-Tenshi](https://github.com/SoraTenshi/ags-env) - the connection widget
+- [SoraTenshi](https://github.com/SoraTenshi/ags-env) - the connection widget
+
+And of course [Aylur](https://github.com/Aylur) for his awesome work on AGS.
