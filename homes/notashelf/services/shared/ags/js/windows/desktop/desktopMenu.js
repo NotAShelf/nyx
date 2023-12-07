@@ -1,5 +1,6 @@
 import { Widget, Utils, App, Mpris } from "../../imports.js";
-const { Box, EventBox, Label, MenuItem } = Widget;
+const { Box, EventBox, Label, MenuItem, Menu } = Widget;
+const { exec, execAsync } = Utils;
 
 function ItemWithIcon(icon, itemLabel, onClick) {
     return MenuItem({
@@ -17,33 +18,32 @@ function ItemWithIcon(icon, itemLabel, onClick) {
     });
 }
 
-const Separator = MenuItem({
-    child: Box({
-        className: "separator",
-        css: `
+const Separator = () =>
+    MenuItem({
+        child: Box({
+            className: "separator",
+            css: `
             min-height: 1px;
             margin: 3px 6px;
         `,
-    }),
-});
+        }),
+    });
 
 const rioMenu = () => {
     return [
         ItemWithIcon("󰆍", "Terminal", () =>
-            Utils.exec(
+            exec(
                 'sh -c "$HOME/.config/ags/js/scripts/open_window `slurp -d -c 999999 -w 2` foot"',
             ),
         ),
         ItemWithIcon("󰘖", "Resize", () =>
-            Utils.exec(
+            exec(
                 'sh -c "$HOME/.config/ags/js/scripts/move_window `slurp -d -c 999999 -w 2`"',
             ),
         ),
-        ItemWithIcon("󰁁", "Move", () =>
-            Utils.exec("hyprctl dispatch submap move"),
-        ),
-        ItemWithIcon("󰅖", "Delete", () => Utils.exec("hyprctl kill")),
-        Separator,
+        ItemWithIcon("󰁁", "Move", () => exec("hyprctl dispatch submap move")),
+        ItemWithIcon("󰅖", "Delete", () => exec("hyprctl kill")),
+        Separator(),
     ];
 };
 
@@ -59,22 +59,16 @@ const Powermenu = () => {
                 Label("Powermenu"),
             ],
         }),
-        submenu: Widget.Menu({
+        submenu: Menu({
             className: "desktopMenu",
             children: [
-                ItemWithIcon("󰍁", "Lock", () => Utils.exec("swaylock")),
+                ItemWithIcon("󰍁", "Lock", () => Utils.exec("gtklock")),
                 ItemWithIcon("󰍃", "Log Out", () =>
-                    Utils.exec("hyprctl dispatch exit"),
+                    exec("hyprctl dispatch exit"),
                 ),
-                ItemWithIcon("󰖔", "Suspend", () =>
-                    Utils.exec("systemctl suspend"),
-                ),
-                ItemWithIcon("󰜉", "Reboot", () =>
-                    Utils.exec("systemctl reboot"),
-                ),
-                ItemWithIcon("󰐥", "Shutdown", () =>
-                    Utils.exec("systemctl poweroff"),
-                ),
+                ItemWithIcon("󰖔", "Suspend", () => exec("systemctl suspend")),
+                ItemWithIcon("󰜉", "Reboot", () => exec("systemctl reboot")),
+                ItemWithIcon("󰐥", "Shutdown", () => exec("systemctl poweroff")),
             ],
         }),
     });
@@ -83,21 +77,21 @@ const Powermenu = () => {
 export const DesktopMenu = () =>
     EventBox({
         onSecondaryClick: (_, event) =>
-            Widget.Menu({
+            Menu({
                 className: "desktopMenu",
                 children: [
                     ...rioMenu(),
                     ItemWithIcon("󰈊", "Colorpicker", () =>
-                        Utils.execAsync(["hyprpicker", "-a"]),
+                        execAsync(["hyprpicker", "-a", "wl-copy"]),
                     ),
-                    Separator,
+                    Separator(),
                     ...(() => {
                         return Mpris.players[0]
                             ? [
                                   ItemWithIcon("󰝚", "Music", () =>
                                       App.toggleWindow("music"),
                                   ),
-                                  Separator,
+                                  Separator(),
                               ]
                             : [];
                     })(),

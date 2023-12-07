@@ -10,13 +10,6 @@ import { Music } from "./js/windows/music/index.js";
 const scss = App.configDir + "/scss/main.scss";
 const css = App.configDir + "/style.css";
 
-function reloadCss() {
-    console.log("scss change detected");
-    Utils.exec(`sassc ${scss} ${css}`);
-    App.resetCss();
-    App.applyCss(css);
-}
-
 Utils.exec(`sassc ${scss} ${css}`);
 
 // Main config
@@ -29,4 +22,11 @@ export default {
     },
 };
 
-Utils.monitorFile(`${App.configDir}/style`, reloadCss, "directory");
+function reloadCss() {
+    console.log("scss change detected");
+    Utils.exec(`sassc ${scss} ${css}`);
+    App.resetCss();
+    App.applyCss(css);
+}
+
+Utils.monitorFile(`${App.configDir}/scss`, reloadCss, "directory");

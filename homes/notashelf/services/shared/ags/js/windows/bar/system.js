@@ -23,7 +23,7 @@ const cpu = () =>
                             ])
                                 .then(
                                     (r) =>
-                                        (self.label =
+                                        (self.tooltipText =
                                             Math.round(Number(r)) + "%"),
                                 )
                                 .catch((err) => print(err)),

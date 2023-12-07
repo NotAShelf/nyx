@@ -37,8 +37,8 @@
 			all 0.3s $materialStandard,
 			border 0.35s $materialStandard;
 
-		&.hover {
-			background: $primary;
+		&:hover {
+			background: $lavender;
 		}
 
 		&.focused {

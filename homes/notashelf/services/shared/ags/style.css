@@ -1,10 +1,10 @@
 *:not(tooltip) {
   all: unset;
-  font-family: Material Design Icons, Iosevka Nerd Font Mono, Inter, Roboto, sans-serif; }
+  font-family: "Material Design Icons", "Iosevka Nerd Font Mono", Inter, Roboto, sans-serif; }
 
 .launcherIcon {
   background: #313244;
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   border-radius: 12px;
   margin: 6px 4px;
   padding: 6px;
@@ -12,6 +12,23 @@
   transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
   .launcherIcon:hover {
     background: #3c3d53; }
+
+.cpu .memory {
+  background: #313244;
+  border-radius: 12px; }
+
+.weather {
+  color: #cdd6f4;
+  background: #313244;
+  font-size: 24px;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px;
+  min-height: 1.5rem;
+  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
+  .weather:hover {
+    background: #3c3d53;
+    color: #cdd4fe; }
 
 /*
 .workspaces {
@@ -45,36 +62,49 @@
     background: #cdd6f4;
     border-radius: 99px;
     transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
-    .workspaces button.hover {
-      background: #1e1e2e; }
+    .workspaces button:hover {
+      background: #b4befe; }
     .workspaces button.focused {
       border-radius: 18px;
       background: #89b4fa;
-      padding: 8px 0px; }
+      padding: 8px 0; }
 
 .tray {
   margin: 0; }
 
 .trayChevron {
-  font-family: SymbolsNerdFontMono; }
+  font-family: symbolsnerdfontmono; }
 
 .trayIcons {
-  margin: 3px 0 0 0; }
+  margin: 3px 0 0; }
 
 .trayIcon {
-  margin: 0 0 3px 0; }
+  margin: 0 0 3px; }
 
 .battery {
-  margin: 3px; }
+  margin: 6px 3px;
+  color: #cdd6f4; }
 
-.clock {
-  background: #313244;
-  color: #cdd6f4;
-  font-family: RobotoMono;
-  font-weight: 500;
-  border-radius: 12px;
-  margin: 6px 4px;
-  padding: 6px; }
+.bluetoothLabel {
+  margin: 6px 3px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .bluetoothLabel:hover {
+    color: #f38ba8; }
+
+.bluetooth {
+  margin: 6px 3px; }
+
+.bluetooth-active {
+  color: #cdd6f4; }
+
+.bluetooth-disabled {
+  color: #74769a;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .bluetooth-disabled:hover {
+    color: #f38ba8; }
+
+.bluetooth-paired {
+  color: #cdd6f4; }
 
 .lock {
   background: #313244;
@@ -84,17 +114,31 @@
   padding: 2px; }
 
 .swallow {
-  margin: 6px 3px; }
-
-.network {
-  margin: 6px 3px; }
+  margin: 6px 3px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .swallow:hover {
+    color: #b4befe; }
 
 .audio {
-  margin: 6px 3px; }
-
-.bluetooth {
   margin: 6px 3px;
-  color: #cdd6f4; }
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .audio:hover {
+    color: #b4befe; }
+
+.network {
+  margin: 6px 3px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .network:hover {
+    color: #b4befe; }
+
+.clock {
+  background: #313244;
+  color: #cdd6f4;
+  font-family: robotomono;
+  font-weight: 800;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px; }
 
 .power {
   color: #f38ba8;
@@ -102,37 +146,42 @@
   font-size: 24px;
   border-radius: 12px;
   margin: 6px 4px;
-  padding: 6px; }
+  padding: 6px;
+  min-height: 1.5rem;
+  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
+  .power:hover {
+    background: #3c3d53;
+    color: #f5a2b9; }
 
 .bar {
   color: #cdd6f4;
   background: #1e1e2e;
-  font-family: Roboto;
+  font-family: roboto;
   border-radius: 12px;
   padding: 2px; }
+
+.utilsBox {
+  color: #cdd6f4;
+  background: #313244;
+  font-family: symbolsnerdfontmono;
+  border-radius: 12px;
+  margin: 4px;
+  padding: 6px; }
 
 .systemInfo {
   color: #cdd6f4;
   background: #313244;
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   border-radius: 12px;
-  margin: 4px 4px 4px 4px;
-  padding: 6px; }
-
-.utilButtons {
-  color: #cdd6f4;
-  background: #313244;
-  font-family: SymbolsNerdFontMono;
-  border-radius: 12px;
-  margin: 4px 4px 4px 4px;
+  margin: 4px;
   padding: 6px; }
 
 .launcher {
   color: #cdd6f4;
   background: #1e1e2e;
-  font-family: Roboto;
+  font-family: roboto;
   border-radius: 12px;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   padding: 6px; }
 
 .launcherApp {
@@ -160,25 +209,28 @@
   font-size: 12px; }
 
 .desktopMenu {
+  background: #1e1e2e;
   color: #cdd6f4;
-  background: #313244;
-  font-family: Roboto;
-  border-radius: 12px;
+  font-family: roboto;
+  border-radius: 14px;
   padding: 6px 3px; }
 
 .desktopMenuItem {
-  border-radius: 12px;
+  border-radius: 14px;
   margin: 0 3px;
-  padding: 6px 12px; }
+  padding: 6px 12px;
+  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
   .desktopMenuItem:hover {
-    background: #313244; }
+    background: #3c3d53;
+    color: #e2e7f9; }
 
 .desktopMenuItemIcon {
-  font-family: SymbolsNerdFontMono;
-  padding: 0 6px 0 0; }
+  font-family: symbolsnerdfontmono;
+  padding: 2px 8px 2px 2px; }
 
 .separator {
-  background: #313244; }
+  background: #313244;
+  padding: 1px 3px; }
 
 .desktopIcons {
   margin: 24px 0 0 24px; }
@@ -188,23 +240,23 @@
   padding: 6px;
   transition: all 200ms cubic-bezier(0, 0, 1, 1); }
   .desktopIcon:hover {
-    background: rgba(30, 30, 46, 0.5); }
+    background: rgba(180, 190, 254, 0.7); }
 
 .desktopIconLabel {
   color: #313244;
-  font-family: Roboto; }
+  font-family: roboto; }
 
 .brightnessPopup {
   color: #cdd6f4;
   background: #1e1e2e;
-  font-family: Roboto;
+  font-family: roboto;
   border-radius: 10px;
   border: black;
   margin: 6px 0;
   padding: 4px; }
 
 .brtPopupIcon {
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   margin: 0 6px; }
 
 .brtPopupLabel {
@@ -227,14 +279,14 @@
 .volumePopup {
   color: #cdd6f4;
   background: #1e1e2e;
-  font-family: Roboto;
+  font-family: roboto;
   border-radius: 10px;
   border: black;
   margin: 6px 0;
   padding: 4px; }
 
 .volPopupIcon {
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   margin: 0 6px; }
 
 .volPopupLabel {
@@ -258,21 +310,21 @@
   margin: 0 24px 48px; }
 
 .controlsPrev {
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   font-size: 1.5rem; }
 
 .controlsPlayPause {
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   font-size: 2.5rem;
   margin: 0 24px; }
 
 .controlsNext {
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   font-size: 1.5rem; }
 
 .music {
   background: #313244;
-  font-family: Roboto;
+  font-family: roboto;
   border-radius: 0; }
 
 .uwustagramHeader {
@@ -285,7 +337,7 @@
   padding: 12px; }
 
 .artistIcon {
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   font-size: 1.5em;
   margin: 0 6px 0 0; }
 
@@ -304,13 +356,13 @@
   box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.5); }
 
 .uwustagramButtons {
-  font-family: SymbolsNerdFontMono;
+  font-family: symbolsnerdfontmono;
   font-size: 1rem;
   padding: 12px; }
 
 .uwustagramTitle {
   font-weight: 500;
-  padding: 12px 24px 0 24px; }
+  padding: 12px 24px 0; }
 
 .uwustagramProgress {
   padding: 24px;

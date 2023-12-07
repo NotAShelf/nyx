@@ -1,5 +1,5 @@
-.power {
-	color: $red;
+.weather {
+	color: $onSurface;
 	background: $surface;
 	font-size: 24px;
 	border-radius: 12px;
@@ -10,6 +10,6 @@
 
 	&:hover {
 		background: lighten($surfaceVariant, 5%);
-		color: lighten($red, 5%);
+		color: lighten($lavender, 5%);
 	}
 }

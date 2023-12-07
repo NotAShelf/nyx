@@ -1,11 +1,33 @@
-.bluetooth {
+.bluetoothLabel {
 	margin: 6px 3px;
-	color: $onSurface;
-	font-size: 19px;
+	transition:
+		all 0.3s $materialStandard,
+		border 0.35s $materialStandard;
+
+	&:hover {
+		color: $red;
+	}
 }
 
-.bluetoothModule {
+.bluetooth {
 	margin: 6px 3px;
+}
+
+.bluetooth-active {
 	color: $onSurface;
-	font-size: 19px;
+}
+
+.bluetooth-disabled {
+	color: lighten($surfaceVariant, 30%);
+	transition:
+		all 0.3s $materialStandard,
+		border 0.35s $materialStandard;
+
+	&:hover {
+		color: $red;
+	}
+}
+
+.bluetooth-paired {
+	color: $onSurface;
 }

@@ -1,26 +1,29 @@
 .desktopMenu {
-    color: $onSurface;
-    background: $surface;
-    font-family: $font;
-    border-radius: 12px;
-    padding: 6px 3px;
+	background: $primary;
+	color: $onSurface;
+	font-family: $font;
+	border-radius: 14px;
+	padding: 6px 3px;
 }
 
 .desktopMenuItem {
-    border-radius: 12px;
-    margin: 0 3px;
-    padding: 6px 12px;
+	border-radius: 14px;
+	margin: 0 3px;
+	padding: 6px 12px;
+	transition: all 0.2s $materialAccel;
 
-    &:hover {
-        background: $surfaceVariant;
-    }
+	&:hover {
+		background: lighten($surfaceVariant, 5%);
+		color: lighten($onSurface, 5%);
+	}
 }
 
 .desktopMenuItemIcon {
-    font-family: $iconFont;
-    padding: 0 6px 0 0;
+	font-family: $iconFont;
+	padding: 2px 8px 2px 2px;
 }
 
 .separator {
-    background: $surfaceVariant;
+	background: $surface;
+	padding: 1px 3px;
 }

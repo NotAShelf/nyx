@@ -9,6 +9,7 @@
     config.wayland.windowManager.hyprland.package
     config.programs.foot.package
     inputs.hyprpicker.packages.${pkgs.system}.default
+    (pkgs.python3.withPackages (pythonPackages: [pythonPackages.requests]))
     bash
     coreutils
     gawk
@@ -21,6 +22,7 @@
     libnotify
     networkmanagerapplet
     slurp
+    blueman
   ];
 
   fs = lib.fileset;

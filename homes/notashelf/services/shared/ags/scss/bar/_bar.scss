@@ -1,14 +1,22 @@
 // Components
+// top
 @import "launcher";
+@import "system";
+@import "weather";
+
+// center
 @import "workspaces";
+
+// bottom
 @import "tray";
 @import "battery";
-@import "clock";
+@import "bluetooth";
+
 @import "lock";
 @import "swallow";
-@import "net";
 @import "audio";
-@import "bluetooth";
+@import "net";
+@import "clock";
 @import "power";
 
 .bar {
@@ -19,7 +27,7 @@
 	padding: 2px;
 }
 
-.systemInfo {
+.utilsBox {
 	color: $onSurface;
 	background: $surfaceVariant;
 	font-family: $iconFont;
@@ -28,7 +36,7 @@
 	padding: 6px;
 }
 
-.utilsBox {
+.systemInfo {
 	color: $onSurface;
 	background: $surfaceVariant;
 	font-family: $iconFont;

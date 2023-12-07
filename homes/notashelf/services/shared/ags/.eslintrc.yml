@@ -52,7 +52,7 @@ rules:
     - always
   nonblock-statement-body-position:
     - error
-    - below
+    - always
   no-trailing-spaces:
     - error
   array-bracket-spacing:
