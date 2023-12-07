@@ -5,8 +5,10 @@
 	"description": "The ags configuretion segment of my NixOS configurations.",
 	"main": "config.js",
 	"scripts": {
+		"install": "nix-shell -p nodejs --run \"npm install\"",
 		"lint": "eslint . --fix",
-		"stylelint": "stylelint ./scss --fix"
+		"stylelint": "stylelint ./scss --fix",
+		"all": "npm run lint && npm run stylelint"
 	},
 	"devDependencies": {
 		"@girs/dbusmenugtk3-0.4": "^0.4.0-3.2.0",
