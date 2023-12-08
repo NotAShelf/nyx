@@ -23,6 +23,7 @@
     networkmanagerapplet
     slurp
     blueman
+    sysstat
   ];
 
   fs = lib.fileset;

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cpu_usage=$(mpstat -P ALL 1 1 | awk 'END {print 100 - $NF}')
+
+# CPU usage percentage
+echo "$cpu_usage"

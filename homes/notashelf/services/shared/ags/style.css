@@ -83,7 +83,10 @@
 
 .battery {
   margin: 6px 3px;
-  color: #cdd6f4; }
+  color: #cdd6f4;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .battery:hover {
+    color: #f38ba8; }
 
 .bluetoothLabel {
   margin: 6px 3px;

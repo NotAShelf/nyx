@@ -1,4 +1,11 @@
 .battery {
 	margin: 6px 3px;
 	color: $onSurface;
+	transition:
+		all 0.3s $materialStandard,
+		border 0.35s $materialStandard;
+
+	&:hover {
+		color: $red;
+	}
 }
