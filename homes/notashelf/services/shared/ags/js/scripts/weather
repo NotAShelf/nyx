@@ -16,13 +16,13 @@ FALLBACK_CACHE_DIR = "/tmp"
 CACHE_FILE = os.path.join(CACHE_DIR, "weather_cache.json")
 
 # TODO: make those icons more consistnt with the rest of my bar
-SUNNY = "☀️"
-CLOUDY = "☁️"
-RAIN = "🌧️"
-SNOW = "❄️"
-THUNDERSTORM = "⛈️"
-PARTLY_CLOUDY = "⛅️"
-CLEAR = "☀️"
+SUNNY = "\ue430"
+CLOUDY = "\uf172"
+RAIN = "\uf60b"
+SNOW = "\uf61c"
+THUNDERSTORM = "\uebdb"
+PARTLY_CLOUDY = "\uf172"
+CLEAR = "\ue430"
 
 HOURS_AGO_THRESHOLD = 2
 TEMP_THRESHOLD_COLD = 10

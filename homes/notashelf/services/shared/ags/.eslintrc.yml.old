@@ -8,7 +8,7 @@ parserOptions:
 rules:
   arrow-parens:
     - error
-    - as-needed
+    - never
   comma-dangle:
     - error
     - always-multiline
@@ -48,9 +48,6 @@ rules:
     - double
     - avoidEscape: true
   semi:
-    - error
-    - always
-  nonblock-statement-body-position:
     - error
     - always
   no-trailing-spaces:

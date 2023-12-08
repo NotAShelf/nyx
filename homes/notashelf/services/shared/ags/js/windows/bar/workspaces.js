@@ -1,4 +1,4 @@
-import { Utils, Widget, Hyprland } from "../../imports.js";
+import { Utils, Widget, Hyprland } from '../../imports.js';
 const { execAsync } = Utils;
 const { Box } = Widget;
 
@@ -8,30 +8,30 @@ const dispatch = (arg) => () =>
 
 export const Workspaces = () =>
     Box({
-        className: "workspaces",
+        className: 'workspaces',
         vertical: true,
         child: Box({
             vertical: true,
             children: Array.from({ length: 10 }, (_, i) => i + 1).map((i) =>
                 Widget.Button({
-                    cursor: "pointer",
-                    properties: [["index", i]],
+                    cursor: 'pointer',
+                    properties: [['index', i]],
                     onClicked: () =>
                         execAsync([
-                            "hyprctl",
-                            "dispatch",
-                            "workspace",
+                            'hyprctl',
+                            'dispatch',
+                            'workspace',
                             `${i}`,
                         ]).catch(console.error),
                     onSecondaryClick: () =>
                         execAsync([
-                            "hyprctl",
-                            "dispatch",
-                            "movetoworkspacesilent",
+                            'hyprctl',
+                            'dispatch',
+                            'movetoworkspacesilent',
                             `${i}`,
                         ]).catch(console.error),
-                    on_scroll_up: () => dispatch("m+1"),
-                    on_scroll_down: () => dispatch("m-1"),
+                    on_scroll_up: () => dispatch('m+1'),
+                    on_scroll_down: () => dispatch('m-1'),
                 }),
             ),
             connections: [
@@ -41,8 +41,8 @@ export const Workspaces = () =>
                         self.children.forEach((btn) => {
                             btn.className =
                                 btn._index === Hyprland.active.workspace.id
-                                    ? "focused"
-                                    : "";
+                                    ? 'focused'
+                                    : '';
                             btn.visible = Hyprland.workspaces.some(
                                 (ws) => ws.id === btn._index,
                             );

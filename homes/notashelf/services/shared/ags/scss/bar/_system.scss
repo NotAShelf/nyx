@@ -1,4 +1,39 @@
-.cpu .memory {
-	background: $surface;
+$size: 1.2rem;
+
+.systemUsage {
+	color: $onSurface;
+	background: $surfaceVariant;
+	font-family: $iconFont;
 	border-radius: 12px;
+	margin: 4px;
+}
+
+.cpuButton {
+	padding: 6px 2px 3px 2px;
+	margin: 1px;
+}
+
+.cpuProgress {
+	color: $lavender;
+	padding: 4px 4px;
+	margin: 0.1rem;
+	font-size: 4px;
+	background: $primary;
+	min-height: $size;
+	min-width: $size;
+}
+
+.memButton {
+	padding: 3px 2px 6px 2px;
+	margin: 1px;
+}
+
+.memProgress {
+	color: $blue;
+	padding: 4px 4px;
+	margin: 0.1rem;
+	font-size: 4px;
+	background: $primary;
+	min-height: $size;
+	min-width: $size;
 }

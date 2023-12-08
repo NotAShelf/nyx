@@ -12,7 +12,7 @@ import { Swallow } from "./swallow.js";
 import { BluetoothWidget } from "./bluetooth.js";
 import { AudioWidget } from "./audio.js";
 import { NetworkWidget } from "./network.js";
-import { SystemInfo } from "./system.js";
+import { SystemUsage } from "./system.js";
 import { Weather } from "./weather.js";
 
 const Top = () =>
@@ -23,9 +23,9 @@ const Top = () =>
         children: [
             launcherIcon(),
             Box({
-                className: "SystemInfo",
+                className: "SystemUsage",
                 vertical: true,
-                children: [SystemInfo()],
+                children: [SystemUsage()],
             }),
             // Weather(),
         ],

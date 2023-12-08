@@ -1,140 +1,127 @@
-import { Utils, Widget } from "../../imports.js";
+import { Utils, Widget, Variable } from "../../imports.js";
 const { execAsync } = Utils;
-const { Box, Label, CircularProgress, Button } = Widget;
+const { Button, Revealer, Box, Label, CircularProgress } = Widget;
 
-const label = Label({
-    className: "cpu-inner",
-    label: "",
+const divide = ([total, free]) => free / total;
+const cpu = Variable(0, {
+    poll: [
+        2000,
+        "top -b -n 1",
+        (out) =>
+            divide([
+                100,
+                out
+                    .split("\n")
+                    .find((line) => line.includes("Cpu(s)"))
+                    .split(/\s+/)[1]
+                    .replace(",", "."),
+            ]),
+    ],
 });
 
-const progress = CircularProgress({
-    className: "cpu",
-    child: Button({
-        className: "unset no-hover",
-        onClicked: () => showHardwareMenu(),
-        child: label,
-    }),
-    startAt: 0,
-    rounded: false,
-    // inverted: true,
+const mem = Variable(0, {
+    poll: [
+        2000,
+        "free",
+        (out) =>
+            divide(
+                out
+                    .split("\n")
+                    .find((line) => line.includes("Mem:"))
+                    .split(/\s+/)
+                    .splice(1, 2),
+            ),
+    ],
 });
 
-const CpuWidget = () =>
-    Box({
-        className: "bar-hw-cpu-box",
-        connections: [
-            [
-                1000,
-                (box) => {
-                    execAsync(
-                        `/home/${Utils.USER}/.config/ags/js/scripts/get_cpu`,
-                    )
-                        .then((val) => {
-                            progress.value = val / 100;
-                            label.tooltipMarkup = `<span weight='bold' foreground='#FDC227'>CPU (${val}%)</span>`;
-                        })
-                        .catch(print);
-                    box.children = [progress];
-                    box.show_all();
-                },
+/**
+ * @param {string} name
+ * @param {typeof cpu | typeof ram} process
+ * @param {Array<any>} extraChildren
+ * @param  {() => void} onPrimary
+ **/
+const systemWidget = (name, process, extraChildren = [], onPrimary) =>
+    Button({
+        className: name + "Button",
+        onPrimaryClick: onPrimary,
+        child: Box({
+            className: name,
+            vertical: true,
+            children: [
+                CircularProgress({
+                    className: name + "Progress",
+                    binds: [["value", process]],
+                    rounded: true,
+                    inverted: false,
+                    startAt: 0.27,
+                }),
+                ...extraChildren,
             ],
-        ],
+        }),
     });
 
-const cpu = () =>
-    Box({
-        vertical: true,
-        children: [
-            Label({
-                className: "processor",
-                label: "",
-                connections: [
-                    [
-                        2000,
-                        (self) =>
-                            execAsync([
-                                "sh",
-                                "-c",
-                                "top -bn1 | rg '%Cpu' | tail -1 | awk '{print 100-$8}'",
-                            ])
-                                .then(
-                                    (r) =>
-                                        (self.tooltipText =
-                                            Math.round(Number(r)) + "%"),
-                                )
-                                .catch((err) => print(err)),
-                    ],
-                ],
+const CPU = systemWidget(
+    "cpu",
+    cpu,
+    [
+        Revealer({
+            transition: "slide_down",
+            child: Label({
                 binds: [
+                    ["label", cpu, "value", (v) => `${Math.floor(v * 100)}%`],
                     [
                         "className",
-                        (self) =>
-                            execAsync([
-                                "sh",
-                                "-c",
-                                "top -bn1 | rg '%Cpu' | tail -1 | awk '{print 100-$8}'",
-                            ])
-                                .then(
-                                    (r) =>
-                                        (self.tooltipText =
-                                            Math.round(Number(r)) + "%"),
-                                )
-                                .catch((err) => print(err)),
+                        cpu,
+                        "value",
+                        (v) => {
+                            if (v > 0) {
+                                if ((v = 100)) return "cpuCritical";
+
+                                if (v > 75) return "cpuHigh";
+
+                                if (v > 35) return "cpuMod";
+
+                                if (v > 15) return "bluetooth-paired";
+                            }
+
+                            return "cpuRevealer";
+                        },
                     ],
                 ],
             }),
-        ],
-    });
+            transition_duration: 250,
+        }),
+    ],
+    (self) => {
+        self.child.children[1].revealChild =
+            !self.child.children[1].revealChild;
+    },
+);
 
-const memory = () =>
-    Box({
-        vertical: true,
-        children: [
-            Label({
-                className: "memory",
-                label: "",
-                connections: [
-                    [
-                        2000,
-                        (self) =>
-                            execAsync([
-                                "sh",
-                                "-c",
-                                "free | tail -2 | head -1 | awk '{print $3/$2*100}'",
-                            ])
-                                .then(
-                                    (r) =>
-                                        (self.label =
-                                            Math.round(Number(r)) + "%"),
-                                )
-                                .catch((err) => print(err)),
-                    ],
-                ],
+const MEM = systemWidget(
+    "mem",
+    mem,
+    [
+        Revealer({
+            transition: "slide_down",
+            child: Label({
                 binds: [
-                    [
-                        "className",
-                        (self) =>
-                            execAsync([
-                                "sh",
-                                "-c",
-                                "top -bn1 | rg '%Cpu' | tail -1 | awk '{print 100-$8}'",
-                            ])
-                                .then(
-                                    (r) =>
-                                        (self.tooltipText =
-                                            Math.round(Number(r)) + "%"),
-                                )
-                                .catch((err) => print(err)),
-                    ],
+                    ["label", mem, "value", (v) => `${Math.floor(v * 100)}%`],
                 ],
             }),
-        ],
-    });
+            transition_duration: 250,
+        }),
+    ],
+    (self) => {
+        self.child.children[1].revealChild =
+            !self.child.children[1].revealChild;
+    },
+);
 
-export const SystemInfo = () =>
+export const SystemUsage = () =>
     Box({
-        className: "systemInfo",
+        className: "systemUsage",
         vertical: true,
         cursor: "pointer",
-        children: [CpuWidget()],
+        children: [CPU, MEM],
     });

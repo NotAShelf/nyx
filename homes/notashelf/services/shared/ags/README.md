@@ -8,8 +8,8 @@ with a few other features that I found interesting, such as a program launcher a
 I have taken inspiration or/and code snippets from the cool people below. If you like this configuration, consider giving them a star on their respective
 repositories.
 
-- [Exoess](https://github.com/exoess/.files) - initially based on their configuration
-- [Fufexan](https://github.com/fufexan/dotfiles/tree/main/home/programs/ags) - cool dude overall
-- [SoraTenshi](https://github.com/SoraTenshi/ags-env) - the connection widget
+-   [Exoess](https://github.com/exoess/.files) - initially based on their configuration
+-   [Fufexan](https://github.com/fufexan/dotfiles/tree/main/home/programs/ags) - cool dude overall
+-   [SoraTenshi](https://github.com/SoraTenshi/ags-env) - the connection widget
 
 And of course [Aylur](https://github.com/Aylur) for his awesome work on AGS.

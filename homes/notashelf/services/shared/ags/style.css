@@ -13,9 +13,38 @@
   .launcherIcon:hover {
     background: #3c3d53; }
 
-.cpu .memory {
+.systemUsage {
+  color: #cdd6f4;
   background: #313244;
-  border-radius: 12px; }
+  font-family: symbolsnerdfontmono;
+  border-radius: 12px;
+  margin: 4px; }
+
+.cpuButton {
+  padding: 6px 2px 3px 2px;
+  margin: 1px; }
+
+.cpuProgress {
+  color: #b4befe;
+  padding: 4px 4px;
+  margin: 0.1rem;
+  font-size: 4px;
+  background: #1e1e2e;
+  min-height: 1.2rem;
+  min-width: 1.2rem; }
+
+.memButton {
+  padding: 3px 2px 6px 2px;
+  margin: 1px; }
+
+.memProgress {
+  color: #89b4fa;
+  padding: 4px 4px;
+  margin: 0.1rem;
+  font-size: 4px;
+  background: #1e1e2e;
+  min-height: 1.2rem;
+  min-width: 1.2rem; }
 
 .weather {
   color: #cdd6f4;

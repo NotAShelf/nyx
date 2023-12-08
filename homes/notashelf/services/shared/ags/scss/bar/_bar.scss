@@ -19,6 +19,7 @@
 @import "clock";
 @import "power";
 
+// general config
 .bar {
 	color: $onSurface;
 	background: $primary;
@@ -27,6 +28,7 @@
 	padding: 2px;
 }
 
+// top section
 .utilsBox {
 	color: $onSurface;
 	background: $surfaceVariant;
@@ -36,6 +38,7 @@
 	padding: 6px;
 }
 
+// bottom section
 .systemInfo {
 	color: $onSurface;
 	background: $surfaceVariant;

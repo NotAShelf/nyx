@@ -15,6 +15,7 @@ const weather = Variable(
 export const Weather = () =>
     Widget.Label({
         class_name: "weather",
+        css: "font-family: 'Material Symbols Sharp'",
         binds: [
             ["label", weather, "value", (value) => value.text || "󰇘"],
             ["tooltip-text", weather, "value", (value) => value.tooltip || "󰇘"],
