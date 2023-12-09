@@ -36,51 +36,51 @@
    <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" /> 
 </p>
 <p align="center">
-   Screeenshot last updated <b>2023-06-13</b>
+   Screeenshot last updated <b>2023-12-09</b>
 </p>
 
 ## 📦 Overview
 
 ### 📓 Notable Features
 
-- **Shared Configurations** - Reduces re-used boilerplate code by sharing modules and profiles across hosts.
-- **Fully Modular** - Utilizes NixOS' module system to avoid hardcoding any of the options.
-- **All-in-one** - Servers, desktops, laptops, virtual machines and anything you can think of. Managed in one place.
-- **Detached Homes** - Home-manager configurations are able to be detached for non-NixOS usage
-- **Profiles** - Provides serialized configuration sets for easily changing large portions of configurations with less options.
-- **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides.
-- **Secrets Management** - Manage secrets through Agenix.
-- **Flexible Modules** - Both Home-manager and NixOS modules allow users to retrieve NixOS or home-manager configurations from anywhere.
-- **Extensive Configuration** - Most desktop programs are configured out of the box and shared across hosts, with override options for per-host controls.
-- **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
-- **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
-- **Encryption Ready** - Supports and actively utilizes full disk encryption.
-- **Declarative Themes** - Using my module options, [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
-- **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake is fully modular.
-- **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
+-   **Shared Configurations** - Reduces re-used boilerplate code by sharing modules and profiles across hosts.
+-   **Fully Modular** - Utilizes NixOS' module system to avoid hardcoding any of the options.
+-   **All-in-one** - Servers, desktops, laptops, virtual machines and anything you can think of. Managed in one place.
+-   **Detached Homes** - Home-manager configurations are able to be detached for non-NixOS usage
+-   **Profiles** - Provides serialized configuration sets for easily changing large portions of configurations with less options.
+-   **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides.
+-   **Secrets Management** - Manage secrets through Agenix.
+-   **Flexible Modules** - Both Home-manager and NixOS modules allow users to retrieve NixOS or home-manager configurations from anywhere.
+-   **Extensive Configuration** - Most desktop programs are configured out of the box and shared across hosts, with override options for per-host controls.
+-   **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
+-   **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
+-   **Encryption Ready** - Supports and actively utilizes full disk encryption.
+-   **Declarative Themes** - Using my module options, [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
+-   **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake is fully modular.
+-   **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
 
 ### 📚 Layout
 
-- [flake.nix](flake.nix) Ground zero of my system configuration
-- [lib](lib) 📚 Personal library of functions and utilities
-- [secrets](secrets) 🔒 Agenix secrets
-- [flake](flake) ❄️ Individual parts of my flake, powered by flake-parts
-  - [pkgs](flake/pkgs) 📦 packages exported by my flake
-  - [schemes](flake/schemes) 🪡 home-baked flake schemas for upcoming [flake schemas](https://determinate.systems/posts/flake-schemas)
-  - [templates](flake/templates) 📖 templates for initializing flakes. Provides some language-specific flakes
-- [docs](docs)📑 The documentation for my flake repository
-  - [todo](docs/todo) 📝 My to-do notes
-  - [notes](docs/notes) 📓 Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
-- [homes](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
-- [modules](modules) 🍱 modularized NixOS configurations
-  - [core](modules/common) ⚙️T The core module that all systems depend on
-    - [common](modules/shared) 🧠 Module configurations shared between hosts
-    - [options](modules/options) 🔧 Definitions for module options used by common modules
-    - [types](modules/types) 💡 A profile-like system that is organized per device type
-  - [extra](modules/extra) 🚀 Extra modules that are rarely imported
-    - [shared](modules/shared) ☁️ Modules that are both shared for outside consumption, and imported by the flake itself
-    - [exported](modules/exported) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
-- [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
+-   [flake.nix](flake.nix) Ground zero of my system configuration
+-   [lib](lib) 📚 Personal library of functions and utilities
+-   [secrets](secrets) 🔒 Agenix secrets
+-   [flake](flake) ❄️ Individual parts of my flake, powered by flake-parts
+    -   [pkgs](flake/pkgs) 📦 packages exported by my flake
+    -   [schemes](flake/schemes) 🪡 home-baked flake schemas for upcoming [flake schemas](https://determinate.systems/posts/flake-schemas)
+    -   [templates](flake/templates) 📖 templates for initializing flakes. Provides some language-specific flakes
+-   [docs](docs)📑 The documentation for my flake repository
+    -   [todo](docs/todo) 📝 My to-do notes
+    -   [notes](docs/notes) 📓 Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
+-   [homes](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
+-   [modules](modules) 🍱 modularized NixOS configurations
+    -   [core](modules/common) ⚙️T The core module that all systems depend on
+        -   [common](modules/shared) 🧠 Module configurations shared between hosts
+        -   [options](modules/options) 🔧 Definitions for module options used by common modules
+        -   [types](modules/types) 💡 A profile-like system that is organized per device type
+    -   [extra](modules/extra) 🚀 Extra modules that are rarely imported
+        -   [shared](modules/shared) ☁️ Modules that are both shared for outside consumption, and imported by the flake itself
+        -   [exported](modules/exported) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
+-   [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
 
 ## 🗒️ Notes
 
@@ -173,23 +173,23 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 
 > Resource that helped shape and improve this configuation, or resources that I strongly recommend that you read.
 
-- [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
-- [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
-- [Viper's Blog](https://ayats.org/)
-- [Solène's Blog](https://dataswamp.org/~solene)
+-   [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
+-   [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
+-   [Viper's Blog](https://ayats.org/)
+-   [Solène's Blog](https://dataswamp.org/~solene)
 
 > Software that helped this configuration become what it is, or software I find interesting
 
-- [Agenix](https://github.com/ryantm/agenix)
-- [Hyprland](https://github.com/hyprwm/Hyprland)
-- [nh](https://github.com/viperML/ng)
+-   [Agenix](https://github.com/ryantm/agenix)
+-   [Hyprland](https://github.com/hyprwm/Hyprland)
+-   [nh](https://github.com/viperML/ng)
 
 > Stuff that I make and/or was designed for/is used in this repository
 
-- [neovim-flake](https://github.com/notashelf/neovim-flake)
-- [docr](https://github.com/notashelf/docr)
-- [nyxpkgs](https://github.com/notashelf/nyxpkgs)
-- [schizofox](https://github.com/schizofox/schizofox)
+-   [neovim-flake](https://github.com/notashelf/neovim-flake)
+-   [docr](https://github.com/notashelf/docr)
+-   [nyxpkgs](https://github.com/notashelf/nyxpkgs)
+-   [schizofox](https://github.com/schizofox/schizofox)
 
 Additionally, take a look at my [notes/blog](docs/notes) for my notes on specific processes on NixOS.
 
