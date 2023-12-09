@@ -1,4 +1,4 @@
-import { Service } from '../imports.js';
+import { Service } from "../imports.js";
 const { Gio } = imports.gi;
 
 class DirectoryMonitorService extends Service {
@@ -21,22 +21,22 @@ class DirectoryMonitorService extends Service {
         this._monitors.push(monitor);
 
         monitor.connect(
-            'changed',
+            "changed",
             (fileMonitor, file, otherFile, eventType) => {
                 if (eventType === Gio.FileMonitorEvent.CHANGES_DONE_HINT)
-                    this.emit('changed');
+                    this.emit("changed");
             },
         );
 
         const enumerator = directory.enumerate_children(
-            'standard::*',
+            "standard::*",
             Gio.FileQueryInfoFlags.NONE,
             null,
         );
 
         let fileInfo;
         while ((fileInfo = enumerator.next_file(null)) !== null) {
-            const childPath = directoryPath + '/' + fileInfo.get_name();
+            const childPath = directoryPath + "/" + fileInfo.get_name();
             if (fileInfo.get_file_type() === Gio.FileType.DIRECTORY)
                 this.recursiveDirectoryMonitor(childPath);
         }

@@ -1,24 +1,24 @@
-import { Widget, Battery } from '../../imports.js';
+import { Widget, Battery } from "../../imports.js";
 const { Box, Button, Revealer, Label } = Widget;
 
 const BatIcon = () =>
     Label({
-        className: 'batIcon',
+        className: "batIcon",
         connections: [
             [
                 Battery,
                 (icon) => {
-                    icon.toggleClassName('charging', Battery.charging);
-                    icon.toggleClassName('charged', Battery.charged);
-                    icon.toggleClassName('low', Battery.percent < 30);
+                    icon.toggleClassName("charging", Battery.charging);
+                    icon.toggleClassName("charged", Battery.charged);
+                    icon.toggleClassName("low", Battery.percent < 30);
                 },
             ],
             [
                 Battery,
                 (self) => {
                     const icons = [
-                        ['󰂎', '󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹'],
-                        ['󰢟', '󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'],
+                        ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+                        ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
                     ];
 
                     const chargingIndex = Battery.charging ? 1 : 0;
@@ -31,10 +31,10 @@ const BatIcon = () =>
     });
 const PercentLabel = () =>
     Revealer({
-        transition: 'slide_down',
+        transition: "slide_down",
         revealChild: false,
         child: Label({
-            className: 'batPercent',
+            className: "batPercent",
             connections: [
                 [
                     Battery,
@@ -50,17 +50,17 @@ const percentLabelInstance = PercentLabel();
 
 export const BatteryWidgetOld = () =>
     Button({
-        className: 'battery',
+        className: "battery",
         onHover: () => (percentLabelInstance.revealChild = true),
         onHoverLost: () => (percentLabelInstance.revealChild = false),
-        binds: [['visible', Battery, 'available']],
+        binds: [["visible", Battery, "available"]],
         child: BatIcon(),
     });
 
 export const BatteryWidget = () =>
     Box({
-        className: 'battery',
-        cursor: 'pointer',
+        className: "battery",
+        cursor: "pointer",
         child: BatIcon(),
-        binds: [['visible', Battery, 'available']],
+        binds: [["visible", Battery, "available"]],
     });

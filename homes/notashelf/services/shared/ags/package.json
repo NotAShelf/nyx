@@ -7,7 +7,7 @@
 	"scripts": {
 		"lint": "eslint . --fix",
 		"stylelint": "stylelint ./scss --fix",
-		"all": "npm run lint && npm run stylelint && rm -rf node_modules"
+		"all": "nix-shell -p nodejs --run \"npm install\" && npm run lint && npm run stylelint && rm -rf node_modules"
 	},
 	"devDependencies": {
 		"stylelint-config-standard-scss": "^10.0.0",

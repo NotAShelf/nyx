@@ -1,26 +1,26 @@
-import { Audio, Widget, Utils } from '../../imports.js';
+import { Audio, Widget, Utils } from "../../imports.js";
 const { Button } = Widget;
 
 const audio = {
     mic: {
-        muted: 'microphone-disabled-symbolic',
-        low: 'microphone-sensitivity-low-symbolic',
-        medium: 'microphone-sensitivity-medium-symbolic',
-        high: 'microphone-sensitivity-high-symbolic',
+        muted: "microphone-disabled-symbolic",
+        low: "microphone-sensitivity-low-symbolic",
+        medium: "microphone-sensitivity-medium-symbolic",
+        high: "microphone-sensitivity-high-symbolic",
     },
     volume: {
-        muted: 'audio-volume-muted-symbolic',
-        low: 'audio-volume-low-symbolic',
-        medium: 'audio-volume-medium-symbolic',
-        high: 'audio-volume-high-symbolic',
-        overamplified: 'audio-volume-overamplified-symbolic',
+        muted: "audio-volume-muted-symbolic",
+        low: "audio-volume-low-symbolic",
+        medium: "audio-volume-medium-symbolic",
+        high: "audio-volume-high-symbolic",
+        overamplified: "audio-volume-overamplified-symbolic",
     },
     type: {
-        headset: 'audio-headphones-symbolic',
-        speaker: 'audio-speakers-symbolic',
-        card: 'audio-card-symbolic',
+        headset: "audio-headphones-symbolic",
+        speaker: "audio-speakers-symbolic",
+        card: "audio-card-symbolic",
     },
-    mixer: '',
+    mixer: "",
 };
 
 const AudioIcon = () =>
@@ -46,19 +46,19 @@ const AudioIcon = () =>
                     icon.icon =
                         cons.find(
                             ([n]) => n <= Audio.speaker.volume * 100,
-                        )?.[1] || '';
+                        )?.[1] || "";
                 },
-                'speaker-changed',
+                "speaker-changed",
             ],
         ],
     });
 
 export const AudioWidget = () => {
     return Button({
-        className: 'audio',
-        cursor: 'pointer',
+        className: "audio",
+        cursor: "pointer",
         child: AudioIcon(),
         visible: true,
-        onClicked: () => Utils.exec('pavucontrol'),
+        onClicked: () => Utils.exec("pavucontrol"),
     });
 };

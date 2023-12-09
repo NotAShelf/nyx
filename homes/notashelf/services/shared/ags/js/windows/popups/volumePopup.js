@@ -1,16 +1,16 @@
-import { Widget, Utils, Audio } from '../../imports.js';
+import { Widget, Utils, Audio } from "../../imports.js";
 const { Box, Slider, Label } = Widget;
 
 const VolumeIcon = () =>
     Label({
-        className: 'volPopupIcon',
+        className: "volPopupIcon",
         connections: [
             [
                 Audio,
                 (self) => {
                     if (!Audio.speaker) return;
 
-                    const icons = ['󰝟', '󰕿', '󰖀', '󰕾'];
+                    const icons = ["󰝟", "󰕿", "󰖀", "󰕾"];
 
                     self.label =
                         icons[
@@ -19,15 +19,15 @@ const VolumeIcon = () =>
                                 : Math.floor((Audio.speaker.volume * 100) / 26)
                         ].toString();
                 },
-                'speaker-changed',
+                "speaker-changed",
             ],
         ],
     });
 
 const PercentLabel = () =>
     Label({
-        className: 'volPopupLabel',
-        label: 'Volume',
+        className: "volPopupLabel",
+        label: "Volume",
         connections: [
             [
                 Audio,
@@ -38,14 +38,14 @@ const PercentLabel = () =>
                         Audio.speaker.volume * 100,
                     )}`;
                 },
-                'speaker-changed',
+                "speaker-changed",
             ],
         ],
     });
 
 const PercentBar = () =>
     Slider({
-        className: 'volPopupBar',
+        className: "volPopupBar",
         drawValue: false,
         onChange: ({ value }) => (Audio.speaker.volume = value),
         connections: [
@@ -56,7 +56,7 @@ const PercentBar = () =>
 
                     self.value = Audio.speaker.volume;
                 },
-                'speaker-changed',
+                "speaker-changed",
             ],
         ],
     });
@@ -66,13 +66,13 @@ export const VolumePopup = () =>
         css: `min-height: 1px;
           min-width: 1px;`,
         child: Widget.Revealer({
-            transition: 'slide_up',
+            transition: "slide_up",
             child: Box({
-                className: 'volumePopup',
+                className: "volumePopup",
                 vertical: true,
                 children: [PercentLabel(), PercentBar()],
             }),
-            properties: [['count', 0]],
+            properties: [["count", 0]],
             connections: [
                 [
                     Audio,
@@ -85,7 +85,7 @@ export const VolumePopup = () =>
                             if (self._count === 0) self.revealChild = false;
                         });
                     },
-                    'speaker-changed',
+                    "speaker-changed",
                 ],
             ],
         }),

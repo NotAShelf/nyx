@@ -1,4 +1,4 @@
-import { Bluetooth, Widget, Utils } from '../../imports.js';
+import { Bluetooth, Widget, Utils } from "../../imports.js";
 const { Button, Label } = Widget;
 
 export const BluetoothModule = () =>
@@ -10,44 +10,44 @@ export const BluetoothModule = () =>
                     self.children = Bluetooth.connectedDevices.map(
                         ({ iconName, name }) =>
                             Label({
-                                indicator: Widget.Icon(iconName + '-symbolic'),
+                                indicator: Widget.Icon(iconName + "-symbolic"),
                                 child: Widget.Label(name),
                             }),
                     );
                 },
-                'notify::connected-devices',
+                "notify::connected-devices",
             ],
         ],
 
         binds: [
             [
-                'tooltip-text',
+                "tooltip-text",
                 Bluetooth,
-                'connected-devices',
+                "connected-devices",
                 (connected) => {
-                    if (!Bluetooth.enabled) return 'Bluetooth off';
+                    if (!Bluetooth.enabled) return "Bluetooth off";
 
                     if (connected.length > 0) {
                         const dev = Bluetooth.getDevice(
                             connected.at(0).address,
                         );
-                        let battery_str = '';
+                        let battery_str = "";
 
                         if (dev.battery_percentage > 0)
-                            battery_str += ' ' + dev.battery_percentage + '%';
+                            battery_str += " " + dev.battery_percentage + "%";
 
                         return dev.name + battery_str;
                     }
 
-                    return 'Bluetooth on';
+                    return "Bluetooth on";
                 },
             ],
             [
-                'className',
+                "className",
                 Bluetooth,
-                'connected-devices',
+                "connected-devices",
                 (connected) => {
-                    if (!Bluetooth.enabled) return 'bluetooth-disabled';
+                    if (!Bluetooth.enabled) return "bluetooth-disabled";
 
                     if (connected.length > 0) {
                         const dev = Bluetooth.getDevice(
@@ -55,31 +55,31 @@ export const BluetoothModule = () =>
                         );
 
                         if (dev.battery_percentage <= 25)
-                            return 'bluetooth-active-low-battery';
+                            return "bluetooth-active-low-battery";
 
                         if (dev.battery_percentage > 25)
-                            return 'bluetooth-paired';
+                            return "bluetooth-paired";
                     }
 
-                    return 'bluetooth-active';
+                    return "bluetooth-active";
                 },
             ],
             [
-                'label',
+                "label",
                 Bluetooth,
-                'connected-devices',
+                "connected-devices",
                 (connected) => {
-                    if (!Bluetooth.enabled) return '󰂲';
+                    if (!Bluetooth.enabled) return "󰂲";
 
                     if (connected.length > 0) {
                         const dev = Bluetooth.getDevice(
                             connected.at(0).address,
                         );
 
-                        if (dev.battery_percentage <= 25) return '󰥇';
+                        if (dev.battery_percentage <= 25) return "󰥇";
                     }
 
-                    return '󰂰';
+                    return "󰂰";
                 },
             ],
         ],
@@ -87,10 +87,10 @@ export const BluetoothModule = () =>
 
 export const BluetoothWidget = () => {
     return Button({
-        className: 'bluetooth',
-        cursor: 'pointer',
+        className: "bluetooth",
+        cursor: "pointer",
         child: BluetoothModule(),
         visible: Bluetooth.connectedDevices.length > 0,
-        onClicked: () => Utils.exec('blueman-applet'),
+        onClicked: () => Utils.exec("blueman-applet"),
     });
 };

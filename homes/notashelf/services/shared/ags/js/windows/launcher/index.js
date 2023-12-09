@@ -1,16 +1,16 @@
-import { Widget, App, Applications, Utils, Hyprland } from '../../imports.js';
-import PopupWindow from '../../utils/popupWindow.js';
+import { Widget, App, Applications, Utils, Hyprland } from "../../imports.js";
+import PopupWindow from "../../utils/popupWindow.js";
 const { Gdk } = imports.gi;
 const { Box, Button, Icon, Label, Scrollable } = Widget;
 
-const WINDOW_NAME = 'launcher';
+const WINDOW_NAME = "launcher";
 
 const truncateString = (str, maxLength) =>
     str.length > maxLength ? `${str.slice(0, maxLength)}...` : str;
 
 const AppItem = (app) =>
     Button({
-        className: 'launcherApp',
+        className: "launcherApp",
         onClicked: () => {
             App.closeWindow(WINDOW_NAME);
             Hyprland.sendMessage(`dispatch exec gtk-launch ${app.desktop}`);
@@ -20,31 +20,31 @@ const AppItem = (app) =>
         child: Box({
             children: [
                 Icon({
-                    className: 'launcherItemIcon',
-                    icon: app.iconName || '',
+                    className: "launcherItemIcon",
+                    icon: app.iconName || "",
                     size: 24,
                 }),
                 Box({
-                    className: 'launcherItem',
+                    className: "launcherItem",
                     vertical: true,
-                    vpack: 'center',
+                    vpack: "center",
                     children: [
                         Label({
-                            className: 'launcherItemTitle',
+                            className: "launcherItemTitle",
                             label: app.name,
                             xalign: 0,
-                            vpack: 'center',
-                            truncate: 'end',
+                            vpack: "center",
+                            truncate: "end",
                         }),
                         !!app.description &&
                             Label({
-                                className: 'launcherItemDescription',
+                                className: "launcherItemDescription",
                                 label:
-                                    truncateString(app.description, 75) || '',
+                                    truncateString(app.description, 75) || "",
                                 wrap: true,
                                 xalign: 0,
-                                justification: 'left',
-                                vpack: 'center',
+                                justification: "left",
+                                vpack: "center",
                             }),
                     ],
                 }),
@@ -56,12 +56,12 @@ const Launcher = () => {
     const list = Widget.Box({ vertical: true });
 
     const entry = Widget.Entry({
-        className: 'launcherEntry',
+        className: "launcherEntry",
         hexpand: true,
-        text: '-',
+        text: "-",
         onAccept: ({ text }) => {
-            const isCommand = text.startsWith('>');
-            const appList = Applications.query(text || '');
+            const isCommand = text.startsWith(">");
+            const appList = Applications.query(text || "");
             if (isCommand === true) {
                 App.toggleWindow(WINDOW_NAME);
                 Utils.execAsync(text.slice(1));
@@ -77,12 +77,12 @@ const Launcher = () => {
     });
 
     return Box({
-        className: 'launcher',
+        className: "launcher",
         vertical: true,
         children: [
             entry,
             Scrollable({
-                hscroll: 'never',
+                hscroll: "never",
                 css: `
           min-width: 240px;
           min-height: ${Gdk.Screen.get_default().get_height() - 84}px;
@@ -98,7 +98,7 @@ const Launcher = () => {
 
                     list.children = Applications.list.map(AppItem);
 
-                    entry.text = '';
+                    entry.text = "";
                     if (visible) entry.grab_focus();
                 },
             ],
@@ -108,10 +108,10 @@ const Launcher = () => {
 
 export const launcher = PopupWindow({
     name: WINDOW_NAME,
-    anchor: ['top', 'bottom', 'right'],
+    anchor: ["top", "bottom", "right"],
     margins: [13, 13, 0, 13],
-    layer: 'overlay',
-    transition: 'slide_left',
+    layer: "overlay",
+    transition: "slide_left",
     popup: true,
     visible: false,
     focusable: true,

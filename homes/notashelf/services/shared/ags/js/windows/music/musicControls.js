@@ -1,19 +1,19 @@
-import { Widget, Mpris } from '../../imports.js';
+import { Widget, Mpris } from "../../imports.js";
 const { Box, Button, Label } = Widget;
 
 export const uwustagramControls = () =>
     Box({
-        className: 'uwustagramControls',
-        hpack: 'center',
+        className: "uwustagramControls",
+        hpack: "center",
         children: [
             Button({
-                className: 'controlsPrev',
-                label: '󰒮',
+                className: "controlsPrev",
+                label: "󰒮",
                 onClicked: () => Mpris.players[0].previous(),
             }),
             Button({
-                className: 'controlsPlayPause',
-                label: '󰐍',
+                className: "controlsPlayPause",
+                label: "󰐍",
                 onClicked: () => Mpris.players[0].playPause(),
                 connections: [
                     [
@@ -24,17 +24,17 @@ export const uwustagramControls = () =>
 
                             self.label = `${
                                 player !== null &&
-                                player.playBackStatus == 'Playing'
-                                    ? '󰏦'
-                                    : '󰐍'
+                                player.playBackStatus == "Playing"
+                                    ? "󰏦"
+                                    : "󰐍"
                             }`;
                         },
                     ],
                 ],
             }),
             Button({
-                className: 'controlsNext',
-                label: '󰒭',
+                className: "controlsNext",
+                label: "󰒭",
                 onClicked: () => Mpris.players[0].next(),
             }),
         ],

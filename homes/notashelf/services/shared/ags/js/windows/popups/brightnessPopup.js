@@ -1,15 +1,15 @@
-import { Widget, Utils, App } from '../../imports.js';
-import Brightness from '../../services/brightness.js';
+import { Widget, Utils, App } from "../../imports.js";
+import Brightness from "../../services/brightness.js";
 const { Box, Slider, Label } = Widget;
 
 const BrightnessIcon = () =>
     Label({
-        className: 'brtPopupIcon',
+        className: "brtPopupIcon",
         connections: [
             [
                 Brightness,
                 (self) => {
-                    const icons = ['󰃚', '󰃛', '󰃜', '󰃝', '󰃞', '󰃟', '󰃠'];
+                    const icons = ["󰃚", "󰃛", "󰃜", "󰃝", "󰃞", "󰃟", "󰃠"];
 
                     self.label =
                         icons[
@@ -22,8 +22,8 @@ const BrightnessIcon = () =>
 
 const PercentLabel = () =>
     Label({
-        className: 'brtPopupLabel',
-        label: 'Brightness',
+        className: "brtPopupLabel",
+        label: "Brightness",
         connections: [
             [
                 Brightness,
@@ -37,7 +37,7 @@ const PercentLabel = () =>
 
 const PercentBar = () =>
     Slider({
-        className: 'brtPopupBar',
+        className: "brtPopupBar",
         drawValue: false,
         onChange: ({ value }) => (Brightness.screen = value),
         connections: [[Brightness, (self) => (self.value = Brightness.screen)]],
@@ -48,13 +48,13 @@ export const BrightnessPopup = () =>
         css: `min-height: 1px;
           min-width: 1px;`,
         child: Widget.Revealer({
-            transition: 'slide_up',
+            transition: "slide_up",
             child: Box({
-                className: 'brightnessPopup',
+                className: "brightnessPopup",
                 vertical: true,
                 children: [PercentLabel(), PercentBar()],
             }),
-            properties: [['count', 0]],
+            properties: [["count", 0]],
             connections: [
                 [
                     Brightness,

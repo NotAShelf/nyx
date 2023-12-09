@@ -1,4 +1,4 @@
-import { Service, Utils } from '../imports.js';
+import { Service, Utils } from "../imports.js";
 
 class Brightness extends Service {
     static {
@@ -6,7 +6,7 @@ class Brightness extends Service {
             this,
             {},
             {
-                screen: ['float', 'rw'],
+                screen: ["float", "rw"],
             },
         );
     }
@@ -25,7 +25,7 @@ class Brightness extends Service {
         Utils.execAsync(`brightnessctl s ${percent * 100}% -q`)
             .then(() => {
                 this._screen = percent;
-                this.changed('screen');
+                this.changed("screen");
             })
             .catch(console.error);
     }
@@ -34,10 +34,10 @@ class Brightness extends Service {
         super();
         try {
             this._screen =
-                Number(Utils.exec('brightnessctl g')) /
-                Number(Utils.exec('brightnessctl m'));
+                Number(Utils.exec("brightnessctl g")) /
+                Number(Utils.exec("brightnessctl m"));
         } catch (error) {
-            console.error('missing dependancy: brightnessctl');
+            console.error("missing dependancy: brightnessctl");
         }
     }
 }

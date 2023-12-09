@@ -1,5 +1,5 @@
-import { Network, Widget, Utils } from '../../imports.js';
-import { Icon } from '../../icons.js';
+import { Network, Widget, Utils } from "../../imports.js";
+import { Icon } from "../../icons.js";
 const { Stack, Box, Button, Label } = Widget;
 
 const WifiIndicator = () =>
@@ -9,9 +9,9 @@ const WifiIndicator = () =>
                 has_tooltip: true,
                 binds: [
                     [
-                        'label',
+                        "label",
                         Network.wifi,
-                        'strength',
+                        "strength",
                         (/** @type {number} */ strength) => {
                             if (strength < 0.1) return Icon.wifi.none;
                             if (strength < 0.26) return Icon.wifi.bad;
@@ -37,16 +37,16 @@ const WifiIndicator = () =>
 
 const WiredIndicator = () =>
     Label({
-        cursor: 'pointer',
+        cursor: "pointer",
         binds: [
             [
-                'label',
+                "label",
                 Network.wired,
-                'internet',
+                "internet",
                 (internet) => {
-                    if (internet === 'connected') return Icon.wired.power;
-                    if (internet === 'connecting') return Icon.wired.poweroff;
-                    if (internet === 'disconnected') return Icon.wired.poweroff;
+                    if (internet === "connected") return Icon.wired.power;
+                    if (internet === "connecting") return Icon.wired.poweroff;
+                    if (internet === "disconnected") return Icon.wired.poweroff;
                     return Icon.wired.poweroff;
                 },
             ],
@@ -62,14 +62,14 @@ const WiredIndicator = () =>
 
 export const NetworkWidget = () =>
     Button({
-        className: 'network',
-        cursor: 'pointer',
-        onClicked: () => Utils.exec('nm-connection-editor'),
+        className: "network",
+        cursor: "pointer",
+        onClicked: () => Utils.exec("nm-connection-editor"),
         child: Stack({
-            binds: [['shown', Network, 'primary', (p) => p || 'wifi']],
+            binds: [["shown", Network, "primary", (p) => p || "wifi"]],
             items: [
-                ['wifi', WifiIndicator()],
-                ['wired', WiredIndicator()],
+                ["wifi", WifiIndicator()],
+                ["wired", WiredIndicator()],
             ],
         }),
     });

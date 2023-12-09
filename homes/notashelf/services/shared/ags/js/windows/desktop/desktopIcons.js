@@ -1,6 +1,6 @@
-import { Widget, Applications, Utils } from '../../imports.js';
+import { Widget, Applications, Utils } from "../../imports.js";
 const { Box } = Widget;
-import DesktopIcon from '../../utils/appIcon.js';
+import DesktopIcon from "../../utils/appIcon.js";
 
 function queryExact(appName) {
     return (
@@ -12,19 +12,19 @@ function queryExact(appName) {
 
 const Komikku = () =>
     Widget.Button({
-        className: 'desktopIcon',
-        cursor: 'pointer',
-        onClicked: () => queryExact('komikku').launch(),
+        className: "desktopIcon",
+        cursor: "pointer",
+        onClicked: () => queryExact("komikku").launch(),
         child: Box({
             vertical: true,
             children: [
                 Widget.Icon({
-                    icon: queryExact('komikku').iconName,
+                    icon: queryExact("komikku").iconName,
                     size: 48,
                 }),
                 Widget.Label({
-                    className: 'desktopIconLabel',
-                    label: 'コミック',
+                    className: "desktopIconLabel",
+                    label: "コミック",
                 }),
             ],
         }),
@@ -32,9 +32,9 @@ const Komikku = () =>
 
 export const DesktopIcons = () =>
     Box({
-        className: 'desktopIcons',
+        className: "desktopIcons",
         vertical: true,
-        hpack: 'start',
-        vpack: 'start',
+        hpack: "start",
+        vpack: "start",
         children: [Komikku()],
     });

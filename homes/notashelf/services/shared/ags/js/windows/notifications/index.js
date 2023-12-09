@@ -1,7 +1,7 @@
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
-import Notification from '../misc/Notification.js';
+import Notifications from "resource:///com/github/Aylur/ags/service/notifications.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
+import Notification from "../misc/Notification.js";
 
 /** @param {import('types/widgets/revealer').default} parent */
 const Popups = (parent) => {
@@ -27,7 +27,7 @@ const Popups = (parent) => {
         const n = Notifications.getNotification(id);
         if (!n) return;
 
-        if (options.notifications.black_list.value.includes(n.app_name || ''))
+        if (options.notifications.black_list.value.includes(n.app_name || ""))
             return;
 
         map.delete(id);
@@ -41,17 +41,17 @@ const Popups = (parent) => {
     return Widget.Box({
         vertical: true,
         connections: [
-            [Notifications, onNotified, 'notified'],
-            [Notifications, onDismissed, 'dismissed'],
-            [Notifications, (box, id) => onDismissed(box, id, true), 'closed'],
+            [Notifications, onNotified, "notified"],
+            [Notifications, onDismissed, "dismissed"],
+            [Notifications, (box, id) => onDismissed(box, id, true), "closed"],
         ],
     });
 };
 
 /** @param {import('types/widgets/revealer').RevealerProps['transition']} transition */
-const PopupList = (transition = 'slide_down') =>
+const PopupList = (transition = "slide_down") =>
     Widget.Box({
-        css: 'padding: 1px',
+        css: "padding: 1px",
         children: [
             Widget.Revealer({
                 transition,
@@ -65,7 +65,7 @@ export default (monitor) =>
     Widget.Window({
         monitor,
         name: `notifications${monitor}`,
-        class_name: 'notifications',
-        binds: [['anchor', ['top', 'right']]],
+        class_name: "notifications",
+        binds: [["anchor", ["top", "right"]]],
         child: PopupList(),
     });

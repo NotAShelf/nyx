@@ -10,7 +10,6 @@ import { Music } from "./js/windows/music/index.js";
 const scss = App.configDir + "/scss/main.scss";
 const css = App.configDir + "/style.css";
 
-print("Compiling scss...");
 reloadCss("Compiling scss...");
 
 // Main config
@@ -24,6 +23,7 @@ export default {
 };
 
 function reloadCss(message) {
+    /* eslint-disable no-undef */
     print(message);
     Utils.exec(`sassc ${scss} ${css}`);
     App.resetCss();

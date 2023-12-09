@@ -59,27 +59,6 @@
     background: #3c3d53;
     color: #cdd4fe; }
 
-/*
-.workspaces {
-  background: $surfaceVariant;
-  border-radius: 12px;
-  margin: 6px;
-  padding: 6px;
-  button {
-    font-family: $iconFont;
-    margin: 3px;
-    transition:
-      all 0.3s $materialStandard,
-      border 0.35s $materialStandard;
-    &:hover {
-      color: $primary;
-    }
-    &.focused {
-      color: $blue;
-    }
-  }
-}
-*/
 .workspaces {
   background: transparent;
   padding: 14px; }
@@ -189,7 +168,7 @@
   color: #cdd6f4;
   background: #1e1e2e;
   font-family: roboto;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 2px; }
 
 .utilsBox {

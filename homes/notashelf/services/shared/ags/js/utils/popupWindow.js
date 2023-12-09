@@ -1,7 +1,7 @@
-import { App, Widget } from '../imports.js';
+import { App, Widget } from "../imports.js";
 const { Box, Revealer, Window } = Widget;
 
-export default ({ name, child, transition = 'slide_up', ...props }) => {
+export default ({ name, child, transition = "slide_up", ...props }) => {
     const window = Window({
         name,
         visible: false,
