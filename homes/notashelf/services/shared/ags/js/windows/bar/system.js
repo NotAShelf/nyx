@@ -1,5 +1,4 @@
-import { Utils, Widget, Variable } from "../../imports.js";
-const { execAsync } = Utils;
+import { Widget, Variable } from "../../imports.js";
 const { Button, Revealer, Box, Label, CircularProgress } = Widget;
 
 const divide = ([total, free]) => free / total;
@@ -74,14 +73,17 @@ const CPU = systemWidget(
                         cpu,
                         "value",
                         (v) => {
+                            let val = v * 100;
                             if (v > 0) {
-                                if ((v = 100)) return "cpuCritical";
+                                if (val === 100) return "cpuCritical";
 
-                                if (v > 75) return "cpuHigh";
+                                if (val > 75 && val < 100) return "cpuHigh";
 
-                                if (v > 35) return "cpuMod";
+                                if (val > 35 && val <= 75) return "cpuMod";
 
-                                if (v > 15) return "bluetooth-paired";
+                                if (val > 5 && val <= 25) return "cpuLow";
+
+                                if (val <= 5) return "cpuIdle";
                             }
 
                             return "cpuRevealer";
@@ -107,6 +109,27 @@ const MEM = systemWidget(
             child: Label({
                 binds: [
                     ["label", mem, "value", (v) => `${Math.floor(v * 100)}%`],
+                    [
+                        "className",
+                        cpu,
+                        "value",
+                        (v) => {
+                            let val = v * 100;
+                            if (val > 0) {
+                                if (val === 100) return "memCritical";
+
+                                if (val > 75 && val < 100) return "memHigh";
+
+                                if (val > 35 && val <= 75) return "memMod";
+
+                                if (val > 5 && val <= 25) return "memLow";
+
+                                if (val <= 5) return "memIdle";
+                            }
+
+                            return "memRevealer";
+                        },
+                    ],
                 ],
             }),
             transition_duration: 250,
