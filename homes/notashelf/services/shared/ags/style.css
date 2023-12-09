@@ -1,0 +1,388 @@
+*:not(tooltip) {
+  all: unset;
+  font-family: "Material Design Icons", "Iosevka Nerd Font Mono", Inter, Roboto, sans-serif; }
+
+.launcherIcon {
+  background: #313244;
+  font-family: symbolsnerdfontmono;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px;
+  min-height: 1.5rem;
+  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
+  .launcherIcon:hover {
+    background: #3c3d53; }
+
+.systemUsage {
+  color: #cdd6f4;
+  background: #313244;
+  font-family: symbolsnerdfontmono;
+  border-radius: 12px;
+  margin: 4px; }
+
+.cpuButton {
+  padding: 6px 2px 3px 2px;
+  margin: 1px; }
+
+.cpuProgress {
+  color: #b4befe;
+  padding: 4px 4px;
+  margin: 0.1rem;
+  font-size: 4px;
+  background: #1e1e2e;
+  min-height: 1.2rem;
+  min-width: 1.2rem; }
+
+.memButton {
+  padding: 3px 2px 6px 2px;
+  margin: 1px; }
+
+.memProgress {
+  color: #89b4fa;
+  padding: 4px 4px;
+  margin: 0.1rem;
+  font-size: 4px;
+  background: #1e1e2e;
+  min-height: 1.2rem;
+  min-width: 1.2rem; }
+
+.weather {
+  color: #cdd6f4;
+  background: #313244;
+  font-size: 24px;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px;
+  min-height: 1.5rem;
+  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
+  .weather:hover {
+    background: #3c3d53;
+    color: #cdd4fe; }
+
+.workspaces {
+  background: transparent;
+  padding: 14px; }
+  .workspaces button {
+    margin: 5px 3px;
+    min-width: 0.6rem;
+    min-height: 0.6rem;
+    color: transparent;
+    background: #cdd6f4;
+    border-radius: 99px;
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+    .workspaces button:hover {
+      background: #b4befe; }
+    .workspaces button.focused {
+      border-radius: 18px;
+      background: #89b4fa;
+      padding: 8px 0; }
+
+.tray {
+  margin: 0; }
+
+.trayChevron {
+  font-family: symbolsnerdfontmono; }
+
+.trayIcons {
+  margin: 3px 0 0; }
+
+.trayIcon {
+  margin: 0 0 3px; }
+
+.battery {
+  margin: 6px 3px;
+  color: #cdd6f4;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .battery:hover {
+    color: #f38ba8; }
+
+.bluetoothLabel {
+  margin: 6px 3px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .bluetoothLabel:hover {
+    color: #f38ba8; }
+
+.bluetooth {
+  margin: 6px 3px; }
+
+.bluetooth-active {
+  color: #cdd6f4; }
+
+.bluetooth-disabled {
+  color: #74769a;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .bluetooth-disabled:hover {
+    color: #f38ba8; }
+
+.bluetooth-paired {
+  color: #cdd6f4; }
+
+.lock {
+  background: #313244;
+  font-size: 24px;
+  border-radius: 12px;
+  margin: 2px 4px;
+  padding: 2px; }
+
+.swallow {
+  margin: 6px 3px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .swallow:hover {
+    color: #b4befe; }
+
+.audio {
+  margin: 6px 3px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .audio:hover {
+    color: #b4befe; }
+
+.network {
+  margin: 6px 3px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
+  .network:hover {
+    color: #b4befe; }
+
+.clock {
+  background: #313244;
+  color: #cdd6f4;
+  font-family: robotomono;
+  font-weight: 800;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px; }
+
+.power {
+  color: #f38ba8;
+  background: #313244;
+  font-size: 24px;
+  border-radius: 12px;
+  margin: 6px 4px;
+  padding: 6px;
+  min-height: 1.5rem;
+  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
+  .power:hover {
+    background: #3c3d53;
+    color: #f5a2b9; }
+
+.bar {
+  color: #cdd6f4;
+  background: #1e1e2e;
+  font-family: roboto;
+  border-radius: 14px;
+  padding: 2px; }
+
+.utilsBox {
+  color: #cdd6f4;
+  background: #313244;
+  font-family: symbolsnerdfontmono;
+  border-radius: 12px;
+  margin: 4px;
+  padding: 6px; }
+
+.systemInfo {
+  color: #cdd6f4;
+  background: #313244;
+  font-family: symbolsnerdfontmono;
+  border-radius: 12px;
+  margin: 4px;
+  padding: 6px; }
+
+.launcher {
+  color: #cdd6f4;
+  background: #1e1e2e;
+  font-family: roboto;
+  border-radius: 12px;
+  margin: 0 0 16px;
+  padding: 6px; }
+
+.launcherApp {
+  border-radius: 12px;
+  margin: 3px;
+  padding: 3px; }
+  .launcherApp:focus {
+    background: #313244; }
+
+.launcherEntry {
+  caret-color: #cdd6f4;
+  background: #313244;
+  border-radius: 10px;
+  margin: 6px;
+  padding: 3px 12px; }
+
+.launcherItemIcon {
+  margin: 3px 6px; }
+
+.launcherItemTitle {
+  font-size: 16px;
+  font-weight: bold; }
+
+.launcherItemDescription {
+  font-size: 12px; }
+
+.desktopMenu {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  font-family: roboto;
+  border-radius: 14px;
+  padding: 6px 3px; }
+
+.desktopMenuItem {
+  border-radius: 14px;
+  margin: 0 3px;
+  padding: 6px 12px;
+  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
+  .desktopMenuItem:hover {
+    background: #3c3d53;
+    color: #e2e7f9; }
+
+.desktopMenuItemIcon {
+  font-family: symbolsnerdfontmono;
+  padding: 2px 8px 2px 2px; }
+
+.separator {
+  background: #313244;
+  padding: 1px 3px; }
+
+.desktopIcons {
+  margin: 24px 0 0 24px; }
+
+.desktopIcon {
+  border-radius: 6px;
+  padding: 6px;
+  transition: all 200ms cubic-bezier(0, 0, 1, 1); }
+  .desktopIcon:hover {
+    background: rgba(180, 190, 254, 0.7); }
+
+.desktopIconLabel {
+  color: #313244;
+  font-family: roboto; }
+
+.brightnessPopup {
+  color: #cdd6f4;
+  background: #1e1e2e;
+  font-family: roboto;
+  border-radius: 10px;
+  border: black;
+  margin: 6px 0;
+  padding: 4px; }
+
+.brtPopupIcon {
+  font-family: symbolsnerdfontmono;
+  margin: 0 6px; }
+
+.brtPopupLabel {
+  font-weight: 400;
+  margin: 3px; }
+
+.brtPopupBar {
+  min-width: 200px; }
+  .brtPopupBar scale {
+    min-height: 12px; }
+  .brtPopupBar trough {
+    background: #313244;
+    border-radius: 12px;
+    min-height: 12px; }
+  .brtPopupBar highlight {
+    background: #b4befe;
+    border-radius: 12px;
+    min-width: 12px; }
+
+.volumePopup {
+  color: #cdd6f4;
+  background: #1e1e2e;
+  font-family: roboto;
+  border-radius: 10px;
+  border: black;
+  margin: 6px 0;
+  padding: 4px; }
+
+.volPopupIcon {
+  font-family: symbolsnerdfontmono;
+  margin: 0 6px; }
+
+.volPopupLabel {
+  font-weight: 400;
+  margin: 3px; }
+
+.volPopupBar {
+  min-width: 200px; }
+  .volPopupBar scale {
+    min-height: 12px; }
+  .volPopupBar trough {
+    background: #313244;
+    border-radius: 12px;
+    min-height: 12px; }
+  .volPopupBar highlight {
+    background: #b4befe;
+    border-radius: 12px;
+    min-width: 12px; }
+
+.uwustagramControls {
+  margin: 0 24px 48px; }
+
+.controlsPrev {
+  font-family: symbolsnerdfontmono;
+  font-size: 1.5rem; }
+
+.controlsPlayPause {
+  font-family: symbolsnerdfontmono;
+  font-size: 2.5rem;
+  margin: 0 24px; }
+
+.controlsNext {
+  font-family: symbolsnerdfontmono;
+  font-size: 1.5rem; }
+
+.music {
+  background: #313244;
+  font-family: roboto;
+  border-radius: 0; }
+
+.uwustagramHeader {
+  background: #313244;
+  font-weight: bold;
+  padding: 12px; }
+
+.uwustagramArtist {
+  font-weight: 500;
+  padding: 12px; }
+
+.artistIcon {
+  font-family: symbolsnerdfontmono;
+  font-size: 1.5em;
+  margin: 0 6px 0 0; }
+
+.uwustagramCover {
+  opacity: 0.25;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  min-height: 240px;
+  min-width: 240px; }
+
+.uwustagramCoverOverlay {
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  margin: 48px;
+  box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.5); }
+
+.uwustagramButtons {
+  font-family: symbolsnerdfontmono;
+  font-size: 1rem;
+  padding: 12px; }
+
+.uwustagramTitle {
+  font-weight: 500;
+  padding: 12px 24px 0; }
+
+.uwustagramProgress {
+  padding: 24px;
+  min-width: 60px; }
+  .uwustagramProgress trough {
+    background: #313244;
+    border-radius: 12px;
+    min-height: 6px; }
+  .uwustagramProgress progress {
+    background: #1e1e2e;
+    border-radius: 12px;
+    min-width: 6px; }
