@@ -10,20 +10,24 @@
     config.programs.foot.package
     inputs.hyprpicker.packages.${pkgs.system}.default
     (pkgs.python3.withPackages (pythonPackages: [pythonPackages.requests]))
+    # basic functionality
+    sassc
+    inotify-tools
+    gtk3
+    # script and service helpers
     bash
     coreutils
     gawk
-    inotify-tools
     procps
     ripgrep
-    sassc
-    gtk3
     brightnessctl
     libnotify
-    networkmanagerapplet
     slurp
-    blueman
     sysstat
+    # desktop items
+    pavucontrol
+    networkmanagerapplet
+    blueman
   ];
 
   fs = lib.fileset;
@@ -52,20 +56,25 @@ in {
     };
 
     systemd.user.services.ags = {
-      Install.WantedBy = ["graphical-session.target"];
       Unit = {
         Description = "Aylur's Gtk Shell (Ags)";
         PartOf = [
           "tray.target"
           "graphical-session.target"
         ];
+
+        After = ["graphical-session-pre.target"];
       };
 
       Service = {
         Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
         ExecStart = "${cfg.package}/bin/ags";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
         Restart = "on-failure";
+        KillMode = "mixed";
       };
+
+      Install.WantedBy = ["graphical-session.target"];
     };
   };
 }
