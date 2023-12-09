@@ -1,2 +1,6 @@
+# style.css is built from scss on every reload
+style.css
+
+# ignore npm clutter
 node_modules
 package-lock.json
