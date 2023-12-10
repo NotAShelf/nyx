@@ -18,7 +18,7 @@ CACHE_FILE = os.path.join(CACHE_DIR, "weather_cache.json")
 # TODO: make those icons more consistnt with the rest of my bar
 SUNNY = "\ue430"
 CLOUDY = "\uf172"
-RAIN = "\uf60b"
+RAIN = "\uf61f"
 SNOW = "\uf61c"
 THUNDERSTORM = "\uebdb"
 PARTLY_CLOUDY = "\uf172"

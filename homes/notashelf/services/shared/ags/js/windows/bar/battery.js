@@ -16,6 +16,11 @@ const BatIcon = () =>
             [
                 Battery,
                 (self) => {
+                    if (!Battery.available) {
+                        // avoid unnnecessary assignments
+                        return;
+                    }
+
                     const icons = [
                         ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
                         ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],

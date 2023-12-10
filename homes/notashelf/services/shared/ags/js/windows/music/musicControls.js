@@ -1,9 +1,8 @@
 import { Widget, Mpris } from "../../imports.js";
 const { Box, Button, Label } = Widget;
-
-export const uwustagramControls = () =>
+export const playerControls = () =>
     Box({
-        className: "uwustagramControls",
+        className: "playerControls",
         hpack: "center",
         children: [
             Button({

@@ -2,18 +2,27 @@
 @import "musicControls";
 
 .music {
-	background: $surface;
+	background: $primary;
 	font-family: $font;
-	border-radius: 0;
+	border-radius: 14px;
 }
 
-.uwustagramHeader {
-	background: $surfaceVariant;
+.playerHeader {
 	font-weight: bold;
 	padding: 12px;
 }
 
-.uwustagramArtist {
+.playerArtistBox {
+	padding: 6px 4px;
+	margin: 6px;
+}
+
+.playerProgressBox {
+	padding: 2px 4px;
+	margin: 6px;
+}
+
+.playerArtist {
 	font-weight: 500;
 	padding: 12px;
 }
@@ -21,10 +30,11 @@
 .artistIcon {
 	font-family: $iconFont;
 	font-size: 1.5em;
-	margin: 0 6px 0 0;
+	padding: 6px 4px;
+	margin: 0 12px 0 0;
 }
 
-.uwustagramCover {
+.playerCover {
 	opacity: 0.25;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
@@ -32,37 +42,43 @@
 	min-width: 240px;
 }
 
-.uwustagramCoverOverlay {
+.playerCoverBox {
+	margin: 10px 12px 10px 12px;
+}
+
+.playerCoverOverlay {
+	margin: 10px 12px 10px 12px;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
-	border-radius: 6px;
+	border-radius: 12px;
 	margin: 48px;
 	box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.5);
 }
 
-.uwustagramButtons {
-	font-family: $iconFont;
-	font-size: 1rem;
-	padding: 12px;
-}
-
-.uwustagramTitle {
+.playerTitle {
 	font-weight: 500;
-	padding: 12px 24px 0;
 }
 
-.uwustagramProgress {
-	padding: 24px;
-	min-width: 60px;
+.playerTitleBox {
+	min-width: 48px;
+	min-height: 1.5rem;
+	margin: 2px 48px 2px 48px;
+	padding: 2px;
+}
 
+.playerProgressBox {
+	margin: 5px 24px 5px 24px;
+}
+
+.playerProgress {
 	& trough {
-		background: $surfaceVariant;
+		background: $surface;
 		border-radius: 12px;
 		min-height: 6px;
 	}
 
 	& progress {
-		background: $primary;
+		background: $onSurface;
 		border-radius: 12px;
 		min-width: 6px;
 	}

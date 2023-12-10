@@ -47,17 +47,16 @@
   min-width: 1.2rem; }
 
 .weather {
-  color: #cdd6f4;
   background: #313244;
-  font-size: 24px;
+  font-family: "Material Symbols Sharp", "Material Design Icons", "Iosevka Nerd Font Mono", Inter, Roboto, sans-serif;
   border-radius: 12px;
   margin: 6px 4px;
   padding: 6px;
-  min-height: 1.5rem;
+  min-height: 1rem;
+  min-width: 1rem;
   transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
   .weather:hover {
-    background: #3c3d53;
-    color: #cdd4fe; }
+    background: #3c3d53; }
 
 .workspaces {
   background: transparent;
@@ -317,8 +316,8 @@
     border-radius: 12px;
     min-width: 12px; }
 
-.uwustagramControls {
-  margin: 0 24px 48px; }
+.playerControlsBox {
+  margin: 10px 48px 10px 48px; }
 
 .controlsPrev {
   font-family: symbolsnerdfontmono;
@@ -334,55 +333,68 @@
   font-size: 1.5rem; }
 
 .music {
-  background: #313244;
+  background: #1e1e2e;
   font-family: roboto;
-  border-radius: 0; }
+  border-radius: 14px; }
 
-.uwustagramHeader {
-  background: #313244;
+.playerHeader {
   font-weight: bold;
   padding: 12px; }
 
-.uwustagramArtist {
+.playerArtistBox {
+  padding: 6px 4px;
+  margin: 6px; }
+
+.playerProgressBox {
+  padding: 2px 4px;
+  margin: 6px; }
+
+.playerArtist {
   font-weight: 500;
   padding: 12px; }
 
 .artistIcon {
   font-family: symbolsnerdfontmono;
   font-size: 1.5em;
-  margin: 0 6px 0 0; }
+  padding: 6px 4px;
+  margin: 0 12px 0 0; }
 
-.uwustagramCover {
+.playerCover {
   opacity: 0.25;
   background-size: 100% auto;
   background-repeat: no-repeat;
   min-height: 240px;
   min-width: 240px; }
 
-.uwustagramCoverOverlay {
+.playerCoverBox {
+  margin: 10px 12px 10px 12px; }
+
+.playerCoverOverlay {
+  margin: 10px 12px 10px 12px;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  border-radius: 6px;
+  border-radius: 12px;
   margin: 48px;
   box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.5); }
 
-.uwustagramButtons {
-  font-family: symbolsnerdfontmono;
-  font-size: 1rem;
-  padding: 12px; }
+.playerTitle {
+  font-weight: 500; }
 
-.uwustagramTitle {
-  font-weight: 500;
-  padding: 12px 24px 0; }
+.playerTitleBox {
+  min-width: 48px;
+  min-height: 1.5rem;
+  margin: 2px 48px 2px 48px;
+  padding: 2px; }
 
-.uwustagramProgress {
-  padding: 24px;
-  min-width: 60px; }
-  .uwustagramProgress trough {
-    background: #313244;
-    border-radius: 12px;
-    min-height: 6px; }
-  .uwustagramProgress progress {
-    background: #1e1e2e;
-    border-radius: 12px;
-    min-width: 6px; }
+.playerProgressBox {
+  margin: 5px 24px 5px 24px; }
+
+.playerProgress trough {
+  background: #313244;
+  border-radius: 12px;
+  min-height: 6px; }
+
+.playerProgress progress {
+  background: #cdd6f4;
+  border-radius: 12px;
+  min-width: 6px; }

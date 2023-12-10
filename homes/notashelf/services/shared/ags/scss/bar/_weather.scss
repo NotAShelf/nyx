@@ -1,15 +1,15 @@
 .weather {
-	color: $onSurface;
-	background: $surface;
-	font-size: 24px;
+	background: $surfaceVariant;
+	font-family: "Material Symbols Sharp", "Material Design Icons",
+		"Iosevka Nerd Font Mono", Inter, Roboto, sans-serif;
 	border-radius: 12px;
 	margin: 6px 4px;
 	padding: 6px;
-	min-height: 1.5rem;
+	min-height: 1rem;
+	min-width: 1rem;
 	transition: all 0.2s $materialAccel;
 
 	&:hover {
 		background: lighten($surfaceVariant, 5%);
-		color: lighten($lavender, 5%);
 	}
 }

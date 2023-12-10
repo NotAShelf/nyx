@@ -1,14 +1,14 @@
 import { Widget, App, Mpris } from "../../imports.js";
 const { Window, Box, Label } = Widget;
 import PopupWindow from "../../utils/popupWindow.js";
-import { uwustagramControls } from "./musicControls.js";
+import { playerControls } from "./musicControls.js";
 
 const truncateString = (str, maxLength) =>
     str.length > maxLength ? `${str.slice(0, maxLength)}...` : str;
 
-const uwustagramArtist = () =>
+const playerArtist = () =>
     Box({
-        className: "uwustagramArtist",
+        className: "playerArtist",
         children: [
             Label({
                 className: "artistIcon",
@@ -36,10 +36,10 @@ const uwustagramArtist = () =>
         ],
     });
 
-const uwustagramCover = () =>
+const playerCover = () =>
     Widget.Overlay({
         child: Box({
-            className: "uwustagramCover",
+            className: "playerCover",
             connections: [
                 [
                     Mpris,
@@ -54,7 +54,7 @@ const uwustagramCover = () =>
         }),
         overlays: [
             Box({
-                className: "uwustagramCoverOverlay",
+                className: "playerCoverOverlay",
                 connections: [
                     [
                         Mpris,
@@ -70,9 +70,9 @@ const uwustagramCover = () =>
         ],
     });
 
-const uwustagramTitle = () =>
+const playerTitle = () =>
     Label({
-        className: "uwustagramTitle",
+        className: "playerTitle",
         label: "N/A",
         justification: "center",
         connections: [
@@ -91,9 +91,9 @@ const uwustagramTitle = () =>
         ],
     });
 
-const uwustagramProgress = () =>
+const playerProgress = () =>
     Widget.ProgressBar({
-        className: "uwustagramProgress",
+        className: "playerProgress",
         connections: [
             [
                 1000,
@@ -114,29 +114,35 @@ export const Music = ({ monitor } = {}) =>
         name: "music",
         anchor: ["right"],
         layer: "overlay",
-        margins: [0, 24, 0, 0],
+        margins: [0, 12, 0, 0],
         transition: "slide_left",
         popup: true,
         child: Box({
             className: "music",
             vertical: true,
             children: [
-                Label({
-                    className: "uwustagramHeader",
-                    label: "<i>uwustagram</i>",
-                    justification: "center",
-                    useMarkup: true,
+                Box({
+                    className: "playerArtistBox",
+                    children: [playerArtist()],
                 }),
-                uwustagramArtist(),
-                uwustagramCover(),
-                Label({
-                    className: "uwustagramButtons",
-                    label: "󰣐  󰭹  󰒊",
+                Box({
+                    className: "playerCoverBox",
+                    children: [playerCover()],
+                }),
+                Box({
+                    className: "playerTitleBox",
+                    children: [playerTitle()],
+                }),
+                Box({
+                    className: "playerProgressBox",
+                    children: [playerProgress()],
+                }),
+
+                Box({
+                    className: "playerControlsBox",
+                    children: [playerControls()],
                     hpack: "start",
                 }),
-                uwustagramTitle(),
-                uwustagramProgress(),
-                uwustagramControls(),
             ],
         }),
     });

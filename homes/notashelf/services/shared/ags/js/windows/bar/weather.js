@@ -1,11 +1,10 @@
 import { Widget, Variable, App } from "../../imports.js";
-// import App from "resource:///com/github/Aylur/ags/app.js";
 
 const weather = Variable(
     {},
     {
         poll: [
-            30000,
+            36000,
             `python ${App.configDir}/js/scripts/weather`,
             (out) => JSON.parse(out),
         ],
@@ -14,10 +13,15 @@ const weather = Variable(
 
 export const Weather = () =>
     Widget.Label({
+        hexpand: false,
         class_name: "weather",
-        css: "font-family: 'Material Symbols Sharp'",
         binds: [
-            ["label", weather, "value", (value) => value.text || "󰇘"],
-            ["tooltip-text", weather, "value", (value) => value.tooltip || "󰇘"],
+            ["label", weather, "value", (value) => value.text || "..."],
+            [
+                "tooltip-text",
+                weather,
+                "value",
+                (value) => value.tooltip || "...",
+            ],
         ],
     });

@@ -27,7 +27,7 @@ const Top = () =>
                 vertical: true,
                 children: [SystemUsage()],
             }),
-            // Weather(),
+            Weather(),
         ],
     });
 
