@@ -18,7 +18,7 @@ in {
       easyeffects
       librewolf
       cinnamon.nemo
-      schildichat-desktop
+      element-desktop
       qbittorrent
       hexchat
       netflix
