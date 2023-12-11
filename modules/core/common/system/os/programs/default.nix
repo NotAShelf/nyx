@@ -5,8 +5,8 @@
   ...
 }: {
   programs = {
-    # starship prompt
     bash = {
+      # starship promot
       promptInit = ''
         eval "$(${lib.getExe pkgs.starship} init bash)"
       '';
@@ -39,6 +39,11 @@
           nix = config.nix.package;
         };
       };
+
+      # enable loading direnv in nix-shell nix shell or nix develop
+      loadInNixShell = true;
+
+      direnvrcExtra = import ./direnvrc.nix {inherit pkgs;};
     };
 
     # nano
