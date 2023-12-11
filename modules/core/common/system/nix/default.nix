@@ -66,14 +66,19 @@ with lib; {
   };
 
   nix = let
-    mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
+    # mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
+    mappedRegistry = lib.pipe inputs [
+      (lib.filterAttrs (_: lib.isType "flake"))
+      (lib.mapAttrs (_: flake: {inherit flake;}))
+      (x: x // {nixpkgs.flake = inputs.nixpkgs;})
+    ];
   in {
     package = pkgs.nixSuper; # pkgs.nixVersions.unstable;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version every time
     # this will add each flake input as a registry to make nix3 commands consistent with your flake
     # additionally we also set `registry.default`, which was added by nix-super
-    registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
+    registry = mappedRegistry // lib.optionalAttrs (config.nix.package == pkgs.nixSuper) {default = mappedRegistry.nixpkgs;};
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well
