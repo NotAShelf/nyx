@@ -25,7 +25,10 @@ in {
     fstrim.enable = true;
 
     # firmware updater for machine hardware
-    fwupd.enable = true;
+    fwupd = {
+      enable = true;
+      daemonSettings.EspLocation = config.boot.loader.efi.efiSysMountPoint;
+    };
 
     # I don't use lvm, can be disabled
     lvm.enable = mkDefault false;
