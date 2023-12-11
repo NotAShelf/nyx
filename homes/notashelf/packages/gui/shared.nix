@@ -13,21 +13,21 @@
 in {
   config = mkIf ((prg.gui.enable && sys.video.enable) && (builtins.elem dev.type acceptedTypes)) {
     home.packages = with pkgs; [
+      # zoom-us # may we never return to online education
+      nextcloud-client
+      easyeffects
+      librewolf
+      cinnamon.nemo
       schildichat-desktop
       qbittorrent
       hexchat
       netflix
       bitwarden
       (symlinkJoin {
+        # wrap obsidian with pandoc for the pandoc plugin dependency
         name = "Obsidian";
         paths = with pkgs; [obsidian pandoc];
       })
-
-      nextcloud-client
-      easyeffects
-      librewolf
-      # zoom-us # I hate this
-      cinnamon.nemo
 
       # plasma packages
       plasma5Packages.dolphin
@@ -36,6 +36,7 @@ in {
       plasma5Packages.kio-extras
       plasma5Packages.kimageformats
       plasma5Packages.kdegraphics-thumbnailers
+      plasma5Packages.okular
 
       # gnome packages
       gnome.gnome-tweaks
