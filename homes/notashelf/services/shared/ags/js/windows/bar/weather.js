@@ -1,4 +1,5 @@
 import { Widget, Variable, App } from "../../imports.js";
+const { Label } = Widget;
 
 const weather = Variable(
     {},
@@ -12,8 +13,9 @@ const weather = Variable(
 );
 
 export const Weather = () =>
-    Widget.Label({
+    Label({
         hexpand: false,
+        vexpand: false,
         class_name: "weather",
         binds: [
             ["label", weather, "value", (value) => value.text || "..."],

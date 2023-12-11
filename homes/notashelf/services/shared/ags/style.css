@@ -48,11 +48,11 @@
 
 .weather {
   background: #313244;
-  font-family: "Material Symbols Sharp", "Material Design Icons", "Iosevka Nerd Font Mono", Inter, Roboto, sans-serif;
+  font-family: "Material Symbols Sharp", Roboto;
   border-radius: 12px;
   margin: 6px 4px;
-  padding: 6px;
-  min-height: 1rem;
+  padding: 4px;
+  min-height: 1.5rem;
   min-width: 1rem;
   transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
   .weather:hover {
