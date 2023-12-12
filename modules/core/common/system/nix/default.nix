@@ -176,6 +176,7 @@ with lib; {
         "https://neovim-flake.cachix.org" # a cache for my neovim flake
         "https://cache.garnix.io" # garnix binary cache, hosts prismlauncher
         "https://cache.notashelf.dev" # my own binary cache, served over http(s)
+        "https://ags.cachix.org" # ags
       ];
 
       trusted-public-keys = [
@@ -194,6 +195,7 @@ with lib; {
         "nyx.cachix.org-1:xH6G0MO9PrpeGe7mHBtj1WbNzmnXr7jId2mCiq6hipE="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "cache.notashelf.dev-1:DhlmJBtURj+XS3j4F8SFFukT8dYgSjtFcd3egH8rE6U="
+        "ags.cachix.org-1:6dgD1o7ce5ugVJ0U7PZ8XPnXdOv9JarKDkLP+TquBLM="
       ];
     };
   };

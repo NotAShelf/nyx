@@ -9,7 +9,7 @@
     config.wayland.windowManager.hyprland.package
     config.programs.foot.package
     inputs.hyprpicker.packages.${pkgs.system}.default
-    (pkgs.python3.withPackages (pythonPackages: [pythonPackages.requests]))
+    (python3.withPackages (pythonPackages: [pythonPackages.requests]))
     # basic functionality
     sassc
     inotify-tools
@@ -31,6 +31,7 @@
   ];
 
   fs = lib.fileset;
+  filterNixFiles = fs.fileFilter (file: lib.hasSuffix ".nix" file.name) ./.;
   baseSrc = fs.unions [
     ./js
     ./scss
@@ -38,7 +39,6 @@
     ./style.css
   ];
 
-  filterNixFiles = fs.fileFilter (file: lib.hasSuffix ".nix" file.name) ./.;
   filter = fs.difference baseSrc filterNixFiles;
 
   cfg = config.programs.ags;
@@ -47,8 +47,6 @@ in {
   config = {
     programs.ags = {
       enable = true;
-      extraPackages = dependencies;
-
       configDir = fs.toSource {
         root = ./.;
         fileset = filter;
