@@ -19,7 +19,7 @@
   builders = import' ./builders.nix {inherit inputs;}; # system builders
   services = import' ./services.nix; # systemd-service generators
   validators = import' ./validators.nix; # validate system conditions
-  helpers = import' ./helpers.nix; # helper functions
+  helpers = import' ./helpers; # helper functions
   hardware = import' ./hardware.nix; # hardware capability checks
   xdg = import' ./xdg; # xdg user directories & templates
 

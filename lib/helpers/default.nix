@@ -1,5 +1,6 @@
 {lib, ...}: let
   inherit (lib) lists mapAttrsToList filterAttrs hasSuffix;
+  inherit (import ./systemd.nix) hardenService;
 
   # filter files that have the .nix suffix
   filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
@@ -49,5 +50,5 @@
   # "A String With Whitespaces" -> "a-string-with-whitespaces"
   serializeTheme = inputString: lib.strings.toLower (builtins.replaceStrings [" "] ["-"] inputString);
 in {
-  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf intListToStringList;
+  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf intListToStringList hardenService;
 }
