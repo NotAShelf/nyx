@@ -88,7 +88,6 @@
             (pkgs.writeShellApplication {
               name = "update";
               text = ''
-                ${pkgs.runtimeShell}
                 nix flake update && git commit flake.lock -m "flake: bump inputs"
               '';
             })
