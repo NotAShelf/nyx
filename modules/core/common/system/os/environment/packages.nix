@@ -15,6 +15,8 @@
       wget
       pciutils
       lshw
+      man-pages
+      rsync
     ];
   };
 }
