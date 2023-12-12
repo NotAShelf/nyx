@@ -19,6 +19,9 @@ in {
 
     (mkRenamedOptionModule ["modules" "system" "boot" "enableInitrdTweaks"] ["modules" "system" "boot" "initrd" "enableTweaks"])
     (mkRenamedOptionModule ["modules" "system" "security" "secureBoot"] ["modules" "system" "boot" "secureBoot"])
+
     (mkRenamedOptionModule ["modules" "system" "services" "gitea" "enable"] ["modules" "system" "services" "forgejo" "enable"])
+    (mkRenamedOptionModule ["modules" "system" "services" "mastodon" "enable"] ["modules" "system" "services" "social" "mastodon" "enable"])
+    (mkRenamedOptionModule ["modules" "system" "services" "matrix" "enable"] ["modules" "system" "services" "social" "matrix" "enable"])
   ];
 }
