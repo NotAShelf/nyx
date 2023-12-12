@@ -7,10 +7,10 @@
   inherit (lib) mkIf;
 
   dev = config.modules.device;
-  cfg = config.modules.system.services;
+  cfg = config.modules.system.services.social;
   acceptedTypes = ["server" "hybrid"];
 
-  port = 8008;
+  inherit (cfg.matrix.settings) port;
   bindAddress = "::1";
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
   clientConfig = {
