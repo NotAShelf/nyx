@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./programs
     ./services
@@ -6,5 +6,6 @@ _: {
 
     ./environment.nix
     ./systemd.nix
+    ./documentation.nix
   ];
 }
