@@ -76,7 +76,8 @@ in {
 
     programs = {
       # music tagger and organizer
-      beets = import ./beets.nix {inherit config;};
+      # FIXME: another build failure (13.12.2022)
+      # beets = import ./beets.nix {inherit config;};
 
       # ncmpcpp configuration, has cool stuff like visualiser
       ncmpcpp = import ./ncmpcpp.nix {inherit config pkgs;};
