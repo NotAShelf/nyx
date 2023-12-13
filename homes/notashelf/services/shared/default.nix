@@ -1,6 +1,5 @@
 {
   imports = [
-    ./ags
     ./cloud
     ./dunst
     ./media

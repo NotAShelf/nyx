@@ -1,5 +1,6 @@
 {
   inputs,
+  osConfig,
   config,
   pkgs,
   lib,
@@ -42,9 +43,14 @@
   filter = fs.difference baseSrc filterNixFiles;
 
   cfg = config.programs.ags;
+
+  inherit (lib) mkIf;
+  inherit (osConfig.modules) device;
+
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   imports = [inputs.ags.homeManagerModules.default];
-  config = {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.ags = {
       enable = true;
       configDir = fs.toSource {

@@ -1,5 +1,6 @@
-_: {
+{
   imports = [
+    ./ags
     ./clipboard
     ./gammastep
     ./hyprpaper
