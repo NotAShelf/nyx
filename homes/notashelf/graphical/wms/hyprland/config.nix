@@ -237,8 +237,8 @@ in {
         ",XF86AudioMute, exec, volume -t"
 
         # brightness controls
-        '',XF86MonBrightnessUp,exec,pgrep -x "ags" > /dev/null && ags --run-js "brightness.screen -= 0.01''
-        '',XF86MonBrightnessDown,exec,pgrep -x "ags" > /dev/null && ags --run-js "brightness.screen += 0.01''
+        '',XF86MonBrightnessUp,exec,ags --run-js "brightness.screen += 0.05"''
+        '',XF86MonBrightnessDown,exec, ags --run-js "brightness.screen -= 0.05"''
       ];
 
       # binds that are locked, a.k.a will activate even while an input inhibitor is active
