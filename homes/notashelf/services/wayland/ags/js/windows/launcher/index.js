@@ -106,7 +106,7 @@ const Launcher = () => {
     });
 };
 
-export const launcher = PopupWindow({
+export const AppLauncher = PopupWindow({
     name: WINDOW_NAME,
     anchor: ["top", "bottom", "right"],
     margins: [13, 13, 0, 13],
