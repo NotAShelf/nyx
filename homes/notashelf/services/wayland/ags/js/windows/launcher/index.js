@@ -54,7 +54,6 @@ const AppItem = (app) =>
 
 const Launcher = () => {
     const list = Widget.Box({ vertical: true });
-
     const entry = Widget.Entry({
         className: "launcherEntry",
         hexpand: true,
@@ -106,14 +105,15 @@ const Launcher = () => {
     });
 };
 
-export const AppLauncher = PopupWindow({
-    name: WINDOW_NAME,
-    anchor: ["top", "bottom", "right"],
-    margins: [13, 13, 0, 13],
-    layer: "overlay",
-    transition: "slide_left",
-    popup: true,
-    visible: false,
-    focusable: true,
-    child: Launcher(),
-});
+export const AppLauncher = () =>
+    PopupWindow({
+        name: WINDOW_NAME,
+        anchor: ["top", "bottom", "right"],
+        margins: [13, 13, 0, 13],
+        layer: "overlay",
+        transition: "slide_left",
+        popup: true,
+        visible: false,
+        focusable: true,
+        child: Launcher(),
+    });
