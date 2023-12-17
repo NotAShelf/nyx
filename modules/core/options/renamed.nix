@@ -18,5 +18,7 @@ in {
     (mkRenamedOptionModule ["modules" "system" "services" "atticd" "enable"] ["modules" "system" "services" "bincache" "atticd" "enable"])
     (mkRenamedOptionModule ["modules" "system" "services" "wireguard" "enable"] ["modules" "system" "services" "networking" "wireguard" "enable"])
     (mkRenamedOptionModule ["modules" "system" "services" "headscale" "enable"] ["modules" "system" "services" "networking" "headscale" "enable"])
+
+    (mkRenamedOptionModule ["modules" "system" "boot" "enableInitrdTweaks"] ["modules" "system" "boot" "initrd" "enableTweaks"])
   ];
 }

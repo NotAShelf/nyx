@@ -3,12 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     services = {
       # enable GVfs, a userspace virtual filesystem.
       gvfs.enable = true;
@@ -17,7 +18,7 @@ in {
       tumbler.enable = true;
 
       # storage daemon required for udiskie auto-mount
-      udisks2.enable = true;
+      udisks2.enable = !config.boot.isContainer;
 
       dbus = {
         enable = true;
@@ -42,7 +43,7 @@ in {
         freeMemThreshold = 2;
         extraArgs = [
           "-g"
-          "--avoid 'Hyprland|soffice|soffice.bin|firefox)$'" # things we want to not kill
+          "--avoid 'Hyprland|soffice|soffice.bin|firefox|thunderbird)$'" # things we want to not kill
           "--prefer '^(electron|.*.exe)$'" # I wish we could kill electron permanently
         ];
 
@@ -61,15 +62,12 @@ in {
     in {
       inherit extraConfig;
       user = {inherit extraConfig;};
-      services."getty@tty1".enable = false;
-      services."autovt@tty1".enable = false;
-      services."getty@tty7".enable = false;
-      services."autovt@tty7".enable = false;
-
-      # TODO channels-to-flakes
-      tmpfiles.rules = [
-        "D /nix/var/nix/profiles/per-user/root 755 root root - -"
-      ];
+      services = {
+        "getty@tty1".enable = false;
+        "autovt@tty1".enable = false;
+        "getty@tty7".enable = false;
+        "autovt@tty7".enable = false;
+      };
     };
   };
 }
