@@ -1,20 +1,11 @@
-{
-  inputs,
-  self,
-  ...
-}: {
-  # Installer image for my Raspberry Pi
-  atlas =
-    (self.nixosConfigurations.atlas.extendModules {
-      modules = ["${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"];
-    })
-    .config
-    .system
-    .build
-    .sdImage;
-
+{inputs, ...}: let
+  inherit (inputs) self;
+in {
   # Installation iso
   gaea = self.nixosConfigurations.gaea.config.system.build.isoImage;
+
+  # SD Card Image
+  uranus = self.nixosConfigurations.uranus.config.system.build.sdImage;
 
   # air-gapped VM
   erebus = self.nixosConfigurations.erebus.config.system.build.isoImage;

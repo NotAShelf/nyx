@@ -49,6 +49,23 @@
         ]
         ++ args.modules or [];
     };
+
+  mkSdImage = {
+    modules,
+    system,
+    ...
+  } @ args:
+    mkSystem {
+      inherit system;
+      specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
+      modules =
+        [
+          # get an installer profile from nixpkgs to base the Isos off of
+          "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
+          inputs.nixos-hardware.nixosModules.raspberry-pi-4
+        ]
+        ++ args.modules or [];
+    };
 in {
-  inherit mkSystem mkNixosSystem mkNixosIso;
+  inherit mkSystem mkNixosSystem mkNixosIso mkSdImage;
 }

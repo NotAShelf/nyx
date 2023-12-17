@@ -13,23 +13,46 @@ in {
         cpu = "pi";
         gpu = "pi";
         monitors = ["HDMI-A-1"];
-        hasBluetooth = true;
-        hasSound = true;
+        hasBluetooth = false;
+        hasSound = false;
         hasTPM = false;
       };
 
       system = {
-        fs = ["ext4" "vfat"];
-        video.enable = true;
-        sound.enable = true;
+        mainUser = "notashelf";
+        fs = ["ext4" "vfat" "ntfs" "exfat"];
+        autoLogin = false;
+
+        boot = {
+          loader = "none";
+          enableKernelTweaks = true;
+          enableInitrdTweaks = true;
+          tmpOnTmpfs = false;
+        };
+
+        video.enable = false;
+        sound.enable = false;
         bluetooth.enable = false;
         printing.enable = false;
-        virtualization.enable = false;
-        mainUser = "notashelf";
+        emulation.enable = false;
 
-        networking.tailscale = {
-          enable = true;
-          isClient = true;
+        virtualization.enable = false;
+
+        networking = {
+          optimizeTcp = true;
+          nftables.enable = true;
+          tailscale = {
+            enable = true;
+            isClient = true;
+            isServer = false;
+          };
+        };
+
+        security = {
+          tor.enable = true;
+          fixWebcam = false;
+          lockModules = true;
+          auditd.enable = true;
         };
       };
 
@@ -38,27 +61,15 @@ in {
         desktop = "Hyprland";
         useHomeManager = true;
       };
-
-      programs = {
-        git.signingKey = "0x84184B8533918D88";
-
-        cli.enable = true;
-        gui.enable = false;
-
-        gaming = {
-          enable = false;
-          chess.enable = false;
-        };
-
-        default = {
-          terminal = "foot";
-        };
-
-        override = {};
-      };
     };
 
-    environment.systemPackages = with pkgs; [git neovim];
+    environment.systemPackages = with pkgs; [
+      libraspberrypi
+      raspberrypi-eeprom
+      git
+      neovim
+    ];
+
     hardware = {
       # Enable GPU acceleration
       raspberry-pi."4".fkms-3d.enable = true;
@@ -75,34 +86,30 @@ in {
       loader.grub.enable = mkForce false;
     };
 
-    services = {
-      xserver = {
-        enable = false;
-        displayManager.lightdm.enable = false;
-        desktopManager.xfce.enable = false;
-      };
-
-      create_ap = {
-        enable = true;
-        settings = {
-          INTERNET_IFACE = "eth0";
-          WIFI_IFACE = "wlan0";
-          SSID = "Pizone";
-          PASSPHRASE = "12345678";
-        };
-      };
-    };
-
     fileSystems = {
       "/" = {
-        device = lib.mkForce "/dev/disk/by-label/NIXOS_SD";
+        device = lib.mkForce "/dev/disk/by-label/NIXOS";
         fsType = "ext4";
         options = ["noatime"];
       };
     };
 
-    hardware = {
-      enableRedistributableFirmware = true;
+    nixpkgs = {
+      config.allowUnsupportedSystem = true;
+      hostPlatform.system = "armv7l-linux";
+      buildPlatform.system = "x86_64-linux";
     };
+
+    hardware = {
+      raspberry-pi."4".apply-overlays-dtmerge.enable = true;
+      deviceTree = {
+        enable = true;
+        filter = "*rpi-4-*.dtb";
+      };
+    };
+
+    console.enable = false;
+
+    system.stateVersion = "24.05";
   };
 }
