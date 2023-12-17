@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }: let
@@ -41,22 +42,30 @@ in {
   #home.sessionVariables = template.sysEnv;
   xdg = {
     enable = true;
+    cacheHome = "${config.home.homeDirectory}/.cache";
+    configHome = "${config.home.homeDirectory}/.config";
+    dataHome = "${config.home.homeDirectory}/.local/share";
+    stateHome = "${config.home.homeDirectory}/.local/state";
+
     configFile = {
       "npm/npmrc" = template.npmrc;
       "python/pythonrc" = template.pythonrc;
     };
 
     userDirs = {
-      enable = true;
+      enable = pkgs.stdenv.isLinux;
       createDirectories = true;
-      documents = "$HOME/Documents";
-      download = "$HOME/Downloads";
-      videos = "$HOME/Media/Videos";
-      music = "$HOME/Media/Music";
-      pictures = "$HOME/Media/Pictures";
-      desktop = "$HOME/Desktop";
-      publicShare = "$HOME/Public/Share";
-      templates = "$HOME/Public/Templates";
+
+      download = "${config.home.homeDirectory}/downloads";
+      desktop = "${config.home.homeDirectory}/desktop";
+      documents = "${config.home.homeDirectory}/desktop/documents";
+
+      publicShare = "${config.home.homeDirectory}/.local/share/public";
+      templates = "${config.home.homeDirectory}/.local/share/templates";
+
+      music = "${config.home.homeDirectory}/media/music";
+      pictures = "${config.home.homeDirectory}/media/pictures";
+      videos = "${config.home.homeDirectory}/media/videos";
 
       extraConfig = {
         XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
