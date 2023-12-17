@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf isx86Linux;
 
   sys = config.modules.system;
 in {
@@ -13,7 +13,7 @@ in {
       opengl = {
         enable = true;
         driSupport = true;
-        driSupport32Bit = true;
+        driSupport32Bit = isx86Linux pkgs;
       };
     };
 
