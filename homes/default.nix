@@ -1,10 +1,10 @@
 {
   config,
+  lib,
   inputs,
   self,
   inputs',
   self',
-  lib,
   ...
 }: let
   inherit (config) modules;
