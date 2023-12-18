@@ -56,16 +56,16 @@ in {
       enable = pkgs.stdenv.isLinux;
       createDirectories = true;
 
-      download = "${config.home.homeDirectory}/downloads";
-      desktop = "${config.home.homeDirectory}/desktop";
-      documents = "${config.home.homeDirectory}/desktop/documents";
+      download = "${config.home.homeDirectory}/Downloads";
+      desktop = "${config.home.homeDirectory}/Desktop";
+      documents = "${config.home.homeDirectory}/Documents";
 
       publicShare = "${config.home.homeDirectory}/.local/share/public";
       templates = "${config.home.homeDirectory}/.local/share/templates";
 
-      music = "${config.home.homeDirectory}/media/music";
-      pictures = "${config.home.homeDirectory}/media/pictures";
-      videos = "${config.home.homeDirectory}/media/videos";
+      music = "${config.home.homeDirectory}/Media/Music";
+      pictures = "${config.home.homeDirectory}/Media/Pictures";
+      videos = "${config.home.homeDirectory}/Media/Videos";
 
       extraConfig = {
         XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
