@@ -71,8 +71,16 @@ in {
     ];
 
     hardware = {
-      # Enable GPU acceleration
-      raspberry-pi."4".fkms-3d.enable = true;
+      raspberry-pi."4" = {
+        # Enable GPU acceleration
+        fkms-3d.enable = true;
+        apply-overlays-dtmerge.enable = true;
+      };
+
+      deviceTree = {
+        enable = true;
+        filter = "*rpi-4-*.dtb";
+      };
 
       opengl = {
         # this only takes effect in 64 bit systems
@@ -98,14 +106,6 @@ in {
       config.allowUnsupportedSystem = true;
       hostPlatform.system = "armv7l-linux";
       buildPlatform.system = "x86_64-linux";
-    };
-
-    hardware = {
-      raspberry-pi."4".apply-overlays-dtmerge.enable = true;
-      deviceTree = {
-        enable = true;
-        filter = "*rpi-4-*.dtb";
-      };
     };
 
     console.enable = false;
