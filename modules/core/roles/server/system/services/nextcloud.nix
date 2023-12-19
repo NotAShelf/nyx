@@ -98,6 +98,15 @@ in {
           RestartSec = "10s";
         };
       };
+
+      "nextcloud-preview" = {
+        description = "Generate previews for all images that haven't been rendered";
+        startAt = "01:00:00";
+        path = [config.services.nextcloud.occ];
+        script = ''
+          nextcloud-occ preview:pre-generate
+        '';
+      };
     };
   };
 }
