@@ -27,7 +27,13 @@ in {
 
   services = {
     # systemd DNS resolver daemon
-    resolved.enable = true;
+    resolved = {
+      enable = true;
+      domains = ["~."];
+      extraConfig = ''
+        DNSOverTLS=yes
+      '';
+    };
   };
 
   networking = {
@@ -52,6 +58,9 @@ in {
 
     # dns
     nameservers = [
+      # tailscale
+      "100.255.255.10"
+
       # cloudflare, yuck
       # shares data
       "1.1.1.1"
@@ -64,6 +73,8 @@ in {
       # TODO: find a schizo nameserver that does not compromise on speed or availability
       # or just set up my own, which would be slow
     ];
+
+    search = ["hs.notashelf.dev"];
 
     wireless = {
       enable = sys.networking.wirelessBackend == "wpa_supplicant";

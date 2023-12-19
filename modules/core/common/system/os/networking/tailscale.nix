@@ -15,11 +15,11 @@ in {
     environment.systemPackages = [pkgs.tailscale];
 
     networking.firewall = {
-      # always allow traffic from your Tailscale network
+      # always allow traffic from the designated tailscale interface
       trustedInterfaces = ["${tailscale.interfaceName}"];
       checkReversePath = "loose";
 
-      # allow the Tailscale UDP port through the firewall
+      # allow
       allowedUDPPorts = [tailscale.port];
     };
 
@@ -27,8 +27,8 @@ in {
     services.tailscale = {
       enable = true;
       permitCertUid = "root";
-      useRoutingFeatures = mkDefault "server";
-      extraUpFlags = sys.tailscale.defaultFlags ++ optionals sys.tailscale.enable ["--advertise-exit-node"];
+      useRoutingFeatures = mkDefault "both";
+      extraUpFlags = sys.tailscale.defaultFlags ++ optionals sys.tailscale.isServer ["--advertise-exit-node"];
     };
 
     # server can't be client and client be server

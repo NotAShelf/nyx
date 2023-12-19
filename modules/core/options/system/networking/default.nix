@@ -12,7 +12,6 @@ in {
   options.modules.system.networking = {
     nftables.enable = mkEnableOption "nftables firewall";
     tarpit.enable = mkEnableOption "endlessh-go tarpit";
-
     optimizeTcp = mkEnableOption "TCP optimizations";
 
     wirelessBackend = mkOption {
