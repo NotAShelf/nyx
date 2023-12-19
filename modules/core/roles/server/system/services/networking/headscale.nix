@@ -1,38 +1,64 @@
 {
+  inputs',
   config,
+  pkgs,
   lib,
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (config.networking) domain;
 
   sys = config.modules.system;
   cfg = sys.services.headscale;
 in {
   config = mkIf cfg.enable {
     environment.systemPackages = [config.services.headscale.package];
+    networking = {
+      firewall.allowedUDPPorts = [8086]; # DERP
+    };
 
     services = {
       headscale = {
         enable = true;
-        address = "0.0.0.0";
+        address = "127.0.0.1";
         port = 8085;
 
         settings = {
-          server_url = "https://hs.${domain}";
+          server_url = "https://hs.notashelf.dev";
+          tls_cert_path = null;
+          tls_key_path = null;
 
           dns_config = {
             override_local_dns = true;
-            base_domain = "${domain}";
             magic_dns = true;
-            domains = ["hs.${domain}"];
+            base_domain = "ts.net";
+            domains = ["ts.notashelf.dev"];
             nameservers = [
               "9.9.9.9" # no cloudflare, nice
             ];
+
+            /*
+            extra_records = [
+              {
+                name = "sub.notashelf.dev";
+                type = "A";
+                value = "100.64.0.1"; # NOTE: this should be the address of the "host" node - which is the server
+              }
+            ];
+            */
+          };
+
+          derp.server = {
+            enabled = true;
+            region_id = 999;
+            stun_listen_addr = "0.0.0.0:8086";
+
+            auto_update_enable = true;
+            update_frequency = "24h";
           };
 
           log = {
-            level = "warn";
+            format = "text";
+            level = "info";
           };
 
           ip_prefixes = [
@@ -40,37 +66,71 @@ in {
             "fd7a:115c:a1e0::/48"
           ];
 
+          /*
           db_type = "postgres";
           db_host = "/run/postgresql";
           db_name = "headscale";
           db_user = "headscale";
+          db_port = 5432; # not ignored for some reason
+          */
 
-          # TODO. logtail
+          metrics_listen_addr = "127.0.0.1:8087";
+          # TODO: logtail
           logtail = {
             enabled = false;
           };
         };
       };
 
-      nginx.virtualHosts."hs.${domain}" =
-        {
-          locations."/" = {
-            recommendedProxySettings = true;
+      nginx.virtualHosts."hs.notashelf.dev" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/" = {
             proxyPass = "http://localhost:${toString config.services.headscale.port}";
             proxyWebsockets = true;
           };
 
-          /*
           # this is a decent looking web-ui, and the below configuration is enough to make it work
           # however tthe security policy of the frontend is quite inconveniencing on a multi-device
           # system - and as such, it remains disabled for the time being
           # also see: https://github.com/gurucomputing/headscale-ui/blob/master/SECURITY.md
-          locations."/web" = {
+          /*
+          "/web" = {
             root = "${inputs'.nyxpkgs.packages.headscale-ui}/share";
           };
           */
-        }
-        // lib.sslTemplate;
+        };
+      };
+    };
+
+    # create headscale user for this server
+    systemd.services = {
+      headscale = {
+        requires = [
+          "postgresql.service"
+        ];
+      };
+
+      create-headscale-user = {
+        description = "Create a headscale user and preauth keys for this server";
+
+        wantedBy = ["multi-user.target"];
+        after = ["headscale.service"];
+
+        serviceConfig = {
+          Type = "oneshot";
+          User = "headscale";
+        };
+
+        path = [pkgs.headscale];
+        script = ''
+          if ! headscale users list | grep notashelf; then
+            headscale users create notashelf
+            headscale --user notashelf preauthkeys create --reusable --expiration 100y > /var/lib/headscale/preauth.key
+          fi
+        '';
+      };
     };
   };
 }

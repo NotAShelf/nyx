@@ -51,13 +51,6 @@ _: {
           identityFile = "~/.ssh/id_rsa";
         };
 
-        "notavps" = {
-          hostname = "cloud.notashelf.dev";
-          user = "notashelf";
-          identityFile = "~/.ssh/notavps";
-          port = 2214;
-        };
-
         "github" = {
           hostname = "github.com";
           identityFile = "~/.ssh/github_rsa";

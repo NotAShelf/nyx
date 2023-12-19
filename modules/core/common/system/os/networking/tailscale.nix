@@ -33,12 +33,12 @@ in {
 
     # server can't be client and client be server
     assertions = [
-      (mkIf (cfg.isClient == cfg.isServer) {
-        assertion = false;
+      {
+        assertion = cfg.isClient != cfg.isServer;
         message = ''
           You have enabled both client and server features of the Tailscale service. Unless you are providing your own UpFlags, this is probably not what you want.
         '';
-      })
+      }
     ];
   };
 }
