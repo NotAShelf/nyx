@@ -25,6 +25,7 @@ in {
       mastodon.enable = mkEnableOption "Mastodon service";
       reposilite.enable = mkEnableOption "Repeosilite service";
       elasticsearch.enable = mkEnableOption "Elasticsearch service";
+      kanidm.enable = mkEnableOption "Kanidm service";
 
       # monitoring tools
       monitoring = {

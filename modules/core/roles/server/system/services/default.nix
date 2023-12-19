@@ -20,6 +20,7 @@
     ./mastodon.nix # decentralized social
     ./reposilite.nix # self-hosted maven repository
     ./elasticsearch.nix # elasticsearch
+    ./kanidm.nix # kanidm identity management
 
     # misc
     ./mkm.nix # holy fuck
