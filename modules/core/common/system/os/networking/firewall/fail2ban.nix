@@ -15,6 +15,7 @@ in {
     ignoreIP = [
       "127.0.0.0/8"
       "10.0.0.0/8"
+      "100.64.0.0/16"
       "192.168.0.0/16"
     ];
 
@@ -58,7 +59,7 @@ in {
       rndtime = "12m";
       overalljails = true;
       multipliers = "4 8 16 32 64 128 256 512 1024 2048";
-      maxtime = "192h"; # get banned for 192 hours idiot
+      maxtime = "5000h"; # get banned for 5000 hours idiot
     };
   };
 }
