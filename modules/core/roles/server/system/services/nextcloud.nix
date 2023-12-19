@@ -26,7 +26,7 @@ in {
     services = {
       nextcloud = {
         enable = true;
-        package = pkgs.nextcloud27;
+        package = pkgs.nextcloud28;
 
         nginx.recommendedHttpHeaders = true;
         https = true;
@@ -37,7 +37,16 @@ in {
         enableImagemagick = true;
 
         extraApps = with config.services.nextcloud.package.packages.apps; {
-          inherit news contacts calendar tasks;
+          # wtf is this formatting
+          inherit
+            #news
+            contacts
+            calendar
+            tasks
+            bookmarks
+            deck
+            forms
+            ;
         };
 
         autoUpdateApps = {
