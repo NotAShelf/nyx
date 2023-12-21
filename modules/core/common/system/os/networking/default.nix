@@ -15,20 +15,15 @@ in {
     ./blocker.nix
     ./tailscale.nix
     ./optimise.nix
+    ./tcpcrypt.nix
   ];
-
-  users = mkIf config.networking.tcpcrypt.enable {
-    groups.tcpcryptd = {};
-    users.tcpcryptd = {
-      group = "tcpcryptd";
-      isSystemUser = true;
-    };
-  };
 
   services = {
     # systemd DNS resolver daemon
     resolved = {
       enable = true;
+      # this is necessary to get tailscale picking up your headscale instance
+      # and allows you to ping conneccted hosts by hostname
       domains = ["~."];
       extraConfig = ''
         DNSOverTLS=yes
@@ -50,17 +45,8 @@ in {
     # this already defaults to true, we set it in case it changes upstream
     usePredictableInterfaceNames = mkDefault true;
 
-    # enable opportunistic TCP encryption
-    # this is NOT a pancea, however, if the receiver supports encryption and the attacker is passive
-    # privacy will be more plausible (but not guaranteed, unlike what the option docs suggest)
-
-    tcpcrypt.enable = false; # FIXME: the systemd service does something wrong, investigate
-
     # dns
     nameservers = [
-      # tailscale
-      "100.255.255.10"
-
       # cloudflare, yuck
       # shares data
       "1.1.1.1"
@@ -73,8 +59,6 @@ in {
       # TODO: find a schizo nameserver that does not compromise on speed or availability
       # or just set up my own, which would be slow
     ];
-
-    search = ["hs.notashelf.dev"];
 
     wireless = {
       enable = sys.networking.wirelessBackend == "wpa_supplicant";
