@@ -2,7 +2,22 @@
   config,
   lib,
   ...
-}: {
+}: let
+  inherit (lib) mkIf optionalAttrs;
+
+  dev = config.modules.device;
+in {
+  # https://wiki.archlinux.org/title/Systemd/Journal#Persistent_journals
+  # limit systemd journal size
+  # journals get big really fasti and on desktops they are not audited often
+  # on servers, however, they are important for both security and stability
+  # thus, persisting them as is remains a good idea
+  services.journald.extraConfig = mkIf (dev.type != "server") ''
+    SystemMaxUse=100M
+    RuntimeMaxUse=50M
+    SystemMaxFileSize=50M
+  '';
+
   systemd =
     {
       # Systemd OOMd
@@ -21,7 +36,7 @@
         "w /sys/module/printk/parameters/always_kmsg_dump - - - - N"
       ];
     }
-    // lib.optionalAttrs config.security.auditd.enable {
+    // optionalAttrs config.security.auditd.enable {
       # a systemd timer to clean /var/log/audit.log daily
       # this can probably be weekly, but daily means we get to clean it every 2-3 days instead of once a week
       timers."clean-audit-log" = {
