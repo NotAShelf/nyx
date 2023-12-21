@@ -17,7 +17,7 @@
   dev = config.modules.device;
   acceptedTypes = ["laptop" "hybrid"];
 in {
-  config = mkIf (builtins.elem dev.types acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     # Power state monitor. Switches Power profiles based on charging state.
     # Plugged in - performance
     # Unplugged - power-saver

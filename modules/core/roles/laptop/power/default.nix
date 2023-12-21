@@ -11,7 +11,7 @@
 in {
   imports = [./monitor.nix];
 
-  config = mkIf (builtins.elem dev.types acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     hardware.acpilight.enable = true;
 
     environment.systemPackages = with pkgs; [
