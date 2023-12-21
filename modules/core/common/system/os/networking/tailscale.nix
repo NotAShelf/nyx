@@ -28,17 +28,18 @@ in {
       enable = true;
       permitCertUid = "root";
       useRoutingFeatures = mkDefault "both";
-      extraUpFlags = sys.tailscale.defaultFlags ++ optionals sys.tailscale.isServer ["--advertise-exit-node"];
+      # TODO: these actually need to be specified with `tailscale up`
+      extraUpFlags = cfg.defaultFlags ++ optionals cfg.isServer ["--advertise-exit-node"];
     };
 
-    # server can't be client and client be server
-    assertions = [
-      {
-        assertion = cfg.isClient != cfg.isServer;
-        message = ''
-          You have enabled both client and server features of the Tailscale service. Unless you are providing your own UpFlags, this is probably not what you want.
-        '';
-      }
-    ];
+    # lets not send our logs to log.tailscale.io
+    # unless I get to know what they do with the logs
+    systemd = {
+      services.tailscaled.serviceConfig.Environment = lib.mkBefore [
+        "TS_NO_LOGS_NO_SUPPORT=true"
+      ];
+
+      network.wait-online.ignoredInterfaces = ["${tailscale.interfaceName}"];
+    };
   };
 }
