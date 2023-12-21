@@ -8,21 +8,27 @@ snapshots to restore / to its original state on each boot.
 
 ## Resources
 
-- [This discourse post](https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167)
-- [This blog post](https://elis.nu/blog/2020/06/nixos-tmpfs-as-home)
-- [This other blog post](https://guekka.github.io/nixos-server-1/)
-- [And this post that the previous post is based on](https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html)
-- [Impermanence](https://github.com/nix-community/impermanence)
+-   [This discourse post](https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167)
+-   [This blog post](https://elis.nu/blog/2020/06/nixos-tmpfs-as-home)
+-   [This other blog post](https://guekka.github.io/nixos-server-1/)
+-   [And this post that the previous post is based on](https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html)
+-   [Impermanence](https://github.com/nix-community/impermanence)
 
 ## The actual set-up (and reproduction steps)
 
-I've had to go through a few guides before I could figure out a set up that I really like. The final decision was that I would have an encrypted disk that restores itself to its former state during boot. Is it fast? Absolutely not. But it sure as hell is cool. And stateless!
+I've had to go through a few guides before I could figure out a set up that I really like. The final decision was that I would have
+an encrypted disk that restores itself to its former state during boot. Is it fast? Absolutely not. But it sure as hell is cool. And stateless!
 
-To return the root (and only the root) we use a systemd service that fires shortly after the disk is encrypted but before the root is actually mounted. That way, we can unlock the disk, restore the disk to its pristine state using the snapshot we have taken during installation and mount the root to go on with our day.
+To return the root (and only the root) we use a systemd service that fires shortly after the disk is encrypted but before the root is actually
+mounted. That way, we can unlock the disk, restore the disk to its pristine state using the snapshot we have taken during installation and mount
+the root to go on with our day.
 
 ### Reproduction steps
 
-First you want to format your disk. If you are really comfortable with bringing parted to your pre-formatted disks, by all means feel free to skip your disk. I, however, choose to format a fresh disk.
+#### Partitioning
+
+First you want to format your disk. If you are really comfortable with bringing parted to your pre-formatted disks, by all means feel free to skip
+this section. I, however, choose to format a fresh disk.
 
 Start by partitioning the sections of our disk (sda1, sda2 and sda3)
 _Device names might change if you're using a nvme disk, i.e nvme0p1._
@@ -46,22 +52,27 @@ mkswap -L SWAP "$DISK"2
 swapon "$DISK"2
 ```
 
-*I do in fact use swap in the oh so civilized year of 2023[^1].
-If I were a little more advanced, I would also be encrypting the swap to secure the hibernates... but that is *currently* out of my scope.*
+I do in fact use swap in the oh so civilized year of 2023[^1].
+If I were a little more advanced, I would also be encrypting the swap to secure the hibernates... but that is _currently_ out of my scope.
 
-```bash
-parted "$DISK" -- mkpart primary 9GiB 100%
-mkfs.btrfs -L NIXOS /dev/mapper/enc
-```
-
-And finally the disk encryption
+Encrypt your partition, and open it to make it available under /dev/mapper/enc
 
 ```bash
 cryptsetup --verify-passphrase -v luksFormat "$DISK"3 # /dev/sda3
 cryptsetup open "$DISK"3 enc
 ```
 
-I could be using `tmpfs` for `/` at this point in time. Unfortunately, since I share this setup on some of my low-end laptops, I've got no RAM to spare - which is exactly why I have opted out with BTRFS. It is a reliable filesystem that I am used to, and it allows for us to use a script that we'll see later on.
+Now partition the encrypted partition.
+
+```bash
+parted "$DISK" -- mkpart primary 9GiB 100%
+mkfs.btrfs -L NIXOS /dev/mapper/enc
+```
+
+[^1]:
+    I could be using `tmpfs` for `/` at this point in time. Unfortunately, since I share this setup on some of my low-end laptops, I've got no RAM
+    to spare - which is exactly why I have opted out with BTRFS. It is a reliable filesystem that I am used to, and it allows for us to use a script
+    that we'll see later on.
 
 ```bash
 mount -t btrfs /dev/mapper/enc /mnt
@@ -82,7 +93,12 @@ btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 umount /mnt
 ```
 
-After the subvolumes are created, we mount them with the options that we want. Ideally, on NixOS, you want the `noatime` option [^2] and zstd compression.
+#### Mounting
+
+After the subvolumes are created, we mount them with the options that we want. Ideally, on NixOS, you want the `noatime` option [^2] and zstd
+compression, especially on your `/nix` partition.
+
+[^2]: https://opensource.com/article/20/6/linux-noatime
 
 The following is my partition layout. If you have created any other subvolumes in the step above, you will also want to mount them here.
 
@@ -103,7 +119,7 @@ mount -o subvol=log,compress=zstd,noatime /dev/mapper/enc /mnt/var/log
 
 # do not forget to mount the boot partition
 mkdir /mnt/boot
-mount "$DISK"p1 /mnt/boot
+mount "$DISK"1 /mnt/boot
 ```
 
 And finally let NixOS generate the hardware configuration.
@@ -184,13 +200,20 @@ It will look something like this:
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
 ```
 
-And that should be all. By this point you are pretty much ready to install with your existing config. I generally use my configuration flake to boot, so there is no need to make any revisions. If you are starting from scratch, consider tweaking your configuration.nix before you install the system. An editor like neovim, or your preferred DE/wm make good additions to your config.
+Do keep in mind that the nixos hardware scanner **cannot** pick up your mount options. You must specifiy the options (i.e `noatime`) for each
+btrfs volume that you have created in `hardware-configuration.nix`.
 
-Once it's all done, take a deep breath and `nixos-install`. Once the installation is done, you'll be prompted for the root password and after that you can reboot. Now you are running NixOS on an encrypted disk! Nice.
+### Closing Notes
+
+And that should be all. By this point you are pretty much ready to install with your existing config. I generally use my configuration flake
+to boot, so there is no need to make any revisions. If you are starting from scratch, consider tweaking your configuration.nix before you install
+the system. An editor like neovim, or your preferred DE/wm make good additions to your config.
+
+Once it's all done, take a deep breath and `nixos-install`. Once the installation is done, you'll be prompted for the root password and after that
+you can reboot. Now you are running NixOS on an encrypted disk! Nice.
 
 Next up, if you are feeling _really_ fancy today, is to configure disk erasure and impermanence.
 
@@ -249,11 +272,14 @@ boot.initrd.systemd.services.rollback = {
 
 ```
 
-> You may opt in for ` boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''` as [this blog post](https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html) suggests. I am not sure about the superiority or the inferiority of either option. To me, systemd services feel more comfortable.
+> You may opt in for ` boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''` as [this blog post](https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html)
+> suggests. I am not sure about the superiority or the inferiority of either option. To me, systemd services feel more comfortable.
 
-What this implies is that certain files such as saved networks for network-managers will be deleted on each reboot. While a little clunky, [Impermanence](https://github.com/nix-community/impermanence) is a great solution to our problem.
+What this implies is that certain files such as saved networks for network-managers will be deleted on each reboot.
+While a little clunky, [Impermanence](https://github.com/nix-community/impermanence) is a great solution to our problem.
 
-Impermanence exposes to our system an `environment.persistence."<dirName>"` option that we can use to make certain directories or files permanent. My module goes like this:
+Impermanence exposes to our system an `environment.persistence."<dirName>"` option that we can use to make certain directories or files permanent.
+My module goes like this:
 
 ```nix
 imports = [inputs.impermanence.nixosModules.impermanence]; # the import will be different if flakes are not enabled on your system
@@ -280,8 +306,9 @@ imports = [inputs.impermanence.nixosModules.impermanence]; # the import will be 
 
 ```
 
-And that is pretty much it. If everything went well, you should now be telling your friends about your new system boasting full disk encryption _and_ root rollbacks.
+And that is pretty much it. If everything went well, you should now be telling your friends about your new system boasting full disk
+encryption _and_ root rollbacks.
 
-# Why?
+## Why?
 
 Honestly, why not?
