@@ -23,6 +23,7 @@ in {
       hexchat
       netflix
       bitwarden
+      helvum
       (symlinkJoin {
         # wrap obsidian with pandoc for the pandoc plugin dependency
         name = "Obsidian";
