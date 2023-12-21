@@ -94,26 +94,20 @@ in {
             proxyWebsockets = true;
           };
 
-          # this is a decent looking web-ui, and the below configuration is enough to make it work
-          # however tthe security policy of the frontend is quite inconveniencing on a multi-device
-          # system - and as such, it remains disabled for the time being
-          # also see: https://github.com/gurucomputing/headscale-ui/blob/master/SECURITY.md
-          /*
+          # see <https://github.com/gurucomputing/headscale-ui/blob/master/SECURITY.md> before
+          # possibly using the web frontend
           "/web" = {
             root = "${inputs'.nyxpkgs.packages.headscale-ui}/share";
           };
-          */
         };
       };
     };
 
-    # create headscale user for this server
     systemd.services = {
-      headscale = {
-        requires = [
-          "postgresql.service"
-        ];
-      };
+      # TODO: consider enabling postgresql storage
+      # postgresql is normally pretty neat, but unless you expect your setup to receive
+      # very frequent logins, sqlite (default) storage may be more performant
+      # headscale.requires = ["postgresql.service"];
 
       create-headscale-user = {
         description = "Create a headscale user and preauth keys for this server";
