@@ -5,7 +5,7 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.dev;
+  dev = config.modules.device;
 in {
   # enable opportunistic TCP encryption
   # this is NOT a pancea, however, if the receiver supports encryption and the attacker is passive
