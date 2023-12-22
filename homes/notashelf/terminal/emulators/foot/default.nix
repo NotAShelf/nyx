@@ -19,7 +19,7 @@ in {
     programs.foot = {
       enable = true;
       package = inputs'.nyxpkgs.packages.foot-transparent;
-      server.enable = true; # broken
+      server.enable = true;
       settings = {
         main = {
           app-id = "foot";
@@ -27,10 +27,12 @@ in {
           locked-title = "no";
 
           term = "xterm-256color";
-          font = "monospace:size=14";
+          font = "Iosevka Nerd Font:pixelsize=14";
+          font-bold = "Iosevka Nerd Font:pixelsize=14";
           pad = "16x16";
           dpi-aware = "false";
           vertical-letter-offset = "-0.75";
+          shell = "zsh";
 
           notify = "notify-send -a \${app-id} -i \${app-id} \${title} \${body}";
           selection-target = "clipboard";
@@ -54,17 +56,7 @@ in {
           uri-characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+=\"'()[]";
         };
 
-        colors =
-          {
-            alpha = "0.85";
-          }
-          // (import ./presets/${slug}/colors.nix {inherit (config) colorscheme;});
-
-        /*
-        colors = {
-          alpha = "0.85";
-        };
-        */
+        colors = import ./presets/${slug}/colors.nix {inherit (config) colorscheme;} // {alpha = "0.85";};
 
         mouse = {
           hide-when-typing = "yes";

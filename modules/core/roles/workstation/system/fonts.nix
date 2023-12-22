@@ -18,6 +18,7 @@ in {
 
         defaultFonts = {
           monospace = [
+            "Iosevka Nerd Font Mono"
             "Iosevka Term"
             "Iosevka Term Nerd Font Complete Mono"
             "Iosevka Nerd Font"
