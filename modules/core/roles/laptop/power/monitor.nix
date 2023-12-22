@@ -6,8 +6,6 @@
 }: let
   inherit (lib) mkIf;
 
-  # script courtesy of Fufexan
-  script = pkgs.writeShellScript "power_monitor.sh" builtins.readFile ./power_monitor.sh;
   dependencies = with pkgs; [
     coreutils
     power-profiles-daemon
@@ -21,18 +19,18 @@ in {
     # Power state monitor. Switches Power profiles based on charging state.
     # Plugged in - performance
     # Unplugged - power-saver
-    systemd.user.services.power-monitor = {
-      Unit.Description = "Power Monitor";
-      Service = {
-        Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
+    systemd.user.services."power-monitor" = {
+      description = "Power Monitoring Service";
+      environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
+      script = builtins.readFile ./scripts/power_monitor.sh;
+
+      serviceConfig = {
         Type = "simple";
-        ExecStart = script;
         Restart = "on-failure";
       };
-      Install = {
-        After = ["power-profiles-daemon.service"];
-        WantedBy = ["default.target"];
-      };
+
+      requires = ["power-profiles-daemon.service"];
+      wantedBy = ["default.target"];
     };
   };
 }
