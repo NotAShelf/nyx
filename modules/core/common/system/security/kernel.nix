@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) optionals versionOlder;
+  inherit (lib) optionals versionOlder isx86Linux;
   mitigationFlags =
     (
       optionals (versionOlder config.boot.kernelPackages.kernel.version "5.1.13")
@@ -73,7 +73,7 @@ in {
 
       # apparmor configuration
       apparmor = {
-        enable = true;
+        enable = isx86Linux pkgs; # apparmor-utils is marked as broken on aarch64
         killUnconfinedConfinables = true;
         packages = [pkgs.apparmor-profiles];
       };
