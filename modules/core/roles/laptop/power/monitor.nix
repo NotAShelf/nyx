@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkForce;
 
   dependencies = with pkgs; [
     coreutils
@@ -21,7 +21,7 @@ in {
     # Unplugged - power-saver
     systemd.user.services."power-monitor" = {
       description = "Power Monitoring Service";
-      environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
+      environment.PATH = mkForce "/run/wrappers/bin:${lib.makeBinPath dependencies}";
       script = builtins.readFile ./scripts/power_monitor.sh;
 
       serviceConfig = {
@@ -29,7 +29,7 @@ in {
         Restart = "on-failure";
       };
 
-      requires = ["power-profiles-daemon.service"];
+      wants = ["power-profiles-daemon.service"];
       wantedBy = ["default.target"];
     };
   };
