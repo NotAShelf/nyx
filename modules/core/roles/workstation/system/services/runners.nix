@@ -6,11 +6,9 @@
   ...
 }: let
   inherit (lib) mkIf;
-  device = config.modules.device;
+  dev = config.modules.device;
 in {
-  imports = [inputs.nix-ld.nixosModules.nix-ld];
-
-  config = mkIf (device.type != "server") {
+  config = mkIf (dev.type != "server") {
     environment.systemPackages = [pkgs.appimage-run];
 
     # run appimages with appimage-run
@@ -21,7 +19,7 @@ in {
     });
 
     # run unpatched linux binaries with nix-ld
-    programs.nix-ld.dev = {
+    programs.nix-ld = {
       enable = true;
       libraries = with pkgs; [
         stdenv.cc.cc
