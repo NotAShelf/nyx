@@ -14,32 +14,33 @@ let
   workstations = [enyo hermes icarus];
 
   # helpers
-  mkGeneric = list: list ++ [notashelf];
+  mkSecrets = list: list ++ [notashelf];
 in {
   # core system secrets
-  "spotify.age".publicKeys = mkGeneric workstations;
-  "nix-builderKey.age".publicKeys = mkGeneric (workstations ++ servers);
-  "wg-client.age".publicKeys = mkGeneric (workstations ++ servers);
+  "client-spotify.age".publicKeys = mkSecrets workstations;
+  "common-nix-builder.age".publicKeys = mkSecrets (workstations ++ servers);
+  "client-wg.age".publicKeys = mkSecrets (workstations ++ servers);
 
   # service specific secrets
-  "matrix-secret.age".publicKeys = mkGeneric servers;
-  "nextcloud-secret.age".publicKeys = mkGeneric servers;
-  "mongodb-secret.age".publicKeys = mkGeneric servers;
-  "mkm-web.age".publicKeys = mkGeneric servers;
-  "vaultwarden-env.age".publicKeys = mkGeneric servers;
-  "wg-server.age".publicKeys = mkGeneric servers;
-  "searx-secretkey.age".publicKeys = mkGeneric servers;
-  "garage-env.age".publicKeys = mkGeneric servers;
-  "forgejo-runner-token.age".publicKeys = mkGeneric servers;
-  "forgejo-runner-config.age".publicKeys = mkGeneric servers;
-  "harmonia-privateKey.age".publicKeys = mkGeneric servers;
-  "attic-env.age".publicKeys = mkGeneric servers;
+  "service-matrix.age".publicKeys = mkSecrets servers;
+  "service-nextcloud.age".publicKeys = mkSecrets servers;
+  "service-mkm-web.age".publicKeys = mkSecrets servers;
+  "service-vaultwarden-env.age".publicKeys = mkSecrets servers;
+  "service-wg.age".publicKeys = mkSecrets servers;
+  "service-searx.age".publicKeys = mkSecrets servers;
+  "service-forgejo-runner-token.age".publicKeys = mkSecrets servers;
+  "service-forgejo-runner-config.age".publicKeys = mkSecrets servers;
+  "service-harmonia.age".publicKeys = mkSecrets servers;
+  "service-attic.age".publicKeys = mkSecrets servers;
+
+  "db-mongodb.age".publicKeys = mkSecrets servers;
+  "db-garage.age".publicKeys = mkSecrets servers;
 
   # secrets for specific mailserver accounts
-  "mailserver-secret.age".publicKeys = mkGeneric servers;
-  "mailserver-forgejo-secret.age".publicKeys = mkGeneric servers;
-  "mailserver-vaultwarden-secret.age".publicKeys = mkGeneric servers;
-  "mailserver-matrix-secret.age".publicKeys = mkGeneric servers;
-  "mailserver-cloud-secret.age".publicKeys = mkGeneric servers;
-  "mailserver-noreply-secret.age".publicKeys = mkGeneric servers;
+  "mailserver-secret.age".publicKeys = mkSecrets servers;
+  "mailserver-forgejo.age".publicKeys = mkSecrets servers;
+  "mailserver-vaultwarden.age".publicKeys = mkSecrets servers;
+  "mailserver-matrix.age".publicKeys = mkSecrets servers;
+  "mailserver-cloud.age".publicKeys = mkSecrets servers;
+  "mailserver-noreply.age".publicKeys = mkSecrets servers;
 }

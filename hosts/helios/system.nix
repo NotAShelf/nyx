@@ -84,7 +84,8 @@
         theme = null;
         backgroundColor = null;
         splashImage = null;
-        device = lib.mkForce "/dev/sda";
+        device = lib.mkForce "/dev/disk/by-label/nixos";
+        forceInstall = true;
       };
     };
 

@@ -13,11 +13,6 @@ with lib; let
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.nextcloud.enable) {
-    age.secrets.nextcloud-auth = {
-      file = "${self}/secrets/nextcloud-secret.age";
-      owner = "nextcloud";
-    };
-
     modules.system.services.database = {
       redis.enable = true;
       postgresql.enable = true;
@@ -51,7 +46,7 @@ in {
 
         autoUpdateApps = {
           enable = true;
-          startAt = "02:00";
+          startAt = "03:00";
         };
 
         config = {
@@ -89,7 +84,7 @@ in {
           redis = {
             host = "/run/redis-default/redis.sock";
             dbindex = 0;
-            timeout = 1.5;
+            timeout = 3;
           };
         };
       };
@@ -111,10 +106,15 @@ in {
       "nextcloud-preview" = {
         description = "Generate previews for all images that haven't been rendered";
         startAt = "01:00:00";
+        requires = ["nextcloud.service"];
+        after = ["nextcloud.service"];
         path = [config.services.nextcloud.occ];
-        script = ''
-          nextcloud-occ preview:pre-generate
-        '';
+        script = "nextcloud-occ preview:pre-generate";
+
+        serviceConfig = {
+          Restart = "on-failure";
+          RestartSec = "10s";
+        };
       };
     };
   };

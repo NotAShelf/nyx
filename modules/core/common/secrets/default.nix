@@ -9,6 +9,17 @@
   sys = config.modules.system;
   dev = config.modules.device;
   cfg = sys.services;
+
+  mkSecret = enableCondition: {
+    file,
+    owner ? "root",
+    group ? "root",
+    mode ? "400",
+  }:
+    mkIf enableCondition {
+      file = "${self}/secrets/${file}";
+      inherit group owner mode;
+    };
 in {
   age.identityPaths = [
     "${optionalString sys.impermanence.root.enable "/persist"}/etc/ssh/ssh_host_ed25519_key"
@@ -17,26 +28,24 @@ in {
 
   age.secrets = mkMerge [
     {
-      nix-builderKey = {
-        file = "${self}/secrets/nix-builderKey.age";
-        mode = "400";
-        group = "root";
-        owner = "root";
+      # TODO: system option for declaring host as a potential builder
+      nix-builderKey = mkSecret true {
+        file = "common-nix-builder.age";
       };
     }
 
     (mkIf (builtins.elem dev.type ["desktop" "laptop" "hybrid" "lite"])
       {
         # secrets needed for peers
-        spotify = {
-          file = "${self}/secrets/spotify.age";
+        spotify-secret = mkSecret config.modules.programs.spotify.enable {
+          file = "client-spotify.age";
           owner = "notashelf";
           group = "users";
           mode = "400";
         };
 
-        wg-client = {
-          file = "${self}/secrets/wg-client.age";
+        wg-client = mkSecret true {
+          file = "client-wg.age";
           owner = "notashelf";
           group = "users";
           mode = "700";
@@ -44,117 +53,115 @@ in {
       })
 
     (mkIf (builtins.elem dev.type ["server" "hybrid"]) {
-      # wireguard server peer secret
-      wg-server = mkIf cfg.wireguard.enable {
-        file = "${self}/secrets/wg-server.age";
-      };
-
       # database secrets
-      mongodb-secret = mkIf cfg.database.mongodb.enable {
-        file = "${self}/secrets/mailserver-secret.age";
-        mode = "400";
+      mongodb-secret = mkSecret cfg.database.mongodb.enable {
+        file = "db-mongodb.age";
       };
 
-      garage-env = mkIf cfg.database.garage.enable {
-        file = "${self}/secrets/garage-env.age";
+      garage-env = mkSecret cfg.database.garage.enable {
+        file = "db-garage.age";
         mode = "400";
         owner = "garage";
         group = "garage";
       };
 
       # service secrets
-      mkm-web = mkIf cfg.mkm.enable {
-        file = "${self}/secrets/mkm-web.age";
+      wg-server = mkSecret cfg.wireguard.enable {
+        file = "service-wg.age";
+      };
+
+      mkm-web = mkSecret cfg.mkm.enable {
+        file = "service-mkm-web.age";
         mode = "400";
       };
 
-      matrix-secret = mkIf cfg.matrix.enable {
-        file = "${self}/secrets/matrix-secret.age";
+      matrix-secret = mkSecret cfg.matrix.enable {
+        file = "service-matrix.age";
         owner = "matrix-synapse";
         mode = "400";
       };
 
-      vaultwarden-env = mkIf cfg.vaultwarden.enable {
-        file = "${self}/secrets/vaultwarden-env.age";
+      vaultwarden-env = mkSecret cfg.vaultwarden.enable {
+        file = "service-vaultwarden.age";
         owner = "vaultwarden";
         mode = "400";
       };
 
-      searx-secretkey = mkIf cfg.searxng.enable {
-        file = "${self}/secrets/searx-secretkey.age";
+      searx-secretkey = mkSecret cfg.searxng.enable {
+        file = "service-searx.age";
         mode = "400";
         owner = "searx";
         group = "searx";
       };
 
-      nextcloud-secret = mkIf cfg.nextcloud.enable {
-        file = "${self}/secrets/nextcloud-secret.age";
+      nextcloud-secret = mkSecret cfg.nextcloud.enable {
+        file = "service-nextcloud.age";
         mode = "400";
         owner = "nextcloud";
         group = "nextcloud";
       };
 
-      attic-env = mkIf cfg.bincache.atticd.enable {
-        file = "${self}/secrets/attic-env.age";
+      attic-env = mkSecret cfg.bincache.atticd.enable {
+        file = "service-attic.age";
         mode = "400";
         owner = "atticd";
         group = "atticd";
       };
 
-      harmonia-privateKey = mkIf cfg.bincache.harmonia.enable {
-        file = "${self}/secrets/harmonia-privateKey.age";
+      harmonia-privateKey = mkSecret cfg.bincache.harmonia.enable {
+        file = "service-harmonia.age";
         mode = "770";
         owner = "harmonia";
         group = "harmonia";
       };
 
-      forgejo-runner-token = mkIf cfg.forgejo.enable {
-        file = "${self}/secrets/forgejo-runner-token.age";
+      forgejo-runner-token = mkSecret cfg.forgejo.enable {
+        file = "service-forgejo-runner-token.age";
         mode = "400";
         owner = "gitea-runner";
         group = "gitea-runner";
       };
 
-      forgejo-runner-config = mkIf cfg.forgejo.enable {
-        file = "${self}/secrets/forgejo-runner-config.age";
+      forgejo-runner-config = mkSecret cfg.forgejo.enable {
+        file = "service-forgejo-runner-config.age";
         mode = "400";
         owner = "gitea-runner";
         group = "gitea-runner";
       };
 
       # mailserver secrets
-      mailserver-secret = mkIf cfg.mailserver.enable {
-        file = "${self}/secrets/mailserver-secret.age";
+      mailserver-secret = mkSecret cfg.mailserver.enable {
+        file = "mailserver.age";
         mode = "400";
       };
 
-      mailserver-forgejo-secret = mkIf cfg.forgejo.enable {
-        file = "${self}/secrets/mailserver-forgejo-secret.age";
+      mailserver-forgejo-secret = mkSecret cfg.forgejo.enable {
+        file = "mailserver-forgejo.age";
         owner = "forgejo";
         group = "forgejo";
         mode = "400";
       };
 
-      mailserver-vaultwarden-secret = mkIf cfg.vaultwarden.enable {
-        file = "${self}/secrets/mailserver-vaultwarden-secret.age";
+      mailserver-vaultwarden-secret = mkSecret cfg.vaultwarden.enable {
+        file = "mailserver-vaultwarden.age";
         owner = "vaultwarden";
         mode = "400";
       };
 
-      mailserver-matrix-secret = mkIf cfg.matrix.enable {
-        file = "${self}/secrets/mailserver-matrix-secret.age";
+      mailserver-matrix-secret = mkSecret cfg.matrix.enable {
+        file = "mailserver-matrix.age";
         owner = "matrix-synapse";
         mode = "400";
       };
 
-      mailserver-cloud-secret = mkIf cfg.nextcloud.enable {
-        file = "${self}/secrets/mailserver-cloud-secret.age";
+      mailserver-cloud-secret = mkSecret cfg.nextcloud.enable {
+        file = "mailserver-cloud.age";
         owner = "nextcloud";
         mode = "400";
       };
 
-      mailserver-noreply-secret = {
-        file = "${self}/secrets/mailserver-noreply-secret.age";
+      mailserver-noreply-secret = mkSecret cfg.mastodon.enable {
+        file = "mailserver-noreply.age";
         owner = "mastodon";
         mode = "400";
       };
