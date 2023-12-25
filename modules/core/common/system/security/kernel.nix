@@ -140,7 +140,7 @@ in {
           "rootflags=noatime"
 
           # linux security modules
-          "lsm=landlock,lockdown,yama,apparmor,bpf"
+          "lsm=landlock,lockdown,yama,integrity,apparmor,bpf,tomoyo,selinux"
 
           # prevent the kernel from blanking plymouth out of the fb
           "fbcon=nodefer"

@@ -27,7 +27,7 @@
       yubikey-personalization # cli
       yubikey-personalization-gui # gui
       yubico-piv-tool # cli
-      yubioath-flutter # gui
+      #yubioath-flutter # gui
     ];
   };
 }

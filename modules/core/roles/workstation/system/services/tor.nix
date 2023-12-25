@@ -7,7 +7,7 @@
 
   sys = config.modules.system;
 in {
-  services.tor = mkIf (sys.security.tor.enable) {
+  services.tor = mkIf sys.security.tor.enable {
     enable = true;
     client.enable = true;
     client.dns.enable = true;
