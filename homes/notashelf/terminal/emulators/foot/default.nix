@@ -27,9 +27,9 @@ in {
           locked-title = "no";
 
           term = "xterm-256color";
-          font = "Iosevka Nerd Font:pixelsize=14";
-          font-bold = "Iosevka Nerd Font:pixelsize=14";
-          pad = "16x16";
+          font = "monospace:size=14";
+          font-bold = "monospace:size=14";
+          pad = "12x21 center";
           dpi-aware = "false";
           vertical-letter-offset = "-0.75";
           shell = "zsh";

@@ -3,12 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
   acceptedTypes = ["server" "desktop" "laptop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     fonts = {
       enableDefaultPackages = false;
 
@@ -18,26 +19,15 @@ in {
 
         defaultFonts = {
           monospace = [
-            "Iosevka Nerd Font Mono"
             "Iosevka Term"
             "Iosevka Term Nerd Font Complete Mono"
             "Iosevka Nerd Font"
             "Noto Color Emoji"
           ];
 
-          sansSerif = [
-            "Lexend"
-            "Noto Color Emoji"
-          ];
-
-          serif = [
-            "Noto Serif"
-            "Noto Color Emoji"
-          ];
-
-          emoji = [
-            "Noto Color Emoji"
-          ];
+          sansSerif = ["Lexend" "Noto Color Emoji"];
+          serif = ["Noto Serif" "Noto Color Emoji"];
+          emoji = ["Noto Color Emoji"];
         };
       };
 
@@ -68,7 +58,7 @@ in {
         noto-fonts-color-emoji
         emacs-all-the-icons-fonts
 
-        (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono" "FiraCode"];})
+        (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
       ];
     };
   };
