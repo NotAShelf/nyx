@@ -1,6 +1,7 @@
 {
   inputs',
   inputs,
+  config,
   pkgs,
   lib,
   ...
@@ -28,13 +29,6 @@
     rev = "2743e412bbe21c9d73954c403d01e8de7377890d";
     hash = "sha256-mYTzltCEKO8C7BJ3WrB/iFa1Qq1rgJlcjW6NYHPfmPk=";
   };
-
-  transfer-nvim = pkgs.fetchFromGitHub {
-    owner = "coffebar";
-    repo = "transfer.nvim";
-    rev = "54807d02fcccdcf6a0f9b23364e829e0d19f5bb0";
-    hash = "sha256-l+lG6Dxb3K3B2QJYYRodOo1cOYJm6enXpS/go4togDY=";
-  };
 in {
   imports = [neovim.homeManagerModules.default];
 
@@ -51,28 +45,11 @@ in {
         enableLuaLoader = true;
         useSystemClipboard = true;
 
-        treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-          regex # for regexplainer
-          markdown
-          markdown-inline
-        ];
-
         extraPlugins = let
-          inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree harpoon mkdir-nvim;
+          inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree mkdir-nvim ssr-nvim direnv-vim;
         in {
           friendly-snippets = {package = friendly-snippets;};
           mkdir-nvim = {package = mkdir-nvim;};
-
-          /*
-          # enabling this causes specs to error, I don't know why
-          # the module name "transfer" is probably not correct - FIXME: look into the src
-          transfer-nvim = {
-            package = transfer-nvim;
-            setup = "require('transfer').setup{}";
-            after = ["specs-nvim"];
-          };
-          */
-
           regexplainer = {package = regexplainer;};
           specs-nvim = {
             package = specs-nvim;
@@ -108,12 +85,6 @@ in {
             setup = "require('aerial').setup {}";
           };
 
-          harpoon = {
-            package = harpoon;
-            setup = "require('harpoon').setup {}";
-            after = ["aerial"];
-          };
-
           nvim-surround = {
             package = nvim-surround;
             setup = "require('nvim-surround').setup {}";
@@ -131,6 +102,13 @@ in {
               vim.g.undotree_TreeVertShape = '│'
             '';
           };
+
+          ssr-nvim = {
+            package = ssr-nvim;
+            setup = "require('ssr').setup {}";
+          };
+
+          direnv = {package = direnv-vim;};
         };
 
         debugMode = {
@@ -139,294 +117,322 @@ in {
         };
       };
 
-      vim.lsp = {
-        formatOnSave = true;
-        lspkind.enable = true;
-        lsplines.enable = true;
-        lightbulb.enable = true;
-        lspsaga.enable = false;
-        lspSignature.enable = true;
-        nvimCodeActionMenu.enable = true;
-        trouble.enable = false;
-        nvim-docs-view.enable = true;
-      };
-
-      vim.debugger.nvim-dap = {
-        enable = true;
-        ui.enable = true;
-      };
-
-      vim.languages = {
-        enableLSP = true;
-        enableFormat = true;
-        enableTreesitter = true;
-        enableExtraDiagnostics = true;
-
-        nix.enable = true;
-        html.enable = true;
-        ts.enable = true;
-        go.enable = true;
-        python.enable = true;
-        bash.enable = true;
-        zig.enable = false;
-        dart.enable = false;
-        elixir.enable = false;
-        svelte.enable = false;
-        sql.enable = false;
-        java.enable = true;
-
-        lua = {
-          enable = true;
-          lsp.neodev.enable = true;
+      vim = {
+        lsp = {
+          formatOnSave = true;
+          lspkind.enable = true;
+          lsplines.enable = true;
+          lightbulb.enable = true;
+          lspsaga.enable = false;
+          lspSignature.enable = true;
+          nvimCodeActionMenu.enable = true;
+          trouble.enable = false;
+          nvim-docs-view.enable = true;
         };
 
-        rust = {
+        debugger.nvim-dap = {
           enable = true;
-          crates.enable = true;
+          ui.enable = true;
         };
 
-        clang = {
-          enable = true;
-          lsp = {
+        languages = {
+          enableLSP = true;
+          enableFormat = true;
+          enableTreesitter = true;
+          enableExtraDiagnostics = true;
+
+          nix.enable = true;
+          html.enable = true;
+          ts.enable = true;
+          go.enable = true;
+          python.enable = true;
+          bash.enable = true;
+          zig.enable = false;
+          dart.enable = false;
+          elixir.enable = false;
+          svelte.enable = false;
+          sql.enable = false;
+          java = {
             enable = true;
-            server = "clangd";
+            lsp.package = ["${lib.getExe pkgs.jdt-language-server}" "-configuration" "${config.xdg.cacheHome}/jdtls/config" "-data" "${config.xdg.cacheHome}/jdtls/workspace"];
           };
-        };
-      };
 
-      vim.visuals = {
-        enable = true;
-        nvimWebDevicons.enable = true;
-        scrollBar.enable = true;
-        smoothScroll.enable = false;
-        cellularAutomaton.enable = false;
-        fidget-nvim.enable = true;
-        highlight-undo.enable = true;
-
-        indentBlankline = {
-          enable = true;
-          fillChar = null;
-          eolChar = null;
-          scope.enabled = true;
-        };
-
-        cursorline = {
-          enable = true;
-          lineTimeout = 0;
-        };
-      };
-
-      vim.statusline = {
-        lualine = {
-          enable = true;
-          theme = "catppuccin";
-        };
-      };
-
-      vim.theme = {
-        enable = true;
-        name = "catppuccin";
-        style = "mocha";
-        transparent = true;
-      };
-      vim.autopairs.enable = true;
-
-      vim.autocomplete = {
-        enable = true;
-        type = "nvim-cmp";
-      };
-
-      vim.filetree = {
-        nvimTree = {
-          enable = true;
-          openOnSetup = true;
-          disableNetrw = true;
-
-          hijackUnnamedBufferWhenOpening = true;
-          hijackCursor = true;
-          hijackDirectories = {
+          lua = {
             enable = true;
-            autoOpen = true;
+            lsp.neodev.enable = true;
           };
 
-          git = {
+          rust = {
             enable = true;
-            showOnDirs = false;
-            timeout = 100;
+            crates.enable = true;
           };
 
-          view = {
-            preserveWindowProportions = false;
-            cursorline = false;
-            width = 35;
+          clang = {
+            enable = true;
+            lsp = {
+              enable = true;
+              server = "clangd";
+            };
+          };
+        };
+
+        visuals = {
+          enable = true;
+          nvimWebDevicons.enable = true;
+          scrollBar.enable = true;
+          smoothScroll.enable = false;
+          cellularAutomaton.enable = false;
+          fidget-nvim.enable = true;
+          highlight-undo.enable = true;
+
+          indentBlankline = {
+            enable = true;
+            fillChar = null;
+            eolChar = null;
+            scope.enabled = true;
           };
 
-          renderer = {
-            indentMarkers.enable = true;
-            rootFolderLabel = false;
+          cursorline = {
+            enable = true;
+            lineTimeout = 0;
+          };
+        };
 
-            icons = {
-              modifiedPlacement = "after";
-              gitPlacement = "after";
-              show.git = true;
-              show.modified = true;
+        statusline = {
+          lualine = {
+            enable = true;
+            theme = "catppuccin";
+            extraActiveSection.z = [
+              ''
+                {
+                  -- display a word counter for the current buffer
+                  function() return vim.api.nvim_buf_line_count(0) end,
+                },
+              ''
+            ];
+          };
+        };
+
+        theme = {
+          enable = true;
+          name = "catppuccin";
+          style = "mocha";
+          transparent = true;
+        };
+        autopairs.enable = true;
+
+        autocomplete = {
+          enable = true;
+          type = "nvim-cmp";
+          mappings = {
+            # close = "<C-e>";
+            confirm = "<C-y>";
+            next = "<C-n>";
+            previous = "<C-p>";
+            scrollDocsDown = "<C-j>";
+            scrollDocsUp = "<C-k>";
+          };
+        };
+
+        filetree = {
+          nvimTree = {
+            enable = true;
+            openOnSetup = true;
+            disableNetrw = true;
+            updateFocusedFile.enable = true;
+
+            hijackUnnamedBufferWhenOpening = true;
+            hijackCursor = true;
+
+            /*
+            hijackDirectories = {
+              enable = true;
+              autoOpen = true;
+            };
+            */
+
+            git = {
+              enable = true;
+              showOnDirs = false;
+              timeout = 500;
+            };
+
+            view = {
+              cursorline = false;
+              width = 35;
+            };
+
+            renderer = {
+              indentMarkers.enable = true;
+              rootFolderLabel = false; # inconsistent
+
+              icons = {
+                modifiedPlacement = "after";
+                gitPlacement = "after";
+                show.git = true;
+                show.modified = true;
+              };
+            };
+
+            diagnostics.enable = true;
+
+            modified = {
+              enable = true;
+              showOnDirs = false;
+              showOnOpenDirs = true;
+            };
+
+            actions = {
+              changeDir.enable = false;
+              changeDir.global = false;
+              openFile.windowPicker.enable = true;
+            };
+
+            mappings = {
+              toggle = "<C-w>";
+            };
+          };
+        };
+
+        tabline = {
+          nvimBufferline.enable = true;
+        };
+
+        treesitter = {
+          fold = true;
+          context.enable = true;
+          grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            regex # for regexplainer
+            markdown
+            markdown-inline
+          ];
+        };
+
+        binds = {
+          whichKey.enable = true;
+          cheatsheet.enable = false;
+        };
+
+        telescope.enable = true;
+
+        git = {
+          enable = true;
+          gitsigns.enable = true;
+          gitsigns.codeActions = false;
+        };
+
+        minimap = {
+          # cool for vanity but practically useless on small screens
+          minimap-vim.enable = false;
+          codewindow.enable = false;
+        };
+
+        dashboard = {
+          dashboard-nvim.enable = false;
+          alpha.enable = true;
+        };
+
+        notify = {
+          nvim-notify.enable = true;
+        };
+
+        projects = {
+          project-nvim = {
+            enable = true;
+            manualMode = false;
+            detectionMethods = ["lsp" "pattern"];
+            patterns = [
+              ".git"
+              ".hg"
+              "Makefile"
+              "package.json"
+              "index.*"
+              ".anchor"
+              "flake.nix"
+            ];
+          };
+        };
+
+        utility = {
+          ccc.enable = true;
+          icon-picker.enable = true;
+          diffview-nvim.enable = true;
+
+          vim-wakatime = {
+            enable = true;
+            cli-package = pkgs.wakatime;
+          };
+
+          motion = {
+            hop.enable = true;
+            leap.enable = false;
+          };
+        };
+
+        notes = {
+          mind-nvim.enable = true;
+          todo-comments.enable = true;
+          obsidian.enable = false;
+        };
+
+        terminal = {
+          toggleterm = {
+            enable = true;
+            mappings.open = "<C-t>";
+            direction = "tab";
+            lazygit = {
+              enable = true;
+              direction = "tab";
+            };
+          };
+        };
+
+        ui = {
+          noice.enable = true;
+          colorizer.enable = true;
+          modes-nvim.enable = false;
+          illuminate.enable = true;
+
+          breadcrumbs = {
+            enable = true;
+            source = "nvim-navic";
+            navbuddy.enable = false;
+          };
+
+          smartcolumn = {
+            enable = true;
+            columnAt.languages = {
+              markdown = 80;
+              nix = 150;
+              ruby = 110;
+              java = 120;
+              go = [130];
             };
           };
 
-          diagnostics.enable = true;
-
-          modified = {
+          borders = {
             enable = true;
-            showOnDirs = false;
-            showOnOpenDirs = true;
-          };
-
-          mappings = {
-            toggle = "<C-w>";
-          };
-        };
-      };
-
-      vim.tabline = {
-        nvimBufferline.enable = true;
-      };
-
-      vim.treesitter = {
-        fold = true;
-        context.enable = true;
-      };
-
-      vim.binds = {
-        whichKey.enable = true;
-        cheatsheet.enable = false;
-      };
-
-      vim.telescope.enable = true;
-
-      vim.git = {
-        enable = true;
-        gitsigns.enable = true;
-        gitsigns.codeActions = false;
-      };
-
-      vim.minimap = {
-        # cool for vanity but practically useless on small screens
-        minimap-vim.enable = false;
-        codewindow.enable = false;
-      };
-
-      vim.dashboard = {
-        dashboard-nvim.enable = false;
-        alpha.enable = true;
-      };
-
-      vim.notify = {
-        nvim-notify.enable = true;
-      };
-
-      vim.projects = {
-        project-nvim = {
-          enable = true;
-          manualMode = false;
-          detectionMethods = ["lsp" "pattern"];
-          patterns = [
-            ".git"
-            ".hg"
-            "Makefile"
-            "package.json"
-            "index.*"
-            ".anchor"
-            "flake.nix"
-            "index.*"
-          ];
-        };
-      };
-
-      vim.utility = {
-        ccc.enable = true;
-        icon-picker.enable = true;
-        diffview-nvim.enable = true;
-        vim-wakatime = {
-          enable = true;
-          cli-package = pkgs.wakatime;
-        };
-        motion = {
-          hop.enable = true;
-          leap.enable = false;
-        };
-      };
-
-      vim.notes = {
-        mind-nvim.enable = true;
-        todo-comments.enable = true;
-        obsidian.enable = false;
-      };
-
-      vim.terminal = {
-        toggleterm = {
-          enable = true;
-          mappings.open = "<C-t>";
-          direction = "tab";
-          lazygit = {
-            enable = true;
-            direction = "tab";
-          };
-        };
-      };
-
-      vim.ui = {
-        noice.enable = true;
-        colorizer.enable = true;
-        modes-nvim.enable = false;
-        illuminate.enable = true;
-
-        breadcrumbs = {
-          enable = true;
-          source = "nvim-navic";
-          navbuddy.enable = false;
-        };
-
-        smartcolumn = {
-          enable = true;
-          columnAt.languages = {
-            markdown = 80;
-            nix = 150;
-            ruby = 110;
-            java = 120;
-            go = [130];
+            globalStyle = "rounded";
           };
         };
 
-        borders = {
-          enable = true;
-          globalStyle = "rounded";
-        };
-      };
-
-      vim.assistant = {
-        copilot = {
+        assistant.copilot = {
           enable = true;
           cmp.enable = true;
         };
-      };
 
-      vim.session = {
-        nvim-session-manager = {
+        session.nvim-session-manager = {
           enable = false;
           autoloadMode = "Disabled"; # misbehaves with dashboard
         };
-      };
 
-      vim.gestures = {
-        gesture-nvim.enable = false;
-      };
+        gestures.gesture-nvim.enable = false;
 
-      vim.comments = {
-        comment-nvim.enable = true;
-      };
+        comments.comment-nvim.enable = true;
 
-      vim.presence = {
-        presence-nvim.enable = true;
+        presence.presence-nvim.enable = true;
+
+        maps = import ./mappings.nix;
       };
     };
   };
