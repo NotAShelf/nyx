@@ -1,7 +1,7 @@
 {colors, ...}: {
   # General
   background_opacity = "0.85";
-  font_family = "Iosevka Nerd Font Mono";
+  font_family = "monospace";
   font_size = 14;
   disable_ligatures = "never";
   cursor_shape = "underline";
