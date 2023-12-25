@@ -151,12 +151,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nix-ld lets us run unpatched dynamic binaries without (much) hassle
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # A tree-wide formatter
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
