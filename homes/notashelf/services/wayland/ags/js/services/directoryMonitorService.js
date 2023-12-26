@@ -23,8 +23,9 @@ class DirectoryMonitorService extends Service {
         monitor.connect(
             "changed",
             (fileMonitor, file, otherFile, eventType) => {
-                if (eventType === Gio.FileMonitorEvent.CHANGES_DONE_HINT)
+                if (eventType === Gio.FileMonitorEvent.CHANGES_DONE_HINT) {
                     this.emit("changed");
+                }
             },
         );
 
@@ -37,8 +38,9 @@ class DirectoryMonitorService extends Service {
         let fileInfo;
         while ((fileInfo = enumerator.next_file(null)) !== null) {
             const childPath = directoryPath + "/" + fileInfo.get_name();
-            if (fileInfo.get_file_type() === Gio.FileType.DIRECTORY)
+            if (fileInfo.get_file_type() === Gio.FileType.DIRECTORY) {
                 this.recursiveDirectoryMonitor(childPath);
+            }
         }
     }
 }

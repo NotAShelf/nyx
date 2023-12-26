@@ -11,23 +11,22 @@ const TrayItems = () =>
     Box({
         className: "trayIcons",
         vertical: true,
-        connections: [
-            [
-                SystemTray,
-                (self) => {
-                    self.children = SystemTray.items.map((item) =>
-                        Button({
-                            className: "trayIcon",
-                            child: Icon({ binds: [["icon", item, "icon"]] }),
-                            binds: [["tooltip-markup", item, "tooltip-markup"]],
-                            onPrimaryClick: (_, event) =>
-                                item.activate(event).catch(err).print(err),
-                            //onPrimaryClick: (_, event) => item.openMenu(event)
+        setup: (self) => {
+            self.hook(SystemTray, (self) => {
+                self.children = SystemTray.items.map((item) =>
+                    Button({
+                        className: "trayIcon",
+                        child: Icon({
+                            setup: (self) => self.bind("icon", item, "icon"),
                         }),
-                    );
-                },
-            ],
-        ],
+                        setup: (self) =>
+                            self.bind("tooltip-markup", item, "tooltip-markup"),
+                        onPrimaryClick: (_, event) => item.activate(event),
+                        //onPrimaryClick: (_, event) => item.openMenu(event)
+                    }),
+                );
+            });
+        },
     });
 
 export const Tray = () =>

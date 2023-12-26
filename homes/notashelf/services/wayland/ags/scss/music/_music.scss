@@ -2,84 +2,29 @@
 @import "musicControls";
 
 .music {
-	background: $primary;
+	color: $onSurface;
+	background: $surface;
 	font-family: $font;
-	border-radius: 14px;
-}
-
-.playerHeader {
-	font-weight: bold;
+	border-radius: 6px;
 	padding: 12px;
-}
-
-.playerArtistBox {
-	padding: 6px 4px;
-	margin: 6px;
-}
-
-.playerProgressBox {
-	padding: 2px 4px;
-	margin: 6px;
-}
-
-.playerArtist {
-	font-weight: 500;
-	padding: 12px;
-}
-
-.artistIcon {
-	font-family: $iconFont;
-	font-size: 1.5em;
-	padding: 6px 4px;
-	margin: 0 12px 0 0;
-}
-
-.playerCover {
-	opacity: 0.25;
-	background-size: 100% auto;
-	background-repeat: no-repeat;
-	min-height: 240px;
 	min-width: 240px;
 }
 
-.playerCoverBox {
-	margin: 10px 12px 10px 12px;
+.artist {
+	font-weight: 500;
+	font-size: 0.75rem;
+	padding: 0 6px;
 }
 
-.playerCoverOverlay {
-	margin: 10px 12px 10px 12px;
+.cover {
 	background-size: 100% auto;
 	background-repeat: no-repeat;
-	border-radius: 12px;
-	margin: 48px;
-	box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.5);
+	border-radius: 6px;
+	min-height: 60px;
+	min-width: 60px;
 }
 
-.playerTitle {
+.title {
 	font-weight: 500;
-}
-
-.playerTitleBox {
-	min-width: 48px;
-	min-height: 1.5rem;
-	margin: 2px 48px 2px 48px;
-	padding: 2px;
-}
-
-.playerProgressBox {
-	margin: 5px 24px 5px 24px;
-}
-
-.playerProgress {
-	& trough {
-		background: $surface;
-		border-radius: 12px;
-		min-height: 6px;
-	}
-
-	& progress {
-		background: $onSurface;
-		border-radius: 12px;
-		min-width: 6px;
-	}
+	padding: 0 6px;
 }

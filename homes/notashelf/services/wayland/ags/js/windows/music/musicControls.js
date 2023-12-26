@@ -1,8 +1,9 @@
 import { Widget, Mpris } from "../../imports.js";
 const { Box, Button, Label } = Widget;
-export const playerControls = () =>
+
+export const Controls = () =>
     Box({
-        className: "playerControls",
+        className: "controls",
         hpack: "center",
         children: [
             Button({
@@ -12,7 +13,7 @@ export const playerControls = () =>
             }),
             Button({
                 className: "controlsPlayPause",
-                label: "󰐍",
+                label: "󰐊",
                 onClicked: () => Mpris.players[0].playPause(),
                 connections: [
                     [
@@ -23,9 +24,9 @@ export const playerControls = () =>
 
                             self.label = `${
                                 player !== null &&
-                                player.playBackStatus == "Playing"
-                                    ? "󰏦"
-                                    : "󰐍"
+                                player.playBackStatus === "Playing"
+                                    ? "󰏤"
+                                    : "󰐊"
                             }`;
                         },
                     ],
