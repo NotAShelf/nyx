@@ -8,9 +8,9 @@
 
   dev = config.modules.device;
 in {
-  config = mkIf (dev.gpu == "amd" || dev.gpu == "hybrid-amd") {
+  config = mkIf (builtins.elem dev.gpu ["amd" "hybrid-amd"]) {
     # enable amdgpu xorg drivers in case Hyprland breaks again
-    services.xserver.videoDrivers = ["amdgpu"];
+    services.xserver.videoDrivers = lib.mkDefault ["modesetting" "amdgpu"];
 
     # enable amdgpu kernel module
     boot = {
@@ -18,32 +18,32 @@ in {
       kernelModules = ["amdgpu"]; # if loading somehow fails during initrd but the boot continues, try again later
     };
 
-    environment.systemPackages = [
-      pkgs.nvtop-amd
-    ];
+    environment.systemPackages = [pkgs.nvtop-amd];
 
     # enables AMDVLK & OpenCL support
-    hardware.opengl.extraPackages = with pkgs; [
-      amdvlk
-      # opencl drivers
-      rocm-opencl-icd
-      rocm-opencl-runtime
+    hardware.opengl = {
+      extraPackages = with pkgs;
+        [
+          amdvlk
 
-      # mesa
-      mesa
+          # mesa
+          mesa
 
-      # vulkan
-      vulkan-tools
-      vulkan-loader
-      vulkan-validation-layers
-      vulkan-extension-layer
-    ];
+          # vulkan
+          vulkan-tools
+          vulkan-loader
+          vulkan-validation-layers
+          vulkan-extension-layer
+        ]
+        ++ (
+          # this is a backwards-compatible way of loading appropriate opencl packages
+          # in case the host runs an older revision of nixpkgs
+          if pkgs ? rocmPackages.clr
+          then with pkgs.rocmPackages; [clr clr.icd]
+          else with pkgs; [rocm-opencl-icd rocm-opencl-runtime]
+        );
 
-    hardware.opengl.extraPackages32 = with pkgs; [
-      driversi686Linux.amdvlk
-      rocm-opencl-icd
-      rocm-opencl-runtime
-      driversi686Linux.mesa
-    ];
+      extraPackages32 = [pkgs.driversi686Linux.amdvlk];
+    };
   };
 }
