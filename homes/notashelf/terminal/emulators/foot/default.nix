@@ -29,8 +29,8 @@ in {
           term = "xterm-256color";
           font = "monospace:size=14";
           font-bold = "monospace:size=14";
-          pad = "12x21 center";
-          dpi-aware = "false";
+          pad = "16x16";
+          dpi-aware = "true";
           vertical-letter-offset = "-0.75";
           shell = "zsh";
 
