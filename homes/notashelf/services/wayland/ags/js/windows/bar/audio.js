@@ -25,15 +25,16 @@ const audio = {
 
 const AudioIcon = () =>
     Widget.Icon({
-        connections: [
-            [
+        setup: (self) => {
+            self.hook(
                 Audio,
-                (icon) => {
+                (self) => {
                     if (!Audio.speaker) return;
 
                     const { muted, low, medium, high, overamplified } =
                         audio.volume;
-                    if (Audio.speaker.is_muted) return (icon.icon = muted);
+
+                    if (Audio.speaker.is_muted) return (self.icon = muted);
 
                     /** @type {Array<[number, string]>} */
                     const cons = [
@@ -43,14 +44,14 @@ const AudioIcon = () =>
                         [1, low],
                         [0, muted],
                     ];
-                    icon.icon =
+                    self.icon =
                         cons.find(
                             ([n]) => n <= Audio.speaker.volume * 100,
                         )?.[1] || "";
                 },
                 "speaker-changed",
-            ],
-        ],
+            );
+        },
     });
 
 export const AudioWidget = () => {

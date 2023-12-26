@@ -1,39 +1,29 @@
 .volumePopup {
 	color: $onSurface;
-	background: $primary;
-	font-family: $font;
-	border-radius: 10px;
-	border: black;
-	margin: 6px 0;
-	padding: 4px;
+	background: $surface;
+	border-radius: 24px;
+	margin: 6px;
+	padding: 12px;
 }
 
 .volPopupIcon {
 	font-family: $iconFont;
-	margin: 0 6px;
-}
-
-.volPopupLabel {
-	font-weight: 400;
-	margin: 3px;
+	margin: 0 6px 0 0;
 }
 
 .volPopupBar {
-	min-width: 200px;
-
+	min-width: 120px;
 	& scale {
 		min-height: 12px;
 	}
-
 	& trough {
-		background: $surfaceVariant;
-		border-radius: 12px;
+		background: transparentize($surfaceVariant, 0.5);
+		border-radius: 24px;
 		min-height: 12px;
 	}
-
 	& highlight {
-		background: $lavender;
-		border-radius: 12px;
+		background: $primary;
+		border-radius: 24px;
 		min-width: 12px;
 	}
 }

@@ -10,7 +10,7 @@ export const Popups = () =>
         className: "popups",
         anchor: ["bottom", "right"],
         layer: "overlay",
-        margins: [0, 13, 13, 0],
+        margins: [0, 12, 8, 0],
         child: Widget.Box({
             vertical: true,
             children: [BrightnessPopup(), VolumePopup()],

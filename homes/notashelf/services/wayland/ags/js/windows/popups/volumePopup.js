@@ -4,8 +4,8 @@ const { Box, Slider, Label } = Widget;
 const VolumeIcon = () =>
     Label({
         className: "volPopupIcon",
-        connections: [
-            [
+        setup: (self) => {
+            self.hook(
                 Audio,
                 (self) => {
                     if (!Audio.speaker) return;
@@ -20,27 +20,8 @@ const VolumeIcon = () =>
                         ].toString();
                 },
                 "speaker-changed",
-            ],
-        ],
-    });
-
-const PercentLabel = () =>
-    Label({
-        className: "volPopupLabel",
-        label: "Volume",
-        connections: [
-            [
-                Audio,
-                (self) => {
-                    if (!Audio.speaker) return;
-
-                    self.label = `Volume • ${Math.floor(
-                        Audio.speaker.volume * 100,
-                    )}`;
-                },
-                "speaker-changed",
-            ],
-        ],
+            );
+        },
     });
 
 const PercentBar = () =>
@@ -48,8 +29,8 @@ const PercentBar = () =>
         className: "volPopupBar",
         drawValue: false,
         onChange: ({ value }) => (Audio.speaker.volume = value),
-        connections: [
-            [
+        setup: (self) => {
+            self.hook(
                 Audio,
                 (self) => {
                     if (!Audio.speaker) return;
@@ -57,36 +38,36 @@ const PercentBar = () =>
                     self.value = Audio.speaker.volume;
                 },
                 "speaker-changed",
-            ],
-        ],
+            );
+        },
     });
 
 export const VolumePopup = () =>
     Box({
-        css: `min-height: 1px;
-          min-width: 1px;`,
+        css: `min-height: 2px;
+          min-width: 2px;`,
         child: Widget.Revealer({
             transition: "slide_up",
             child: Box({
                 className: "volumePopup",
-                vertical: true,
-                children: [PercentLabel(), PercentBar()],
+                children: [VolumeIcon(), PercentBar()],
             }),
-            properties: [["count", 0]],
-            connections: [
-                [
+            attribute: { count: 0 },
+            setup: (self) => {
+                self.hook(
                     Audio,
                     (self) => {
                         self.revealChild = true;
-                        self._count++;
+                        self.attribute.count++;
                         Utils.timeout(1500, () => {
-                            self._count--;
+                            self.attribute.count--;
 
-                            if (self._count === 0) self.revealChild = false;
+                            if (self.attribute.count === 0)
+                                self.revealChild = false;
                         });
                     },
                     "speaker-changed",
-                ],
-            ],
+                );
+            },
         }),
     });
