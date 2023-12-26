@@ -1,8 +1,8 @@
-_: {
+{
   config = {
     modules = {
       device = {
-        type = "lite";
+        type = "hybrid";
         cpu = "intel";
         gpu = "intel";
         monitors = ["eDP-1"];
@@ -87,13 +87,11 @@ _: {
     };
 
     boot = {
+      kernelModules = ["iwlwifi"];
       kernelParams = [
         "i915.enable_fbc=1"
         "i915.enable_psr=2"
         "nohibernate"
-      ];
-      kernelModules = [
-        "iwlwifi"
       ];
     };
   };
