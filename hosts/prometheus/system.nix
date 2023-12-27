@@ -1,19 +1,18 @@
 {
   config,
   lib,
-  inputs,
-  self,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) optionals mkIf mkForce;
+
+  dev = config.modules.device;
 in {
   config = {
     modules = {
       device = {
         type = "laptop";
-        cpu = "intel";
-        gpu = "intel"; # nvidia drivers :b:roke
+        cpu.type = "intel";
+        gpu.type = "intel"; # nvidia drivers :b:roke
         monitors = ["eDP-1" "HDMI-A-1"];
         hasBluetooth = true;
         hasSound = true;
@@ -27,7 +26,7 @@ in {
         boot = {
           loader = "systemd-boot";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
         };
@@ -82,7 +81,7 @@ in {
     };
 
     hardware = {
-      nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
+      nvidia = mkIf (builtins.elem dev.gpu ["nvidia" "hybrid-nv"]) {
         open = mkForce false;
 
         prime = {
@@ -98,7 +97,7 @@ in {
         [
           "nohibernate"
         ]
-        ++ optionals ((device.cpu == "intel") && (device.gpu != "hybrid-nv")) [
+        ++ optionals ((dev.cpu == "intel") && (dev.gpu != "hybrid-nv")) [
           "i915.enable_fbc=1"
           "i915.enable_psr=2"
         ];

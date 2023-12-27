@@ -1,14 +1,10 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   config = {
     modules = {
       device = {
         type = "desktop";
-        cpu = "amd";
-        gpu = "amd";
+        cpu.type = "amd";
+        gpu.type = "amd";
         monitors = ["DP-1" "HDMI-A-1"];
         hasBluetooth = true;
         hasSound = true;
@@ -25,7 +21,7 @@
           secureBoot = false;
           kernel = pkgs.linuxPackages_xanmod_latest;
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
           plymouth = {

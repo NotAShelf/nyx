@@ -7,8 +7,8 @@
     modules = {
       device = {
         type = "server";
-        cpu = "intel";
-        gpu = null;
+        cpu.type = "intel";
+        gpu.type = null;
         hasBluetooth = false;
         hasSound = false;
         hasTPM = false;
@@ -26,7 +26,7 @@
           secureBoot = false;
           loader = "grub";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = false;
         };

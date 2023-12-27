@@ -2,16 +2,17 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf mkForce optionals;
+
+  dev = config.modules.device;
 in {
   config = {
     modules = {
       device = {
         type = "laptop";
-        cpu = "intel";
-        gpu = "hybrid-nv"; # nvidia drivers :b:roke
+        cpu.type = "intel";
+        gpu.type = "hybrid-nv"; # nvidia drivers :b:roke
         monitors = ["eDP-1"];
         hasBluetooth = true;
         hasSound = true;
@@ -26,7 +27,7 @@ in {
           secureBoot = false;
           loader = "systemd-boot";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
         };
@@ -89,7 +90,7 @@ in {
     };
 
     hardware = {
-      nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
+      nvidia = mkIf (builtins.elem dev.gpu ["nvidia" "hybrid-nv"]) {
         nvidiaPersistenced = mkForce false;
 
         open = mkForce false;
@@ -112,7 +113,7 @@ in {
           # The passive default severely degrades performance.
           "intel_pstate=active"
         ]
-        ++ optionals ((device.cpu == "intel") && (device.gpu != "hybrid-nv")) [
+        ++ optionals ((dev.cpu == "intel") && (dev.gpu != "hybrid-nv")) [
           "i915.enable_fbc=1"
           "i915.enable_psr=2"
         ];

@@ -7,8 +7,8 @@
     modules = {
       device = {
         type = "laptop";
-        cpu = "amd";
-        gpu = "amd";
+        cpu.type = "amd";
+        gpu.type = "amd";
         monitors = ["eDP-1"];
         hasBluetooth = true;
         hasSound = true;
@@ -24,7 +24,7 @@
           plymouth.enable = true;
           loader = "systemd-boot";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
         };

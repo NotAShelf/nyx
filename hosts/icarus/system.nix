@@ -3,8 +3,8 @@
     modules = {
       device = {
         type = "hybrid";
-        cpu = "intel";
-        gpu = "intel";
+        cpu.type = "intel";
+        gpu.type = "intel";
         monitors = ["eDP-1"];
         hasBluetooth = false;
         hasSound = true;
@@ -19,7 +19,7 @@
           secureBoot = false;
           loader = "systemd-boot";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = false;
         };

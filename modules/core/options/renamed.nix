@@ -9,8 +9,6 @@ in {
     (mkRenamedOptionModule ["modules" "usrEnv" "autologin"] ["modules" "system" "autoLogin"])
 
     # renamed options for the system module
-    (mkRenamedOptionModule ["modules" "system" "security" "secureBoot"] ["modules" "system" "boot" "secureBoot"])
-    (mkRenamedOptionModule ["modules" "system" "services" "gitea" "enable"] ["modules" "system" "services" "forgejo" "enable"])
     (mkRenamedOptionModule ["modules" "system" "networking" "useTailscale"] ["modules" "system" "networking" "tailscale" "client" "enable"])
     (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "client" "enable"] ["modules" "system" "networking" "tailscale" "isClient"])
     (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "server" "enable"] ["modules" "system" "networking" "tailscale" "isServer"])
@@ -20,5 +18,7 @@ in {
     (mkRenamedOptionModule ["modules" "system" "services" "headscale" "enable"] ["modules" "system" "services" "networking" "headscale" "enable"])
 
     (mkRenamedOptionModule ["modules" "system" "boot" "enableInitrdTweaks"] ["modules" "system" "boot" "initrd" "enableTweaks"])
+    (mkRenamedOptionModule ["modules" "system" "security" "secureBoot"] ["modules" "system" "boot" "secureBoot"])
+    (mkRenamedOptionModule ["modules" "system" "services" "gitea" "enable"] ["modules" "system" "services" "forgejo" "enable"])
   ];
 }

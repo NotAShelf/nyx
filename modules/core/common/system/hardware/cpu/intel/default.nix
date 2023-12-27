@@ -3,11 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
 in {
-  config = mkIf (device.cpu == "intel" || device.cpu == "vm-intel") {
+  config = mkIf (builtins.elem dev.cpu.type ["intel" "vm-intel"]) {
     hardware.cpu.intel.updateMicrocode = true;
     boot = {
       kernelModules = ["kvm-intel"];

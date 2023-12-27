@@ -10,8 +10,8 @@ in {
     modules = {
       device = {
         type = "server";
-        cpu = "pi";
-        gpu = "pi";
+        cpu.type = "pi";
+        gpu.type = "pi";
         monitors = ["HDMI-A-1"];
         hasBluetooth = false;
         hasSound = false;
@@ -26,7 +26,7 @@ in {
         boot = {
           loader = "none";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           tmpOnTmpfs = false;
         };
 
