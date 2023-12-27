@@ -3,11 +3,12 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   sys = config.modules.system.bluetooth;
 in {
-  config = mkIf (sys.enable) {
+  config = mkIf sys.enable {
     modules.system.boot.extraKernelParams = ["btusb"];
 
     hardware.bluetooth = {

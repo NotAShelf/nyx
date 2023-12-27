@@ -8,7 +8,7 @@
 
   dev = config.modules.device;
 in {
-  config = mkIf (builtins.elem dev.gpu ["amd" "hybrid-amd"]) {
+  config = mkIf (builtins.elem dev.gpu.type ["amd" "hybrid-amd"]) {
     # enable amdgpu xorg drivers in case Hyprland breaks again
     services.xserver.videoDrivers = lib.mkDefault ["modesetting" "amdgpu"];
 

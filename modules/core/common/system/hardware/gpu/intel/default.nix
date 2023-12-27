@@ -3,20 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
+
+  # let me play youtube videos without h.264, please and thank you
+  vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
 in {
-  config = mkIf (device.gpu == "intel" || device.gpu == "hybrid-nv") {
+  config = mkIf (builtins.elem dev.gpu.type ["intel" "hybrid-intel"]) {
     # enable the i915 kernel module
     boot.initrd.kernelModules = ["i915"];
     # better performance than the actual Intel driver
     services.xserver.videoDrivers = ["modesetting"];
-
-    nixpkgs.config.packageOverrides = pkgs: {
-      # let me play youtube videos without h.264, please and thank you
-      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
-    };
 
     # OpenCL support and VAAPI
     hardware.opengl = {
@@ -37,7 +36,7 @@ in {
       ];
     };
 
-    environment.variables = mkIf (config.hardware.opengl.enable && device.gpu != "hybrid-nv") {
+    environment.variables = mkIf (config.hardware.opengl.enable && dev.gpu != "hybrid-nv") {
       VDPAU_DRIVER = "va_gl";
     };
   };

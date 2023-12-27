@@ -7,8 +7,8 @@
     modules = {
       device = {
         type = "server";
-        cpu = "intel";
-        gpu = null;
+        cpu.type = "intel";
+        gpu.type = null;
         hasBluetooth = false;
         hasSound = false;
         hasTPM = false;

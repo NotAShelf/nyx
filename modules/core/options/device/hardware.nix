@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkOption types;
+  inherit (lib) mkOption mkEnableOption types;
 in {
   options.modules.device = {
     type = mkOption {
@@ -19,24 +19,43 @@ in {
     # the type of cpu your system has - vm and regular cpus currently do not differ
     # as I do not work with vms, but they have been added for forward-compatibility
     # TODO: make this a list - apparently more than one cpu on a device is still doable
-    cpu = mkOption {
-      type = types.enum ["pi" "intel" "vm-intel" "amd" "vm-amd" null];
-      default = null;
-      description = ''
-        The manifaturer/type of the primary system CPU. Determines with ucode services will be
-        enabled and provides additional kernel packages
-      '';
+    cpu = {
+      type = mkOption {
+        type = with types; nullOr (enum ["pi" "intel" "vm-intel" "amd" "vm-amd"]);
+        default = null;
+        description = ''
+          The manifaturer/type of the primary system CPU.
+
+          Determines which ucode services will be enabled and provides additional kernel packages
+        '';
+      };
+
+      amd = {
+        pstate.enable = mkEnableOption "AMD P-State Driver";
+        zenpower = {
+          enable = mkEnableOption "AMD Zenpower Driver";
+          percentage = mkOption {
+            type = types.int;
+            default = 50;
+            description = ''
+              The percentage of the maximum clock speed that the CPU will be
+              limited to. This is useful for reducing power consumption and
+              heat generation on laptops and desktops
+            '';
+          };
+        };
+      };
     };
 
-    # TODO: make this a list
-    # TODO: configuration for raspberry pi specific GPUs
-    gpu = mkOption {
-      type = types.enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd" null];
-      default = null;
-      description = ''
-        The manifaturer/type of the primary system GPU. Allows the correct GPU
-        drivers to be loaded, potentially optimizing video output
-      '';
+    gpu = {
+      type = mkOption {
+        type = with types; nullOr (enum ["pi" "amd" "intel" "nvidia" "hybrid-nv" "hybrid-amd"]);
+        default = null;
+        description = ''
+          The manifaturer/type of the primary system GPU. Allows the correct GPU
+          drivers to be loaded, potentially optimizing video output performance
+        '';
+      };
     };
 
     monitors = mkOption {
