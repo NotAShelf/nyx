@@ -28,6 +28,7 @@ jobs:
           - nix run nixpkgs#alejandra -- -c .
 
     uses: ./.github/workflows/prelude.yml
-    secrets: inherit
+    secrets:
+      GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     with:
       command: ${{ matrix.command }}
