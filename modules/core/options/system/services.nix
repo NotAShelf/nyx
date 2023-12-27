@@ -14,10 +14,10 @@
   # repeating the same options over and over
   mkModule = {
     name,
-    type,
-    host ? "127.0.0.1",
+    type ? "",
+    host ? "127.0.0.1", # default to listening only on localhost
     port ? 0,
-    extraSettings ? {},
+    extraOptions ? {},
   }: {
     enable = mkEnableOption "${name} ${type} service";
     settings =
@@ -34,7 +34,7 @@
           description = "The port ${name} will listen on";
         };
       }
-      // extraSettings;
+      // extraOptions;
   };
 in {
   options.modules.system = {
@@ -42,15 +42,56 @@ in {
       nextcloud.enable = mkEnableOption "Nextcloud service";
       mailserver.enable = mkEnableOption "nixos-mailserver service";
       mkm.enable = mkEnableOption "mkm-ticketing service";
-      vaultwarden.enable = mkEnableOption "VaultWarden service";
-      forgejo.enable = mkEnableOption "Forgejo service";
-      irc.enable = mkEnableOption "Quassel IRC service";
-      jellyfin.enable = mkEnableOption "Jellyfin media service";
-      searxng.enable = mkEnableOption "Searxng service";
-      miniflux.enable = mkEnableOption "Miniflux service";
-      reposilite.enable = mkEnableOption "Repeosilite service";
-      elasticsearch.enable = mkEnableOption "Elasticsearch service";
-      kanidm.enable = mkEnableOption "Kanidm service";
+
+      vaultwarden = mkModule {
+        name = "VaultWarden";
+        type = "password manager";
+        port = 8222;
+      };
+
+      forgejo = mkModule {
+        name = "Forgejo";
+        type = "forge";
+        port = 7000;
+      };
+
+      quassel = mkModule {
+        name = "Quassel";
+        type = "IRC";
+        port = 4242;
+      };
+
+      jellyfin = mkModule {
+        name = "Jellyfin";
+        type = "media";
+        port = 8096;
+      };
+
+      searxng = mkModule {
+        name = "Searxng";
+        type = "meta search engine";
+        port = 8888;
+      };
+
+      miniflux = mkModule {
+        name = "Miniflux";
+        type = "RSS reader";
+      };
+
+      reposilite = mkModule {
+        name = "Reposilite";
+        port = 8084;
+      };
+
+      elasticsearch = mkModule {
+        name = "Elasticsearch";
+        port = 9200;
+      };
+
+      kanidm = mkModule {
+        name = "Kanidm";
+        port = 8443;
+      };
 
       # monitoring tools
       monitoring = {
@@ -64,12 +105,28 @@ in {
       # networking
       networking = {
         wireguard.enable = mkEnableOption "Wireguard service";
-        headscale.enable = mkEnableOption "Headscale service";
+        headscale = mkModule {
+          name = "Headscale";
+          type = "networking";
+          port = 8085;
+          extraOptions = {
+            domain = mkOption {
+              type = types.str;
+              example = "headscale.example.com";
+              description = "The domain name to use for headscale";
+            };
+          };
+        };
       };
 
       # binary cache backends
       bincache = {
-        harmonia.enable = mkEnableOption "Harmonia binary cache service";
+        harmonia = mkModule {
+          name = "Harmonia";
+          type = "binary cache";
+          port = 5000;
+        };
+
         atticd = mkModule {
           name = "Atticd";
           type = "binary cache";
