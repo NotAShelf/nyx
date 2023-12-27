@@ -20,17 +20,14 @@ on:
       - "!**.md"
 
 jobs:
-  check-flake:
-    runs-on: ubuntu-latest
+  check:
+    strategy:
+      matrix:
+        command:
+          - nix flake check --accept-flake-config
+          - nix run nixpkgs#alejandra -- -c .
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-        with:
-          logger: pretty
-
-      - name: Check Flake
-        run: nix flake check --accept-flake-config --all-systems
+    uses: ./.github/workflows/prelude.yml
+    secrets: inherit
+    with:
+      command: ${{ matrix.command }}
