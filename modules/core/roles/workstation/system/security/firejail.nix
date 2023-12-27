@@ -6,7 +6,7 @@
   inherit (lib) getExe;
 in {
   programs.firejail = let
-    profiles = "${getExe pkgs.firejail}/etc/firejail";
+    profiles = "${pkgs.firejail}/etc/firejail";
   in {
     enable = true;
     wrappedBinaries = with pkgs; {
@@ -26,7 +26,7 @@ in {
       };
 
       imv = {
-        executable = getExe imv;
+        executable = pkgs.imv + /bin/imv;
         profile = "${profiles}/imv.profile";
       };
 
