@@ -19,7 +19,7 @@
           secureBoot = false;
           loader = "systemd-boot";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = false;
         };

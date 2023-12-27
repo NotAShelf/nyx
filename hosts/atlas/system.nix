@@ -26,7 +26,7 @@ in {
         boot = {
           loader = "none";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           tmpOnTmpfs = false;
         };
 

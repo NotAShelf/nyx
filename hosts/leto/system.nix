@@ -26,7 +26,7 @@
           secureBoot = false;
           loader = "grub";
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = false;
         };

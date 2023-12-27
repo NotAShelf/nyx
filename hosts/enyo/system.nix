@@ -21,7 +21,7 @@
           secureBoot = false;
           kernel = pkgs.linuxPackages_xanmod_latest;
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
           plymouth = {
