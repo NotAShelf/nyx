@@ -5,5 +5,6 @@
     ./media
     ./polkit
     ./tray
+    ./kdeconnect
   ];
 }
