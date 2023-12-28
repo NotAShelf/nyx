@@ -94,6 +94,8 @@ in {
       };
 
       # monitoring tools
+      # TODO: how do I mkModule those? they feature multiple host-specific parts
+      # that need to be adressed
       monitoring = {
         enable = mkEnableOption "system monitoring stack";
         prometheus.enable = mkEnableOption' "Prometheus monitoring service";

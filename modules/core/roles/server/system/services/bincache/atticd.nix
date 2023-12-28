@@ -7,11 +7,11 @@
 }: let
   inherit (lib) mkIf;
 
-  domain = "cache" + config.networking.domain;
-  port = 8100;
-
   sys = config.modules.system;
   cfg = sys.services.bincache.atticd;
+
+  domain = "cache" + config.networking.domain;
+  port = cfg.settings.port or 8100;
 in {
   imports = [inputs.atticd.nixosModules.atticd];
   config = mkIf cfg.enable {
