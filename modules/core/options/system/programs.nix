@@ -19,6 +19,7 @@ in {
       vscode.enable = mkEnableOption "Visual Studio Code";
       zathura.enable = mkEnableOption "Zathura document viewer";
       steam.enable = mkEnableOption "Steam game client";
+      kdeconnect.enable = mkEnableOption "KDE Connect utility";
 
       chromium = {
         enable = mkEnableOption "Chromium browser";
@@ -54,6 +55,7 @@ in {
         emulation.enable = mkEnableOption "Enable programs required to emulate other platforms";
         chess.enable = mkEnableOption "Chess programs and engines" // {default = config.modules.programs.gaming.enable;};
         gamescope.enable = mkEnableOption "Gamescope compositing manager" // {default = config.modules.programs.gaming.enable;};
+        mangohud.enable = mkEnableOption "MangoHud overlay" // {default = config.modules.programs.gaming.enable;};
       };
 
       media = {
