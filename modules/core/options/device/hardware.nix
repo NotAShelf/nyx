@@ -34,13 +34,14 @@ in {
         pstate.enable = mkEnableOption "AMD P-State Driver";
         zenpower = {
           enable = mkEnableOption "AMD Zenpower Driver";
-          percentage = mkOption {
-            type = types.int;
-            default = 50;
+          args = mkOption {
+            type = types.str;
+            default = "-p 0 -v 3C -f A0"; # Pstate 0, 1.175 voltage, 4000 clock speed
             description = ''
-              The percentage of the maximum clock speed that the CPU will be
-              limited to. This is useful for reducing power consumption and
-              heat generation on laptops and desktops
+              The percentage of the maximum clock speed that the CPU will be limited to.
+
+              This is useful for reducing power consumption and heat generation on laptops
+              and desktops
             '';
           };
         };

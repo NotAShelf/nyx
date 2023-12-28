@@ -18,6 +18,7 @@ in {
           "kvm-amd" # amd virtualization
           "amd-pstate" # load pstate module in case the device has a newer gpu
           "zenpower" # zenpower is for reading cpu info, i.e voltage
+          "msr" # x86 CPU MSR access device
         ];
         extraModulePackages = [config.boot.kernelPackages.zenpower];
       }
@@ -36,5 +37,21 @@ in {
         kernelParams = ["amd_pstate=active"];
       })
     ];
+
+    # Ryzen cpu control
+    systemd.services.zenstates = mkIf zenpower.enable {
+      enable = true;
+      description = "Undervolt via Zenstates";
+      after = ["syslog.target" "systemd-modules-load.service"];
+
+      unitConfig = {ConditionPathExists = "${pkgs.zenstates}/bin/zenstates";};
+
+      serviceConfig = {
+        User = "root";
+        ExecStart = "${pkgs.zenstates}/bin/zenstates ${zenpower.args}";
+      };
+
+      wantedBy = ["multi-user.target"];
+    };
   };
 }
