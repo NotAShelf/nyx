@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree mkdir-nvim ssr-nvim direnv-vim;
   inherit (pkgs.vimUtils) buildVimPlugin;
 
@@ -12,7 +16,7 @@
     };
   };
 
-  regexplainer = {
+  regexplainer = buildVimPlugin {
     name = "nvim-regexplainer";
     src = pkgs.fetchFromGitHub {
       owner = "bennypowers";
@@ -22,13 +26,23 @@
     };
   };
 
-  specs-nvim = {
+  specs-nvim = buildVimPlugin {
     name = "specs.nvim";
     src = pkgs.fetchFromGitHub {
       owner = "edluffy";
       repo = "specs.nvim";
       rev = "2743e412bbe21c9d73954c403d01e8de7377890d";
       hash = "sha256-mYTzltCEKO8C7BJ3WrB/iFa1Qq1rgJlcjW6NYHPfmPk=";
+    };
+  };
+
+  deferred-clipboard = buildVimPlugin {
+    name = "deferred-clipboard";
+    src = pkgs.fetchFromGitHub {
+      owner = "EtiamNullam";
+      repo = "deferred-clipboard.nvim";
+      rev = "810a29d166eaa41afc220cc7cd85eeaa3c43b37f";
+      hash = "sha256-nanNQEtpjv0YKEkkrPmq/5FPxq+Yj/19cs0Gf7YgKjU=";
     };
   };
 in {
@@ -93,4 +107,12 @@ in {
   };
 
   direnv = {package = direnv-vim;};
+  deferred-clipboard = {
+    package = deferred-clipboard;
+    setup = ''
+      require('deferred-clipboard').setup {
+        fallback = 'unnamedplus'
+      }
+    '';
+  };
 }
