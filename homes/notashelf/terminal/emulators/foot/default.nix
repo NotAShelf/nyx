@@ -30,7 +30,7 @@ in {
           font = "monospace:size=14";
           font-bold = "monospace:size=14";
           pad = "16x16";
-          dpi-aware = "true";
+          dpi-aware = false; # this looks more readable on a laptop, but it's unreasonably large
           vertical-letter-offset = "-0.75";
           shell = "zsh";
 
