@@ -11,6 +11,7 @@ in {
     "${modulesPath}/profiles/minimal.nix"
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
 
+    ./programs
     ./boot.nix
     ./iso.nix
     ./network.nix
