@@ -36,21 +36,5 @@ in {
         kernelParams = ["amd_pstate=active"];
       })
     ];
-
-    # cpu power control
-    systemd.services.zenstates = mkIf zenpower.enable {
-      enable = true;
-      description = "Ryzen Undervolt";
-      after = ["syslog.target" "systemd-modules-load.service"];
-
-      unitConfig = {ConditionPathExists = "${pkgs.zenstates}/bin/zenstates";};
-
-      serviceConfig = {
-        User = "root";
-        ExecStart = "${pkgs.zenstates}/bin/zenstates ${zenpower.percentage}";
-      };
-
-      wantedBy = ["multi-user.target"];
-    };
   };
 }

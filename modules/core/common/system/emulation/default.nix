@@ -15,14 +15,10 @@ in {
       emulatedSystems = sys.emulation.systems;
       registrations = {
         # aarch64 interpreter
-        aarch64-linux = {
-          interpreter = "${pkgs.qemu}/bin/qemu-aarch64";
-        };
+        aarch64-linux.interpreter = "${pkgs.qemu}/bin/qemu-aarch64";
 
         # i686 interpreter
-        i686-linux = {
-          interpreter = "${pkgs.qemu}/bin/qemu-i686";
-        };
+        i686-linux.interpreter = "${pkgs.qemu}/bin/qemu-i686";
       };
     };
   };

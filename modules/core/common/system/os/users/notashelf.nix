@@ -12,6 +12,9 @@ in {
 
   users.users.notashelf = {
     isNormalUser = true;
+    shell = pkgs.zsh;
+    initialPassword = "changeme";
+    openssh.authorizedKeys.keys = keys;
     extraGroups =
       [
         "wheel"
@@ -35,9 +38,5 @@ in {
         "git"
         "libvirtd"
       ];
-    uid = 1001;
-    shell = pkgs.zsh;
-    initialPassword = "changeme";
-    openssh.authorizedKeys.keys = keys;
   };
 }
