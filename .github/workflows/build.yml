@@ -1,46 +1,15 @@
-name: Publish Database Releases
+name: Publish ISO Images
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 1 * * *" # everyday at 1AM
+    - cron: "0 3 * * mon" # every sunday at 3AM
 
 jobs:
-  # update the revision (git_ref) key in data/targets.json
-  update-revision:
-    name: "Update Nixpkgs Revision"
-    if: github.repository == 'notashelf/nixos-package-info'
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: "${{ secrets.GH_TOKEN }}"
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Nix Magic Cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
-
-      - name: Update Nixpkgs Revision
-        run: "nix run .#update-sources data/targets.json"
-
-      - name: Commit
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "[CI]: update nixpkgs revision"
-          push_options: "--force"
-          commit_user_name: GitHub Actions
-
   # use updated targets.json to generate a raw data dump from nixpkgs flake
-  update-raw-data:
-    name: "Update Raw Data"
-    needs: update-revision
+  build-images:
+    name: "Build ISO Images"
+    if: github.repository == 'notashelf/nyx'
     runs-on: ubuntu-latest
 
     permissions:
@@ -50,19 +19,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: "${{ secrets.GH_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Nix Magic Cache
         uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Get current commit
+        id: get-commit
+        run: echo "commit_sha=$(git rev-parse HEAD)" >> "${GITHUB_OUTPUT}"
 
       - name: Build ISO Images
         shell: bash
         run: |
-          nix build .#images.erebus
-          nix build .#images.gaea
+          nix build .#images.erebus -o erebus
+          nix build .#images.gaea -o gaea
 
       - name: Get current date
         id: get-date
@@ -73,11 +46,9 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          name: Release ${{ steps.get-date.outputs.date }}
+          name: ${{ steps.get-date.outputs.date }}
           tag_name: ${{ steps.get-date.outputs.date }}
           files: |
-            database.json
-            database-full.json
-            *-checksums.txt
+            {erebus,gaea}/iso/*.iso
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
