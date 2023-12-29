@@ -55,32 +55,34 @@
 -   **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
 -   **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
 -   **Encryption Ready** - Supports and actively utilizes full disk encryption.
--   **Declarative Themes** - Using my module options, [profiles](profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
+-   **Declarative Themes** - Using my module options, [profiles](./modules/profiles), `nix-colors` and `wallpkgs`, everything theming is handled inside the flake.
 -   **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake is fully modular.
 -   **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
 
 ### 📚 Layout
 
--   [flake.nix](flake.nix) Ground zero of my system configuration
--   [lib](lib) 📚 Personal library of functions and utilities
--   [secrets](secrets) 🔒 Agenix secrets
--   [flake](flake) ❄️ Individual parts of my flake, powered by flake-parts
-    -   [pkgs](flake/pkgs) 📦 packages exported by my flake
-    -   [schemes](flake/schemes) 🪡 home-baked flake schemas for upcoming [flake schemas](https://determinate.systems/posts/flake-schemas)
-    -   [templates](flake/templates) 📖 templates for initializing flakes. Provides some language-specific flakes
--   [docs](docs)📑 The documentation for my flake repository
-    -   [todo](docs/todo) 📝 My to-do notes
-    -   [notes](docs/notes) 📓 Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
--   [homes](home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
--   [modules](modules) 🍱 modularized NixOS configurations
-    -   [core](modules/common) ⚙️T The core module that all systems depend on
-        -   [common](modules/shared) 🧠 Module configurations shared between hosts
-        -   [options](modules/options) 🔧 Definitions for module options used by common modules
-        -   [types](modules/types) 💡 A profile-like system that is organized per device type
-    -   [extra](modules/extra) 🚀 Extra modules that are rarely imported
-        -   [shared](modules/shared) ☁️ Modules that are both shared for outside consumption, and imported by the flake itself
-        -   [exported](modules/exported) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
--   [hosts](hosts) 🌳 per-host configurations that contain machine specific configurations
+-   [flake.nix](./flake.nix) Ground zero of my system configuration
+-   [lib](./lib) 📚 Personal library of functions and utilities
+-   [secrets](./secrets) 🔒 Agenix secrets
+-   [flake](./flake) ❄️ Individual parts of my flake, powered by flake-parts
+    -   [pkgs](./flake/pkgs) 📦 packages exported by my flake
+    -   [schemes](./flake/schemes) 🪡 home-baked flake schemas for upcoming [flake schemas](https://determinate.systems/posts/flake-schemas)
+    -   [templates](./flake/templates) 📖 templates for initializing flakes. Provides some language-specific flakes
+-   [docs](./docs)📑 The documentation for my flake repository
+    -   [todo](./docs/todo.md) 📝 My to-do notes
+    -   [notes](./docs/notes.md) 📓 Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
+    -   [cheatsheet](./docs/cheatsheet.md) 📖
+-   [homes](./home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
+-   [modules](./modules) 🍱 modularized NixOS configurations
+    -   [core](./modules/common) ⚙️T The core module that all systems depend on
+        -   [common](./modules/common/shared) 🧠 Module configurations shared between hosts
+        -   [options](./modules/common/options) 🔧 Definitions for module options used by common modules
+        -   [roles](./modules/common/role) 💡 A profile-like system that allows devices to import their own roles
+    -   [extra](./modules/extra) 🚀 Extra modules that are rarely imported
+        -   [shared](./modules/extra/shared) ☁️ Modules that are both shared for outside consumption, and imported by the flake itself
+        -   [exported](./modules/extra/exported) 📦 Modules that are strictly for outside consumption and are not imported by the flake itself
+    -   [profiles](./modules/profiles) 📂 A collection of "sane" defaults for options across various roles
+-   [hosts](./hosts) 🌳 per-host configurations that contain machine specific configurations
 
 ## 🗒️ Notes
 
@@ -116,7 +118,8 @@ you were absolutely horrified by my atrocities against Nix or NixOS) I invite yo
 create an issue on open a pull request. I am always happy to learn and improve.
 Some of my mental notes (hopefully to be organized better when I finish my blog)
 can be found in [my notes directory](../docs/notes). Should you need explanation on
-some of the things I've done, or might do me the favor of proofreading my notes, you may take a look in there.
+some of the things I've done, or might do me the favor of proofreading my notes, you may take a look
+in there.
 
 ### Motivation
 
@@ -167,7 +170,9 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 > Pretend I haven't credited those people (but I will, because they are equally awesome)
 
 [n3oney](https://github.com/n3oney) -
-[gerg-l (bald frog)](https://github.com/gerg-l)
+[gerg-l (bald frog)](https://github.com/gerg-l) -
+[eclairevoyant](https://github.com/eclairevoyant/) -
+[FrothyMarrow](https://github.com/frothymarrow)
 
 ### Other Cool Resources
 
@@ -182,7 +187,8 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 
 -   [Agenix](https://github.com/ryantm/agenix)
 -   [Hyprland](https://github.com/hyprwm/Hyprland)
--   [nh](https://github.com/viperML/ng)
+-   [nh](https://github.com/viperML/nh)
+-   [ags](https://github.com/aylur/ags)
 
 > Stuff that I make and/or was designed for/is used in this repository
 
@@ -191,12 +197,12 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 -   [nyxpkgs](https://github.com/notashelf/nyxpkgs)
 -   [schizofox](https://github.com/schizofox/schizofox)
 
-Additionally, take a look at my [notes/blog](docs/notes) for my notes on specific processes on NixOS.
+Additionally, take a look at my [notes/blog](./docs/notes) for my notes on specific processes on NixOS.
 
 ## 📜 License
 
-This repository (except for [anything in docs directory](docs)) is licensed under the [GPL-3.0](LICENSE) license.
-The notes and documentation available in [docs directory](docs) is licensed under the [CC BY License](docs/LICENSE).
+This repository (except for [anything in docs directory](docs)) is licensed under the [GPL-3.0](./LICENSE) license.
+The notes and documentation available in [docs directory](docs) is licensed under the [CC BY License](./docs/LICENSE).
 
 If you are directly copying a section of my config, please include a copyright notice at the top of the file.
 It is not enforced, but would be appreciated.
