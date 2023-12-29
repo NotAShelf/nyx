@@ -54,7 +54,7 @@ in {
       };
 
       vaultwarden = mkModule {
-        name = "VaultWarden";
+        name = "Vaultwarden";
         type = "password manager";
         port = 8222;
       };
