@@ -13,9 +13,12 @@ with lib; let
   acceptedTypes = ["server" "hybrid"];
 in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.nextcloud.enable) {
-    modules.system.services.database = {
-      redis.enable = true;
-      postgresql.enable = true;
+    modules.system.services = {
+      nginx.enable = true;
+      database = {
+        redis.enable = true;
+        postgresql.enable = true;
+      };
     };
 
     services = {

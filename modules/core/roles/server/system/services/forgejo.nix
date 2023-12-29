@@ -16,9 +16,12 @@ in {
       config.services.forgejo.settings.server.SSH_PORT
     ];
 
-    modules.system.services.database = {
-      redis.enable = true;
-      postgresql.enable = true;
+    modules.system.services = {
+      nginx.enable = true;
+      database = {
+        redis.enable = true;
+        postgresql.enable = true;
+      };
     };
 
     services = {

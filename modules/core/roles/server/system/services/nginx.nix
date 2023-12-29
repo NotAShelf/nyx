@@ -9,7 +9,7 @@
   sys = config.modules.system;
   cfg = sys.services;
 in {
-  config = mkIf cfg.enable {
+  config = mkIf cfg.nginx.enable {
     security = {
       acme = {
         acceptTerms = true;

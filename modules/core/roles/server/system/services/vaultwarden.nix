@@ -5,11 +5,14 @@
 }: let
   inherit (lib) mkIf;
 
-  cfg = config.modules.system.services;
-  dev = config.modules.device;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.vaultwarden.enable) {
+  config = mkIf cfg.vaultwarden.enable {
+    modules.system.services = {
+      nginx.enable = true;
+    };
+
     # this forces the system to create backup folder
     systemd.services.backup-vaultwarden.serviceConfig = {
       User = "root";
@@ -25,7 +28,7 @@ in {
           DOMAIN = "https://vault.notashelf.dev";
           SIGNUPS_ALLOWED = false;
           ROCKET_ADDRESS = "127.0.0.1";
-          ROCKET_PORT = 8222;
+          ROCKET_PORT = cfg.vaultwarden.settings.port;
           extendedLogging = true;
           invitationsAllowed = false;
           useSyslog = true;

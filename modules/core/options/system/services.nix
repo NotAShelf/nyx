@@ -12,6 +12,7 @@
 
   # mkModule takes a few arguments to generate a module for a service without
   # repeating the same options over and over
+  # this is actually a horrendous abstractation
   mkModule = {
     name,
     type ? "",
