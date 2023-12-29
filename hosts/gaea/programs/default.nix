@@ -40,7 +40,6 @@
             cmp-cmdline
             cmp-nvim-lsp
             cmp-path
-            cmp-tabnine
             cmp_luasnip
 
             comment-nvim

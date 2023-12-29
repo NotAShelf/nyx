@@ -66,7 +66,7 @@ in {
       };
 
       # service secrets
-      wg-server = mkSecret cfg.wireguard.enable {
+      wg-server = mkSecret cfg.networking.wireguard.enable {
         file = "service-wg.age";
       };
 
