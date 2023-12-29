@@ -33,6 +33,8 @@
           actionlint = mkHook "actionlint" {enable = true;};
           treefmt = mkHook "treefmt" {enable = true;};
           prettier = mkHook "prettier" {enable = true;};
+          luacheck = mkHook "luacheck" {enable = true;};
+          mkdocs-linkcheck = mkHook "mkdocs-linkcheck" {enable = true;};
           editorconfig-checker = mkHook "editorconfig" {
             enable = false;
             always_run = true;
