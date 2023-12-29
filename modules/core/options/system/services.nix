@@ -39,9 +39,18 @@
 in {
   options.modules.system = {
     services = {
-      nextcloud.enable = mkEnableOption "Nextcloud service";
       mailserver.enable = mkEnableOption "nixos-mailserver service";
       mkm.enable = mkEnableOption "mkm-ticketing service";
+
+      nextcloud = mkModule {
+        name = "Nextcloud";
+        type = "cloud storage";
+      };
+
+      nginx = mkModule {
+        name = "Nginx";
+        type = "webserver";
+      };
 
       vaultwarden = mkModule {
         name = "VaultWarden";
