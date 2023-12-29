@@ -1,160 +1,32 @@
-		" use vim settings, rather than vi settings
-        " must be first, because it changes other options as a side effect
-        set nocompatible
-        " security
-        set modelines=0
+" set indentation to spaces instead of tabs
+set noexpandtab
 
-        " hide buffers, not close them
-        set hidden
+" number of spaces to use for each step of (auto)indent
+set shiftwidth=2
 
-        set noswapfile
+" number of spaces that a <Tab> in the file counts for
+set tabstop=2
 
-        " lazy file name tab completion
-        set wildmode=longest,list,full
-        set wildmenu
-        set wildignorecase
-        " ignore files vim doesnt use
-        set wildignore+=.git,.hg,.svn
-        set wildignore+=*.aux,*.out,*.toc
-        set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest,*.rbc,*.class
-        set wildignore+=*.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
-        set wildignore+=*.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg
-        set wildignore+=*.mp3,*.oga,*.ogg,*.wav,*.flac
-        set wildignore+=*.eot,*.otf,*.ttf,*.woff
-        set wildignore+=*.doc,*.pdf,*.cbr,*.cbz
-        set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
-        set wildignore+=*.swp,.lock,.DS_Store,._*
+" C-style indenting
+set cindent
 
-        " case insensitive search
-        set ignorecase
-        set smartcase
-        set infercase
+" 'smart' indenting
+set smartindent
 
-        set hlsearch
-        set incsearch
+" set the indent of new lines
+set autoindent
 
-        " make backspace behave in a sane manner
-        set backspace=indent,eol,start
+" set the folding method based on syntax
+set foldmethod=syntax
 
-        " indent is 4 spaces, a law of nature
-        set shiftwidth=2
+" map key <F2> to toggle between hiding/showing current line
+nmap <F2> zA
 
-        " tabs are spaces, not tabs
-        set expandtab
+" map key <F3> to toggle between reducing/enlarging fold level
+nmap <F3> zR
 
-        " an indentation every four columns
-        set tabstop=2
+" map key <F4> to fold everything except the cursor line
+nmap <F4> zM
 
-        " let backspace delete indent
-        set softtabstop=2
-
-        " enable auto indentation
-        set autoindent
-
-        " remove trailing whitespaces and ^M chars
-        autocmd FileType c,cpp,java,php,js,ts,tsx,json,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-
-        " take me to your leader, whose name i know is ,
-        let mapleader=","
-        vnoremap <silent> <leader>y :w !xsel -i -b<CR>
-        nnoremap <silent> <leader>y V:w !xsel -i -b<CR>
-        nnoremap <silent> <leader>p :silent :r !xsel -o -b<CR>
-
-        " remove trailing white space
-        command Nows :%s/\s\+$//
-
-        " remove blank lines
-        command Nobl :g/^\s*$/d
-
-        " toggle spellcheck
-        command Spell :setlocal spell! spell?
-
-        " true colors are the right colors
-        set termguicolors
-        colorscheme gruvbox
-
-        " gruvbox colors for the discerning cowboy coder
-        set background=dark
-        let g:gruvbox_italic=1
-        let g:gruvbox_contrast_dark = 'hard'
-        colorscheme gruvbox
-
-
-        " show matching brackets/parenthesis
-        set showmatch
-
-        " disable startup message
-        set shortmess+=I
-
-        " syntax highlighting
-        syntax on
-        set synmaxcol=512
-        filetype off
-
-        " stop unnecessary rendering
-        set lazyredraw
-
-        " show line numbers
-        set number
-
-        " no line wrapping
-        set nowrap
-
-        " do not fold. repeat. do not fold.
-        set nofoldenable
-        set foldlevel=99
-        set foldminlines=99
-        set foldlevelstart=99
-
-        " where am i? highlight cursor
-        set cursorline
-        "set cursorcolumn
-
-        " and let the invisibles be seen and known once more
-        set list
-        set listchars=
-        set listchars+=tab:𐄙\
-        set listchars+=trail:·
-        set listchars+=extends:»
-        set listchars+=precedes:«
-        set listchars+=nbsp:⣿
-
-        " UI Config
-
-        "" These are options that changes random visuals in Vim
-        syntax on
-        filetype on
-        set number                       " show line numbers
-        set showcmd                      " show command in bottom bar
-        set tw=0                         " hard wrap disabled
-        set nowrap                       " don't automatically wrap on load
-        set smartindent
-        set colorcolumn=80
-        set visualbell                   " don't beep
-        set noerrorbells                 " don't beep
-        set autowrite                    " Save on buffer switch
-        set mouse+=a
-        set encoding=utf-8
-        set cursorline                   " highlight current line
-        set lazyredraw                   " redraw only when we need to
-        set showmatch                    " highlight matching [{()}]
-        set autoindent
-        set expandtab
-        set splitbelow
-        set splitright
-        set spell                        " Turn on spell checker
-        set spellsuggest=5               " Limit the number of suggested words
-
-        " System clipboard
-        " cut/copy/paste to/from other application
-        set clipboard=unnamed     " access your system clipboard
-        set pastetoggle=<F2>
-
-
-        "" easier moving of code blocks
-        "" Try to go into visual mode (v), thenselect several lines of code here and
-        "" then press ``>`` several times.
-        vnoremap < <gv              " better indentation
-        vnoremap > >gv              " better indentation
-
-        set backupcopy=yes
+" syntax highlighting
+syntax enable

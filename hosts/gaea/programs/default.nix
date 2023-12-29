@@ -5,19 +5,14 @@
       lfs.enable = true;
     };
 
-    vim = {
+    neovim = {
       enable = true;
-      defaultEditor = true;
-      plugins = with pkgs.vimPlugins; [
-        tabular
-        vim-airline
-        vim-beancount
-        vim-nix
-        vim-surround
-      ];
 
-      settings.undofile = true;
-      extraConfig = builtins.readfile ./.vimrc;
+      viAlias = true;
+      vimAlias = true;
+      defaultEditor = true;
+
+      configure.customRC = builtins.readFile ./.vimrc;
     };
   };
 }
