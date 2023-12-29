@@ -6,11 +6,10 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.database.mongodb.enable) {
+  config = mkIf cfg.database.mongodb.enable {
     services.mongodb = {
       enable = true;
       package = pkgs.mongodb;

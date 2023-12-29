@@ -5,11 +5,10 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.monitoring.prometheus.enable) {
+  config = mkIf cfg.monitoring.prometheus.enable {
     services = {
       # Prometheus exporter for Grafana
       prometheus = {

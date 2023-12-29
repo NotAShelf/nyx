@@ -67,7 +67,7 @@ in {
           hashedPasswordFile = secrets.mailserver-vaultwarden-secret.path;
         };
 
-        "matrix@notashelf.dev" = mkIf cfg.matrix.enable {
+        "matrix@notashelf.dev" = mkIf cfg.social.matrix.enable {
           aliases = ["matrix"];
           hashedPasswordFile = secrets.mailserver-matrix-secret.path;
         };

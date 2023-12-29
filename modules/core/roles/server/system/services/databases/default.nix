@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./mongodb.nix
     ./postgresql.nix

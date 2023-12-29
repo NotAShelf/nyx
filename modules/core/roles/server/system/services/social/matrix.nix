@@ -6,9 +6,8 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services.social;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services.social;
 
   inherit (cfg.matrix.settings) port;
   bindAddress = "::1";
@@ -27,7 +26,7 @@
     return 200 '${builtins.toJSON data}';
   '';
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.matrix.enable) {
+  config = mkIf cfg.matrix.enable {
     networking.firewall.allowedTCPPorts = [port];
 
     modules.system.services.database = {

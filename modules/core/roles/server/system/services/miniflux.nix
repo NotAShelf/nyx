@@ -1,10 +1,10 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf getExe';
 
   dev = config.modules.device;
   cfg = config.modules.system.services;
@@ -20,7 +20,7 @@ in {
         wantedBy = ["multi-user.target"];
         requires = ["miniflux-dbsetup.service"];
         after = ["network.target" "postgresql.service" "miniflux-dbsetup.service"];
-        script = lib.getExe' pkgs.miniflux "miniflux";
+        script = getExe' pkgs.miniflux "miniflux";
 
         serviceConfig = {
           User = "miniflux";

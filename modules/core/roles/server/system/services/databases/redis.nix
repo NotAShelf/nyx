@@ -5,11 +5,10 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.database.redis.enable) {
+  config = mkIf cfg.database.redis.enable {
     services.redis = {
       vmOverCommit = true;
       servers = mkIf cfg.nextcloud.enable {
@@ -37,7 +36,7 @@ in {
           requirePass = "forgejo";
         };
 
-        mastodon = mkIf cfg.mastodon.enable {
+        mastodon = mkIf cfg.social.mastodon.enable {
           enable = true;
           user = "mastodon";
           port = 6372;

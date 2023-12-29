@@ -23,7 +23,7 @@ in {
       avahi = {
         enable = true;
         # resolve .local domains for printers
-        nssmdns = true;
+        nssmdns4 = true;
         # pass avahi port(s) to the firewall
         openFirewall = true;
       };
