@@ -1,7 +1,8 @@
 {
-  lib,
+  self',
   inputs,
   osConfig,
+  lib,
   ...
 }: let
   inherit (osConfig.modules) device;
@@ -13,17 +14,12 @@ in {
       enable = true;
 
       theme = {
+        font = "Inter";
         colors = {
           background-darker = "181825";
           background = "1e1e2e";
           foreground = "cdd6f4";
         };
-        font = "Lexend";
-        extraUserChrome = ''
-          body {
-            color: red !important;
-          }
-        '';
       };
 
       search = rec {
@@ -51,7 +47,7 @@ in {
       misc = {
         drmFix = true;
         disableWebgl = false;
-        startPageURL = "file://${./startpage.html}";
+        startPageURL = "file://${self'.packages.schizofox-startpage}";
         bookmarks = [
           {
             Title = "Nyx";

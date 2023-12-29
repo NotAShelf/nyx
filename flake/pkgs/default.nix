@@ -4,13 +4,16 @@ _: {
     "aarch64-linux"
   ];
 
-  perSystem = {pkgs, ...}: {
+  perSystem = {pkgs, ...}: let
+    inherit (pkgs) callPackage;
+  in {
     packages = {
-      plymouth-themes = pkgs.callPackage ./plymouth-themes.nix {};
-      anime4k = pkgs.callPackage ./anime4k.nix {};
-      spotify-wrapped = pkgs.callPackage ./spotify-wrapped.nix {};
-      nicksfetch = pkgs.callPackage ./nicksfetch.nix {};
-      present = pkgs.callPackage ./present.nix {};
+      schizofox-startpage = callPackage ./startpage {};
+      plymouth-themes = callPackage ./plymouth-themes.nix {};
+      anime4k = callPackage ./anime4k.nix {};
+      spotify-wrapped = callPackage ./spotify-wrapped.nix {};
+      nicksfetch = callPackage ./nicksfetch.nix {};
+      present = callPackage ./present.nix {};
     };
   };
 }
