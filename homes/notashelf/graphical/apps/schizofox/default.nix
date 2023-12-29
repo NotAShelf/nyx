@@ -47,7 +47,7 @@ in {
       misc = {
         drmFix = true;
         disableWebgl = false;
-        startPageURL = "file://${self'.packages.schizofox-startpage}";
+        startPageURL = "file://${self'.packages.schizofox-startpage.outPath}/index.html";
         bookmarks = [
           {
             Title = "Nyx";
