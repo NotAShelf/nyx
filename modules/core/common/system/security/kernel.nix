@@ -90,9 +90,11 @@ in {
           # Restrict ptrace() usage to processes with a pre-defined relationship
           # (e.g., parent/child)
           # FIXME: this breaks game launchers, find a way to launch them with privileges (steam)
-          # "kernel.yama.ptrace_scope" = 2;
+          # gamescope wrapped with the capabilities *might* solve the issue
+          "kernel.yama.ptrace_scope" = 2;
 
           # Hide kptrs even for processes with CAP_SYSLOG
+          # also prevents printing kernel pointers
           "kernel.kptr_restrict" = 2;
 
           # Disable bpf() JIT (to eliminate spray attacks)
@@ -103,6 +105,24 @@ in {
 
           # Avoid kernel memory address exposures via dmesg (this value can also be set by CONFIG_SECURITY_DMESG_RESTRICT).
           "kernel.dmesg_restrict" = 1;
+
+          # Prevent unintentional fifo writes
+          "fs.protected_fifos" = 2;
+
+          # Prevent unintended writes to already-created files
+          "fs.protected_regular" = 2;
+
+          # Disable SUID binary dump
+          "fs.suid_dumpable" = 0;
+
+          # # Disable late module loading
+          # "kernel.modules_disabled" = 1;
+
+          # Disallow profiling at all levels without CAP_SYS_ADMIN
+          "kernel.perf_event_paranoid" = 3;
+
+          # Require CAP_BPF to use bpf
+          "kernel.unprvileged_bpf_disabled" = 1;
         };
       };
 
