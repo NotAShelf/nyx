@@ -48,6 +48,11 @@ in {
     '';
   };
 
+  slides-nvim = {
+    package = pluginSources.slides-nvim;
+    setup = "require('slides').setup {}";
+  };
+
   hmts = {
     package = pluginSources.hmts;
     after = ["treesitter"];

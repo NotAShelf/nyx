@@ -20,6 +20,20 @@
       "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre562963.e1fa12d4f6c6/nixexprs.tar.xz",
       "hash": "16wdn7j17y9yradygdbdlhlcpqa432hp5ah49cm3b0caqymbgw6h"
     },
+    "slides.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "notashelf",
+        "repo": "slides.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "version": "v0.1.0",
+      "revision": "768fde54ac9de657887b605ee93f11993b26c9c2",
+      "url": "https://api.github.com/repos/notashelf/slides.nvim/tarball/v0.1.0",
+      "hash": "19pzmwpjdsmyy9ygk6ln1i18qihdffp6dgx4vvccyvvz3shabvhx"
+    },
     "smart-splits.nvim": {
       "type": "GitRelease",
       "repository": {

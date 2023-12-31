@@ -12,6 +12,11 @@ in {
     src = pins."smart-splits.nvim";
   };
 
+  slides-nvim = buildVimPlugin {
+    name = "slides.nvim";
+    src = pins."slides.nvim";
+  };
+
   regexplainer = buildVimPlugin {
     name = "nvim-regexplainer";
     src = pkgs.fetchFromGitHub {
