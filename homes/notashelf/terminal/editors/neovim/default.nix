@@ -346,6 +346,10 @@ in {
         presence.presence-nvim.enable = true;
 
         maps = import ./mappings.nix;
+
+        luaConfigRC = {
+          "lsp-handler" = builtins.readFile ./lua/handlers.lua;
+        };
       };
     };
   };
