@@ -45,6 +45,21 @@ in {
       instances = {
         "runner-01" = mkRunner "runner-01" {
           tokenFile = config.age.secrets.forgejo-runner-token.path;
+          settings = {
+            container = {
+              network = "host";
+            };
+          };
+
+          # packages that'll be made available to the host
+          hostPackages = with pkgs; [
+            bash
+            curl
+            coreutils
+            wget
+            gitMinimal
+            nix
+          ];
         };
       };
     };

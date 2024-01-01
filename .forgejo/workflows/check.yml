@@ -6,8 +6,5 @@ jobs:
       - name: Checkout
         uses: https://code.forgejo.org/actions/checkout@v3
 
-      - name: Install nix action
-        uses: https://github.com/DeterminateSystems/nix-installer-action@v5
-
       - name: Check flake outputs
         run: nix flake check
