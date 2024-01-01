@@ -31,6 +31,7 @@
         ./flake/modules # nixos and home-manager modules provided by this flake
         ./flake/treefmt # treefmt configuration
 
+        ./flake/deployments.nix
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
         ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devshell
       ];
@@ -77,6 +78,7 @@
           # packages available in the dev shell
           packages = with pkgs; [
             inputs'.agenix.packages.default # provide agenix CLI within flake shell
+            inputs'.deploy-rs.packages.default # provide deploy-rs CLI within flake shell
             config.treefmt.build.wrapper # treewide formatter
             nil # nix ls
             alejandra # nix formatter
@@ -93,9 +95,7 @@
             })
           ];
 
-          inputsFrom = [
-            config.treefmt.build.devShell
-          ];
+          inputsFrom = [config.treefmt.build.devShell];
         };
       };
     });
@@ -150,6 +150,9 @@
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # multi-profile Nix-flake deploy
+    deploy-rs.url = "github:serokell/deploy-rs";
 
     # A tree-wide formatter
     treefmt-nix = {
