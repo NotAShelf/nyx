@@ -1,0 +1,16 @@
+name: fmt check
+
+on:
+  push:
+    paths:
+      - "**.nix"
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: https://github.com/DeterminateSystems/nix-installer-action@v5
+      - name: fmt
+        run: nix run nixpkgs#alejandra -- -c .
