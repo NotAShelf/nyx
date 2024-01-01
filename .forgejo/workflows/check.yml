@@ -1,3 +1,5 @@
+name: Flake Check
+
 on: [push]
 jobs:
   check:
@@ -6,7 +8,7 @@ jobs:
       - name: Checkout
         uses: https://code.forgejo.org/actions/checkout@v4
       - name: Install Nix
-        uses: https://github.com/cachix/install-nix-action@v22
+        uses: https://github.com/DeterminateSystems/nix-installer-action@v5
         with:
           nix_path: nixpkgs=channel:nixos-unstable
       - name: Check
