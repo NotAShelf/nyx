@@ -24,6 +24,7 @@
         "debian-latest:docker://node:18-bullseye"
         "ubuntu-latest:docker://node:18-bullseye"
         "act:docker://ghcr.io/catthehacker/ubuntu:act-latest"
+        #"native:host"
       ];
     }
     // settings;
@@ -46,19 +47,19 @@ in {
         "runner-01" = mkRunner "runner-01" {
           tokenFile = config.age.secrets.forgejo-runner-token.path;
           settings = {
-            container = {
-              network = "host";
-            };
+            capacity = 4;
+            container.network = "host";
+            cache.enabled = true;
           };
 
           # packages that'll be made available to the host
+          # when the runner is configured with a host execution label.
           hostPackages = with pkgs; [
             bash
             curl
             coreutils
             wget
             gitMinimal
-            nix
           ];
         };
       };
