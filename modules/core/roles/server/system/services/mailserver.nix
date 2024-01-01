@@ -109,6 +109,11 @@ in {
         indexAttachments = true;
         enforced = "body";
       };
+
+      vmailUserName = "vmail";
+      vmailGroupName = "vmail";
+
+      useFsLayout = true;
     };
 
     services = {
