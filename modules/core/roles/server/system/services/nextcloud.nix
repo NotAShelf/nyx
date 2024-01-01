@@ -103,19 +103,21 @@ in {
         };
       };
 
+      /*
       "nextcloud-preview" = {
         description = "Generate previews for all images that haven't been rendered";
         startAt = "01:00:00";
         requires = ["nextcloud.service"];
         after = ["nextcloud.service"];
         path = [config.services.nextcloud.occ];
-        script = "nextcloud-occ preview:pre-generate";
+        script = "nextcloud-occ preview:generate";
 
         serviceConfig = {
           Restart = "on-failure";
           RestartSec = "10s";
         };
       };
+      */
     };
   };
 }
