@@ -6,7 +6,8 @@ jobs:
       - name: Checkout
         uses: https://code.forgejo.org/actions/checkout@v4
 
-      - uses: https://github.com/cachix/install-nix-actionn@v22
+      - name: Install Nix
+        uses: https://github.com/cachix/install-nix-action@v22
         with:
           nix_path: nixpkgs=channel:nixos-unstable
 
