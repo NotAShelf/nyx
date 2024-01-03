@@ -91,7 +91,8 @@ in {
           # (e.g., parent/child)
           # FIXME: this breaks game launchers, find a way to launch them with privileges (steam)
           # gamescope wrapped with the capabilities *might* solve the issue
-          "kernel.yama.ptrace_scope" = 2;
+          # spoiler: it didn't
+          # "kernel.yama.ptrace_scope" = 2;
 
           # Hide kptrs even for processes with CAP_SYSLOG
           # also prevents printing kernel pointers
