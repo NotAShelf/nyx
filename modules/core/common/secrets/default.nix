@@ -50,6 +50,13 @@ in {
           group = "users";
           mode = "700";
         };
+
+        tailscale-client = mkSecret true {
+          file = "client-tailscale.age";
+          owner = "notashelf";
+          group = "users";
+          mode = "400";
+        };
       })
 
     (mkIf (builtins.elem dev.type ["server" "hybrid"]) {
