@@ -2,9 +2,10 @@
   imports = [
     ./cpu # cpu specific options
     ./gpu # gpu specific options
-    ./tpm # trusted platform module
-    ./bluetooth # bluetooth and device management
     ./multimedia # enable multimedia, sound and video
-    ./yubikey # yubikey device support and management tools
+
+    ./tpm.nix # trusted platform module
+    ./yubikey.nix # yubikey device support and management tools
+    ./bluetooth.nix # bluetooth and device management
   ];
 }

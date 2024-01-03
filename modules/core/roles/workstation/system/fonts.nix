@@ -38,25 +38,38 @@ in {
 
       # font packages that should be installed
       packages = with pkgs; [
-        corefonts
+        # programming fonts
+        iosevka-bin
+        sarasa-gothic
+
+        # desktop fonts
+        corefonts # MS fonts
+        b612 # high legibility
         material-icons
         material-design-icons
         roboto
         work-sans
         comic-neue
         source-sans
-        twemoji-color-font
-        comfortaa
         inter
         lato
-        jost
         lexend
         dejavu_fonts
-        iosevka-bin
         noto-fonts
         noto-fonts-cjk
+
+        # emojis
         noto-fonts-color-emoji
-        emacs-all-the-icons-fonts
+        twemoji-color-font
+        openmoji-color
+        openmoji-black
+
+        # defaults worth keeping
+        dejavu_fonts
+        freefont_ttf
+        gyre-fonts
+        liberation_ttf
+        unifont
 
         (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
       ];

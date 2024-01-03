@@ -2,8 +2,9 @@
   lib,
   config,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf mkMerge;
+
   sys = config.modules.system;
 in {
   config = mkMerge [
@@ -39,10 +40,6 @@ in {
           supportedFilesystems = ["exfat"];
         };
       };
-    })
-
-    (mkIf (builtins.elem "zfs" sys.fs) {
-      # TODO: zfs needs a lot of options to be enabled, perhaps this could be its own separate module once I start using zfs for basically anything
     })
 
     # accept both ntfs and ntfs3 as valid values

@@ -3,7 +3,6 @@
   # see https://wiki.archlinux.org/title/Realtime_process_management
   # tldr: realtime processes have higher priority than normal processes
   # and that's a good thing
-
   users = {
     users."${config.modules.system.mainUser}".extraGroups = ["realtime"];
     groups.realtime = {};

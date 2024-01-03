@@ -14,7 +14,7 @@ in {
       virt-viewer
     ];
 
-    virtualization = {
+    virtualisation = {
       kvmgt.enable = true;
       spiceUSBRedirection.enable = true;
 
@@ -32,5 +32,11 @@ in {
         };
       };
     };
+
+    # this allows libvirt to use pulseaudio socket
+    # which is useful for virt-manager
+    hardware.pulseaudio.extraConfig = ''
+      load-module module-native-protocol-unix auth-group=qemu-libvirtd socket=/tmp/pulse-socket
+    '';
   };
 }

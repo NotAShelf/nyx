@@ -1,14 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkDefault;
-  inherit (config.modules) device;
+  inherit (lib) mkDefault;
 in {
   imports = [
-    ./systemd.nix
+    ./systemd
+
     ./zram.nix
   ];
 
@@ -29,6 +28,11 @@ in {
     lvm.enable = mkDefault false;
 
     # enable smartd monitoring
-    smartd.enable = true;
+    smartd = {
+      enable = mkDefault true;
+      notifications = {
+        x11.enable = config.services.xserver.enable;
+      };
+    };
   };
 }

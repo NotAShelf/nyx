@@ -8,13 +8,13 @@
 
   sys = config.modules.system.virtualization;
 in {
-  config = mkIf sys.podman.enable {
+  config = mkIf (sys.docker.enable || sys.podman.enable) {
     environment.systemPackages = with pkgs; [
       podman-compose
       podman-desktop
     ];
 
-    virtualization.podman = mkIf (sys.docker.enable || sys.podman.enable) {
+    virtualisation.podman = {
       enable = true;
 
       # make docker backwards compatible with docker interface

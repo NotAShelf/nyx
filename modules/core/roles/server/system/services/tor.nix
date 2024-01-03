@@ -10,29 +10,26 @@
 in {
   config = mkIf cfg.tor.enable {
     services = {
-      tor.settings = {
-        AutomapHostsOnResolve = true;
-        AutomapHostsSuffixes = [".exit" ".onion"];
-        EnforceDistinctSubnets = true;
-        ExitNodes = "{pl}";
-        EntryNodes = "{pl}";
-        NewCircuitPeriod = 120;
-        DNSPort = 9053;
-        BandWidthRate = "15 MBytes";
-      };
+      tor = {
+        settings = {
+          AutomapHostsOnResolve = true;
+          AutomapHostsSuffixes = [".exit" ".onion"];
+          EnforceDistinctSubnets = true;
+          ExitNodes = "{de}";
+          EntryNodes = "{de}";
+          NewCircuitPeriod = 120;
+          DNSPort = 9053;
+          BandWidthRate = "15 MBytes";
+        };
 
-      # tor.relay.onionServices = {
-      #   # hide ssh from script kiddies
-      #   ssh = {
-      #     version = 3;
-      #     map = [{port = 22;}];
-      #   };
-      #   # feds crying rn
-      #   website = {
-      #     version = 3;
-      #     map = [{port = 80;}];
-      #   };
-      # };
+        relay.onionServices = {
+          # hide ssh from script kiddies
+          ssh = {
+            version = 3;
+            map = [{port = builtins.elemAt config.services.openssh.ports 0;}];
+          };
+        };
+      };
     };
   };
 }
