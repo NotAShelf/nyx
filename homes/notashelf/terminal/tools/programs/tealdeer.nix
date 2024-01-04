@@ -1,4 +1,4 @@
-_: {
+{
   programs = {
     tealdeer = {
       enable = true;
@@ -7,6 +7,7 @@ _: {
           compact = false;
           use_pager = true;
         };
+
         updates = {
           auto_update = true;
         };

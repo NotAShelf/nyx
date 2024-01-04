@@ -354,7 +354,7 @@ in {
     };
   };
 
-  xdg.desktopEntries.neovim = lib.mkForce {
+  xdg.desktopEntries."neovim" = lib.mkForce {
     name = "Neovim";
     type = "Application";
     mimeType = ["text/plain"];
