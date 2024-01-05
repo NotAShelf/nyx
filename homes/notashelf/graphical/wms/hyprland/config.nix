@@ -60,8 +60,8 @@ in {
         sensitivity = 0.8;
 
         # gaps
-        gaps_in = 6;
-        gaps_out = 11;
+        gaps_in = 4;
+        gaps_out = 8;
 
         # border thiccness
         border_size = 3;
