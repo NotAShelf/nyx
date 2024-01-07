@@ -32,6 +32,13 @@ in {
       nix-builderKey = mkSecret true {
         file = "common-nix-builder.age";
       };
+
+      tailscale-client = mkSecret true {
+        file = "client-tailscale.age";
+        owner = "notashelf";
+        group = "users";
+        mode = "400";
+      };
     }
 
     (mkIf (builtins.elem dev.type ["desktop" "laptop" "hybrid" "lite"])
@@ -49,13 +56,6 @@ in {
           owner = "notashelf";
           group = "users";
           mode = "700";
-        };
-
-        tailscale-client = mkSecret true {
-          file = "client-tailscale.age";
-          owner = "notashelf";
-          group = "users";
-          mode = "400";
         };
       })
 
