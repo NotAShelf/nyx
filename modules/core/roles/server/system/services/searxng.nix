@@ -9,7 +9,7 @@
   sys = config.modules.system;
   cfg = sys.services;
 
-  port = cfg.searxng.port or 8888;
+  inherit (cfg.searxng.settings) host port;
 in {
   config = mkIf cfg.searxng.enable {
     networking.firewall.allowedTCPPorts = [port];
@@ -127,7 +127,7 @@ in {
 
       nginx.virtualHosts."search.notashelf.dev" =
         {
-          locations."/".proxyPass = "http://127.0.0.1:${toString port}";
+          locations."/".proxyPass = "http://${host}:${toString port}";
           extraConfig = ''
             access_log /dev/null;
             error_log /dev/null;

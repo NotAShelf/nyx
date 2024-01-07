@@ -12,7 +12,7 @@
     if cfg.settings.host == "127.0.0.1"
     then "[::1]"
     else "[::]";
-  port = cfg.settings.port or 5000;
+  inherit (cfg.settings) port;
 in {
   config = mkIf cfg.enable {
     users = {

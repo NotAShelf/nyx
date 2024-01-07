@@ -17,7 +17,7 @@
     name,
     type ? "",
     host ? "127.0.0.1", # default to listening only on localhost
-    port ? 0,
+    port ? 0, # don't set a port by default
     extraOptions ? {},
   }: {
     enable = mkEnableOption "${name} ${type} service";
@@ -57,6 +57,7 @@ in {
         name = "Vaultwarden";
         type = "password manager";
         port = 8222;
+        host = "127.0.0.1";
       };
 
       forgejo = mkModule {

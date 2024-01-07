@@ -7,6 +7,8 @@
 
   sys = config.modules.system;
   cfg = sys.services;
+
+  inherit (cfg.vaultwarden.settings) port host;
 in {
   config = mkIf cfg.vaultwarden.enable {
     modules.system.services = {
@@ -27,8 +29,8 @@ in {
         config = {
           DOMAIN = "https://vault.notashelf.dev";
           SIGNUPS_ALLOWED = false;
-          ROCKET_ADDRESS = "127.0.0.1";
-          ROCKET_PORT = cfg.vaultwarden.settings.port;
+          ROCKET_ADDRESS = host;
+          ROCKET_PORT = port;
           extendedLogging = true;
           invitationsAllowed = false;
           useSyslog = true;
@@ -50,7 +52,7 @@ in {
       nginx.virtualHosts."vault.notashelf.dev" =
         {
           locations."/" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+            proxyPass = "http://${host}:${toString port}";
             extraConfig = "proxy_pass_header Authorization;";
           };
         }

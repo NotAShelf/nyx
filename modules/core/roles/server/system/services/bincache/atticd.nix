@@ -11,7 +11,7 @@
   cfg = sys.services.bincache.atticd;
 
   domain = "cache" + config.networking.domain;
-  port = cfg.settings.port or 8100;
+  inherit (cfg.settings) host port;
 in {
   imports = [inputs.atticd.nixosModules.atticd];
   config = mkIf cfg.enable {
@@ -39,7 +39,7 @@ in {
         group = "atticd";
 
         settings = {
-          listen = "127.0.0.1:${port}"; # this listens ONLY locally
+          listen = "${host}:${toString port}"; # this listens ONLY locally
           database.url = "postgresql:///atticd?host=/run/postgresql";
 
           allowed-hosts = ["${domain}"];
@@ -81,7 +81,7 @@ in {
 
         locations."/" = {
           recommendedProxySettings = true;
-          proxyPass = "http://127.0.0.1:8100";
+          proxyPass = "http://${host}:${toString port}";
         };
       };
     };
