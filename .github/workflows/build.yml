@@ -27,9 +27,9 @@ jobs:
       - name: Nix Magic Cache
         uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Get current commit
-        id: get-commit
-        run: echo "commit_sha=$(git rev-parse HEAD)" >> "${GITHUB_OUTPUT}"
+      #- name: Get current commit
+      #  id: get-commit
+      #  run: echo "commit_sha=$(git rev-parse HEAD)" >> "${GITHUB_OUTPUT}"
 
       - name: Build ISO Images
         shell: bash
@@ -46,8 +46,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ steps.get-date.outputs.date }}
-          tag_name: ${{ steps.get-date.outputs.date }}
+          name: "${{ steps.get-date.outputs.date }}"
+          tag_name: "${{ steps.get-date.outputs.date }}"
           files: |
             {erebus,gaea}/iso/*.iso
         env:
