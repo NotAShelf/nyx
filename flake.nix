@@ -161,8 +161,8 @@
     };
 
     nixfmt = {
-      url = "github:piegamesde/nixfmt?ref=rfc101-style";
-      inputs.nixpkgs.follows = "nixpkgs-small";
+      url = "github:piegamesde/nixfmt/rfc101-style";
+      flake = false;
     };
 
     # Project shells
