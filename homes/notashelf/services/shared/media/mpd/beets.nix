@@ -1,5 +1,6 @@
 {config}: {
   enable = true;
+
   settings = {
     ui.color = true;
     directory = config.services.mpd.musicDirectory;
