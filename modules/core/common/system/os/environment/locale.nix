@@ -51,9 +51,10 @@
   };
 
   console = let
-    variant = "u24n";
+    variant = "v18n";
   in {
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-${variant}.psf.gz";
+    font = "ter-powerline-${variant}";
+    packages = [pkgs.terminus_font pkgs.powerline-fonts];
     keyMap = "trq";
   };
 }
