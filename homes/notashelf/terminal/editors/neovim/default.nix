@@ -67,7 +67,7 @@ in {
           sql.enable = false;
           java = {
             enable = true;
-            lsp.package = ["${lib.getExe pkgs.jdt-language-server}" "-configuration" "${config.xdg.cacheHome}/jdtls/config" "-data" "${config.xdg.cacheHome}/jdtls/workspace"];
+            lsp.package = ["${pkgs.jdt-language-server}/bin/jdt-language-server" "-configuration" "${config.xdg.cacheHome}/jdtls/config" "-data" "${config.xdg.cacheHome}/jdtls/workspace"];
           };
 
           lua = {
