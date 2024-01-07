@@ -1,10 +1,9 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkForce;
 
   dev = config.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
@@ -27,6 +26,8 @@ in {
     };
 
     # enable the unified cgroup hierarchy (cgroupsv2)
-    systemd.enableUnifiedCgroupHierarchy = true;
+    # NOTE: we use mkForce ensure that we are making cgroupsv2 the default
+    # some services, i.e. lxd,  tries to disable it
+    systemd.enableUnifiedCgroupHierarchy = mkForce true;
   };
 }
