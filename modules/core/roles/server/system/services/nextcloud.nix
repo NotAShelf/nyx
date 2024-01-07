@@ -57,18 +57,19 @@ in {
           adminuser = "notashelf";
           adminpassFile = config.age.secrets.nextcloud-secret.path;
 
-          # force https
-          overwriteProtocol = "https";
-          extraTrustedDomains = ["https://${toString domain}"];
-          trustedProxies = ["https://${toString domain}"];
-
           # database
           dbtype = "pgsql";
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
+        };
 
+        extraOptions = {
           # other stuff
-          defaultPhoneRegion = "TR";
+          default_phone_region = "TR";
+          # force https
+          overwriteprotocol = "https";
+          trusted_domains = ["https://${toString domain}"];
+          trusted_proxies = ["https://${toString domain}"];
         };
 
         phpOptions = {
