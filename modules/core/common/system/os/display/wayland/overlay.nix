@@ -3,12 +3,12 @@
   lib,
   inputs,
   ...
-}:
-with lib; let
-  video = config.modules.system.video;
+}: let
+  inherit (lib) mkIf;
+  sys = config.modules.system;
   env = config.modules.usrEnv;
 in {
-  config = mkIf (video.enable && env.isWayland) {
+  config = mkIf (sys.video.enable && env.isWayland) {
     nixpkgs.overlays = with inputs; [
       nixpkgs-wayland.overlay
     ];

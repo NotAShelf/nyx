@@ -51,7 +51,7 @@ in {
                 stdenv.cc.cc.lib
                 strace
                 zlib
-                libunwind # for titanfall 2 Northstart launcher
+                libunwind # for titanfall 2 Northstar launcher
               ]);
           });
         })

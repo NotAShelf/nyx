@@ -3,15 +3,16 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  system = osConfig.modules.system;
+}: let
+  inherit (lib) mkIf;
 
-  device = osConfig.modules.device;
+  prg = osConfig.modules.programs;
+  sys = osConfig.modules.system;
+
+  dev = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf ((programs.gui.enable && system.printing."3d".enable) && (builtins.elem device.type acceptedTypes)) {
+  config = mkIf ((prg.gui.enable && sys.printing."3d".enable) && (builtins.elem dev.type acceptedTypes)) {
     home.packages = with pkgs; [
       freecad
       prusa-slicer

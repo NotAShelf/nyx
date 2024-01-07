@@ -3,14 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+}: let
+  inherit (lib) mkIf;
 
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  prg = osConfig.modules.programs;
+  dev = osConfig.modules.device;
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.cli.enable) {
     home.packages = with pkgs; [
       # CLI
       binwalk
