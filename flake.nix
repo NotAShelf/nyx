@@ -160,6 +160,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixfmt = {
+      url = "github:piegamesde/nixfmt?ref=rfc101-style";
+      inputs.nixpkgs.follows = "nixpkgs-small";
+    };
+
     # Project shells
     devshell = {
       url = "github:numtide/devshell";
