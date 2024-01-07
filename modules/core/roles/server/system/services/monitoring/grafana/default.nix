@@ -5,14 +5,11 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
   sys = config.modules.system;
   cfg = sys.services;
-
-  acceptedTypes = ["server" "hybrid"];
 in {
   # imports = [./dashboards.nix];
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.monitoring.grafana.enable) {
+  config = mkIf cfg.monitoring.grafana.enable {
     networking.firewall.allowedTCPPorts = [config.services.grafana.settings.server.http_port];
 
     modules.system.services.database = {

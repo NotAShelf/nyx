@@ -32,6 +32,13 @@ in {
       nix-builderKey = mkSecret true {
         file = "common-nix-builder.age";
       };
+
+      tailscale-client = mkSecret true {
+        file = "client-tailscale.age";
+        owner = "notashelf";
+        group = "users";
+        mode = "400";
+      };
     }
 
     (mkIf (builtins.elem dev.type ["desktop" "laptop" "hybrid" "lite"])
@@ -49,13 +56,6 @@ in {
           owner = "notashelf";
           group = "users";
           mode = "700";
-        };
-
-        tailscale-client = mkSecret true {
-          file = "client-tailscale.age";
-          owner = "notashelf";
-          group = "users";
-          mode = "400";
         };
       })
 
@@ -82,7 +82,7 @@ in {
         mode = "400";
       };
 
-      matrix-secret = mkSecret cfg.matrix.enable {
+      matrix-secret = mkSecret cfg.social.matrix.enable {
         file = "service-matrix.age";
         owner = "matrix-synapse";
         mode = "400";
@@ -155,19 +155,19 @@ in {
         mode = "400";
       };
 
-      mailserver-matrix-secret = mkSecret cfg.matrix.enable {
-        file = "mailserver-matrix.age";
-        owner = "matrix-synapse";
-        mode = "400";
-      };
-
       mailserver-cloud-secret = mkSecret cfg.nextcloud.enable {
         file = "mailserver-cloud.age";
         owner = "nextcloud";
         mode = "400";
       };
 
-      mailserver-noreply-secret = mkSecret cfg.mastodon.enable {
+      mailserver-matrix-secret = mkSecret cfg.social.matrix.enable {
+        file = "mailserver-matrix.age";
+        owner = "matrix-synapse";
+        mode = "400";
+      };
+
+      mailserver-noreply-secret = mkSecret cfg.social.mastodon.enable {
         file = "mailserver-noreply.age";
         owner = "mastodon";
         mode = "400";

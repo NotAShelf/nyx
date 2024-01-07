@@ -6,11 +6,10 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services.social;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.mastodon.enable) {
+  config = mkIf cfg.mastodon.enable {
     modules.system.services = {
       elasticsearch.enable = true;
       database = {

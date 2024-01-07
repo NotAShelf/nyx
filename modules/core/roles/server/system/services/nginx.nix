@@ -1,13 +1,15 @@
 {
-  lib,
   config,
+  pkgs,
+  lib,
   ...
-}: {
-  # TODO:
-  # local option for enabling nginx, which all web services would enable on their own
-  config = {
-    networking.domain = "notashelf.dev";
+}: let
+  inherit (lib) mkIf;
 
+  sys = config.modules.system;
+  cfg = sys.services;
+in {
+  config = mkIf cfg.nginx.enable {
     security = {
       acme = {
         acceptTerms = true;
@@ -17,13 +19,14 @@
 
     services.nginx = {
       enable = true;
-      # FIXME: this normally makes the /nginx_status endpoint availabe, but nextcloud hijacks it and returns a SSL error
-      # we need it for prometheus, so it would be *great* to figure out a solution
-      statusPage = false;
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
+
+      # FIXME: this normally makes the /nginx_status endpoint availabe, but nextcloud hijacks it and returns a SSL error
+      # we need it for prometheus, so it would be *great* to figure out a solution
+      statusPage = false;
 
       # lets be more picky on our ciphers and protocols
       sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
@@ -41,8 +44,8 @@
           default = true;
           serverAliases = ["www.${config.networking.domain}"];
           extraConfig = ''
-            access_log /var/log/nginx/base-access.log;
-            error_log /var/log/nginx/base-error.log;
+            access_log /var/log/nginx/access.log;
+            error_log /var/log/nginx/error.log;
           '';
         };
       };

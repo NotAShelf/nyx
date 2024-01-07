@@ -5,11 +5,13 @@
 }: let
   inherit (lib) mkIf;
 
-  cfg = config.modules.system.services;
+  sys = config.modules.system;
+  cfg = sys.services;
+
   dev = config.modules.device;
   acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.wireguard.enable) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.networking.wireguard.enable) {
     networking = {
       nat = {
         enable = true;

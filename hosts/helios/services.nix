@@ -5,9 +5,12 @@
     vaultwarden.enable = true;
     forgejo.enable = true;
     searxng.enable = true;
-    mastodon.enable = true;
     reposilite.enable = true;
-    matrix.enable = true;
+
+    social = {
+      mastodon.enable = true;
+      matrix.enable = true;
+    };
 
     bincache = {
       harmonia.enable = true;

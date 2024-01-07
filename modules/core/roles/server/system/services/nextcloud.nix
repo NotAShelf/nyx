@@ -1,21 +1,23 @@
 {
   config,
-  lib,
-  self,
   pkgs,
+  lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   domain = "cloud.notashelf.dev";
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.nextcloud.enable) {
-    modules.system.services.database = {
-      redis.enable = true;
-      postgresql.enable = true;
+  config = mkIf cfg.nextcloud.enable {
+    modules.system.services = {
+      nginx.enable = true;
+      database = {
+        redis.enable = true;
+        postgresql.enable = true;
+      };
     };
 
     services = {

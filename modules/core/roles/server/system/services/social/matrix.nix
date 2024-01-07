@@ -6,11 +6,10 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services.social;
 
-  port = 8008;
+  inherit (cfg.matrix.settings) port;
   bindAddress = "::1";
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
   clientConfig = {
@@ -27,7 +26,7 @@
     return 200 '${builtins.toJSON data}';
   '';
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.matrix.enable) {
+  config = mkIf cfg.matrix.enable {
     networking.firewall.allowedTCPPorts = [port];
 
     modules.system.services.database = {

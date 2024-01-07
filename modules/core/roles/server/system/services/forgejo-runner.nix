@@ -11,14 +11,17 @@
   # construct each runner using the mkRunner function
   # you can pass additional configuration options in the instance submodule
   # it'll be merged to the below configuration
-  mkRunner = name: settings:
+  mkRunner = {
+    name,
+    settings,
+  }:
     {
       enable = true;
       inherit name;
 
       url = "https://git.notashelf.dev";
 
-      # changing (i.e adding or removing) labels causes your old registration token to expire
+      # NOTE: changing (i.e adding or removing) labels causes your old registration token to expire
       # make sure your labels are final before deploying
       labels = [
         "debian-latest:docker://node:18-bullseye"
@@ -44,23 +47,26 @@ in {
     services.gitea-actions-runner = {
       package = pkgs.forgejo-actions-runner;
       instances = {
-        "runner-01" = mkRunner "runner-01" {
-          tokenFile = config.age.secrets.forgejo-runner-token.path;
+        "runner-01" = mkRunner {
+          name = "runner-01";
           settings = {
-            capacity = 4;
-            container.network = "host";
-            cache.enabled = true;
-          };
+            tokenFile = config.age.secrets.forgejo-runner-token.path;
+            settings = {
+              capacity = 4;
+              container.network = "host";
+              cache.enabled = true;
+            };
 
-          # packages that'll be made available to the host
-          # when the runner is configured with a host execution label.
-          hostPackages = with pkgs; [
-            bash
-            curl
-            coreutils
-            wget
-            gitMinimal
-          ];
+            # packages that'll be made available to the host
+            # when the runner is configured with a host execution label.
+            hostPackages = with pkgs; [
+              bash
+              curl
+              coreutils
+              wget
+              gitMinimal
+            ];
+          };
         };
       };
     };

@@ -6,17 +6,17 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  cfg = config.modules.system.services;
-  acceptedTypes = ["server" "hybrid"];
+  sys = config.modules.system;
+  cfg = sys.services;
 
-  port = 8888;
+  inherit (cfg.searxng.settings) host port;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.searxng.enable) {
+  config = mkIf cfg.searxng.enable {
     networking.firewall.allowedTCPPorts = [port];
 
-    modules.system.services.database = {
-      redis.enable = true;
+    modules.system.services = {
+      nginx.enable = true;
+      database.redis.enable = true;
     };
 
     users = {
@@ -59,8 +59,8 @@ in {
           };
 
           server = {
-            secret_key = "@SEARX_SECRET_KEY@";
-            port = 8888;
+            inherit port;
+            secret_key = "@SEARX_SECRET_KEY@"; # set in the environment file
             limiter = false;
             image_proxy = false; # no thanks, lol
           };
@@ -127,7 +127,7 @@ in {
 
       nginx.virtualHosts."search.notashelf.dev" =
         {
-          locations."/".proxyPass = "http://127.0.0.1:8888";
+          locations."/".proxyPass = "http://${host}:${toString port}";
           extraConfig = ''
             access_log /dev/null;
             error_log /dev/null;

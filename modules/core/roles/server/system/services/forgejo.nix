@@ -8,6 +8,8 @@
 
   cfg = config.modules.system.services;
   domain = "git.notashelf.dev";
+
+  inherit (cfg.forgejo.settings) port;
 in {
   config = mkIf cfg.forgejo.enable {
     networking.firewall.allowedTCPPorts = [
@@ -16,9 +18,12 @@ in {
       config.services.forgejo.settings.server.SSH_PORT
     ];
 
-    modules.system.services.database = {
-      redis.enable = true;
-      postgresql.enable = true;
+    modules.system.services = {
+      nginx.enable = true;
+      database = {
+        redis.enable = true;
+        postgresql.enable = true;
+      };
     };
 
     services = {
@@ -50,7 +55,7 @@ in {
 
           server = {
             PROTOCOL = "http+unix";
-            HTTP_PORT = 7000;
+            HTTP_PORT = port;
             ROOT_URL = "https://${domain}";
             DOMAIN = "${domain}";
             DISABLE_ROUTER_LOG = true;

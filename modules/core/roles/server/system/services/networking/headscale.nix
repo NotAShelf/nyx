@@ -8,13 +8,11 @@
   inherit (lib) mkIf;
 
   sys = config.modules.system;
-  cfg = sys.services.headscale;
+  cfg = sys.services;
 in {
-  config = mkIf cfg.enable {
+  config = mkIf cfg.networking.headscale.enable {
     environment.systemPackages = [config.services.headscale.package];
-    networking = {
-      firewall.allowedUDPPorts = [8086]; # DERP
-    };
+    networking.firewall.allowedUDPPorts = [8086]; # DERP
 
     services = {
       headscale = {

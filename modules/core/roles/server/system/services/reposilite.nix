@@ -7,8 +7,15 @@
   inherit (lib) mkIf sslTemplate;
 
   sys = config.modules.system;
+  cfg = sys.services;
+
+  inherit (cfg.reposilite.settings) port;
 in {
   config = mkIf sys.services.reposilite.enable {
+    modules.system.services = {
+      nginx.enable = true;
+    };
+
     services.reposilite = {
       enable = true;
       package = inputs'.nyxpkgs.packages.reposilite-bin;
@@ -20,14 +27,14 @@ in {
       group = "reposilite";
 
       settings = {
-        port = 8084;
+        inherit port;
       };
     };
 
     services.nginx.virtualHosts = {
       "repo.notashelf.dev" =
         {
-          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.reposilite.settings.port}";
+          locations."/".proxyPass = "http://127.0.0.1:${toString port}";
           extraConfig = ''
             access_log /var/log/nginx/reverse-access.log;
             error_log /var/log/nginx/reverse-error.log;

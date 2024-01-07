@@ -6,11 +6,10 @@
 }: let
   inherit (lib) mkIf;
 
-  dev = config.modules.device;
-  acceptedTypes = ["server" "hybrid"];
-  cfg = config.modules.system.services;
+  sys = config.modules.system;
+  cfg = sys.services;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.database.garage.enable) {
+  config = mkIf cfg.database.garage.enable {
     networking.firewall.allowedTCPPorts = [3900 3901 3903];
 
     environment.systemPackages = [

@@ -10,6 +10,8 @@
 
   sys = config.modules.system;
   cfg = sys.services;
+
+  inherit (cfg.kanidm.settings) host port;
 in {
   config = mkIf cfg.kanidm.enable {
     services.kanidm = {
@@ -17,7 +19,7 @@ in {
       serverSettings = {
         inherit domain;
         origin = "https://${domain}";
-        bindaddress = "127.0.0.1:8443";
+        bindaddress = "${host}:${toString port}";
         trust_x_forward_for = true;
         #tls_chain = "${certDir}/fullchain.pem";
         #tls_key = "${certDir}/key.pem";
@@ -39,7 +41,7 @@ in {
     services.nginx.virtualHosts.${domain} = {
       forceSSL = true;
       enableACME = true;
-      locations."/".proxyPass = "https://${config.services.kanidm.serverSettings.bindaddress}";
+      locations."/".proxyPass = "https://${host}:${toString port}";
     };
   };
 }

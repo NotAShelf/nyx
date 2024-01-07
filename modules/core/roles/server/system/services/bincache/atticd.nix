@@ -7,12 +7,11 @@
 }: let
   inherit (lib) mkIf;
 
-  domain = "cache" + config.networking.domain;
-  address = "127.0.0.1";
-  port = 8100;
-
   sys = config.modules.system;
   cfg = sys.services.bincache.atticd;
+
+  domain = "cache" + config.networking.domain;
+  inherit (cfg.settings) host port;
 in {
   imports = [inputs.atticd.nixosModules.atticd];
   config = mkIf cfg.enable {
@@ -28,6 +27,10 @@ in {
       };
     };
 
+    systemd.services.atticd = {
+      serviceConfig.DynamicUser = lib.mkForce false;
+    };
+
     services = {
       atticd = {
         enable = true;
@@ -36,18 +39,21 @@ in {
         group = "atticd";
 
         settings = {
-          listen = "${address + ":" + (toString port)}"; # this listens ONLY locally
+          listen = "${host}:${toString port}"; # this listens ONLY locally
           database.url = "postgresql:///atticd?host=/run/postgresql";
 
           allowed-hosts = ["${domain}"];
           api-endpoint = "https://${domain}/";
+          require-proof-of-possession = false;
 
+          /*
           storage = {
             type = "s3";
             region = "helios";
             bucket = "attic-cache";
             endpoint = "https://s3.notashelf.dev";
           };
+          */
 
           chunking = let
             KB = x: x * 1024;
@@ -75,7 +81,7 @@ in {
 
         locations."/" = {
           recommendedProxySettings = true;
-          proxyPass = "http://127.0.0.1:8080";
+          proxyPass = "http://${host}:${toString port}";
         };
       };
     };
