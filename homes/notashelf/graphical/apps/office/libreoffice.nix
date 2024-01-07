@@ -13,8 +13,8 @@ in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.libreoffice.enable) {
     home.packages = with pkgs; [
       libreoffice-qt
+      hyphen # text hyphenation library
       hunspell
-      hunspellDicts.uk_UA
       hunspellDicts.en_US-large
       hunspellDicts.en_GB-large
     ];

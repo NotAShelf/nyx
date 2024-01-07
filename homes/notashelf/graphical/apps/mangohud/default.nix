@@ -1,15 +1,16 @@
 {
-  lib,
   osConfig,
+  lib,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  prg = osConfig.modules.programs;
+  dev = osConfig.modules.device;
 
   acceptedTypes = ["laptop" "desktop" "lite"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.gaming.enable)) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.gaming.enable) {
     programs.mangohud = {
       enable = true;
       settings = {
@@ -19,7 +20,7 @@ in {
         cpu_temp = true;
         gpu_stats = true;
         gpu_temp = true;
-        vulkan_driver = true;
+        vulkan_driver = false;
         fps = true;
         frametime = true;
         frame_timing = true;

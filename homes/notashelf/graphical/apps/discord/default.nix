@@ -3,12 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = osConfig.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     home.packages = with pkgs; [
       ((discord-canary.override {
           nss = pkgs.nss_latest;

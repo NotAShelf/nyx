@@ -27,7 +27,7 @@ in {
           locked-title = "no";
 
           term = "xterm-256color";
-          font = "monospace:size=14";
+          font = "Iosevka Nerd Font:size=14";
           font-bold = "monospace:size=14";
           pad = "16x16";
           dpi-aware = false; # this looks more readable on a laptop, but it's unreasonably large

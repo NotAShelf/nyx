@@ -4,8 +4,9 @@
   inputs,
   osConfig,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   catppuccin-mocha = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "discord";
