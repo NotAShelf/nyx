@@ -1,4 +1,4 @@
-_: {
+{inputs, ...}: {
   systems = [
     "x86_64-linux"
     "aarch64-linux"
@@ -14,6 +14,8 @@ _: {
       spotify-wrapped = callPackage ./spotify-wrapped.nix {};
       nicksfetch = callPackage ./nicksfetch.nix {};
       present = callPackage ./present.nix {};
+      modprobed-db = callPackage ./modprobed-db.nix {};
+      nixfmt-rfc = callPackage ./nixfmt-rfc.nix {inherit inputs;};
     };
   };
 }
