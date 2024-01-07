@@ -23,6 +23,10 @@ in {
       ChallengeResponseAuthentication = "no";
       UsePAM = "no";
 
+      # remove sockets as they get stale
+      # this will unbind gnupg sockets if they exists
+      StreamLocalBindUnlink = "yes";
+
       KbdInteractiveAuthentication = lib.mkDefault false; # still don't know what this does
       UseDns = false; # no
       X11Forwarding = false; # ew xorg
