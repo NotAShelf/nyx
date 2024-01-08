@@ -11,5 +11,6 @@
     ./selinux.nix # selinux support + kernel patches
     ./sudo.nix # sudo rules and configuration
     ./virtualization.nix # hypervisor hardening
+    ./usbguard.nix # usbguard
   ];
 }

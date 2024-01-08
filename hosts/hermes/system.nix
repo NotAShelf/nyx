@@ -59,6 +59,7 @@
         security = {
           fixWebcam = false;
           lockModules = true;
+          usbguard.enable = true;
         };
 
         virtualization = {

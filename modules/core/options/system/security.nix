@@ -8,6 +8,7 @@ in {
   options.modules.system.security = {
     fixWebcam = mkEnableOption "the purposefully disabled webcam by un-blacklisting the related kernel module.";
     tor.enable = mkEnableOption "Tor daemon";
+    usbguard.enable = mkEnableOption "USBGuard service for blocking unauthorized USB devices";
     lockModules = mkEnableOption ''
       kernel module locking to prevent kernel modules that are not specified in the config from being loaded
 
