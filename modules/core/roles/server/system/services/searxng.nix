@@ -66,8 +66,9 @@ in {
           };
 
           redis = {
+            url = "unix://searxng:localhost@/run/redis-searxng?db=0";
             #url = "unix:///run/redis-searxng/redis.sock?db=0";
-            url = "redis://searxng@localhost:6370/0";
+            #url = "redis://searxng@localhost:6370/0";
           };
 
           outgoing = {
