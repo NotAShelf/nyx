@@ -39,30 +39,39 @@ in {
 
           general = {
             instance_name = "NotASearx";
-            debug = false;
             privacypolicy_url = false;
             donation_url = "https://ko-fi.com/notashelf";
             contact_url = "mailto:raf@notashelf.dev";
             enable_metrics = true;
-            formats = ["json" "rss"];
-          };
-
-          ui = {
-            query_in_title = true;
-            results_on_new_tab = false;
+            debug = false;
           };
 
           search = {
-            safe_search = 1; # 0 = None, 1 = Moderate, 2 = Strict
-            autocomplete = "google"; # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
+            safe_search = 0; # 0 = None, 1 = Moderate, 2 = Strict
+            formats = ["html" "json" "rss"];
+            autocomplete = "google"; # "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
             default_lang = "en";
           };
 
           server = {
             inherit port;
+            method = "GET";
             secret_key = "@SEARX_SECRET_KEY@"; # set in the environment file
             limiter = false;
             image_proxy = false; # no thanks, lol
+            default_http_headers = {
+              X-Content-Type-Options = "nosniff";
+              X-XSS-Protection = "1; mode=block";
+              X-Download-Options = "noopen";
+              X-Robots-Tag = "noindex, nofollow";
+              Referrer-Policy = "no-referrer";
+            };
+          };
+
+          ui = {
+            query_in_title = true;
+            theme_args.simple_style = "dark"; # auto, dark, light
+            results_on_new_tab = false;
           };
 
           redis = {
@@ -72,8 +81,8 @@ in {
           };
 
           outgoing = {
-            request_timeout = 10.0;
-            useragent_suffix = "sx";
+            request_timeout = 15.0;
+            max_request_timeout = 30.0;
           };
 
           engines = [
@@ -106,21 +115,13 @@ in {
               shortcut = "gh";
             }
             {
-              name = "noogle";
-              engine = "google";
-              categories = "it";
-              shortcut = "ng";
-            }
-            {
-              name = "hoogle";
-              engine = "xpath";
-              search_url = "https://hoogle.haskell.org/?hoogle={query}&start={pageno}";
-              results_xpath = "//div[@class=\"result\"]";
-              title_xpath = "./div[@class=\"ans\"]";
-              url_xpath = "./div[@class=\"ans\"]//a/@href";
-              content_xpath = "./div[contains(@class, \"doc\")]";
-              categories = "it";
-              shortcut = "h";
+              name = "nixpkgs";
+              shortcut = "nx";
+              engine = "elasticsearch";
+              categories = "dev,nix";
+              base_url = "https://nixos-search-5886075189.us-east-1.bonsaisearch.net:443";
+              index = "latest-31-nixos-unstable";
+              query_type = "match";
             }
           ];
         };
