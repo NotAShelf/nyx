@@ -23,6 +23,7 @@ in {
       recommendedOptimisation = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
+      recommendedZstdSettings = true;
 
       # FIXME: this normally makes the /nginx_status endpoint availabe, but nextcloud hijacks it and returns a SSL error
       # we need it for prometheus, so it would be *great* to figure out a solution
