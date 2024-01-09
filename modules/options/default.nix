@@ -1,6 +1,5 @@
 {
   imports = [
-    ./programs
     ./system
     ./device
     ./usrEnv

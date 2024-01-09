@@ -4,8 +4,9 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkOption types;
+  inherit (config) modules;
 
-  prg = config.modules.system.programs;
+  prg = modules.system.programs;
 in {
   options.modules.system.programs = {
     gui.enable = mkEnableOption "GUI package sets" // {default = true;};
@@ -18,9 +19,10 @@ in {
     spotify.enable = mkEnableOption "Spotify music player";
     thunderbird.enable = mkEnableOption "Thunderbird mail client";
     vscode.enable = mkEnableOption "Visual Studio Code";
-    zathura.enable = mkEnableOption "Zathura document viewer";
     steam.enable = mkEnableOption "Steam game client";
     kdeconnect.enable = mkEnableOption "KDE Connect utility";
+    webcord.enable = mkEnableOption "Webcord Discord client";
+    zathura.enable = mkEnableOption "Zathura document viewer";
 
     chromium = {
       enable = mkEnableOption "Chromium browser";
@@ -33,7 +35,7 @@ in {
 
     firefox = {
       enable = mkEnableOption "Firefox browser";
-      schizofox = mkOption {
+      schizofox.enable = mkOption {
         type = types.bool;
         default = true;
         description = "Enable Schizofox Firefox Tweaks";

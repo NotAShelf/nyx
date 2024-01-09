@@ -1,5 +1,6 @@
-_: {
+{
   imports = [
     ./system
+    ./profiles
   ];
 }
