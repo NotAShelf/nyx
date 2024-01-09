@@ -1,17 +1,16 @@
 {
+  osConfig,
   pkgs,
   lib,
-  osConfig,
   ...
 }: let
   inherit (lib) mkIf;
   inherit (osConfig) modules;
 
-  prg = modules.system.programs;
-  dev = modules.device;
-  acceptedTypes = ["laptop" "desktop" "hybrid"];
+  sys = modules.system;
+  prg = sys.programs;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.libreoffice.enable) {
+  config = mkIf prg.libreoffice.enable {
     home.packages = with pkgs; [
       libreoffice-qt
       hyphen # text hyphenation library

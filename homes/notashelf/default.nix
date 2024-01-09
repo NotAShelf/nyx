@@ -12,18 +12,15 @@ in {
     # home package sets
     ./packages
 
-    # apps and services I use
-    ./graphical # graphical apps
-    ./terminal # terminal emulators and terminal-first programs
-    ./services # system services, organized by display protocol
+    # programs and services that I use
+    ./programs
+    ./services
 
     # declarative system and program themes (qt/gtk)
     ./themes
   ];
-  config = {
-    # reload system units when changing configs
-    systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again
 
+  config = {
     home = {
       username = "notashelf";
       homeDirectory = "/home/notashelf";
@@ -44,5 +41,8 @@ in {
 
     # let HM manage itself when in standalone mode
     programs.home-manager.enable = true;
+
+    # reload system units when changing configs
+    systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again
   };
 }

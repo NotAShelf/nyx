@@ -5,11 +5,12 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (osConfig) modules;
 
-  dev = osConfig.modules.device;
-  acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
+  sys = modules.system;
+  prg = sys.programs;
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
+  config = mkIf prg.thunderbird.enable {
     home.packages = with pkgs; [thunderbird];
 
     programs.thunderbird = {

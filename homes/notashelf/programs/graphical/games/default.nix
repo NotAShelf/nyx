@@ -13,6 +13,8 @@
 in {
   imports = [
     ./minecraft
+
+    ./mangohud.nix
   ];
 
   config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.gaming.enable) {

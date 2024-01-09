@@ -7,13 +7,15 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (osConfig) modules;
 
-  dev = osConfig.modules.device;
-  acceptedTypes = ["laptop" "desktop" "hybrid"];
+  sys = modules.system;
+  prg = sys.programs;
+
   spicePkgs = inputs.spicetify.packages.${pkgs.system}.default;
 in {
   imports = [inputs.spicetify.homeManagerModule];
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
+  config = mkIf prg.spotify.enable {
     programs.spicetify = {
       spotifyPackage = self'.packages.spotify-wrapped;
       enable = true;

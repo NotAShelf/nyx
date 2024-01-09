@@ -7,10 +7,8 @@
   inherit (osConfig) modules;
 
   prg = modules.system.programs;
-  dev = modules.device;
-  acceptedTypes = ["laptop" "desktop" "lite"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.gaming.enable) {
+  config = mkIf prg.gaming.enable {
     programs.mangohud = {
       enable = true;
       settings = {

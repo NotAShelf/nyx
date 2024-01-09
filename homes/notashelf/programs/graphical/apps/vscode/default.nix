@@ -5,10 +5,12 @@
   ...
 }: let
   inherit (lib) mkIf;
-  dev = osConfig.modules.device;
-  acceptedTypes = ["desktop" "laptop" "hybrid"];
+  inherit (osConfig) modules;
+
+  sys = modules.system;
+  prg = sys.programs;
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
+  config = mkIf prg.vscode.enable {
     programs.vscode = {
       enable = true;
       enableExtensionUpdateCheck = true;

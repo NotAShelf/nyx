@@ -5,11 +5,13 @@
   lib,
   ...
 }: let
-  inherit (osConfig.modules) device;
-  acceptedTypes = ["desktop" "laptop" "hybrid"];
+  inherit (lib) mkIf;
+  inherit (osConfig) modules;
+  sys = modules.system;
+  prg = sys.programs;
 in {
   imports = [inputs.schizofox.homeManagerModule];
-  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf prg.firefox.enable {
     programs.schizofox = {
       enable = true;
 

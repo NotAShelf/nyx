@@ -4,13 +4,14 @@
   osConfig,
   ...
 }: let
-  inherit (lib) mkIf optionals;
+  inherit (lib) mkIf optionals concatStringsSep;
+  inherit (osConfig) modules;
 
-  dev = osConfig.modules.device;
-  env = osConfig.modules.usrEnv;
-  acceptedTypes = ["desktop" "laptop" "hybrid"];
+  env = modules.usrEnv;
+  sys = modules.system;
+  prg = sys.programs;
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
+  config = mkIf prg.chromium.enable {
     programs.chromium = {
       enable = true;
       extensions = [
@@ -35,7 +36,7 @@ in {
 
             # Experimental features
             "--enable-features=${
-              lib.concatStringsSep "," [
+              concatStringsSep "," [
                 "BackForwardCache:enable_same_site/true"
                 "CopyLinkToText"
                 "OverlayScrollbar"
