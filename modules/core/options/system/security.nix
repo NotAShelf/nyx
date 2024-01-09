@@ -7,6 +7,7 @@
 in {
   options.modules.system.security = {
     fixWebcam = mkEnableOption "the purposefully disabled webcam by un-blacklisting the related kernel module.";
+    fprint.enable = mkEnableOption "Fingerprint reader service";
     tor.enable = mkEnableOption "Tor daemon";
     usbguard.enable = mkEnableOption "USBGuard service for blocking unauthorized USB devices";
     lockModules = mkEnableOption ''
@@ -20,6 +21,7 @@ in {
       disable = mkOption {
         type = types.bool;
         default = false;
+        example = true;
         description = ''
           Whether to disable spectre and meltdown mitigations in the kernel. This is rather a sandbox
           option than something you should consider on a production/mission critical system. Unless
@@ -30,6 +32,7 @@ in {
       acceptRisk = mkOption {
         type = types.bool;
         default = false;
+        example = true;
         description = ''
           You are either really stupid, or very knowledable. In either case,
           this must be explicitly true in order to ensure users know what they are doing
