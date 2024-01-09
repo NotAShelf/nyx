@@ -1,8 +1,7 @@
 {
   imports = [
-    ./modules
-
+    ./device.nix
     ./system.nix
-    ./hardware.nix
+    ./usrEnv.nix
   ];
 }

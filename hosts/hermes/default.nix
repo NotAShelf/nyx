@@ -1,8 +1,9 @@
-_: {
+{
   imports = [
-    ./hardware-configuration.nix
+    ./modules
+
+    ./hardware.nix
     ./system.nix
     ./encryption.nix
-    ./style.nix
   ];
 }

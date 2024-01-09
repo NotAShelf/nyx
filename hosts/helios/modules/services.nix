@@ -1,5 +1,5 @@
 {
-  modules.system.services = {
+  config.modules.system.services = {
     nextcloud.enable = true;
     mailserver.enable = true;
     vaultwarden.enable = true;

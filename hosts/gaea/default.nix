@@ -11,25 +11,9 @@ in {
     "${modulesPath}/profiles/minimal.nix"
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
 
-    ./programs
-    ./boot.nix
+    ./system
     ./iso.nix
-    ./network.nix
-    ./nix.nix
-    ./ssh.nix
   ];
-
-  users.extraUsers.root.password = "";
-
-  users.users = {
-    nixos = {
-      uid = 1000;
-      password = "nixos";
-      description = "default";
-      isNormalUser = true;
-      extraGroups = ["wheel"];
-    };
-  };
 
   # console locale #
   console = let
@@ -63,27 +47,6 @@ in {
       Type `sudo systemctl start display-manager' to
       start the graphical user interface.
     '';
-
-  # borrow some environment options from the minimal profile to save space
-  environment = {
-    noXlibs = mkDefault true; # trim inputs
-
-    # no packages other than my defaults
-    defaultPackages = [];
-
-    # system packages for the base installer
-    systemPackages = with pkgs; [
-      nixos-install-tools
-      gitMinimal
-      neovim
-      netcat
-    ];
-
-    # fix an annoying warning
-    etc."mdadm.conf".text = ''
-      MAILADDR root
-    '';
-  };
 
   # disable documentation to save space
   documentation = {

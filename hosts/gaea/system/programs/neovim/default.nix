@@ -1,10 +1,7 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  inherit (builtins) readFile;
+in {
   programs = {
-    git = {
-      enable = true;
-      lfs.enable = true;
-    };
-
     neovim = {
       enable = true;
 
@@ -13,10 +10,13 @@
       defaultEditor = true;
 
       configure = {
-        customRC = with builtins; ''
-          ${readFile ./nvim/init.vim}
-          ${readFile ./nvim/maps.vim}
-          ${readFile ./nvim/plugins.vim}
+        customRC = ''
+          " -- init --
+          ${readFile ./config/init.vim}
+          " -- mappings --
+          ${readFile ./config/maps.vim}
+          " -- plugin configs --
+          ${readFile ./config/plugins.vim}
         '';
 
         packages.myVimPackage = with pkgs.vimPlugins; {

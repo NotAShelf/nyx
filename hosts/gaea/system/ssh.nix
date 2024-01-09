@@ -1,4 +1,4 @@
-_: {
+{
   # Hardened SSH configuration
   services.openssh = {
     extraConfig = ''

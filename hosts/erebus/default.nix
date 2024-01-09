@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./system # system configuration
     ./virtualization.nix # configure virtual machine

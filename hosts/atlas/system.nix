@@ -7,62 +7,6 @@
   inherit (lib) mkForce;
 in {
   config = {
-    modules = {
-      device = {
-        type = "server";
-        cpu.type = "pi";
-        gpu.type = "pi";
-        monitors = ["HDMI-A-1"];
-        hasBluetooth = false;
-        hasSound = false;
-        hasTPM = false;
-      };
-
-      system = {
-        mainUser = "notashelf";
-        fs = ["ext4" "vfat" "ntfs" "exfat"];
-        autoLogin = false;
-
-        boot = {
-          loader = "none";
-          enableKernelTweaks = true;
-          initrd.enableTweaks = true;
-          tmpOnTmpfs = false;
-        };
-
-        video.enable = false;
-        sound.enable = false;
-        bluetooth.enable = false;
-        printing.enable = false;
-        emulation.enable = false;
-
-        virtualization.enable = false;
-
-        networking = {
-          optimizeTcp = true;
-          nftables.enable = true;
-          tailscale = {
-            enable = true;
-            isClient = true;
-            isServer = false;
-          };
-        };
-
-        security = {
-          tor.enable = true;
-          fixWebcam = false;
-          lockModules = true;
-          auditd.enable = true;
-        };
-      };
-
-      usrEnv = {
-        isWayland = false;
-        desktop = "Hyprland";
-        useHomeManager = true;
-      };
-    };
-
     environment.systemPackages = with pkgs; [
       libraspberrypi
       raspberrypi-eeprom
