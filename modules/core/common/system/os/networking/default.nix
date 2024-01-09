@@ -4,10 +4,12 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkForce mkDefault;
+  inherit (lib) mkIf mkForce mkDefault getExe optionals;
 
   dev = config.modules.device;
   sys = config.modules.system;
+
+  inherit (sys.networking) wirelessBackend;
 in {
   imports = [
     ./firewall
@@ -21,11 +23,13 @@ in {
 
   # network tools that are helpful and nice to have
   boot.kernelModules = ["af_packet"];
-  environment.systemPackages = with pkgs; [
-    mtr
-    tcpdump
-    traceroute
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      mtr
+      tcpdump
+      traceroute
+    ]
+    ++ optionals (wirelessBackend == "iwd") pkgs.iwgtk;
 
   services = {
     # systemd DNS resolver daemon
@@ -36,7 +40,7 @@ in {
       domains = ["~."];
       # DNSSEC provides to DNS clients (resolvers) origin authentication of DNS data, authenticated denial of existence
       # and data integrity but not availability or confidentiality.
-      # this is considered EXPERIMENTAL and UNSTABLE by upstream
+      # this is considered EXPERIMENTAL and UNSTABLE according to upstream
       # PLEASE SEE <https://github.com/systemd/systemd/issues/25676#issuecomment-1634810897>
       # before you decide to set this
       # I have it set to false as the issue does not inspire confidence in system's ability to manage this
@@ -52,6 +56,7 @@ in {
 
   networking = {
     # generate a host ID by hashing the hostname
+    # hostId string is primarly used by zfs
     hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
 
     # global dhcp has been deprecated upstream
@@ -80,13 +85,28 @@ in {
     ];
 
     wireless = {
-      enable = sys.networking.wirelessBackend == "wpa_supplicant";
+      enable = wirelessBackend == "wpa_supplicant";
       userControlled.enable = true;
       iwd = {
-        enable = sys.networking.wirelessBackend == "iwd";
+        enable = wirelessBackend == "iwd";
         settings = {
+          #Rank.BandModifier5Ghz = 2.0;
+          #Scan.DisablePeriodicScan = true;
           Settings = {
             AutoConnect = true;
+          };
+
+          General = {
+            AddressRandomization = "network";
+            AddressRandomizationRange = "full";
+            EnableNetworkConfiguration = true;
+            RoamRetryInterval = 15;
+          };
+
+          Network = {
+            EnableIPv6 = true;
+            RoutePriorityOffset = 300;
+            # NameResolvingService = "resolvconf";
           };
         };
       };
@@ -107,7 +127,7 @@ in {
       ];
 
       wifi = {
-        backend = sys.networking.wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_supp. until iwd support is stable
+        backend = wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_supp. until iwd support is stable
         macAddress = "random"; # use a random mac address on every boot
         powersave = true; # enable wifi powersaving
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
@@ -123,12 +143,13 @@ in {
   # allow for the system to boot without waiting for the network interfaces are online
   # speeds up boot times
   systemd = let
+    # TODO: allow for the hosts to define those interfaces
     ethernetDevices = [
       "wlp1s0f0u8" # wifi dongle
       "enp7s0" # ethernet interface on the motherboard
     ];
   in {
-    # according to 23.11 release notes, wait-online target has been long fixed
+    # according to 23.11 release notes, wait-online target has long been fixed
     # spoiler, it's not.
     network.wait-online.enable = false;
     services =
@@ -144,5 +165,13 @@ in {
         # blocking the boot sequence when the device is unavailable, as it is hotpluggable.
         "network-addresses-${device}".wantedBy = lib.mkForce ["sys-subsystem-net-devices-${device}.device"];
       }));
+
+    # launch indicator as a daemon on login if wireless backend
+    # is defined as iwd
+    user.services.iwgtk = mkIf (wirelessBackend == "iwd") {
+      serviceConfig.ExecStart = "${getExe pkgs.iwgtk} -i";
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
+    };
   };
 }
