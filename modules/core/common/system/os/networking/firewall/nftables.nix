@@ -117,11 +117,11 @@ in {
 
     assertions = [
       {
+        assertion = import "${check-results}/assertion";
         message = ''
           Bad config:
           ${builtins.readFile "${check-results}/message"}
         '';
-        assertion = import "${check-results}/assertion";
       }
     ];
 

@@ -15,10 +15,10 @@
   # this is actually a horrendous abstractation
   mkModule = {
     name,
-    type ? "",
+    type ? "", # type being an empty string means it can be skipped, ommitted
     host ? "127.0.0.1", # default to listening only on localhost
     port ? 0, # don't set a port by default
-    extraOptions ? {},
+    extraOptions ? {}, # used to define additional modules
   }: {
     enable = mkEnableOption "${name} ${type} service";
     settings =

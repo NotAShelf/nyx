@@ -16,11 +16,13 @@ in {
       enable = true;
       port = 22;
       openFirewall = true;
+
       extraOptions = [
         "-alsologtostderr"
         "-geoip_supplier max-mind-db"
         "-max_mind_db ${pkgs.clash-geoip}/etc/clash/Country.mmdb"
       ];
+
       prometheus = {
         enable = true;
         port = 9105;
