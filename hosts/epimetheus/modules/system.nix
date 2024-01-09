@@ -52,7 +52,6 @@
       default = {
         terminal = "foot";
       };
-      override = {};
     };
   };
 }

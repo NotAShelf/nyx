@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  cfg = osConfig.modules.programs.git;
+  cfg = osConfig.modules.system.programs.git;
   inherit (config) colorscheme;
 in {
   home.packages = with pkgs; [

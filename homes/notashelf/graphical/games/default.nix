@@ -6,9 +6,9 @@
 }: let
   inherit (lib) mkIf;
 
-  prg = osConfig.modules.programs;
-  dev = osConfig.modules.device;
+  prg = osConfig.modules.system.programs;
 
+  dev = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "lite"];
 in {
   imports = [
@@ -24,9 +24,9 @@ in {
         winetricks
         mangohud
         lutris
-        dolphin-emu # cool emulator
-        yuzu # switch emulator
-        taisei # open-source touhou fan game
+        dolphin-emu
+        yuzu #
+
         # get dotnet runtime 6 - needed by terraria
         dotnet-runtime_6
       ];

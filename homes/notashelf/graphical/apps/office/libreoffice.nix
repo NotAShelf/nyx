@@ -5,9 +5,10 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (osConfig) modules;
 
-  dev = osConfig.modules.device;
-  prg = osConfig.modules.programs;
+  prg = modules.system.programs;
+  dev = modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.libreoffice.enable) {

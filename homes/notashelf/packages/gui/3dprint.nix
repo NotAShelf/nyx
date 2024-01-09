@@ -1,15 +1,16 @@
 {
+  osConfig,
   pkgs,
   lib,
-  osConfig,
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (osConfig) modules;
 
-  prg = osConfig.modules.programs;
-  sys = osConfig.modules.system;
+  sys = modules.system;
+  prg = sys.programs;
 
-  dev = osConfig.modules.device;
+  dev = modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
   config = mkIf ((prg.gui.enable && sys.printing."3d".enable) && (builtins.elem dev.type acceptedTypes)) {

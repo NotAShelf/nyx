@@ -82,8 +82,9 @@ in {
     specialArgs = sharedArgs;
   };
 
-  # Twin host for prometheus
+  # Identical twin host for Prometheus
   # provides full disk encryption with passkey/USB auth
+  # which Prometheus did not
   epimetheus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -171,7 +172,7 @@ in {
     specialArgs = sharedArgs;
   };
 
-  # an air-gapped nixos liveiso to deal with yubikeys
+  # An air-gapped nixos liveiso to deal with yubikeys
   # isolated from all networking
   erebus = mkNixosIso {
     inherit withSystem;

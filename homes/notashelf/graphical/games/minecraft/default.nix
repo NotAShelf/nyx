@@ -7,15 +7,13 @@
 }: let
   inherit (lib) mkIf;
 
-  prg = osConfig.modules.programs;
-  dev = osConfig.modules.device;
+  sys = osConfig.modules.system;
   env = osConfig.modules.usrEnv;
-
-  acceptedTypes = ["laptop" "desktop" "lite"];
+  prg = sys.programs;
 
   catppuccin-mocha = pkgs.fetchzip {
     url = "https://raw.githubusercontent.com/catppuccin/prismlauncher/main/themes/Mocha/Catppuccin-Mocha.zip";
-    sha256 = "8uRqCoe9iSIwNnK13d6S4XSX945g88mVyoY+LZSPBtQ=";
+    sha256 = "sha256-8uRqCoe9iSIwNnK13d6S4XSX945g88mVyoY+LZSPBtQ=";
   };
 
   # java packages that are needed by various versions or modpacks
@@ -36,7 +34,7 @@
     graalvm-ce
   ];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.gaming.enable) {
+  config = mkIf prg.gaming.enable {
     home = {
       # copy the catppuccin theme to the themes directory of PrismLauncher
       file.".local/share/PrismLauncher/themes/mocha" = {

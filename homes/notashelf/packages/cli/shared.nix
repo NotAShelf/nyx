@@ -5,9 +5,12 @@
   inputs',
   ...
 }: let
-  prg = osConfig.modules.programs;
+  inherit (lib) mkIf;
+  inherit (osConfig) modules;
+
+  prg = modules.system.programs;
 in {
-  config = lib.mkIf prg.cli.enable {
+  config = mkIf prg.cli.enable {
     home.packages = with pkgs; [
       # packages from inputs
       inputs'.agenix.packages.default

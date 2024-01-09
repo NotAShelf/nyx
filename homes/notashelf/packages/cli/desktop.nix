@@ -5,10 +5,10 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (osConfig) modules;
 
-  prg = osConfig.modules.programs;
-  dev = osConfig.modules.device;
-
+  prg = modules.system.programs;
+  dev = modules.device;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.cli.enable) {
