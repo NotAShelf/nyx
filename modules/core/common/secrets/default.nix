@@ -44,7 +44,7 @@ in {
     (mkIf (builtins.elem dev.type ["desktop" "laptop" "hybrid" "lite"])
       {
         # secrets needed for peers
-        spotify-secret = mkSecret config.modules.programs.spotify.enable {
+        spotify-secret = mkSecret config.modules.system.programs.spotify.enable {
           file = "client-spotify.age";
           owner = "notashelf";
           group = "users";

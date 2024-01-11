@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  cfg = config.modules.programs;
+  cfg = config.modules.system.programs;
 in {
   imports = [inputs.nix-gaming.nixosModules.steamCompat];
   config = lib.mkIf cfg.gaming.enable {

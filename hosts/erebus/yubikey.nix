@@ -1,10 +1,3 @@
-# NixOS livesystem to generate yubikeys in an air-gapped manner
-# screenshot: https://dl.thalheim.io/ZF5Y0yyVRZ_2MWqX2J42Gg/2020-08-12_16-00.png
-# $ nixos-generate -f iso -c yubikey-image.nix
-#
-# to test it in a vm:
-#
-# $ nixos-generate --run -f vm -c yubikey-image.nix
 {
   config,
   lib,

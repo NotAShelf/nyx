@@ -12,5 +12,6 @@
     ./sudo.nix # sudo rules and configuration
     ./virtualization.nix # hypervisor hardening
     ./usbguard.nix # usbguard
+    ./fprint.nix # fingerprint driver and login support
   ];
 }

@@ -14,7 +14,6 @@
 
   nix.settings.extra-sandbox-paths = [
     config.programs.ccache.cacheDir
-    "/var/cache/sccache"
   ];
 
   nixpkgs.overlays = lib.mkIf (config.programs.ccache.enable && config.programs.ccache.packageNames == []) [

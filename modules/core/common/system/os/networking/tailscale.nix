@@ -23,6 +23,16 @@ in {
       allowedUDPPorts = [tailscale.port];
     };
 
+    boot.kernel = {
+      sysctl = {
+        # # Enable IP forwarding
+        # required for Wireguard & Tailscale/Headscale subnet feature
+        # See <https://tailscale.com/kb/1019/subnets/?tab=linux#step-1-install-the-tailscale-client>
+        "net.ipv4.ip_forward" = true;
+        "net.ipv6.conf.all.forwarding" = true;
+      };
+    };
+
     # enable tailscale, inter-machine VPN service
     services.tailscale = {
       enable = true;

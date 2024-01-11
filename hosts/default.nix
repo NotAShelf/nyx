@@ -18,20 +18,21 @@
   # this is incase the modulePath changes depth (i.e modules becomes nixos/modules)
   modulePath = ../modules;
 
-  # common modules, to be shared across all systems
   coreModules = modulePath + /core; # the path where common modules reside
-  options = coreModules + /options; # the module that provides the options for my system configuration
+  extraModules = modulePath + /extra; # the path where extra modules reside
+  options = modulePath + /options; # the module that provides the options for my system configuration
+
+  # common modules
+  # to be shared across all systems without exception
   common = coreModules + /common; # the self-proclaimed sane defaults for all my systems
+
+  # roles
   workstation = coreModules + /roles/workstation; # for devices that are of workstation type - any device that is for daily use
   server = coreModules + /roles/server; # for devices that are of the server type - provides online services
   laptop = coreModules + /roles/laptop; # for devices that are of the laptop type - provides power optimizations
 
   # extra modules - optional but likely critical to a successful build
-  extraModules = modulePath + /extra; # the path where extra modules reside
   sharedModules = extraModules + /shared; # the path where shared modules reside
-
-  # profiles
-  profiles = modulePath + /profiles; # profiles force enable certain options for quick configurations
 
   # home-manager #
   homesDir = ../homes; # home-manager configurations for hosts that need home-manager
@@ -40,7 +41,6 @@
   # a list of shared modules that ALL systems need
   shared = [
     common # the "sane" default shared across systems
-    profiles # a profile module to provide configuration sets per demand
     options # provide options for defined modules across the system
     sharedModules # consume my flake's own nixosModules
     agenix # age encryption for secrets
@@ -82,8 +82,9 @@ in {
     specialArgs = sharedArgs;
   };
 
-  # Twin host for prometheus
+  # Identical twin host for Prometheus
   # provides full disk encryption with passkey/USB auth
+  # which Prometheus did not
   epimetheus = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -171,7 +172,7 @@ in {
     specialArgs = sharedArgs;
   };
 
-  # an air-gapped nixos liveiso to deal with yubikeys
+  # An air-gapped nixos liveiso to deal with yubikeys
   # isolated from all networking
   erebus = mkNixosIso {
     inherit withSystem;

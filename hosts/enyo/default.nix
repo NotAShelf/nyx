@@ -1,9 +1,10 @@
-_: {
+{
   imports = [
-    ./hardware-configuration.nix
+    ./modules
+
+    ./hardware.nix
     ./system.nix
     ./mounts.nix
     ./wireguard.nix
-    ./style.nix
   ];
 }

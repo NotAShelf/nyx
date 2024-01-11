@@ -37,7 +37,7 @@
       ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
   '';
 
-  cfg = config.modules.programs;
+  cfg = config.modules.system.programs;
 in {
   config = mkIf cfg.gaming.enable {
     programs.gamemode = {

@@ -1,0 +1,7 @@
+{
+  imports = [
+    ./neovim
+
+    ./git.nix
+  ];
+}

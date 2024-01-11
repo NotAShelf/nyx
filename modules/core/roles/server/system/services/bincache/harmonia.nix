@@ -8,11 +8,7 @@
   sys = config.modules.system;
   cfg = sys.services.bincache.harmonia;
 
-  host =
-    if cfg.settings.host == "127.0.0.1"
-    then "[::1]"
-    else "[::]";
-  inherit (cfg.settings) port;
+  inherit (cfg.settings) port host;
 in {
   config = mkIf cfg.enable {
     users = {

@@ -1,8 +1,9 @@
-_: {
+{
   imports = [
-    ./system.nix
-    ./hardware-configuration.nix
+    ./modules
+
+    ./hardware.nix
     ./mounts.nix
-    ./services.nix
+    ./system.nix
   ];
 }

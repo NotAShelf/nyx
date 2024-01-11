@@ -4,9 +4,11 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.programs;
+  inherit (lib) mkIf;
+
+  cfg = config.modules.system.programs;
 in {
-  config = lib.mkIf cfg.gaming.chess.enable {
+  config = mkIf cfg.gaming.chess.enable {
     environment.systemPackages = with pkgs; [
       knights
       fairymax

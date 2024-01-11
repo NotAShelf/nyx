@@ -1,4 +1,4 @@
-_: {
+{
   virtualisation.vmVariant = {
     # let the built VM be more responsive
     virtualisation = {

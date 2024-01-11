@@ -175,7 +175,7 @@ with lib; {
         "https://nyx.cachix.org" # cached stuff from my flake outputs
         "https://neovim-flake.cachix.org" # a cache for my neovim flake
         "https://cache.garnix.io" # garnix binary cache, hosts prismlauncher
-        "https://cache.notashelf.dev" # my own binary cache, served over http(s)
+        "https://cache.notashelf.dev" # my own binary cache, served over https
         "https://ags.cachix.org" # ags
       ];
 
