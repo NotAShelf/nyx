@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./hardware # hardware capabilities - i.e bluetooth, sound, tpm etc.
     ./os # configurations for how the system should operate

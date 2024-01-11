@@ -1,5 +1,5 @@
-_: {
+{
   imports = [
-    ./git.nix
+    ./system
   ];
 }

@@ -1,5 +1,5 @@
 {
   imports = [
-    ./system
+    ./admin.nix
   ];
 }

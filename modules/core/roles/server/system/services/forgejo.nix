@@ -12,18 +12,28 @@
   inherit (cfg.forgejo.settings) port;
 in {
   config = mkIf cfg.forgejo.enable {
-    networking.firewall.allowedTCPPorts = [
-      # make sure the service is reachable from outside
-      config.services.forgejo.settings.server.HTTP_PORT
-      config.services.forgejo.settings.server.SSH_PORT
-    ];
-
     modules.system.services = {
       nginx.enable = true;
       database = {
         redis.enable = true;
         postgresql.enable = true;
       };
+    };
+
+    networking.firewall.allowedTCPPorts = [
+      # make sure the service is reachable from outside
+      config.services.forgejo.settings.server.HTTP_PORT
+      config.services.forgejo.settings.server.SSH_PORT
+    ];
+
+    users = {
+      users.git = {
+        isSystemUser = true;
+        createHome = false;
+        group = "git";
+      };
+
+      groups.git = {};
     };
 
     services = {
