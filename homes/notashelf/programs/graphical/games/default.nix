@@ -7,31 +7,26 @@
   inherit (lib) mkIf;
 
   prg = osConfig.modules.system.programs;
-
-  dev = osConfig.modules.device;
-  acceptedTypes = ["laptop" "desktop" "lite"];
 in {
   imports = [
-    ./minecraft
-
+    ./minecraft.nix
     ./mangohud.nix
   ];
 
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.gaming.enable) {
-    home = {
-      packages = with pkgs; [
-        gamescope
-        legendary-gl
-        mono
-        winetricks
-        mangohud
-        lutris
-        dolphin-emu
-        yuzu #
+  config = mkIf prg.gaming.enable {
+    home.packages = with pkgs; [
+      legendary-gl # epic games launcher
+      mangohud # fps counter & vulkan overlay
+      lutris # alternative game launcher
 
-        # get dotnet runtime 6 - needed by terraria
-        dotnet-runtime_6
-      ];
-    };
+      # emulators
+      dolphin-emu # general console
+      yuzu # switch
+
+      # runtime
+      dotnet-runtime_6 # terraria
+      mono # general dotnet apps
+      winetricks # wine helper utility
+    ];
   };
 }

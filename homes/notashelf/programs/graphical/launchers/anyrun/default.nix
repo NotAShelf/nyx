@@ -5,27 +5,27 @@
   lib,
   ...
 }: let
-  dev = osConfig.modules.device;
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  inherit (lib) mkIf;
+  inherit (osConfig) modules;
+
+  env = modules.usrEnv;
 in {
   imports = [inputs.anyrun.homeManagerModules.default];
-  config = lib.mkIf (builtins.elem dev.type acceptedTypes && (sys.video.enable && env.isWayland)) {
+  config = mkIf env.launchers.anyrun.enable {
     programs.anyrun = {
       enable = true;
       config = {
-        plugins = with inputs'.anyrun.packages;
-          [
-            applications
-            rink
-            translate
-            randr
-            shell
-            symbols
-            translate
-          ]
-          ++ [inputs'.anyrun-nixos-options.packages.default];
+        plugins = with inputs'.anyrun.packages; [
+          applications
+          rink
+          translate
+          randr
+          shell
+          symbols
+          translate
+
+          inputs'.anyrun-nixos-options.packages.default
+        ];
 
         # the x coordinate of the runner
         #x.relative = 800;
