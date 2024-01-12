@@ -20,19 +20,33 @@
   # different distributions of java may yield different results in performance
   # and thus I recommend testing them one by one to remove those that you do not
   # need in your configuration
-  javaPackages = with pkgs; [
+  jdks = with pkgs; [
     # Java 8
     temurin-jre-bin-8
     zulu8
+
     # Java 11
     temurin-jre-bin-11
+
     # Java 17
     temurin-jre-bin-17
+
     # Latest
     temurin-jre-bin
     zulu
     graalvm-ce
   ];
+
+  additionalPrograms = with pkgs; [
+    gamemode
+    mangohud
+    jprofiler
+  ];
+
+  glfw =
+    if env.isWayland
+    then pkgs.glfw-wayland-minecraft
+    else pkgs.glfw;
 in {
   config = mkIf prg.gaming.enable {
     home = {
@@ -42,24 +56,16 @@ in {
         recursive = true;
       };
 
-      packages = let
-        glfw =
-          if env.isWayland
-          then pkgs.glfw-wayland-minecraft
-          else pkgs.glfw;
-      in [
+      packages = [
         # the successor to polyMC, which is now mostly abandoned
         (inputs'.prism-launcher.packages.prismlauncher.override {
           # get java versions required by various minecraft versions
           # "write once run everywhere" my ass
-          jdks = javaPackages;
+          inherit jdks;
+
           # wrap prismlauncher with programs in may need for workarounds
           # or client features
-          additionalPrograms = with pkgs; [
-            gamemode
-            mangohud
-            jprofiler
-          ];
+          inherit additionalPrograms;
 
           # prismlauncher's glfw version to properly support wayland
           inherit glfw;
