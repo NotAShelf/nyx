@@ -1,13 +1,11 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib) mkEnableOption mkOption types;
-  inherit (config) modules;
-
-  prg = modules.system.programs;
 in {
+  imports = [
+    ./gaming.nix
+    ./media.nix
+  ];
+
   options.modules.system.programs = {
     gui.enable = mkEnableOption "GUI package sets" // {default = true;};
     cli.enable = mkEnableOption "CLI package sets" // {default = true;};
@@ -23,6 +21,9 @@ in {
     kdeconnect.enable = mkEnableOption "KDE Connect utility";
     webcord.enable = mkEnableOption "Webcord Discord client";
     zathura.enable = mkEnableOption "Zathura document viewer";
+    nextcloud.enable = mkEnableOption "Nextcloud sync client";
+    rnnoise.enable = mkEnableOption "RNNoise noise suppression plugin";
+    noisetorch.enable = mkEnableOption "NoiseTorch noise suppression plugin";
 
     chromium = {
       enable = mkEnableOption "Chromium browser";
@@ -51,29 +52,6 @@ in {
       kitty.enable = mkEnableOption "Kitty terminal emulator";
       wezterm.enable = mkEnableOption "WezTerm terminal emulator";
       foot.enable = mkEnableOption "Foot terminal emulator";
-    };
-
-    gaming = {
-      enable = mkEnableOption "Enable packages required for the device to be gaming-ready";
-      emulation.enable = mkEnableOption "Enable programs required to emulate other platforms";
-      chess.enable = mkEnableOption "Chess programs and engines" // {default = prg.gaming.enable;};
-      gamescope.enable = mkEnableOption "Gamescope compositing manager" // {default = prg.gaming.enable;};
-      mangohud.enable = mkEnableOption "MangoHud overlay" // {default = prg.gaming.enable;};
-    };
-
-    media = {
-      mpv.enable = mkEnableOption "mpv media player";
-      addDefaultPackages = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Add default mpv packages";
-      };
-
-      extraDefaultPackages = mkOption {
-        type = with types; listOf package;
-        default = [];
-        description = "Add extra mpv packages";
-      };
     };
 
     git = {

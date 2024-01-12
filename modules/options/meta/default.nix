@@ -5,12 +5,14 @@
 }: let
   inherit (lib) types;
   inherit (lib.options) mkOption;
+
+  env = config.modules.usrEnv;
 in {
   options.meta = {
     hostname = mkOption {
       type = types.str;
       default = config.networking.hostName;
-      internal = true;
+      readOnly = true;
       description = ''
         The canonical hostname of the machine.
 
@@ -23,9 +25,27 @@ in {
     system = mkOption {
       type = types.str;
       default = config.system.build.toplevel.system;
-      internal = true;
+      readOnly = true;
       description = ''
         The architecture of the machine.
+      '';
+    };
+
+    isWayland = mkOption {
+      type = types.bool;
+      # TODO: there must be a better way to do this
+      default = with env.desktops; (sway.enable || hyprland.enable);
+      # readOnly = true; # TODO
+      description = ''
+        Whether to enable Wayland exclusive modules, this contains a wariety
+        of packages, modules, overlays, XDG portals and so on.
+
+        Generally includes:
+          - Wayland nixpkgs overlay
+          - Wayland only services
+          - Wayland only programs
+          - Wayland compatible versions of packages as opposed
+          to the defaults
       '';
     };
   };
