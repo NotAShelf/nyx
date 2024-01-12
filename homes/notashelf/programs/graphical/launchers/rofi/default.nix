@@ -7,27 +7,24 @@
   ...
 }: let
   inherit (lib) mkIf optionals;
+  inherit (osConfig) modules meta;
 
-  dev = osConfig.modules.device;
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
-
-  rofiPackage =
-    if env.isWayland
-    then pkgs.rofi-wayland
-    else pkgs.rofi;
+  env = modules.usrEnv;
+  rofiPackage = with pkgs;
+    if meta.isWayland
+    then rofi-wayland
+    else rofi;
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes && sys.video.enable) {
+  config = mkIf env.launchers.rofi.enable {
     programs.rofi = {
       enable = true;
-      # TODO: only override with plugins if system is wayland-enabled
       package = rofiPackage.override {
         plugins =
           [
             pkgs.rofi-rbw
           ]
-          ++ optionals env.isWayland (with inputs'.nyxpkgs.packages; [
+          ++ optionals meta.isWayland (with inputs'.nyxpkgs.packages; [
+            rofi-rbw-wayland
             rofi-calc-wayland
             rofi-emoji-wayland
           ]);

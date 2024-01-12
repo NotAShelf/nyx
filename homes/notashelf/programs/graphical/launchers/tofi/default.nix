@@ -5,30 +5,16 @@
   osConfig,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf getExe;
+  inherit (osConfig) modules;
 
-  dev = osConfig.modules.device;
-  sys = osConfig.modules.system;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  env = modules.usrEnv;
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes && sys.video.enable) {
-    home.packages = with pkgs; let
-      emoji = pkgs.writeShellScriptBin "emoji" ''
-        #!/bin/sh
-        chosen=$(cut -d ';' -f1 ${./emoji} | tofi | sed "s/ .*//")
-        [ -z "$chosen" ] && exit
-        if [ -n "$1" ]; then
-        	wtype "$chosen"
-        else
-        	printf "$chosen" | wl-copy
-        	notify-send "'$chosen' copied to clipboard." &
-        fi
-      '';
-    in [
+  config = mkIf env.launchers.tofi.enable {
+    home.packages = with pkgs; [
       # for compatibility sake
-      (writeScriptBin "dmenu" ''exec ${lib.getExe tofi}'')
+      (pkgs.writeScriptBin "dmenu" ''exec ${getExe tofi}'')
       tofi
-      emoji
       wtype
     ];
 
