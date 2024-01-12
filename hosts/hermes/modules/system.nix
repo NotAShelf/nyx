@@ -55,6 +55,7 @@
       gui.enable = true;
 
       spotify.enable = true;
+      media.mpv.enable = true;
 
       git.signingKey = "0x02D1DD3FA08B6B29";
 

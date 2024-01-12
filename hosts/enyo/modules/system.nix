@@ -57,6 +57,10 @@
       cli.enable = true;
       gui.enable = true;
 
+      media.mpv.enable = true;
+
+      spotify.enable = true;
+
       git.signingKey = "0x02D1DD3FA08B6B29";
 
       gaming = {

@@ -6,15 +6,39 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (osConfig) modules;
+
+  sys = modules.system;
+  prg = sys.programs;
 
   inherit (self.packages.${pkgs.system}) anime4k;
   low1k = import ./low1k.nix {inherit anime4k;};
-  dev = osConfig.modules.device;
-  acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
+  config = mkIf prg.media.mpv.enable {
     programs.mpv = {
       enable = true;
+
+      inherit (prg.media.mpv) scripts;
+
+      config = {
+        ytdl-format = "bestvideo+bestaudio/best";
+        audio-display = false;
+        force-window = true;
+        hidpi-window-scale = false;
+        hwdec = "auto";
+        keep-open = true;
+        keep-open-pause = false;
+        osd-on-seek = false;
+        profile = "gpu-hq";
+        script-opts = "osc-seekbarstyle=knob,osc-deadzonesize=1,osc-minmousemove=1";
+        slang = "chi";
+        sub-auto = "fuzzy";
+        sub-codepage = "gbk";
+        osc = "no";
+        osd-bar = "no";
+        border = "no";
+      };
+
       bindings =
         {
           "Y" = "add sub-scale +0.1"; # increase subtitle font size
@@ -46,32 +70,6 @@ in {
           "Ctrl+H" = "set speed 1.0";
         }
         // low1k;
-      config = {
-        ytdl-format = "bestvideo+bestaudio/best";
-        audio-display = false;
-        force-window = true;
-        hidpi-window-scale = false;
-        hwdec = "auto";
-        keep-open = true;
-        keep-open-pause = false;
-        osd-on-seek = false;
-        profile = "gpu-hq";
-        script-opts = "osc-seekbarstyle=knob,osc-deadzonesize=1,osc-minmousemove=1";
-        slang = "chi";
-        sub-auto = "fuzzy";
-        sub-codepage = "gbk";
-        osc = "no";
-        osd-bar = "no";
-        border = "no";
-      };
-
-      scripts = with pkgs.mpvScripts; [
-        #cutter
-        mpris
-        thumbnail
-        sponsorblock
-        uosc
-      ];
     };
   };
 }
