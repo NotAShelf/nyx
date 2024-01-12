@@ -1,25 +1,16 @@
 {
-  osConfig,
   config,
   lib,
-  pkgs,
   defaults,
   ...
 }: let
-  inherit (lib) mkIf;
-
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
-
   terminal =
     if (defaults.terminal == "foot")
     then "footclient"
     else "${defaults.terminal}";
 in {
-  config = mkIf (sys.video.enable && (env.isWayland && (env.desktop == "sway"))) {
+  config = {
     wayland.windowManager.sway = {
-      enable = true;
-      package = pkgs.swayfx;
       config = {
         assigns = {
           "1: web" = [{class = "^Firefox$";}];

@@ -1,19 +1,16 @@
 {
-  config,
-  lib,
-  pkgs,
   osConfig,
+  pkgs,
+  lib,
   ...
-}:
-with lib; let
-  env = osConfig.modules.usrEnv;
-  device = osConfig.modules.device;
-  sys = osConfig.modules.system;
+}: let
+  inherit (lib) mkIf;
+  inherit (osConfig) modules;
+
+  env = modules.usrEnv;
 in {
-  config = mkIf ((sys.video.enable) && (env.isWayland == false && env.desktop == "i3")) {
-    home.packages = with pkgs; [
-      maim
-    ];
+  config = mkIf env.desktops.i3.enable {
+    home.packages = [pkgs.maim];
 
     # enable i3status for the bar
     programs.i3status-rust = {

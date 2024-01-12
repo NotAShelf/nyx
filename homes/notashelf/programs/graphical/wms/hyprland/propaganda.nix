@@ -1,4 +1,4 @@
-pkgs: {
+{pkgs, ...}: {
   propaganda = pkgs.writeTextFile {
     name = "propaganda";
     text = ''

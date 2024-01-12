@@ -6,16 +6,13 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (import ./packages.nix {inherit pkgs;}) hyprshot dbus-hyprland-env;
-  inherit (inputs'.hyprland-contrib.packages) grimblast;
+  inherit (osConfig) modules;
+  inherit (import ./packages.nix {inherit inputs' pkgs;}) grimblast hyprshot dbus-hyprland-env hyprpicker;
 
-  hyprpicker = inputs'.hyprpicker.packages.default;
-
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
+  env = modules.usrEnv;
 in {
   imports = [./config.nix];
-  config = mkIf (sys.video.enable && (env.isWayland && (env.desktop == "Hyprland"))) {
+  config = mkIf env.desktops.hyprland.enable {
     home.packages = [
       hyprshot
       grimblast

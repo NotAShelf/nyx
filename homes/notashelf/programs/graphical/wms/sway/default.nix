@@ -1,16 +1,18 @@
 {
-  lib,
   osConfig,
+  pkgs,
+  lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
 in {
   imports = [./config.nix];
-  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "sway"))) {
+  config = mkIf env.desktops.sway.enable {
     wayland.windowManager.sway = {
       enable = true;
+      package = pkgs.swayfx;
     };
   };
 }
