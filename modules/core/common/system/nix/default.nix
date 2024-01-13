@@ -1,21 +1,25 @@
 {
+  inputs,
+  self,
   config,
   pkgs,
   lib,
-  inputs,
-  inputs',
-  self,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib.trivial) pipe;
+  inherit (lib.types) isType;
+  inherit (lib.attrsets) mapAttrsToList optionalAttrs filterAttrs mapAttrs;
+  inherit (lib.modules) mkDefault;
+in {
   imports = [
     ./transcend # module that merges trees outside central nixpkgs with our system's
     ./builders.nix # import builders config
+    ./overlays.nix
   ];
 
   system = {
     autoUpgrade.enable = false;
-    stateVersion = lib.mkDefault "23.05";
+    stateVersion = mkDefault "23.05";
   };
 
   environment = {
@@ -43,15 +47,6 @@ with lib; {
       allowUnsupportedSystem = true;
       permittedInsecurePackages = ["electron-25.9.0"]; # default to none, add more as necessary
     };
-
-    overlays = [
-      inputs.rust-overlay.overlays.default
-
-      (_: _: {
-        nixSuper = inputs'.nix-super.packages.default;
-        nixSchemas = inputs'.nixSchemas.packages.default;
-      })
-    ];
   };
 
   # faster rebuilding
@@ -60,16 +55,16 @@ with lib; {
     nixos.enable = true;
     info.enable = false;
     man = {
-      enable = lib.mkDefault true;
-      generateCaches = lib.mkDefault true;
+      enable = mkDefault true;
+      generateCaches = mkDefault true;
     };
   };
 
   nix = let
     # mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
-    mappedRegistry = lib.pipe inputs [
-      (lib.filterAttrs (_: lib.isType "flake"))
-      (lib.mapAttrs (_: flake: {inherit flake;}))
+    mappedRegistry = pipe inputs [
+      (filterAttrs (_: isType "flake"))
+      (mapAttrs (_: flake: {inherit flake;}))
       (x: x // {nixpkgs.flake = inputs.nixpkgs;})
     ];
   in {
@@ -78,7 +73,7 @@ with lib; {
     # pin the registry to avoid downloading and evaluating a new nixpkgs version every time
     # this will add each flake input as a registry to make nix3 commands consistent with your flake
     # additionally we also set `registry.default`, which was added by nix-super
-    registry = mappedRegistry // lib.optionalAttrs (config.nix.package == pkgs.nixSuper) {default = mappedRegistry.nixpkgs;};
+    registry = mappedRegistry // optionalAttrs (config.nix.package == pkgs.nixSuper) {default = mappedRegistry.nixpkgs;};
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well
