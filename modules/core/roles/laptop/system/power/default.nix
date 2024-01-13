@@ -17,7 +17,6 @@ in {
     environment.systemPackages = with pkgs; [
       acpi
       powertop
-      cpupower-gui
     ];
 
     services = {
