@@ -86,7 +86,7 @@ in {
             },
 
             // The number of entries to be displayed
-            max_entries: 3,
+            max_entries: 5,
           )
         '';
 
@@ -109,6 +109,7 @@ in {
           Config(
             options: ${options},
             min_score: 5,
+            max_entries: Some(3),
           )
         '';
       };
