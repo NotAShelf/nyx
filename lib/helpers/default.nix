@@ -9,5 +9,5 @@ in {
   inherit (systemd) hardenService;
   inherit (fs) mkBtrfs;
   inherit (types) filterNixFiles importNixFiles boolToNum fetchKeys containsStrings indexOf intListToStringList;
-  inherit (themes) serializeTheme;
+  inherit (themes) serializeTheme compileSCSS;
 }
