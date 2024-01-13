@@ -1,15 +1,15 @@
 {
-  config,
+  osConfig,
   lib,
   pkgs,
   ...
 }: let
   inherit (lib) mkIf;
 
-  cfg = config.modules.system.programs;
+  cfg = osConfig.modules.system.programs;
 in {
   config = mkIf cfg.gaming.chess.enable {
-    environment.systemPackages = with pkgs; [
+    home.packages = with pkgs; [
       knights
       fairymax
       gnome.gnome-chess

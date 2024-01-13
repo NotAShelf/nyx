@@ -11,6 +11,7 @@ in {
   imports = [
     ./minecraft.nix
     ./mangohud.nix
+    ./chess.nix
   ];
 
   config = mkIf prg.gaming.enable {
