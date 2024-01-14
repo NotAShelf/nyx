@@ -6,12 +6,15 @@
   inherit (inputs'.hyprland-contrib.packages) grimblast;
   inherit (inputs'.hyprpicker.packages) hyprpicker;
 
-  hyprshot = pkgs.writeShellScriptBin "hyprshot" ''
-    ${pkgs.stdenv.shell}
-    hyprctl keyword animation "fadeOut,0,8,slow" && \
-      ${grimblast}/bin/grimblast -g "$(${hyprpicker}/bin/hyprpicker -w 0 -b 5e81acd2)" - | swappy -f - ; \
-      hyprctl keyword animation "fadeOut,1,8,slow"
-  '';
+  hyprshot = pkgs.writeShellApplication {
+    name = "hyprshot";
+    runtimeInputs = with pkgs; [grim slurp swappy];
+    text = ''
+      hyprctl keyword animation "fadeOut,0,8,slow" && \
+        grim -g "$(slurp -w 0 -b 5e81acd2)" - | swappy -f -; \
+        hyprctl keyword animation "fadeOut,1,8,slow"
+    '';
+  };
 
   dbus-hyprland-env = pkgs.writeTextFile {
     name = "dbus-hyprland-env";
