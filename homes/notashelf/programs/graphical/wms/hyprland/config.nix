@@ -175,7 +175,7 @@ in {
         "$MODSHIFT, Escape, exec, wlogout -p layer-shell" # logout menu
         "$MODSHIFT, L, exec, ${locker}" # lock the screen with swaylock
         "$MODSHIFT,E,exit," # exit Hyprland session
-        ''$MODSHIFT,H,exec,cat ${propaganda} | wl-copy && notify-send "Propaganda" "ready to spread!" && sleep 0.3 && ${lib.getExe pkgs.wtype} -M ctrl -M shift -k v -m shift -m ctrl -s 300 -k Return'' # spread hyprland propaganda
+        ''$MODSHIFT,H,exec,cat ${propaganda} | ${pkgs.wl-clipboard}/bin/wl-copy && ${pkgs.libnotify}/bin/notify-send "Propaganda" "ready to spread!" && sleep 0.3 && ${lib.getExe pkgs.wtype} -M ctrl -M shift -k v -m shift -m ctrl -s 300 -k Return'' # spread hyprland propaganda
 
         # Daily Applications
         "$MOD,F1,exec,firefox" # browser
