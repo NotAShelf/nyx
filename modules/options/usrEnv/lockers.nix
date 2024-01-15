@@ -1,12 +1,27 @@
-{lib, ...}: let
-  inherit (lib) mkOption types;
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.types) package;
+  inherit (lib.options) mkEnableOption mkOption;
+
+  cfg = config.modules.usrEnv.screenlock;
+  pkg =
+    if cfg.gtklock.enable
+    then pkgs.gtklock
+    else pkgs.swaylock-effects;
 in {
-  options.modules.usrEnv.screenLock = mkOption {
-    type = with types; nullOr (enum ["swaylock" "gtklock"]);
-    default = "gtklock";
-    description = ''
-      The lockscreen module that will be enabled on the side of
-      home-manager.
-    '';
+  options.modules.usrEnv.screenlock = {
+    gtklock.enable = mkEnableOption "gtklock screenlocker";
+    swaylock.enable = mkEnableOption "swaylock screenlocker";
+
+    package = mkOption {
+      type = package;
+      default = pkg;
+      readOnly = true;
+      description = "The screenlocker package";
+    };
   };
 }

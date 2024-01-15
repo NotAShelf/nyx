@@ -4,9 +4,8 @@
     ./clipboard
     ./gammastep
     ./hyprpaper
+    ./swaybg
     ./swayidle
-    ./swaylock
     ./waybar
-    ./gtklock
   ];
 }

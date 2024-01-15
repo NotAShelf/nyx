@@ -6,5 +6,7 @@
       anyrun.enable = true;
       tofi.enable = true;
     };
+
+    screenlock.swaylock.enable = true;
   };
 }
