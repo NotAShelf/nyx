@@ -25,11 +25,13 @@
   # common modules
   # to be shared across all systems without exception
   common = coreModules + /common; # the self-proclaimed sane defaults for all my systems
+  profiles = coreModules + /profiles; # force defauşts based on selected profile
 
   # roles
   workstation = coreModules + /roles/workstation; # for devices that are of workstation type - any device that is for daily use
   server = coreModules + /roles/server; # for devices that are of the server type - provides online services
   laptop = coreModules + /roles/laptop; # for devices that are of the laptop type - provides power optimizations
+  headless = coreModules + /roles/headless; # for devices that are of the headless type - provides no GUI
 
   # extra modules - optional but likely critical to a successful build
   sharedModules = extraModules + /shared; # the path where shared modules reside
@@ -44,6 +46,7 @@
     options # provide options for defined modules across the system
     sharedModules # consume my flake's own nixosModules
     agenix # age encryption for secrets
+    profiles # profiles program overrides per-host
   ];
 
   # extraSpecialArgs that all hosts need
@@ -126,6 +129,7 @@ in {
         {networking.hostName = "helios";}
         ./helios
         server
+        headless
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -142,6 +146,7 @@ in {
         ./icarus
         workstation
         laptop
+        server
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -156,6 +161,8 @@ in {
       [
         ./atlas
         hw.raspberry-pi-4
+        server
+        headless
       ]
       ++ shared;
     specialArgs = sharedArgs;
@@ -193,6 +200,7 @@ in {
         {networking.hostName = "leto";}
         ./leto
         server
+        headless
       ]
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
@@ -207,6 +215,8 @@ in {
       [
         {networking.hostName = "artemis";}
         ./artemis
+        server
+        headless
       ]
       ++ shared;
     specialArgs = sharedArgs;
@@ -222,6 +232,7 @@ in {
         {networking.hostName = "apollon";}
         ./apollon
         server
+        headless
       ]
       ++ shared;
     specialArgs = sharedArgs;

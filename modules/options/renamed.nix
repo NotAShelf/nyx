@@ -7,6 +7,7 @@ in {
 
     # renamed modules for the userEnv module
     (mkRenamedOptionModule ["modules" "usrEnv" "autologin"] ["modules" "system" "autoLogin"])
+    (mkRenamedOptionModule ["modules" "usrEnv" "isWayland"] ["meta" "isWayland"])
 
     # renamed options for the system module
     (mkRenamedOptionModule ["modules" "system" "networking" "useTailscale"] ["modules" "system" "networking" "tailscale" "client" "enable"])

@@ -29,7 +29,7 @@ in {
         initrd compression algorithm optimizations for size.
 
         Enabling this option will force initrd to use zstd (default) with
-        level 19 and -T0 (STDIN). This will reduce thee initrd size greatly
+        level 19 and -T0 (STDIN). This will reduce the initrd size greatly
         at the cost of compression speed.
 
         Not recommended for low-end hardware.

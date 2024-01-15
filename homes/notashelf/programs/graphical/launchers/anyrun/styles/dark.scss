@@ -1,0 +1,43 @@
+$fontSize: 1.3rem;
+$fontFamily: Lexend;
+$transparentColor: transparent;
+$rgbaColor: rgba(203, 166, 247, 0.7);
+$bgColor: rgba(30, 30, 46, 1);
+$borderColor: #28283d;
+$borderRadius: 16px;
+$paddingValue: 8px;
+
+* {
+	transition: 200ms ease;
+	font-family: $fontFamily;
+	font-size: $fontSize;
+}
+
+#window,
+#match,
+#entry,
+#plugin,
+#main {
+	background: $transparentColor;
+}
+
+#match:selected {
+	background: $rgbaColor;
+}
+
+#match {
+	padding: 3px;
+	border-radius: $borderRadius;
+}
+
+#entry,
+#plugin:hover {
+	border-radius: $borderRadius;
+}
+
+box#main {
+	background: $bgColor;
+	border: 1px solid $borderColor;
+	border-radius: $borderRadius;
+	padding: $paddingValue;
+}

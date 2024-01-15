@@ -4,9 +4,10 @@
   config,
   osConfig,
   ...
-}:
-with lib; let
-  locker = lib.getExe pkgs."${env.screenLock}";
+}: let
+  inherit (lib) getExe mkIf mkForce;
+
+  locker = getExe env.screenlock.package;
 
   systemctl = "${pkgs.systemd}/bin/systemctl";
   suspendScript = pkgs.writeShellScript "suspend-script" ''
@@ -16,15 +17,12 @@ with lib; let
       ${systemctl} suspend
     fi
   '';
-  dev = osConfig.modules.device;
-  env = osConfig.modules.usrEnv;
-  vid = osConfig.modules.system.video;
 
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  env = osConfig.modules.usrEnv;
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && (vid.enable && env.isWayland)) {
-    # start swayidle as part of hyprland instead of sway
-    systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
+  # TODO: can we make it so that it works with sway *or* hyprland based on which one is enabled?
+  config = mkIf env.desktops.hyprland.enable {
+    systemd.user.services.swayidle.Install.WantedBy = ["hyprland-session.target"];
 
     # screen idle
     services.swayidle = {

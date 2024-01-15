@@ -6,7 +6,10 @@
   ...
 }: let
   inherit (lib) mkIf makeBinPath optionalString;
-  env = config.modules.usrEnv;
+  inherit (config) modules;
+
+  env = modules.usrEnv;
+  sys = modules.system;
 
   programs = makeBinPath (with pkgs; [
     inputs.hyprland.packages.${stdenv.system}.default
@@ -37,9 +40,9 @@
       ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
   '';
 
-  cfg = config.modules.system.programs;
+  prg = config.modules.system.programs;
 in {
-  config = mkIf cfg.gaming.enable {
+  config = mkIf prg.gaming.enable {
     programs.gamemode = {
       enable = true;
       enableRenice = true;
@@ -53,6 +56,15 @@ in {
           start = startscript.outPath;
           end = endscript.outPath;
         };
+      };
+    };
+
+    security.wrappers = {
+      gamemode = {
+        owner = "root";
+        group = "root";
+        source = "${pkgs.gamemode}/bin/gamemoderun";
+        capabilities = "cap_sys_ptrace,cap_sys_nice+pie";
       };
     };
   };

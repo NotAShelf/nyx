@@ -1,50 +1,92 @@
-{lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) mkOption types;
+
+  cfg = config.modules.usrEnv;
+  sys = config.modules.system;
 in {
+  imports = [
+    ./launchers.nix
+    ./lockers.nix
+  ];
+
   options.modules.usrEnv = {
     desktop = mkOption {
-      type = types.enum ["Hyprland" "sway" "awesome" "i3"];
+      type = types.enum ["Hyprland" "sway" "awesomewm" "i3"];
       default = "Hyprland";
       description = ''
         The desktop environment to be used.
       '';
     };
 
-    isWayland = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        Whether to enable Wayland compatibility module. This generally includes:
-          - Wayland nixpkgs overlay
-          - Wayland only services
-          - Wayland only programs
-          - Wayland compositors
-          - Wayland compatible versions of packages
-      '';
+    desktops = {
+      hyprland.enable = mkOption {
+        type = types.bool;
+        default = cfg.desktop == "Hyprland";
+        description = ''
+          Whether to enable Hyprland wayland compositor.
+
+          Will be enabled automatically when `modules.usrEnv.desktop` is set to "Hyprland".
+
+        '';
+      };
+
+      sway.enable = mkOption {
+        type = types.bool;
+        default = cfg.desktop == "sway";
+        description = ''
+          Whether to enable Sway wayland compositor.
+
+          Will be enabled automatically when `modules.usrEnv.desktop` is set to "sway".
+
+        '';
+      };
+
+      awesomwm.enable = mkOption {
+        type = types.bool;
+        default = cfg.desktop == "awesomewm";
+        description = ''
+          Whether to enable Awesome window manager
+
+          Will be enabled automatically when `modules.usrEnv.desktop` is set to "awesomewm".
+
+
+        '';
+      };
+
+      i3.enable = mkOption {
+        type = types.bool;
+        default = cfg.desktop == "i3";
+        description = ''
+          Whether to enable i3 window manager
+
+          Will be enabled automatically when `modules.usrEnv.desktop` is set to "i3".
+        '';
+      };
     };
 
     useHomeManager = mkOption {
       type = types.bool;
       default = true;
       description = ''
-        Whether to use home-manager or not. Username via `usrEnv.mainUser` **MUST** be set if this option is enabled.
-      '';
-    };
+        Whether to enable the usage of home-manager for user home management. Maps the list
+        of users to their home directories inside the `homes/` directory in the repository
+        root.
 
-    screenLock = mkOption {
-      type = with types; nullOr (enum ["swaylock" "gtklock"]);
-      default = "gtklock";
-      description = ''
-        The lockscreen module to be loaded by home-manager.
+        Username via `modules.system.mainUser` must be set if this option is enabled.
       '';
     };
+  };
 
-    noiseSupressor = mkOption {
-      type = with types; nullOr (enum ["rnnoise" "noisetorch"]);
-      default = "rnnoise";
-      description = ''
-        The noise supressor to be used for desktop systems with sound enabled.
-      '';
-    };
+  config = {
+    assertions = [
+      {
+        assertion = cfg.useHomeManager -> sys.mainUser != null;
+        message = "usrEnv.mainUser must be set while useHomeManager is enabled";
+      }
+    ];
   };
 }

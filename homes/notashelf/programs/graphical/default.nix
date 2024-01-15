@@ -1,8 +1,9 @@
 {
   imports = [
     ./apps
-    ./launchers
-    ./wms
     ./games
+    ./launchers
+    ./screenlock
+    ./wms
   ];
 }

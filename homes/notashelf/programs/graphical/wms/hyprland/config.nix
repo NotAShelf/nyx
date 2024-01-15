@@ -7,20 +7,23 @@
   ...
 }: let
   inherit (lib) optionalString imap0;
+  inherit (osConfig) modules;
 
   inherit (config.colorscheme) colors;
-  inherit (import ./propaganda.nix pkgs) propaganda;
+  inherit (import ./propaganda.nix {inherit pkgs;}) propaganda;
 
   pointer = config.home.pointerCursor;
-  env = osConfig.modules.usrEnv;
-  inherit (osConfig.modules.device) monitors;
+  env = modules.usrEnv;
+  dev = modules.device;
+
+  inherit (dev) monitors;
 
   terminal =
     if (defaults.terminal == "foot")
     then "footclient"
     else "${defaults.terminal}";
 
-  locker = lib.getExe pkgs.${env.screenLock};
+  locker = lib.getExe env.screenlock.package;
 in {
   wayland.windowManager.hyprland = {
     settings = {

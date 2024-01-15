@@ -2,30 +2,31 @@
   inputs,
   inputs',
   osConfig,
+  pkgs,
   lib,
   ...
 }: let
-  dev = osConfig.modules.device;
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  inherit (lib) mkIf;
+  inherit (osConfig) modules;
+
+  env = modules.usrEnv;
 in {
   imports = [inputs.anyrun.homeManagerModules.default];
-  config = lib.mkIf (builtins.elem dev.type acceptedTypes && (sys.video.enable && env.isWayland)) {
+  config = mkIf env.launchers.anyrun.enable {
     programs.anyrun = {
       enable = true;
       config = {
-        plugins = with inputs'.anyrun.packages;
-          [
-            applications
-            rink
-            translate
-            randr
-            shell
-            symbols
-            translate
-          ]
-          ++ [inputs'.anyrun-nixos-options.packages.default];
+        plugins = with inputs'.anyrun.packages; [
+          applications
+          rink
+          translate
+          randr
+          shell
+          symbols
+          translate
+
+          inputs'.anyrun-nixos-options.packages.default
+        ];
 
         # the x coordinate of the runner
         #x.relative = 800;
@@ -86,7 +87,7 @@ in {
             },
 
             // The number of entries to be displayed
-            max_entries: 3,
+            max_entries: 5,
           )
         '';
 
@@ -109,45 +110,17 @@ in {
           Config(
             options: ${options},
             min_score: 5,
+            max_entries: Some(3),
           )
         '';
       };
 
-      extraCss = ''
-        * {
-          transition: 200ms ease;
-          font-family: Lexend;
-          font-size: 1.3rem;
-        }
-
-        #window,
-        #match,
-        #entry,
-        #plugin,
-        #main {
-          background: transparent;
-        }
-
-        #match:selected {
-          background: rgba(203, 166, 247, 0.7);
-        }
-
-        #match {
-          padding: 3px;
-          border-radius: 16px;
-        }
-
-        #entry, #plugin:hover {
-          border-radius: 16px;
-        }
-
-        box#main {
-          background: rgba(30, 30, 46, 1);
-          border: 1px solid #28283d;
-          border-radius: 24px;
-          padding: 8px;
-        }
-      '';
+      # this compiles the SCSS file from the given path into CSS
+      # by default, `-t expanded` as the args to the sass compiler
+      extraCss = builtins.readFile (lib.compileSCSS pkgs {
+        name = "style-dark";
+        source = ./styles/dark.scss;
+      });
     };
   };
 }
