@@ -137,7 +137,7 @@ in {
         harmonia = mkModule {
           name = "Harmonia";
           type = "binary cache";
-          host = "[::1]";
+          host = "[::]";
           port = 5000;
         };
 
