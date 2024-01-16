@@ -25,6 +25,7 @@
     networking = {
       optimizeTcp = false;
       tarpit.enable = true;
+      nftables.enable = true;
       tailscale = {
         enable = true;
         isServer = true;
