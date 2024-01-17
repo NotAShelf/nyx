@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree mkdir-nvim ssr-nvim direnv-vim;
-  pluginSources = import ./pluginSources.nix {inherit pkgs;};
+  pluginSources = import ./sources.nix {inherit pkgs;};
 in {
   # plugins that are pulled from nixpkgs
   direnv = {package = direnv-vim;};
@@ -31,6 +31,8 @@ in {
 
   # plugins that are built from their sources
   regexplainer = {package = pluginSources.regexplainer;};
+  vim-nftables = {package = pluginSources.vim-nftables;};
+
   data-view = {
     package = pluginSources.data-viewer-nvim;
     setup = ''

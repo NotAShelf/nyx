@@ -1,0 +1,53 @@
+{
+	"pins": {
+		"hmts.nvim": {
+			"type": "GitRelease",
+			"repository": {
+				"type": "GitHub",
+				"owner": "calops",
+				"repo": "hmts.nvim"
+			},
+			"pre_releases": false,
+			"version_upper_bound": null,
+			"version": "v1.2.2",
+			"revision": "14fd941d7ec2bb98314a1aacaa2573d97f1629ab",
+			"url": "https://api.github.com/repos/calops/hmts.nvim/tarball/v1.2.2",
+			"hash": "09f403w6gglfycghjzx4dc5gv71wqb6ywnmcvm15n1ldxasb6jwd"
+		},
+		"nixpkgs": {
+			"type": "Channel",
+			"name": "nixpkgs-unstable",
+			"url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre562963.e1fa12d4f6c6/nixexprs.tar.xz",
+			"hash": "16wdn7j17y9yradygdbdlhlcpqa432hp5ah49cm3b0caqymbgw6h"
+		},
+		"slides.nvim": {
+			"type": "GitRelease",
+			"repository": {
+				"type": "GitHub",
+				"owner": "notashelf",
+				"repo": "slides.nvim"
+			},
+			"pre_releases": false,
+			"version_upper_bound": null,
+			"version": "v0.1.0",
+			"revision": "768fde54ac9de657887b605ee93f11993b26c9c2",
+			"url": "https://api.github.com/repos/notashelf/slides.nvim/tarball/v0.1.0",
+			"hash": "19pzmwpjdsmyy9ygk6ln1i18qihdffp6dgx4vvccyvvz3shabvhx"
+		},
+		"smart-splits.nvim": {
+			"type": "GitRelease",
+			"repository": {
+				"type": "GitHub",
+				"owner": "mrjones2014",
+				"repo": "smart-splits.nvim"
+			},
+			"pre_releases": false,
+			"version_upper_bound": null,
+			"version": "v1.2.4",
+			"revision": "c8a9173d70cbbd1f6e4a414e49e31df2b32a1362",
+			"url": "https://api.github.com/repos/mrjones2014/smart-splits.nvim/tarball/v1.2.4",
+			"hash": "0hxy3fv6qp7shwh9wgf20q5i8ba2pzng2dd1dvw27aabibk43ba3"
+		}
+	},
+	"version": 3
+}

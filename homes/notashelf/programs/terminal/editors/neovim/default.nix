@@ -15,7 +15,7 @@ in {
     settings = {
       vim = {
         package = pkgs.neovim-unwrapped;
-        extraPlugins = import ./extraPlugins.nix {inherit pkgs lib;};
+        extraPlugins = import ./plugins/extra.nix {inherit pkgs lib;};
 
         viAlias = true;
         vimAlias = true;
@@ -65,9 +65,16 @@ in {
           elixir.enable = false;
           svelte.enable = false;
           sql.enable = false;
-          java = {
+          java = let
+            jdtlsCache = "${config.xdg.cacheHome}/jdtls";
+          in {
             enable = true;
-            lsp.package = ["${pkgs.jdt-language-server}/bin/jdt-language-server" "-configuration" "${config.xdg.cacheHome}/jdtls/config" "-data" "${config.xdg.cacheHome}/jdtls/workspace"];
+            # TODO: switch to getExe once <https://github.com/NixOS/nixpkgs/pull/28025> is merged
+            lsp.package = [
+              "${pkgs.jdt-language-server}/bin/jdt-language-server"
+              "-configuration ${jdtlsCache}/config"
+              "-data ${jdtlsCache}/workspace"
+            ];
           };
 
           lua = {
@@ -132,6 +139,7 @@ in {
           style = "mocha";
           transparent = true;
         };
+
         autopairs.enable = true;
 
         autocomplete = {
@@ -345,11 +353,8 @@ in {
 
         presence.presence-nvim.enable = true;
 
-        maps = import ./mappings.nix;
-
-        luaConfigRC = {
-          "lsp-handler" = builtins.readFile ./lua/handlers.lua;
-        };
+        maps = import ./mappings;
+        luaConfigRC = import ./lua;
       };
     };
   };

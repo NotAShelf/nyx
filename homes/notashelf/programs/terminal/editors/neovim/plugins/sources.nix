@@ -56,4 +56,14 @@ in {
       hash = "sha256-D5hvLhsYski11H9qiDDL2zlZMtYmbpHgpewiWR6C7rE=";
     };
   };
+
+  vim-nftables = buildVimPlugin {
+    name = "vim-nftables";
+    src = pkgs.fetchFromGitHub {
+      owner = "awisse";
+      repo = "vim-nftables";
+      rev = "bc29309080b4c7e1888ffb1a830846be16e5b8e7";
+      hash = "sha256-L1x3Hv95t/DBBrLtPBKrqaTbIPor/NhVuEHVIYo/OaA=";
+    };
+  };
 }
