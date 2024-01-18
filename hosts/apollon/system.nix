@@ -12,6 +12,7 @@
   config = {
     modules.device.type = "vm";
     zramSwap.enable = lib.mkForce false;
+    services.thermald.enable = lib.mkForce false;
 
     boot = {
       initrd = {
@@ -23,11 +24,8 @@
     };
 
     environment = {
-      shells = with pkgs; [bash zsh];
-
-      systemPackages = with pkgs; [
-        bcachefs-tools
-        starship # having starship here means pkgs.startship will be stored during build and not during promptInit
+      systemPackages = [
+        pkgs.bcachefs-tools
       ];
     };
 
