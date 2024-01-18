@@ -3,6 +3,14 @@
 in {
   networking.nftables.rules = {
     inet.filter.input = {
+      # endlessh
+      endlessh = entryBetween ["basic-icmp6" "basic-icmp" "ping6" "ping"] ["default"] {
+        protocol = "tcp";
+        field = "dport";
+        value = [22];
+        policy = "accept";
+      };
+
       # this allows nginx to respond to the domain challenges without passing each service through the firewall
       https = entryBetween ["basic-icmp6" "basic-icmp" "ping6" "ping"] ["default"] {
         protocol = "tcp";
