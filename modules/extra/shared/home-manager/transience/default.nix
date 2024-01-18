@@ -9,13 +9,13 @@
   cfg = config.services.transience;
 in {
   meta.maintainers = [lib.maintainers.NotAShelf];
-  options = {
+  options.services.transience = {
     enable = mkEnableOption "transience";
 
     user = mkOption {
       type = with types; nullOr string;
       default = null;
-      description = "User to run the service as";
+      description = "The user that the directories will be relative to";
     };
 
     days = mkOption {
@@ -24,48 +24,53 @@ in {
       description = "Number of days after which files are deleted";
     };
 
-    folders = mkOption {
+    directories = mkOption {
       type = with types; listOf path;
       default = [];
-      description = "Folders to clean up";
+      description = ''
+        A list of directories that will be cleaned.
+
+        Must be relative to the user's home directory.
+      '';
     };
   };
 
   config = {
     assertions = [
       {
-        assertion = cfg.enable -> cfg.user != null;
+        assertion = cfg.enable -> cfg.user == null;
         message = ''
           You have enabled services.transience, but have not specified your user. You must specify a "main user"
           for your system for Transience to work properly.
         '';
       }
       {
-        assertion = cfg.folders != [];
+        assertion = cfg.directories == [];
         message = ''
-          You have enabled services.transience, but have not specified any folders to clean up. Please specify
-          at least one folder. This option defaults to an empty list, but you must specify a list of folders for
+          You have enabled services.transience, but have not specified any directories to clean up. Please specify
+          at least one folder. This option defaults to an empty list, but you must specify a list of directories for
           Transience to work properly.
         '';
       }
     ];
 
     systemd.user.services.transience = let
-      folders =
+      dirs =
         map (
           x:
             config.home-manager.users.${cfg.user}.home.homeDirectory + "/" + x
         )
-        cfg.folders;
+        cfg.directories;
     in {
-      serviceConfig.Type = "oneshot";
-      wantedBy = ["default.target"];
-      script = ''
+      Install.wantedBy = ["default.target"];
+      Service.ExecStart = ''
         ${builtins.concatStringsSep "\n" (map (x: "find ${
             lib.escapeShellArg x
           } -mtime +${cfg.days} -exec rm -rv {} + -depth;")
-          folders)}
+          dirs)}
       '';
+
+      Unit.Description = "Clean up transient directories";
     };
   };
 }

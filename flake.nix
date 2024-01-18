@@ -17,7 +17,8 @@
       ];
 
       imports = [
-        # add self back to inputs, I depend on inputs.self at least once
+        # add self back to inputs to use as `inputs.self`
+        # I depend on inputs.self *at least* once
         {config._module.args._inputs = inputs // {inherit (inputs) self;};}
 
         # parts and modules from inputs
@@ -59,6 +60,8 @@
         pkgs,
         ...
       }: {
+        # set pkgs to the legacyPackages inherited from config instead of the one
+        # initiated by flake-parts
         imports = [{_module.args.pkgs = config.legacyPackages;}];
 
         # provide the formatter for nix fmt

@@ -1,10 +1,13 @@
 {
   imports = [
-    ./cloud
     ./dunst
     ./media
-    ./polkit
-    ./tray
-    ./kdeconnect
+
+    ./kdeconnect.nix
+    ./nextcloud.nix
+    ./polkit.nix
+    ./transience.nix
+    ./tray.nix
+    ./udiskie.nix
   ];
 }
