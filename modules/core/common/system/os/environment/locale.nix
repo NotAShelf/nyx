@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib) mkDefault;
+in {
   time = {
     timeZone = "Europe/Istanbul";
     hardwareClockInLocalTime = true;
@@ -31,7 +33,7 @@
       LC_TIME = tr;
     };
 
-    supportedLocales = lib.mkDefault [
+    supportedLocales = mkDefault [
       "en_US.UTF-8/UTF-8"
       "tr_TR.UTF-8/UTF-8"
     ];
@@ -48,13 +50,5 @@
         fcitx5-material-color
       ];
     };
-  };
-
-  console = let
-    variant = "v18n";
-  in {
-    font = "ter-powerline-${variant}";
-    packages = [pkgs.terminus_font pkgs.powerline-fonts];
-    keyMap = "trq";
   };
 }
