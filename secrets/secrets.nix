@@ -21,6 +21,7 @@ in {
   "common-nix-builder.age".publicKeys = mkSecrets (workstations ++ servers);
   "client-wg.age".publicKeys = mkSecrets (workstations ++ servers);
   "client-tailscale.age".publicKeys = mkSecrets (workstations ++ servers);
+  "client-email.age".publicKeys = mkSecrets (workstations ++ servers);
 
   # service specific secrets
   "service-matrix.age".publicKeys = mkSecrets servers;

@@ -57,6 +57,13 @@ in {
           group = "users";
           mode = "700";
         };
+
+        client-email = mkSecret true {
+          file = "client-email.age";
+          owner = "notashelf";
+          group = "users";
+          mode = "400";
+        };
       })
 
     (mkIf (builtins.elem dev.type ["server" "hybrid"]) {
