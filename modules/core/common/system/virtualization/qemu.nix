@@ -30,6 +30,9 @@ in {
             packages = [pkgs.OVMFFull.fd];
           };
         };
+
+        onBoot = "ignore";
+        onShutdown = "shutdown";
       };
     };
 
