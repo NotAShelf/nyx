@@ -13,10 +13,10 @@ in {
     banaction = "iptables-multiport[blocktype=DROP]";
     maxretry = 7;
     ignoreIP = [
-      "127.0.0.0/8"
-      "10.0.0.0/8"
-      "100.64.0.0/16"
-      "192.168.0.0/16"
+      "127.0.0.0/8" # localhost
+      "10.0.0.0/8" # wireguard
+      "100.64.0.0/16" # tailscake
+      "192.168.0.0/16" # local network
     ];
 
     jails = mkMerge [
