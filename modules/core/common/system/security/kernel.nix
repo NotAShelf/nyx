@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) optionals versionOlder isx86Linux;
+  inherit (lib) optionals versionOlder isx86Linux mkForce;
   mitigationFlags =
     (
       optionals (versionOlder config.boot.kernelPackages.kernel.version "5.1.13")
@@ -85,7 +85,7 @@ in {
           # The Magic SysRq key is a key combo that allows users connected to the
           # system console of a Linux kernel to perform some low-level commands.
           # Disable it, since we don't need it, and is a potential security concern.
-          "kernel.sysrq" = 0;
+          "kernel.sysrq" = mkForce 0;
 
           # Restrict ptrace() usage to processes with a pre-defined relationship
           # (e.g., parent/child)
@@ -116,7 +116,7 @@ in {
           # Disable SUID binary dump
           "fs.suid_dumpable" = 0;
 
-          # # Disable late module loading
+          # Disable late module loading
           # "kernel.modules_disabled" = 1;
 
           # Disallow profiling at all levels without CAP_SYS_ADMIN
@@ -133,7 +133,8 @@ in {
           # make stack-based attacks on the kernel harder
           "randomize_kstack_offset=on"
 
-          # controls the behavior of vsyscalls. this has been defaulted to none back in 2016 - break really old binaries for security
+          # controls the behavior of vsyscalls.
+          # this has been defaulted to none back in 2016 - breaks really old binaries for security
           "vsyscall=none"
 
           # reduce most of the exposure of a heap attack to a single cache
@@ -142,13 +143,18 @@ in {
           # only allow signed modules
           "module.sig_enforce=1"
 
-          # blocks access to all kernel memory, even preventing administrators from being able to inspect and probe the kernel
+          # blocks access to all kernel memory
+          # even preventing administrators from being able to inspect and probe the kernel
           "lockdown=confidentiality"
 
           # enable buddy allocator free poisoning
+          #  on: memory will befilled with a specific byte pattern
+          #     that is unlikely to occur in normal operation.
+          #  off: page poisoning will be disabled
           "page_poison=1"
 
-          # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
+          # performance improvement for direct-mapped memory-side-cache utilization
+          # reduces the predictability of page allocations
           "page_alloc.shuffle=1"
 
           # for debugging kernel-level slab issues
@@ -157,7 +163,8 @@ in {
           # disable sysrq keys. sysrq is seful for debugging, but also insecure
           "sysrq_always_enabled=0" # 0 | 1 # 0 means disabled
 
-          # ignore access time (atime) updates on files, except when they coincide with updates to the ctime or mtime
+          # ignore access time (atime) updates on files
+          # except when they coincide with updates to the ctime or mtime
           "rootflags=noatime"
 
           # linux security modules
@@ -165,6 +172,11 @@ in {
 
           # prevent the kernel from blanking plymouth out of the fb
           "fbcon=nodefer"
+
+          # the format that will be used for integrity audit logs
+          #  0: basic integrity auditing messages (the default)
+          #  1: additional integrity auditing messages
+          "integrity_audit=1"
         ]
         ++ optionals cfg.mitigations.disable mitigationFlags;
 
