@@ -113,12 +113,6 @@
     # sometimes nixpkgs breaks something I need, pin a working commit when that occurs
     # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
 
-    # Automated, pre-built packages for Wayland
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs-small";
-    };
-
     # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
