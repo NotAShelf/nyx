@@ -55,26 +55,36 @@ in {
         "noreply@notashelf.dev" = {
           aliases = ["noreply"];
           hashedPasswordFile = secrets.mailserver-noreply-secret.path;
+          sendOnly = true;
+          sendOnlyRejectMessage = "";
         };
 
         "git@notashelf.dev" = mkIf cfg.forgejo.enable {
           aliases = ["git" "forgejo"];
           hashedPasswordFile = secrets.mailserver-forgejo-secret.path;
+          sendOnly = true;
+          sendOnlyRejectMessage = "";
         };
 
         "vaultwarden@notashelf.dev" = mkIf cfg.vaultwarden.enable {
           aliases = ["vaultwarden" "vault"];
           hashedPasswordFile = secrets.mailserver-vaultwarden-secret.path;
+          sendOnly = true;
+          sendOnlyRejectMessage = "";
         };
 
         "matrix@notashelf.dev" = mkIf cfg.social.matrix.enable {
           aliases = ["matrix"];
           hashedPasswordFile = secrets.mailserver-matrix-secret.path;
+          sendOnly = true;
+          sendOnlyRejectMessage = "";
         };
 
         "cloud@notashelf.dev" = mkIf cfg.nextcloud.enable {
           aliases = ["cloud" "nextcloud"];
           hashedPasswordFile = secrets.mailserver-cloud-secret.path;
+          sendOnly = true;
+          sendOnlyRejectMessage = "";
         };
       };
 
