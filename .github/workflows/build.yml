@@ -40,7 +40,7 @@ jobs:
       - name: Get current date
         id: get-date
         # output format: 2023-12-22-120000
-        run: echo "date=\$(date +'%Y-%m-%d-%H%M%S')" >> "${GITHUB_OUTPUT}"
+        run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> "${GITHUB_OUTPUT}"
 
       - name: Create Release
         id: create_release
