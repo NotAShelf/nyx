@@ -4,6 +4,7 @@
     ./media
 
     ./kdeconnect.nix
+    ./mail.nix
     ./nextcloud.nix
     ./polkit.nix
     ./transience.nix

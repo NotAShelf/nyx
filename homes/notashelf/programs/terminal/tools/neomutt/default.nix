@@ -1,91 +1,55 @@
 {
   config,
-  pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib) mapAttrsToList flatten concatStringsSep;
+in {
   config = {
     programs.neomutt = {
       enable = true;
       vimKeys = true;
       checkStatsInterval = 60;
+
+      # sidebar
       sidebar = {
         enable = true;
         width = 30;
+        format = "%D%?F? [%F]?%* %?N?%N/?%S";
       };
 
-      settings = {
-        mark_old = "no";
-        text_flowed = "yes";
-        reverse_name = "yes";
-        query_command = ''"khard email --parsable '%s'"'';
-      };
+      # sort default view by threads
+      sort = "threads";
 
-      binds = [
-        {
-          action = "sidebar-toggle-visible";
-          key = "\\\\";
-          map = ["index" "pager"];
-        }
-        {
-          action = "group-reply";
-          key = "L";
-          map = ["index" "pager"];
-        }
-        {
-          action = "toggle-new";
-          key = "B";
-          map = ["index"];
-        }
-      ];
-      macros = let
-        browserpipe = "cat /dev/stdin > /tmp/muttmail.html && xdg-open /tmp/muttmail.html";
-      in [
-        {
-          action = "<sidebar-next><sidebar-open>";
-          key = "J";
-          map = ["index" "pager"];
-        }
-        {
-          action = "<sidebar-prev><sidebar-open>";
-          key = "K";
-          map = ["index" "pager"];
-        }
-        {
-          action = ":set confirmappend=no\\n<save-message>+Archive<enter>:set confirmappend=yes\\n";
-          key = "A";
-          map = ["index" "pager"];
-        }
-        {
-          action = "<pipe-entry>${browserpipe}<enter><exit>";
-          key = "V";
-          map = ["attach"];
-        }
-        {
-          action = "<pipe-message>${pkgs.urlscan}/bin/urlscan<enter><exit>";
-          key = "F";
-          map = ["pager"];
-        }
-        {
-          action = "<view-attachments><search>html<enter><pipe-entry>${browserpipe}<enter><exit>";
-          key = "V";
-          map = ["index" "pager"];
-        }
-      ];
+      # get keybinds from their respective file
+      inherit (import ./binds.nix) binds;
+
+      # get settings from their respective file
+      inherit (import ./settings.nix {inherit config;}) settings;
+
+      # get macros from their respective file
+      inherit (import ./macros.nix) macros;
 
       extraConfig = let
-        # Collect all addresses and aliases
-        addresses = lib.flatten (lib.mapAttrsToList (n: v: [v.address] ++ v.aliases) config.accounts.email.accounts);
-        inherit (import ./muttrc.nix) config;
-        inherit (import ./colors.nix) colors;
-      in
-        ''
-          alternates "${lib.concatStringsSep "|" addresses}"
-        ''
-        + lib.concatStringsSep [
-          config
-          colors
-        ];
+        # collect all addresses and aliases from accounts.email.accounts attribute of home-manager
+        accounts = mapAttrsToList (_: value: [value.address] ++ value.aliases) config.accounts.email.accounts;
+        addresses = flatten accounts;
+      in ''
+        # add collected accounts to neomutt config
+        alternates "${concatStringsSep "|" addresses}"
+
+        # mark anything marked by SpamAssassin as probably spam
+        spam "X-Spam-Score: ([0-9\\.]+).*" "SA: %1"
+
+        # only show the basic mail headers
+        ignore *
+        unignore From To Cc Bcc Date Subject
+
+        # show headers in the following order
+        unhdr_order *
+        hdr_order From: To: Cc: Bcc: Date: Subject:
+
+      '';
     };
 
     xdg = {
@@ -95,7 +59,7 @@
           genericName = "Email Client";
           comment = "Read and send emails";
           exec = "neomutt %U";
-          icon = "mutt";
+          icon = "neomutt";
           terminal = true;
           categories = ["Network" "Email" "ConsoleOnly"];
           type = "Application";
