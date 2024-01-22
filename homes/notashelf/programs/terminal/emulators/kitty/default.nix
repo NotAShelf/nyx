@@ -3,12 +3,13 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     programs.kitty = {
       enable = true;
       settings = import ./settings.nix {inherit (config.colorscheme) colors;};

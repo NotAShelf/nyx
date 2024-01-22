@@ -3,28 +3,24 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  video = osConfig.modules.system.video;
-  env = osConfig.modules.usrEnv;
-
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+}: let
+  inherit (lib) mkIf mkGraphicalService getExe;
+  inherit (osConfig) meta;
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (video.enable && env.isWayland)) {
+  config = mkIf meta.isWayland {
     systemd.user.services = {
-      cliphist = lib.mkGraphicalService {
+      cliphist = mkGraphicalService {
         Unit.Description = "Clipboard history service";
         Service = {
-          ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${lib.getExe pkgs.cliphist} store";
+          ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${getExe pkgs.cliphist} store";
           Restart = "always";
         };
       };
 
-      wl-clip-persist = lib.mkGraphicalService {
+      wl-clip-persist = mkGraphicalService {
         Unit.Description = "Persistent clipboard for Wayland";
         Service = {
-          ExecStart = "${lib.getExe pkgs.wl-clip-persist} --clipboard both";
+          ExecStart = "${getExe pkgs.wl-clip-persist} --clipboard both";
           Restart = "always";
         };
       };

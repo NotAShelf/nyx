@@ -3,14 +3,15 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
+}: let
+  inherit (lib) mkIf getExe mkGraphicalService;
+  inherit (osConfig) modules meta;
+
+  env = modules.usrEnv;
 in {
-  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop != "Hyprland"))) {
+  config = mkIf (meta.isWayland && (env.desktop != "Hyprland")) {
     systemd.user.services = {
-      swaybg = lib.mkGraphicalService {
+      swaybg = mkGraphicalService {
         Unit.Description = "Wallpaper chooser service";
         Service = let
           wall = builtins.fetchurl {
@@ -18,7 +19,7 @@ in {
             sha256 = lib.fakeHash;
           };
         in {
-          ExecStart = "${lib.getExe pkgs.swaybg} -i ${wall}";
+          ExecStart = "${getExe pkgs.swaybg} -i ${wall}";
           Restart = "always";
         };
       };

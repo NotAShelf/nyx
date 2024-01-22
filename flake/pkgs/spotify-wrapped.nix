@@ -203,12 +203,12 @@ in
       runHook postInstall
     '';
 
-    meta = with lib; {
+    meta = {
       homepage = "https://www.spotify.com/";
       description = "Play music from the Spotify music service";
-      sourceProvenance = with sourceTypes; [binaryNativeCode];
-      license = licenses.unfree;
-      maintainers = with maintainers; [eelco ftrvxmtrx sheenobu mudri timokau ma27];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [eelco ftrvxmtrx sheenobu mudri timokau ma27];
       platforms = ["x86_64-linux"];
     };
   }

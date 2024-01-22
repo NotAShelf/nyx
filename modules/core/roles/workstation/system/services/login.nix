@@ -3,12 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf concatStringsSep getExe;
+
   env = config.modules.usrEnv;
   sys = config.modules.system;
   sessionData = config.services.xserver.displayManager.sessionData.desktops;
-  sessionPath = lib.concatStringsSep ":" [
+  sessionPath = concatStringsSep ":" [
     "${sessionData}/share/xsessions"
     "${sessionData}/share/wayland-sessions"
   ];
@@ -64,8 +65,8 @@ in {
           default_session =
             if (!sys.autoLogin)
             then {
-              command = lib.concatStringsSep " " [
-                (lib.getExe pkgs.greetd.tuigreet)
+              command = concatStringsSep " " [
+                (getExe pkgs.greetd.tuigreet)
                 "--time"
                 "--remember"
                 "--remember-user-session"

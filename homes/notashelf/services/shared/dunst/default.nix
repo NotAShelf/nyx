@@ -1,95 +1,17 @@
 {
-  pkgs,
+  osConfig,
   config,
   lib,
-  osConfig,
   ...
-}:
-with lib; let
-  pamixer = lib.getExe pkgs.pamixer;
-  notify-send = pkgs.libnotify + "/bin/notify-send";
-  volume = pkgs.writeShellScriptBin "volume" ''
-    #!/bin/sh
+}: let
+  inherit (lib) mkIf;
 
-    ${pamixer} "$@"
-    volume="$(${pamixer} --get-volume-human)"
-
-    if [ "$volume" = "muted" ]; then
-        ${notify-send} -r 69 \
-            -a "Volume" \
-            "Muted" \
-            -i ${./assets/volume-mute.svg} \
-            -t 888 \
-            -u low
-    else
-        ${notify-send} -r 69 \
-            -a "Volume" "Currently at $volume" \
-            -h int:value:"$volume" \
-            -i ${./assets/volume.svg} \
-            -t 888 \
-            -u low
-    fi
-  '';
-
-  microphone = pkgs.writeShellScriptBin "microphone" ''
-    #!/bin/sh
-
-    ${pamixer} --default-source "$@"
-    mic="$(${pamixer} --default-source --get-volume-human)"
-
-    if [ "$mic" = "muted" ]; then
-        ${notify-send} -r 69 \
-            -a "Microphone" \
-            "Muted" \
-            -i ${./assets/mic-mute.svg} \
-            -t 888 \
-            -u low
-    else
-      ${notify-send} -r 69 \
-            -a "Microphone" "Currently at $mic" \
-            -h int:value:"$mic" \
-            -i ${./assets/mic.svg} \
-            -t 888 \
-            -u low
-    fi
-  '';
-
-  brightness = let
-    brightnessctl = lib.getExe pkgs.brightnessctl;
-  in
-    pkgs.writeShellScriptBin "brightness" ''
-      #!/bin/sh
-
-      ${brightnessctl} "$@"
-      brightness=$(echo $(($(${brightnessctl} g) * 100 / $(${brightnessctl} m))))
-
-      ${notify-send} -r 69 \
-          -a "Brightness" "Currently at $brightness%" \
-          -h int:value:"$brightness" \
-          -i ${./assets/brightness.svg} \
-          -t 888 \
-          -u low
-    '';
-  device = osConfig.modules.device;
-
+  dev = osConfig.modules.device;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
-    home.packages = [
-      volume
-      microphone
-      brightness
-    ];
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     services.dunst = {
       enable = true;
-      package = pkgs.dunst.overrideAttrs (oldAttrs: {
-        src = pkgs.fetchFromGitHub {
-          owner = "sioodmy";
-          repo = "dunst";
-          rev = "6477864bd870dc74f9cf76bb539ef89051554525";
-          sha256 = "FCoGrYipNOZRvee6Ks5PQB5y2IvN+ptCAfNuLXcD8Sc=";
-        };
-      });
       iconTheme = {
         package = config.gtk.iconTheme.package;
         name = "Papirus-Dark";

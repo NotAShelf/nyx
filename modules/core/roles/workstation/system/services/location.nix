@@ -2,12 +2,13 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf;
+
+  dev = config.modules.device;
   acceptedTypes = ["desktop" "laptop" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem dev.type acceptedTypes) {
     location.provider = "geoclue2";
 
     services.geoclue2 = {

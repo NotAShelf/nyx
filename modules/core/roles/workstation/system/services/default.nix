@@ -1,5 +1,6 @@
 {
   imports = [
+    ./adb.nix
     ./gnome.nix
     ./location.nix
     ./printing.nix

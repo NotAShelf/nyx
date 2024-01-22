@@ -14,8 +14,8 @@ Statically exported ones are easy to package, because it is a matter of running 
 ```js
 // next.config.js
 module.exports = {
-  distDir: "dist", // an artitrary path for your export
-  output: "export",
+    distDir: "dist", // an artitrary path for your export
+    output: "export",
 };
 ```
 
@@ -44,12 +44,6 @@ buildNpmPackage {
  postInstall = ''
     cp -rf dist/* $out
   '';
-
-  meta = with lib; {
-    description = "website lol";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [NotAShelf];
-  };
 }
 ```
 

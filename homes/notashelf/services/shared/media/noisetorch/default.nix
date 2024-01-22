@@ -1,13 +1,15 @@
 {
+  osConfig,
   config,
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkEnableOption mkOption literalExpression types;
+
   cfg = config.services.noisetorch;
 
-  device = osConfig.modules.device;
+  dev = osConfig.modules.device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
@@ -36,7 +38,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.enable && builtins.elem device.type acceptedTypes) {
+  config = mkIf (cfg.enable && builtins.elem dev.type acceptedTypes) {
     home.packages = [cfg.package];
 
     systemd.user.services.noisetorch = {

@@ -4,8 +4,9 @@
   lib,
   inputs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   sys = config.modules.system.boot;
 in {
   imports = [

@@ -18,9 +18,9 @@ stdenvNoCC.mkDerivation rec {
     cp *.glsl $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A High-Quality Real Time Upscaler for Anime Video";
     homepage = "https://github.com/bloc97/Anime4K";
-    license = licenses.mit;
+    license = lib.licenses.mit;
   };
 }
