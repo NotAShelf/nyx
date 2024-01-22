@@ -1,5 +1,6 @@
 import { Widget, SystemTray } from "../../imports.js";
-const { Box, Button, EventBox, Icon, Label, Revealer } = Widget;
+import { getTrayItems } from "../../utils/tray.js";
+const { Box, EventBox, Label, Revealer } = Widget;
 
 const RevIcon = () =>
     Label({
@@ -12,20 +13,7 @@ const TrayItems = () =>
         className: "trayIcons",
         vertical: true,
         setup: (self) => {
-            self.hook(SystemTray, (self) => {
-                self.children = SystemTray.items.map((item) =>
-                    Button({
-                        className: "trayIcon",
-                        child: Icon({
-                            setup: (self) => self.bind("icon", item, "icon"),
-                        }),
-                        setup: (self) =>
-                            self.bind("tooltip-markup", item, "tooltip-markup"),
-                        onPrimaryClick: (_, event) => item.activate(event),
-                        //onPrimaryClick: (_, event) => item.openMenu(event)
-                    }),
-                );
-            });
+            self.hook(SystemTray, getTrayItems);
         },
     });
 

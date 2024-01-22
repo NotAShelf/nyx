@@ -7,17 +7,17 @@ import {
 } from "../../utils/bluetooth.js";
 const { Button, Label } = Widget;
 
-export const BluetoothModule = () =>
+const BluetoothModule = () =>
     Label({ className: "bluetoothIcon" })
         .bind("label", Bluetooth, "connected-devices", getBluetoothIcon)
+        .bind("class", Bluetooth, "connected-devices", getBluetoothClass)
+        .bind("label", Bluetooth, "connected-devices", getBluetoothLabel)
         .bind(
             "tooltip-text",
             Bluetooth,
             "connected-devices",
             getBluetoothTooltip,
-        )
-        .bind("class", Bluetooth, "connected-devices", getBluetoothClass)
-        .bind("label", Bluetooth, "connected-devices", getBluetoothLabel);
+        );
 
 export const BluetoothWidget = () => {
     return Button({

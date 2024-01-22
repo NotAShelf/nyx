@@ -1,4 +1,4 @@
-import { Widget, Utils, Applications, App } from "../imports.js";
+import { Widget, Applications } from "../imports.js";
 const { Button, Icon } = Widget;
 
 function queryExact(appName) {

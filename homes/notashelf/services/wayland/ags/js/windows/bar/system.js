@@ -1,7 +1,37 @@
-import { Widget, Variable } from "../../imports.js";
+import { Variable, Widget } from "../../imports.js";
 const { Button, Revealer, Box, Label, CircularProgress } = Widget;
 
+const getMemClass = (v) => {
+    const val = v * 100;
+    const className = [
+        [100, "memCritical"],
+        [75, "memHigh"],
+        [35, "memMod"],
+        [5, "memLow"],
+        [0, "memIdle"],
+        [-1, "memRevealer"],
+    ].find(([threshold]) => threshold <= val)[1];
+
+    return className;
+};
+
+const getCpuClass = (v) => {
+    const val = v * 100;
+
+    const className = [
+        [100, "cpuCritical"],
+        [75, "cpuHigh"],
+        [35, "cpuMod"],
+        [5, "cpuLow"],
+        [0, "cpuIdle"],
+        [-1, "cpuRevealer"],
+    ].find(([threshold]) => threshold <= val)[1];
+
+    return className;
+};
+
 const divide = ([total, free]) => free / total;
+
 const cpu = Variable(0, {
     poll: [
         2000,
@@ -38,7 +68,7 @@ const mem = Variable(0, {
  * @param {typeof cpu | typeof ram} process
  * @param {Array<any>} extraChildren
  * @param  {() => void} onPrimary
- **/
+ */
 const systemWidget = (name, process, extraChildren = [], onPrimary) =>
     Button({
         className: name + "Button",
@@ -49,11 +79,11 @@ const systemWidget = (name, process, extraChildren = [], onPrimary) =>
             children: [
                 CircularProgress({
                     className: name + "Progress",
-                    binds: [["value", process]],
+                    // binds: [["value", process]],
                     rounded: true,
                     inverted: false,
                     startAt: 0.27,
-                }),
+                }).bind("value", process),
                 ...extraChildren,
             ],
         }),
@@ -65,32 +95,9 @@ const CPU = systemWidget(
     [
         Revealer({
             transition: "slide_down",
-            child: Label({
-                binds: [
-                    ["label", cpu, "value", (v) => `${Math.floor(v * 100)}%`],
-                    [
-                        "className",
-                        cpu,
-                        "value",
-                        (v) => {
-                            let val = v * 100;
-                            if (v > 0) {
-                                if (val === 100) return "cpuCritical";
-
-                                if (val > 75 && val < 100) return "cpuHigh";
-
-                                if (val > 35 && val <= 75) return "cpuMod";
-
-                                if (val > 5 && val <= 25) return "cpuLow";
-
-                                if (val <= 5) return "cpuIdle";
-                            }
-
-                            return "cpuRevealer";
-                        },
-                    ],
-                ],
-            }),
+            child: Label()
+                .bind("label", cpu, "value", (v) => `${Math.floor(v * 100)}%`)
+                .bind("className", cpu, "value", getCpuClass),
             transition_duration: 250,
         }),
     ],
@@ -106,32 +113,9 @@ const MEM = systemWidget(
     [
         Revealer({
             transition: "slide_down",
-            child: Label({
-                binds: [
-                    ["label", mem, "value", (v) => `${Math.floor(v * 100)}%`],
-                    [
-                        "className",
-                        cpu,
-                        "value",
-                        (v) => {
-                            let val = v * 100;
-                            if (val > 0) {
-                                if (val === 100) return "memCritical";
-
-                                if (val > 75 && val < 100) return "memHigh";
-
-                                if (val > 35 && val <= 75) return "memMod";
-
-                                if (val > 5 && val <= 25) return "memLow";
-
-                                if (val <= 5) return "memIdle";
-                            }
-
-                            return "memRevealer";
-                        },
-                    ],
-                ],
-            }),
+            child: Label()
+                .bind("label", mem, "value", (v) => `${Math.floor(v * 100)}%`)
+                .bind("className", cpu, "value", getMemClass),
             transition_duration: 250,
         }),
     ],

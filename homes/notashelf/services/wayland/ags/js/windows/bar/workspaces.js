@@ -1,4 +1,5 @@
 import { Utils, Widget, Hyprland } from "../../imports.js";
+import { getFocusedWorkspace } from "../../utils/hyprland.js";
 const { execAsync } = Utils;
 const { Box } = Widget;
 
@@ -27,18 +28,9 @@ export const Workspaces = () =>
                         ]).catch(console.error),
                 }),
             ),
+
             setup: (self) => {
-                self.hook(Hyprland, (self) =>
-                    self.children.forEach((btn) => {
-                        btn.className =
-                            btn.attribute.index === Hyprland.active.workspace.id
-                                ? "focused"
-                                : "";
-                        btn.visible = Hyprland.workspaces.some(
-                            (ws) => ws.id === btn.attribute.index,
-                        );
-                    }),
-                );
+                self.hook(Hyprland, getFocusedWorkspace);
             },
         }),
     });
