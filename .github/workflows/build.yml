@@ -34,8 +34,8 @@ jobs:
       - name: Build ISO Images
         shell: bash
         run: |
-          nix build .#images.erebus -o erebus
-          nix build .#images.gaea -o gaea
+          nix build .#images.erebus -o erebus --print-build-logs
+          nix build .#images.gaea -o gaea --print-build-logs
 
       - name: Get current date
         id: get-date
@@ -49,6 +49,7 @@ jobs:
           name: "${{ steps.get-date.outputs.date }}"
           tag_name: "${{ steps.get-date.outputs.date }}"
           files: |
-            {erebus,gaea}/iso/*.iso
+            erebus/iso/*.iso
+            gaea/iso/*.iso
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
