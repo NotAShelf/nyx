@@ -1,15 +1,14 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib) mkEnableOption mkOption types mkModule;
-  sys = config.modules.system;
-  cfg = sys.services;
-
-  # mkEnableOption is the same as mkEnableOption but with the default value being equal to cfg.monitoring.enable
-  mkEnableOption' = desc: mkEnableOption "${desc}" // {default = cfg.monitoring.enable;};
 in {
+  imports = [
+    ./bincache.nix
+    ./databases.nix
+    ./monitoring.nix
+    ./networking.nix
+    ./social.nix
+  ];
+
   options.modules.system = {
     services = {
       mailserver.enable = mkEnableOption "nixos-mailserver service";

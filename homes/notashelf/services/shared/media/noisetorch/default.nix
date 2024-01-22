@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption literalExpression types;
+  inherit (lib) mkIf mkEnableOption mkOption literalExpression types;
 
   cfg = config.services.noisetorch;
 
