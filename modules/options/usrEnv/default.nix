@@ -41,7 +41,6 @@ in {
           Whether to enable Sway wayland compositor.
 
           Will be enabled automatically when `modules.usrEnv.desktop` is set to "sway".
-
         '';
       };
 
@@ -52,8 +51,6 @@ in {
           Whether to enable Awesome window manager
 
           Will be enabled automatically when `modules.usrEnv.desktop` is set to "awesomewm".
-
-
         '';
       };
 
