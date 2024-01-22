@@ -1,6 +1,6 @@
-import { Utils, Widget, Service, Hyprland } from "../../imports.js";
+import { Utils, Widget, Hyprland } from "../../imports.js";
 const { execAsync } = Utils;
-const { Box, Button, Label } = Widget;
+const { Box } = Widget;
 
 export const Workspaces = () =>
     Box({

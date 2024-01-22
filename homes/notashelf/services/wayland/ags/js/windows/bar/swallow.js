@@ -2,6 +2,7 @@ import { Widget, Utils } from "../../imports.js";
 const { Button, Label } = Widget;
 
 const swallowStatus = Utils.exec(
+    // eslint-disable-next-line quotes
     'sh -c "$HOME/.config/ags/js/scripts/hyprctl_swallow query"',
 );
 

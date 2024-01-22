@@ -12,7 +12,6 @@ export default {
         pause: "media-playback-pause-symbolic",
         next: "media-skip-forward-symbolic",
         previous: "media-skip-backward-symbolic",
-
         player: "multimedia-player-symbolic",
     },
 
@@ -31,6 +30,7 @@ export default {
         low: "\ue04e",
         muted: "\ue04f",
     },
+
     microphone: {
         overamplified: "\ue029",
         high: "\ue029",
@@ -38,10 +38,12 @@ export default {
         low: "\ue029",
         muted: "\ue02b",
     },
+
     wired: {
         power: "󰈀",
         poweroff: "󱘖",
     },
+
     wifi: {
         none: "󰤭",
         bad: "󰤠",

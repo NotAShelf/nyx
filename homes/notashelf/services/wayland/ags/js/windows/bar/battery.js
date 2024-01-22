@@ -1,40 +1,12 @@
-import { Widget, Utils, Battery } from "../../imports.js";
-const { Box, Label, Revealer } = Widget;
+import { Widget, Battery } from "../../imports.js";
+import { getBatteryTime, getBatteryIcon } from "../../utils/battery.js";
+const { Box, Label } = Widget;
 
 const BatIcon = () =>
-    Label({
-        className: "batIcon",
-        setup: (self) => {
-            self.hook(Battery, (self) => {
-                const icons = [
-                    ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-                    ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-                ];
-
-                const chargingIndex = Battery.charging ? 1 : 0;
-                const percentIndex = Math.floor(Battery.percent / 10);
-                self.label = icons[chargingIndex][percentIndex].toString();
-                self.tooltipText = `${Math.floor(Battery.percent)}%`;
-            });
-        },
-    });
-
-const PercentLabel = () =>
-    Revealer({
-        transition: "slide_down",
-        revealChild: false,
-        child: Label({
-            className: "batPercent",
-            connections: [
-                [
-                    Battery,
-                    (self) => {
-                        self.label = `${Battery.percent}%`;
-                    },
-                ],
-            ],
-        }),
-    });
+    Label({ className: "batIcon" })
+        // NOTE: label needs to be used instead of icon here
+        .bind("label", Battery, "available", getBatteryIcon)
+        .bind("tooltip-text", Battery, "percent", getBatteryTime); // TODO: add battery percentage in here
 
 export const BatteryWidget = () =>
     Box({
