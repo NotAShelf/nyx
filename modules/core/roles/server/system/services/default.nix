@@ -20,6 +20,7 @@
     ./reposilite.nix # self-hosted maven repository
     ./elasticsearch.nix # elasticsearch
     ./kanidm.nix # kanidm identity management
+    ./hydra.nix # hydra CI serger
 
     # misc
     ./mkm.nix # holy fuck
