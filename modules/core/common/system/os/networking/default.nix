@@ -81,6 +81,9 @@ in {
       # quad9, said to be the best
       # shares *less* data
       "9.9.9.9"
+      "149.112.112.112"
+      "2620:fe::fe"
+      "2620:fe::9"
 
       # TODO: find a schizo nameserver that does not compromise on speed or availability
       # or just set up my own, which would be slow
