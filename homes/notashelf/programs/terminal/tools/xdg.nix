@@ -69,7 +69,7 @@ in {
 
       extraConfig = {
         XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
-        XDG_DEV_DIR = "$HOME/Dev";
+        XDG_MAIL_DIR = "${config.home.homeDirectory}/Mail";
       };
     };
 
