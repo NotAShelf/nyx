@@ -51,5 +51,20 @@ jobs:
           files: |
             erebus/iso/*.iso
             gaea/iso/*.iso
+          body: |
+            Weekly automated ISO image releases for my NixOS configurations.
+
+            * **erebus**: Airgapped system for sensitive jobs.
+            * **gaea**: Modified installation media
+
+            Both ISO images can be installed simultaneously using the following oneliner
+
+            ```console
+            REPO="notashelf/nyx"; curl -s "https://api.github.com/repos/$REPO/releases/latest" | jq \
+              -r '.assets[] | select(.content_type=="application/octet-stream") | .browser_download_url' | head \
+              -n 2 | xargs \
+              -n 1 wget
+            ```
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
