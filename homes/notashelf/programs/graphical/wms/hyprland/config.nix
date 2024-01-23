@@ -235,9 +235,8 @@ in {
       # binds that will be repeated, a.k.a can be held to toggle multiple times
       binde = [
         # volume controls
-        ",XF86AudioRaiseVolume, exec, volume -i 5"
-        ",XF86AudioLowerVolume, exec, volume -d 5"
-        ",XF86AudioMute, exec, volume -t"
+        ",XF86AudioRaiseVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%+"
+        ",XF86AudioLowerVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%-"
 
         # brightness controls
         '',XF86MonBrightnessUp,exec,ags --run-js "brightness.screen += 0.05"''
@@ -250,6 +249,9 @@ in {
         ",XF86AudioPlay,exec,playerctl play-pause"
         ",XF86AudioPrev,exec,playerctl previous"
         ",XF86AudioNext,exec,playerctl next"
+
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ];
 
       windowrulev2 = [
