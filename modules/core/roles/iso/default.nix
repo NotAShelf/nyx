@@ -22,7 +22,7 @@ in {
     # hostname will be set as a "top-level" attribute in hosts.nix, per-host.
     # therefore we can use the networking.hostName to get the hostname of the live
     # system without defining it explicitly in the system-agnostic ISO role module
-    inherit (config.networking) hostName;
+    hostname = config.networking.hostName or "nixos";
     # if the system is built from a git repository, we want to include the git revision
     # in the ISO name. if the tree is dirty, we use the term "dirty" to make it explicit
     rev = self.shortRev or "dirty";
@@ -30,8 +30,7 @@ in {
     # the format of the iso will always be uniform:
     # $hostname-$release-$rev-$arch
     # therefore we can set it once to avoid repetition later on
-
-    name = "${hostName}-${config.system.nixos.release}-${rev}-${pkgs.stdenv.hostPlatform.uname.processor}";
+    name = "${hostname}-${config.system.nixos.release}-${rev}-${pkgs.stdenv.hostPlatform.uname.processor}";
   in {
     # this will cause the resulting .iso file to be named as follows:
     # $hostname-$release-$rev-$arch.iso
