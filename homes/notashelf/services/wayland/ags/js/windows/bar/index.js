@@ -2,18 +2,18 @@ import { Widget } from "../../imports.js";
 const { Window, Box, CenterBox } = Widget;
 
 // Widgets
-import { launcherIcon } from "./launcher.js";
-import { Workspaces } from "./workspaces.js";
-import { Tray } from "./tray.js";
-import { BatteryWidget } from "./battery.js";
-import { Clock } from "./clock.js";
-import { PowerMenu } from "./power.js";
-import { Swallow } from "./swallow.js";
-import { BluetoothWidget } from "./bluetooth.js";
-import { AudioWidget } from "./audio.js";
-import { NetworkWidget } from "./network.js";
-import { SystemUsage } from "./system.js";
-import { Weather } from "./weather.js";
+import { LauncherIcon } from "./modules/launcher.js";
+import { Workspaces } from "./modules/workspaces.js";
+import { Tray } from "./modules/tray.js";
+import { BatteryWidget } from "./modules/battery.js";
+import { Clock } from "./modules/clock.js";
+import { PowerMenu } from "./modules/power.js";
+import { Swallow } from "./modules/swallow.js";
+import { BluetoothWidget } from "./modules/bluetooth.js";
+import { AudioWidget } from "./modules/audio.js";
+import { NetworkWidget } from "./modules/network.js";
+import { SystemUsage } from "./modules/system.js";
+import { Weather } from "./modules/weather.js";
 
 const Top = () =>
     Box({
@@ -21,7 +21,7 @@ const Top = () =>
         vertical: true,
         vpack: "start",
         children: [
-            launcherIcon(),
+            LauncherIcon(),
             Box({
                 className: "SystemUsage",
                 vertical: true,

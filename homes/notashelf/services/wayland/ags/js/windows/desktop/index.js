@@ -1,5 +1,5 @@
 import { Widget } from "../../imports.js";
-const { Window, Box } = Widget;
+const { Window } = Widget;
 
 import { DesktopMenu } from "./desktopMenu.js";
 import { DesktopIcons } from "./desktopIcons.js";

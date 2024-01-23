@@ -1,10 +1,10 @@
-import { Bluetooth, Widget, Utils } from "../../imports.js";
+import { Bluetooth, Widget, Utils } from "../../../imports.js";
 import {
     getBluetoothIcon,
     getBluetoothLabel,
     getBluetoothClass,
     getBluetoothTooltip,
-} from "../../utils/bluetooth.js";
+} from "../../../utils/bluetooth.js";
 const { Button, Label } = Widget;
 
 const BluetoothModule = () =>

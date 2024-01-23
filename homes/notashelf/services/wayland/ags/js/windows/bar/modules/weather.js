@@ -1,9 +1,9 @@
-import { Widget } from "../../imports.js";
+import { Widget } from "../../../imports.js";
 import {
     WeatherValue,
     getWeatherIcon,
     getWeatherTooltip,
-} from "../../utils/weather.js";
+} from "../../../utils/weather.js";
 const { Label } = Widget;
 
 export const Weather = () =>

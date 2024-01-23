@@ -1,4 +1,5 @@
 import { Service, Utils } from "../imports.js";
+const { exec } = Utils;
 
 class Brightness extends Service {
     static {
@@ -34,8 +35,8 @@ class Brightness extends Service {
         super();
         try {
             this._screen =
-                Number(Utils.exec("brightnessctl g")) /
-                Number(Utils.exec("brightnessctl m"));
+                Number(exec("brightnessctl g")) /
+                Number(exec("brightnessctl m"));
         } catch (error) {
             console.error("missing dependancy: brightnessctl");
         }

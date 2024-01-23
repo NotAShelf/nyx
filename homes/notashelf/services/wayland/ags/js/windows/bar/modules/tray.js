@@ -1,5 +1,5 @@
-import { Widget, SystemTray } from "../../imports.js";
-import { getTrayItems } from "../../utils/tray.js";
+import { Widget, SystemTray } from "../../../imports.js";
+import { getTrayItems } from "../../../utils/tray.js";
 const { Box, EventBox, Label, Revealer } = Widget;
 
 const RevIcon = () =>

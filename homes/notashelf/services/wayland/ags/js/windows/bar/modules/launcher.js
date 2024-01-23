@@ -1,8 +1,8 @@
-import { Widget, App } from "../../imports.js";
-import { getLauncherIcon } from "../../utils/launcher.js";
+import { Widget, App } from "../../../imports.js";
+import { getLauncherIcon } from "../../../utils/launcher.js";
 const { Button, Label } = Widget;
 
-export const launcherIcon = () =>
+export const LauncherIcon = () =>
     Button({
         vexpand: false,
         className: "launcherIcon",

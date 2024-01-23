@@ -1,5 +1,5 @@
-import { Audio, Widget, Utils } from "../../imports.js";
-import { getAudioIcon } from "../../utils/audio.js";
+import { Audio, Widget, Utils } from "../../../imports.js";
+import { getAudioIcon } from "../../../utils/audio.js";
 const { Button } = Widget;
 
 const AudioIcon = () =>

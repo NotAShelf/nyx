@@ -1,4 +1,4 @@
-import { Widget, Utils } from "../../imports.js";
+import { Widget, Utils } from "../../../imports.js";
 const { Button, Label } = Widget;
 
 export const Lock = () =>

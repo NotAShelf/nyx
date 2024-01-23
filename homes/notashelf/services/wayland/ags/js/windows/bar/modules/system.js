@@ -1,4 +1,4 @@
-import { Variable, Widget } from "../../imports.js";
+import { Variable, Widget } from "../../../imports.js";
 const { Button, Revealer, Box, Label, CircularProgress } = Widget;
 
 const getMemClass = (v) => {

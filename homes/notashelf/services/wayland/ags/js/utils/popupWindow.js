@@ -17,8 +17,10 @@ export default ({
         ...props,
 
         child: Box({
-            css: `min-height: 2px;
-            min-width: 2px;`,
+            css: `
+            min-height: 2px;
+            min-width: 2px;
+            `,
             child: Revealer({
                 transition,
                 transitionDuration,

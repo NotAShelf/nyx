@@ -1,13 +1,6 @@
-import { Widget, Applications } from "../imports.js";
+import { Widget } from "../imports.js";
+import { queryExact } from "./global.js";
 const { Button, Icon } = Widget;
-
-function queryExact(appName) {
-    return (
-        Applications.list.filter(
-            (app) => app.name.toLowerCase() === appName.toLowerCase(),
-        )[0] ?? Applications.query(appName)[0]
-    );
-}
 
 export default ({
     appName,

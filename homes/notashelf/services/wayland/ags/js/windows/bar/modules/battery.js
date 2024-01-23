@@ -1,5 +1,5 @@
-import { Widget, Battery } from "../../imports.js";
-import { getBatteryTime, getBatteryIcon } from "../../utils/battery.js";
+import { Widget, Battery } from "../../../imports.js";
+import { getBatteryTime, getBatteryIcon } from "../../../utils/battery.js";
 const { Box, Label } = Widget;
 
 const BatIcon = () =>

@@ -1,7 +1,9 @@
-import { Utils, Widget, Hyprland } from "../../imports.js";
-import { getFocusedWorkspace } from "../../utils/hyprland.js";
+import { Utils, Widget, Hyprland } from "../../../imports.js";
+import { getFocusedWorkspace } from "../../../utils/hyprland.js";
 const { execAsync } = Utils;
 const { Box } = Widget;
+
+const console = globalThis.console;
 
 export const Workspaces = () =>
     Box({

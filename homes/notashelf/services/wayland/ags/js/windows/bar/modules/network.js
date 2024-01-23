@@ -1,5 +1,5 @@
-import { Network, Widget, Utils } from "../../imports.js";
-import { Icon } from "../../icons.js";
+import { Network, Widget, Utils } from "../../../imports.js";
+import { Icon } from "../../../icons.js";
 const { Stack, Box, Button, Label } = Widget;
 
 const WifiIndicator = () =>

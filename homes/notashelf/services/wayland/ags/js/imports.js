@@ -24,16 +24,3 @@ export const SystemTray = await fromService("systemtray");
 
 // Extras
 export const Icons = await requireCustom("./utils/icons.js");
-
-// Variables
-export const startDate = Date.now();
-export const osdVars = Variable({
-    reveal: Variable(false),
-    debounceTimer: Date.now(),
-    timePassed: 0,
-    timeout: null,
-    container: null,
-});
-
-export const musicVisible = Variable(false);
-export const systemMenuVisible = Variable(false);
