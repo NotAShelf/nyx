@@ -52,8 +52,6 @@
         # build with `nix build .#images.<hostname>`
         # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
         images = import ./hosts/images.nix {inherit inputs self lib;};
-
-        hydraJobs = {inherit (self) packages nixosConfigurations;};
       };
 
       perSystem = {
