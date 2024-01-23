@@ -32,6 +32,7 @@
   server = coreModules + /roles/server; # for devices that are of the server type - provides online services
   laptop = coreModules + /roles/laptop; # for devices that are of the laptop type - provides power optimizations
   headless = coreModules + /roles/headless; # for devices that are of the headless type - provides no GUI
+  iso = coreModules + /roles/iso; # for providing a uniform iso configuration for live systems - only the build setup
 
   # extra modules - optional but likely critical to a successful build
   sharedModules = extraModules + /shared; # the path where shared modules reside
@@ -159,6 +160,7 @@ in {
     system = "aarch64-linux";
     modules =
       [
+        {networking.hostName = "atlas";}
         ./atlas
         hw.raspberry-pi-4
         server
@@ -173,8 +175,9 @@ in {
   gaea = mkNixosIso {
     system = "x86_64-linux";
     modules = [
-      # import base iso configuration on top of base nixos modules for the live installer
+      {networking.hostName = "gaea";}
       ./gaea
+      iso
     ];
     specialArgs = sharedArgs;
   };
@@ -185,7 +188,9 @@ in {
     inherit withSystem;
     system = "x86_64-linux";
     modules = [
+      {networking.hostName = "erebus";}
       ./erebus
+      iso
     ];
     specialArgs = {inherit inputs self lib;};
   };
