@@ -53,10 +53,9 @@ jobs:
           name: "${{ steps.get-date.outputs.date }}"
           tag_name: "${{ steps.get-date.outputs.date }}"
           files: |
-            erebus/iso/*.iso
-            gaea/iso/*.iso
+            ${{ matrix.image }}/iso/*.iso
           body: |
-            Weekly automated ISO image releases for my NixOS configurations.
+            Weekly automated ISO image releases for my NixOS configurations. Their definitions are as follows
 
             * **erebus**: Airgapped system for sensitive jobs.
             * **gaea**: Modified installation media
@@ -69,6 +68,9 @@ jobs:
               -n 2 | xargs \
               -n 1 wget
             ```
+
+            Do note that those configurations make assumptions about your setup, and may yield undesirable systems. Use
+            at your own risk.
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
