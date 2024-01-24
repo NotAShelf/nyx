@@ -12,6 +12,12 @@ jobs:
     if: github.repository == 'notashelf/nyx'
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        image:
+          - erebus
+          - gaea
+
     permissions:
       contents: write
 
@@ -33,13 +39,11 @@ jobs:
 
       - name: Build ISO Images
         shell: bash
-        run: |
-          nix build .#images.erebus -o erebus --print-build-logs
-          nix build .#images.gaea -o gaea --print-build-logs
+        run: nix build .#images.${{ matrix.image }} -o ${{ matrix.image }} --print-build-logs
 
       - name: Get current date
         id: get-date
-        # output format: 2023-12-22-120000
+        # output format: 2023-12-30-234559
         run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> "${GITHUB_OUTPUT}"
 
       - name: Create Release
