@@ -113,9 +113,9 @@ in checking them out. If you like what _I_ have been doing and if it's helpful t
 in any shape or form, consider leaving a star or donating to me (every bit would be appreciated)
 from the links below. Up to you.
 
-If you have anything to say or ask about those conigurations (especially if it was because
+If you have anything to say or ask about those configurations (especially if it was because
 you were absolutely horrified by my atrocities against Nix or NixOS) I invite you to
-create an issue on open a pull request. I am always happy to learn and improve.
+create an issue or open a pull request. I am always happy to learn and improve.
 Some of my mental notes (hopefully to be organized better when I finish my blog)
 can be found in [my notes directory](../docs/notes). Should you need explanation on
 some of the things I've done, or might do me the favor of proofreading my notes, you may take a look
@@ -143,7 +143,7 @@ If you are here for my "legacy" Arch Linux dotfiles, you can find them [in here]
 ### Awesome People
 
 My special thanks go to [fufexan](https://github.com/fufexan) for convincing me to use NixOS
-and sticking around to answer my most stupid and derangedd questions, as well as my atrocious
+and sticking around to answer my most stupid and deranged questions, as well as my atrocious
 abstractions.
 
 And to [sioodmy](https://github.com/sioodmy) which my configuration is initially based on. The
