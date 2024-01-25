@@ -12,7 +12,7 @@ in {
     inputs.impermanence.nixosModules.impermanence
   ];
 
-  config = mkIf (cfg.root.enable or cfg.home.enable) {
+  config = mkIf cfg.enable {
     users = {
       # this option makes it that users are not mutable outside our configurations
       # if you are on nixos, you are probably smart enough to not try and edit users
@@ -68,9 +68,8 @@ in {
         # other
         # TODO: optionalstring for /var/lib/${lxd, docker}
       ];
-      /*
-      builtins.concatMap (key: [key.path (key.path + ".pub")]) config.services.openssh.hostKeys
-      */
+
+      # builtins.concatMap (key: [key.path (key.path + ".pub")]) config.services.openssh.hostKeys
     };
 
     # for some reason *this* is what makes networkmanager not get screwed completely instead of the impermanence module
@@ -95,17 +94,12 @@ in {
 
     boot.initrd.systemd.services.rollback = {
       description = "Rollback BTRFS root subvolume to a pristine state";
-      wantedBy = [
-        "initrd.target"
-      ];
-      after = [
-        # LUKS/TPM process
-        "systemd-cryptsetup@enc.service"
-      ];
-      before = [
-        # mount the root fs
-        "sysroot.mount"
-      ];
+      wantedBy = ["initrd.target"];
+      # make sure it's done after encryption
+      # i.e. LUKS/TPM process
+      after = ["systemd-cryptsetup@enc.service"];
+      # mount the root fs before clearing
+      before = ["sysroot.mount"];
       unitConfig.DefaultDependencies = "no";
       serviceConfig.Type = "oneshot";
       script = ''
@@ -150,5 +144,26 @@ in {
         umount /mnt
       '';
     };
+
+    assertions = [
+      {
+        assertion = cfg.home.enable -> !cfg.root.enable;
+        message = ''
+          You have enabled home impermanence without root impermanence. This
+          is not supported due to the fact that we handle all all impermanence
+          related deletions and creations in a single service. Please enable
+          `modules.system.impermanence.root.enable` if you wish to proceed.
+        '';
+      }
+    ];
+
+    # home impermanence is not very safe, and chances are I don't want it. Warn any potential
+    # users (which may or may not be me) when it is enabled just to be safe.
+    # p.s. I really don't like nix's warnings syntax. why can't it be the same
+    # as the assertions format? /rant
+    warnings =
+      if cfg.home.enable
+      then ["Home impermanence is enabled. This is experimental, beware."]
+      else [];
   };
 }
