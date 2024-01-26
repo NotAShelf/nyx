@@ -70,7 +70,7 @@
     -   [templates](./flake/templates) 📖 templates for initializing flakes. Provides some language-specific flakes
 -   [docs](./docs)📑 The documentation for my flake repository
     -   [todo](./docs/todo.md) 📝 My to-do notes
-    -   [notes](./docs/notes.md) 📓 Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
+    -   [notes](./docs/notes) 📓 Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
     -   [cheatsheet](./docs/cheatsheet.md) 📖
 -   [homes](./home) 🏠 my personalized [Home-Manager](https://github.com/nix-community/home-manager) module
 -   [modules](./modules) 🍱 modularized NixOS configurations
