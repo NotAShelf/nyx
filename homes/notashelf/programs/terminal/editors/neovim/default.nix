@@ -54,6 +54,7 @@ in {
           enableTreesitter = true;
           enableExtraDiagnostics = true;
 
+          markdown.enable = true;
           nix.enable = true;
           html.enable = true;
           ts.enable = true;
@@ -222,10 +223,10 @@ in {
         treesitter = {
           fold = true;
           context.enable = true;
+
+          # extra grammars that will be installed by Nix
           grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
             regex # for regexplainer
-            markdown
-            markdown-inline
           ];
         };
 
