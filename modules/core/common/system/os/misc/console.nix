@@ -4,12 +4,12 @@
   lib,
   ...
 }: let
-  inherit (lib) attrValues;
+  inherit (lib) attrValues mkDefault;
 in {
   console = let
     variant = "v18n";
   in {
-    enable = true;
+    enable = mkDefault true;
     earlySetup = true;
     keyMap = "trq";
 
