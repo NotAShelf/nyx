@@ -27,7 +27,7 @@ in {
   "service-matrix.age".publicKeys = mkSecrets servers;
   "service-nextcloud.age".publicKeys = mkSecrets servers;
   "service-mkm-web.age".publicKeys = mkSecrets servers;
-  "service-vaultwarden-env.age".publicKeys = mkSecrets servers;
+  "service-vaultwarden.age".publicKeys = mkSecrets servers;
   "service-wg.age".publicKeys = mkSecrets servers;
   "service-searx.age".publicKeys = mkSecrets servers;
   "service-forgejo-runner-token.age".publicKeys = mkSecrets servers;
@@ -39,10 +39,10 @@ in {
   "db-garage.age".publicKeys = mkSecrets servers;
 
   # secrets for specific mailserver accounts
-  "mailserver-secret.age".publicKeys = mkSecrets servers;
-  "mailserver-forgejo.age".publicKeys = mkSecrets servers;
-  "mailserver-vaultwarden.age".publicKeys = mkSecrets servers;
-  "mailserver-matrix.age".publicKeys = mkSecrets servers;
   "mailserver-cloud.age".publicKeys = mkSecrets servers;
+  "mailserver-forgejo.age".publicKeys = mkSecrets servers;
+  "mailserver-matrix.age".publicKeys = mkSecrets servers;
   "mailserver-noreply.age".publicKeys = mkSecrets servers;
+  "mailserver-postmaster.age".publicKeys = mkSecrets servers;
+  "mailserver-vaultwarden.age".publicKeys = mkSecrets servers;
 }
