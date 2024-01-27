@@ -21,6 +21,7 @@ in {
         General = {
           JustWorksRepairing = "always";
           MultiProfile = "multiple";
+          Experimental = true;
         };
       };
     };
