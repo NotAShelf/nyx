@@ -185,8 +185,8 @@ in {
       };
 
       nginx.virtualHosts = {
-        "mail.notashelf.dev" = lib.sslTemplate;
-        "webmail.notashelf.dev" = lib.sslTemplate;
+        "mail.notashelf.dev" = {quic = true;} // lib.sslTemplate;
+        "webmail.notashelf.dev" = {quic = true;} // lib.sslTemplate;
       };
     };
   };

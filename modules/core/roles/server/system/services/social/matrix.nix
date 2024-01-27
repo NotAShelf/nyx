@@ -47,6 +47,7 @@ in {
       nginx.virtualHosts = {
         "notashelf.dev" =
           {
+            serverAliases = ["matrix.notashelf.dev"];
             locations = {
               "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
               "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
@@ -54,7 +55,8 @@ in {
               "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString port}";
             };
 
-            serverAliases = ["matrix.notashelf.dev"];
+            quic = true;
+            http3 = true;
           }
           // lib.sslTemplate;
       };
@@ -64,6 +66,9 @@ in {
 
         extraConfigFiles = [config.age.secrets.matrix-secret.path];
         settings = {
+          server_name = "notashelf.dev";
+          public_baseurl = "https://notashelf.dev";
+
           withJemalloc = true;
           enable_registration = true;
           registration_requires_token = true;
@@ -74,12 +79,16 @@ in {
           report_stats = false;
 
           # db
-          database_type = "psycopg2";
-          database_args = {
-            database = "matrix-synapse";
+          database = {
+            name = "psycopg2";
+            args = {
+              host = "/run/postgresql";
+              user = "matrix-synapse";
+              database = "matrix-synapse";
+              cp_min = 5;
+              cp_max = 10;
+            };
           };
-          server_name = "notashelf.dev";
-          public_baseurl = "https://notashelf.dev";
 
           # media
           media_retention.remote_media_lifetime = "30d";
@@ -107,6 +116,34 @@ in {
             "fec0::/10"
           ];
 
+          thumbnail_sizes = [
+            {
+              width = 32;
+              height = 32;
+              method = "crop";
+            }
+            {
+              width = 96;
+              height = 96;
+              method = "crop";
+            }
+            {
+              width = 320;
+              height = 240;
+              method = "scale";
+            }
+            {
+              width = 640;
+              height = 480;
+              method = "scale";
+            }
+            {
+              width = 800;
+              height = 600;
+              method = "scale";
+            }
+          ];
+
           # listener configuration
           listeners = [
             {
@@ -123,6 +160,12 @@ in {
               x_forwarded = true;
             }
           ];
+
+          experimental_features = {
+            msc3202_device_masquerading = true;
+            msc3202_transaction_extensions = true;
+            msc2409_to_device_messages_enabled = true;
+          };
 
           logConfig = ''
             version: 1

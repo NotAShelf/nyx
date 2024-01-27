@@ -75,6 +75,8 @@ in {
         phpOptions = {
           # fix the opcache "buffer is almost full" error in admin overview
           "opcache.interned_strings_buffer" = "16";
+          # try to resolve delays in displaying content or incomplete page rendering
+          "output_buffering" = "off";
         };
 
         caching = {
@@ -92,7 +94,12 @@ in {
         };
       };
 
-      nginx.virtualHosts."cloud.notashelf.dev" = {http3.enable = true;} // lib.sslTemplate;
+      nginx.virtualHosts."cloud.notashelf.dev" =
+        {
+          quic = true;
+          http3 = true;
+        }
+        // lib.sslTemplate;
     };
 
     systemd.services = {

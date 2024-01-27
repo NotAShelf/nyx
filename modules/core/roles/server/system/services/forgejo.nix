@@ -121,11 +121,12 @@ in {
 
       nginx.virtualHosts."git.notashelf.dev" =
         {
-          #locations."/".proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
           locations."/" = {
             recommendedProxySettings = true;
             proxyPass = "http://unix:/run/forgejo/forgejo.sock";
           };
+
+          quic = true;
         }
         // lib.sslTemplate;
     };

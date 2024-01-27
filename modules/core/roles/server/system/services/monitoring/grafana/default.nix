@@ -116,6 +116,8 @@ in {
             proxyPass = with config.services.grafana.settings.server; "http://${toString http_addr}:${toString http_port}/";
             proxyWebsockets = true;
           };
+
+          quic = true;
         }
         // {
           addSSL = true;

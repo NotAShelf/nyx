@@ -29,6 +29,8 @@ in {
             proxyWebsockets = true;
             extraConfig = "proxy_pass_header Authorization;";
           };
+
+          quic = true;
         }
         // lib.sslTemplate;
     };

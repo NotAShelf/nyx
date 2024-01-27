@@ -74,29 +74,30 @@ in {
       # in case they break another thing without proper documentation
       # /rant
       nginx = {
-        virtualHosts."social.notashelf.dev" = {
-          root = "${config.services.mastodon.package}/public/";
-          forceSSL = true;
-          enableACME = true;
+        virtualHosts."social.notashelf.dev" =
+          {
+            root = "${config.services.mastodon.package}/public/";
+            quic = true;
 
-          locations = {
-            "/" = {
-              tryFiles = "$uri @proxy";
+            locations = {
+              "/" = {
+                tryFiles = "$uri @proxy";
+              };
+
+              "/system/".alias = "/var/lib/mastodon/public-system/";
+
+              "@proxy" = {
+                proxyPass = "http://unix:/run/mastodon-web/web.socket";
+                proxyWebsockets = true;
+              };
+
+              "/api/v1/streaming/" = {
+                proxyPass = "http://unix:/run/mastodon-streaming/streaming.socket";
+                proxyWebsockets = true;
+              };
             };
-
-            "/system/".alias = "/var/lib/mastodon/public-system/";
-
-            "@proxy" = {
-              proxyPass = "http://unix:/run/mastodon-web/web.socket";
-              proxyWebsockets = true;
-            };
-
-            "/api/v1/streaming/" = {
-              proxyPass = "http://unix:/run/mastodon-streaming/streaming.socket";
-              proxyWebsockets = true;
-            };
-          };
-        };
+          }
+          // lib.sslTemplate;
       };
     };
 

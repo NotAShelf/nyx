@@ -137,6 +137,8 @@ in {
             proxy_send_timeout 60s;
             proxy_read_timeout 60s;
           '';
+
+          quic = true;
         }
         // lib.sslTemplate;
     };

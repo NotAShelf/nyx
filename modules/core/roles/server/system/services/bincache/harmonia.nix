@@ -39,8 +39,6 @@ in {
     services.nginx = {
       virtualHosts."cache.notashelf.dev" =
         {
-          enableACME = true;
-          forceSSL = true;
           locations."/".extraConfig = ''
             proxy_pass http://127.0.0.1:${toString port};
             proxy_set_header Host $host;
@@ -53,6 +51,8 @@ in {
             zstd on;
             zstd_types application/x-nix-archive;
           '';
+
+          quic = true;
         }
         // lib.sslTemplate;
     };

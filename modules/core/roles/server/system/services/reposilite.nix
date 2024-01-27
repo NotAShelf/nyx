@@ -36,8 +36,8 @@ in {
         {
           locations."/".proxyPass = "http://127.0.0.1:${toString port}";
           extraConfig = ''
-            access_log /var/log/nginx/reverse-access.log;
-            error_log /var/log/nginx/reverse-error.log;
+            access_log /var/log/nginx/reposilite-access.log;
+            error_log /var/log/nginx/reposilite-error.log;
           '';
         }
         // sslTemplate;
