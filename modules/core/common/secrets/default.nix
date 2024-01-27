@@ -145,7 +145,7 @@ in {
 
       # mailserver secrets
       mailserver-secret = mkSecret cfg.mailserver.enable {
-        file = "mailserver.age";
+        file = "mailserver-postmaster.age";
         mode = "400";
       };
 
