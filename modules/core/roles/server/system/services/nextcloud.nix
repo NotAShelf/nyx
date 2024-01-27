@@ -92,7 +92,7 @@ in {
         };
       };
 
-      nginx.virtualHosts."cloud.notashelf.dev" = lib.sslTemplate;
+      nginx.virtualHosts."cloud.notashelf.dev" = {http3.enable = true;} // lib.sslTemplate;
     };
 
     systemd.services = {
