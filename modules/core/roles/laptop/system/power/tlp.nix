@@ -1,15 +1,7 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkIf;
-
-  dev = config.modules.device;
-
+let
   MHz = x: x * 1000;
 in {
-  config = mkIf (dev.type == "laptop" || dev.type == "hybrid") {
+  config = {
     services = {
       tlp = {
         enable = false;

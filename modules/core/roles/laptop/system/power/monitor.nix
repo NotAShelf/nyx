@@ -4,18 +4,15 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkForce;
+  inherit (lib) mkForce;
 
   dependencies = with pkgs; [
     coreutils
     power-profiles-daemon
     inotify-tools
   ];
-
-  dev = config.modules.device;
-  acceptedTypes = ["laptop" "hybrid"];
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
+  config = {
     # Power state monitor. Switches Power profiles based on charging state.
     # Plugged in - performance
     # Unplugged - power-saver
