@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./wlogout # wlogout configuration
+  ];
+}

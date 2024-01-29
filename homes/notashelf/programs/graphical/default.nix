@@ -3,6 +3,7 @@
     ./apps
     ./games
     ./launchers
+    ./misc
     ./screenlock
     ./wms
   ];
