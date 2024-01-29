@@ -1,8 +1,13 @@
 {
-  # SEE: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
-  # this makes our system more secure
-  # do note that it might break some stuff, e.g. webcam
+  # This is the entry point of the security module.
+  # This makes our system generally more secure as opposed to having nothing
+  # but keep in mind that certain things (e.g. webcam) might be broken
+  # as a result of the configurations provided below. Exercise caution and common sense.
+  # DO NOT COPY BLINDLY
+  # Also see: <https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix>
+
   imports = [
+    ./apparmor.nix # apparmor configuration and policies
     ./auditd.nix # auditd
     ./clamav.nix # clamav antivirus
     ./kernel.nix # kernel hardening

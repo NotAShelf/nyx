@@ -1,10 +1,9 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
-  inherit (lib) optionals versionOlder isx86Linux mkForce;
+  inherit (lib) optionals versionOlder mkForce;
   mitigationFlags =
     (
       optionals (versionOlder config.boot.kernelPackages.kernel.version "5.1.13")
@@ -70,13 +69,6 @@ in {
       # Disable unprivileged user namespaces, unless containers are enabled
       # required by podman to run containers in rootless mode.
       unprivilegedUsernsClone = config.virtualisation.containers.enable;
-
-      # apparmor configuration
-      apparmor = {
-        enable = isx86Linux pkgs; # apparmor-utils is marked as broken on aarch64
-        killUnconfinedConfinables = true;
-        packages = [pkgs.apparmor-profiles];
-      };
     };
 
     boot = {
