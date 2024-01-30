@@ -222,6 +222,9 @@ in {
         # OCR
         "$MODSHIFT,O,exec,ocr"
 
+        # Toggle Statusbar
+        "$MODSHIFT,B,exec, ags -t bar"
+
         /*
         , Print, exec, $screenshotarea
         $ALTSHIFT, S, exec, $screenshotarea
