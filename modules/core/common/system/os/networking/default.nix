@@ -65,7 +65,8 @@ in {
     useDHCP = mkForce false;
     useNetworkd = mkForce true;
 
-    # interfaces are assigned names that contain topology information (e.g. wlp3s0) and thus should be consistent across reboots
+    # interfaces are assigned names that contain topology information (e.g. wlp3s0)
+    # and thus should be consistent across reboots
     # this already defaults to true, we set it in case it changes upstream
     usePredictableInterfaceNames = mkDefault true;
 
@@ -92,6 +93,9 @@ in {
     wireless = {
       enable = wirelessBackend == "wpa_supplicant";
       userControlled.enable = true;
+      allowAuxiliaryImperativeNetworks = true; # patches wpa_supplicant
+
+      # configure iwd
       iwd = {
         enable = wirelessBackend == "iwd";
         settings = {
