@@ -20,15 +20,7 @@ const Top = () =>
         className: "barTop",
         vertical: true,
         vpack: "start",
-        children: [
-            LauncherIcon(),
-            Box({
-                className: "SystemUsage",
-                vertical: true,
-                children: [SystemUsage()],
-            }),
-            Weather(),
-        ],
+        children: [LauncherIcon(), SystemUsage(), Weather()],
     });
 
 const Center = () =>
@@ -52,8 +44,8 @@ const Bottom = () =>
                     BluetoothWidget(),
                     AudioWidget(),
                     Swallow(),
-                    NetworkWidget(),
                     BatteryWidget(),
+                    NetworkWidget(),
                 ],
             }),
             Clock(),
