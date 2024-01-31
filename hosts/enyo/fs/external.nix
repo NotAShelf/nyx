@@ -2,6 +2,7 @@ let
   homeDir = "/home/notashelf";
 in {
   fileSystems = {
+    # External Devices
     "/mnt/SLib1" = {
       label = "SteamLib1";
       device = "/dev/disk/by-uuid/4345570b-2bd6-4cb8-8ca1-eb05bcf12c05";

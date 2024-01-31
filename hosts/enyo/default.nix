@@ -1,10 +1,10 @@
 {
   imports = [
     ./modules
+    ./fs
 
-    ./hardware.nix
-    ./system.nix
-    ./mounts.nix
-    ./wireguard.nix
+    ./networking.nix
+    ./hardware.nix # TODO: remove
+    ./wireguard.nix # TODO: abstract
   ];
 }

@@ -34,9 +34,10 @@ This file is the main entry point for my Nixos Configurations. All of them, with
 
 > Guidelines for using the local module system for enabling or disabling services and programs
 
--   Hosts should properly define their type and equipment. This means adequately defined `device.type`, `device.cpu` and `device.gpu` at the very least
--   A host should contain at least 3 files: `system.nix`, `hardware-configuration.nix` and a `default.nix` importing the rest.
-    -   `system.nix` should follow my local module system: `config.modules.{device,system,usrEnv,theme}`
-    -   `hardware-configuration.nix` should ONLY have the things exclusive to the host. Such as filesystem configurations
+-   Hosts should properly define their type and equipment.
+    This means adequately defined `device.type`, `device.cpu` and `device.gpu` at the very least
+-   A host should contain at least 3 files/directories: `modules/`, `hardware.nix` and a `default.nix` importing the rest.
+    -   `modules/` should follow my local module system: `config.modules.{device,system,usrEnv,theme}` where applicable
+    -   `hardware.nix` should ONLY have the things exclusive to the host. Such as filesystem configurations, as taken from the original `hardware-configuration.nix`
     -   `default.nix` may not contain anything other than an `imports = [ ... ]` importing rest of the files
 -   Additional host-specific configurations may either go into `system.nix` (i.e kernel configuration) or have their own file (i.e Wireguard or hardware mount configurations) with their own file (i.e `mounts.nix`)
