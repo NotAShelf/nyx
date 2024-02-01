@@ -3,13 +3,6 @@
 My overengineered NixOS flake: Desktops, laptops, servers and everything
 else that can run an OS
 
-<p id="preview" align="center">
-   <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" /> 
-</p>
-<p align="center">
-   Screeenshot last updated <b>2023-12-09</b>
-</p>
-
 ## High Level Overview
 
 A high level overview of this monorepo, containing configurations for **all** of my machines
@@ -80,7 +73,7 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 
 ### Anti-credits
 
-> Pretend I haven't credited those people (but I will, because they are equally awesome and I appreciate them)
+Pretend I haven't credited those people (but I will, because they are equally awesome and I appreciate them)
 
 [n3oney](https://github.com/n3oney) -
 [gerg-l (bald frog)](https://github.com/gerg-l) -
@@ -89,7 +82,7 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 
 ### Awesome People
 
-> I ~~shamelessly stole from~~ got inspired by those folks
+I ~~shamelessly stole from~~ got inspired by those folks
 
 [sioodmy](https://github.com/sioodmy) -
 [fufexan](https://github.com/fufexan) -
@@ -105,22 +98,23 @@ simplicity of his configuration flake allowed me to take a foothold in the Nix w
 
 ### Other Cool Resources
 
-> Resource that helped shape and improve this configuation, or resources that I strongly recommend that you read.
+Resource that helped shape and improve this configuation, or resources that I strongly recommend that you read.
 
 - [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
 - [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
 - [Viper's Blog](https://ayats.org/)
 - [Solène's Blog](https://dataswamp.org/~solene)
-- [...my own blog?](https://notashelf.github.io/nyx/)
+- [...my own "blog"?](https://notashelf.github.io/nyx/)
 
-> Software that helped this configuration become what it is, or software I find interesting
+Software that helped this configuration become what it is, or software I find interesting
 
 - [Agenix](https://github.com/ryantm/agenix)
 - [Hyprland](https://github.com/hyprwm/Hyprland)
 - [nh](https://github.com/viperML/nh)
 - [ags](https://github.com/aylur/ags)
 
-> Stuff that I make and/or was designed for/is used in this repository
+Projects I have made to use in this repository, or otherwise cool software that are
+used in this repository that I would like to endorse.
 
 - [nyxpkgs](https://github.com/notashelf/nyxpkgs) - my personal package collection
 - [neovim-flake](https://github.com/notashelf/neovim-flake) - highly modular neovim module for NixOS & Home-manager
@@ -139,6 +133,15 @@ If you are directly copying a section of my config, please include a copyright n
 It is not enforced, but would be appreciated.
 
 ---
+
+<h2 align="center">Preview</h2>
+
+<p id="preview" align="center">
+   <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" /> 
+</p>
+<p align="center">
+   Screeenshot last updated <b>2023-12-09</b>
+</p>
 
 <div align="right">
   <a href="#readme">Back to the Top</a>
