@@ -40,3 +40,9 @@ nix-store -q --tree $(realpath $(which hello))
 ```shell
 nix path-info -hSr nixpkgs#hello
 ```
+
+## Show the things that will change on reboot
+
+```shell
+diff <(nix-store -qR /run/current-system) <(nix-store -qR  /run/booted-system)
+```
