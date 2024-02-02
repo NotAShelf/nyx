@@ -9,6 +9,15 @@
 
   sys = config.modules.system.networking;
   cfg = sys.tailscale;
+
+  upFlags =
+    cfg.defaultFlags
+    ++ ["--authkey file:${config.age.secrets.tailscale-client.path}"]
+    ++ optionals cfg.isServer ["--advertise-exit-node"]
+    ++ optionals (cfg.endpoint != null) ["--login-server ${cfg.endpoint}"];
+  # TODO: test if specifying an operator messes with the autologin service
+  # which, as you expect, does not run as the operator user
+  # ++ optionals (cfg.operator != null) ["--operator" cfg.operator];
 in {
   config = mkIf cfg.enable {
     # make the tailscale command usable to users
@@ -38,8 +47,9 @@ in {
       enable = true;
       permitCertUid = "root";
       useRoutingFeatures = mkDefault "both";
-      # TODO: these actually need to be specified with `tailscale up`
-      extraUpFlags = cfg.defaultFlags ++ optionals cfg.isServer ["--advertise-exit-node"];
+      # TODO: these flags still need to be specified with `tailscale up`
+      # for some reason
+      extraUpFlags = upFlags;
     };
 
     systemd = {
@@ -75,7 +85,7 @@ in {
             fi
 
             # otherwise authenticate with tailscale
-            ${pkgs.tailscale}/bin/tailscale up -authkey file:${config.age.secrets.tailscale-client.path}
+            ${pkgs.tailscale}/bin/tailscale up ${toString upFlags}
           '';
         };
       };

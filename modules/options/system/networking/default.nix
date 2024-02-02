@@ -4,11 +4,11 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkOption types;
-
-  sys = config.modules.system;
-  cfg = sys.networking.tailscale;
 in {
-  imports = [./nftables.nix];
+  imports = [
+    ./nftables.nix
+    ./tailscale.nix
+  ];
   options.modules.system.networking = {
     nftables.enable = mkEnableOption "nftables firewall";
     tarpit.enable = mkEnableOption "endlessh-go tarpit";
@@ -18,8 +18,8 @@ in {
       type = types.enum ["iwd" "wpa_supplicant"];
       default = "wpa_supplicant";
       description = ''
-        Backend that will be used for wireless connections using either `networking.wireless`
-        or `networking.networkmanager.wifi.backend`
+        Backend that will be used for wireless connections using either
+        `networking.wireless` or `networking.networkmanager.wifi.backend`
 
         Defaults to wpa_supplicant until iwd is stable.
       '';
@@ -27,44 +27,5 @@ in {
 
     # TODO: optionally use encrypted DNS
     # encryptDns = mkOption {};
-
-    tailscale = {
-      enable = mkEnableOption "Tailscale VPN";
-      defaultFlags = mkOption {
-        type = with types; listOf str;
-        default = ["--ssh"];
-        description = ''
-          A list of command-line flags that will be passed to the Tailscale daemon on startup
-          using the {option}`config.services.tailscale.extraUpFlags`.
-
-          If `isServer` is set to true, the server-specific values will be appended to the list
-          defined in this option.
-        '';
-      };
-
-      isClient = mkOption {
-        type = types.bool;
-        default = cfg.enable;
-        example = true;
-        description = ''
-          Whether the target host should utilize Tailscale client features";
-
-          This option is mutually exlusive with {option}`tailscale.isServer` as they both
-          configure Taiscale, but with different flags
-        '';
-      };
-
-      isServer = mkOption {
-        type = types.bool;
-        default = !cfg.isClient;
-        example = true;
-        description = ''
-          Whether the target host should utilize Tailscale server features.
-
-          This option is mutually exlusive with {option}`tailscale.isClient` as they both
-          configure Taiscale, but with different flags
-        '';
-      };
-    };
   };
 }

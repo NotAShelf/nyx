@@ -11,6 +11,7 @@ in {
 
     # renamed options for the system module
     (mkRenamedOptionModule ["modules" "system" "networking" "useTailscale"] ["modules" "system" "networking" "tailscale" "client" "enable"])
+    (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "defaultFlags"] ["modules" "system" "networking" "tailscale" "flags" "default"])
     (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "client" "enable"] ["modules" "system" "networking" "tailscale" "isClient"])
     (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "server" "enable"] ["modules" "system" "networking" "tailscale" "isServer"])
 
