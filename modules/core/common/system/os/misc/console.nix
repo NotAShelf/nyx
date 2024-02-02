@@ -27,11 +27,12 @@ in {
     hwRender = true;
     fonts = [
       {
-        name = "OverpassMono";
-        package = pkgs.overpass;
+        name = "Source Code Pro";
+        package = pkgs.source-code-pro;
       }
     ];
 
+    extraOptions = "--term xterm-256color";
     extraConfig = ''
       font-size=14
       xkb-layout=${config.console.layout}
