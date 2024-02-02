@@ -3,7 +3,7 @@
     ./wms
 
     ./environment.nix
-    ./portals.nix
+    ./xdg-portals.nix
     ./services.nix
   ];
 }
