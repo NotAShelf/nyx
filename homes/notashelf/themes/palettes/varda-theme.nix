@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "varda-theme";
     name = "Varda Theme";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    palette = {
       base00 = "#0C0E11"; # Base
       base01 = "#141619"; # Mantle
       base02 = "#2E3436"; # Surface0

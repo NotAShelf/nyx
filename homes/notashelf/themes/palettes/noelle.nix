@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "noelle";
     name = "noelle";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    palette = {
       base00 = "#111111"; # Base
       base01 = "#282a2e"; # Mantle
       base02 = "#373b41"; # Surface0

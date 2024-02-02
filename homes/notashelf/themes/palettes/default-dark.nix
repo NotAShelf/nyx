@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "default-dark";
     name = "Default Dark";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    palette = {
       base00 = "#181818";
       base01 = "#282828";
       base02 = "#383838";

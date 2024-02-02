@@ -2,9 +2,8 @@
   colorscheme = {
     slug = "decay-dark";
     name = "Decay Dark";
-    kind = "dark";
-    colors = {
-      # TODO: make this a real colorscheme because the maintainers won't
+    variant = "dark";
+    palette = {
       base00 = "#10101a"; # Base
       base01 = "#12121c"; # Mantle
       base02 = "#171721"; # Surface0

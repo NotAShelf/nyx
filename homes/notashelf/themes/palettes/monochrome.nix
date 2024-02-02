@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "monochrome";
     name = "monochrome";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    palette = {
       base00 = "#121517"; # Base
       base01 = "#2e3338"; # Mantle
       base02 = "#4a5159"; # Surface0

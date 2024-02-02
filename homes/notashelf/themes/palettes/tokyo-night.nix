@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "tokyo-night";
     name = "Tokyo Night";
-    kind = "dark"; # bet
-    colors = {
+    variant = "dark"; # bet
+    palette = {
       base00 = "#24283b";
       base01 = "#1f2335";
       base02 = "#292e42";

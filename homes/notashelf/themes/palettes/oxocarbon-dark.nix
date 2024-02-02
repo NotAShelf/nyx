@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "oxocarbon-dark";
     name = "Oxocarbon Dark";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    palette = {
       base00 = "#161616";
       base01 = "#262626";
       base02 = "#393939";

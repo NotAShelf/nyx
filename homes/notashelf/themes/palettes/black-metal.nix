@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "black-metal";
     name = "Black Metal";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    palette = {
       base00 = "#000000";
       base01 = "#121212";
       base02 = "#222222";

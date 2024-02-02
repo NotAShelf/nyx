@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "carbon-dark";
     name = "Carbon Dark";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    valette = {
       base00 = "#161616";
       base01 = "#262626";
       base02 = "#393939";

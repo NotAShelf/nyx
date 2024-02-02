@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "catppuccin-mocha";
     name = "Catppuccin Mocha";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    palette = {
       base00 = "#24273a"; # Base
       base01 = "#1e2030"; # Mantle
       base02 = "#363a4f"; # Surface0

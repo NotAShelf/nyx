@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "catppuccin-frappe";
     name = "Catppuccin Frappe";
-    kind = "dark";
-    colors = {
+    variant = "dark";
+    palette = {
       base00 = "#303446"; # Base
       base01 = "#292c3c"; # Mantle
       base02 = "#414559"; # Surface0

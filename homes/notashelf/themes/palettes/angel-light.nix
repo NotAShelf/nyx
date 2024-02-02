@@ -2,8 +2,8 @@
   colorscheme = {
     slug = "angel-light";
     name = "Angel";
-    kind = "light";
-    colors = {
+    variant = "light";
+    palette = {
       base00 = "#140e10";
       base01 = "#8E7C86";
       base02 = "#C47E81";
