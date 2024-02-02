@@ -1,7 +1,11 @@
 # Nýx
 
-My overengineered NixOS flake: Desktops, laptops, servers and everything
-else that can run an OS
+<h1 align="center">Nýx</h1>
+
+<p align="center">
+   My overengineered NixOS flake: Desktops, laptops, servers and everything
+   else that can run an OS
+</p>
 
 ## High Level Overview
 
