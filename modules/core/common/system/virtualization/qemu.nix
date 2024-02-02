@@ -12,6 +12,8 @@ in {
     environment.systemPackages = with pkgs; [
       virt-manager
       virt-viewer
+      qemu_kvm
+      qemu
     ];
 
     virtualisation = {
