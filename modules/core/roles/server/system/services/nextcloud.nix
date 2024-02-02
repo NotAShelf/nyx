@@ -63,7 +63,7 @@ in {
           dbname = "nextcloud";
         };
 
-        extraOptions = {
+        settings = {
           # other stuff
           default_phone_region = "TR";
           # force https
