@@ -1,10 +1,8 @@
-# Nýx
-
 <h1 align="center">Nýx</h1>
 
 <p align="center">
    My overengineered NixOS flake: Desktops, laptops, servers and everything
-   else that can run an OS
+   else that can run an OS. Monorepo for everything NixOS.<br/>
 </p>
 
 ## High Level Overview
