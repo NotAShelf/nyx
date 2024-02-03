@@ -4,7 +4,7 @@
   osConfig,
   ...
 }: let
-  inherit (lib) mkIf optionalAttrs optionals;
+  inherit (lib) mkIf optionals;
 
   dev = osConfig.modules.device;
   sys = osConfig.modules.system;
@@ -38,7 +38,7 @@ in {
       enable = true;
       platformTheme = mkIf cfg.forceGtk "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
       style = mkIf (!cfg.forceGtk) {
-        name = "${cfg.qt.theme.name}";
+        name = cfg.qt.theme.name;
         package = cfg.qt.theme.package;
       };
     };
