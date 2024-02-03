@@ -3,14 +3,12 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (lib) isx86Linux;
-in {
+}: {
   services.dbus.apparmor = "disabled";
 
   # apparmor configuration
   security.apparmor = {
-    enable = isx86Linux pkgs; # FIXME: apparmor-utils is marked as broken on aarch64
+    enable = true;
 
     # whether to enable the AppArmor cache
     # in /var/cache/apparmore
