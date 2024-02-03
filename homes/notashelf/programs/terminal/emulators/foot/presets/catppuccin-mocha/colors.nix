@@ -1,6 +1,4 @@
-{colorscheme}: let
-  inherit (colorscheme) colors;
-in {
+{colors}: {
   foreground = "${colors.base05}"; # Text
   background = "${colors.base00}"; # Base
 

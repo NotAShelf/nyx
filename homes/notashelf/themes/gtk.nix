@@ -35,17 +35,17 @@ in {
     gtk = {
       enable = true;
       theme = {
-        name = "${cfg.gtk.theme.name}";
+        name = cfg.gtk.theme.name;
         package = cfg.gtk.theme.package;
       };
 
       iconTheme = {
-        name = "${cfg.gtk.iconTheme.name}";
+        name = cfg.gtk.iconTheme.name;
         package = cfg.gtk.iconTheme.package;
       };
 
       font = {
-        name = "${cfg.gtk.font.name}";
+        name = cfg.gtk.font.name;
         size = cfg.gtk.font.size;
       };
 

@@ -5,8 +5,10 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (osConfig) modules;
+  inherit (modules.style.colorScheme) colors;
 
-  dev = osConfig.modules.device;
+  dev = modules.device;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   config = mkIf (builtins.elem dev.type acceptedTypes) {
@@ -17,9 +19,7 @@ in {
         name = "Papirus-Dark";
       };
 
-      settings = let
-        inherit (config.colorscheme) colors;
-      in {
+      settings = {
         global = {
           follow = "mouse";
           width = 320;

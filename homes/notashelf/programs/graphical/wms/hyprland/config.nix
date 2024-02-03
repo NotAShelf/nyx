@@ -6,15 +6,18 @@
   defaults,
   ...
 }: let
-  inherit (lib) optionalString imap0;
+  inherit (lib) getExe optionalString imap0;
   inherit (osConfig) modules;
 
-  inherit (config.colorscheme) colors;
-  inherit (import ./propaganda.nix {inherit pkgs;}) propaganda;
-
-  pointer = config.home.pointerCursor;
   env = modules.usrEnv;
   dev = modules.device;
+
+  # theming
+  inherit (modules.style) pointerCursor colorScheme;
+  inherit (colorScheme) colors;
+
+  # nix advantages
+  inherit (import ./propaganda.nix {inherit pkgs;}) propaganda;
 
   inherit (dev) monitors;
 
@@ -23,7 +26,7 @@
     then "footclient"
     else "${defaults.terminal}";
 
-  locker = lib.getExe env.screenlock.package;
+  locker = getExe env.screenlock.package;
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -32,7 +35,7 @@ in {
 
       exec-once = [
         # set cursor for HL itself
-        "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
+        "hyprctl setcursor ${pointerCursor.name} ${toString pointerCursor.size}"
 
         # start foot server
         # if the home-manager module advertises the server option as true, then don't write this line

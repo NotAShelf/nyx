@@ -1,13 +1,12 @@
 {
+  osConfig,
   pkgs,
   lib,
-  config,
-  osConfig,
   ...
 }: let
   inherit (lib) mkIf;
   inherit (osConfig) modules;
-  inherit (config.colorscheme) colors;
+  inherit (osConfig.modules.style.colorScheme) colors;
 
   env = modules.usrEnv;
 in {

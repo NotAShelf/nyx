@@ -1,10 +1,11 @@
 {
+  osConfig,
   config,
   pkgs,
   lib,
   ...
 }: let
-  inherit (config.colorscheme) colors;
+  inherit (osConfig.modules.style.colorScheme) colors;
 in {
   programs.zsh = {
     enable = true;

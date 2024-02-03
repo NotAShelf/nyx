@@ -6,7 +6,7 @@
   inputs',
   ...
 }: let
-  inherit (osConfig.modules.style.colorScheme) slug;
+  inherit (osConfig.modules.style.colorScheme) slug colors;
   inherit (lib) mkIf;
 
   dev = osConfig.modules.device;
@@ -56,7 +56,7 @@ in {
           uri-characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+=\"'()[]";
         };
 
-        colors = import ./presets/${slug}/colors.nix {inherit (config) colorscheme;} // {alpha = "0.85";};
+        colors = import ./presets/${slug}/colors.nix {inherit colors;} // {alpha = "0.85";};
 
         mouse = {
           hide-when-typing = "yes";

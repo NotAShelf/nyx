@@ -1,18 +1,19 @@
 {
-  config,
-  lib,
   osConfig,
+  lib,
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (osConfig) modules;
+  inherit (modules.style.colorScheme) colors;
 
-  dev = osConfig.modules.device;
+  dev = modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
   config = mkIf (builtins.elem dev.type acceptedTypes) {
     programs.kitty = {
       enable = true;
-      settings = import ./settings.nix {inherit (config.colorscheme) colors;};
+      settings = import ./settings.nix {inherit colors;};
       keybindings = {
         "ctrl+c" = "copy_or_interrupt";
         "ctrl+alt+c" = "copy_to_clipboard";
