@@ -1,5 +1,6 @@
 {
   imports = [
+    ./git
     ./neomutt
     ./newsboat
     ./vifm
@@ -10,7 +11,6 @@
     ./bottom.nix
     ./dircolors.nix
     ./eza.nix
-    ./git.nix
     ./gpg.nix
     ./man.nix
     ./nix-index.nix

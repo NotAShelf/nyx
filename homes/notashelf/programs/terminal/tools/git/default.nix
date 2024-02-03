@@ -1,6 +1,7 @@
 {
   osConfig,
   pkgs,
+  lib,
   ...
 }: let
   inherit (osConfig) modules;
@@ -33,35 +34,48 @@ in {
     git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
+
+      # my credientals
       userName = "NotAShelf";
       userEmail = "raf@notashelf.dev";
+
+      # lets sign using our own key
+      # this must be provided by the host
       signing = {
         key = cfg.signingKey;
         signByDefault = true;
       };
-      ignores = [
-        ".cache/"
-        ".ccls-cache/"
-        ".idea/"
-        "*.swp"
-        "*.elc"
-        ".~lock*"
-        "auto-save-list"
-        ".direnv/"
-        "node_modules"
-        "result"
-        "result-*"
-      ];
+
+      # construct the list of ignored files from a very large string containing
+      # the list of ignored files, but in a plaintext format for my own convenience
+      ignores =
+        map (v: "${toString v}")
+        (builtins.split "\n" (import ./ignore.nix {inherit lib;}).ignore);
+
       extraConfig = {
+        # I don't care about the usage of the term "master"
+        # but main is easier to type, so that's that
         init.defaultBranch = "main";
 
+        # delta is some kind of a syntax highlighting pager for git
+        # it looks nice but I'd like to consider difftastic at some point
         delta = {
           enable = true;
-          plus-style = "syntax ${colors.base0A}";
-          minus-style = "syntax ${colors.base08}";
           line-numbers = true;
-          options.navigate = true;
           features = "decorations side-by-side navigate";
+          options = {
+            navigate = true;
+            line-numbers = true;
+            side-by-side = true;
+            dark = true;
+          };
+        };
+
+        difftastic = {
+          enable = true;
+          background = "dark";
+          color = "auto";
+          display = "side-by-side-show-both";
         };
 
         branch.autosetupmerge = "true";
