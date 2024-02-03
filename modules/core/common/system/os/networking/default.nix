@@ -42,8 +42,8 @@ in {
       # and data integrity but not availability or confidentiality.
       # this is considered EXPERIMENTAL and UNSTABLE according to upstream
       # PLEASE SEE <https://github.com/systemd/systemd/issues/25676#issuecomment-1634810897>
-      # before you decide to set this
-      # I have it set to false as the issue does not inspire confidence in system's ability to manage this
+      # before you decide to set this. I have it set to false as the issue
+      # **does not inspire confidence** in systemd's ability to manage this
       dnssec = "false";
       # <https://wiki.archlinux.org/title/Systemd-resolved#DNS_over_TLS>
       # apparently upstream (systemd) recommends this to be false, `allow-downgrade` is vulnerable to downgrade attacks
