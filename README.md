@@ -24,8 +24,7 @@ that are running or have ran NixOS at some point in time.
 - **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
 - **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
 - **Encryption Ready** - Supports and actively utilizes full disk encryption.
-- **Declarative Themes** - Using my module options, [profiles](./modules/profiles), [nix-colors](https://github.com/Misterio77/nix-colors)
-  and [wallpkgs](https://github.com/notashelf/wallpkgs), everything theming is handled inside the flake.
+- **Declarative Themes** - Using my [module options](./modules/options/style), [profiles](./modules/profiles) and [wallpkgs](https://github.com/notashelf/wallpkgs), everything theming is handled inside the flake.
 - **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake is fully modular.
 - **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
 
