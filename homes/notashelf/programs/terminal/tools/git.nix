@@ -1,11 +1,11 @@
 {
   osConfig,
-  config,
   pkgs,
   ...
 }: let
-  cfg = osConfig.modules.system.programs.git;
-  inherit (config) colorscheme;
+  inherit (osConfig) modules;
+  inherit (osConfig.modules.style.colorScheme) colors;
+  cfg = modules.system.programs.git;
 in {
   home.packages = with pkgs; [
     gist # manage github gists
@@ -55,10 +55,10 @@ in {
       extraConfig = {
         init.defaultBranch = "main";
 
-        delta = with colorscheme.colors; {
+        delta = {
           enable = true;
-          plus-style = "syntax ${base0A}";
-          minus-style = "syntax ${base08}";
+          plus-style = "syntax ${colors.base0A}";
+          minus-style = "syntax ${colors.base08}";
           line-numbers = true;
           options.navigate = true;
           features = "decorations side-by-side navigate";

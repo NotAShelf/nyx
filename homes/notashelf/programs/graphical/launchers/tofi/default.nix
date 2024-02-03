@@ -19,7 +19,7 @@ in {
     ];
 
     xdg.configFile."tofi/config".text = let
-      inherit (config.colorscheme) colors;
+      inherit (osConfig.modules.style.colorScheme) colors;
     in ''
       font = Iosevka Nerd Font
       font-size = 13

@@ -47,7 +47,7 @@ in {
       };
 
       theme = let
-        inherit (config.colorscheme) colors;
+        inherit (osConfig.modules.style.colorScheme) colors;
         inherit (config.lib.formats.rasi) mkLiteral;
       in {
         "*" = {

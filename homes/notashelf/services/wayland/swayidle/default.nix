@@ -5,7 +5,7 @@
   osConfig,
   ...
 }: let
-  inherit (lib) getExe mkIf mkForce;
+  inherit (lib) getExe mkIf;
 
   locker = getExe env.screenlock.package;
 

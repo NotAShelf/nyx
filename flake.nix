@@ -211,12 +211,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # easy color integration
-    nix-colors = {
-      url = "github:misterio77/nix-colors";
-      inputs.nixpkgs-lib.follows = "nixpkgs-small";
-    };
-
     # Nix gaming packages
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
