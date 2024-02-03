@@ -12,6 +12,7 @@
     ./clamav.nix # clamav antivirus
     ./kernel.nix # kernel hardening
     ./pam.nix # pam configuration
+    ./pki.nix # pki certificate bundles
     ./polkit.nix # polkit configuration
     ./selinux.nix # selinux support + kernel patches
     ./sudo.nix # sudo rules and configuration
