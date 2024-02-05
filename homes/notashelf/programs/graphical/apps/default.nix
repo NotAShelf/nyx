@@ -2,6 +2,7 @@
   imports = [
     ./chromium
     ./discord
+    ./element
     ./obs
     ./office
     ./schizofox

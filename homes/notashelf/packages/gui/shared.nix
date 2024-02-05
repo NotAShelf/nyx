@@ -20,7 +20,6 @@ in {
       easyeffects
       librewolf
       cinnamon.nemo
-      element-desktop
       qbittorrent
       hexchat
       netflix
