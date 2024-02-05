@@ -13,6 +13,7 @@ in {
 
     libreoffice.enable = mkEnableOption "LibreOffice suite";
     discord.enable = mkEnableOption "Discord messenger";
+    element.enable = mkEnableOption "Element Matrix client";
     obs.enable = mkEnableOption "OBS Studio";
     spotify.enable = mkEnableOption "Spotify music player";
     thunderbird.enable = mkEnableOption "Thunderbird mail client";
