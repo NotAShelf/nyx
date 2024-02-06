@@ -270,12 +270,6 @@
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
-    # arrpc-flake to provide arRPC package and home-manager module
-    arrpc = {
-      url = "github:NotAShelf/arrpc-flake";
-      inputs.nixpkgs.follows = "nixpkgs-small";
-    };
-
     # use my own wallpapers repository to provide various wallpapers as nix packages
     wallpkgs = {
       url = "github:NotAShelf/wallpkgs";
@@ -333,6 +327,7 @@
     simple-nixos-mailserver = {
       url = "gitlab:dotlambda/nixos-mailserver/sieve-fix";
       inputs = {
+        "nixpkgs".follows = "nixpkgs";
         "nixpkgs-22_11".follows = "";
         "nixpkgs-23_05".follows = "";
       };
