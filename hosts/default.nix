@@ -178,6 +178,7 @@ in {
       {networking.hostName = "gaea";}
       ./gaea
       iso
+      headless
     ];
     specialArgs = sharedArgs;
   };
