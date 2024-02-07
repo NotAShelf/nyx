@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib) mkEnableOption mkOption types;
 in {
   imports = [
@@ -14,15 +10,24 @@ in {
     tarpit.enable = mkEnableOption "endlessh-go tarpit";
     optimizeTcp = mkEnableOption "TCP optimizations";
 
-    wirelessBackend = mkOption {
-      type = types.enum ["iwd" "wpa_supplicant"];
-      default = "wpa_supplicant";
-      description = ''
-        Backend that will be used for wireless connections using either
-        `networking.wireless` or `networking.networkmanager.wifi.backend`
+    wireless = {
+      allowImperative = mkEnableOption ''
+        imperative networking via wpa_cli.
 
-        Defaults to wpa_supplicant until iwd is stable.
+        Enabling this option will make it so that users in the wheel group will
+        be able to manage networking via wpa_cli.
       '';
+
+      backend = mkOption {
+        type = types.enum ["iwd" "wpa_supplicant"];
+        default = "wpa_supplicant";
+        description = ''
+          Backend that will be used for wireless connections using either
+          `networking.wireless` or `networking.networkmanager.wifi.backend`
+
+          Defaults to wpa_supplicant until iwd is stable.
+        '';
+      };
     };
 
     # TODO: optionally use encrypted DNS

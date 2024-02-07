@@ -4,12 +4,12 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkForce mkDefault getExe optionals;
+  inherit (lib) mkIf mkForce mkDefault getExe optionals optionalAttrs;
 
   dev = config.modules.device;
   sys = config.modules.system;
 
-  inherit (sys.networking) wirelessBackend;
+  inherit (sys.networking) wireless;
 in {
   imports = [
     ./firewall
@@ -29,15 +29,17 @@ in {
       tcpdump
       traceroute
     ]
-    ++ optionals (wirelessBackend == "iwd") pkgs.iwgtk;
+    ++ optionals (wireless.backend == "iwd") pkgs.iwgtk;
 
   services = {
     # systemd DNS resolver daemon
     resolved = {
       enable = true;
+
       # this is necessary to get tailscale picking up your headscale instance
       # and allows you to ping connected hosts by hostname
       domains = ["~."];
+
       # DNSSEC provides to DNS clients (resolvers) origin authentication of DNS data, authenticated denial of existence
       # and data integrity but not availability or confidentiality.
       # this is considered EXPERIMENTAL and UNSTABLE according to upstream
@@ -45,9 +47,15 @@ in {
       # before you decide to set this. I have it set to false as the issue
       # **does not inspire confidence** in systemd's ability to manage this
       dnssec = "false";
-      # <https://wiki.archlinux.org/title/Systemd-resolved#DNS_over_TLS>
-      # apparently upstream (systemd) recommends this to be false, `allow-downgrade` is vulnerable to downgrade attacks
-      extraConfig = "DNSOverTLS=yes"; # or allow-downgrade
+
+      # additional configuration to be appeneded to systemd-resolved configuration
+      extraConfig = ''
+        # <https://wiki.archlinux.org/title/Systemd-resolved#DNS_over_TLS>
+        # apparently upstream (systemd) recommends this to be false
+        # `allow-downgrade` is vulnerable to downgrade attacks
+        DNSOverTLS=yes # or allow-downgrade
+      '';
+
       # ideally our fallbackDns should be something more widely available
       # but I do not want my last resort to sell my data to every company available
       # NOTE: DNS fallback is not a recovery DNS
@@ -87,41 +95,46 @@ in {
       "149.112.112.112"
       "2620:fe::fe"
       "2620:fe::9"
-
-      # TODO: find a schizo nameserver that does not compromise on speed or availability
-      # or just set up my own, which would be slow
     ];
 
-    wireless = {
-      enable = wirelessBackend == "wpa_supplicant";
-      userControlled.enable = true;
-      allowAuxiliaryImperativeNetworks = true; # patches wpa_supplicant
+    wireless =
+      {
+        enable = wireless.backend == "wpa_supplicant";
 
-      # configure iwd
-      iwd = {
-        enable = wirelessBackend == "iwd";
-        settings = {
-          #Rank.BandModifier5Ghz = 2.0;
-          #Scan.DisablePeriodicScan = true;
-          Settings = {
-            AutoConnect = true;
-          };
+        # configure iwd
+        iwd = {
+          enable = wireless.backend == "iwd";
+          settings = {
+            #Rank.BandModifier5Ghz = 2.0;
+            #Scan.DisablePeriodicScan = true;
+            Settings = {
+              AutoConnect = true;
+            };
 
-          General = {
-            AddressRandomization = "network";
-            AddressRandomizationRange = "full";
-            EnableNetworkConfiguration = true;
-            RoamRetryInterval = 15;
-          };
+            General = {
+              AddressRandomization = "network";
+              AddressRandomizationRange = "full";
+              EnableNetworkConfiguration = true;
+              RoamRetryInterval = 15;
+            };
 
-          Network = {
-            EnableIPv6 = true;
-            RoutePriorityOffset = 300;
-            # NameResolvingService = "resolvconf";
+            Network = {
+              EnableIPv6 = true;
+              RoutePriorityOffset = 300;
+              # NameResolvingService = "resolvconf";
+            };
           };
         };
+      }
+      // optionalAttrs wireless.allowImperative {
+        # Imperative Configuration
+        userControlled.enable = true;
+        allowAuxiliaryImperativeNetworks = true; # patches wpa_supplicant
+
+        extraConfig = ''
+          update_config=1
+        '';
       };
-    };
 
     # we use networkmanager manage network devices locally
     networkmanager = {
@@ -138,7 +151,7 @@ in {
       ];
 
       wifi = {
-        backend = wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_supp. until iwd support is stable
+        inherit (wireless) backend; # this can be iwd or wpa_supplicant, use wpa_supp. until iwd support is stable
         macAddress = "random"; # use a random mac address on every boot
         powersave = true; # enable wifi powersaving
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
@@ -165,6 +178,12 @@ in {
     network.wait-online.enable = false;
     services =
       {
+        # make sure we ensure the existence of wpa_supplicant config
+        # before we run the wpa_supplicant service
+        wpa_supplicant.preStart = ''
+          touch /etc/wpa_supplicant.conf
+        '';
+
         NetworkManager-wait-online.enable = false;
 
         # disable networkd and resolved from being restarted on configuration changes
@@ -179,7 +198,7 @@ in {
 
     # launch indicator as a daemon on login if wireless backend
     # is defined as iwd
-    user.services.iwgtk = mkIf (wirelessBackend == "iwd") {
+    user.services.iwgtk = mkIf (wireless.backend == "iwd") {
       serviceConfig.ExecStart = "${getExe pkgs.iwgtk} -i";
       wantedBy = ["graphical-session.target"];
       partOf = ["graphical-session.target"];

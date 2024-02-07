@@ -10,6 +10,7 @@ in {
     (mkRenamedOptionModule ["modules" "usrEnv" "isWayland"] ["meta" "isWayland"])
 
     # renamed options for the system module
+    (mkRenamedOptionModule ["modules" "system" "networking" "wirelessBackend"] ["modules" "system" "networking" "wireless" "backend"])
     (mkRenamedOptionModule ["modules" "system" "networking" "useTailscale"] ["modules" "system" "networking" "tailscale" "client" "enable"])
     (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "defaultFlags"] ["modules" "system" "networking" "tailscale" "flags" "default"])
     (mkRenamedOptionModule ["modules" "system" "networking" "tailscale" "client" "enable"] ["modules" "system" "networking" "tailscale" "isClient"])
