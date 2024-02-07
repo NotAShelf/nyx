@@ -9,7 +9,7 @@
   inherit (lib) mkImageMediaOverride;
 in {
   imports = [
-    "${modulesPath}/profiles/minimal.nix"
+    "${modulesPath}/profiles/all-hardware.nix"
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
   ];
 
@@ -40,11 +40,12 @@ in {
     # volumeID is used is used by stage 1 of the boot process, so it must be distintctive
     volumeID = mkImageMediaOverride "${name}";
 
-    # faster compression in exchange for larger iso size
-    squashfsCompression = "gzip -Xcompression-level 1";
+    # maximum compression, in exchange for build speed
+    squashfsCompression = "zstd -Xcompression-level 10"; # default uses gzip
 
     # ISO image should be an EFI-bootable volume
     makeEfiBootable = true;
+
     # ISO image should be bootable from USB
     # FIXME: the module decription is as follows:
     # "Whether the ISO image should be bootable from CD as well as USB."
