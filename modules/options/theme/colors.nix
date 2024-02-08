@@ -86,7 +86,7 @@ in {
       variant = mkOption {
         type = enum ["dark" "light"];
         default =
-          if builtins.substring 0 1 cfg.colors.colorScheme.base00 < "5"
+          if builtins.substring 0 1 cfg.colorScheme.colors.base00 < "5"
           then "dark"
           else "light";
         description = ''

@@ -1,12 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   sys = config.modules.system;
-  env = config.modules.usrEnv;
-  inherit (lib) mkForce mkIf;
+  inherit (lib) mkIf;
 in {
   config = mkIf sys.video.enable {
     xdg.portal = {

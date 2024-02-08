@@ -13,7 +13,7 @@ in {
     ./boot.nix
     ./impermanence.nix
 
-    # network and overlal hardening
+    # network and overall hardening
     ./networking
     ./security.nix
     ./encryption.nix
@@ -87,7 +87,7 @@ in {
     yubikeySupport = {
       enable = mkEnableOption "yubikey support";
       deviceType = mkOption {
-        type = with types; nullOr enum ["NFC5" "nano"];
+        type = with types; nullOr (enum ["NFC5" "nano"]);
         default = null;
         description = "A list of device models to enable Yubikey support for";
       };
