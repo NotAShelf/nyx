@@ -36,11 +36,9 @@ in {
     };
 
     wallpapers = mkOption {
-      type = with types; (either ((listOf str) str));
+      type = with types; either str (listOf str);
       description = "Wallpaper or wallpapers to use";
-      default = [
-        "${pkgs.catppuccino-wallpapers}/share/backgrounds/catppuccino-mocha.png"
-      ];
+      default = [];
     };
   };
 }

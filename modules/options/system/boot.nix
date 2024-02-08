@@ -37,8 +37,9 @@ in {
     };
 
     kernel = mkOption {
-      type = types.raw;
-      default = pkgs.linuxPackages_latest;
+      type = with types; nullOr raw;
+      default = null;
+      example = literalExpression "pkgs.linuxPackages_latest";
       description = "The kernel to use for the system.";
     };
 
