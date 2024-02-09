@@ -58,15 +58,15 @@ in {
   # fuck nvidia - Linus "the linux" Torvalds
   enyo = mkNixosSystem {
     inherit withSystem;
+    hostname = "enyo";
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "enyo";}
         ./enyo
         workstation
       ]
       ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # HP Pavillion from 2016
@@ -74,16 +74,16 @@ in {
   # superseded by epimetheus
   prometheus = mkNixosSystem {
     inherit withSystem;
+    hostname = "prometheus";
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "prometheus";}
         ./prometheus
         workstation
         laptop
       ]
       ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # Identical twin host for Prometheus
@@ -91,16 +91,16 @@ in {
   # which Prometheus did not
   epimetheus = mkNixosSystem {
     inherit withSystem;
+    hostname = "epimetheus";
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "epimetheus";}
         ./epimetheus
         workstation
         laptop
       ]
       ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # HP Pavillion laptop from 2023
@@ -108,139 +108,141 @@ in {
   # similar to epimetheus, has full disk encryption with ephemeral root
   hermes = mkNixosSystem {
     inherit withSystem;
+    hostname = "hermes";
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "hermes";}
         ./hermes
         workstation
         laptop
       ]
       ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # Hetzner VPS to replace my previous server machines
   # hosts some of my infrastructure
   helios = mkNixosSystem {
     inherit withSystem;
+    hostname = "helios";
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "helios";}
         ./helios
         server
         headless
       ]
       ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # Lenovo Ideapad from 2014
   # Hybrid device, acts as a portable server and a "workstation"
   icarus = mkNixosSystem {
     inherit withSystem;
+    hostname = "icarus";
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "icarus";}
         ./icarus
         workstation
         laptop
         server
       ]
       ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # Raspberry Pi 400
   # My Pi400 homelab, used mostly for testing networking/cloud services
   atlas = mkNixosSystem {
     inherit withSystem;
+    hostname = "atlas";
     system = "aarch64-linux";
     modules =
       [
-        {networking.hostName = "atlas";}
         ./atlas
-        hw.raspberry-pi-4
         server
         headless
+
+        # get raspbery pi 4 modules from nixos-hardware
+        hw.raspberry-pi-4
       ]
       ++ shared;
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # Self-made live recovery environment that overrides or/and configures certain default programs
   # provides tools and fixes the keymaps for my keyboard
   gaea = mkNixosIso {
+    hostname = "gaea";
     system = "x86_64-linux";
     modules = [
-      {networking.hostName = "gaea";}
       ./gaea
       iso
       headless
     ];
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # An air-gapped nixos liveiso to deal with yubikeys
   # isolated from all networking
   erebus = mkNixosIso {
     inherit withSystem;
+    hostname = "erebus";
     system = "x86_64-linux";
     modules = [
-      {networking.hostName = "erebus";}
       ./erebus
       iso
     ];
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = {inherit lib;};
   };
 
   # Pretty beefy VM running on my dedicated server
   # is mostly for testing, but can run services at will
   leto = mkNixosSystem {
     inherit withSystem;
+    hostname = "leto";
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "leto";}
         ./leto
         server
         headless
       ]
       ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # Twin virtual machine hosts
   # Artemis is x86_64-linux
   artemis = mkNixosSystem {
     inherit withSystem;
+    hostname = "artemis";
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "artemis";}
         ./artemis
         server
         headless
       ]
       ++ shared;
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 
   # Apollon is also x86_64-linux
   # but is for testing server-specific services
   apollon = mkNixosSystem {
     inherit withSystem;
+    hostname = "apollon";
     system = "aarch64-linux";
     modules =
       [
-        {networking.hostName = "apollon";}
         ./apollon
         server
         headless
       ]
       ++ shared;
-    specialArgs = sharedArgs;
+    specialArgs = {inherit lib;};
   };
 }

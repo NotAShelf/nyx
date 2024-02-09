@@ -10,13 +10,14 @@
   # nixpkgs to the scope in the file it is used in
   mkSystem = lib.nixosSystem;
 
-  # mkNixosSystem wraps mkSystem (a.k.a lib.nixosSystem) with flake-parts' withSystem to provide inputs' and self' from flake-parts
-  # it also acts as a template for my nixos hosts with system type and modules being imported beforehand
-  # specialArgs is also defined here to avoid defining them for each host and lazily merged if the host defines any other args
-
+  # mkNixoSystem is a convenient wrapper that wraps lib.nixosSystem (aliased to mkSystem here) to
+  # provide us a convenient boostrapper for new systems with inputs' and self' (alongside other specialArgs)
+  # already passed to the nixosSystem attribute set without us having to re-define them everytime, instead
+  # defining specialArgs by default and lazily merging any additional arguments defined by the host in the builder
   mkNixosSystem = {
     modules,
     system,
+    hostname,
     withSystem,
     ...
   } @ args:
@@ -26,8 +27,9 @@
       ...
     }:
       mkSystem {
-        inherit modules system;
+        inherit system;
         specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
+        modules = [{config.networking.hostName = args.hostname;}] ++ args.modules or [];
       });
 
   # mkIso is should be a set that extends mkSystem with necessary modules
@@ -36,6 +38,7 @@
   mkNixosIso = {
     modules,
     system,
+    hostname,
     ...
   } @ args:
     mkSystem {
@@ -46,6 +49,8 @@
           # get an installer profile from nixpkgs to base the Isos off of
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+
+          {config.networking.hostName = args.hostname;}
         ]
         ++ args.modules or [];
     };
