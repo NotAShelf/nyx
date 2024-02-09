@@ -32,8 +32,8 @@ in {
     ++ optionals (wireless.backend == "iwd") pkgs.iwgtk;
 
   services = {
-    # systemd DNS resolver daemon
     resolved = {
+      # enable systemd DNS resolver daemon
       enable = true;
 
       # this is necessary to get tailscale picking up your headscale instance
@@ -45,7 +45,7 @@ in {
       # this is considered EXPERIMENTAL and UNSTABLE according to upstream
       # PLEASE SEE <https://github.com/systemd/systemd/issues/25676#issuecomment-1634810897>
       # before you decide to set this. I have it set to false as the issue
-      # **does not inspire confidence** in systemd's ability to manage this
+      # does not inspire confidence in systemd's ability to manage this
       dnssec = "false";
 
       # additional configuration to be appeneded to systemd-resolved configuration
