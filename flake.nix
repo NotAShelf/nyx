@@ -192,7 +192,7 @@
     };
 
     # Impermanence
-    # doesn't offer much about properly used symlinks but it *is* convenient
+    # doesn't offer much above properly used symlinks but it *is* convenient
     impermanence.url = "github:nix-community/impermanence";
 
     # secure-boot on nixos
