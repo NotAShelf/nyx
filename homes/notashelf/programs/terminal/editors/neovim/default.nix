@@ -352,7 +352,7 @@ in {
 
         comments.comment-nvim.enable = true;
 
-        presence.neocord.enable = true;
+        presence.neocord.enable = false;
 
         maps = import ./mappings;
         luaConfigRC = import ./lua;
