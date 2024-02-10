@@ -26,14 +26,14 @@
         inputs.treefmt-nix.flakeModule
 
         # parts of the flake
-        ./flake/pkgs # packages exposed by the flake
-        ./flake/templates # flake templates # TODO: bash and python
-        ./flake/schemas # home-baked schemas for upcoming nix schemas
         ./flake/modules # nixos and home-manager modules provided by this flake
+        ./flake/pkgs # packages exposed by the flake
+        ./flake/schemas # home-baked schemas for upcoming nix schemas
+        ./flake/templates # flake templates # TODO: bash and python
 
-        ./flake/treefmt.nix # treefmt configuration
-        ./flake/deployments.nix
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
+        ./flake/deployments.nix # deploy-rs configurations for active hosts
+        ./flake/treefmt.nix # treefmt configuration
         ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devshell
       ];
 
