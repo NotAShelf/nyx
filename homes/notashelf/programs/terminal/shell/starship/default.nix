@@ -14,6 +14,7 @@
     settings = {
       add_newline = false;
       scan_timeout = 3;
+      command_timeout = 1000;
 
       format = "$hostname$username[ ](bold green) $hosntame$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$nix_shell${elemsConcatted}\n$character";
 
