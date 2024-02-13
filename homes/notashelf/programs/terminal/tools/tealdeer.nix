@@ -9,7 +9,7 @@
         };
 
         updates = {
-          auto_update = true;
+          auto_update = false;
         };
       };
     };
