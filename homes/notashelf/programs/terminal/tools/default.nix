@@ -6,6 +6,7 @@
     ./vifm
     ./xplr
     ./yazi
+    ./zellij
 
     ./bat.nix
     ./bottom.nix
