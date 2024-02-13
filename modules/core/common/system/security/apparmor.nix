@@ -8,7 +8,7 @@
 
   # apparmor configuration
   security.apparmor = {
-    enable = true;
+    enable = lib.isx86Linux pkgs;
 
     # whether to enable the AppArmor cache
     # in /var/cache/apparmore
