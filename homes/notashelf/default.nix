@@ -18,6 +18,9 @@ in {
 
     # declarative system and program themes (qt/gtk)
     ./themes
+
+    # things that don't fint anywhere else
+    ./misc
   ];
 
   config = {
@@ -26,9 +29,10 @@ in {
       homeDirectory = "/home/notashelf";
       extraOutputsToInstall = ["doc" "devdoc"];
 
-      # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+      # <https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion>
       # I will personally strangle every moron who just puts nothing but "DONT CHANGE" next
       # to this value
+      # NOTE: this is and should remain the version on which you have initiated your config
       stateVersion = mkDefault "23.05";
     };
 
