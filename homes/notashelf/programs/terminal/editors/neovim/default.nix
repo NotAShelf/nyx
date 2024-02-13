@@ -23,6 +23,7 @@ in {
         preventJunkFiles = true;
         enableLuaLoader = true;
         useSystemClipboard = true;
+        spellChecking.enable = true;
 
         debugMode = {
           enable = false;

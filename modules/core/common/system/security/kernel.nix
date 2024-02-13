@@ -152,9 +152,6 @@ in {
           # for debugging kernel-level slab issues
           "slub_debug=FZP"
 
-          # disable sysrq keys. sysrq is seful for debugging, but also insecure
-          "sysrq_always_enabled=0" # 0 | 1 # 0 means disabled
-
           # ignore access time (atime) updates on files
           # except when they coincide with updates to the ctime or mtime
           "rootflags=noatime"
