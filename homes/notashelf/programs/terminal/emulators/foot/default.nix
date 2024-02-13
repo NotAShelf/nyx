@@ -22,20 +22,33 @@ in {
       server.enable = true;
       settings = {
         main = {
+          # window settings
           app-id = "foot";
           title = "foot";
           locked-title = "no";
-
           term = "xterm-256color";
-          font = "Iosevka Nerd Font:size=14";
-          font-bold = "monospace:size=14";
-          pad = "16x16";
-          dpi-aware = false; # this looks more readable on a laptop, but it's unreasonably large
-          vertical-letter-offset = "-0.75";
+          pad = "16x16 center";
           shell = "zsh";
 
+          # notifications
           notify = "notify-send -a \${app-id} -i \${app-id} \${title} \${body}";
           selection-target = "clipboard";
+
+          # font and font rendering
+          dpi-aware = false; # this looks more readable on a laptop, but it's unreasonably large
+          font = "Iosevka Nerd Font:size=14";
+          font-bold = "Iosevka Nerd Font:size=14";
+          vertical-letter-offset = "-0.90";
+        };
+
+        scrollback = {
+          lines = 10000;
+          multiplier = 3;
+        };
+
+        tweak = {
+          font-monospace-warn = "no"; # reduces startup time
+          sixel = "yes";
         };
 
         cursor = {
@@ -43,9 +56,8 @@ in {
           beam-thickness = 2;
         };
 
-        scrollback = {
-          lines = 10000;
-          multiplier = 3;
+        mouse = {
+          hide-when-typing = "yes";
         };
 
         url = {
@@ -57,10 +69,6 @@ in {
         };
 
         colors = import ./presets/${slug}/colors.nix {inherit colors;} // {alpha = "0.85";};
-
-        mouse = {
-          hide-when-typing = "yes";
-        };
       };
     };
   };
