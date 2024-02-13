@@ -16,8 +16,14 @@ in {
     sessionVariables = {LC_ALL = "en_US.UTF-8";};
 
     history = {
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      # share history between different zsh sessions
       share = true;
+      # avoid cluttering $HOME with the histfile
+      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      # saves timestamps to the histfile
+      extended = true;
+      # optimize size of the histfile by avoiding duplicates
+      # or commands we don't need remembered
       save = 10000;
       size = 10000;
       expireDuplicatesFirst = true;
@@ -102,9 +108,8 @@ in {
       zstyle ':fzf-tab:*' switch-group ',' '.'
     '';
 
-    initExtra = ''
+    initExtraFirst = ''
       # set my zsh options, first things first
-      # TODO: apparently there is a module option to do what I'm doing? gotta test the efficiency.
       source ${./opts.zsh}
 
       set -k
@@ -174,9 +179,10 @@ in {
       curgen = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       gc-check = "nix-store --gc --print-roots | egrep -v \"^(/nix/var|/run/\w+-system|\{memory|/proc)\"";
       repair = "nix-store --verify --check-contents --repair";
-      run = "nix run $@";
-      search = "nix search $@";
-      shell = "nix shell $@";
+      run = "nix run";
+      search = "nix search";
+      shell = "nix shell";
+      build = "nix build $@ --builders \"\"";
       # quality of life aliases
       ytmp3 = ''
         ${lib.getExe yt-dlp} -x --continue --add-metadata --embed-thumbnail --audio-format mp3 --audio-quality 0 --metadata-from-title="%(artist)s - %(title)s" --prefer-ffmpeg -o "%(title)s.%(ext)s"
@@ -195,13 +201,14 @@ in {
       scu = "systemctl --user ";
       jcu = "journalctl --user";
       la = "${lib.getExe eza} -lah --tree";
-      tree = "${lib.getExe eza} --tree --icons --tree";
+      tree = "${lib.getExe eza} --tree --icons=always";
       http = "${lib.getExe python3} -m http.server";
       burn = "pkill -9";
       diff = "diff --color=auto";
       killall = "pkill";
 
       # faster navigation
+      # "lmao"
       ".." = "cd ..";
       "..." = "cd ../../";
       "...." = "cd ../../../";
