@@ -14,20 +14,33 @@ in {
       enableDefaultPackages = false;
 
       fontconfig = {
-        # this fixes emoji stuff
-        enable = true;
-
-        defaultFonts = {
-          monospace = [
-            "Iosevka Term"
-            "Iosevka Term Nerd Font Complete Mono"
+        defaultFonts = let
+          common = [
             "Iosevka Nerd Font"
+            "Symbols Nerd Font"
             "Noto Color Emoji"
           ];
+        in {
+          monospace =
+            [
+              "Source Code Pro Medium"
+              "Source Han Mono"
+            ]
+            ++ common;
 
-          sansSerif = ["Lexend" "Noto Color Emoji"];
-          serif = ["Noto Serif" "Noto Color Emoji"];
-          emoji = ["Noto Color Emoji"];
+          sansSerif =
+            [
+              "Lexend"
+            ]
+            ++ common;
+
+          serif =
+            [
+              "Noto Serif"
+            ]
+            ++ common;
+
+          emoji = ["Noto Color Emoji"] ++ common;
         };
       };
 
@@ -39,7 +52,6 @@ in {
       # font packages that should be installed
       packages = with pkgs; [
         # programming fonts
-        iosevka-bin
         sarasa-gothic
 
         # desktop fonts
@@ -71,7 +83,7 @@ in {
         liberation_ttf
         unifont
 
-        (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono"];})
+        (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono" "NerdFontsSymbolsOnly"];})
       ];
     };
   };
