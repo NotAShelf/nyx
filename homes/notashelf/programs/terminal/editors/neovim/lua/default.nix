@@ -1,4 +1,7 @@
 {
-  # additional lsp handler configurations via vim.lsp.handlers
+  # additional LSP handler configurations via vim.lsp.handlers
   "lsp-handler" = builtins.readFile ./handlers.lua;
+
+  # additional neovide configuration
+  "neovide" = builtins.readFile ./neovide.lua;
 }
