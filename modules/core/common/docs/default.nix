@@ -26,24 +26,35 @@
 
   '';
 
-  docs-html = pkgs.runCommand "nyxos-docs" {} (
+  docs-html = pkgs.runCommand "nyxos-docs" {nativeBuildInputs = [pkgs.pandoc];} (
     ''
-      ${getExe pkgs.pandoc} \
-        --sandbox \
+      # convert to pandoc markdown instead of using commonmark directly,
+      # as the former automatically generates heading ids and TOC links.
+      pandoc \
         --from commonmark \
-        --to html \
-        --metadata title="NyxOS Docs" \
-        --toc \
-        --standalone \
+        --to markdown \
+        ${configMD} |
+
+
+      # convert pandoc markdown to html using our own template and css files
+      # where available. --sandbox is passed for extra security.
+      pandoc \
+       --sandbox \
+       --from markdown \
+       --to html \
+       --metadata title="NyxOS Docs" \
+       --toc \
+       --standalone \
     ''
     + optionalString (cfg.templatePath != null) ''--template ${cfg.templatePath} \''
     + optionalString (cfg.scss != null) ''--css=${compileCss.outPath}/sys-docs-style.css \''
-    + "${configMD} -o $out"
+    + "-o $out"
   );
 in {
-  config =
-    /*
-    mkIf cfg.enable
-    */
-    {environment.etc."nyxos".source = docs-html;};
+  config = mkIf cfg.enable {
+    environment.etc = {
+      "nyxos/options.md".source = configMD;
+      "nyxos/options.html".source = docs-html;
+    };
+  };
 }

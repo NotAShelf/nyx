@@ -12,9 +12,7 @@ $table-header-bg: #afbded;
 $table-border-color: #2e2e46;
 
 $font-family: Roboto, Georgia, Palatino, Times, "Times New Roman", Lexend, serif;
-
 $monospace-font: monospace;
-
 $base-font-size: 14px;
 
 // Define mixins for commonly used styles
@@ -28,6 +26,16 @@ $base-font-size: 14px;
 @mixin media-query($breakpoint) {
 	@media only screen and (min-width: $breakpoint) {
 		@content;
+	}
+}
+
+@keyframes bounce {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-5px);
 	}
 }
 
@@ -370,6 +378,7 @@ table {
 	}
 }
 
+// Sidebar style, contains the ToC with clickable links
 .sidebar {
 	position: fixed;
 	top: 0;
@@ -386,15 +395,17 @@ table {
 
 .sidebar.show {
 	left: 0; // Show sidebar when toggled
+	border: 1px solid darken($background-color, 5%);
 }
 
+// Togglee sidebar
 .toggle-btn {
 	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
 	cursor: pointer;
 	color: lighten($text-color, 2%);
-	font-size: 24px;
+	font-size: 16px;
 	transition: left 0.3s;
 
 	&:hover {
@@ -403,9 +414,36 @@ table {
 }
 
 .toggle-btn.left {
-	left: 10px;
+	left: 20px;
 }
 
 .toggle-btn.right {
-	left: 523px;
+	left: 520px;
+}
+
+// Go back button
+.go-back-btn {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 50px;
+	height: 50px;
+	background-color: lighten($background-color, 4%);
+	color: $text-color;
+	border-radius: 10px;
+	cursor: pointer;
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s ease;
+
+	&:hover {
+		color: lighten($background-color, 4%);
+		background-color: lighten($background-color, 8%);
+	}
+
+	i {
+		font-size: 20px;
+	}
 }

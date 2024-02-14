@@ -83,6 +83,11 @@
 		<!-- Main Body -->
 		<div class="content" id="content">$body$</div>
 
+		<!-- "Go back" button -->
+		<div class="go-back-btn" onclick="goToTop()">
+			<i class="fas fa-arrow-up"></i>
+		</div>
+
 		<!-- JS for toggle button -->
 		<script>
 			function toggleSidebar() {
@@ -101,6 +106,10 @@
 					toggleIcon.classList.remove("fa-chevron-left");
 					toggleIcon.classList.add("fa-chevron-right");
 				}
+			}
+
+			function goToTop() {
+				window.scrollTo({ top: 0, behavior: "smooth" });
 			}
 		</script>
 		$for(include-after)$ $include-after$ $endfor$
