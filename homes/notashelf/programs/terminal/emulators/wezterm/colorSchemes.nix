@@ -4,11 +4,14 @@ with colors; {
     # basic colors
     background = "#${base00}";
     foreground = "#${base05}";
-    cursor_bg = "#${base05}";
+
     cursor_border = "#${base05}";
+    cursor_bg = "#${base05}";
     cursor_fg = "#${base08}";
+
     selection_bg = "#${base0E}";
     selection_fg = "#${base00}";
+
     split = "#${base01}";
 
     # base16

@@ -1,7 +1,7 @@
 {
+  inputs,
   config,
   pkgs,
-  inputs,
   ...
 }: let
   env = config.modules.usrEnv;
@@ -14,6 +14,7 @@ in {
     # nh nix helper
     nh = {
       enable = true;
+      package = pkgs.nh;
       clean = {
         enable = true;
         dates = "daily";
