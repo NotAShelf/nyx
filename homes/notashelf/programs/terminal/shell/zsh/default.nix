@@ -206,6 +206,14 @@ in {
       burn = "pkill -9";
       diff = "diff --color=auto";
       killall = "pkill";
+      switch-yubikey = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
+
+      # insteaed of querying some weird and random"what is my ip" service
+      # we get our public ip by querying opendns directly.
+      # <https://unix.stackexchange.com/a/81699>
+      canihazip = "dig @resolver4.opendns.com myip.opendns.com +short";
+      canihazip4 = "dig @resolver4.opendns.com myip.opendns.com +short -4";
+      canihazip6 = "dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6";
 
       # faster navigation
       # "lmao"

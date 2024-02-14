@@ -1,7 +1,9 @@
 {
   imports = [
-    ./starship
     ./bin
     ./zsh
+
+    ./starship.nix
+    ./bash.nix
   ];
 }
