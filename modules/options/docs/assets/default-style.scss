@@ -369,3 +369,43 @@ table {
 		page-break-after: avoid;
 	}
 }
+
+.sidebar {
+	position: fixed;
+	top: 0;
+	left: -1000px; // Initially hidden by being yoten offscreen
+	height: 100%;
+	width: 490px; // Static content width. FIXME: ugh
+	background-color: darken($background-color, 2%);
+	overflow-x: hidden; // Horizontal scrollbar
+	overflow-y: auto; //  Vertical scrollbar if needed
+	transition: left 0.3s; // "Smooth" slide animation
+	padding: 10px;
+	z-index: 1000; // Ensure sidebar is above content
+}
+
+.sidebar.show {
+	left: 0; // Show sidebar when toggled
+}
+
+.toggle-btn {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color: lighten($text-color, 2%);
+	font-size: 24px;
+	transition: left 0.3s;
+
+	&:hover {
+		color: lighten($text-color, 4%);
+	}
+}
+
+.toggle-btn.left {
+	left: 10px;
+}
+
+.toggle-btn.right {
+	left: 523px;
+}
