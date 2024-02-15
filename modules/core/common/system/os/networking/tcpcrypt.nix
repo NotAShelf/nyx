@@ -8,6 +8,7 @@
 
   dev = config.modules.device;
 in {
+  disabledModules = ["services/networking/tcpcrypt.nix"];
   config = mkIf (dev.type != "server") {
     # FIXME: the upstream tcpcrypd service is unmaintained and poorly designed
     # networking.tcpcrypt.enable = true;
@@ -35,16 +36,53 @@ in {
       after = ["network.target"];
 
       serviceConfig = {
-        # FIXME: upstream tcpcrypt service has this weird bug that causes it to fail to restart on a rebuild switch
-        # likely because I lose all connectivity somewhere inbetween the switch start and end
-        restart = "on-failure"; # "never" ???
-        RestartSec = 10; # wait longer between restarts
+        restart = "on-failure";
+        RestartSec = 10;
 
         RuntimeDirectory = "tcpcryptd"; # refers to /run/tcpccypt
         RuntimeDirectoryMode = "0700"; # give the user full access in the runtime directory
+
+        # hardening options
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+
+        PrivateDevices = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        ProcSubset = "all"; # "pid" but we need /proc/sys/net/ipv4
+
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "noaccess";
+        ProtectSystem = "strict";
+        RemoveIPC = true;
+        RestrictAddressFamilies = ["AF_INET" "AF_INET6"];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+
+        AmbientCapabilities = "";
+        CapabilityBoundingSet = "";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+
+        SystemCallArchitectures = "native";
+        SystemCallErrorNumber = "EPERM";
+        SystemCallFilter = [
+          "@system-service"
+          # Route-chain and OpenJ9 requires @resources calls
+          "~@clock @cpu-emulation @debug @module @mount @obsolete @privileged @raw-io @reboot @swap"
+        ];
+
+        /**/
       };
 
       preStart = ''
+        echo -en "Starting tcpcryptd\n"
         ${pkgs.procps}/bin/sysctl -n net.ipv4.tcp_ecn > /run/tcpcryptd/pre-tcpcrypt-ecn-state
         ${pkgs.procps}/bin/sysctl -w net.ipv4.tcp_ecn=0
       '';
@@ -52,6 +90,7 @@ in {
       script = "${pkgs.tcpcrypt}/bin/tcpcryptd -x 0x10 -vvvv";
 
       postStop = ''
+        echo -en "Stopped tcpcrypd, restoring tcp_enc state\n"
         if [ -f /run/tcpcryptd/pre-tcpcrypt-ecn-state ]; then
           ${pkgs.procps}/bin/sysctl -w net.ipv4.tcp_ecn=$(cat /run/tcpcryptd/pre-tcpcrypt-ecn-state)
         fi
