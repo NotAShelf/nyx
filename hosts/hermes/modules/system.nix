@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   modules.system = {
     mainUser = "notashelf";
     fs = ["btrfs" "ext4" "vfat"];
@@ -6,6 +6,7 @@
 
     boot = {
       secureBoot = false;
+      kernel = pkgs.linuxPackages_xanmod_latest;
       plymouth.enable = true;
       loader = "systemd-boot";
       enableKernelTweaks = true;

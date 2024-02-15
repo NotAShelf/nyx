@@ -5,6 +5,8 @@
   ...
 }: let
   inherit (lib) literalExpression mkEnableOption mkOption types;
+
+  cfg = config.modules.system.boot;
 in {
   # pre-boot and bootloader configurations
   options.modules.system.boot = {
@@ -104,5 +106,21 @@ in {
         description = "The memtest package to use.";
       };
     };
+  };
+
+  config = {
+    assertions = [
+      {
+        assertion = cfg.kernel != null;
+        message = ''
+          Your system does not specify a kernel package. This is intended behaviour
+          and is to avoid specifying default kernels that are not compatible with
+          active hardware.
+
+          To supress this error, you must set `config.modules.system.boot.kernel`
+          to a valid kernel package.
+        '';
+      }
+    ];
   };
 }
