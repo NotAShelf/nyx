@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types mkModule;
+  inherit (lib) mkEnableOption mkModule;
 in {
   imports = [
     ./bincache.nix
@@ -73,48 +73,6 @@ in {
       kanidm = mkModule {
         name = "Kanidm";
         port = 8443;
-      };
-
-      hydra = mkModule {
-        name = "Hydra";
-        port = 4444;
-        extraOptions = {
-          repos = mkOption {
-            default = {};
-            type = types.ttrsOf (types.submodule ({
-              repo,
-              config,
-              ...
-            }: {
-              options = {
-                repo = mkOption {
-                  type = types.str;
-                  default = repo;
-                };
-
-                owner = mkOption {
-                  type = types.str;
-                  default = "notashelf";
-                };
-
-                description = mkOption {
-                  type = types.str;
-                  default = config.homepage;
-                };
-
-                homepage = mkOption {
-                  type = types.str;
-                  default = "https://github.com/${config.owner}/${config.repo}";
-                };
-
-                reportStatus = mkOption {
-                  type = types.bool;
-                  default = true;
-                };
-              };
-            }));
-          };
-        };
       };
     };
   };

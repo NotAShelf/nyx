@@ -1,0 +1,117 @@
+<!doctype html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	lang="$lang$"
+	xml:lang="$lang$"
+	$if(dir)$
+	dir="$dir$"
+	$endif$
+>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="generator" content="pandoc" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=yes"
+		/>
+		$for(author-meta)$
+		<meta name="author" content="$author-meta$" />
+		$endfor$ $if(date-meta)$
+		<meta name="dcterms.date" content="$date-meta$" />
+		$endif$ $if(keywords)$
+		<meta
+			name="keywords"
+			content="$for(keywords)$$keywords$$sep$, $endfor$"
+		/>
+		$endif$ $if(description-meta)$
+		<meta name="description" content="$description-meta$" />
+		$endif$
+		<title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+		<style>
+			$styles.html()$
+		</style>
+		$for(css)$
+		<link rel="stylesheet" href="$css$" />
+		$endfor$ $for(header-includes)$ $header-includes$ $endfor$ $if(math)$
+		$if(mathjax)$
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		$endif$ $math$ $endif$
+		<!--[if lt IE 9]>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+		<![endif]-->
+		<!-- Font Awesome -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+		/>
+	</head>
+	<body>
+		$for(include-before)$ $include-before$ $endfor$ $if(title)$
+		<header id="title-block-header">
+			<h1 class="title">$title$</h1>
+			$if(subtitle)$
+			<p class="subtitle">$subtitle$</p>
+			$endif$ $for(author)$
+			<p class="author">$author$</p>
+			$endfor$ $if(date)$
+			<p class="date">$date$</p>
+			$endif$ $if(abstract)$
+			<div class="abstract">
+				<div class="abstract-title">$abstract-title$</div>
+				$abstract$
+			</div>
+			$endif$
+		</header>
+		$endif$
+
+		<!-- Toggle button -->
+		<div class="toggle-btn left" onclick="toggleSidebar()">
+			<i class="fa-solid fa-chevron-right" id="toggle-icon"></i>
+		</div>
+
+		<!-- Sidebar -->
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-content">
+				<nav id="$idprefix$TOC" role="doc-toc">
+					$if(toc-title)$
+					<h2 id="$idprefix$toc-title">$toc-title$</h2>
+					$endif$ $table-of-contents$
+				</nav>
+			</div>
+		</div>
+
+		<!-- Main Body -->
+		<div class="content" id="content">$body$</div>
+
+		<!-- "Go back" button -->
+		<div class="go-back-btn" onclick="goToTop()">
+			<i class="fas fa-arrow-up"></i>
+		</div>
+
+		<!-- JS for toggle button -->
+		<script>
+			function toggleSidebar() {
+				var sidebar = document.getElementById("sidebar");
+				var toggleBtn = document.querySelector(".toggle-btn");
+				var toggleIcon = document.getElementById("toggle-icon");
+				sidebar.classList.toggle("show");
+				if (sidebar.classList.contains("show")) {
+					toggleBtn.classList.remove("left");
+					toggleBtn.classList.add("right");
+					toggleIcon.classList.remove("fa-chevron-right");
+					toggleIcon.classList.add("fa-chevron-left");
+				} else {
+					toggleBtn.classList.remove("right");
+					toggleBtn.classList.add("left");
+					toggleIcon.classList.remove("fa-chevron-left");
+					toggleIcon.classList.add("fa-chevron-right");
+				}
+			}
+
+			function goToTop() {
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			}
+		</script>
+		$for(include-after)$ $include-after$ $endfor$
+	</body>
+</html>

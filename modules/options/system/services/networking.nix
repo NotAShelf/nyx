@@ -10,6 +10,7 @@ in {
         name = "Headscale";
         type = "networking";
         port = 8085;
+        /*
         extraOptions = {
           domain = mkOption {
             type = str;
@@ -17,6 +18,7 @@ in {
             description = "The domain name to use for headscale";
           };
         };
+        */
       };
     };
   };
