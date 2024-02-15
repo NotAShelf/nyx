@@ -5,7 +5,7 @@ const { Box, EventBox, Label, Revealer } = Widget;
 const RevIcon = () =>
     Label({
         className: "trayChevron",
-        label: "󰅃",
+        label: "",
     });
 
 const TrayItems = () =>
@@ -21,8 +21,8 @@ export const Tray = () =>
     EventBox({
         onPrimaryClick: (self) => {
             self.child.children[0].label = self.child.children[1].revealChild
-                ? "󰅃"
-                : "󰅀";
+                ? ""
+                : "";
             self.child.children[1].revealChild =
                 !self.child.children[1].revealChild;
         },
