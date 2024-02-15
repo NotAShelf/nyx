@@ -58,19 +58,21 @@ in {
       };
 
       directory = {
-        read_only = "󰉐 ";
         truncation_length = 2;
-        format = "[$read_only]($style)[ ](bold green) [$path]($style) ";
+
+        # removes the read_only symbol from the format, it doesn't play nicely with my folder icon
+        format = "[ ](bold green) [$path]($style) ";
+
+        # the following removes tildes from the path, and substitutes some folders with shorter names
         substitutions = {
           "~/Dev" = "Dev";
+          "~/Documents" = "Docs";
         };
       };
 
       # git
       git_commit.commit_hash_length = 7;
-
       git_branch.style = "bold purple";
-
       git_status = {
         style = "red";
         ahead = "⇡ ";
@@ -93,6 +95,7 @@ in {
       nix_shell.symbol = "[󱄅 ](blue) ";
       golang.symbol = "[󰟓 ](blue)";
       c.symbol = "[ ](black)";
+      nodejs.symbol = "[󰎙 ](yellow)";
 
       package.symbol = "📦 ";
     };
