@@ -58,11 +58,14 @@ in {
         ProtectKernelTunables = true;
         ProtectProc = "noaccess";
         ProtectSystem = "strict";
+
         RemoveIPC = true;
         RestrictAddressFamilies = ["AF_INET" "AF_INET6"];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
+
+        ReadWritePaths = ["/proc/sys/net/ipv4"];
 
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
