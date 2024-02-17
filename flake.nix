@@ -334,7 +334,7 @@
     };
 
     # Hyprland & Hyprland Contrib repos
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/a42b984f51a00e88a13a45e1b5e9e3d4ec470254";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprpaper.url = "github:hyprwm/hyprpaper";
