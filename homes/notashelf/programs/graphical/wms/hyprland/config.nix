@@ -40,9 +40,6 @@ in {
         # start foot server
         # if the home-manager module advertises the server option as true, then don't write this line
         "${optionalString (defaults.fileManager == "foot" && !config.programs.foot.server.enable) ''run-as-service 'foot --server'"''}"
-
-        # workaround for brightness being reset on root rollback (impermanence)
-        "brightness set 90%"
       ];
 
       gestures = {
@@ -70,10 +67,10 @@ in {
         gaps_out = 8;
 
         # border thiccness
-        border_size = 3;
+        border_size = 2;
 
         # active border color
-        "col.active_border" = "0xff${colors.base0F}";
+        "col.active_border" = "0xff${colors.base07}";
 
         # whether to apply the sensitivity to raw input (e.g. used by games where you aim using your mouse)
         apply_sens_to_raw = 0;
@@ -134,7 +131,7 @@ in {
 
         # window swallowing
         enable_swallow = true; # hide windows that spawn other windows
-        swallow_regex = "foot|thunar|nemo"; # windows for which swallow is applied
+        swallow_regex = "foot|thunar|nemo|wezterm"; # windows for which swallow is applied
 
         # dpms
         mouse_move_enables_dpms = true; # enable dpms on mouse/touchpad action
