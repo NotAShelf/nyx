@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   config.modules.system = {
     mainUser = "notashelf";
     fs = ["vfat" "exfat" "ext4"];
@@ -9,6 +9,7 @@
 
     boot = {
       secureBoot = false;
+      kernel = pkgs.linuxPackages_latest;
       loader = "grub";
       enableKernelTweaks = true;
       initrd.enableTweaks = true;
