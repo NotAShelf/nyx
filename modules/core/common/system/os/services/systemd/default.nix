@@ -1,3 +1,6 @@
 {
-  imports = [./oomd.nix];
+  imports = [
+    ./brightnessd.nix
+    ./oomd.nix
+  ];
 }
