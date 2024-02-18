@@ -17,7 +17,9 @@ in {
   config = {
     # enable opensnitch firewall
     # inactive until opensnitch UI is opened
-    services.opensnitch.enable = true;
+    # since the UI cannot be opened on servers, we
+    # disable it if dev.type is server
+    services.opensnitch.enable = dev.type != "server";
 
     networking.firewall = {
       enable = !cfg.enable;
