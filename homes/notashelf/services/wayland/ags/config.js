@@ -32,5 +32,4 @@ function reloadCss(message) {
 Utils.monitorFile(
     `${App.configDir}/scss`,
     reloadCss("scss change detected, reloading stylesheets"),
-    "directory",
 );

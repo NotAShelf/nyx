@@ -1,7 +1,6 @@
 import { Widget, App, Applications, Utils, Hyprland } from "../../imports.js";
 import PopupWindow from "../../utils/popupWindow.js";
-const { Gdk } = imports.gi;
-const { Box, Button, Icon, Label, Scrollable } = Widget;
+const { Box, Button, Icon, Label, Scrollable, Entry } = Widget;
 
 const WINDOW_NAME = "launcher";
 
@@ -13,7 +12,7 @@ const AppItem = (app) =>
         className: "launcherApp",
         onClicked: () => {
             App.closeWindow(WINDOW_NAME);
-            Hyprland.sendMessage(`dispatch exec gtk-launch ${app.desktop}`);
+            Hyprland.messageAsync(`dispatch exec gtk-launch ${app.desktop}`);
             ++app.frequency;
         },
         setup: (self) => (self.app = app),
@@ -37,7 +36,7 @@ const AppItem = (app) =>
                             truncate: "end",
                         }),
                         !!app.description &&
-                            Label({
+                            Widget.Label({
                                 className: "launcherItemDescription",
                                 label:
                                     truncateString(app.description, 75) || "",
@@ -53,8 +52,9 @@ const AppItem = (app) =>
     });
 
 const Launcher = () => {
-    const list = Widget.Box({ vertical: true });
-    const entry = Widget.Entry({
+    const list = Box({ vertical: true });
+
+    const entry = Entry({
         className: "launcherEntry",
         hexpand: true,
         text: "-",
@@ -75,32 +75,26 @@ const Launcher = () => {
             }),
     });
 
-    return Box({
+    return Widget.Box({
         className: "launcher",
         vertical: true,
+        setup: (self) => {
+            self.hook(App, (_, name, visible) => {
+                if (name !== WINDOW_NAME) return;
+
+                list.children = Applications.list.map(AppItem);
+
+                entry.text = "";
+                if (visible) entry.grab_focus();
+            });
+        },
         children: [
             entry,
             Scrollable({
                 hscroll: "never",
-                css: `
-          min-width: 240px;
-          min-height: ${Gdk.Screen.get_default().get_height() - 84}px;
-        `,
+                css: "min-width: 250px; min-height: 360px;",
                 child: list,
             }),
-        ],
-        connections: [
-            [
-                App,
-                (_, name, visible) => {
-                    if (name !== WINDOW_NAME) return;
-
-                    list.children = Applications.list.map(AppItem);
-
-                    entry.text = "";
-                    if (visible) entry.grab_focus();
-                },
-            ],
         ],
     });
 };
@@ -111,9 +105,9 @@ export const AppLauncher = () =>
         anchor: ["top", "bottom", "right"],
         margins: [13, 13, 0, 13],
         layer: "overlay",
-        transition: "slide_left",
+        transition: "slide_down",
+        transitionDuration: 150,
         popup: true,
-        visible: false,
-        focusable: true,
+        keymode: "on-demand",
         child: Launcher(),
     });
