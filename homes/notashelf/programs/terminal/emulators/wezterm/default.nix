@@ -55,8 +55,8 @@ in {
          -- font config
          font_size = 14.0,
          font = wezterm.font_with_fallback {
-          { family = "Iosevka Nerd Font", weight = "Medium" },
-          { family = "Symbols Nerd Font" }
+          { family = "Iosevka Nerd Font", weight = "Regular" },
+          { family = "Symbols Nerd Font", weight = "Regular" }
          },
 
          -- perf
