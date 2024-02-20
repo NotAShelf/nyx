@@ -30,6 +30,7 @@ pkgs.writeTextFile {
       - Easier to back up and share with people
     - Easy to deploy machines and their configuration
     - Out of the box Rollbacks.
+    - Atomic updates
     - Configuration options for many programs & services
     - Free of side effects - Actually uninstalls packages and their dependencies
     - Easy to set up VMs
