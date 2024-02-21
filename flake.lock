@@ -1368,11 +1368,25 @@
         ]
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1708451036,
         "narHash": "sha256-tgZ38NummEdnXvxj4D0StHBzXgceAw8CptytHljH790=",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "lastModified": 1708031129,
+        "narHash": "sha256-EH20hJfNnc1/ODdDVat9B7aKm0B95L3YtkIRwKLvQG8=",
+=======
+        "lastModified": 1708557051,
+        "narHash": "sha256-gOO1DJrX5bihU82PUyQL4xqn9Jt+aZsreX7GcicV2ec=",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "owner": "nix-community",
         "repo": "home-manager",
+<<<<<<< HEAD
         "rev": "517601b37c6d495274454f63c5a483c8e3ca6be1",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "rev": "3d6791b3897b526c82920a2ab5f61d71985b3cf8",
+=======
+        "rev": "3dda8e795f12a4f67c287cef155939e1c5fbd0a3",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "type": "github"
       },
       "original": {
@@ -1428,11 +1442,25 @@
         "xdph": "xdph"
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1708452876,
         "narHash": "sha256-UrFrNfIwd0pcCTZYc6RAppzvpL6icfhelFMgufY5vxU=",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "lastModified": 1707962500,
+        "narHash": "sha256-RT/ltuugm8j0zQAsvM+d70HisZvzcofrzHFtxzG++vw=",
+=======
+        "lastModified": 1708543581,
+        "narHash": "sha256-wvhsh4J+Q9ED8oAWG+iz5uNOw70nagF+aeetlGpLkqs=",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "owner": "hyprwm",
         "repo": "Hyprland",
+<<<<<<< HEAD
         "rev": "13d985489788fa5349b3457d6eb1c19bad8f37e9",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "rev": "a42b984f51a00e88a13a45e1b5e9e3d4ec470254",
+=======
+        "rev": "ea3fd13e24d7d3a74cf803bef3e6133b5d708d1b",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "type": "github"
       },
       "original": {
@@ -1619,11 +1647,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1707095251,
-        "narHash": "sha256-ISuBw43oGTmQhYM+qneXU39GpWnoRpq5Siw18QZdP2E=",
+        "lastModified": 1708532919,
+        "narHash": "sha256-G4PX7NlRLIlBYTDisbWx/Sif01SLSVzLThGU6v6Wrgg=",
         "owner": "hyprwm",
         "repo": "hyprpaper",
-        "rev": "1013a80608891f120184aa7c1a7cfde04bfc96fb",
+        "rev": "897cf0ae26c7c54ce15c4946efe63970be75dadb",
         "type": "github"
       },
       "original": {
@@ -2490,11 +2518,25 @@
     },
     "nixpkgs-small": {
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1708450709,
         "narHash": "sha256-e3lhds+RhRldvzAOhs27rhCptS0xWI9xsxTHMF6i0zk=",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "lastModified": 1708232726,
+        "narHash": "sha256-DYuEHWQSBwaJkS2rjLUsKvGgDK8QIVojC3klAUw6uyk=",
+=======
+        "lastModified": 1708535278,
+        "narHash": "sha256-WQHQ+311Mp8/L5+wB++6nnzeVscdF46hbAh/EwQdp/k=",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "owner": "NixOS",
         "repo": "nixpkgs",
+<<<<<<< HEAD
         "rev": "e4af98e12764cb1b2c2c26dcf31edf5af1552162",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "rev": "35c5863c29ce81199ded8a3384f4979b7793f5dc",
+=======
+        "rev": "591f9cbebeef5dfdcb24997a3069d7f29c365ab9",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "type": "github"
       },
       "original": {
@@ -2618,11 +2660,25 @@
     },
     "nixpkgs_14": {
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1708296515,
         "narHash": "sha256-FyF489fYNAUy7b6dkYV6rGPyzp+4tThhr80KNAaF/yY=",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "lastModified": 1708118438,
+        "narHash": "sha256-kk9/0nuVgA220FcqH/D2xaN6uGyHp/zoxPNUmPCMmEE=",
+=======
+        "lastModified": 1708475490,
+        "narHash": "sha256-g1v0TsWBQPX97ziznfJdWhgMyMGtoBFs102xSYO4syU=",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "owner": "NixOS",
         "repo": "nixpkgs",
+<<<<<<< HEAD
         "rev": "b98a4e1746acceb92c509bc496ef3d0e5ad8d4aa",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "rev": "5863c27340ba4de8f83e7e3c023b9599c3cb3c80",
+=======
+        "rev": "0e74ca98a74bc7270d28838369593635a5db3260",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "type": "github"
       },
       "original": {
@@ -3380,11 +3436,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708256529,
-        "narHash": "sha256-CK2NmdSjZPtAJQL25FqKW9mkvx3q6dq32oDKDxLC83U=",
+        "lastModified": 1708533731,
+        "narHash": "sha256-CSlkvnnf5fTlS6yZ+Uw8H0PGpxkpf+S/M8wur161Uyw=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "99cbb5d0b26fcfe74816652b5a49e1682a1bf709",
+        "rev": "01c4e6a65c0b2635e903fe02881ff9b104a97854",
         "type": "github"
       },
       "original": {
@@ -4316,11 +4372,25 @@
         "systems": "systems_11"
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1708298669,
         "narHash": "sha256-Cc81p14wEN+uYWccRKHnGFUXRxcHxvvHEZSIdnrF6DY=",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "lastModified": 1706521509,
+        "narHash": "sha256-AInZ50acOJ3wzUwGzNr1TmxGTMx+8j6oSTzz4E7Vbp8=",
+=======
+        "lastModified": 1708532964,
+        "narHash": "sha256-Hlor9vCcGVhoF5A3VTC640MDvScYQLmjXHOkb1IuqwU=",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
+<<<<<<< HEAD
         "rev": "f62fcea0cbc460f325252a8479f160fdf5c788c2",
+||||||| parent of a1e5b03f (flake: unpin hyprland)
+        "rev": "c06fd88b3da492b8f9067be021b9184f7012b5a8",
+=======
+        "rev": "65fb44ae496051c8377c6225f7187ca123bb68a5",
+>>>>>>> a1e5b03f (flake: unpin hyprland)
         "type": "github"
       },
       "original": {
