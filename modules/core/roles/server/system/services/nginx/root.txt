@@ -1,0 +1,70 @@
+             _            _          _  __
+ _ __   ___ | |_ __ _ ___| |__   ___| |/ _|
+| '_ \ / _ \| __/ _` / __| '_ \ / _ \ | |_
+| | | | (_) | || (_| \__ \ | | |  __/ |  _|
+|_| |_|\___/ \__\__,_|___/_| |_|\___|_|_|.dev
+
+Howdy!
+
+I'm raf, more commonly known as NotAShelf on most online spaces. This
+is my personal webpage, which is actually pure plaintext due to my distain
+in most modern web technologies.
+
+
+Frequently Asked Questions
+
+***
+
+Q: What do you do for a living?
+
+A: I am a professional sailmaker. I design, manifacture and sell sails. I also
+work as a part-time Political Science instructor for the time being. Sometimes
+I do digital art, other times I do sailing as a sport.
+
+***
+
+Q: Are you a Computer Science major?
+
+A: No, I've graduated as an International Relations major. I've been teaching
+myself programming and Linux system administration since 2018. I mostly enjoy
+open-source software, and my primary stack (as of now) is mostly backend
+development in Go.
+
+***
+
+Q: What programming languages do you know?
+
+A: I mostly work with Javascript, Typescript, Go, C and Nix. I also have some
+experience with Rust, C++ and Python. There are other languages I've used, but
+I don't consider noteworthy.
+
+***
+
+If you want to contact me for any reason, you may shoot me an email
+@ af [at] notashelf [dot] dev for email. In case you were unable to reach me
+via email (e.g. your smtp server uses an outdated cipher, or my domain is
+blacklisted by your provider) you may contact me via Matrix or Mastodon using
+the links below. I am also on Discord, going by the same handle as my github
+username. My public gpg key is available at https://notashelf.dev/gpg
+
+***
+
+List of stuff you might find interesting if you came here:
+
+- E-mail | raf [at] notashelf [dot] dev
+- Matrix | https://social.notashelf.dev/
+- Mastodon | https://matrix.to/#/@raf:notashelf.dev
+- Github | https://github.com/notashelf
+  - https://github.com/schizofox/schizofox
+  - https://github.com/hyprland-community/hyprkeys
+  - https://github.com/notashelf/catApi
+
+
+If you have found a vulnerability on this server, I'd be very grateful if you
+told me about it. Contact me through any of the ways above.
+
+***
+
+Idea for site design: motherfuckingwebsite.com taken to the extreme. I owe the
+idea of a plaintext website to balsoft @ balsoft.ru
+

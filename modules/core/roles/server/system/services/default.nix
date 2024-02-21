@@ -2,7 +2,7 @@
   imports = [
     # essentials
     ./databases # mysql, postgreqsl, redis and more
-    ./nginx.nix # base nginx webserver configuration
+    ./nginx # base nginx webserver configuration
 
     # other services
     ./bincache # atticd and harmonia
