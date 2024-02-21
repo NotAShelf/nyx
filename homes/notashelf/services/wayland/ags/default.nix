@@ -7,9 +7,8 @@
   ...
 }: let
   dependencies = with pkgs; [
-    config.wayland.windowManager.hyprland.package
-    config.programs.foot.package
     inputs.hyprpicker.packages.${pkgs.system}.default
+    config.programs.foot.package
     (python3.withPackages (pythonPackages: [pythonPackages.requests]))
     # basic functionality
     sassc
@@ -34,6 +33,7 @@
   fs = lib.fileset;
   filterNixFiles = fs.fileFilter (file: lib.hasSuffix ".nix" file.name) ./.;
   baseSrc = fs.unions [
+    ./bin
     ./js
     ./scss
     ./config.js

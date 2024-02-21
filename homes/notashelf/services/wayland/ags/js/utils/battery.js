@@ -22,6 +22,10 @@ export const getBatteryTime = () => {
 };
 
 export const getBatteryIcon = () => {
+    // if Battery.percent is not between 0 and 100, handle the error
+    if (Battery.percent < 0 || Battery.percent > 100)
+        return "Battery percentage is not a valid value!";
+
     const icons = [
         ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],

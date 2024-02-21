@@ -1,19 +1,20 @@
-import { Widget, Utils } from "../../../imports.js";
-const { Button, Label } = Widget;
+import { Widget } from "../../../imports.js";
+const { Label, Button } = Widget;
 
-const swallowStatus = Utils.exec(
-    // eslint-disable-next-line quotes
-    'sh -c "$HOME/.config/ags/js/scripts/hyprctl_swallow query"',
-);
+import {
+    toggleSwallowStatus,
+    status,
+} from "../../../utils/swallow.js";
 
-export const Swallow = () =>
+
+export const Swallow = () => 
     Button({
         className: "swallow",
         cursor: "pointer",
-        child: Label("󰊰"),
-        onClicked: (button) => {
-            button.tooltip_markup = `Swallow: ${
-                JSON.parse(swallowStatus).status
-            }`;
-        },
-    });
+        child: Label({
+            label: "󰊰",
+        }),
+        tooltipText: `${status.value}`,
+        onPrimaryClick: toggleSwallowStatus,
+    }).hook(status, (self) => self.tooltipText = `${status.value}`);
+

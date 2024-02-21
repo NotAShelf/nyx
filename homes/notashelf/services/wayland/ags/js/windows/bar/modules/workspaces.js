@@ -1,9 +1,7 @@
-import { Utils, Widget, Hyprland } from "../../../imports.js";
+import { Widget, Hyprland } from "../../../imports.js";
 import { getFocusedWorkspace } from "../../../utils/hyprland.js";
-const { execAsync } = Utils;
-const { Box } = Widget;
-
-const console = globalThis.console;
+const { Box, Button } = Widget;
+const { messageAsync } = Hyprland;
 
 export const Workspaces = () =>
     Box({
@@ -11,23 +9,12 @@ export const Workspaces = () =>
         child: Box({
             vertical: true,
             children: Array.from({ length: 10 }, (_, i) => i + 1).map((i) =>
-                Widget.Button({
+                Button({
                     cursor: "pointer",
                     attribute: { index: i },
-                    onClicked: () =>
-                        execAsync([
-                            "hyprctl",
-                            "dispatch",
-                            "workspace",
-                            `${i}`,
-                        ]).catch(console.error),
+                    onClicked: () => messageAsync(`dispatch workspace ${i}`),
                     onSecondaryClick: () =>
-                        execAsync([
-                            "hyprctl",
-                            "dispatch",
-                            "movetoworkspacesilent",
-                            `${i}`,
-                        ]).catch(console.error),
+                        messageAsync(`dispatch movetoworkspacesilent ${i}`),
                 }),
             ),
 
