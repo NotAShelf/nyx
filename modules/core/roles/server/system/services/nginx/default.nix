@@ -86,12 +86,22 @@ in {
           # define a new log format that anonymizes the remote address
           # and adds the remote user name, the time, the request line,
           log_format combined_anon '$remote_addr_anon - $remote_user [$time_local] '
-                                  '"$request" $status $body_bytes_sent '
+                                   '"$request" $status $body_bytes_sent '
                                    '"$http_referer" "$http_user_agent"';
 
           # write the access log to a file with the combined_anon format
           # and a buffer size of 32k, flushing every 5 minutes
           access_log /var/log/nginx/access.log combined_anon buffer=32k flush=5m;
+
+          # define a new log format that anonymizes the remote address
+          # and adds remote user name, local time, the request line and http3
+          # this is important for debugging quic enabled requests
+          log_format quic '$remote_addr_anon - $remote_user [$time_local] '
+                          '"$request" $status $body_bytes_sent '
+                          '"$http_referer" "$http_user_agent" "$http3"';
+
+          # write the access log to a file with the quic format
+          access_log /var/log/nginx/quic-access.log quic;
 
           # error log should log only "warn" level and above
           error_log   /var/log/nginx/error.log warn;
@@ -105,6 +115,14 @@ in {
           "${config.networking.domain}" = {
             default = true;
             serverAliases = ["www.${config.networking.domain}"];
+
+            locations."/" = {
+              root = pkgs.writeTextDir "root.txt" (builtins.readFile ./root.txt);
+              index = "root.txt";
+              extraConfig = ''
+                charset utf-8;
+              '';
+            };
           };
         };
       };
@@ -113,7 +131,7 @@ in {
         enable = true;
         minsize = "50M";
         rotate = "4"; # 4 files of 50mb each
-        compress = "";
+        compress = true;
       };
     };
   };
