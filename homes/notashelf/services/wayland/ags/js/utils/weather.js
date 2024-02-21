@@ -5,7 +5,7 @@ export const WeatherValue = Variable(
     {
         poll: [
             36000,
-            ["bash", "-c", `python ${App.configDir}/js/scripts/weather`],
+            ["sh", "-c", `python ${App.configDir}/bin/weather`],
             (out) => JSON.parse(out),
         ],
     },

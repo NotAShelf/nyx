@@ -13,5 +13,5 @@ export const BatteryWidget = () =>
         className: "battery",
         cursor: "pointer",
         child: BatIcon(),
-        binds: [["visible", Battery, "available"]],
+        visible: Battery.bind("available"),
     });

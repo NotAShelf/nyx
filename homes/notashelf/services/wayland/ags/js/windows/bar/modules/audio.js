@@ -1,9 +1,9 @@
 import { Audio, Widget, Utils } from "../../../imports.js";
 import { getAudioIcon } from "../../../utils/audio.js";
-const { Button } = Widget;
+const { Button, Icon } = Widget;
 
 const AudioIcon = () =>
-    Widget.Icon({
+    Icon({
         setup: (self) => {
             self.hook(Audio, getAudioIcon, "speaker-changed");
         },

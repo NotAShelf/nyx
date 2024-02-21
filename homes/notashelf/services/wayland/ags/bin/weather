@@ -11,18 +11,17 @@ logger = logging.getLogger(__name__)
 
 CACHE_EXPIRATION = 60
 XDG_CACHE_HOME = os.getenv("XDG_CACHE_HOME", os.path.expanduser("~/.cache"))
-CACHE_DIR = os.path.join(XDG_CACHE_HOME, "waybar-wttr")
+CACHE_DIR = os.path.join(XDG_CACHE_HOME, "zephyr")
 FALLBACK_CACHE_DIR = "/tmp"
-CACHE_FILE = os.path.join(CACHE_DIR, "weather_cache.json")
+CACHE_FILE = os.path.join(CACHE_DIR, "zephyr_cache.json")
 
-# TODO: make those icons more consistnt with the rest of my bar
-SUNNY = "\ue430"
-CLOUDY = "\uf172"
-RAIN = "\uf61f"
-SNOW = "\uf61c"
-THUNDERSTORM = "\uebdb"
-PARTLY_CLOUDY = "\uf172"
-CLEAR = "\ue430"
+SUNNY = "󰖨 "
+CLOUDY = " "
+RAIN = " "
+SNOW = "󰜗 "
+THUNDERSTORM = " "
+PARTLY_CLOUDY = " "
+CLEAR = " "
 
 HOURS_AGO_THRESHOLD = 2
 TEMP_THRESHOLD_COLD = 10
@@ -86,12 +85,24 @@ def format_temp(temp):
 def get_emoji_for_condition(condition):
     emoji_map = {
         "Sunny": SUNNY,
-        "Cloudy": CLOUDY,
-        "Rain": RAIN,
-        "Snow": SNOW,
-        "Thunder": THUNDERSTORM,
-        "Partly Cloudy": PARTLY_CLOUDY,
+        "Partly cloudy": PARTLY_CLOUDY,
+        "Overcast": CLOUDY,
+        "Patchy rain nearby": RAIN,
         "Clear": CLEAR,
+        "Fog": "\u2601",
+        "Frost": "\u2744",
+        "Thunder": THUNDERSTORM,
+        "Snow": SNOW,
+        "Windy": "\u27A7",
+        "Mist": "\u2601",
+        "Drizzle": "\u2601",
+        "Heavy rain": "\u2614",
+        "Sleet": "\u2744",
+        "Wintry mix": "\u2744",
+        "Clear/Sunny": CLEAR,
+        "Clear/Mostly clear": CLEAR,
+        "Clear/Mostly clear (night)": CLEAR,
+        "Drizzle (night)": "\u2601",
     }
     return emoji_map.get(condition, "")
 
@@ -153,12 +164,9 @@ def format_weather_data(weather_data):
 
 
 def main():
-    ensure_cache_directory()
-    cached_data = get_cached_weather_data()
-    if cached_data:
-        print(json.dumps(cached_data))
-        return
     weather_data = get_weather_data()
+    if weather_data is None:
+        weather_data = get_cached_weather_data()
     if weather_data:
         formatted_data = format_weather_data(weather_data)
         cache_weather_data(formatted_data)
