@@ -2,19 +2,19 @@ import { Widget } from "../../../imports.js";
 const { Label, Button } = Widget;
 
 import {
-    getSwallowStatus,
     toggleSwallowStatus,
+    status,
 } from "../../../utils/swallow.js";
 
-const keyword = getSwallowStatus();
 
-export const Swallow = () => {
+export const Swallow = () => 
     Button({
         className: "swallow",
         cursor: "pointer",
-        onPrimaryClick: toggleSwallowStatus(keyword),
         child: Label({
             label: "󰊰",
         }),
-    });
-};
+        tooltipText: `${status.value}`,
+        onPrimaryClick: toggleSwallowStatus,
+    }).hook(status, (self) => self.tooltipText = `${status.value}`);
+
