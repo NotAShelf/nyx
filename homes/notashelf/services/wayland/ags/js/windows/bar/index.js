@@ -43,7 +43,7 @@ const Bottom = () =>
                 children: [
                     BluetoothWidget(),
                     AudioWidget(),
-                    Swallow(),
+                    //Swallow(),
                     BatteryWidget(),
                     NetworkWidget(),
                 ],

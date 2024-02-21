@@ -33,6 +33,7 @@
   fs = lib.fileset;
   filterNixFiles = fs.fileFilter (file: lib.hasSuffix ".nix" file.name) ./.;
   baseSrc = fs.unions [
+    ./bin
     ./js
     ./scss
     ./config.js
