@@ -116,12 +116,22 @@ in {
             default = true;
             serverAliases = ["www.${config.networking.domain}"];
 
-            locations."/" = {
-              root = pkgs.writeTextDir "root.txt" (builtins.readFile ./root.txt);
-              index = "root.txt";
-              extraConfig = ''
-                charset utf-8;
-              '';
+            locations = {
+              "/" = {
+                root = pkgs.writeTextDir "root.txt" (builtins.readFile ./static/root.txt);
+                index = "root.txt";
+                extraConfig = ''
+                  charset utf-8;
+                '';
+              };
+
+              "/gpg" = {
+                root = pkgs.writeTextDir "gpg.txt" (builtins.readFile ./static/gpg.txt);
+                index = "gpg.txt";
+                extraConfig = ''
+                  charset utf-8;
+                '';
+              };
             };
           };
         };

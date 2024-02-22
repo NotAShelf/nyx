@@ -1,0 +1,101 @@
+             _            _          _  __
+ _ __   ___ | |_ __ _ ___| |__   ___| |/ _|
+| '_ \ / _ \| __/ _` / __| '_ \ / _ \ | |_
+| | | | (_) | || (_| \__ \ | | |  __/ |  _|
+|_| |_|\___/ \__\__,_|___/_| |_|\___|_|_|.dev
+
+Howdy!
+
+I'm raf, more commonly known as NotAShelf on most online spaces. This
+is my personal webpage, which is actually pure plaintext due to my utmosts
+disdain for modern web technologies.
+
+Frequently Asked Questions
+
+***
+
+Q: What do you do for a living?
+
+A: I am a professional sailmaker. I design, manufacture and sell sails. I also
+work as a part-time Political Science instructor for the time being. Sometimes
+I do digital art, other times I do sailing as a sport.
+
+***
+
+Q: Did you study Computer Science? Why do you know programming?
+
+A: No, I graduated as an International Relations major. I've been teaching
+myself programming and Linux system administration since 2018. I mostly enjoy
+open-source software, and my primary stack (as of now) is mostly backend
+development in Go. Programming is something I enjoy as a tool to help me get
+from point A to point B, which is why I am interested in learning new
+technologies as much as I can.
+
+***
+
+Q: How are the International Relations?
+
+A: They're good, thanks for asking.
+
+***
+
+Q: What programming languages do you know?
+
+A: I mostly work with JavaScript, Typescript, Go, C and Nix. I also have some
+experience with Rust, C++ and Python. There are other languages I've used, but
+don't really consider noteworthy. I hate PHP. PHP probably hates me back. Good.
+
+***
+
+Q: What do you do now?
+
+A: I am currently working on my PhD in Political Science where I conduct
+research on the impact of digital technologies on political participation and
+executive functions as well as the effects of open-source software. on said
+fields. I would love to go into further detail but I also would like to avoid
+doxxing myself. Just know that I get the prefix of "Doctor" when I'm done.
+
+I frequently work with Nix and NixOS, embedded programming and Linux systems
+in general. I also do some web development in my free time.
+
+***
+
+If you want to contact me for any reason, you may just shoot me an email
+@ af [at] notashelf [dot] dev. In case you were unable to reach me
+via email (e.g. your smtp server uses an outdated cipher, or my domain is
+blacklisted by your provider), you may contact me via Matrix or Mastodon using
+the links below. I am also on Discord, going by the same handle as my github
+username. My public gpg key is available at https://notashelf.dev/gpg which
+is also in plaintext. If you're a bot, you're probably having a field day.
+
+On that note, please stop scraping my website. I **do not** have anything
+of your interest.
+
+***
+
+List of stuff you might find interesting if you came here and are a human:
+
+- E-mail | raf [at] notashelf [dot] dev
+- Matrix | https://social.notashelf.dev/
+- Mastodon | https://matrix.to/#/@raf:notashelf.dev
+- Github | https://github.com/notashelf
+  - https://github.com/schizofox/schizofox
+  - https://github.com/hyprland-community/hyprkeys
+  - https://github.com/notashelf/catApi
+  - https://github.com/notashelf/neovim-flake
+
+
+If you have found a vulnerability on this server, I'd be very grateful if you
+told me about it. Contact me through any of the ways above.
+
+***
+
+I can't have a footer but this is a good place to put a shoutout to the
+awesome motherfuckingwebsite.com.
+
+***
+
+> served by /nix/store/somehash-nginx, probably
+
+- raf
+
