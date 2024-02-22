@@ -45,7 +45,12 @@ in {
       allowUnfree = true; # really a pain in the ass to deal with when disabled
       allowBroken = false;
       allowUnsupportedSystem = true;
-      permittedInsecurePackages = ["electron-25.9.0"]; # default to none, add more as necessary
+
+      # default to none, add more as necessary
+      permittedInsecurePackages = [
+        "electron-25.9.0"
+        "freeimage-unstable-2021-11-01"
+      ];
     };
   };
 
