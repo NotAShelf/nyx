@@ -8,6 +8,7 @@
 }: let
   dependencies = with pkgs; [
     inputs.hyprpicker.packages.${pkgs.system}.default
+    inputs.hyprland.packages.${pkgs.system}.default
     config.programs.foot.package
     (python3.withPackages (pythonPackages: [pythonPackages.requests]))
     # basic functionality
