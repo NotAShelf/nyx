@@ -33,25 +33,22 @@
 
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
         ./flake/deployments.nix # deploy-rs configurations for active hosts
-        ./flake/treefmt.nix # treefmt configuration
+        ./flake/lib.nix # extended library referenced across the flake
         ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devshell
+        ./flake/treefmt.nix # treefmt configuration
+        ./flake/shell.nix # devShells explosed by the flake
       ];
 
       flake = let
-        # extended nixpkgs library, contains my custom functions
-        # such as system builders
-        lib = import ./lib {inherit inputs;};
+        inherit (self) lib;
       in {
-        # TODO: I still don't have machine to test my darwin configs on - avoid pushing
-        # darwinConfigurations = {};
-
         # entry-point for nixos configurations
-        nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
+        nixosConfigurations = import ./hosts {inherit inputs lib withSystem;};
 
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
         # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
-        images = import ./hosts/images.nix {inherit inputs self lib;};
+        images = import ./hosts/images.nix {inherit inputs lib;};
       };
 
       perSystem = {
@@ -65,41 +62,7 @@
         imports = [{_module.args.pkgs = config.legacyPackages;}];
 
         # provide the formatter for nix fmt
-        formatter = pkgs.alejandra;
-
-        devShells.default = pkgs.mkShell {
-          name = "nyx";
-          meta.description = "The default development shell for my NixOS configuration";
-
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
-
-          # tell direnv to shut up
-          DIRENV_LOG_FORMAT = "";
-
-          # packages available in the dev shell
-          packages = with pkgs; [
-            inputs'.agenix.packages.default # provide agenix CLI within flake shell
-            inputs'.deploy-rs.packages.default # provide deploy-rs CLI within flake shell
-            config.treefmt.build.wrapper # treewide formatter
-            nil # nix ls
-            alejandra # nix formatter
-            git # flakes require git, and so do I
-            glow # markdown viewer
-            statix # lints and suggestions
-            deadnix # clean up unused nix code
-            nodejs # for ags and eslint_d
-            (pkgs.writeShellApplication {
-              name = "update";
-              text = ''
-                nix flake update && git commit flake.lock -m "flake: bump inputs"
-              '';
-            })
-          ];
-
-          inputsFrom = [config.treefmt.build.devShell];
-        };
+        formatter = inputs'.nyxpkgs.packages.alejandra-no-ads;
       };
     });
 
