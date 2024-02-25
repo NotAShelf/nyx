@@ -325,8 +325,8 @@ in {
           smartcolumn = {
             enable = true;
             columnAt.languages = {
-              markdown = 80;
-              nix = 150;
+              markdown = [80];
+              nix = [150];
               ruby = 110;
               java = 120;
               go = [130];
@@ -371,11 +371,15 @@ in {
       sha256 = "19n7n9xafyak35pkn4cww0s5db2cr97yz78w5ppbcp9jvxw6yyz3";
     };
 
-    exec = "${pkgs.writeShellScript "foot-neovim" ''
-      filename="$(readlink -f "$1")"
-      dirname="$(dirname "$filename")"
+    exec = let
+      wezterm = lib.getExe config.programs.wezterm.package;
+      direnv = lib.getExe pkgs.direnv;
+    in "${pkgs.writeShellScript "wezterm-neovim" ''
+      filename = "$(readlink -f "$1")" # define target filename
+      dirname = "$(dirname "$filename")" # get the directory target file is in
 
-      ${lib.getExe inputs'.nyxpkgs.packages.foot-transparent} -D "$dirname" ${lib.getExe pkgs.zsh} -c "${lib.getExe pkgs.direnv} exec . nvim '$filename'"
+      # launch a wezterm instance with direnv and nvim
+      ${wezterm} start --cwd "$dirname" -- ${lib.getExe pkgs.zsh} -c "${direnv} exec . nvim '$filename'"
     ''} %f";
   };
 }
