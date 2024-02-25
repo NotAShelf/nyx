@@ -58,6 +58,7 @@ in {
           markdown.enable = true;
           nix.enable = true;
           html.enable = true;
+          css.enable = true;
           ts.enable = true;
           go.enable = true;
           python.enable = true;
@@ -71,9 +72,8 @@ in {
             jdtlsCache = "${config.xdg.cacheHome}/jdtls";
           in {
             enable = true;
-            # TODO: switch to getExe once <https://github.com/NixOS/nixpkgs/pull/28025> is merged
             lsp.package = [
-              "${pkgs.jdt-language-server}/bin/jdt-language-server"
+              "${lib.getExe pkgs.jdt-language-server}"
               "-configuration ${jdtlsCache}/config"
               "-data ${jdtlsCache}/workspace"
             ];

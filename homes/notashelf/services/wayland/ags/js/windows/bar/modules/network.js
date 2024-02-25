@@ -1,5 +1,4 @@
 import { Network, Widget, Utils } from "../../../imports.js";
-import { Icon } from "../../../icons.js";
 import {
     getWifiIcon,
     getWifiTooltip,

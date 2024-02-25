@@ -1,5 +1,5 @@
 import { Widget, Utils, Audio } from "../../imports.js";
-const { Box, Slider, Label } = Widget;
+const { Box, Slider, Label, Revealer } = Widget;
 
 const VolumeIcon = () =>
     Label({
@@ -10,7 +10,7 @@ const VolumeIcon = () =>
                 (self) => {
                     if (!Audio.speaker) return;
 
-                    const icons = ["󰝟", "󰕿", "󰖀", "󰕾"];
+                    const icons = ["󰝟", "󰕿", "", "󰕾"];
 
                     self.label =
                         icons[
@@ -46,7 +46,7 @@ export const VolumePopup = () =>
     Box({
         css: `min-height: 2px;
           min-width: 2px;`,
-        child: Widget.Revealer({
+        child: Revealer({
             transition: "slide_up",
             child: Box({
                 className: "volumePopup",

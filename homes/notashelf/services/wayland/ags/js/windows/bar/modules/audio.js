@@ -1,5 +1,7 @@
-import { Audio, Widget, Utils } from "../../../imports.js";
+import { Audio, Widget } from "../../../imports.js";
 import { getAudioIcon } from "../../../utils/audio.js";
+import { launchApp } from "../../../utils/global.js";
+
 const { Button, Icon } = Widget;
 
 const AudioIcon = () =>
@@ -13,8 +15,8 @@ export const AudioWidget = () => {
     return Button({
         className: "audio",
         cursor: "pointer",
-        child: AudioIcon(),
         visible: true,
-        onClicked: () => Utils.exec("pavucontrol"),
+        child: AudioIcon(),
+        onClicked: () => launchApp("pavucontrol"),
     });
 };

@@ -52,7 +52,7 @@
   border-radius: 12px;
   margin: 6px 4px;
   padding: 4px;
-  min-height: 1.5rem;
+  min-height: 1rem;
   min-width: 1rem;
   transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
   .weather:hover {
@@ -257,63 +257,51 @@
   font-family: roboto; }
 
 .brightnessPopup {
-  color: #cdd6f4;
   background: #1e1e2e;
-  font-family: roboto;
-  border-radius: 10px;
-  border: black;
-  margin: 6px 0;
-  padding: 4px; }
+  border-radius: 12px;
+  margin: 6px;
+  padding: 12px;
+  min-width: 200px; }
 
 .brtPopupIcon {
   font-family: symbolsnerdfontmono;
-  margin: 0 6px; }
-
-.brtPopupLabel {
-  font-weight: 400;
-  margin: 3px; }
+  margin: 0 6px 0 0; }
 
 .brtPopupBar {
   min-width: 200px; }
   .brtPopupBar scale {
     min-height: 12px; }
   .brtPopupBar trough {
-    background: #313244;
-    border-radius: 12px;
+    background: rgba(49, 50, 68, 0.5);
+    border-radius: 24px;
     min-height: 12px; }
   .brtPopupBar highlight {
-    background: #b4befe;
-    border-radius: 12px;
+    background: #cdd6f4;
+    border-radius: 24px;
     min-width: 12px; }
 
 .volumePopup {
-  color: #cdd6f4;
   background: #1e1e2e;
-  font-family: roboto;
-  border-radius: 10px;
-  border: black;
-  margin: 6px 0;
-  padding: 4px; }
+  border-radius: 12px;
+  margin: 6px;
+  padding: 12px;
+  min-width: 200px; }
 
 .volPopupIcon {
   font-family: symbolsnerdfontmono;
-  margin: 0 6px; }
-
-.volPopupLabel {
-  font-weight: 400;
-  margin: 3px; }
+  margin: 0 6px 0 0; }
 
 .volPopupBar {
   min-width: 200px; }
   .volPopupBar scale {
     min-height: 12px; }
   .volPopupBar trough {
-    background: #313244;
-    border-radius: 12px;
+    background: rgba(49, 50, 68, 0.5);
+    border-radius: 24px;
     min-height: 12px; }
   .volPopupBar highlight {
-    background: #b4befe;
-    border-radius: 12px;
+    background: #cdd6f4;
+    border-radius: 24px;
     min-width: 12px; }
 
 .controls {

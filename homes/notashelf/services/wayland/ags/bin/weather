@@ -16,13 +16,13 @@ CACHE_DIR = os.path.join(XDG_CACHE_HOME, "zephyr")
 FALLBACK_CACHE_DIR = "/tmp"
 CACHE_FILE = os.path.join(CACHE_DIR, "zephyr_cache.json")
 
-SUNNY = "󰖨 "
-CLOUDY = " "
-RAIN = " "
-SNOW = "󰜗 "
-THUNDERSTORM = " "
-PARTLY_CLOUDY = " "
-CLEAR = " "
+SUNNY = "\udb81\udda8"
+CLOUDY = "\ue312"
+RAIN = "\ue318"
+SNOW = "\ue31a"
+THUNDERSTORM = "\ue31d"
+PARTLY_CLOUDY = "\ue302"
+CLEAR = "\ue30d"
 
 HOURS_AGO_THRESHOLD = 2
 TEMP_THRESHOLD_COLD = 10
@@ -80,7 +80,7 @@ def format_time(time):
 
 
 def format_temp(temp):
-    return f"{temp}°".ljust(4)
+    return f" {temp}°".ljust(4)
 
 
 def get_emoji_for_condition(condition):
@@ -90,8 +90,8 @@ def get_emoji_for_condition(condition):
         "Overcast": CLOUDY,
         "Patchy rain nearby": RAIN,
         "Clear": CLEAR,
-        "Fog": "\u2601",
-        "Frost": "\u2744",
+        "Fog": "\ue313",
+        "Frost": "\udb83\udf29",
         "Thunder": THUNDERSTORM,
         "Snow": SNOW,
         "Windy": "\u27A7",
