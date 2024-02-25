@@ -6,15 +6,19 @@
       "tile, title:Spotify"
       "fullscreen,class:wlogout"
       "fullscreen,title:wlogout"
+      "noanim, title:wlogout"
 
       # telegram media viewer
       "float, title:^(Media viewer)$"
 
+      # bitwarden
       "float,class:Bitwarden"
       "size 800 600,class:Bitwarden"
+
       "idleinhibit focus, class:^(mpv)$"
       "idleinhibit focus,class:foot"
 
+      # firefox
       "idleinhibit fullscreen, class:^(firefox)$"
       "float,title:^(Firefox — Sharing Indicator)$"
       "move 0 0,title:^(Firefox — Sharing Indicator)$"
@@ -36,7 +40,7 @@
 
       # EA launcher puts a tiny window in the current workspae
       # throw it away
-      "workspace special silent, title:^(title: Wine System Tray)$"
+      "workspace special silent, title:^(title:Wine System Tray)$"
 
       "workspace 4, title:^(.*(Disc|WebC)ord.*)$"
       "tile, class:^(Spotify)$"

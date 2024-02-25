@@ -7,8 +7,8 @@
       # blur
       blur = {
         enabled = true;
-        size = 12;
-        passes = 2;
+        size = 5;
+        passes = 3;
         ignore_opacity = true;
         new_optimizations = 1;
         xray = true;
@@ -20,8 +20,8 @@
 
       # shadow config
       drop_shadow = "yes";
-      shadow_range = 20;
-      shadow_render_power = 5;
+      shadow_range = 10;
+      shadow_render_power = 3;
       "col.shadow" = "rgba(292c3cee)";
     };
 
