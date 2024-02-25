@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./aliases.nix
     ./etc.nix
