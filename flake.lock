@@ -2282,11 +2282,11 @@
     "nixfmt": {
       "flake": false,
       "locked": {
-        "lastModified": 1707402853,
-        "narHash": "sha256-d7a6xfqhbyLikHultxjHO33SqUcif/8eGyxhRZ9PvZk=",
+        "lastModified": 1708893729,
+        "narHash": "sha256-1NmnvJE3LX/v7pIgerWudXeqTZId/+fqbomMwdSvUTo=",
         "owner": "piegamesde",
         "repo": "nixfmt",
-        "rev": "ca1fe3572ea6134551ee6af40ae735a1a1ed0d35",
+        "rev": "571ed8184968c94180bdfc2ff415343e329a400b",
         "type": "github"
       },
       "original": {
@@ -3980,11 +3980,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708681819,
-        "narHash": "sha256-+YIvy0dDZw8KIFVPS9i+mTHf2RqSJ0+dBB9AXBvDTks=",
+        "lastModified": 1708897213,
+        "narHash": "sha256-QECZB+Hgz/2F/8lWvHNk05N6NU/rD9bWzuNn6Cv8oUk=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "36fd6923c122a983bc3915692e6cb3ff341ef083",
+        "rev": "e497a9ddecff769c2a7cbab51e1ed7a8501e7a3a",
         "type": "github"
       },
       "original": {
