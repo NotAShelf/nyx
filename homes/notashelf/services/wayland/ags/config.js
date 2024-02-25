@@ -7,6 +7,8 @@ import { Bar } from "./js/windows/bar/index.js";
 import { Desktop } from "./js/windows/desktop/index.js";
 import { Popups } from "./js/windows/popups/index.js";
 
+App.connect("config-parsed", () => print("config parsed"));
+
 // Main config
 export default {
     style: css,

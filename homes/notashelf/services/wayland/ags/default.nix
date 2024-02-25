@@ -6,15 +6,22 @@
   lib,
   ...
 }: let
-  dependencies = with pkgs; [
+  inherit (lib.fileset) fileFilter unions difference toSource;
+  inherit (lib.modules) mkIf;
+  inherit (osConfig.modules) device;
+
+  # dependencies required for the ags runtime to function properly
+  # some of those dependencies are used internally for setting variables
+  # or basic functionality where built-in services do not suffice
+  coreDeps = with pkgs; [
     inputs.hyprpicker.packages.${pkgs.system}.default
     inputs.hyprland.packages.${pkgs.system}.default
     config.programs.foot.package
-    (python3.withPackages (pythonPackages: [pythonPackages.requests]))
+
     # basic functionality
-    sassc
     inotify-tools
     gtk3
+
     # script and service helpers
     bash
     coreutils
@@ -25,61 +32,84 @@
     libnotify
     slurp
     sysstat
-    # desktop items
+    (python3.withPackages (ps: [ps.requests]))
+  ];
+
+  # applications that are not necessarily required to compile ags
+  # but are used by the widgets to launch certain applications
+  widgetDeps = with pkgs; [
     pavucontrol
     networkmanagerapplet
     blueman
   ];
 
-  fs = lib.fileset;
-  filterNixFiles = fs.fileFilter (file: lib.hasSuffix ".nix" file.name) ./.;
-  baseSrc = fs.unions [
+  dependencies = coreDeps ++ widgetDeps;
+  filterNixFiles = fileFilter (file: lib.hasSuffix ".nix" file.name) ./.;
+
+  baseSrc = unions [
+    # runtime executables
     ./bin
+
+    # ags widgets and utilities
     ./js
-    ./scss
     ./config.js
+
+    # compiled stylesheet
+    # this is an IFD that needs pinning e.g. in system.dependencies
+    # but home-manager doesn't have a way of pinning IFDs that I know of
+    # YOLO
     ./style.css
   ];
 
-  filter = fs.difference baseSrc filterNixFiles;
+  filter = difference baseSrc filterNixFiles;
 
   cfg = config.programs.ags;
-
-  inherit (lib) mkIf;
-  inherit (osConfig.modules) device;
-
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   imports = [inputs.ags.homeManagerModules.default];
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.ags = {
       enable = true;
-      configDir = fs.toSource {
+      configDir = toSource {
         root = ./.;
         fileset = filter;
       };
     };
 
     systemd.user.services.ags = {
+      Install.WantedBy = ["graphical-session.target"];
+
       Unit = {
         Description = "Aylur's Gtk Shell (Ags)";
+        After = ["graphical-session-pre.target"];
         PartOf = [
           "tray.target"
           "graphical-session.target"
         ];
-
-        After = ["graphical-session-pre.target"];
       };
 
       Service = {
+        Type = "simple";
+
         Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
         ExecStart = "${cfg.package}/bin/ags";
-        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR2 $MAINPID"; # hot-reloading
+
+        # runtime
+        RuntimeDirectory = "ags";
+        ProtectSystem = "strict";
+        ProtectHome = "read-only";
+        CacheDirectory = ["ags"];
+        ReadWritePaths = [
+          # /run/user/1000 for the socket
+          "%t"
+          "/tmp/hypr"
+        ];
+
+        # restart on failure
         Restart = "on-failure";
         KillMode = "mixed";
       };
-
-      Install.WantedBy = ["graphical-session.target"];
     };
   };
 }

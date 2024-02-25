@@ -29,7 +29,16 @@
       mkSystem {
         inherit system;
         specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
-        modules = [{config.networking.hostName = args.hostname;}] ++ args.modules or [];
+        modules =
+          [
+            {
+              config = {
+                networking.hostName = args.hostname;
+                nixpkgs.hostPlatform = lib.mkDefault args.system;
+              };
+            }
+          ]
+          ++ args.modules or [];
       });
 
   # mkIso is should be a set that extends mkSystem with necessary modules

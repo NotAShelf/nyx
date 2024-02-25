@@ -8,12 +8,6 @@
   dev = config.modules.device;
 in {
   config = {
-    fileSystems = {
-      "/".options = ["compress=zstd" "noatime"];
-      "/home".options = ["compress=zstd"];
-      "/nix".options = ["compress=zstd" "noatime"];
-    };
-
     hardware = {
       nvidia = mkIf (builtins.elem dev.gpu ["nvidia" "hybrid-nv"]) {
         open = mkForce false;

@@ -1,7 +1,8 @@
 export const require = async (file) => (await import(resource(file))).default;
 export const resource = (file) => `resource:///com/github/Aylur/ags/${file}.js`;
 export const fromService = async (file) => await require(`service/${file}`);
-export const requireCustom = async (path) => (await import(path)).default;
+export const requireCustom = async (/** @type {string} */ path) =>
+    (await import(path)).default;
 
 export const App = await require("app");
 export const GLib = await requireCustom("gi://GLib");

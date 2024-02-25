@@ -22,6 +22,7 @@ in {
         ];
         extraModulePackages = [config.boot.kernelPackages.zenpower];
       }
+
       (mkIf (pstate.enable && (versionAtLeast kver "5.17") && (versionOlder kver "6.1")) {
         kernelParams = ["initcall_blacklist=acpi_cpufreq_init"];
         kernelModules = ["amd-pstate"];

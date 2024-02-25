@@ -1,8 +1,9 @@
 {
   imports = [
+    ./fs
     ./modules
 
-    ./hardware.nix
+    ./fs.nix
     ./system.nix
   ];
 }
