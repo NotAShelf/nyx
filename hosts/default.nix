@@ -1,11 +1,9 @@
 {
-  self,
-  lib,
   withSystem,
+  inputs,
+  lib,
   ...
 }: let
-  inherit (self) inputs;
-
   # mkNixosIso and mkNixosSystem are my own builders for assembling a nixos system
   inherit (lib) concatLists mkNixosIso mkNixosSystem;
 
@@ -49,9 +47,6 @@
     agenix # age encryption for secrets
     profiles # profiles program overrides per-host
   ];
-
-  # extraSpecialArgs that all hosts need
-  sharedArgs = {inherit inputs self lib;};
 in {
   # My main desktop boasting a RX 6700 XT and a Ryzen 5 3600x
   # fully free from nvidia

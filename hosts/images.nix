@@ -1,4 +1,4 @@
-{inputs, ...}: let
+{inputs}: let
   inherit (inputs) self;
 in {
   # Installation iso
