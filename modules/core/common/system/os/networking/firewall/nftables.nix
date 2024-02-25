@@ -125,6 +125,10 @@ in {
       }
     ];
 
-    system.extraDependencies = [check-results]; # pin IFD as a system dependency
+    # pin IFD as a system dependency
+    # this makes sure the IFD result is realised in time
+    # without making the IFD a part of the system
+    # unlike system.extraDependencies
+    system.checks = [check-results];
   };
 }
