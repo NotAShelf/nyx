@@ -58,7 +58,7 @@ in {
 
       packages = [
         # the successor to polyMC, which is now mostly abandoned
-        (inputs'.prism-launcher.packages.prismlauncher.override {
+        (pkgs.prismlauncher.override {
           # get java versions required by various minecraft versions
           # "write once run everywhere" my ass
           inherit jdks;
