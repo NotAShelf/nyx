@@ -48,7 +48,7 @@
         # Recovery images for my hosts
         # build with `nix build .#images.<hostname>`
         # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
-        images = import ./hosts/images.nix {inherit inputs lib;};
+        images = import ./hosts/images.nix {inherit inputs;};
       };
 
       perSystem = {
@@ -255,22 +255,6 @@
     spicetify = {
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-small";
-    };
-
-    /*
-    nix flake for the prism launcher, provides more up-to-date packages than nixpkgs
-    the inputs section below is to avoid cluttering system with more inputs than necessary
-    which prismlauncher has a heck ton of
-    https://github.com/PrismLauncher/PrismLauncher/blob/develop/flake.nix#L4
-    */
-    prism-launcher = {
-      url = "github:PrismLauncher/PrismLauncher";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-        flake-compat.follows = "flake-compat";
-      };
     };
 
     # schizophrenic firefox configuration
