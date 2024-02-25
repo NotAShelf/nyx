@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree mkdir-nvim ssr-nvim direnv-vim;
+  inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree mkdir-nvim ssr-nvim direnv-vim legendary-nvim;
   pluginSources = import ./sources.nix {inherit pkgs;};
 in {
   # plugins that are pulled from nixpkgs
@@ -27,6 +27,13 @@ in {
   ssr-nvim = {
     package = ssr-nvim;
     setup = "require('ssr').setup {}";
+  };
+
+  legendary = {
+    package = legendary-nvim;
+    setup = ''
+      require('legendary').setup {};
+    '';
   };
 
   # plugins that are built from their sources
