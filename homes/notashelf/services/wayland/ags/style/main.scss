@@ -1,13 +1,11 @@
 @import "prelude";
 @import "colors";
+@import "beziers";
 
 // Vars
 $font: roboto;
 $monoFont: robotomono;
 $iconFont: symbolsnerdfontmono;
-$materialStandard: cubic-bezier(0.2, 0, 0, 1);
-$materialDecel: cubic-bezier(0, 0, 0, 1);
-$materialAccel: cubic-bezier(0.3, 0, 1, 1);
 
 // Modules
 @import "bar/bar";
