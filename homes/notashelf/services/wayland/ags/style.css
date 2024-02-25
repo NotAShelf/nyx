@@ -1,359 +1,64 @@
-*:not(tooltip) {
-  all: unset;
-  font-family: "Material Design Icons", "Iosevka Nerd Font Mono", Inter, Roboto, sans-serif; }
+Invalid deprecation "--future-deprecation".
 
-.launcherIcon {
-  background: #313244;
-  font-family: symbolsnerdfontmono;
-  border-radius: 12px;
-  margin: 6px 4px;
-  padding: 6px;
-  min-height: 1.5rem;
-  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
-  .launcherIcon:hover {
-    background: #3c3d53; }
+Usage: sass <input.scss> [output.css]
+       sass <input.scss>:<output.css> <input/>:<output/> <dir/>
 
-.systemUsage {
-  color: #cdd6f4;
-  background: #313244;
-  font-family: symbolsnerdfontmono;
-  border-radius: 12px;
-  margin: 4px; }
+━━━ Input and Output ━━━━━━━━━━━━━━━━━━━
+    --[no-]stdin                   Read the stylesheet from stdin.
+    --[no-]indented                Use the indented syntax for input from stdin.
+-I, --load-path=<PATH>             A path to use when resolving imports.
+                                   May be passed multiple times.
+-s, --style=<NAME>                 Output style.
+                                   [expanded (default), compressed]
+    --[no-]charset                 Emit a @charset or BOM for CSS with non-ASCII characters.
+                                   (defaults to on)
+    --[no-]error-css               When an error occurs, emit a stylesheet describing it.
+                                   Defaults to true when compiling to a file.
+    --update                       Only compile out-of-date stylesheets.
 
-.cpuButton {
-  padding: 6px 2px 3px 2px;
-  margin: 1px; }
+━━━ Source Maps ━━━━━━━━━━━━━━━━━━━━━━━━
+    --[no-]source-map              Whether to generate source maps.
+                                   (defaults to on)
+    --source-map-urls              How to link from source maps to source files.
+                                   [relative (default), absolute]
+    --[no-]embed-sources           Embed source file contents in source maps.
+    --[no-]embed-source-map        Embed source map contents in CSS.
 
-.cpuProgress {
-  color: #b4befe;
-  padding: 4px 4px;
-  margin: 0.1rem;
-  font-size: 4px;
-  background: #1e1e2e;
-  min-height: 1.2rem;
-  min-width: 1.2rem; }
+━━━ Warnings ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-q, --[no-]quiet                   Don't print warnings.
+    --[no-]quiet-deps              Don't print compiler warnings from dependencies.
+                                   Stylesheets imported through load paths count as dependencies.
+    --[no-]verbose                 Print all deprecation warnings even when they're repetitive.
+    --fatal-deprecation            Deprecations to treat as errors. You may also pass a Sass
+                                   version to include any behavior deprecated in or before it.
+                                   See https://sass-lang.com/documentation/breaking-changes for 
+                                   a complete list.
 
-.memButton {
-  padding: 3px 2px 6px 2px;
-  margin: 1px; }
+          [abs-percent]            Passing percentages to the Sass abs() function.
+          [bogus-combinators]      Leading, trailing, and repeated combinators.
+          [call-string]            Passing a string directly to meta.call().
+          [color-module-compat]    Using color module functions in place of plain CSS functions.
+          [duplicate-var-flags]    Using !default or !global multiple times for one variable.
+          [elseif]                 @elseif.
+          [function-units]         Passing invalid units to built-in functions.
+          [moz-document]           @-moz-document.
+          [new-global]             Declaring new variables with !global.
+          [null-alpha]             Passing null as alpha in the Dart API.
+          [slash-div]              / operator for division.
+          [strict-unary]           Ambiguous + and - operators.
 
-.memProgress {
-  color: #89b4fa;
-  padding: 4px 4px;
-  margin: 0.1rem;
-  font-size: 4px;
-  background: #1e1e2e;
-  min-height: 1.2rem;
-  min-width: 1.2rem; }
+    --future-deprecation           Opt in to a deprecation early.
 
-.weather {
-  background: #313244;
-  font-family: "Material Symbols Sharp", Roboto;
-  border-radius: 12px;
-  margin: 6px 4px;
-  padding: 4px;
-  min-height: 1rem;
-  min-width: 1rem;
-  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
-  .weather:hover {
-    background: #3c3d53; }
+          [import]                 @import rules.
 
-.workspaces {
-  background: transparent;
-  padding: 14px; }
-  .workspaces button {
-    margin: 5px 3px;
-    min-width: 0.6rem;
-    min-height: 0.6rem;
-    color: transparent;
-    background: #cdd6f4;
-    border-radius: 99px;
-    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
-    .workspaces button:hover {
-      background: #b4befe; }
-    .workspaces button.focused {
-      border-radius: 18px;
-      background: #89b4fa;
-      padding: 8px 0; }
-
-.tray {
-  margin: 0; }
-
-.trayChevron {
-  font-family: symbolsnerdfontmono; }
-
-.trayIcons {
-  margin: 3px 0 0; }
-
-.trayIcon {
-  margin: 0 0 3px; }
-
-.battery {
-  margin: 6px 3px;
-  color: #cdd6f4;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
-  .battery:hover {
-    color: #f38ba8; }
-
-.bluetoothLabel {
-  margin: 6px 3px;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
-  .bluetoothLabel:hover {
-    color: #f38ba8; }
-
-.bluetooth {
-  margin: 6px 3px; }
-
-.bluetooth-active {
-  color: #cdd6f4; }
-
-.bluetooth-disabled {
-  color: #74769a;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
-  .bluetooth-disabled:hover {
-    color: #f38ba8; }
-
-.bluetooth-paired {
-  color: #cdd6f4; }
-
-.lock {
-  background: #313244;
-  font-size: 24px;
-  border-radius: 12px;
-  margin: 2px 4px;
-  padding: 2px; }
-
-.swallow {
-  margin: 6px 3px;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
-  .swallow:hover {
-    color: #b4befe; }
-
-.audio {
-  margin: 6px 3px;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
-  .audio:hover {
-    color: #b4befe; }
-
-.network {
-  margin: 6px 3px;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1), border 0.35s cubic-bezier(0.2, 0, 0, 1); }
-  .network:hover {
-    color: #b4befe; }
-
-.clock {
-  background: #313244;
-  color: #cdd6f4;
-  font-family: robotomono;
-  font-weight: 800;
-  border-radius: 12px;
-  margin: 6px 4px;
-  padding: 6px; }
-
-.power {
-  color: #f38ba8;
-  background: #313244;
-  font-size: 24px;
-  border-radius: 12px;
-  margin: 6px 4px;
-  padding: 6px;
-  min-height: 1.5rem;
-  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
-  .power:hover {
-    background: #3c3d53;
-    color: #f5a2b9; }
-
-.bar {
-  color: #cdd6f4;
-  background: #1e1e2e;
-  font-family: roboto;
-  border-radius: 14px;
-  padding: 2px; }
-
-.utilsBox {
-  color: #cdd6f4;
-  background: #313244;
-  font-family: symbolsnerdfontmono;
-  border-radius: 12px;
-  margin: 4px;
-  padding: 6px; }
-
-.systemInfo {
-  color: #cdd6f4;
-  background: #313244;
-  font-family: symbolsnerdfontmono;
-  border-radius: 12px;
-  margin: 4px;
-  padding: 6px; }
-
-.launcher {
-  color: #cdd6f4;
-  background: #1e1e2e;
-  font-family: roboto;
-  border-radius: 12px;
-  margin: 0 0 16px;
-  padding: 6px; }
-
-.launcherApp {
-  border-radius: 12px;
-  margin: 3px;
-  padding: 3px; }
-  .launcherApp:focus {
-    background: #313244; }
-
-.launcherEntry {
-  caret-color: #cdd6f4;
-  background: #313244;
-  border-radius: 10px;
-  margin: 6px;
-  padding: 3px 12px; }
-
-.launcherItemIcon {
-  margin: 3px 6px; }
-
-.launcherItemTitle {
-  font-size: 16px;
-  font-weight: bold; }
-
-.launcherItemDescription {
-  font-size: 12px; }
-
-.desktopMenu {
-  background: #1e1e2e;
-  color: #cdd6f4;
-  font-family: roboto;
-  border-radius: 14px;
-  padding: 6px 3px; }
-
-.desktopMenuItem {
-  border-radius: 14px;
-  margin: 0 3px;
-  padding: 6px 12px;
-  transition: all 0.2s cubic-bezier(0.3, 0, 1, 1); }
-  .desktopMenuItem:hover {
-    background: #3c3d53;
-    color: #e2e7f9; }
-
-.desktopMenuItemIcon {
-  font-family: symbolsnerdfontmono;
-  padding: 2px 8px 2px 2px; }
-
-.separator {
-  background: #313244;
-  padding: 1px 3px; }
-
-.desktopIcons {
-  margin: 24px 0 0 24px; }
-
-.desktopIcon {
-  border-radius: 6px;
-  padding: 6px;
-  transition: all 200ms cubic-bezier(0, 0, 1, 1); }
-  .desktopIcon:hover {
-    background: rgba(180, 190, 254, 0.7); }
-
-.desktopIconLabel {
-  color: #313244;
-  font-family: roboto; }
-
-.brightnessPopup {
-  background: #1e1e2e;
-  border-radius: 12px;
-  margin: 6px;
-  padding: 12px;
-  min-width: 200px; }
-
-.brtPopupIcon {
-  font-family: symbolsnerdfontmono;
-  margin: 0 6px 0 0; }
-
-.brtPopupBar {
-  min-width: 200px; }
-  .brtPopupBar scale {
-    min-height: 12px; }
-  .brtPopupBar trough {
-    background: rgba(49, 50, 68, 0.5);
-    border-radius: 24px;
-    min-height: 12px; }
-  .brtPopupBar highlight {
-    background: #cdd6f4;
-    border-radius: 24px;
-    min-width: 12px; }
-
-.volumePopup {
-  background: #1e1e2e;
-  border-radius: 12px;
-  margin: 6px;
-  padding: 12px;
-  min-width: 200px; }
-
-.volPopupIcon {
-  font-family: symbolsnerdfontmono;
-  margin: 0 6px 0 0; }
-
-.volPopupBar {
-  min-width: 200px; }
-  .volPopupBar scale {
-    min-height: 12px; }
-  .volPopupBar trough {
-    background: rgba(49, 50, 68, 0.5);
-    border-radius: 24px;
-    min-height: 12px; }
-  .volPopupBar highlight {
-    background: #cdd6f4;
-    border-radius: 24px;
-    min-width: 12px; }
-
-.controls {
-  color: #cdd6f4;
-  background: #313244;
-  border-radius: 24px;
-  margin: 12px 6px; }
-
-.controlsPrev {
-  font-family: symbolsnerdfontmono;
-  font-size: 0.75rem;
-  padding: 0 12px; }
-  .controlsPrev:hover {
-    background: #66688e;
-    border-radius: 24px; }
-
-.controlsPlayPause {
-  font-family: symbolsnerdfontmono;
-  font-size: 0.75rem;
-  padding: 0 12px; }
-  .controlsPlayPause:hover {
-    background: #66688e;
-    border-radius: 24px; }
-
-.controlsNext {
-  font-family: symbolsnerdfontmono;
-  font-size: 0.75rem;
-  padding: 0 12px; }
-  .controlsNext:hover {
-    background: #66688e;
-    border-radius: 24px; }
-
-.music {
-  color: #cdd6f4;
-  background: #313244;
-  font-family: roboto;
-  border-radius: 6px;
-  padding: 12px;
-  min-width: 240px; }
-
-.artist {
-  font-weight: 500;
-  font-size: 0.75rem;
-  padding: 0 6px; }
-
-.cover {
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  border-radius: 6px;
-  min-height: 60px;
-  min-width: 60px; }
-
-.title {
-  font-weight: 500;
-  padding: 0 6px; }
+━━━ Other ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+-w, --watch                        Watch stylesheets and recompile when they change.
+    --[no-]poll                    Manually check for changes rather than using a native watcher.
+                                   Only valid with --watch.
+    --[no-]stop-on-error           Don't compile more files once an error is encountered.
+-i, --interactive                  Run an interactive SassScript shell.
+-c, --[no-]color                   Whether to use terminal colors for messages.
+    --[no-]unicode                 Whether to use Unicode characters for messages.
+    --[no-]trace                   Print full Dart stack traces for exceptions.
+-h, --help                         Print this usage information.
+    --version                      Print the version of Dart Sass.

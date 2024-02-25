@@ -1,11 +1,7 @@
 @import "prelude";
 @import "colors";
 @import "beziers";
-
-// Vars
-$font: roboto;
-$monoFont: robotomono;
-$iconFont: symbolsnerdfontmono;
+@import "fonts";
 
 // Modules
 @import "bar/bar";

@@ -28,7 +28,10 @@ in {
       (symlinkJoin {
         # wrap obsidian with pandoc for the pandoc plugin dependency
         name = "Obsidian";
-        paths = with pkgs; [obsidian pandoc];
+        paths = with pkgs; [
+          obsidian
+          pandoc # pandoc plugin uses pandoc to render alternative text formats
+        ];
       })
 
       # plasma packages
