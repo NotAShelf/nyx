@@ -1,6 +1,5 @@
 {
   imports = [
-    ./activation # activation system for nixos-rebuild
     ./containers # hotpluggable systemd-nspawn containers
     ./emulation # emulation via binfmt for cross-building
     ./encryption # LUKS encryption

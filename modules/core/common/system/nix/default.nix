@@ -48,6 +48,7 @@ in {
 
       # default to none, add more as necessary
       permittedInsecurePackages = [
+        "electron-24.8.6"
         "electron-25.9.0"
         "freeimage-unstable-2021-11-01"
       ];

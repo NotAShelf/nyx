@@ -1,5 +1,6 @@
 {
   imports = [
+    ./fs
     ./modules
 
     ./hardware.nix
