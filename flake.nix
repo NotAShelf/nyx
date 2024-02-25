@@ -33,7 +33,6 @@
 
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
         ./flake/deployments.nix # deploy-rs configurations for active hosts
-        ./flake/lib.nix # extended library referenced across the flake
         ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devshell
         ./flake/treefmt.nix # treefmt configuration
         ./flake/shell.nix # devShells explosed by the flake
@@ -51,16 +50,7 @@
         images = import ./hosts/images.nix {inherit inputs;};
       };
 
-      perSystem = {
-        inputs',
-        config,
-        pkgs,
-        ...
-      }: {
-        # set pkgs to the legacyPackages inherited from config instead of the one
-        # initiated by flake-parts
-        imports = [{_module.args.pkgs = config.legacyPackages;}];
-
+      perSystem = {inputs', ...}: {
         # provide the formatter for nix fmt
         formatter = inputs'.nyxpkgs.packages.alejandra-no-ads;
       };
