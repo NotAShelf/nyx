@@ -25,9 +25,9 @@ in {
     # neovim-flake home-manager module
     [nvf.homeManagerModules.default]
 
-    # constructed modules
-    (mkModule {path = ./plugins;})
-    (mkModule {path = ./mappings;})
+    # construct this entire directory as a module
+    # which means all default.nix files will be imported automatically
+    (mkModule {path = ./.;})
   ];
 
   config = {
@@ -79,36 +79,20 @@ in {
           };
 
           luaConfigRC = {
+            # autocommands
+            "autocommands" = builtins.readFile ./lua/autocommands.lua;
+
             # additional LSP handler configurations via vim.lsp.handlers
             "lsp-handler" = builtins.readFile ./lua/handlers.lua;
+
+            # configurations that don't belong anywhere else
+            "misc" = builtins.readFile ./lua/misc.lua;
 
             # additional neovide configuration
             "neovide" = builtins.readFile ./lua/neovide.lua;
           };
         };
       };
-    };
-
-    xdg.desktopEntries."neovim" = lib.mkForce {
-      name = "Neovim";
-      type = "Application";
-      mimeType = ["text/plain"];
-
-      icon = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/NotAShelf/neovim-flake/main/assets/neovim-flake-logo-work.svg";
-        sha256 = "19n7n9xafyak35pkn4cww0s5db2cr97yz78w5ppbcp9jvxw6yyz3";
-      };
-
-      exec = let
-        wezterm = lib.getExe config.programs.wezterm.package;
-        direnv = lib.getExe pkgs.direnv;
-      in "${pkgs.writeShellScript "wezterm-neovim" ''
-        filename = "$(readlink -f "$1")" # define target filename
-        dirname = "$(dirname "$filename")" # get the directory target file is in
-
-        # launch a wezterm instance with direnv and nvim
-        ${wezterm} start --cwd "$dirname" -- ${lib.getExe pkgs.zsh} -c "${direnv} exec . nvim '$filename'"
-      ''} %f";
     };
   };
 }

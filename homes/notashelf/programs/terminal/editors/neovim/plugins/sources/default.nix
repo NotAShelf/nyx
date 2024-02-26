@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (self) pins;
+  inherit (pkgs) fetchFromGitHub;
   inherit (pkgs.vimUtils) buildVimPlugin;
 
   sources = {
@@ -24,7 +25,7 @@
 
     regexplainer = buildVimPlugin {
       name = "nvim-regexplainer";
-      src = pkgs.fetchFromGitHub {
+      src = fetchFromGitHub {
         owner = "bennypowers";
         repo = "nvim-regexplainer";
         rev = "4250c8f3c1307876384e70eeedde5149249e154f";
@@ -34,7 +35,7 @@
 
     specs-nvim = buildVimPlugin {
       name = "specs.nvim";
-      src = pkgs.fetchFromGitHub {
+      src = fetchFromGitHub {
         owner = "edluffy";
         repo = "specs.nvim";
         rev = "2743e412bbe21c9d73954c403d01e8de7377890d";
@@ -44,7 +45,7 @@
 
     deferred-clipboard = buildVimPlugin {
       name = "deferred-clipboard";
-      src = pkgs.fetchFromGitHub {
+      src = fetchFromGitHub {
         owner = "EtiamNullam";
         repo = "deferred-clipboard.nvim";
         rev = "810a29d166eaa41afc220cc7cd85eeaa3c43b37f";
@@ -54,7 +55,7 @@
 
     data-viewer-nvim = buildVimPlugin {
       name = "data-viewer.nvim";
-      src = pkgs.fetchFromGitHub {
+      src = fetchFromGitHub {
         owner = "VidocqH";
         repo = "data-viewer.nvim";
         rev = "40ddf37bb7ab6c04ff9e820812d1539afe691668";
@@ -64,11 +65,21 @@
 
     vim-nftables = buildVimPlugin {
       name = "vim-nftables";
-      src = pkgs.fetchFromGitHub {
+      src = fetchFromGitHub {
         owner = "awisse";
         repo = "vim-nftables";
         rev = "bc29309080b4c7e1888ffb1a830846be16e5b8e7";
         hash = "sha256-L1x3Hv95t/DBBrLtPBKrqaTbIPor/NhVuEHVIYo/OaA=";
+      };
+    };
+
+    neotab-nvim = buildVimPlugin {
+      name = "neotab.nvim";
+      src = fetchFromGitHub {
+        owner = "kawre";
+        repo = "neotab.nvim";
+        rev = "6c6107dddaa051504e433608f59eca606138269b";
+        hash = "sha256-bSFKbjj8fJHdfBzYoQ9l3NU0GAYfdfCbESKbwdbLNSw=";
       };
     };
   };
