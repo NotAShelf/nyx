@@ -2088,11 +2088,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1708384528,
-        "narHash": "sha256-+pxa2QUCN2YRkwJsjCsnc5wbCmJwVRYJmU94iP91noc=",
+        "lastModified": 1709069729,
+        "narHash": "sha256-JI2EQL9kZQrRZII108BIrcEbuLSnBbWNJ2e+m46x1vg=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "57446f7afbcf29415279eddab1f1549967d41991",
+        "rev": "9cb7239085f3901c6a7c0da5dbc17cf698f5d761",
         "type": "github"
       },
       "original": {
