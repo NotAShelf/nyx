@@ -62,23 +62,26 @@ in {
             user = "${sys.mainUser}";
           };
 
-          default_session =
-            if (!sys.autoLogin)
-            then {
-              command = concatStringsSep " " [
-                (getExe pkgs.greetd.tuigreet)
-                "--time"
-                "--remember"
-                "--remember-user-session"
-                "--asterisks"
-                "--sessions '${sessionPath}'"
-              ];
-              user = "greeter";
-            }
-            else {
-              command = "${env.desktop}";
-              user = "${sys.mainUser}";
-            };
+          default_session = let
+            session =
+              if sys.autoLogin
+              then {
+                user = "${sys.mainUser}";
+                command = "${env.desktop}";
+              }
+              else {
+                user = "greeter";
+                command = concatStringsSep " " [
+                  (getExe pkgs.greetd.tuigreet)
+                  "--time"
+                  "--remember"
+                  "--remember-user-session"
+                  "--asterisks"
+                  "--sessions '${sessionPath}'"
+                ];
+              };
+          in
+            session;
         };
       };
 
