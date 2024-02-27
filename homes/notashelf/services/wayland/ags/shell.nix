@@ -4,6 +4,7 @@
 in
   mkShell {
     buildInputs = with pkgs; [
+      nodejs-slim
       # python3 w/ requests is necessary for weather data fetch
       # ags actually doesn't start without it since it's stored
       # as a variable
