@@ -36,7 +36,7 @@ in {
       after = ["network.target"];
 
       serviceConfig = {
-        restart = "on-failure";
+        Restart = "on-failure";
         RestartSec = 10;
 
         RuntimeDirectory = "tcpcryptd"; # refers to /run/tcpccypt
