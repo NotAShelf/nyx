@@ -1,7 +1,14 @@
-import { Widget, Utils, App, Mpris } from "../../imports.js";
+import { Widget, Utils } from "../../imports.js";
 const { Box, EventBox, Label, MenuItem, Menu } = Widget;
 const { exec, execAsync } = Utils;
 
+/**
+ * Creates a menu item with an icon.
+ * @param {string} icon - The icon to display for the menu item.
+ * @param {string} itemLabel - The label for the menu item.
+ * @param {Function} onClick - The function to be executed when the menu item is activated.
+ * @returns {Object} A menu item object with the specified icon, label, and click action.
+ */
 function ItemWithIcon(icon, itemLabel, onClick) {
     return MenuItem({
         className: "desktopMenuItem",
@@ -25,7 +32,7 @@ const Separator = () =>
             css: `
             min-height: 1px;
             margin: 3px 6px;
-        `,
+            `,
         }),
     });
 
@@ -33,12 +40,12 @@ const rioMenu = () => {
     return [
         ItemWithIcon("󰆍", "Terminal", () =>
             exec(
-                "sh -c \"$HOME/.config/ags/js/scripts/open_window `slurp -d -c 999999 -w 2` foot\"",
+                'sh -c "$HOME/.config/ags/bin/open_window `slurp -d -c 999999 -w 2` foot"',
             ),
         ),
         ItemWithIcon("󰘖", "Resize", () =>
             exec(
-                "sh -c \"$HOME/.config/ags/js/scripts/move_window `slurp -d -c 999999 -w 2`\"",
+                'sh -c "$HOME/.config/ags/bin/move_window `slurp -d -c 999999 -w 2`"',
             ),
         ),
         ItemWithIcon("󰁁", "Move", () => exec("hyprctl dispatch submap move")),
@@ -85,16 +92,6 @@ export const DesktopMenu = () =>
                         execAsync(["hyprpicker", "-a", "wl-copy"]),
                     ),
                     Separator(),
-                    ...(() => {
-                        return Mpris.players[0]
-                            ? [
-                                ItemWithIcon("󰝚", "Music", () =>
-                                    App.toggleWindow("music"),
-                                ),
-                                Separator(),
-                            ]
-                            : [];
-                    })(),
                     Powermenu(),
                 ],
             }).popup_at_pointer(event),
