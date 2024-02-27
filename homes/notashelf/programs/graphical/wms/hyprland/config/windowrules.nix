@@ -3,10 +3,17 @@
     windowrulev2 = [
       # only allow shadows for floating windows
       "noshadow, floating:0"
-      "tile, title:Spotify"
+
+      "float,class:udiskie"
+
+      # wlogout
       "fullscreen,class:wlogout"
       "fullscreen,title:wlogout"
       "noanim, title:wlogout"
+
+      # spotify
+      "tile, title:Spotify"
+      "tile, class:^(Spotify)$"
 
       # telegram media viewer
       "float, title:^(Media viewer)$"
@@ -25,7 +32,8 @@
       "float, title:^(Picture-in-Picture)$"
       "pin, title:^(Picture-in-Picture)$"
 
-      "float,class:udiskie"
+      # thunderbird
+      "workspace special silent, title:^(Write.*- Thunderbird)$"
 
       # pavucontrol
       "float,class:pavucontrol"
@@ -42,10 +50,8 @@
       # throw it away
       "workspace special silent, title:^(title:Wine System Tray)$"
 
-      "workspace 4, title:^(.*(Disc|WebC)ord.*)$"
-      "tile, class:^(Spotify)$"
       "workspace 3 silent, class:^(Spotify)$"
-
+      "workspace 4, title:^(.*(Disc|WebC)ord.*)$"
       "workspace 10 silent, class:^(Nextcloud)$"
     ];
   };
