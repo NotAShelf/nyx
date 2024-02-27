@@ -1,73 +1,36 @@
 import { Widget, Utils, Audio } from "../../imports.js";
-const { Box, Slider, Label, Revealer } = Widget;
-
-const VolumeIcon = () =>
-    Label({
-        className: "volPopupIcon",
-        setup: (self) => {
-            self.hook(
-                Audio,
-                (self) => {
-                    if (!Audio.speaker) return;
-
-                    const icons = ["󰝟", "󰕿", "", "󰕾"];
-
-                    self.label =
-                        icons[
-                            Audio.speaker.stream.isMuted
-                                ? 0
-                                : Math.floor((Audio.speaker.volume * 100) / 26)
-                        ].toString();
-                },
-                "speaker-changed",
-            );
-        },
-    });
-
-const PercentBar = () =>
-    Slider({
-        className: "volPopupBar",
-        drawValue: false,
-        onChange: ({ value }) => (Audio.speaker.volume = value),
-        setup: (self) => {
-            self.hook(
-                Audio,
-                (self) => {
-                    if (!Audio.speaker) return;
-
-                    self.value = Audio.speaker.volume;
-                },
-                "speaker-changed",
-            );
-        },
-    });
+import { getSliderIcon, volumePercentBar } from "../../utils/audio.js";
+const { Box, Revealer } = Widget;
+const { speaker } = Audio;
+const { timeout } = Utils;
 
 export const VolumePopup = () =>
     Box({
-        css: `min-height: 2px;
-          min-width: 2px;`,
+        css: `
+        min-height: 2px;
+        min-width: 2px;
+    `,
         child: Revealer({
             transition: "slide_up",
             child: Box({
                 className: "volumePopup",
-                children: [VolumeIcon(), PercentBar()],
+                children: [getSliderIcon(), volumePercentBar()],
             }),
             attribute: { count: 0 },
-            setup: (self) => {
+            setup: (self) =>
                 self.hook(
-                    Audio,
-                    (self) => {
-                        self.revealChild = true;
+                    speaker,
+                    () => {
+                        self.reveal_child = true;
                         self.attribute.count++;
-                        Utils.timeout(1500, () => {
+                        timeout(1500, () => {
                             self.attribute.count--;
 
                             if (self.attribute.count === 0)
-                                self.revealChild = false;
+                                self.reveal_child = false;
                         });
                     },
-                    "speaker-changed",
-                );
-            },
+                    "notify::volume",
+                ),
         }),
     });

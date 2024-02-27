@@ -1,4 +1,6 @@
-import { Audio } from "../imports.js";
+import { Audio, Widget } from "../imports.js";
+const { Slider, Label } = Widget;
+const { speaker } = Audio;
 
 const audio = {
     mixer: "",
@@ -40,3 +42,21 @@ export const getAudioIcon = (self) => {
 
     self.icon = cons.find(([n]) => n <= Audio.speaker.volume * 100)?.[1] || "";
 };
+
+export const getSliderIcon = () =>
+    Label({
+        className: "volPopupIcon",
+        label: speaker.bind("volume").as((/** @type {number} */ v) => {
+            return ["󰝟", "󰕿", "", "󰕾"][
+                speaker.stream?.isMuted ? 0 : Math.floor((v * 100) / 26)
+            ];
+        }),
+    });
+
+export const volumePercentBar = () =>
+    Slider({
+        className: "volPopupBar",
+        drawValue: false,
+        value: speaker.bind("volume"),
+        onChange: ({ value }) => (speaker.volume = value),
+    });
