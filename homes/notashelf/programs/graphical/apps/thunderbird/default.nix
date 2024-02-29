@@ -30,12 +30,19 @@ in {
         Service = {
           ExecStart = "${lib.getExe pkgs.birdtray}";
           Restart = "always";
+          # runtime
+          RuntimeDirectory = "ags";
+          ProtectSystem = "strict";
+          ProtectHome = "read-only";
         };
 
         Unit = {
           Description = "mail system tray notification icon for Thunderbird ";
-          After = ["graphical-session.target"];
-          PartOf = ["graphical-session.target"];
+          After = ["graphical-session-pre.target"];
+          PartOf = [
+            "tray.target"
+            "graphical-session.target"
+          ];
         };
       };
     };
