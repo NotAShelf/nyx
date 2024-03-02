@@ -46,12 +46,22 @@ while true; do
   if [[ $(cat "$BAT_CAP") -le $LOW_BAT_PERCENT && $BAT_STATUS == "Discharging" ]]; then
     notify-send --urgency=critical --hint=int:transient:1 --icon=battery_empty "Battery Low" \
       "Consider plugging in."
+
+    for i in $(hyprctl instances -j | jaq ".[].instance" -r); do
+      hyprctl -i "$i" --batch 'keyword decoration:blur:enabled false; keyword animations:enabled false'
+    done
   fi
 
   if [[ $(cat "$BAT_CAP") -le $CRIT_BAT_PERCENT && $BAT_STATUS == "Discharging" ]]; then
     notify-send --urgency=critical --hint=int:transient:1 --icon=battery_empty "Battery Critically Low" \
       "Computer will suspend in 60 seconds."
     wait_and_suspend &
+  fi
+
+  if [[ $(cat "$BAT_CAP") -gt $LOW_BAT_PERCENT && $BAT_STATUS == "Charging" ]]; then
+    for i in $(hyprctl instances -j | jaq ".[].instance" -r); do
+      hyprctl -i "$i" --batch 'keyword decoration:blur:enabled true; keyword animations:enabled true'
+    done
   fi
 
   # wait for the next power change event
