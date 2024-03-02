@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
+  inherit (lib.meta) getExe';
   inherit (osConfig) modules;
 
   sys = modules.system;
@@ -23,12 +24,13 @@ in {
       };
     };
 
+    /*
     systemd.user.services = {
       "birdtray" = {
         Install.WantedBy = ["graphical-session.target"];
 
         Service = {
-          ExecStart = "${lib.getExe pkgs.birdtray}";
+          ExecStart = "${getExe' pkgs.birdtray "birdtray"}";
           Restart = "always";
           # runtime
           RuntimeDirectory = "ags";
@@ -46,5 +48,6 @@ in {
         };
       };
     };
+    */
   };
 }
