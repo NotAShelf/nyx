@@ -149,7 +149,9 @@ in {
           "slab_nomerge"
 
           # Disable debugfs which exposes a lot of sensitive information about the
-          # kernel
+          # kernel. Some programs, such as powertop, use this interface to gather
+          # information about the system, but it is not necessary for the system to
+          # actually publish those. I can live without it.
           "debugfs=off"
 
           # Sometimes certain kernel exploits will cause what is known as an "oops".
