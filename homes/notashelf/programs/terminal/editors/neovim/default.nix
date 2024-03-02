@@ -1,13 +1,13 @@
 {
   inputs,
-  config,
   pkgs,
   lib,
   ...
 }: let
   inherit (builtins) filter map toString elem;
   inherit (lib.filesystem) listFilesRecursive;
-  inherit (lib.strings) hasSuffix;
+  inherit (lib.strings) hasSuffix fileContents removeSuffix;
+  inherit (lib.attrsets) genAttrs;
 
   mkModule = {
     path,
@@ -78,19 +78,24 @@ in {
             nvim-notify.enable = true;
           };
 
-          luaConfigRC = {
-            # autocommands
-            "autocommands" = builtins.readFile ./lua/autocommands.lua;
+          luaConfigRC = let
+            inherit (nvf.lib.nvim.dag) entryAnywhere;
 
-            # additional LSP handler configurations via vim.lsp.handlers
-            "lsp-handler" = builtins.readFile ./lua/handlers.lua;
+            # get the name of each lua file in the lua directory, where setting files reside
+            configPaths = map (f: removeSuffix ".lua" f) (filter (hasSuffix ".lua") (map toString (listFilesRecursive ./lua)));
 
-            # configurations that don't belong anywhere else
-            "misc" = builtins.readFile ./lua/misc.lua;
+            # get the path of each file by removing the ./. prefix from each element in the list
+            configNames = map (p: removeSuffix "./" p) configPaths;
 
-            # additional neovide configuration
-            "neovide" = builtins.readFile ./lua/neovide.lua;
-          };
+            # generate a key-value pair that looks roughly as follows:
+            # "fileName" = entryAnywhere "<contents of ./lua/fileName.lua>"
+            # which is expected by neovim-flake's modified DAG library
+            luaConfig = genAttrs configNames (name:
+              entryAnywhere ''
+                ${fileContents "${name}.lua"}
+              '');
+          in
+            luaConfig;
         };
       };
     };
