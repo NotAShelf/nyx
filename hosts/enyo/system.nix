@@ -1,10 +1,6 @@
-{pkgs, ...}: {
-  config = {
-    services = {
-      hardware.openrgb = {
-        enable = true;
-        package = pkgs.openrgb-with-all-plugins;
-      };
-    };
+{self, ...}: {
+  system = {
+    stateversion = "23.05";
+    configurationrevision = self.rev or "dirty";
   };
 }
