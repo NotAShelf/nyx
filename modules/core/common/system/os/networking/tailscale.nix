@@ -11,13 +11,13 @@
   cfg = sys.tailscale;
 
   upFlags =
-    cfg.defaultFlags
+    cfg.flags.default
     ++ ["--authkey file:${config.age.secrets.tailscale-client.path}"]
     ++ optionals cfg.isServer ["--advertise-exit-node"]
-    ++ optionals (cfg.endpoint != null) ["--login-server ${cfg.endpoint}"];
-  # TODO: test if specifying an operator messes with the autologin service
-  # which, as you expect, does not run as the operator user
-  # ++ optionals (cfg.operator != null) ["--operator" cfg.operator];
+    ++ optionals (cfg.endpoint != null) ["--login-server ${cfg.endpoint}"]
+    # TODO: test if specifying an operator messes with the autologin service
+    # which, as you expect, does not run as the operator user
+    ++ optionals (cfg.operator != null) ["--operator" cfg.operator];
 in {
   config = mkIf cfg.enable {
     # make the tailscale command usable to users

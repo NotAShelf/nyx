@@ -24,6 +24,16 @@ in {
       '';
     };
 
+    operator = mkOption {
+      type = types.str;
+      default = sys.mainUser;
+      description = ''
+        The name of the Tailscale operator to use. This is used to
+        avoid using sudo in command-line operations and if set, will
+        run the auto-authentication service as the specified user.
+      '';
+    };
+
     flags = {
       default = mkOption {
         type = with types; listOf str;
