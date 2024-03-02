@@ -40,11 +40,10 @@ in {
           postPatch =
             (o.postPatch or "")
             + ''
-              sed -i ${
-                escapeShellArg (
-                  concatStringsSep "\n" (zipListsWith (a: b: "s/${a}/\\\\x${b}/") oldIcons newIcons)
-                )
-              } lib/NOM/Print.hs
+              sed -i ${escapeShellArg (
+                concatStringsSep "\n" (zipListsWith (a: b: "s/${a}/\\\\x${b}/") oldIcons newIcons)
+              )} lib/NOM/Print.hs
+
               sed -i 's/┌/╭/' lib/NOM/Print/Tree.hs
             '';
         });
