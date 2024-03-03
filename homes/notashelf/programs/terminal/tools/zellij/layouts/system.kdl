@@ -1,0 +1,58 @@
+layout {
+  default_tab_template {
+    pane size=1 borderless=true {
+      plugin location="zellij:tab-bar"
+    }
+
+	children
+
+	pane size=1 borderless=true {
+      plugin location="zellij:status-bar"
+    }
+  }
+
+  tab name="scratch" {
+    pane {
+      cwd "$HOME"
+    }
+  }
+
+  tab name="processes" {
+    pane {
+      cwd "$HOME"
+      command "btop"
+    }
+  }
+
+  tab name="media" {
+    pane {
+      cwd "$HOME"
+      command "pulsemixer"
+    }
+  }
+
+  tab name="files" {
+    pane {
+      cwd "$HOME"
+      command "yazi"
+    }
+  }
+
+  tab name="configuration" {
+    pane {
+      cwd "~dots"
+    }
+  }
+
+  tab name="code" {
+    pane {
+      cwd "$HOME/Dev"
+    }
+  }
+}
+
+keybinds {
+  normal {
+    unbind "Ctrl q"
+  }
+}
