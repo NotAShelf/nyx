@@ -4,10 +4,13 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkDefault;
+  inherit (lib.modules) mkIf mkDefault;
+  inherit (lib.strings) fileContents;
 
   sys = config.modules.system;
   cfg = sys.services;
+
+  inherit (config.networking) domain;
 in {
   config = mkIf cfg.nginx.enable {
     security = {
@@ -20,9 +23,10 @@ in {
     services = {
       nginx = {
         enable = true;
-        package = pkgs.nginxQuic.override {
-          withKTLS = true;
-        };
+        package = pkgs.nginxQuic.override {withKTLS = true;};
+
+        # makes /nginx_status endpoint available t o localhost
+        statusPage = true;
 
         recommendedTlsSettings = true;
         recommendedBrotliSettings = true;
@@ -31,7 +35,6 @@ in {
         recommendedProxySettings = true;
         recommendedZstdSettings = true;
 
-        /*
         clientMaxBodySize = mkDefault "512m";
         serverNamesHashBucketSize = 1024;
         appendHttpConfig = ''
@@ -45,7 +48,6 @@ in {
           # each hash table bucket
           proxy_headers_hash_bucket_size 256;
         '';
-        */
 
         # lets be more picky on our ciphers and protocols
         sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
@@ -73,7 +75,6 @@ in {
           #  "SameSite=strict": restricts the cookie to be sent only in requests originating from the same site
           proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
 
-
           # define a new map that anonymizes the remote address
           # by replacing the last octet of IPv4 addresses with 0
           map $remote_addr $remote_addr_anon {
@@ -81,7 +82,6 @@ in {
             ~(?P<ip>[^:]+:[^:]+):       $ip::;
             default                     0.0.0.0;
           }
-
 
           # define a new log format that anonymizes the remote address
           # and adds the remote user name, the time, the request line,
@@ -107,31 +107,46 @@ in {
           error_log   /var/log/nginx/error.log warn;
         '';
 
-        # FIXME: this normally makes the /nginx_status endpoint availabe, but nextcloud hijacks it and returns a SSL error
-        # we need it for prometheus, so it would be *great* to figure out a solution
-        statusPage = true;
-
         virtualHosts = {
-          "${config.networking.domain}" = {
+          "${domain}" = {
             default = true;
-            serverAliases = ["www.${config.networking.domain}"];
+            serverAliases = ["www.${domain}"];
 
-            locations = {
-              "/" = {
-                root = pkgs.writeTextDir "root.txt" (builtins.readFile ./static/root.txt);
-                index = "root.txt";
-                extraConfig = ''
-                  charset utf-8;
+            locations = let
+              commonConfig = ''
+                try_files $uri $uri/ =404;
+
+                default_type text/plain;
+                charset utf-8;
+              '';
+
+              # takes a path to a file and returns a
+              # configuration for a location that serves that file
+              mkStaticPage = {
+                path,
+                header ? "",
+                footer ? "",
+              }: {
+                index = "${path}";
+
+                root = pkgs.writeTextDir "${path}" ''
+                  ${header}
+                  ${fileContents path}
+                  ${footer}
                 '';
+
+                extraConfig = commonConfig;
+              };
+            in {
+              # root location
+              "/" = mkStaticPage {
+                path = ./static/root.txt;
+                header = builtins.readFile ./static/header.txt;
+                footer = "> served by ${pkgs.nginx.outPath}";
               };
 
-              "/gpg" = {
-                root = pkgs.writeTextDir "gpg.txt" (builtins.readFile ./static/gpg.txt);
-                index = "gpg.txt";
-                extraConfig = ''
-                  charset utf-8;
-                '';
-              };
+              # /gpg endpoint for my gpg key
+              "/gpg" = mkStaticPage {path = ./static/gpg.txt;};
             };
           };
         };
