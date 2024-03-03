@@ -17,6 +17,7 @@
       lshw
       man-pages
       rsync
+      bind.dnsutils
     ];
   };
 }
