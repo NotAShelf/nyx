@@ -7,6 +7,7 @@
       # extra grammars that will be installed by Nix
       grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
         regex # for regexplainer
+        kdl # zellij configurations are in KDL, I want syntax highlighting
       ];
     };
   };
