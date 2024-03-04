@@ -11,6 +11,8 @@
   inherit (dev.cpu.amd) pstate zenpower;
 in {
   config = mkIf (builtins.elem dev.cpu.type ["amd" "vm-amd"]) {
+    environment.systemPackages = [pkgs.amdctl];
+
     hardware.cpu.amd.updateMicrocode = true;
     boot = mkMerge [
       {
