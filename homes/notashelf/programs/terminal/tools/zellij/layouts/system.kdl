@@ -1,58 +1,121 @@
+// this is my custom "system" layout, loosely based on the official
+// zellij development layout - it's simplified for desktop use
+// and allows me to remain in a single workspace even when I'm
+// using a tiling window manager and am constrained to a single
+// workspace. It provides default tabs for media, file browsing
+// which should be everything that I need, but I may add more
+// in the future
+
 layout {
-  default_tab_template {
-    pane size=1 borderless=true {
-      plugin location="zellij:tab-bar"
+	// define default tab layout
+    default_tab_template {
+		// tab bar on the top
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+
+		// child tabs and panes
+		children
+
+		// status bar on the bottom
+		pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
     }
 
-	children
+	// strider tab uses the strider plugin of zellij
+	// which is similar to neovim's nvimtree
+	// ...but slower and much less configurable
+	tab_template name="strider_tab" {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
 
-	pane size=1 borderless=true {
-      plugin location="zellij:status-bar"
+		// use the strider plugin on the left side of the screen
+		// to achieve a nvim-tree like layout on the left 15% of
+		// the terminal window - looks cool but is not flexible
+        pane split_direction="Vertical" {
+            pane size="15%" name="Filetree" {
+                plugin location="zellij:strider"
+            }
+            children
+        }
+
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
     }
-  }
 
-  tab name="scratch" {
-    pane {
-      cwd "$HOME"
+	// define a template pane for the terminal
+	// this once again imitates the neovim layout
+	// by providing a terminal instance on the bottom
+	// 25% of the screen that enters the z shell when
+	// zellij starts - the exec duration for zsh matters
+	// here as it'll repeat for each "tab" that exists
+	pane_template name="term" {
+		// horizontal split to place the terminal
+		// on the bottom half of the screen like the
+		// toggleterm neovim plugin
+        pane split_direction="horizontal" {
+            children
+            pane command="zsh" size="25%" name="Shell"
+        }
     }
-  }
 
-  tab name="processes" {
-    pane {
-      cwd "$HOME"
-      command "btop"
+	// create a "strider tab" for my system configuration
+	// which is a tab that utilizes the strider tab template
+	// that we have defined earlier, provides a file-tree
+	// view in my system config directory, and opens flake.nix
+	// with the $EDITOR variable - has focus, is the first tab
+	strider_tab name="Nyx" cwd="~dots" focus=true {
+        term split_direction="vertical" {
+            pane cwd="~dots" edit="flake.nix" name="Flake"
+        }
     }
-  }
 
-  tab name="media" {
-    pane {
-      cwd "$HOME"
-      command "pulsemixer"
+	// regular vertical tab that will open btop automatically for
+	// viewing active processes in a standalone tab
+	// more utilities can go here if seen necessary
+	tab name="Processes" split_direction="vertical"  {
+        pane {
+		    cwd "$HOME"
+			command "btop"
+		}
     }
-  }
 
-  tab name="files" {
-    pane {
-      cwd "$HOME"
-      command "yazi"
+	// the media tab opens musikcube, the TUI music player
+	// and pulsemixer for volume control across different
+	// audio devices - this is split horizontally so that
+	// the mixer covers less space on the screen, at the
+	// bottom 35% of the active tab
+	tab name="Media" split_direction="vertical" {
+		// run musikcube in the Music directory
+		// the CWD doesn't really matter as musikcube
+		// is capable of binding to mpd daemon but
+		// the music directory seemed suitable as
+		// the working directory for the player
+        pane split_direction="horizontal" name="Player" {
+            pane {
+				cwd "$HOME/Music"
+				command "musikcube"
+			}
+        }
+
+		// standalone pane for pulsemixer
+		pane split_direction="horizontal" name="Mixer" {
+            pane size="35%" {
+				command "pulsemixer"
+			}
+        }
     }
-  }
 
-  tab name="configuration" {
-    pane {
-      cwd "~dots"
+	// The last tab is a file browser that opens in the home directory
+	// so that I may freely browse my files and open them using the XDG
+	// specs when yazi can handle the file type.
+	tab name="Files" split_direction="horizontal" name="Files" {
+        pane {
+		    cwd "$HOME"
+			command "yazi"
+		}
     }
-  }
-
-  tab name="code" {
-    pane {
-      cwd "$HOME/Dev"
-    }
-  }
-}
-
-keybinds {
-  normal {
-    unbind "Ctrl q"
-  }
 }
