@@ -4,7 +4,6 @@
 
   outputs = {
     self,
-    nixpkgs,
     flake-parts,
     ...
   } @ inputs:
@@ -29,7 +28,7 @@
         ./flake/modules # nixos and home-manager modules provided by this flake
         ./flake/pkgs # packages exposed by the flake
         ./flake/schemas # home-baked schemas for upcoming nix schemas
-        ./flake/templates # flake templates # TODO: bash and python
+        ./flake/templates # flake templates
 
         ./flake/args.nix # args that are passsed to the flake, moved away from the main file
         ./flake/deployments.nix # deploy-rs configurations for active hosts

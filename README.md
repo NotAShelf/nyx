@@ -1,34 +1,81 @@
-<h1 align="center">Nýx</h1>
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg" width="96px" height="96px" />
+  <br>
+  Nýx
+</h1>
 
 <p align="center">
    My overengineered NixOS flake: Desktops, laptops, servers and everything
    else that can run an OS. Monorepo for everything NixOS.<br/>
 </p>
 
+## Philosophy
+
+This repository, as noted before, is a monorepo that contains **all** of my NixOS
+setups. That entails desktops, laptops, servers, virtual machines, hobby boards
+and eventually mobile phones all running NixOS.
+
+My aim for this repository is to create a central flake that is capable of providing
+flexible and sane defaults to hosts of a wide variety, as noted above. The implications
+of such a setup inclined me to build a nested module system, which sits on top of nixpkgs'
+module system, and allows systems to advertise their own capabilities, further contributing
+to my first goal of modularity. Using the said module system allows me to provide defaults
+that may change based on the host's own capabilities. My second goal is what NixOS is missing
+on fundemental level: documentation. I avoid disregarding unused code, instead opting to
+disable modules or commenting out unused code alongside appropriate documentation. If you
+are here for a configuration reference, you are highly likely to find most everyday programs
+with my personal configurations. See the high level overview below for details on file
+and module locations.
+
+As a final note, I would like to point you towards the [credits](#credits) section below
+where I pay tribute to the individuals who have contributed to this project, whether through
+code reference, suggestions, bug reports, or simply moral support.
+
 ## High Level Overview
 
 A high level overview of this monorepo, containing configurations for **all** of my machines
-that are running or have ran NixOS at some point in time.
+that are running or have ran NixOS at some point in time. My active desktop configuration
+can be previewed below, in the [preview](#preview) section.
 
 ### Notable Features
 
-- **Shared Configurations** - Reduces re-used boilerplate code by sharing modules and profiles across hosts.
+[module options]: ./modules/options/style
+[profiles]: ./modules/profiles
+[wallpkgs]: https://github.com/notashelf/wallpkgs
+[flake-parts]: https://flake.parts
+
+- **All-in-one** - Servers, desktops, laptops, virtual machines and anything you can think of.
+  Managed in one place.
+  - **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing
+    per-host toggles for conflicting choices.
+  - **Flexible Modules** - Both Home-manager and NixOS modules allow users to retrieve NixOS
+    or home-manager configurations from anywhere.
+  - **Extensive Configuration** - Most desktop programs are configured out of the box and shared
+    across hosts, with override options for per-host controls.
+  - **Custom extended library** - An extended library for functions that help organize my system.
+- **Shared Configurations** - Reduces re-used boilerplate code by sharing modules and profiles
+  across hosts.
 - **Fully Modular** - Utilizes NixOS' module system to avoid hardcoding any of the options.
-- **All-in-one** - Servers, desktops, laptops, virtual machines and anything you can think of. Managed in one place.
-- **Detached Homes** - Home-manager configurations are able to be detached for non-NixOS usage
-- **Profiles** - Provides serialized configuration sets for easily changing large portions of configurations with less options.
-- **Sane Defaults** - The modules attempt to bring the most sane defaults, while providing overrides.
+  - **Profiles & Roles** - Provide serialized configuration sets for easily changing large
+    portions of configurations with less options and minimal imports.
+  - **Detached Homes** - Home-manager configurations are able to be detached for non-NixOS usage
+  - **Modularized Flake Design** - With the help of [flake-parts], the flake is fully modular:
+    keeping my `flake.nix` cleaner than ever.
+  - **Declarative Themes** - Using my [module options], [profiles] and [wallpkgs], everything
+    theming is handled inside the flake.
+  - **Tree-wide formatting** - Format files in any language with the help of devshells and
+    treefmt-nix modules for flake-parts.
+- **Personal Installation Media** - Personalized ISO images for system installation and recovery.
 - **Secrets Management** - Manage secrets through Agenix.
-- **Flexible Modules** - Both Home-manager and NixOS modules allow users to retrieve NixOS or home-manager configurations from anywhere.
-- **Extensive Configuration** - Most desktop programs are configured out of the box and shared across hosts, with override options for per-host controls.
-- **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around Wayland, with Xorg only as a fallback.
-- **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence
+- **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and Impermanence.
 - **Encryption Ready** - Supports and actively utilizes full disk encryption.
-- **Declarative Themes** - Using my [module options](./modules/options/style), [profiles](./modules/profiles) and [wallpkgs](https://github.com/notashelf/wallpkgs), everything theming is handled inside the flake.
-- **Modularized Flake Design** - With the help of [flake-parts](https://flake.parts), the flake is fully modular.
-- **Tree-wide formatting** - Format files in any language with the help of devshells and treefmt-nix.
+- **Wayland First** - Leaves Xorg in the past where it belongs. Everything is configured around
+  Wayland, with Xorg only as a fallback.
 
 ### Repo Structure
+
+[flake schemas]: https://determinate.systems/posts/flake-schemas
+[Home-Manager]: https://github.com/nix-community/home-manager
 
 - [flake.nix](./flake.nix) Ground zero of my system configuration. Declaring entrypoints
 - [lib](./lib) Personal library of functions and utilities
@@ -38,12 +85,12 @@ that are running or have ran NixOS at some point in time.
 - [flake/](./flake) Individual parts of my flake, powered by flake-parts
   - [modules](./flake/modules) modules provided by my flake for both internal and public use
   - [pkgs](./flake/pkgs) packages exported by my flake
-  - [schemes](./flake/schemes) home-baked flake schemas for upcoming [flake schemas](https://determinate.systems/posts/flake-schemas)
+  - [schemes](./flake/schemes) home-baked flake schemas for upcoming [flake schemas]
   - [templates](./flake/templates) templates for initializing flakes. Provides some language-specific flakes
   - [args.nix](./flake/args.nix) initiate and configure nixpkgs locally
   - [deployments.nix](./flake/deployments.nix) host setup for deploy-rs, currently a work in progress
   - [treefmt.nix](./flake/treefmt.nix) various language-specific configurations for treefmt
-- [homes](./home) my personalized [Home-Manager](https://github.com/nix-community/home-manager) configuration module
+- [homes](./homes) my personalized [Home-Manager] configuration module
 - [hosts](./hosts) per-host configurations that contain machine specific instructions and setups
 - [modules](./modules) modularized NixOS configurations
   - [core](./modules/common) The core module that all systems depend on
@@ -56,6 +103,7 @@ that are running or have ran NixOS at some point in time.
   - [options](./modules/options) Definitions of module options used by common modules
     - [meta](./modules/options/meta) Internal, read-only module that defines host capabilities based on other options
     - [device](./modules/options/device) Hardware capabilities of the host
+    - [documentation](./modules/options/docs) Local module system documentation
     - [system](./modules/options/system) OS-wide configurations for generic software and firmware on system level
     - [theme](./modules/options/theme) Active theme configurations ranging from QT theme to shell colors
     - [usrEnv](./modules/options/usrEnv) userspace exclusive configurations. E.g. lockscreen or package sets
@@ -63,11 +111,11 @@ that are running or have ran NixOS at some point in time.
 
 ## Credits & Special Thanks to
 
-### Awesome People
+[atrocious abstractions]: ./lib/builders.nix
 
-My special thanks go to [fufexan](https://github.com/fufexan) for convincing me to use NixOS
-and sticking around to answer my most stupid and deranged questions, as well as my atrocious
-abstractions.
+My special thanks go to [fufexan](https://github.com/fufexan) for
+convincing me to use NixOS and sticking around to answer my most
+stupid and deranged questions, as well as my [atrocious abstractions].
 
 And to [sioodmy](https://github.com/sioodmy) which my configuration is initially based on. The
 simplicity of his configuration flake allowed me to take a foothold in the Nix world.
