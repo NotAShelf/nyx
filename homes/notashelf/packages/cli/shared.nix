@@ -26,18 +26,15 @@ in {
       unzip
       ripgrep
       rsync
-      grex
       fd
       jq
       figlet
       lm_sensors
       dconf
-      cached-nix-shell
-      ttyper
       nitch
       skim
       p7zip
-      fastfetch
+      btop
     ];
   };
 }

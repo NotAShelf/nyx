@@ -1,2 +1,7 @@
+# try to get markdown files to be treated as markdown
+# by linguiest
+*.md linguist-vendored
+
+# make .age files basically unreadable1
 secrets/*.age binary
-**/*.md markdown
+
