@@ -6,8 +6,8 @@
     ];
 
     system = {
-      stateversion = "23.05";
-      configurationrevision = self.rev or "dirty";
+      stateVersion = "23.05";
+      configurationRevision = self.rev or "dirty";
     };
   };
 }

@@ -36,7 +36,7 @@
     "/home" = {
       device = "/dev/disk/by-uuid/c9527aaf-947d-4dc0-88ab-3af438e3f5b1";
       fsType = "btrfs";
-      options = ["subvol=home"] "compress=zstd";
+      options = ["subvol=home" "compress=zstd"];
     };
   };
 
