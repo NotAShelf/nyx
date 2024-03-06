@@ -69,7 +69,11 @@ layout {
 	// with the $EDITOR variable - has focus, is the first tab
 	strider_tab name="Nyx" cwd="~dots" focus=true {
         term split_direction="vertical" {
-            pane cwd="~dots" edit="flake.nix" name="Flake"
+			// FIXME: edit does not open the file from cwd
+			// instead opens a buffer named flake.nix in cwd
+			// which should be the original flake.nix
+			// but is not
+            pane edit="./flake.nix" name="Flake"
         }
     }
 
@@ -78,6 +82,8 @@ layout {
 	// more utilities can go here if seen necessary
 	tab name="Processes" split_direction="vertical"  {
         pane {
+			// open btop in the home directory
+			// doesn't really matter where you open it
 		    cwd "$HOME"
 			command "btop"
 		}
