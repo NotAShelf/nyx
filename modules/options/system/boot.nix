@@ -13,7 +13,14 @@ in {
     enableKernelTweaks = mkEnableOption "security and performance related kernel parameters";
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
-    tmpOnTmpfs = mkEnableOption "`/tmp` living on tmpfs. false means it will be cleared manually on each reboot";
+    tmpOnTmpfs =
+      mkEnableOption ''
+        `/tmp` living on tmpfs. false means it will be cleared manually on each reboot
+
+        This option defaults to `true` if the host provides patches to the kernel package in
+        `boot.kernelPatches`
+      ''
+      // {default = config.boot.kernelPatches == [];};
 
     secureBoot = mkEnableOption ''
       secure-boot with the necessary packages. Requires systemd-boot to be disabled
