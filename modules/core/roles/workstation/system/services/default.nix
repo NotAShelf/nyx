@@ -4,9 +4,10 @@
     ./gnome.nix
     ./location.nix
     ./printing.nix
-    ./xserver.nix # TODO: find a suitable condition for enable
+    ./xserver.nix
     ./misc.nix
     ./login.nix
     ./runners.nix
+    ./zswap.nix
   ];
 }

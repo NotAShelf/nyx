@@ -12,7 +12,7 @@ in {
     environment.systemPackages = [pkgs.appimage-run];
 
     # run appimages with appimage-run
-    boot.binfmt.registrations = lib.genAttrs ["appimage" "AppImage"] (ext: {
+    boot.binfmt.registrations = lib.genAttrs ["appimage" "AppImage"] (_: {
       wrapInterpreterInShell = false;
       interpreter = "${pkgs.appimage-run}/bin/appimage-run";
       recognitionType = "magic";

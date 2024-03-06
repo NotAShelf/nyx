@@ -1,9 +1,12 @@
 {
   imports = [
-    ./flatpak.nix
-    ./xdg-ninja.nix
     ./ccache.nix
-    ./cli.nix
-    ./gui.nix
+    ./flatpak.nix
+    ./java.nix
+    ./misc.nix
+    ./nh.nix
+    ./thunar.nix
+    ./wine.nix
+    ./xdg-ninja.nix
   ];
 }

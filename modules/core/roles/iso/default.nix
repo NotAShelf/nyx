@@ -13,16 +13,21 @@ in {
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
   ];
 
-  # the ISO image must be completely immutable in the sense that we do not
-  # want the user to be able modify the ISO image after booting into it
-  # the below option will disable rebuild switches (i.e nixos-rebuild switch)
-  system.switch.enable = false;
+  system = {
+    # the ISO image must be completely immutable in the sense that we do not
+    # want the user to be able modify the ISO image after booting into it
+    # the below option will disable rebuild switches (i.e nixos-rebuild switch)
+    switch.enable = false;
+
+    system.nixos.tags = ["iso-image"];
+  };
 
   isoImage = let
     # hostname will be set as a "top-level" attribute in hosts.nix, per-host.
     # therefore we can use the networking.hostName to get the hostname of the live
     # system without defining it explicitly in the system-agnostic ISO role module
     hostname = config.networking.hostName or "nixos";
+
     # if the system is built from a git repository, we want to include the git revision
     # in the ISO name. if the tree is dirty, we use the term "dirty" to make it explicit
     rev = self.shortRev or "dirty";
