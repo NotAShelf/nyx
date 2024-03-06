@@ -17,6 +17,7 @@ in {
   config = mkIf cfg.addDefaultPackages {
     home.packages = with pkgs;
       [
+        # tools that help with media operations/management
         ffmpeg-full
         yt-dlp
         mpc_cli
@@ -27,6 +28,7 @@ in {
         cantata
         easytag
         kid3
+        musikcube
 
         # get ani-cli and mov-cli from my own derivations
         # I don't want to wait for nixpkgs
