@@ -39,7 +39,8 @@ in {
         border = "no";
       };
 
-      bindings =
+      bindings = lib.mkMerge [
+        # mpv keybindings
         {
           "Y" = "add sub-scale +0.1"; # increase subtitle font size
           "G" = "add sub-scale -0.1"; # decrease subtitle font size
@@ -69,7 +70,10 @@ in {
           "Ctrl+l" = "multiply speed 1.1";
           "Ctrl+H" = "set speed 1.0";
         }
-        // low1k;
+
+        # merge low1k's keybindings into mpv bindings section
+        low1k
+      ];
     };
   };
 }
