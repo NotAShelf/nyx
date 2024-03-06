@@ -6,7 +6,7 @@
   # "saying java is good because it runs on all systems is like saying
   # anal sex is good because it works on all species"
   # - sun tzu
-  java = {
+  programs.java = {
     # adds JAVA_HOME to the global environment
     # by sourcing the jdk’s setup-hook on shell init
     # slightly slows down the shell since the java path needs

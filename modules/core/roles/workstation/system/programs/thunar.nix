@@ -3,7 +3,7 @@
   # we enable thunar here and add plugins instead of in systemPackages
   # it is enabled unconditionally as a relatively lightweight fallback
   # option for my system file manager. I still use dolphin most of the time
-  thunar = {
+  programs.thunar = {
     enable = true;
     plugins = with pkgs.xfce; [
       thunar-archive-plugin
