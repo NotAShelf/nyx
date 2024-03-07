@@ -104,7 +104,7 @@ in {
           access_log /var/log/nginx/quic-access.log quic;
 
           # error log should log only "warn" level and above
-          error_log   /var/log/nginx/error.log warn;
+          error_log /var/log/nginx/error.log warn;
         '';
 
         virtualHosts = {
@@ -123,30 +123,35 @@ in {
               # takes a path to a file and returns a
               # configuration for a location that serves that file
               mkStaticPage = {
-                path,
+                name,
+                root,
                 header ? "",
                 footer ? "",
-              }: {
-                index = "${path}";
-
-                root = pkgs.writeTextDir "${path}" ''
+              }: let
+                builtIndex = pkgs.writeTextDir "${name}" ''
                   ${header}
-                  ${fileContents path}
+                  ${fileContents root}
                   ${footer}
                 '';
-
+              in {
+                index = name;
+                root = builtIndex.outPath;
                 extraConfig = commonConfig;
               };
             in {
               # root location
               "/" = mkStaticPage {
-                path = ./static/root.txt;
+                root = ./static/root.txt;
+                name = "root.txt";
                 header = builtins.readFile ./static/header.txt;
                 footer = "> served by ${pkgs.nginx.outPath}";
               };
 
               # /gpg endpoint for my gpg key
-              "/gpg" = mkStaticPage {path = ./static/gpg.txt;};
+              "/gpg" = mkStaticPage {
+                name = "gpg.txt";
+                root = ./static/gpg.txt;
+              };
             };
           };
         };
