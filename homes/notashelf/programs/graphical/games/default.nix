@@ -21,8 +21,7 @@ in {
       lutris # alternative game launcher
 
       # emulators
-      dolphin-emu # general console
-      yuzu # switch
+      # dolphin-emu # general console
 
       # runtime
       dotnet-runtime_6 # terraria
