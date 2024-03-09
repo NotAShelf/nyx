@@ -6,7 +6,6 @@
       scrollBar.enable = true;
       smoothScroll.enable = false;
       cellularAutomaton.enable = false;
-      fidget-nvim.enable = true;
       highlight-undo.enable = true;
 
       indentBlankline = {
@@ -19,6 +18,16 @@
       cursorline = {
         enable = true;
         lineTimeout = 0;
+      };
+
+      fidget-nvim = {
+        enable = true;
+        setupOpts = {
+          notification.window = {
+            winblend = 0;
+            border = "none";
+          };
+        };
       };
     };
   };
