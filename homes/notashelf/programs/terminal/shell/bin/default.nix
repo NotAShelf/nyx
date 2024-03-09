@@ -12,6 +12,7 @@ in {
     # so that they can be referred to by name
     sessionPath = ["${config.home.homeDirectory}/.local/bin"];
 
+    # link scripts to the local PATH
     file = {
       ".local/bin/preview" = {
         # Preview script for fzf tab
@@ -65,6 +66,15 @@ in {
           name = "fs-diff";
           runtimeInputs = with pkgs; [coreutils gnused btrfs-progs];
           text = readFile ./fs-diff/fs-diff.sh;
+        });
+      };
+
+      ".local/bin/purge-direnv" = {
+        # Purge all direnv links
+        source = getExe (pkgs.writeShellApplication {
+          name = "purge-direnv";
+          runtimeInputs = with pkgs; [direnv];
+          text = readFile ./purge-direnv/purge-direnv.sh;
         });
       };
 
