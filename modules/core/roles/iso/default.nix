@@ -19,7 +19,7 @@ in {
     # the below option will disable rebuild switches (i.e nixos-rebuild switch)
     switch.enable = false;
 
-    system.nixos.tags = ["iso-image"];
+    nixos.tags = ["iso-image"];
   };
 
   isoImage = let
