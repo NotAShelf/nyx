@@ -1,16 +1,12 @@
-.bluetoothLabel {
+.bluetooth {
 	margin: 6px 3px;
 	transition:
 		all 0.3s $materialStandard,
 		border 0.35s $materialStandard;
 
 	&:hover {
-		color: $red;
+		color: $lavender;
 	}
-}
-
-.bluetooth {
-	margin: 6px 3px;
 }
 
 .bluetooth-active {

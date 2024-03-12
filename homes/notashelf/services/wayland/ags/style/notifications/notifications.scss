@@ -1,0 +1,15 @@
+.notification {
+	background: $secondary;
+	margin: 5px 10px 15px;
+	padding: 6px;
+	margin: 5px 5px 5px 10px;
+
+	min-width: 250px;
+	min-height: 120px;
+
+	background-color: $secondary;
+
+	.critical {
+		border: 1px solid red;
+	}
+}

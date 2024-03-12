@@ -1,71 +1,137 @@
-import Notifications from "resource:///com/github/Aylur/ags/service/notifications.js";
-import Widget from "resource:///com/github/Aylur/ags/widget.js";
-import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
-import Notification from "../misc/Notification.js";
+import { Hyprland, Notifications, Utils, Widget } from "../../imports.js";
 
-/** @param {import('types/widgets/revealer').default} parent */
-const Popups = (parent) => {
-    const map = new Map();
+const closeAll = () => {
+    Notifications.popups.map((n) => n.dismiss());
+};
 
-    const onDismissed = (_, id, force = false) => {
-        if (!id || !map.has(id)) return;
-
-        if (map.get(id).isHovered() && !force) return;
-
-        if (map.size - 1 === 0) parent.reveal_child = false;
-
-        Utils.timeout(200, () => {
-            map.get(id)?.destroy();
-            map.delete(id);
+/** @param {import("types/service/notifications").Notification} n */
+const NotificationIcon = ({ app_entry, app_icon, image }) => {
+    if (image) {
+        return Widget.Box({
+            css: `
+        background-image: url("${image}");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      `,
         });
-    };
+    }
 
-    /** @param {import('types/widgets/box').default} box */
-    const onNotified = (box, id) => {
-        if (!id || Notifications.dnd) return;
+    if (Utils.lookUpIcon(app_icon)) {
+        return Widget.Icon(app_icon);
+    }
 
-        const n = Notifications.getNotification(id);
-        if (!n) return;
+    if (app_entry && Utils.lookUpIcon(app_entry)) {
+        return Widget.Icon(app_entry);
+    }
 
-        if (options.notifications.black_list.value.includes(n.app_name || ""))
-            return;
+    return null;
+};
 
-        map.delete(id);
-        map.set(id, Notification(n));
-        box.children = Array.from(map.values()).reverse();
-        Utils.timeout(10, () => {
-            parent.reveal_child = true;
-        });
-    };
+/** @param {import('types/service/notifications').Notification} n */
+export const Notification = (n) => {
+    const icon = Widget.Box({
+        vpack: "start",
+        class_name: "icon",
+        // @ts-ignore
+        setup: (self) => {
+            let icon = NotificationIcon(n);
+            if (icon !== null) {
+                self.child = icon;
+            }
+        },
+    });
 
-    return Widget.Box({
-        vertical: true,
-        connections: [
-            [Notifications, onNotified, "notified"],
-            [Notifications, onDismissed, "dismissed"],
-            [Notifications, (box, id) => onDismissed(box, id, true), "closed"],
-        ],
+    const title = Widget.Label({
+        class_name: "title",
+        xalign: 0,
+        justification: "left",
+        hexpand: true,
+        max_width_chars: 24,
+        truncate: "end",
+        wrap: true,
+        label: n.summary,
+        use_markup: true,
+    });
+
+    const body = Widget.Label({
+        class_name: "body",
+        hexpand: true,
+        use_markup: true,
+        xalign: 0,
+        justification: "left",
+        max_width_chars: 100,
+        wrap: true,
+        label: n.body,
+    });
+
+    const actions = Widget.Box({
+        class_name: "actions",
+        children: n.actions
+            .filter(({ id }) => id != "default")
+            .map(({ id, label }) =>
+                Widget.Button({
+                    class_name: "action-button",
+                    on_clicked: () => n.invoke(id),
+                    hexpand: true,
+                    child: Widget.Label(label),
+                }),
+            ),
+    });
+
+    return Widget.EventBox({
+        on_primary_click: () => {
+            if (n.actions.length > 0) n.invoke(n.actions[0].id);
+        },
+        on_middle_click: closeAll,
+        on_secondary_click: () => n.dismiss(),
+        child: Widget.Box({
+            class_name: `notification ${n.urgency}`,
+            vertical: true,
+
+            children: [
+                Widget.Box({
+                    class_name: "info",
+                    children: [
+                        icon,
+                        Widget.Box({
+                            vertical: true,
+                            class_name: "text",
+                            vpack: "center",
+
+                            setup: (self) => {
+                                if (n.body.length > 0) {
+                                    self.children = [title, body];
+                                } else {
+                                    self.children = [title];
+                                }
+                            },
+                        }),
+                    ],
+                }),
+                actions,
+            ],
+        }),
     });
 };
 
-/** @param {import('types/widgets/revealer').RevealerProps['transition']} transition */
-const PopupList = (transition = "slide_down") =>
-    Widget.Box({
-        css: "padding: 1px",
-        children: [
-            Widget.Revealer({
-                transition,
-                setup: (self) => (self.child = Popups(self)),
-            }),
-        ],
-    });
-
-/** @param {number} monitor */
-export default (monitor) =>
+let lastMonitor;
+export const notificationPopup = () =>
     Widget.Window({
-        monitor,
-        name: `notifications${monitor}`,
-        class_name: "notifications",
-        binds: [["anchor", ["top", "right"]]],
-        child: PopupList(),
+        name: "notifications",
+        anchor: ["top", "right"],
+        child: Widget.Box({
+            css: "padding: 1px;",
+            class_name: "notifications",
+            vertical: true,
+            // @ts-ignore
+            children: Notifications.bind("popups").transform((popups) => {
+                return popups.map(Notification);
+            }),
+        }),
+    }).hook(Hyprland.active, (self) => {
+        // prevent useless resets
+        if (lastMonitor === Hyprland.active.monitor) return;
+
+        self.monitor = Hyprland.active.monitor.id;
     });

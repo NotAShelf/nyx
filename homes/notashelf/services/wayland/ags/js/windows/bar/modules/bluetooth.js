@@ -19,12 +19,11 @@ const BluetoothModule = () =>
             getBluetoothTooltip,
         );
 
-export const BluetoothWidget = () => {
-    return Button({
+export const BluetoothWidget = () =>
+    Button({
         className: "bluetooth",
         cursor: "pointer",
         child: BluetoothModule(),
         visible: Bluetooth.connectedDevices.length > 0,
         onClicked: () => Utils.exec("blueman-applet"),
     });
-};
