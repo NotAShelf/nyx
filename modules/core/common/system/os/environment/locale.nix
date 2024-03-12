@@ -10,6 +10,11 @@ in {
     hardwareClockInLocalTime = true;
   };
 
+  services.xserver = {
+    layout = "tr";
+    xkbVariant = "";
+  };
+
   i18n = let
     defaultLocale = "en_US.UTF-8";
     tr = "tr_TR.UTF-8";
