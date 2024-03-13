@@ -42,6 +42,9 @@
       "move 75 44%,title:^(Volume Control)$"
       "float, class:^(imv)$"
 
+      # Helldivers 2
+      "forceinput,class:^(steam_app_553850)$"
+
       # throw sharing indicators away
       "workspace special silent, title:^(Firefox — Sharing Indicator)$"
       "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
