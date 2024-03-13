@@ -11,7 +11,7 @@ in {
       enable = true;
       pinentryFlavor =
         if sys.video.enable
-        then "gnome3" # requires services.dbus.packages = [ pkgs.gcr ]
+        then "gtk2" # requires services.dbus.packages = [ pkgs.gcr ]
         else "curses";
       enableSshSupport = true;
       defaultCacheTtl = 1209600;
