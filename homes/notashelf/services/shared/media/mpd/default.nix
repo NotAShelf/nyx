@@ -20,18 +20,7 @@ in {
       mpris-proxy.enable = true;
       mpd-mpris.enable = true;
 
-      # MPRIS 2 support to mpd
-      mpdris2 = {
-        enable = true;
-        notifications = true;
-        multimediaKeys = true;
-        mpd = {
-          # for some reason config.xdg.userDirs.music is not a "path" - possibly because it has $HOME in its name?
-          inherit (config.services.mpd) musicDirectory;
-        };
-      };
-
-      # mpd service
+      # music player daemon service
       mpd = {
         enable = true;
         musicDirectory = "${config.home.homeDirectory}/Media/Music";
@@ -42,22 +31,44 @@ in {
         };
 
         extraConfig = ''
+          auto_update           "yes"
+          volume_normalization  "yes"
+          restore_paused        "yes"
+          filesystem_charset    "UTF-8"
+
           audio_output {
-            type "pipewire"
-            name "PipeWire"
-            auto_resample "no"
-            use_mmap "yes"
+            type                "pipewire"
+            name                "PipeWire"
           }
 
           audio_output {
-            type                    "fifo"
-            name                    "fifo"
-            path                    "/tmp/mpd.fifo"
-            format                  "44100:16:2"
+            type                "fifo"
+            name                "Visualiser"
+            path                "/tmp/mpd.fifo"
+            format              "44100:16:2"
           }
 
-          auto_update "yes"
+          audio_output {
+           type		              "httpd"
+           name		              "lossless"
+           encoder		          "flac"
+           port		              "8000"
+           max_clients	        "8"
+           mixer_type	          "software"
+           format		            "44100:16:2"
+          }
         '';
+      };
+
+      # MPRIS 2 support to mpd
+      mpdris2 = {
+        enable = true;
+        notifications = true;
+        multimediaKeys = true;
+        mpd = {
+          # for some reason config.xdg.userDirs.music is not a "path" - possibly because it has $HOME in its name?
+          inherit (config.services.mpd) musicDirectory;
+        };
       };
 
       # discord rich presence for mpd
@@ -76,7 +87,6 @@ in {
 
     programs = {
       # music tagger and organizer
-      # FIXME: another build failure (13.12.2022)
       beets = import ./beets.nix {inherit config;};
 
       # ncmpcpp configuration, has cool stuff like visualiser
