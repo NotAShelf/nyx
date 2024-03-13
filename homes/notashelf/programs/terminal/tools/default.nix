@@ -16,6 +16,7 @@
     ./gpg.nix
     ./man.nix
     ./nix-index.nix
+    ./nix-init.nix
     ./nix-shell.nix
     ./ranger.nix
     ./ssh.nix
