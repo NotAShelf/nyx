@@ -272,7 +272,7 @@
     # Hyprland & Hyprland Contrib repos
     # broken: b0f98a3d3e9e5f5f7f89fa4e855dbeb860e7a0c4
     # works: 2ed032a7fd140ee85483a891fa63c16668019577
-    hyprland.url = "github:hyprwm/Hyprland/";
+    hyprland.url = "github:hyprwm/Hyprland";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprpaper.url = "github:hyprwm/hyprpaper";
