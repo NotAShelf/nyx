@@ -2,11 +2,10 @@
   config,
   lib,
   ...
-}: let
-  cfg = config.services.openssh;
-in {
+}: {
   programs.ssh.startAgent = !config.modules.system.yubikeySupport.enable;
   services.openssh = {
+    # enable openssh
     enable = true;
     openFirewall = true; # the ssh port(s) should be automatically passed to the firewall's allowedTCPports
     ports = [30]; # the port(s) openssh daemon should listen on
@@ -31,19 +30,29 @@ in {
       UseDns = false; # no
       X11Forwarding = false; # ew xorg
 
-      # Use key exchange algorithms recommended by `nixpkgs#ssh-audit`
-      # taken from https://github.com/numtide/srvos/blob/main/nixos/common/openssh.nix
+      # key exchange algorithms recommended by `nixpkgs#ssh-audit`
       KexAlgorithms = [
         "curve25519-sha256"
         "curve25519-sha256@libssh.org"
         "diffie-hellman-group16-sha512"
         "diffie-hellman-group18-sha512"
+        "diffie-hellman-group-exchange-sha256"
         "sntrup761x25519-sha512@openssh.com"
+      ];
+
+      # message authentication code algorithms recommended by `nixpkgs#ssh-audit`
+      Macs = [
+        "hmac-sha2-512-etm@openssh.com"
+        "hmac-sha2-256-etm@openssh.com"
+        "umac-128-etm@openssh.com"
       ];
 
       # kick out inactive sessions
       ClientAliveCountMax = 5;
       ClientAliveInterval = 60;
+
+      # max auth attempts
+      MaxAuthTries = 3;
     };
 
     hostKeys = lib.mkDefault [
