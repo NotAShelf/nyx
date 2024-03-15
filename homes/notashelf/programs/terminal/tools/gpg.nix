@@ -1,18 +1,21 @@
 {
   osConfig,
   config,
+  pkgs,
   lib,
   ...
 }: let
   sys = osConfig.modules.system;
+
+  pinentryPkg =
+    if sys.video.enable
+    then pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
+    else pkgs.pinentry-curses;
 in {
   services = {
     gpg-agent = {
       enable = true;
-      pinentryFlavor =
-        if sys.video.enable
-        then "gtk2" # requires services.dbus.packages = [ pkgs.gcr ]
-        else "curses";
+      pinentryPackage = pinentryPkg;
       enableSshSupport = true;
       defaultCacheTtl = 1209600;
       defaultCacheTtlSsh = 1209600;
