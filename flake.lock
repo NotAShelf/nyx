@@ -3597,11 +3597,11 @@
         "searx-randomizer": "searx-randomizer"
       },
       "locked": {
-        "lastModified": 1710314260,
-        "narHash": "sha256-CD68rniQ+AAzodXLpxgj/mqRxY6bOeRO8zGzZe0nhYc=",
+        "lastModified": 1710502118,
+        "narHash": "sha256-kPzvCwGVuLlPDVRD35dMnudWPpEzRXfU/9DHsG12PaY=",
         "owner": "schizofox",
         "repo": "schizofox",
-        "rev": "9ae87e3a0c0e774890ed8abc10e9461068e92f41",
+        "rev": "8dde2033a6f448c48a48d4d0aeb22bf2da840b7d",
         "type": "github"
       },
       "original": {
