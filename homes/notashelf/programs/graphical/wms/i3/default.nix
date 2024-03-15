@@ -16,14 +16,53 @@ in {
     programs.i3status-rust = {
       enable = true;
       bars = {
-        bottom = {
+        top = {
           blocks = [
             {
-              block = "time";
+              block = "custom";
+              command = "${pkgs.rsstail}/bin/rsstail rsstail -n 1 -1 -N -u https://github.com/nixos/nixpkgs/commits/master.atom";
               interval = 60;
-              format = "%a %d/%m %k:%M %p";
+            }
+            {
+              block = "memory";
+              format = " $icon $mem_used_percents ";
+              format_alt = " $icon $swap_used_percents ";
+              theme_overrides = {
+                idle_bg = "#00223f";
+              };
+            }
+            {
+              block = "cpu";
+              interval = 1;
+              format = " $barchart $utilization $frequency ";
+            }
+            {
+              block = "sound";
+              theme_overrides = {
+                idle_bg = "#00223f";
+              };
+            }
+            {
+              block = "battery";
+              device = "BAT1";
+              format = " $icon $percentage $time $power ";
+            }
+            {
+              block = "net";
+              format = " $icon $ssid $signal_strength $ip ↓$speed_down ↑$speed_up ";
+              interval = 2;
+              theme_overrides = {
+                idle_bg = "#00223f";
+              };
+            }
+            {
+              block = "time";
+              interval = 1;
+              format = " $timestamp.datetime(f:'%F %T') ";
             }
           ];
+          theme = "space-villain";
+          icons = "none";
         };
       };
     };
@@ -38,12 +77,12 @@ in {
         bars = [
           {
             position = "bottom";
-            statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
+            statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs";
           }
         ];
         # keybindings
         keybindings = lib.mkOptionDefault {
-          "${mod}+d" = "exec ${pkgs.dmenu}/bin/dmenu_run";
+          "${mod}+r" = "exec ${pkgs.dmenu}/bin/dmenu_run";
           "${mod}+p" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
           "${mod}+Shift+l" = "exec sh -c '${pkgs.i3lock}/bin/i3lock -c 222222 & sleep 5 && xset dpms force of'";
 
