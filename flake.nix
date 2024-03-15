@@ -30,11 +30,11 @@
         ./flake/schemas # home-baked schemas for upcoming nix schemas
         ./flake/templates # flake templates
 
-        ./flake/args.nix # args that are passsed to the flake, moved away from the main file
+        ./flake/args.nix # args that are passed to the flake, moved away from the main file
         ./flake/deployments.nix # deploy-rs configurations for active hosts
-        ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devshell
+        ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devShell
         ./flake/treefmt.nix # treefmt configuration
-        ./flake/shell.nix # devShells explosed by the flake
+        ./flake/shell.nix # devShells exposed by the flake
       ];
 
       flake = let
@@ -50,7 +50,7 @@
       };
 
       perSystem = {inputs', ...}: {
-        # provide the formatter for nix fmt
+        # provide the formatter for `nix fmt`
         formatter = inputs'.nyxpkgs.packages.alejandra-no-ads;
       };
     });
@@ -91,7 +91,7 @@
     # Feature-rich and convenient fork of the Nix package manager
     nix-super.url = "github:privatevoid-net/nix-super";
 
-    # Repo for hardare-specific NixOS modules
+    # Repo for hardware-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Nix wrapper for building and testing my system

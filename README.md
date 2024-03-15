@@ -80,7 +80,7 @@ can be previewed below, in the [preview](#preview) section.
 - [flake.nix](./flake.nix) Ground zero of my system configuration. Declaring entrypoints
 - [lib](./lib) Personal library of functions and utilities
 - [docs](./docs)The documentation for my flake repository
-  - [notes](./docs/notes) Notes from tedious or/and underdocumented processes I have gone through. More or less a blog
+  - [notes](./docs/notes) Notes from tedious or/and under-documented processes I have gone through. More or less a blog
   - [cheatsheet](./docs/cheatsheet.md) Useful tips that are hard to memorize, but easy to write down
 - [flake/](./flake) Individual parts of my flake, powered by flake-parts
   - [modules](./flake/modules) modules provided by my flake for both internal and public use
@@ -147,7 +147,7 @@ I ~~shamelessly stole from~~ got inspired by those folks
 
 ### Other Cool Resources
 
-Resource that helped shape and improve this configuation, or resources that I strongly recommend that you read.
+Resource that helped shape and improve this configuration, or resources that I strongly recommend that you read.
 
 - [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
 - [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
@@ -189,7 +189,7 @@ It is not enforced, but would be appreciated.
    <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" /> 
 </p>
 <p align="center">
-   Screeenshot last updated <b>2023-12-09</b>
+   Screenshot last updated <b>2023-12-09</b>
 </p>
 
 <div align="right">
