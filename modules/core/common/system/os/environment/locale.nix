@@ -10,9 +10,9 @@ in {
     hardwareClockInLocalTime = true;
   };
 
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "tr";
-    xkbVariant = "";
+    variant = "";
   };
 
   i18n = let
