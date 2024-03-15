@@ -44,3 +44,17 @@ create_autocmd({ "TextYankPost" }, {
 		vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
 	end,
 })
+
+
+-- Close terminal window if process exists with code 0
+create_autocmd("TermClose", {
+	callback = function()
+		if not vim.b.no_auto_quit then
+			vim.defer_fn(function()
+				if vim.api.nvim_get_current_line() == "[Process exited 0]" then
+					vim.api.nvim_buf_delete(0, { force = true })
+				end
+			end, 50)
+		end
+	end,
+})
