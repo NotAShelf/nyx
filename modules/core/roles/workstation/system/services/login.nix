@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (lib.strings) concatStringsSep;
   inherit (lib.meta) getExe;
 
@@ -37,32 +37,43 @@
 in {
   config = {
     # unlock GPG keyring on login
-    security.pam.services = {
+    security.pam.services = let
+      gnupg = {
+        enable = true;
+        noAutostart = true;
+        storeOnly = true;
+      };
+    in {
       login = {
         enableGnomeKeyring = true;
-        gnupg = {
-          enable = true;
-          noAutostart = true;
-          storeOnly = true;
-        };
+        inherit gnupg;
       };
 
       greetd = {
-        gnupg.enable = true;
         enableGnomeKeyring = true;
+        inherit gnupg;
+      };
+
+      tuigreet = {
+        enableGnomeKeyring = true;
+        inherit gnupg;
       };
     };
 
     services = {
-      xserver.displayManager.session = mkMerge [
-        (mkIf env.desktops.i3.enable {
-          manage = "desktop";
-          name = "i3wm";
-          start = ''
-            ${pkgs.xorg.xinit}/bin/startx ${lib.getExe pkgs.i3}
-          '';
-        })
-      ];
+      xserver.displayManager = {
+        startx.enable = true;
+        session = [
+          (mkIf env.desktops.i3.enable {
+            name = "i3wm";
+            manage = "desktop";
+            start = ''
+              ${pkgs.xorg.xinit}/bin/startx ${pkgs.i3-rounded}/bin/i3 -- vt2 &
+              waitPID=$!
+            '';
+          })
+        ];
+      };
 
       greetd = {
         enable = true;
@@ -78,11 +89,6 @@ in {
           # initial session
           initial_session = mkIf sys.autoLogin initialSession;
         };
-      };
-
-      gnome = {
-        glib-networking.enable = true;
-        gnome-keyring.enable = true;
       };
 
       logind = {

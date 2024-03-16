@@ -10,6 +10,7 @@
       ];
 
       gnome = {
+        glib-networking.enable = true;
         evolution-data-server.enable = true;
 
         # optional to use google/nextcloud calendar
