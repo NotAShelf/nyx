@@ -17,6 +17,9 @@ in {
       enable = true;
       bars = {
         bottom = {
+          theme = "modern";
+          icons = "awesome6";
+
           blocks = [
             {
               block = "custom";
@@ -31,10 +34,20 @@ in {
             {
               block = "cpu";
               interval = 1;
-              format = " $barchart $utilization $frequency ";
+              format = " CPU $barchart $utilization ";
+              format_alt = " CPU $frequency{ $boost|} ";
+              merge_with_next = true;
             }
             {
-              block = "sound";
+              block = "load";
+              format = " Avg $5m ";
+              interval = 10;
+              merge_with_next = true;
+            }
+            {
+              block = "memory";
+              format = " MEM $mem_used_percents ";
+              format_alt = " MEM $swap_used_percents ";
             }
             {
               block = "battery";
@@ -51,6 +64,9 @@ in {
               interval = 1;
               format = " $timestamp.datetime(f:'%F %T') ";
             }
+            {
+              block = "sound";
+            }
           ];
         };
       };
@@ -66,21 +82,35 @@ in {
         bars = [
           {
             position = "bottom";
-            statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs --config ~/.config/i3status-rust/config-bottom.toml";
+            statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
           }
         ];
 
         workspaceLayout = "tabbed";
 
+        gaps = let
+          gaps_inner = 5;
+          gaps_outer = 5;
+          gaps_top = 5;
+          gaps_bottom = 5;
+        in {
+          # Set inner/outer gaps
+          outer = gaps_outer;
+          inner = gaps_inner;
+          top = gaps_top;
+          bottom = gaps_bottom;
+        };
+
         # keybindings
         keybindings = lib.mkOptionDefault {
           "${mod}+r" = "exec ${pkgs.dmenu}/bin/dmenu_run";
-          "${mod}+t" = "exec ${pkgs.kitty}/bin/kitty";
+          "${mod}+Return" = "exec ${pkgs.kitty}/bin/kitty";
           "${mod}+p" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
           "${mod}+Shift+x" = "exec sh -c '${pkgs.i3lock}/bin/i3lock -c 222222 & sleep 5 && xset dpms force of'";
 
-          "${mod}+Shift+space" = "floating toggle";
-          "${mod}+space" = "focus mode_toggle";
+          "${mod}+v" = "floating toggle";
+          "${mod}+g" = "sticky toggle";
+          "${mod}+f" = "fullscreen";
 
           # Focus
           "${mod}+h" = "focus left";
@@ -93,6 +123,10 @@ in {
           "${mod}+Shift+j" = "move down";
           "${mod}+Shift+k" = "move up";
           "${mod}+Shift+l" = "move right";
+
+          # workspace navigation
+          "${mod}+Shift+Right" = "workspace next";
+          "${mod}+Shift+Left" = "workspace prev";
 
           # workspace selection
           "${mod}+1" = "workspace number 1";
@@ -117,16 +151,43 @@ in {
           "${mod}+Shift+8" = "move container to workspace number 8";
           "${mod}+Shift+9" = "move container to workspace number 9";
 
-          # reload/restart/exit i3
-          "${mod}+Shift+r" = "reload";
-          "${mod}+Shift+e" = "restart";
-          "${mod}+Shift+q" = "exit";
+          "${mod}+Shift+r" = ''restart; exec notify-send "i3 restarted"'';
+          "${mod}+Shif+q" = "kill";
+          "${mod}+Shift+e" = "exit";
 
           # Move the currently focused window to scratchpad
           "${mod}+Shift+BackSpace" = "move scratchpad";
 
           # Show the first scratchpad window
           "${mod}+BackSpace" = "scratchpad show, move position center";
+        };
+
+        startup = [
+          /*
+          {
+            command = "${pkgs.feh}/bin/feh --bg-scale 'some path'";
+            always = false;
+            notification = false;
+          }
+          */
+        ];
+
+        assigns = let
+          w1 = "1:  TSK";
+          w2 = "2:  MUS";
+          w3 = "3:  CHAT";
+          w4 = "4:  VIRT";
+          w5 = "5:  TERM";
+          w6 = "6:  GFX";
+          w7 = "7:  WWW";
+          w8 = "8:  TERM";
+          w9 = "9:  DEV";
+          w0 = "0:  TERM";
+        in {
+          "${w2}" = [{class = "Spotify";}];
+          "${w3}" = [{class = "Discord";}];
+          "${w7}" = [{class = "Google-chrome";} {class = "firefox";}];
+          "${w9}" = [{class = "VSCodium";}];
         };
       };
     };
