@@ -1,8 +1,3 @@
-# my helper functions for setting zsh options that I normally use on my shell
-# a description of each option can be found in the Zsh manual
-# https://zsh.sourceforge.io/Doc/Release/Options.html
-# do note that this slows down shell startup times
-
 # Define a function to set Zsh options
 function set_zsh_options() {
   local options=(
@@ -13,7 +8,6 @@ function set_zsh_options() {
     "AUTO_PUSHD"          # make cd push the old directory onto the directory stack
     "APPEND_HISTORY"      # append history list to the history file, rather than replace it
     "ALWAYS_TO_END"       # cursor is moved to the end of the word after completion
-    # "COMPLETE_IN_WORD"
     "CORRECT"             # try to correct the spelling of commands
     "EXTENDED_HISTORY"    # save each command’s beginning timestamp and the duration to the history file
     "HIST_FCNTL_LOCK"     # use system’s fcntl call to lock the history file
@@ -34,20 +28,4 @@ function set_zsh_options() {
   done
 }
 
-# Define a function to unset Zsh options
-function unset_zsh_options() {
-  local options=(
-    "CORRECT_ALL"         # try to correct the spelling of all arguments in a line.
-    "HIST_BEEP"           # beep in ZLE when a widget attempts to access a history entry which isn’t there
-    "SHARE_HISTORY"       # read the documentation for more details
-  )
-
-  for option in "${options[@]}"; do
-    unsetopt $option
-  done
-}
-
-# Call the functions to set and unset Zsh options
 set_zsh_options
-unset_zsh_options
-
