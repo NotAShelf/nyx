@@ -77,14 +77,14 @@ in {
         style = "red";
         ahead = "⇡ ";
         behind = "⇣ ";
-        conflicted = "!";
+        conflicted = " ";
         renamed = "»";
         deleted = "✘ ";
-        diverged = "󱡷 ";
+        diverged = "⇆ ";
         modified = "!";
-        stashed = "$";
+        stashed = "≡";
         staged = "+";
-        untracked = "";
+        untracked = "?";
       };
 
       # language configurations
