@@ -1,11 +1,22 @@
 {
-  perSystem = {pkgs, ...}: {
+  perSystem = {
+    inputs',
+    pkgs,
+    ...
+  }: {
+    # provide the formatter for `nix fmt`
+    formatter = inputs'.nyxpkgs.packages.alejandra-no-ads;
+
     # configure treefmt
     treefmt = {
       projectRootFile = "flake.nix";
 
       programs = {
-        alejandra.enable = true;
+        alejandra = {
+          enable = true;
+          package = inputs'.nyxpkgs.packages.alejandra-no-ads;
+        };
+
         shellcheck.enable = true; # cannot be configured, errors on basic bash convention
 
         prettier = {

@@ -1,10 +1,12 @@
 {
   withSystem,
   inputs,
-  lib,
   ...
 }: let
+  # self.lib is an extended version of nixpkgs.lib
   # mkNixosIso and mkNixosSystem are my own builders for assembling a nixos system
+  # provided by my local extended library
+  inherit (inputs.self) lib;
   inherit (lib) concatLists mkNixosIso mkNixosSystem;
 
   ## flake inputs ##

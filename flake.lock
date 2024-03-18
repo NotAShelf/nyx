@@ -2354,16 +2354,15 @@
     "nixfmt": {
       "flake": false,
       "locked": {
-        "lastModified": 1710440186,
-        "narHash": "sha256-HtXvzmfN4wk45qiKZ7V+/5WBV7jnTHfd7iBwF4XGl64=",
-        "owner": "piegamesde",
+        "lastModified": 1710520817,
+        "narHash": "sha256-g0MTMQZeRlKFQiKdEVc1IQ73nNeRwu0+GtUIvcm2NV4=",
+        "owner": "nixos",
         "repo": "nixfmt",
-        "rev": "8d13b593fa8d8d6e5075f541f3231222a08e84df",
+        "rev": "136005fc3dd34ff0d6af9f8c57cd1d3d7d342537",
         "type": "github"
       },
       "original": {
-        "owner": "piegamesde",
-        "ref": "rfc101-style",
+        "owner": "nixos",
         "repo": "nixfmt",
         "type": "github"
       }

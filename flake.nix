@@ -32,44 +32,30 @@
 
         ./flake/args.nix # args that are passed to the flake, moved away from the main file
         ./flake/deployments.nix # deploy-rs configurations for active hosts
+        ./flake/fmt.nix # various formatter configurations for this flake
+        ./flake/iso-images.nix # local installation media
         ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devShell
-        ./flake/treefmt.nix # treefmt configuration
         ./flake/shell.nix # devShells exposed by the flake
       ];
 
-      flake = let
-        inherit (self) lib;
-      in {
+      flake = {
         # entry-point for nixos configurations
-        nixosConfigurations = import ./hosts {inherit inputs lib withSystem;};
-
-        # Recovery images for my hosts
-        # build with `nix build .#images.<hostname>`
-        # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
-        images = import ./hosts/images.nix {inherit inputs;};
-      };
-
-      perSystem = {inputs', ...}: {
-        # provide the formatter for `nix fmt`
-        formatter = inputs'.nyxpkgs.packages.alejandra-no-ads;
+        nixosConfigurations = import ./hosts {inherit inputs withSystem;};
       };
     });
 
   inputs = {
+    # Feature-rich and convenient fork of the Nix package manager
+    nix-super.url = "github:privatevoid-net/nix-super";
+
     # We build against nixos unstable, because stable takes way too long to get things into
     # more versions with or without pinned branches can be added if deemed necessary
     # stable? never heard of her
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # moves faster, has less packages
 
     # sometimes nixpkgs breaks something I need, pin a working commit when that occurs
     # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
-
-    # Home Manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Powered by
     flake-parts = {
@@ -77,19 +63,22 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    # Home Manager
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Ever wanted nix error messages to be even more cryptic?
     # Try flake-utils today! (Devs I beg you please stop)
     flake-utils.url = "github:numtide/flake-utils";
 
-    # this will work one day
+    # This will work one day
     # (eelco please)
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
 
-    # doesn't build
+    # Still doesn't build, but will build one day! (I hope)
     nixSchemas.url = "github:DeterminateSystems/nix/flake-schemas";
-
-    # Feature-rich and convenient fork of the Nix package manager
-    nix-super.url = "github:privatevoid-net/nix-super";
 
     # Repo for hardware-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -110,7 +99,7 @@
     };
 
     nixfmt = {
-      url = "github:piegamesde/nixfmt/rfc101-style";
+      url = "github:nixos/nixfmt";
       flake = false;
     };
 
@@ -144,10 +133,13 @@
     };
 
     # Impermanence
-    # doesn't offer much above properly used symlinks but it *is* convenient
+    # doesn't offer much above properly used symlinks
+    # but it *is* convenient
     impermanence.url = "github:nix-community/impermanence";
 
-    # secure-boot on nixos
+    # Secure-boot support on nixos
+    # the interface iss still shaky and I would recommend
+    # avoiding on production systems for now
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs = {
@@ -161,12 +153,6 @@
     nix-index-db = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Nix gaming packages
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     atticd = {
