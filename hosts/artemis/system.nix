@@ -19,7 +19,7 @@
         availableKernelModules = ["bcache"];
       };
 
-      kernelPackages = lib.mkOverride 0 pkgs.linuxPackages_testing_bcachefs;
+      kernelPackages = lib.mkOverride 0 pkgs.linuxPackages_latest;
     };
 
     environment = {
