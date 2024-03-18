@@ -28,7 +28,7 @@ jobs:
         with:
           install_url: https://nixos.org/nix/install
           extra_nix_config: |
-            experimental-features = nix-command flakes
+            experimental-features = nix-command flakes fetch-tree
             allow-import-from-derivation = false
             extra-substituters = https://nyx.cachix.org
             extra-trusted-public-keys = nyx.cachix.org-1:xH6G0MO9PrpeGe7mHBtj1WbNzmnXr7jId2mCiq6hipE=
