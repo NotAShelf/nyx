@@ -5,8 +5,9 @@ on:
   schedule:
     - cron: "0 3 * * mon" # every monday at 3AM
 
+concurrency: build
+
 jobs:
-  # use updated targets.json to generate a raw data dump from nixpkgs flake
   build-images:
     name: "Build ISO Images"
     if: github.repository == 'notashelf/nyx'
@@ -27,15 +28,20 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+      - name: Install nix
+        uses: cachix/install-nix-action@master
+        with:
+          install_url: https://nixos.org/nix/install
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            allow-import-from-derivation = false
+            extra-substituters = https://nyx.cachix.org
+            extra-trusted-public-keys = nyx.cachix.org-1:xH6G0MO9PrpeGe7mHBtj1WbNzmnXr7jId2mCiq6hipE=
+            extra-substituters = https://nix-community.cachix.org
+            extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
 
       - name: Nix Magic Cache
         uses: DeterminateSystems/magic-nix-cache-action@main
-
-      #- name: Get current commit
-      #  id: get-commit
-      #  run: echo "commit_sha=$(git rev-parse HEAD)" >> "${GITHUB_OUTPUT}"
 
       - name: Build ISO Images
         shell: bash
