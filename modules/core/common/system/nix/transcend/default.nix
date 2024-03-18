@@ -14,16 +14,19 @@
 
   transcendModules =
     map ({
-      repo ? "nixpkgs",
+      # repo details
       owner,
+      repo,
       rev,
+      narHash,
+      # module path
       module,
     }: {
       disabledModules = modulesPath + module;
       importedModules =
         (fetchTree {
           type = "github";
-          inherit owner repo rev;
+          inherit owner repo rev narHash;
         })
         + "/nixos/modules/${module}";
     })
