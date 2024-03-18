@@ -1,13 +1,14 @@
 {
   config,
-  lib,
   pkgs,
-  inputs,
+  lib,
   ...
 }: let
-  cfg = config.modules.system.programs;
+  inherit (lib.modules) mkIf;
+
+  prg = config.modules.system.programs;
 in {
-  config = lib.mkIf cfg.gaming.enable {
+  config = mkIf prg.gaming.enable {
     nixpkgs = {
       config = {
         allowUnfreePredicate = pkg:
@@ -23,8 +24,9 @@ in {
           steam = prev.steam.override ({extraPkgs ? _: [], ...}: {
             extraPkgs = pkgs':
               (extraPkgs pkgs')
+              # Add missing dependencies
               ++ (with pkgs'; [
-                # Add missing dependencies
+                # Generic dependencies
                 libgdiplus
                 keyutils
                 libkrb5
@@ -50,7 +52,9 @@ in {
                 stdenv.cc.cc.lib
                 strace
                 zlib
-                libunwind # for titanfall 2 Northstar launcher
+
+                # for Titanfall 2 Northstar launcher
+                libunwind
               ]);
           });
         })
@@ -58,7 +62,7 @@ in {
     };
 
     programs.steam = {
-      # enable steam
+      # Enable steam
       enable = true;
 
       # Open ports in the firewall for Steam Remote Play
@@ -68,8 +72,11 @@ in {
       dedicatedServer.openFirewall = false;
 
       # Compatibility tools to install
+      # For the accepted format (and the reason behind)
+      # the "compattool" attribute, see:
+      # <https://github.com/NixOS/nixpkgs/pull/296009>
       extraCompatPackages = [
-        inputs.nix-gaming.packages.${pkgs.system}.proton-ge
+        pkgs.proton-ge-bin.steamcompattool
       ];
     };
   };
