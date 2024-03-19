@@ -1,11 +1,12 @@
 {
   perSystem = {
     inputs',
+    config,
     pkgs,
     ...
   }: {
     # provide the formatter for `nix fmt`
-    formatter = inputs'.nyxpkgs.packages.alejandra-no-ads;
+    formatter = config.treefmt.build.wrapper;
 
     # configure treefmt
     treefmt = {
