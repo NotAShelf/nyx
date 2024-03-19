@@ -15,7 +15,7 @@
   hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
 
   # serializing the modulePath to a variable
-  # this is incase the modulePath changes depth (i.e modules becomes nixos/modules)
+  # this is in case the modulePath changes depth (i.e modules becomes nixos/modules)
   modulePath = ../modules;
 
   coreModules = modulePath + /core; # the path where common modules reside
@@ -25,14 +25,14 @@
   # common modules
   # to be shared across all systems without exception
   common = coreModules + /common; # the self-proclaimed sane defaults for all my systems
-  profiles = coreModules + /profiles; # force defauşts based on selected profile
+  profiles = coreModules + /profiles; # force defaults based on selected profile
 
   # roles
   workstation = coreModules + /roles/workstation; # for devices that are of workstation type - any device that is for daily use
   server = coreModules + /roles/server; # for devices that are of the server type - provides online services
   laptop = coreModules + /roles/laptop; # for devices that are of the laptop type - provides power optimizations
   headless = coreModules + /roles/headless; # for devices that are of the headless type - provides no GUI
-  iso = coreModules + /roles/iso; # for providing a uniform iso configuration for live systems - only the build setup
+  iso = coreModules + /roles/iso; # for providing a uniform ISO configuration for live systems - only the build setup
 
   # extra modules - optional but likely critical to a successful build
   sharedModules = extraModules + /shared; # the path where shared modules reside
@@ -50,7 +50,7 @@
     profiles # profiles program overrides per-host
   ];
 in {
-  # My main desktop boasting a RX 6700 XT and a Ryzen 5 3600x
+  # My main desktop boasting a RX 6700XT and a Ryzen 5 3600x
   # fully free from nvidia
   # fuck nvidia - Linus "the linux" Torvalds
   enyo = mkNixosSystem {
@@ -67,7 +67,6 @@ in {
   };
 
   # HP Pavillion from 2016
-  # My main nixos profile, active on my laptop(s)
   # superseded by epimetheus
   prometheus = mkNixosSystem {
     inherit withSystem;
@@ -84,8 +83,8 @@ in {
   };
 
   # Identical twin host for Prometheus
-  # provides full disk encryption with passkey/USB auth
-  # which Prometheus did not
+  # provides full disk encryption
+  # with passkey/USB authentication
   epimetheus = mkNixosSystem {
     inherit withSystem;
     hostname = "epimetheus";
@@ -101,8 +100,10 @@ in {
   };
 
   # HP Pavillion laptop from 2023
-  # equipped a Ryzen 7 7730U, usually acts as my portable workstation
-  # similar to epimetheus, has full disk encryption with ephemeral root
+  # equipped a Ryzen 7 7730U
+  # usually acts as my portable workstation
+  # similar to epimetheus, has full disk
+  # encryption with ephemeral root using impermanence
   hermes = mkNixosSystem {
     inherit withSystem;
     hostname = "hermes";
@@ -134,7 +135,8 @@ in {
   };
 
   # Lenovo Ideapad from 2014
-  # Hybrid device, acts as a portable server and a "workstation"
+  # Hybrid device
+  # acts as a portable server and a "workstation"
   icarus = mkNixosSystem {
     inherit withSystem;
     hostname = "icarus";
@@ -151,7 +153,8 @@ in {
   };
 
   # Raspberry Pi 400
-  # My Pi400 homelab, used mostly for testing networking/cloud services
+  # My Pi400 homelab
+  # used mostly for testing networking/cloud services
   atlas = mkNixosSystem {
     inherit withSystem;
     hostname = "atlas";
@@ -182,7 +185,8 @@ in {
     specialArgs = {inherit lib;};
   };
 
-  # An air-gapped nixos liveiso to deal with yubikeys
+  # An air-gapped NixOS live media to deal with
+  # sensitive tooling (e.g. Yubikey, GPG, etc.)
   # isolated from all networking
   erebus = mkNixosIso {
     inherit withSystem;
