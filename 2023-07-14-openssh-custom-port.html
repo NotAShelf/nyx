@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>openssh-custom-port</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/prism.css" />
+    <link rel="stylesheet" href="./css/page.css" />
+    <script src="./js/prism.js"></script>
+  </head>
+  <body>
+    <!doctype html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-lGJFUWJWn9cSqQ6Z21T4YO+nmkUa7EzPcZ9LhEQBlFhT/9cD8btfJkgMlLHlMfsG56HW3Qc30RXAPCRRaOW8tA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href=".." class="button"><i class="fas fa-home"></i> Home</a>
+      <a
+        href="https://github.com/NotAShelf"
+        class="button"
+        target="_blank"
+        ><i class="fab fa-github"></i> GitHub</a
+      >
+    </nav>
+  </body>
+</html>
+
+
+    <div class="container">
+      <h1>openssh-custom-port</h1>
+      <div class="content"><h1 id="notes-for-14th-of-july-2023">Notes for 14th of July, 2023</h1>
+<p>My VPS, which hosts some of my infrastructure, has been running NixOS for a while now. Although weak, I use it for distributed builds alongside the rest of my<br>
+NixOS machines on a Tailscale network.</p>
+<p>This server, due to it hosting my infrastructure that communicates with the rest of the internet (i.e my mailserver), is somewhat responsive to queries<br>
+from the public - which includes <em>very</em> agressive portscans (thanks, skiddies!)</p>
+<p>To mitigate that, I have decided to change the ssh port from the default 22 to something different. While this is not exactly a pancea, it helps alleviate<br>
+the insane log spam I get from failed ssh requests.</p>
+<h2 id="the-openssh-configuration">The OpenSSH Configuration</h2>
+<p>First thing we've done is to configure openssh to listen on the new port on your server configuration</p>
+<pre><code class="language-nix">services.openssh = {
+  ports = [2222];
+}
+</code></pre>
+<p>With this set, openssh on the server will now be listening on the port 2222 instead of the default 22. For the changes to take effect after a rebuild, you might need to run<br>
+<code>systemctl restart sshd.socket</code>.</p>
+<p>Then we want to configure our client to use the correct port for our server instead of the default 22.</p>
+<pre><code class="language-nix">programs.ssh.extraConfig = ''
+    Host nix-builder
+      HostName nix-builder-hostname # if you are using Tailscale, this can just be the hostname of a device on your Tailscale network
+	  Port 2222
+'';
+</code></pre>
+<p>And done, that is all for the ssh side of things. Next up, we need to configure out builder to use the correct host.</p>
+<h2 id="nix-builder-configuration">Nix Builder Configuration</h2>
+<p>Assuming you already have a remote builder configured, you will only need to patch the <code>hostName</code> with the one on your <code>openssh.extraConfig</code>.</p>
+<pre><code class="language-nix">nix.buildMachines = [{
+    hostName = &quot;nix-builder-hostname&quot;;
+    sshUser = &quot;nix-builder&quot;;
+    sshKey = &quot;/path/to/key&quot;;
+    systems = [&quot;x86_64-linux&quot;];
+    maxJobs = 2;
+    speedFactor = 2;
+    supportedFeatures = [&quot;kvm&quot;];
+}];
+</code></pre>
+<p>If you have added the correct <code>hostName</code> and <code>sshUser</code>, the builder will be picked up automatically on the next rebuild.</p>
+<h3 id="home-manager">Home-Manager</h3>
+<p>If you are using Home-Manager, you might also want to configure your declarative ~/.config/ssh/config to use the new port. That can be achieved through<br>
+<code>programs.ssh.matchBlocks</code> option under Home-Manager</p>
+<pre><code class="language-nix">programs.ssh.matchBlocks = {
+  &quot;builder&quot; = {
+    hostname = &quot;nix-builder-hostname&quot;;
+    user = &quot;nix-builder&quot;;
+    identityFile = &quot;~/.ssh/builder-key&quot;;
+    port = 2222;
+  };
+}
+</code></pre>
+<p>And that will be all. You are ready to use your new non-default port, mostly safe from port scanners.</p>
+</div>
+      <a href="#" class="scroll-up-button button" onclick="scrollToTop()">
+        Go to Top
+      </a>
+
+      <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      </script>
+    </div>
+
+    <footer>
+  <p>&copy;2023 NotAShelf. All rights reserved.</p>
+  <a href="./rss.xml" class="navbar-rss-button" target="_blank"
+    ><i class="fas fa-rss"></i
+  ></a>
+</footer>
+
+  </body>
+</html>

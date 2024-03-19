@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>using-headscale</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/prism.css" />
+    <link rel="stylesheet" href="./css/page.css" />
+    <script src="./js/prism.js"></script>
+  </head>
+  <body>
+    <!doctype html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-lGJFUWJWn9cSqQ6Z21T4YO+nmkUa7EzPcZ9LhEQBlFhT/9cD8btfJkgMlLHlMfsG56HW3Qc30RXAPCRRaOW8tA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href=".." class="button"><i class="fas fa-home"></i> Home</a>
+      <a
+        href="https://github.com/NotAShelf"
+        class="button"
+        target="_blank"
+        ><i class="fab fa-github"></i> GitHub</a
+      >
+    </nav>
+  </body>
+</html>
+
+
+    <div class="container">
+      <h1>using-headscale</h1>
+      <div class="content"><h1 id="notes-for-11th-of-november-2023">Notes for 11th of November, 2023</h1>
+<p>Today's main attraction is the Headscale setup on my VPS running NixOS, which I've finally came around to self-host.</p>
+<p>There has been much talk about this new product called Tailscale recently around the web, especially<br>
+in the last few years. Tailscale is a VPN service that makes the devices and applications we own accessible<br>
+anywhere using the open source WireGuard protocol to establish encrypted point-to-point connections.</p>
+<p>I have been using Tailscale for a while now, but in an effort to move all of my services to self-owned hardware<br>
+some of my services have been moved over to my NixOS server over time.</p>
+<p>Many of Tailscale’s components are open-source, especially its clients, but the server remains closed-source. Tailscale<br>
+is a SaaS product and monetization naturally is a big concern, however, we care more about controlling our own data<br>
+than their attempts of monetization.</p>
+<p>This is where the (very appropriately named) Headscale comes in; Headscale is an open-source, self-hosted<br>
+implementation of the Tailscale control server. The configuration is extremely straightforward, as Headscale<br>
+will handle everything for us.</p>
+<h2 id="running-headscale">Running Headscale</h2>
+<p>Below is a simple configuration for the Headscale module of NixOS.</p>
+<pre><code class="language-nix">services = let
+  domain = &quot;example.com&quot;;
+in {
+  headscale = {
+    enable = true;
+    address = &quot;0.0.0.0&quot;;
+    port = 8085;
+
+    settings = {
+      server_url = &quot;https://tailscale.${domain}&quot;;
+
+      dns_config = {
+        override_local_dns = true;
+        base_domain = &quot;${domain}&quot;;
+        magic_dns = true;
+        domains = [&quot;tailscale.${domain}&quot;];
+        nameservers = [
+          &quot;9.9.9.9&quot; # no cloudflare, nice
+        ];
+      };
+
+      ip_prefixes = [
+        &quot;100.64.0.0/10&quot;
+        &quot;fd7a:115c:a1e0::/48&quot;
+      ];
+    };
+  };
+};
+</code></pre>
+<h2 id="using-headscale">Using Headscale</h2>
+<p>We must first create a user, which we can do with</p>
+<pre><code class="language-console">headscale users create myUser
+</code></pre>
+<p>Then on the machine that will be our client, we need to login.</p>
+<pre><code class="language-console">tailscale up --login-server tailscale.example.com # replace this URL with your own as configured abovea
+</code></pre>
+<p>Followed by registering the machine.</p>
+<pre><code class="language-console"># machine key will be obtained visiting the URL that is returned from the above command
+headscale --user myUser nodes register --key &lt;MACHINE_KEY&gt;
+</code></pre>
+<p>And finally logging into your Tailnet using the URL and your machine key.</p>
+<pre><code class="language-console">tailscale up --login-server https://tailscale.example.com --authkey &lt;YOUR_AUTH_KEY&gt;
+</code></pre>
+<p>And all done!</p>
+<p>Try connecting to one of your machines using the hostname now to test if the connection is actually working.</p>
+</div>
+      <a href="#" class="scroll-up-button button" onclick="scrollToTop()">
+        Go to Top
+      </a>
+
+      <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      </script>
+    </div>
+
+    <footer>
+  <p>&copy;2023 NotAShelf. All rights reserved.</p>
+  <a href="./rss.xml" class="navbar-rss-button" target="_blank"
+    ><i class="fas fa-rss"></i
+  ></a>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>packaging-nextjs-webapps</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/prism.css" />
+    <link rel="stylesheet" href="./css/page.css" />
+    <script src="./js/prism.js"></script>
+  </head>
+  <body>
+    <!doctype html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-lGJFUWJWn9cSqQ6Z21T4YO+nmkUa7EzPcZ9LhEQBlFhT/9cD8btfJkgMlLHlMfsG56HW3Qc30RXAPCRRaOW8tA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href=".." class="button"><i class="fas fa-home"></i> Home</a>
+      <a
+        href="https://github.com/NotAShelf"
+        class="button"
+        target="_blank"
+        ><i class="fab fa-github"></i> GitHub</a
+      >
+    </nav>
+  </body>
+</html>
+
+
+    <div class="container">
+      <h1>packaging-nextjs-webapps</h1>
+      <div class="content"><h1 id="notes-for-21st-of-june-2023">Notes for 21st of June, 2023</h1>
+<p>Recenty I have had to go through the misfortune of hosting some websites written with <em>NextJS</em> on my VPS running NixOS, this note entry shall document<br>
+my experience and the &quot;easy&quot; path I have chosen.</p>
+<h2 id="packaging">Packaging</h2>
+<p>The websites I hosted were of two variety: those statically exported, and those that cannot be statically exported.</p>
+<h3 id="statically-exported-webapps">Statically Exported Webapps</h3>
+<p>Statically exported ones are easy to package, because it is a matter of running <code>npm build</code> (or whatever your build script is) with the following NextJS settings</p>
+<pre><code class="language-js">// next.config.js
+module.exports = {
+    distDir: &quot;dist&quot;, // an artitrary path for your export
+    output: &quot;export&quot;,
+};
+</code></pre>
+<p>This will export a static website with a bunch of html files that you can then serve with nodePackages.serve or a webserver like nginx or apache.<br>
+And that is the end of your worries for a statically exported website! No headache, just write a simple derivation, such as the one below</p>
+<pre><code class="language-nix"># default.nix
+{
+  buildNpmPackage,
+  pkg-config,
+  python3,
+  ...
+}:
+buildNpmPackage {
+  pname = &quot;your-website&quot;;
+  version = &quot;0.1&quot;;
+
+  src = ./.;
+  # needs to be updated everytime you update npm dependencies
+  npmDepsHash = &quot;sha256-some-hash&quot;;
+  # some npm packages may need to be built from source, because nodejs is a *terrible* ecosystem
+  nativeBuildInputs = [pkg-config python3];
+
+ # move exported website to $out
+ postInstall = ''
+    cp -rf dist/* $out
+  '';
+}
+</code></pre>
+<p>and serve its path with a simple tool after building the derivation, I find nginx to be awfully convenient for doing so.</p>
+<h3 id="webapps-that-cannot-be-statically-exported">Webapps that cannot be statically exported</h3>
+<p>If your website depends on API routes for some reasons, then Next will not allow you to do static export. Which means you need to run <code>next start</code> in some shape or form. While a systemd service is certainly a way of doing it (one that I do not recommend), a oci container works as well if not better.</p>
+<p>You can write a &quot;simple&quot; docker image for your oci container to use, such as the one below</p>
+<pre><code class="language-nix"># dockerImage.nix
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  dockerImage = pkgs.dockerTools.buildImage {
+    config = {
+      WorkingDir = &quot;/your-website&quot;;
+      Cmd = [&quot;npm&quot; &quot;run&quot; &quot;serve&quot;];
+    };
+
+    name = &quot;your-website&quot;;
+    tag = &quot;latest&quot;;
+
+    fromImage = pkgs.dockerTools.buildImage {
+      name = &quot;node&quot;;
+      tag = &quot;18-alpine&quot;;
+    };
+
+    copyToRoot = pkgs.buildEnv {
+      name = &quot;image-root&quot;;
+
+      paths = with pkgs; [
+        # this package is called from a flake.nix alongside the derivation for the website
+        inputs.self.packages.${pkgs.system}.your-website
+        nodejs
+        bash
+      ];
+
+      pathsToLink = [
+        &quot;/bin&quot;
+        &quot;/your-website&quot;
+      ];
+    };
+  };
+}
+</code></pre>
+<p>and then configure oci-containers to pick up the Docker image that you have built.<br>
+This is a simplified version of my VPS' container setup. An example can be found in my <code>modules/extra/server/services</code> module.</p>
+<pre><code class="language-nix">virtualisation.oci-containers = {
+  backend = &quot;podman&quot;;
+  containers = {
+    &quot;website-container&quot; = {
+      autoStart = true;
+      ports = [
+        &quot;3000:3000&quot; # bind container's port 3000 to the outside port 3000 for NextJS
+      ];
+
+      extraOptions = [&quot;--network=host&quot;];
+
+      image = &quot;your-website&quot;;
+      imageFile = inputs.website-flake.packages.${pkgs.system}.dockerImage;
+    };
+  };
+};
+</code></pre>
+<p>After a rebuild, your system will provision the container and start it on port 3000. You can access it with <code>your-server-ip:3000</code> in your browser, and even configure nginx to set up a reverse proxy to assign your domain.</p>
+<pre><code class="language-conf">&quot;example.com&quot; = {
+  locations.&quot;/&quot;.proxyPass = &quot;http://127.0.0.1:3000&quot;;
+};
+</code></pre>
+<p>This will assign your domain to your webserver, and allow outside visitors to view your &quot;awesome&quot; NextJS webapp.</p>
+</div>
+      <a href="#" class="scroll-up-button button" onclick="scrollToTop()">
+        Go to Top
+      </a>
+
+      <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      </script>
+    </div>
+
+    <footer>
+  <p>&copy;2023 NotAShelf. All rights reserved.</p>
+  <a href="./rss.xml" class="navbar-rss-button" target="_blank"
+    ><i class="fas fa-rss"></i
+  ></a>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>impermanence</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/prism.css" />
+    <link rel="stylesheet" href="./css/page.css" />
+    <script src="./js/prism.js"></script>
+  </head>
+  <body>
+    <!doctype html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-lGJFUWJWn9cSqQ6Z21T4YO+nmkUa7EzPcZ9LhEQBlFhT/9cD8btfJkgMlLHlMfsG56HW3Qc30RXAPCRRaOW8tA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href=".." class="button"><i class="fas fa-home"></i> Home</a>
+      <a
+        href="https://github.com/NotAShelf"
+        class="button"
+        target="_blank"
+        ><i class="fab fa-github"></i> GitHub</a
+      >
+    </nav>
+  </body>
+</html>
+
+
+    <div class="container">
+      <h1>impermanence</h1>
+      <div class="content"><h1 id="notes-for-14th-of-march-2023">Notes for 14th of March, 2023</h1>
+<p>Today was the day I finally got to setting up both &quot;erase your darlings&quot;<br>
+and proper disk encryption.</p>
+<p>The end result is a /dev/sda3 that is fully encrypted that uses btrfs<br>
+snapshots to restore / to its original state on each boot.</p>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167">This discourse post</a></li>
+<li><a href="https://elis.nu/blog/2020/06/nixos-tmpfs-as-home">This blog post</a></li>
+<li><a href="https://guekka.github.io/nixos-server-1/">This other blog post</a></li>
+<li><a href="https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html">And this post that the previous post is based on</a></li>
+<li><a href="https://github.com/nix-community/impermanence">Impermanence</a></li>
+</ul>
+<h2 id="the-actual-set-up-and-reproduction-steps">The actual set-up (and reproduction steps)</h2>
+<p>I've had to go through a few guides before I could figure out a set up that I really like. The final decision was that I would have<br>
+an encrypted disk that restores itself to its former state during boot. Is it fast? Absolutely not. But it sure as hell is cool. And stateless!</p>
+<p>To return the root (and only the root) we use a systemd service that fires shortly after the disk is encrypted but before the root is actually<br>
+mounted. That way, we can unlock the disk, restore the disk to its pristine state using the snapshot we have taken during installation and mount<br>
+the root to go on with our day.</p>
+<h3 id="reproduction-steps">Reproduction steps</h3>
+<h4 id="partitioning">Partitioning</h4>
+<p>First you want to format your disk. If you are really comfortable with bringing parted to your pre-formatted disks, by all means feel free to skip<br>
+this section. I, however, choose to format a fresh disk.</p>
+<p>Start by partitioning the sections of our disk (sda1, sda2 and sda3)<br>
+<em>Device names might change if you're using a nvme disk, i.e nvme0p1.</em></p>
+<pre><code class="language-bash"># Set the disk name to make it easier
+DISK=/dev/sda # /dev/nvme0
+
+# set up the boot partition
+parted &quot;$DISK&quot; -- mklabel gpt
+parted &quot;$DISK&quot; -- mkpart ESP fat32 1MiB 1GiB
+parted &quot;$DISK&quot; -- set 1 boot on
+
+mkfs.vfat -n BOOT &quot;$DISK&quot;1
+</code></pre>
+<pre><code class="language-bash"># set up the swap partition
+parted &quot;$DISK&quot; -- mkpart Swap linux-swap 1GiB 9GiB
+mkswap -L SWAP &quot;$DISK&quot;2
+swapon &quot;$DISK&quot;2
+</code></pre>
+<p>I do in fact use swap in the oh so civilized year of 2023<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.<br>
+If I were a little more advanced, I would also be encrypting the swap to secure the hibernates... but that is <em>currently</em> out of my scope.</p>
+<p>Encrypt your partition, and open it to make it available under /dev/mapper/enc</p>
+<pre><code class="language-bash">cryptsetup --verify-passphrase -v luksFormat &quot;$DISK&quot;3 # /dev/sda3
+cryptsetup open &quot;$DISK&quot;3 enc
+</code></pre>
+<p>Now partition the encrypted partition.</p>
+<pre><code class="language-bash">parted &quot;$DISK&quot; -- mkpart primary 9GiB 100%
+mkfs.btrfs -L NIXOS /dev/mapper/enc
+</code></pre>
+<pre><code class="language-bash">mount -t btrfs /dev/mapper/enc /mnt
+
+# First we create the subvolumes, those may differ as per your preferences
+btrfs subvolume create /mnt/root
+btrfs subvolume create /mnt/home
+btrfs subvolume create /mnt/nix
+btrfs subvolume create /mnt/persist # some people may choose to put /persist in /mnt/nix, I am not one of those people.
+btrfs subvolume create /mnt/log
+</code></pre>
+<p>Now that we have created the btrfs subvolumes, it is time for the <em>readonly</em> snapshot of the root subvolume.</p>
+<pre><code class="language-bash">btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
+
+umount /mnt
+</code></pre>
+<h4 id="mounting">Mounting</h4>
+<p>After the subvolumes are created, we mount them with the options that we want. Ideally, on NixOS, you want the <code>noatime</code> option <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> and zstd<br>
+compression, especially on your <code>/nix</code> partition.</p>
+<p>The following is my partition layout. If you have created any other subvolumes in the step above, you will also want to mount them here.</p>
+<pre><code class="language-bash">mount -o subvol=root,compress=zstd,noatime /dev/mapper/enc /mnt
+
+mkdir /mnt/home
+mount -o subvol=home,compress=zstd,noatime /dev/mapper/enc /mnt/home
+
+mkdir /mnt/nix
+mount -o subvol=nix,compress=zstd,noatime /dev/mapper/enc /mnt/nix
+
+mkdir /mnt/persist
+mount -o subvol=persist,compress=zstd,noatime /dev/mapper/enc /mnt/persist
+
+mkdir -p /mnt/var/log
+mount -o subvol=log,compress=zstd,noatime /dev/mapper/enc /mnt/var/log
+
+# do not forget to mount the boot partition
+mkdir /mnt/boot
+mount &quot;$DISK&quot;1 /mnt/boot
+</code></pre>
+<p>And finally let NixOS generate the hardware configuration.</p>
+<pre><code class="language-bash">nixos-generate-config --root /mnt
+</code></pre>
+<p>The genereated configuration will be available at <code>/mnt/etc/nixos</code>.</p>
+<p>Before we move on, we need to add the <code>neededForBoot = true;</code> to some mounted subvolumes in <code>hardware-configuration.nix</code>.</p>
+<p>It will look something like this:</p>
+<pre><code class="language-diff"># Do not modify this file!  It was generated by ‘nixos-generate-config’
+# and may be overwritten by future invocations.  Please make changes
+# to /etc/nixos/configuration.nix instead.
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
+  imports = [
+    (modulesPath + &quot;/installer/scan/not-detected.nix&quot;)
+  ];
+
+  boot.initrd.availableKernelModules = [&quot;xhci_pci&quot; &quot;ahci&quot; &quot;usb_storage&quot; &quot;sd_mod&quot; &quot;rtsx_pci_sdmmc&quot;];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = [&quot;kvm-intel&quot;];
+  boot.extraModulePackages = [];
+
+  fileSystems.&quot;/&quot; = {
+    device = &quot;/dev/disk/by-uuid/b79d3c8b-d511-4d66-a5e0-641a75440ada&quot;;
+    fsType = &quot;btrfs&quot;;
+    options = [&quot;subvol=root&quot;];
+  };
+
+  boot.initrd.luks.devices.&quot;enc&quot;.device = &quot;/dev/disk/by-uuid/82144284-cf1d-4d65-9999-2e7cdc3c75d4&quot;;
+
+  fileSystems.&quot;/home&quot; = {
+    device = &quot;/dev/disk/by-uuid/b79d3c8b-d511-4d66-a5e0-641a75440ada&quot;;
+    fsType = &quot;btrfs&quot;;
+    options = [&quot;subvol=home&quot;];
+  };
+
+  fileSystems.&quot;/nix&quot; = {
+    device = &quot;/dev/disk/by-uuid/b79d3c8b-d511-4d66-a5e0-641a75440ada&quot;;
+    fsType = &quot;btrfs&quot;;
+    options = [&quot;subvol=nix&quot;];
+  };
+
+  fileSystems.&quot;/persist&quot; = {
+    device = &quot;/dev/disk/by-uuid/b79d3c8b-d511-4d66-a5e0-641a75440ada&quot;;
+    fsType = &quot;btrfs&quot;;
+    options = [&quot;subvol=persist&quot;];
++    neededForBoot = true;
+  };
+
+  fileSystems.&quot;/var/log&quot; = {
+    device = &quot;/dev/disk/by-uuid/b79d3c8b-d511-4d66-a5e0-641a75440ada&quot;;
+    fsType = &quot;btrfs&quot;;
+    options = [&quot;subvol=log&quot;];
++    neededForBoot = true;
+  };
+
+  fileSystems.&quot;/boot&quot; = {
+    device = &quot;/dev/disk/by-uuid/FDED-3BCF&quot;;
+    fsType = &quot;vfat&quot;;
+  };
+
+  swapDevices = [
+    {device = &quot;/dev/disk/by-uuid/0d1fc824-623b-4bb8-bf7b-63a3e657889d&quot;;}
+    # if you encrypt your swap, it'll also need to be configured here
+  ];
+
+  nixpkgs.hostPlatform = lib.mkDefault &quot;x86_64-linux&quot;;
+  powerManagement.cpuFreqGovernor = lib.mkDefault &quot;powersave&quot;;
+}
+</code></pre>
+<p>Do keep in mind that the nixos hardware scanner <strong>cannot</strong> pick up your mount options. You must specifiy the options (i.e <code>noatime</code>) for each<br>
+btrfs volume that you have created in <code>hardware-configuration.nix</code>.</p>
+<h3 id="closing-notes">Closing Notes</h3>
+<p>And that should be all. By this point you are pretty much ready to install with your existing config. I generally use my configuration flake<br>
+to boot, so there is no need to make any revisions. If you are starting from scratch, consider tweaking your configuration.nix before you install<br>
+the system. An editor like neovim, or your preferred DE/wm make good additions to your config.</p>
+<p>Once it's all done, take a deep breath and <code>nixos-install</code>. Once the installation is done, you'll be prompted for the root password and after that<br>
+you can reboot. Now you are running NixOS on an encrypted disk! Nice.</p>
+<p>Next up, if you are feeling <em>really</em> fancy today, is to configure disk erasure and impermanence.</p>
+<h4 id="impermanence">Impermanence</h4>
+<p>For BTRFS snapshots, I use a systemd service that goes</p>
+<pre><code class="language-nix">boot.initrd.systemd.services.rollback = {
+    description = &quot;Rollback BTRFS root subvolume to a pristine state&quot;;
+    wantedBy = [
+      &quot;initrd.target&quot;
+    ];
+    after = [
+      # LUKS/TPM process
+      &quot;systemd-cryptsetup@enc.service&quot;
+    ];
+    before = [
+      &quot;sysroot.mount&quot;
+    ];
+    unitConfig.DefaultDependencies = &quot;no&quot;;
+    serviceConfig.Type = &quot;oneshot&quot;;
+    script = ''
+      mkdir -p /mnt
+
+      # We first mount the btrfs root to /mnt
+      # so we can manipulate btrfs subvolumes.
+      mount -o subvol=/ /dev/mapper/enc /mnt
+
+      # While we're tempted to just delete /root and create
+      # a new snapshot from /root-blank, /root is already
+      # populated at this point with a number of subvolumes,
+      # which makes `btrfs subvolume delete` fail.
+      # So, we remove them first.
+      #
+      # /root contains subvolumes:
+      # - /root/var/lib/portables
+      # - /root/var/lib/machines
+
+      btrfs subvolume list -o /mnt/root |
+        cut -f9 -d' ' |
+        while read subvolume; do
+          echo &quot;deleting /$subvolume subvolume...&quot;
+          btrfs subvolume delete &quot;/mnt/$subvolume&quot;
+        done &amp;&amp;
+        echo &quot;deleting /root subvolume...&quot; &amp;&amp;
+        btrfs subvolume delete /mnt/root
+      echo &quot;restoring blank /root subvolume...&quot;
+      btrfs subvolume snapshot /mnt/root-blank /mnt/root
+
+      # Once we're done rolling back to a blank snapshot,
+      # we can unmount /mnt and continue on the boot process.
+      umount /mnt
+    '';
+  };
+
+</code></pre>
+<blockquote>
+<p>You may opt in for <code> boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''</code> as <a href="https://mt-caret.github.io/blog/posts/2020-06-29-optin-state.html">this blog post</a><br>
+suggests. I am not sure about the superiority or the inferiority of either option. To me, systemd services feel more comfortable.</p>
+</blockquote>
+<p>What this implies is that certain files such as saved networks for network-managers will be deleted on each reboot.<br>
+While a little clunky, <a href="https://github.com/nix-community/impermanence">Impermanence</a> is a great solution to our problem.</p>
+<p>Impermanence exposes to our system an <code>environment.persistence.&quot;&lt;dirName&gt;&quot;</code> option that we can use to make certain directories or files permanent.<br>
+My module goes like this:</p>
+<pre><code class="language-nix">imports = [inputs.impermanence.nixosModules.impermanence]; # the import will be different if flakes are not enabled on your system
+
+
+  environment.persistence.&quot;/persist&quot; = {
+    directories = [
+      &quot;/etc/nixos&quot;
+      &quot;/etc/NetworkManager/system-connections&quot;
+      &quot;/etc/secureboot&quot;
+      &quot;/var/db/sudo&quot;
+    ];
+
+    files = [
+      &quot;/etc/machine-id&quot;
+      # ssh stuff
+      &quot;/etc/ssh/ssh_host_ed25519_key&quot;
+      &quot;/etc/ssh/ssh_host_ed25519_key.pub&quot;
+      &quot;/etc/ssh/ssh_host_rsa_key&quot;
+      &quot;/etc/ssh/ssh_host_rsa_key.pub&quot;
+      # if you use docker or LXD, also persist their directories
+    ];
+  };
+
+</code></pre>
+<p>And that is pretty much it. If everything went well, you should now be telling your friends about your new system boasting full disk<br>
+encryption <em>and</em> root rollbacks.</p>
+<h2 id="why">Why?</h2>
+<p>Honestly, why not?</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>I could be using <code>tmpfs</code> for <code>/</code> at this point in time. Unfortunately, since I share this setup on some of my low-end laptops, I've got no RAM<br>
+to spare - which is exactly why I have opted out with BTRFS. It is a reliable filesystem that I am used to, and it allows for us to use a script<br>
+that we'll see later on.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://opensource.com/article/20/6/linux-noatime">https://opensource.com/article/20/6/linux-noatime</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+</div>
+      <a href="#" class="scroll-up-button button" onclick="scrollToTop()">
+        Go to Top
+      </a>
+
+      <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      </script>
+    </div>
+
+    <footer>
+  <p>&copy;2023 NotAShelf. All rights reserved.</p>
+  <a href="./rss.xml" class="navbar-rss-button" target="_blank"
+    ><i class="fas fa-rss"></i
+  ></a>
+</footer>
+
+  </body>
+</html>
