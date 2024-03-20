@@ -1,17 +1,24 @@
 {
-  pkgs,
   config,
+  pkgs,
   lib,
   ...
 }: let
+  inherit (lib.strings) optionalString concatStringsSep;
+  inherit (lib.attrsets) mapAttrsToList;
+
+  sessionPath = optionalString (config.home.sessionPath != []) ''
+    export PATH=${concatStringsSep ":" config.home.sessionPath}:$PATH
+  '';
+
+  sessionVariables = concatStringsSep "\n" (mapAttrsToList (key: value: ''
+      export ${key}="${toString value}"
+    '')
+    config.home.sessionVariables);
+
   apply-hm-env = pkgs.writeShellScript "apply-hm-env" ''
-    ${lib.optionalString (config.home.sessionPath != []) ''
-      export PATH=${builtins.concatStringsSep ":" config.home.sessionPath}:$PATH
-    ''}
-    ${builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: ''
-        export ${k}=${toString v}
-      '')
-      config.home.sessionVariables)}
+    ${sessionPath}
+    ${sessionVariables}
     ${config.home.sessionVariablesExtra}
     exec "$@"
   '';
@@ -26,7 +33,5 @@
       bash -lc "exec ${apply-hm-env} $@"
   '';
 in {
-  home = {
-    packages = [run-as-service];
-  };
+  home.packages = [run-as-service];
 }
