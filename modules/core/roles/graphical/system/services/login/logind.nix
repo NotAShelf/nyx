@@ -1,7 +1,7 @@
 {
   # despite being under logind, this has nothing to do with login
   # it's about power management
-  logind = {
+  services.logind = {
     lidSwitch = "suspend-then-hibernate";
     lidSwitchExternalPower = "lock";
     extraConfig = ''

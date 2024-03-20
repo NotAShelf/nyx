@@ -35,7 +35,7 @@
     ];
   };
 in {
-  greetd = {
+  services.greetd = {
     enable = true;
     vt = 2;
     restart = !sys.autoLogin;

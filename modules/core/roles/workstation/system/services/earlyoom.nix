@@ -2,7 +2,7 @@
   # https://dataswamp.org/~solene/2022-09-28-earlyoom.html
   # avoid the linux kernel locking itself when we're putting too much strain on the memory
   # this helps avoid having to shut down forcefully when we OOM
-  earlyoom = {
+  services.earlyoom = {
     enable = true;
     enableNotifications = true; # annoying, but we want to know what's killed
     freeSwapThreshold = 2;
@@ -15,7 +15,7 @@
 
     # we should ideally write the logs into a designated log file; or even better, to the journal
     # for now we can hope this echo sends the log to somewhere we can observe later
-    killHook = pkgs.runCommandLocal "earlyoom-kill-hook" {} ''
+    killHook = pkgs.writeShellScript "earlyoom-kill-hook" ''
       echo "Process $EARLYOOM_NAME ($EARLYOOM_PID) was killed"
     '';
   };
