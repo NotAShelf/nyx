@@ -1,13 +1,5 @@
-{
-  config,
-  pkgs,
-}: {
-  enable = true;
-  package = pkgs.ncmpcpp.override {
-    visualizerSupport = true;
-  };
-  mpdMusicDir = config.services.mpd.musicDirectory;
-  settings = {
+{config}: {
+  programs.ncmpcpp.settings = {
     # Miscelaneous
     ncmpcpp_directory = "${config.xdg.configHome}/ncmpcpp";
     ignore_leading_the = true;
@@ -66,22 +58,4 @@
     color1 = "white";
     color2 = "blue";
   };
-  bindings = [
-    {
-      key = "j";
-      command = "scroll_down";
-    }
-    {
-      key = "k";
-      command = "scroll_up";
-    }
-    {
-      key = "J";
-      command = ["select_item" "scroll_down"];
-    }
-    {
-      key = "K";
-      command = ["select_item" "scroll_up"];
-    }
-  ];
 }

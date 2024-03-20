@@ -86,12 +86,6 @@ in {
     };
 
     programs = {
-      # music tagger and organizer
-      beets = import ./beets.nix {inherit config;};
-
-      # ncmpcpp configuration, has cool stuff like visualiser
-      ncmpcpp = import ./ncmpcpp.nix {inherit config pkgs;};
-
       /*
       # yams service
       # TODO: figure out a way to provide the lastfm authentication declaratively

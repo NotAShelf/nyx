@@ -1,9 +1,12 @@
 {
   imports = [
-    ./mpd
-    ./spotifyd
     ./easyeffects
-    ./noisetorch
-    ./rnnoise
+    ./mpd
+    ./ncmpcpp
+
+    ./beets.nix
+    ./noisetorch.nix
+    ./rnnoise.nix
+    ./spotifyd.nix
   ];
 }

@@ -1,19 +1,19 @@
 {
-  lib,
   osConfig,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 
   dev = osConfig.modules.device;
-
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   config = mkIf (builtins.elem dev.type acceptedTypes) {
-    xdg.configFile."easyeffects/output/quiet.json".source = ./quiet.json;
     services.easyeffects = {
       enable = true;
       preset = "quiet";
     };
+
+    xdg.configFile."easyeffects/output/quiet.json".source = ./quiet.json;
   };
 }
