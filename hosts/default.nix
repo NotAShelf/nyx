@@ -28,11 +28,12 @@
   profiles = coreModules + /profiles; # force defaults based on selected profile
 
   # roles
+  iso = coreModules + /roles/iso; # for providing a uniform ISO configuration for live systems - only the build setup
+  headless = coreModules + /roles/headless; # for devices that are of the headless type - provides no GUI
+  graphical = coreModules + /roles/graphical; # for devices that are of the graphical type - provides a GUI
   workstation = coreModules + /roles/workstation; # for devices that are of workstation type - any device that is for daily use
   server = coreModules + /roles/server; # for devices that are of the server type - provides online services
   laptop = coreModules + /roles/laptop; # for devices that are of the laptop type - provides power optimizations
-  headless = coreModules + /roles/headless; # for devices that are of the headless type - provides no GUI
-  iso = coreModules + /roles/iso; # for providing a uniform ISO configuration for live systems - only the build setup
 
   # extra modules - optional but likely critical to a successful build
   sharedModules = extraModules + /shared; # the path where shared modules reside
@@ -60,6 +61,7 @@ in {
     modules =
       [
         ./enyo
+        graphical
         workstation
       ]
       ++ concatLists [shared homes];
@@ -75,6 +77,7 @@ in {
     modules =
       [
         ./prometheus
+        graphical
         workstation
         laptop
       ]
@@ -92,6 +95,7 @@ in {
     modules =
       [
         ./epimetheus
+        graphical
         workstation
         laptop
       ]
@@ -111,6 +115,7 @@ in {
     modules =
       [
         ./hermes
+        graphical
         workstation
         laptop
       ]
@@ -144,6 +149,7 @@ in {
     modules =
       [
         ./icarus
+        graphical
         workstation
         laptop
         server
