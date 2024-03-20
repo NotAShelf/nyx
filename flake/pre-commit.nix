@@ -15,7 +15,7 @@
       {
         inherit excludes;
         description = "pre-commit hook for ${name}";
-        fail_fast = true;
+        fail_fast = true; # running hooks if this hook fails
         verbose = true;
       }
       // prev;
@@ -31,26 +31,20 @@
         hooks = {
           alejandra = mkHook "Alejandra" {enable = true;};
           actionlint = mkHook "actionlint" {enable = true;};
-          treefmt = mkHook "treefmt" {enable = true;};
-          prettier = mkHook "prettier" {enable = true;};
           luacheck = mkHook "luacheck" {enable = true;};
+          treefmt = mkHook "treefmt" {enable = true;};
+
           editorconfig-checker = mkHook "editorconfig" {
             enable = false;
             always_run = true;
           };
-        };
 
-        # why is this settings.settings.<hook> instead of <hook>.settings?
-        # fuck you that's why
-        # - numtide, probably
-        settings = {
-          prettier = {
-            binPath = "${pkgs.prettierd}/bin/prettierd";
-            write = true;
-          };
-
-          treefmt = {
-            package = config.treefmt.build.wrapper;
+          prettier = mkHook "prettier" {
+            enable = true;
+            settings = {
+              binPath = "${pkgs.prettierd}/bin/prettierd";
+              write = true;
+            };
           };
         };
       };
