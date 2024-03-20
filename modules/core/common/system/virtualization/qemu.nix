@@ -31,6 +31,13 @@ in {
             enable = true;
             packages = [pkgs.OVMFFull.fd];
           };
+
+          verbatimConfig = ''
+            namespaces = []
+
+            # Whether libvirt should dynamically change file ownership
+            dynamic_ownership = 0
+          '';
         };
 
         onBoot = "ignore";
