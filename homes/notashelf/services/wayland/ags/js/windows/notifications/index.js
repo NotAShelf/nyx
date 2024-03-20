@@ -1,13 +1,14 @@
 import { Hyprland, Notifications, Utils, Widget } from "../../imports.js";
+const { Box, Icon, Label, Button, EventBox, Window } = Widget;
+const { lookUpIcon } = Utils;
 
 const closeAll = () => {
     Notifications.popups.map((n) => n.dismiss());
 };
 
-/** @param {import("types/service/notifications").Notification} n */
 const NotificationIcon = ({ app_entry, app_icon, image }) => {
     if (image) {
-        return Widget.Box({
+        return Box({
             css: `
         background-image: url("${image}");
         background-size: contain;
@@ -17,32 +18,29 @@ const NotificationIcon = ({ app_entry, app_icon, image }) => {
         });
     }
 
-    if (Utils.lookUpIcon(app_icon)) {
-        return Widget.Icon(app_icon);
+    if (lookUpIcon(app_icon)) {
+        return Icon(app_icon);
     }
 
-    if (app_entry && Utils.lookUpIcon(app_entry)) {
-        return Widget.Icon(app_entry);
+    if (app_entry && lookUpIcon(app_entry)) {
+        return Icon(app_entry);
     }
 
     return null;
 };
 
-/** @param {import('types/service/notifications').Notification} n */
-export const Notification = (n) => {
-    const icon = Widget.Box({
+const Notification = (notif) => {
+    const icon = Box({
         vpack: "start",
         class_name: "icon",
         // @ts-ignore
-        setup: (self) => {
-            let icon = NotificationIcon(n);
-            if (icon !== null) {
-                self.child = icon;
-            }
+        setup: (/** @type {{ child: any; }} */ self) => {
+            const icon = NotificationIcon(notif);
+            if (icon !== null) self.child = icon;
         },
     });
 
-    const title = Widget.Label({
+    const title = Label({
         class_name: "title",
         xalign: 0,
         justification: "left",
@@ -50,11 +48,11 @@ export const Notification = (n) => {
         max_width_chars: 24,
         truncate: "end",
         wrap: true,
-        label: n.summary,
+        label: notif.summary,
         use_markup: true,
     });
 
-    const body = Widget.Label({
+    const body = Label({
         class_name: "body",
         hexpand: true,
         use_markup: true,
@@ -62,49 +60,47 @@ export const Notification = (n) => {
         justification: "left",
         max_width_chars: 100,
         wrap: true,
-        label: n.body,
+        label: notif.body,
     });
 
-    const actions = Widget.Box({
+    const actions = Box({
         class_name: "actions",
-        children: n.actions
+        children: notif.actions
             .filter(({ id }) => id != "default")
             .map(({ id, label }) =>
-                Widget.Button({
+                Button({
                     class_name: "action-button",
-                    on_clicked: () => n.invoke(id),
+                    on_clicked: () => notif.invoke(id),
                     hexpand: true,
-                    child: Widget.Label(label),
+                    child: Label(label),
                 }),
             ),
     });
 
-    return Widget.EventBox({
+    return EventBox({
         on_primary_click: () => {
-            if (n.actions.length > 0) n.invoke(n.actions[0].id);
+            if (notif.actions.length > 0) notif.invoke(notif.actions[0].id);
         },
         on_middle_click: closeAll,
-        on_secondary_click: () => n.dismiss(),
-        child: Widget.Box({
-            class_name: `notification ${n.urgency}`,
+        on_secondary_click: () => notif.dismiss(),
+        child: Box({
+            class_name: `notification ${notif.urgency}`,
             vertical: true,
 
             children: [
-                Widget.Box({
+                Box({
                     class_name: "info",
                     children: [
                         icon,
-                        Widget.Box({
+                        Box({
                             vertical: true,
                             class_name: "text",
                             vpack: "center",
 
                             setup: (self) => {
-                                if (n.body.length > 0) {
+                                if (notif.body.length > 0)
                                     self.children = [title, body];
-                                } else {
-                                    self.children = [title];
-                                }
+                                else self.children = [title];
                             },
                         }),
                     ],
@@ -116,11 +112,12 @@ export const Notification = (n) => {
 };
 
 let lastMonitor;
-export const notificationPopup = () =>
-    Widget.Window({
+export const Notifs = () =>
+    Window({
         name: "notifications",
         anchor: ["top", "right"],
-        child: Widget.Box({
+        margins: [8, 8, 8, 0],
+        child: Box({
             css: "padding: 1px;",
             class_name: "notifications",
             vertical: true,

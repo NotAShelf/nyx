@@ -1,5 +1,6 @@
-*:not(tooltip) {
+* {
 	all: unset;
+	text-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 	font-family: "Material Design Icons", "Iosevka Nerd Font Mono", Inter,
 		Roboto, sans-serif;
 }

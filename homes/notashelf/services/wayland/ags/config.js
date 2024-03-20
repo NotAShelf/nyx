@@ -6,7 +6,7 @@ import { AppLauncher } from "./js/windows/launcher/index.js";
 import { Bar } from "./js/windows/bar/index.js";
 import { Desktop } from "./js/windows/desktop/index.js";
 import { Popups } from "./js/windows/popups/index.js";
-//import { notificationPopup } from "./js/windows/notifications/index.js";
+import { Notifs } from "./js/windows/notifications/index.js";
 
 App.connect("config-parsed", () => print("config parsed"));
 
@@ -30,4 +30,4 @@ function addWindows(windows) {
     windows.forEach((win) => App.addWindow(win));
 }
 
-addWindows([AppLauncher(), Bar(), Desktop(), Popups()]);
+addWindows([AppLauncher(), Bar(), Desktop(), Popups(), Notifs()]);
