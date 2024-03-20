@@ -3,6 +3,11 @@
 	padding: 14px;
 
 	button {
+		@include barModule;
+
+		// override some styles provided by barModule
+		// to better suit the position of the workspaces
+		// module
 		margin: 5px 3px;
 		min-width: 0.6rem;
 		min-height: 0.6rem;
@@ -10,10 +15,6 @@
 		color: transparent;
 		background: $onSurface;
 		border-radius: 99px;
-
-		transition:
-			all 0.3s $materialStandard,
-			border 0.35s $materialStandard;
 
 		&:hover {
 			background: $lavender;
