@@ -246,14 +246,7 @@
     # simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
     # FIXME: this uses a fork that awaits merge, switch back to master once it's merged
     # <https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/merge_requests/316>
-    simple-nixos-mailserver = {
-      url = "gitlab:dotlambda/nixos-mailserver/sieve-fix";
-      inputs = {
-        "nixpkgs".follows = "nixpkgs";
-        "nixpkgs-22_11".follows = "";
-        "nixpkgs-23_05".follows = "";
-      };
-    };
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
     # Hyprland & Hyprland Contrib repos
     # broken: b0f98a3d3e9e5f5f7f89fa4e855dbeb860e7a0c4
