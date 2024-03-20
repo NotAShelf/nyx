@@ -33,31 +33,17 @@ in {
     # companion app that we enable for rich presence.
     services.arrpc = {
       enable = true;
-      # NOTE: we can't yet use overrideAttrs on arrpc becausae the derivation is
-      # vastly different between v3.2.0 and v3.3.0. this builds the package
-      # from source very similarly to the active PR that I have made
-      # <https://github.com/NixOS/nixpkgs/pull/286659>
-      package = pkgs.buildNpmPackage {
+      package = pkgs.arrpc.overrideAttrs (_: {
         pname = "arrpc";
-        version = "3.3.0";
+        version = "3.3.1";
 
         src = pkgs.fetchFromGitHub {
           owner = "OpenAsar";
           repo = "arrpc";
-          # not tagged for some reason.
-          # revision for 3.3.0
-          rev = "c6e23e7eb733ad396d3eebc328404cc656fed581";
-          hash = "sha256-OeEFNbmGp5SWVdJJwXZUkkNrei9jyuPc+4E960l8VRA=";
+          rev = "b4796fffe3bf1b1361cc4781024349f7a4f9400e";
+          hash = "sha256-iEfV85tRl2KyjodoaSxVHiqweBpLeiCAYWc8+afl/sA=";
         };
-
-        npmDepsHash = "sha256-YlSUGncpY0MyTiCfZcPsfcNx3fR+SCtkOFWbjOPLUzk=";
-        dontNpmBuild = true;
-
-        meta = {
-          # required for the systemd service to work properly
-          mainProgram = "arrpc";
-        };
-      };
+      });
     };
   };
 }
