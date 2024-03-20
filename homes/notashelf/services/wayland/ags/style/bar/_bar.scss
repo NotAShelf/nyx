@@ -1,48 +1,34 @@
 // Components
 // top
-@import "launcher";
-@import "system";
-@import "weather";
+@import "modules/launcher";
+@import "modules/system";
+@import "modules/weather";
 
 // center
-@import "workspaces";
+@import "modules/workspaces";
 
 // bottom
-@import "tray";
-@import "battery";
-@import "bluetooth";
-@import "lock";
-@import "swallow";
-@import "audio";
-@import "net";
-@import "clock";
-@import "power";
+@import "modules/tray";
+@import "modules/battery";
+@import "modules/bluetooth";
+@import "modules/lock";
+@import "modules/swallow";
+@import "modules/audio";
+@import "modules/net";
+@import "modules/clock";
+@import "modules/power";
 
 // general config
 .bar {
-	color: $onSurface;
-	background: $primary;
-	font-family: $font;
-	border-radius: 14px;
-	padding: 2px;
+	@include barWindow;
 }
 
 // top section
 .utilsBox {
-	color: $onSurface;
-	background: $surfaceVariant;
-	font-family: $iconFont;
-	border-radius: 12px;
-	margin: 4px;
-	padding: 6px;
+	@include barSection;
 }
 
 // bottom section
 .systemInfo {
-	color: $onSurface;
-	background: $surfaceVariant;
-	font-family: $iconFont;
-	border-radius: 12px;
-	margin: 4px;
-	padding: 6px;
+	@include barSection;
 }
