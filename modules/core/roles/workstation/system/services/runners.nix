@@ -1,14 +1,9 @@
 {
-  config,
-  lib,
   pkgs,
-  inputs,
+  lib,
   ...
-}: let
-  inherit (lib) mkIf;
-  dev = config.modules.device;
-in {
-  config = mkIf (dev.type != "server") {
+}: {
+  config = {
     environment.systemPackages = [pkgs.appimage-run];
 
     # run appimages with appimage-run

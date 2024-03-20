@@ -5,7 +5,5 @@
     ./security
 
     ./fonts.nix
-    ./environment.nix
-    ./misc.nix
   ];
 }

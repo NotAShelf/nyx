@@ -20,4 +20,7 @@
       ark # GUI archiver for thunar archive plugin
     ];
   };
+
+  # thumbnail support on thunar
+  services.tumbler.enable = true;
 }
