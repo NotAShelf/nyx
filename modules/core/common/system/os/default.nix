@@ -9,6 +9,7 @@
     ./networking # network configuration & tcp optimizations
     ./programs # general programs
     ./services # gemeral services
+    ./theme # theming for desktop toolkits e.g. gtk, qt
     ./users # per user configurations
   ];
 }
