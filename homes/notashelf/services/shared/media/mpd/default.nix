@@ -1,8 +1,8 @@
 {
   osConfig,
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
   dev = osConfig.modules.device;

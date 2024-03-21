@@ -1,4 +1,4 @@
-{config}: {
+{config, ...}: {
   programs.ncmpcpp.settings = {
     # Miscelaneous
     ncmpcpp_directory = "${config.xdg.configHome}/ncmpcpp";
