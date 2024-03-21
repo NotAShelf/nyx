@@ -1,6 +1,10 @@
 {
   imports = [
-    ./mpv.nix
+    ./mpv
+    ./ncmpcpp
+
+    ./beets.nix
     ./packages.nix
+    ./rnnoise.nix
   ];
 }

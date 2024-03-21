@@ -5,7 +5,7 @@
   self,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (osConfig) modules;
 
   sys = modules.system;
@@ -39,7 +39,7 @@ in {
         border = "no";
       };
 
-      bindings = lib.mkMerge [
+      bindings = mkMerge [
         # mpv keybindings
         {
           "Y" = "add sub-scale +0.1"; # increase subtitle font size
