@@ -5,16 +5,12 @@ import {
     getWiredIcon,
     getWiredTooltip,
 } from "../../../utils/network.js";
-const { Stack, Box, Button, Label } = Widget;
+const { Stack, Button, Label } = Widget;
 
 const WifiIndicator = () =>
-    Box({
-        children: [
-            Widget.Label({ has_tooltip: true })
-                .bind("label", Network.wifi, "strength", getWifiIcon)
-                .bind("tooltip-text", Network.wifi, "strength", getWifiTooltip),
-        ],
-    });
+    Label({ has_tooltip: true })
+        .bind("label", Network.wifi, "strength", getWifiIcon)
+        .bind("tooltip-text", Network.wifi, "strength", getWifiTooltip);
 
 const WiredIndicator = () =>
     Label({ cursor: "pointer" })
@@ -27,7 +23,9 @@ export const NetworkWidget = () =>
         cursor: "pointer",
         onClicked: () => Utils.exec("nm-connection-editor"),
         child: Stack({
-            shown: Network.bind("primary").as((p) => p || "wifi"),
+            shown: Network.bind("primary").as(
+                (/** @type {any} */ p) => p || "wifi",
+            ),
             children: {
                 wifi: WifiIndicator(),
                 wired: WiredIndicator(),

@@ -1,71 +1,134 @@
-import Notifications from "resource:///com/github/Aylur/ags/service/notifications.js";
-import Widget from "resource:///com/github/Aylur/ags/widget.js";
-import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
-import Notification from "../misc/Notification.js";
+import { Hyprland, Notifications, Utils, Widget } from "../../imports.js";
+const { Box, Icon, Label, Button, EventBox, Window } = Widget;
+const { lookUpIcon } = Utils;
 
-/** @param {import('types/widgets/revealer').default} parent */
-const Popups = (parent) => {
-    const map = new Map();
+const closeAll = () => {
+    Notifications.popups.map((n) => n.dismiss());
+};
 
-    const onDismissed = (_, id, force = false) => {
-        if (!id || !map.has(id)) return;
-
-        if (map.get(id).isHovered() && !force) return;
-
-        if (map.size - 1 === 0) parent.reveal_child = false;
-
-        Utils.timeout(200, () => {
-            map.get(id)?.destroy();
-            map.delete(id);
+const NotificationIcon = ({ app_entry, app_icon, image }) => {
+    if (image) {
+        return Box({
+            css: `
+        background-image: url("${image}");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      `,
         });
-    };
+    }
 
-    /** @param {import('types/widgets/box').default} box */
-    const onNotified = (box, id) => {
-        if (!id || Notifications.dnd) return;
+    if (lookUpIcon(app_icon)) {
+        return Icon(app_icon);
+    }
 
-        const n = Notifications.getNotification(id);
-        if (!n) return;
+    if (app_entry && lookUpIcon(app_entry)) {
+        return Icon(app_entry);
+    }
 
-        if (options.notifications.black_list.value.includes(n.app_name || ""))
-            return;
+    return null;
+};
 
-        map.delete(id);
-        map.set(id, Notification(n));
-        box.children = Array.from(map.values()).reverse();
-        Utils.timeout(10, () => {
-            parent.reveal_child = true;
-        });
-    };
+const Notification = (notif) => {
+    const icon = Box({
+        vpack: "start",
+        class_name: "icon",
+        // @ts-ignore
+        setup: (/** @type {{ child: any; }} */ self) => {
+            const icon = NotificationIcon(notif);
+            if (icon !== null) self.child = icon;
+        },
+    });
 
-    return Widget.Box({
-        vertical: true,
-        connections: [
-            [Notifications, onNotified, "notified"],
-            [Notifications, onDismissed, "dismissed"],
-            [Notifications, (box, id) => onDismissed(box, id, true), "closed"],
-        ],
+    const title = Label({
+        class_name: "title",
+        xalign: 0,
+        justification: "left",
+        hexpand: true,
+        max_width_chars: 24,
+        truncate: "end",
+        wrap: true,
+        label: notif.summary,
+        use_markup: true,
+    });
+
+    const body = Label({
+        class_name: "body",
+        hexpand: true,
+        use_markup: true,
+        xalign: 0,
+        justification: "left",
+        max_width_chars: 100,
+        wrap: true,
+        label: notif.body,
+    });
+
+    const actions = Box({
+        class_name: "actions",
+        children: notif.actions
+            .filter(({ id }) => id != "default")
+            .map(({ id, label }) =>
+                Button({
+                    class_name: "action-button",
+                    on_clicked: () => notif.invoke(id),
+                    hexpand: true,
+                    child: Label(label),
+                }),
+            ),
+    });
+
+    return EventBox({
+        on_primary_click: () => {
+            if (notif.actions.length > 0) notif.invoke(notif.actions[0].id);
+        },
+        on_middle_click: closeAll,
+        on_secondary_click: () => notif.dismiss(),
+        child: Box({
+            class_name: `notification ${notif.urgency}`,
+            vertical: true,
+
+            children: [
+                Box({
+                    class_name: "info",
+                    children: [
+                        icon,
+                        Box({
+                            vertical: true,
+                            class_name: "text",
+                            vpack: "center",
+
+                            setup: (self) => {
+                                if (notif.body.length > 0)
+                                    self.children = [title, body];
+                                else self.children = [title];
+                            },
+                        }),
+                    ],
+                }),
+                actions,
+            ],
+        }),
     });
 };
 
-/** @param {import('types/widgets/revealer').RevealerProps['transition']} transition */
-const PopupList = (transition = "slide_down") =>
-    Widget.Box({
-        css: "padding: 1px",
-        children: [
-            Widget.Revealer({
-                transition,
-                setup: (self) => (self.child = Popups(self)),
+let lastMonitor;
+export const Notifs = () =>
+    Window({
+        name: "notifications",
+        anchor: ["top", "right"],
+        margins: [8, 8, 8, 0],
+        child: Box({
+            css: "padding: 1px;",
+            class_name: "notifications",
+            vertical: true,
+            // @ts-ignore
+            children: Notifications.bind("popups").transform((popups) => {
+                return popups.map(Notification);
             }),
-        ],
-    });
+        }),
+    }).hook(Hyprland.active, (self) => {
+        // prevent useless resets
+        if (lastMonitor === Hyprland.active.monitor) return;
 
-/** @param {number} monitor */
-export default (monitor) =>
-    Widget.Window({
-        monitor,
-        name: `notifications${monitor}`,
-        class_name: "notifications",
-        binds: [["anchor", ["top", "right"]]],
-        child: PopupList(),
+        self.monitor = Hyprland.active.monitor.id;
     });

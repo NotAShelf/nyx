@@ -1,11 +1,14 @@
+// common components
 @import "prelude";
 @import "colors";
 @import "beziers";
 @import "fonts";
+@import "mixins";
 
-// Modules
+// modules and widgets
 @import "bar/bar";
 @import "launcher/launcher";
 @import "desktop/desktop";
 @import "popups/popups";
 @import "music/music";
+@import "notifications/notifications";

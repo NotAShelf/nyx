@@ -6,7 +6,7 @@ import {
 } from "../../../utils/weather.js";
 const { Label } = Widget;
 
-export const Weather = () =>
+const weatherWidget = () =>
     Label({
         hexpand: false,
         vexpand: false,
@@ -15,4 +15,10 @@ export const Weather = () =>
             self.bind("label", WeatherValue, "value", getWeatherIcon);
             self.bind("tooltip-text", WeatherValue, "value", getWeatherTooltip);
         },
+    });
+
+export const Weather = () =>
+    Widget.CenterBox({
+        vertical: true,
+        centerWidget: weatherWidget(),
     });

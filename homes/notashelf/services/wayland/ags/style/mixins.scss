@@ -1,0 +1,93 @@
+$rounding: 12px; // intter rounding
+$padding: 2px; // component padding
+
+// general mixins
+@mixin animated {
+	transition:
+		all 0.3s $materialStandard,
+		border 0.35s $materialStandard;
+}
+
+@mixin roundingOuter {
+	// Outer rounding = inner rounding + padding
+	border-radius: calc(#{$rounding} + #{$padding});
+}
+
+@mixin roundingInner {
+	border-radius: $rounding;
+}
+
+// window mixin represents a top-level window
+// e.g. the bar or a music widget
+@mixin window {
+	@include roundingOuter;
+}
+
+// bar window
+@mixin barWindow {
+	@include window;
+	color: $onSurface;
+	background: $primary;
+	font-family: $font;
+	border-radius: 14px;
+	padding: 2px;
+}
+
+@mixin barSection {
+	@include roundingInner;
+	color: $onSurface;
+	background: $surfaceVariant;
+	font-family: $iconFont;
+	margin: 4px;
+	padding: 6px;
+}
+
+@mixin barModule {
+	// include animations
+	@include animated;
+
+	// standard widget dimensions
+	margin: 6px 3px;
+
+	// and styling
+	color: $onSurface;
+	background: $surfaceVariant;
+
+	&:hover {
+		color: $lavender;
+	}
+}
+
+// popup windows
+@mixin popup {
+	background: $primary;
+	border-radius: 12px;
+	margin: 6px;
+	padding: 12px;
+	min-width: 200px;
+}
+
+@mixin popupIcon {
+	font-family: $iconFont;
+	margin: 0 6px 0 0;
+}
+
+@mixin popupBar {
+	min-width: 200px;
+
+	& scale {
+		min-height: 12px;
+	}
+
+	& trough {
+		background: transparentize($surfaceVariant, 0.5);
+		border-radius: 24px;
+		min-height: 12px;
+	}
+
+	& highlight {
+		background: $onSurface;
+		border-radius: 24px;
+		min-width: 12px;
+	}
+}

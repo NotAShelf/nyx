@@ -51,7 +51,6 @@ in {
         };
 
         menu = "anyrun";
-        terminal = defaults.terminal;
         bars = [];
 
         gaps = {

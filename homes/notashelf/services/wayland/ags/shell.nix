@@ -18,15 +18,11 @@ in
       # dart-sass is for compiling the stylesheets
       dart-sass
       (writeShellScriptBin "compile-stylesheet" ''
-        # move into stylesheet directory so that imports are available
-        # during complication
-        cd style
-
         # compile scss files
         ${dart-sass}/bin/sass --verbose \
           --style compressed \
           --no-source-map --fatal-deprecation --future-deprecation \
-          main.scss > ../style.css
+          ./style/main.scss > ./style.css
       '')
     ];
   }

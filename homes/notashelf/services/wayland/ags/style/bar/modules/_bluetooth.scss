@@ -1,0 +1,28 @@
+// default state of the bluetooth icon
+.bluetooth {
+	@include barModule;
+}
+
+// if bluetooth is paired
+// but not active
+.bluetooth-paired {
+	color: $onSurface;
+}
+
+// if bluetooth is paired
+// and active
+.bluetooth-active {
+	color: $onSurface;
+}
+
+// if bluetooth is disabled
+.bluetooth-disabled {
+	color: lighten($surfaceVariant, 30%);
+	transition:
+		all 0.3s $materialStandard,
+		border 0.35s $materialStandard;
+
+	&:hover {
+		color: $red;
+	}
+}
