@@ -27,7 +27,6 @@
         # parts of the flake
         ./flake/modules # nixos and home-manager modules provided by this flake
         ./flake/pkgs # packages exposed by the flake
-        ./flake/schemas # home-baked schemas for upcoming nix schemas
         ./flake/templates # flake templates
 
         ./flake/args.nix # args that are passed to the flake, moved away from the main file
@@ -72,13 +71,6 @@
     # Ever wanted nix error messages to be even more cryptic?
     # Try flake-utils today! (Devs I beg you please stop)
     flake-utils.url = "github:numtide/flake-utils";
-
-    # This will work one day
-    # (eelco please)
-    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
-
-    # Still doesn't build, but will build one day! (I hope)
-    nixSchemas.url = "github:DeterminateSystems/nix/flake-schemas";
 
     # Repo for hardware-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
