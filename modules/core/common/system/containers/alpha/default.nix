@@ -27,6 +27,8 @@ in {
         _module.args = {inherit lib;};
         nixpkgs.pkgs = pkgs;
 
+        system.stateVersion = "23.05";
+
         users = {
           groups.alpha = {};
           users.alpha = {

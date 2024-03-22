@@ -17,6 +17,8 @@ in {
       config = _: let
         backup_path = "/var/backup/postgresql";
       in {
+        system.stateVersion = "23.05";
+
         services.openssh.enable = true;
 
         users = {
