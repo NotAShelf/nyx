@@ -1,3 +1,4 @@
+root: true
 env:
   es2021: true
 extends:
@@ -9,12 +10,12 @@ parserOptions:
   sourceType: "module"
   project: "./tsconfig.json"
   warnOnUnsupportedTypeScriptVersion: false
-root: true
 ignorePatterns:
   - types/
   - node_modules/
   - bin/
   - result/
+  - style/
 plugins:
   - "@typescript-eslint"
 rules:
@@ -97,10 +98,6 @@ rules:
     - always
 
 globals:
-  pkg: readonly
-  ARGV: readonly
-  Debugger: readonly
-  GIRepositoryGType: readonly
   globalThis: readonly
   imports: readonly
   Intl: readonly
@@ -108,11 +105,4 @@ globals:
   logError: readonly
   print: readonly
   printerr: readonly
-  window: readonly
-  TextEncoder: readonly
-  TextDecoder: readonly
   console: readonly
-  setTimeout: readonly
-  setInterval: readonly
-  clearTimeout: readonly
-  clearInterval: readonly

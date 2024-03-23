@@ -9,7 +9,7 @@ const { Button, Box, Label, Revealer } = Widget;
 const BatIcon = () =>
     Label({ className: "batIcon" })
         // NOTE: label needs to be used instead of icon here
-        .bind("label", Battery, "available", getBatteryIcon)
+        .bind("label", Battery, "percent", getBatteryIcon)
         .bind("tooltip-text", Battery, "percent", getBatteryTooltip);
 
 const BatStatus = () =>
@@ -33,34 +33,3 @@ export const BatteryWidget = () =>
             visible: Battery.bind("available"),
         }),
     });
-
-/*
-    Box({
-        className: "battery",
-        cursor: "pointer",
-        vertical: true,
-        children: [BatIcon(), BatStatus()],
-        visible: Battery.bind("available"),
-    });
-*/
-
-/*
-Button({
-        className: name + "Button",
-        onPrimaryClick: onPrimary,
-        child: Box({
-            className: name,
-            vertical: true,
-            children: [
-                CircularProgress({
-                    className: name + "Progress",
-                    // binds: [["value", process]],
-                    rounded: true,
-                    inverted: false,
-                    startAt: 0.27,
-                }).bind("value", process),
-                ...extraChildren,
-            ],
-        }),
-    });
-*/
