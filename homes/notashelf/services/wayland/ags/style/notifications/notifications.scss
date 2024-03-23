@@ -4,17 +4,16 @@
 	min-width: 25rem;
 	background-color: $primary;
 
-	.normal {
-		border: 1px solid $blue;
+	&.low {
+		border: 1.5px solid $lavender;
 	}
 
-	.critical {
-		border: 1px solid red;
+	&.normal {
+		border: 1.5px solid $blue;
 	}
 
-	&:hover {
-		border: 2px solid $lavender;
-		background-color: darken($primary, 3%);
+	&.critical {
+		border: 1.5px solid $red;
 	}
 }
 
@@ -41,7 +40,7 @@
 .notification .actions .action-button {
 	@include window;
 	@include animated;
-	padding: 0.5rem 0;
+	padding: 4px 0;
 
 	&:hover {
 		background: $onSurfaceVariant;
@@ -49,15 +48,16 @@
 }
 
 .notification .text {
-	margin: 0.5rem;
+	margin: 6px 4px;
 
 	.title {
-		margin-bottom: 0.2rem;
-		font-weight: 500;
+		margin: 2px 3px;
+		font-weight: 800;
 	}
 
 	.body {
+		margin: 2px 9px;
 		color: $onSurface;
-		font-weight: 500;
+		font-weight: 400;
 	}
 }
