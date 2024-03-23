@@ -1,5 +1,12 @@
 import { Battery } from "../imports.js";
 
+/**
+ * toTime converts a given value to a human-readable
+ * format where the number of hours and minutes are
+ * inferred from time, which is assumed to be in seconds.
+ *
+ * @param {number} time - time in seconds
+ */
 export const toTime = (time) => {
     const MINUTE = 60;
     const HOUR = MINUTE * 60;
@@ -16,9 +23,22 @@ export const toTime = (time) => {
 };
 
 export const getBatteryTime = () => {
-    return Battery.timeRemaining > 0 && toTime(Battery.timeRemaining) != ""
-        ? `${toTime(Battery.timeRemaining)}remaining`
+    const timeRemaining = Battery.timeRemaining;
+    return timeRemaining > 0 && toTime(timeRemaining) != ""
+        ? `${toTime(timeRemaining)}remaining`
         : "";
+};
+
+export const getBatteryPercentage = () => {
+    const percent = Battery.percent;
+    return percent > 0 && percent < 100 ? `${percent}%` : "";
+};
+
+export const getBatteryTooltip = () => {
+    const time = getBatteryTime();
+    const percent = Battery.percent;
+
+    return `${percent}% | ${time}`;
 };
 
 export const getBatteryIcon = () => {

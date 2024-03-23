@@ -1,13 +1,14 @@
 {
-  lib,
-  pkgs,
-  config,
   osConfig,
+  config,
+  pkgs,
+  lib,
   ...
 }: let
   inherit (lib) getExe mkIf;
 
-  locker = getExe env.screenlock.package;
+  env = osConfig.modules.usrEnv;
+  locker = getExe env.programs.screenlock.package;
 
   systemctl = "${pkgs.systemd}/bin/systemctl";
   suspendScript = pkgs.writeShellScript "suspend-script" ''
@@ -17,8 +18,6 @@
       ${systemctl} suspend
     fi
   '';
-
-  env = osConfig.modules.usrEnv;
 in {
   # TODO: can we make it so that it works with sway *or* hyprland based on which one is enabled?
   config = mkIf env.desktops.hyprland.enable {

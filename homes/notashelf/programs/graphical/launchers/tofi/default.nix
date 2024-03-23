@@ -10,7 +10,7 @@
 
   env = modules.usrEnv;
 in {
-  config = mkIf env.launchers.tofi.enable {
+  config = mkIf env.programs.launchers.tofi.enable {
     home.packages = with pkgs; [
       # for compatibility sake
       (pkgs.writeScriptBin "dmenu" ''exec ${getExe tofi}'')

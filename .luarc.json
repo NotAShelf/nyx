@@ -1,9 +1,20 @@
 {
 	"$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-	"Lua.diagnostics.disable": [
-		"cast-local-type",
-		"assign-type-mismatch",
-		"missing-fields"
-	],
-	"workspace.checkThirdParty": false
+	"workspace": {
+		"library": ["runtime/lua"],
+		"checkThirdParty": "Disable"
+	},
+
+	"diagnostics": {
+		"groupFileStatus": {
+			"strict": "Opened",
+			"strong": "Opened"
+		},
+		"groupSeverity": {
+			"strong": "Warning",
+			"strict": "Warning"
+		},
+		"unusedLocalExclude": ["_*"],
+		"disable": ["luadoc-miss-see-name"]
+	}
 }
