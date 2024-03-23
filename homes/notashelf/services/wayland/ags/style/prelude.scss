@@ -4,3 +4,9 @@
 	font-family: "Material Design Icons", "Iosevka Nerd Font Mono", Inter,
 		Roboto, sans-serif;
 }
+
+// restore tooltip styling that got unset in the above class
+tooltip {
+	@include roundingOuter;
+	background: $primary;
+}
