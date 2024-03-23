@@ -24,14 +24,18 @@
 
     # script and service helpers
     bash
+    brightnessctl
     coreutils
     gawk
+    gvfs
+    imagemagick
+    libnotify
     procps
     ripgrep
-    brightnessctl
-    libnotify
     slurp
     sysstat
+
+    # for weather widget
     (python3.withPackages (ps: [ps.requests]))
   ];
 
@@ -55,9 +59,8 @@
     ./config.js
 
     # compiled stylesheet
-    # this is an IFD that needs pinning e.g. in system.dependencies
-    # but home-manager doesn't have a way of pinning IFDs that I know of
-    # YOLO
+    # should be generated using the below command
+    # `sassc -t compressed style/main.scss style.css`
     ./style.css
   ];
 
@@ -101,9 +104,13 @@ in {
         ProtectHome = "read-only";
         CacheDirectory = ["ags"];
         ReadWritePaths = [
-          # /run/user/1000 for the socket
-          "%t"
-          "/tmp/hypr"
+          # socket access
+          "%t" # /run/user/1000 for the socket
+          "/tmp/hypr" # hyprland socket
+
+          # for thumbnail caching
+          "~/notashelf/.local/share/firefox-mpris/"
+          "~/.cache/ags/media"
         ];
 
         # restart on failure

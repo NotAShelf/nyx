@@ -9,10 +9,14 @@ const BrightnessIcon = () =>
             self.hook(Brightness, (self) => {
                 const icons = ["", "", "", "", "", "", "", "", ""];
 
-                self.label =
-                    icons[
-                        Math.floor((Brightness.screen * 100) / 11)
-                    ].toString();
+                let index = Math.floor((Brightness.screen * 100) / 11);
+                index = Math.max(0, Math.min(index, icons.length - 1));
+
+                if (index >= 0 && index < icons.length) {
+                    self.label = icons[index].toString();
+                } else {
+                    log("Index out of bounds:", index);
+                }
             });
         },
     });

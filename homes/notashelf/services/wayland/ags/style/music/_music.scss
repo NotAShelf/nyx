@@ -1,30 +1,56 @@
-// Components
-@import "musicControls";
+.music.window {
+	background: rgba(0, 0, 0, 0.5);
+	margin: 5px 10px 15px;
+	padding: $padding;
 
-.music {
-	color: $onSurface;
-	background: $surface;
-	font-family: $font;
-	border-radius: 6px;
-	padding: 12px;
-	min-width: 240px;
+	.cover {
+		background-position: center;
+		background-size: cover;
+		border-radius: $rounding;
+		box-shadow: 0 1px 2px -1px rgba(0, 0, 0, 0.5);
+		margin: 0.4rem;
+		min-height: 13rem;
+		min-width: 13rem;
+	}
 }
 
-.artist {
-	font-weight: 500;
-	font-size: 0.75rem;
-	padding: 0 6px;
+.music.window .info {
+	margin: 0.5rem;
+
+	label,
+	scale {
+		margin: 0.3rem 0;
+	}
+
+	label.position,
+	label.length {
+		font-size: 0.8rem;
+		margin-bottom: 0;
+	}
+
+	scale {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.title {
+		font-size: 1.5rem;
+		font-weight: bold;
+		min-width: 14rem;
+	}
 }
 
-.cover {
-	background-size: 100% auto;
-	background-repeat: no-repeat;
-	border-radius: 6px;
-	min-height: 60px;
-	min-width: 60px;
+.music.window .controls {
+	button {
+		margin: 0 0.2rem;
+		font-size: 1.5rem;
+	}
 }
 
-.title {
-	font-weight: 500;
-	padding: 0 6px;
+.music.window .player-info {
+	margin-bottom: 0;
+
+	.player-icon {
+		font-size: 1.2rem;
+	}
 }
