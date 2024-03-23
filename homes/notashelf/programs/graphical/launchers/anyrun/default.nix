@@ -12,7 +12,7 @@
   env = modules.usrEnv;
 in {
   imports = [inputs.anyrun.homeManagerModules.default];
-  config = mkIf env.launchers.anyrun.enable {
+  config = mkIf env.programs.launchers.anyrun.enable {
     programs.anyrun = {
       enable = true;
       config = {

@@ -10,7 +10,7 @@
 
   env = modules.usrEnv;
 in {
-  config = mkIf env.screenlock.swaylock.enable {
+  config = mkIf env.programs.screenlock.swaylock.enable {
     programs.swaylock = {
       enable = true;
       package = with pkgs; swaylock-effects;

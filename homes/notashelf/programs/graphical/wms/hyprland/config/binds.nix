@@ -18,7 +18,7 @@
     then "footclient"
     else "${defaults.terminal}";
 
-  locker = getExe env.screenlock.package;
+  locker = getExe env.programs.screenlock.package;
 in {
   wayland.windowManager.hyprland.settings = {
     # define the mod key

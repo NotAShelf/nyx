@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption mkModule;
+  inherit (lib) mkEnableOption mkModule;
   inherit (lib.types) str;
 in {
   options.modules.system.services = {

@@ -1,17 +1,16 @@
 {
-  pkgs,
-  lib,
+  self',
   osConfig,
-  self,
+  lib,
   ...
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 
-  inherit (self.packages.${pkgs.system}) anime4k;
+  inherit (self'.packages) anime4k;
   low1k = import ./low1k.nix {inherit anime4k;};
 in {
   config = mkIf prg.media.mpv.enable {

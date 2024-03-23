@@ -9,7 +9,7 @@
 
   env = modules.usrEnv;
 in {
-  config = mkIf env.screenlock.gtklock.enable {
+  config = mkIf env.programs.screenlock.gtklock.enable {
     programs.gtklock = {
       enable = true;
       package = pkgs.gtklock;

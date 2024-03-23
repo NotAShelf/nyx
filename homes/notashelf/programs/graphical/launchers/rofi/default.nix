@@ -15,7 +15,7 @@
     then rofi-wayland
     else rofi;
 in {
-  config = mkIf env.launchers.rofi.enable {
+  config = mkIf env.programs.launchers.rofi.enable {
     programs.rofi = {
       enable = true;
       package = rofiPackage.override {

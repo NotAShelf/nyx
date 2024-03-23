@@ -7,13 +7,13 @@
   inherit (lib.types) package;
   inherit (lib.options) mkEnableOption mkOption;
 
-  cfg = config.modules.usrEnv.screenlock;
+  cfg = config.modules.usrEnv.programs.screenlock;
   pkg =
     if cfg.gtklock.enable
     then pkgs.gtklock
     else pkgs.swaylock-effects;
 in {
-  options.modules.usrEnv.screenlock = {
+  options.modules.usrEnv.programs.screenlock = {
     gtklock.enable = mkEnableOption "gtklock screenlocker";
     swaylock.enable = mkEnableOption "swaylock screenlocker";
 
