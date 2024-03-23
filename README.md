@@ -10,7 +10,7 @@
 </p>
 
 <div align="center">
-  <a href="#host-specifications">Hosts</a> | <a href="#high-level-overview">Overview</a> | <a href="#credits--special-thanks-to">Credits</a>
+  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> |  <a href="#credits--special-thanks-to">Credits</a>
   <br/><br/>
 </div>
 
@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-   Screenshot last updated <b>2024-13-19</b>
+   Screenshot last updated <b>2024-03-19</b>
 </p>
 
 ## High Level Overview
