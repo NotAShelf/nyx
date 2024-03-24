@@ -11,6 +11,8 @@
     ./apparmor.nix # apparmor configuration and policies
     ./auditd.nix # auditd
     ./clamav.nix # clamav antivirus
+    ./fprint.nix # fingerprint driver and login support
+    ./fs.nix # filesystem hardening
     ./kernel.nix # kernel hardening
     ./memalloc.nix # memory allocator hardening
     ./pam.nix # pam configuration
@@ -20,6 +22,5 @@
     ./sudo.nix # sudo rules and configuration
     ./virtualization.nix # hypervisor hardening
     ./usbguard.nix # usbguard
-    ./fprint.nix # fingerprint driver and login support
   ];
 }

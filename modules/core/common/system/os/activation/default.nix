@@ -18,7 +18,7 @@
       '';
     };
 
-    # https://github.com/colemickens/nixcfg/blob/main/mixins/ssh.nix
+    # <https://github.com/colemickens/nixcfg/blob/main/mixins/ssh.nix>
     # symlink root's ssh config to ours
     # to fix nix-daemon's ability to remote build since it sshs from the root account
     root_ssh_config = let
