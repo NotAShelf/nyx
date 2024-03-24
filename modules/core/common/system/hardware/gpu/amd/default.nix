@@ -18,7 +18,7 @@ in {
       kernelModules = ["amdgpu"]; # if loading somehow fails during initrd but the boot continues, try again later
     };
 
-    environment.systemPackages = [pkgs.nvtop-amd];
+    environment.systemPackages = [pkgs.nvtopPackages.amd];
 
     # enables AMDVLK & OpenCL support
     hardware.opengl = {
