@@ -2,16 +2,21 @@
 	@include window;
 	margin: 5px 5px 5px 12px;
 	min-width: 25rem;
-	background-color: $primary;
 
+	background-color: $primary;
+	color: $onPrimary;
+
+	// low priority
 	&.low {
 		border: 1.5px solid $lavender;
 	}
 
+	// medium priority
 	&.normal {
 		border: 1.5px solid $blue;
 	}
 
+	// critical priority
 	&.critical {
 		border: 1.5px solid $red;
 	}
@@ -51,13 +56,14 @@
 	margin: 6px 4px;
 
 	.title {
-		margin: 2px 3px;
-		font-weight: 800;
+		margin: 4px 6px;
+		color: $onPrimary;
+		font-weight: 900;
 	}
 
 	.body {
-		margin: 2px 9px;
-		color: $onSurface;
-		font-weight: 400;
+		margin: 4px 6px;
+		color: $onPrimary;
+		font-weight: 600;
 	}
 }
