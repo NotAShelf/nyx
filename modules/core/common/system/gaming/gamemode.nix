@@ -59,13 +59,17 @@ in {
       };
     };
 
-    security.wrappers = {
-      gamemode = {
-        owner = "root";
-        group = "root";
-        source = "${pkgs.gamemode}/bin/gamemoderun";
-        capabilities = "cap_sys_ptrace,cap_sys_nice+pie";
-      };
+    security.wrappers.gamemode = {
+      owner = "root";
+      group = "root";
+      source = "${pkgs.gamemode}/bin/gamemoderun";
+      capabilities = "cap_sys_ptrace,cap_sys_nice+pie";
+    };
+
+    boot.kernel.sysctl = {
+      # default on some gaming (SteamOS) and desktop (Fedora) distributions
+      # might help with gaming performance
+      "vm.max_map_count" = 2147483642;
     };
   };
 }
