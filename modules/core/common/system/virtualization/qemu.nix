@@ -50,5 +50,13 @@ in {
     hardware.pulseaudio.extraConfig = ''
       load-module module-native-protocol-unix auth-group=qemu-libvirtd socket=/tmp/pulse-socket
     '';
+
+    # additional kernel modules that may be needed by libvirt
+    boot.kernelModules = [
+      "vfio-pci"
+    ];
+
+    # trust bridge network interface(s)
+    networking.firewall.trustedInterfaces = ["virbr0" "br0"];
   };
 }
