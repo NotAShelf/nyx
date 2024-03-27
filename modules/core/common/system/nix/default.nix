@@ -107,30 +107,47 @@ in {
     };
 
     settings = {
+      # tell nix to use the xdg spec for base directories
+      # while transitioning, any state must be carried over
+      # manually, as Nix won't do it for us
+      use-xdg-base-directories = true;
+
       # specify the path to the nix registry
       flake-registry = "/etc/nix/registry.json";
+
       # Free up to 10GiB whenever there is less than 5GB left.
       # this setting is in bytes, so we multiply with 1024 thrice
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";
       max-free = "${toString (10 * 1024 * 1024 * 1024)}";
+
       # automatically optimise symlinks
       auto-optimise-store = true;
+
       # allow sudo users to mark the following values as trusted
       allowed-users = ["root" "@wheel" "nix-builder"];
+
       # only allow sudo users to manage the nix store
       trusted-users = ["root" "@wheel" "nix-builder"];
+
       # let the system decide the number of max jobs
       max-jobs = "auto";
+
       # build inside sandboxed environments
       sandbox = true;
+      sandbox-fallback = false;
+
       # supported system features
       system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
+
       # extra architectures supported by my builders
       extra-platforms = config.boot.binfmt.emulatedSystems;
+
       # continue building derivations if one fails
       keep-going = true;
+
       # show more log lines for failed builds
       log-lines = 30;
+
       # enable new nix command and flakes
       # and also "unintended" recursion as well as content addresssed nix
       extra-experimental-features = [
@@ -145,12 +162,16 @@ in {
         "git-hashing" # allow store objects which are hashed via Git's hashing algorithm
         "verified-fetches" # enable verification of git commit signatures for fetchGit
       ];
+
       # don't warn me that my git tree is dirty, I know
       warn-dirty = false;
+
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
       http-connections = 50;
+
       # whether to accept nix configuration from a flake without prompting
-      accept-flake-config = true;
+      accept-flake-config = false;
+
       # execute builds inside cgroups
       use-cgroups = true;
 
@@ -161,6 +182,7 @@ in {
       # use binary cache, this is not gentoo
       # external builders can also pick up those substituters
       builders-use-substitutes = true;
+
       # substituters to use
       substituters = [
         "https://cache.ngi0.nixos.org" # content addressed nix cache (TODO)

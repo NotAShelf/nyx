@@ -3,60 +3,49 @@
   lib,
   ...
 }: let
+  inherit (lib.attrsets) recursiveUpdate;
+  inherit (lib.lists) filter;
+  # a generic builder configuration
   builder = {
-    systems = ["x86_64-linux" "i686-linux"];
+    systems = ["x86_64-linux"];
     speedFactor = 4;
     maxJobs = 4;
     supportedFeatures = ["benchmark" "nixos-test"];
-    sshKey = config.age.secrets.nix-builderKey.path;
+    sshKey = "/root/.ssh/id_25519";
     protocol = "ssh-ng";
   };
-  bigBuilder =
-    builder
-    // {
-      maxJobs = 16;
-      speedFactor = 16;
-      supportedFeatures = builder.supportedFeatures ++ ["kvm" "big-parallel"];
-      systems = builder.systems ++ ["aarch64-linux"];
+
+  # override generic config builder with the assumption that more
+  # resources and features are available to us
+  bigBuilder = recursiveUpdate builder {
+    maxJobs = 16;
+    speedFactor = 16;
+    supportedFeatures = builder.supportedFeatures ++ ["kvm" "big-parallel"];
+    systems = builder.systems ++ ["aarch64-linux" "i686-linux"];
+  };
+
+  mkBuilder = {
+    builderBase ? builder,
+    sshProtocol ? "ssh-ng",
+    user ? "root",
+    host,
+    ...
+  }:
+    recursiveUpdate builderBase {
+      hostName = host;
+      sshUser = user;
+      protocol = sshProtocol;
     };
 in {
   nix = {
     distributedBuilds = true;
-    buildMachines = lib.filter (x: x.hostName != config.networking.hostName) [
-      /*
-      (bigBuilder
-        // {
-          sshUser = "builder";
-          hostName = "builder";
-          protocol = "ssh";
-        })
-      */
-      (bigBuilder
-        // {
-          sshUser = "nix-builder";
-          hostName = "enyo";
-        })
-
-      (builder
-        // {
-          sshUser = "nix-builder";
-          hostName = "helios";
-        })
-      (builder
-        // {
-          sshUser = "nix-builder";
-          hostName = "epimetheus";
-        })
-      (builder
-        // {
-          sshUser = "nix-builder";
-          hostName = "hermes";
-        })
-      (builder
-        // {
-          sshUser = "nix-builder";
-          hostName = "icarus";
-        })
+    buildMachines = filter (builder: builder.hostName != config.networking.hostName) [
+      # large build machine
+      (mkBuilder {
+        builderBase = bigBuilder;
+        user = "builder";
+        host = "build.neushore.dev";
+      })
     ];
   };
 }
