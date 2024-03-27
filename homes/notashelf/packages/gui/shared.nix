@@ -52,6 +52,7 @@ in {
       # <https://github.com/NixOS/nixpkgs/issues/230493>
       # <https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/736>
       # get overriden idiot
+      /*
       (gnome.gnome-control-center.overrideAttrs
         (old: {
           # gnome-control-center does not start without XDG_CURRENT_DESKTOP=gnome
@@ -63,6 +64,7 @@ in {
             ''
             + old.preFixup;
         }))
+      */
     ];
   };
 }
