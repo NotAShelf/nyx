@@ -29,6 +29,8 @@ in {
     DOTNET_CLI_HOME = "${XDG_DATA_HOME}/dotnet";
     MPLAYER_HOME = "${XDG_CONFIG_HOME}/mplayer";
     SQLITE_HISTORY = "${XDG_CACHE_HOME}/sqlite_history";
+    NBRC_PATH = "${XDG_CONFIG_HOME}/nbrc";
+    NB_DIR = "${XDG_DATA_HOME}/nb";
 
     # programming languages/package managers/tools
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
