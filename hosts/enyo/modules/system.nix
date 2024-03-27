@@ -7,7 +7,6 @@
     boot = {
       loader = "systemd-boot";
       secureBoot = false;
-      kernel = pkgs.linuxPackages_xanmod_latest;
       enableKernelTweaks = true;
       initrd.enableTweaks = true;
       loadRecommendedModules = true;
