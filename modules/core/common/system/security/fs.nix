@@ -4,7 +4,6 @@
   # without my knowledge. this makes it impossible for them to write and run executable
   # files outside of my nix store
   fileSystems = {
-    "/".options = ["noexec"];
     "/var/log".options = ["noexec"];
     "/persist".options = ["noexec"];
   };
