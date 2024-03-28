@@ -13,7 +13,7 @@ in {
     consoleLogLevel = 3;
 
     # always use the latest kernel instead of the old-ass lts one
-    kernelPackages = mkOverride 500 sys.boot.kernel;
+    kernelPackages = mkOverride 500 (pkgs.linuxPackagesFor sys.boot.kernel);
 
     # additional packages supplying kernel modules
     extraModulePackages = mkDefault sys.boot.extraModulePackages;
