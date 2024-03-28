@@ -11,7 +11,7 @@
     speedFactor = 4;
     maxJobs = 4;
     supportedFeatures = ["benchmark" "nixos-test"];
-    sshKey = "/root/.ssh/id_25519";
+    sshKey = "/home/notashelf/.ssh/builder";
     protocol = "ssh-ng";
   };
 
