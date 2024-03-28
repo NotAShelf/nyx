@@ -13,6 +13,7 @@
     ./bottom.nix
     ./dircolors.nix
     ./eza.nix
+    ./gh.nix
     ./gpg.nix
     ./man.nix
     ./nix-index.nix

@@ -1,37 +1,25 @@
 {
   osConfig,
   pkgs,
-  lib,
   ...
 }: let
   inherit (osConfig) modules;
-  inherit (osConfig.modules.style.colorScheme) colors;
   cfg = modules.system.programs.git;
 in {
-  home.packages = with pkgs; [
-    gist # manage github gists
-    act # local github actions
-    zsh-forgit # zsh plugin to load forgit via `git forgit`
-    gitflow
+  imports = [
+    ./aliases.nix
+    ./ignore.nix
   ];
 
-  programs = {
-    # a command-line tool for github
-    gh = {
-      enable = true;
-      gitCredentialHelper.enable = false;
-      extensions = with pkgs; [
-        gh-dash # dashboard with pull requests and issues
-        gh-eco # explore the ecosystem
-        gh-cal # contributions calender terminal viewer
-      ];
-      settings = {
-        git_protocol = "ssh";
-        prompt = "enabled";
-      };
-    };
+  config = {
+    home.packages = with pkgs; [
+      gist # manage github gists
+      act # local github actions
+      zsh-forgit # zsh plugin to load forgit via `git forgit`
+      gitflow
+    ];
 
-    git = {
+    programs.git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
 
@@ -46,16 +34,18 @@ in {
         signByDefault = true;
       };
 
-      # construct the list of ignored files from a very large string containing
-      # the list of ignored files, but in a plaintext format for my own convenience
-      ignores =
-        map (v: "${toString v}")
-        (builtins.split "\n" (import ./ignore.nix {inherit lib;}).ignore);
+      lfs.enable = true;
 
       extraConfig = {
         # I don't care about the usage of the term "master"
         # but main is easier to type, so that's that
         init.defaultBranch = "main";
+
+        # disable the horrendous GUI password prompt for Git when auth fails
+        core.askPass = "";
+
+        # prefer using libsecret for storing and retrieving credientals
+        credential.helper = "${pkgs.gitAndTools.gitFull}/bin/git-credential-libsecret";
 
         # delta is some kind of a syntax highlighting pager for git
         # it looks nice but I'd like to consider difftastic at some point
@@ -84,6 +74,7 @@ in {
         push = {
           default = "current";
           followTags = true;
+          autoSetupRemote = true;
         };
 
         merge = {
@@ -118,28 +109,6 @@ in {
           "https://codeberg.org/".insteadOf = "codeberg:";
           "ssh://git@codeberg.org/".pushInsteadOf = "codeberg:";
         };
-      };
-      lfs.enable = true;
-      aliases = {
-        br = "branch";
-        c = "commit -m";
-        ca = "commit -am";
-        co = "checkout";
-        d = "diff";
-        df = "!git hist | peco | awk '{print $2}' | xargs -I {} git diff {}^ {}";
-        edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`";
-        fuck = "commit --amend -m";
-        graph = "log --all --decorate --graph";
-        ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
-        pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
-        af = "!git add $(git ls-files -m -o --exclude-standard | fzf -m)";
-        st = "status";
-        hist = ''
-          log --pretty=format:"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)" --graph --date=relative --decorate --all
-        '';
-        llog = ''
-          log --graph --name-status --pretty=format:"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset" --date=relative
-        '';
       };
     };
   };
