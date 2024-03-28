@@ -45,6 +45,7 @@ in {
         builderBase = bigBuilder;
         user = "builder";
         host = "build.neushore.dev";
+        sshProtocol = "ssh"; # ssh-ng is not supported by this device
       })
     ];
   };
