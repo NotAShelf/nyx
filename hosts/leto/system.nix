@@ -1,22 +1,21 @@
 {
+  modulesPath,
   config,
   lib,
   ...
 }: {
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+  ];
+
   config = {
     services.smartd.enable = lib.mkForce false;
 
     boot = {
       growPartition = !config.boot.initrd.systemd.enable;
-      kernel = {
-        sysctl = {
-          # # Enable IP forwarding
-          # required for Tailscale subnet feature
-          # https://tailscale.com/kb/1019/subnets/?tab=linux#step-1-install-the-tailscale-client
-          # also wireguard
-          "net.ipv4.ip_forward" = true;
-          "net.ipv6.conf.all.forwarding" = true;
-        };
+      initrd = {
+        availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
+        kernelModules = [];
       };
 
       loader.grub = {
