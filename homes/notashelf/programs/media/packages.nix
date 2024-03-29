@@ -9,9 +9,8 @@
 
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
-
+  env = modules.usrEnv;
+  prg = env.programs;
   cfg = prg.media;
 in {
   config = mkIf cfg.addDefaultPackages {

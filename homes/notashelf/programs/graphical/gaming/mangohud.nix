@@ -3,12 +3,13 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  prg = modules.system.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
-  config = mkIf prg.gaming.enable {
+  config = mkIf prg.gaming.mangohud.enable {
     programs.mangohud = {
       enable = true;
       settings = {

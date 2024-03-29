@@ -3,7 +3,6 @@
 in {
   imports = [
     ./gaming.nix
-    ./media.nix
   ];
 
   options.modules.system.programs = {

@@ -1,12 +1,14 @@
 {
-  lib,
-  pkgs,
   osConfig,
+  pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
+  inherit (osConfig) modules;
 
-  prg = osConfig.modules.system.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
   imports = [
     ./minecraft.nix
@@ -24,7 +26,7 @@ in {
       # dolphin-emu # general console
 
       # runtime
-      dotnet-runtime_6 # terraria
+      dotnet-runtime_6 # for running terraria manually, from binary
       mono # general dotnet apps
       winetricks # wine helper utility
     ];

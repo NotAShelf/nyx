@@ -1,14 +1,16 @@
 {
   osConfig,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
+  inherit (osConfig) modules;
 
-  cfg = osConfig.modules.system.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
-  config = mkIf cfg.gaming.chess.enable {
+  config = mkIf prg.gaming.chess.enable {
     home.packages = with pkgs; [
       knights
       fairymax

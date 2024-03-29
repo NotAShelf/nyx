@@ -61,7 +61,6 @@
 
       gaming = {
         enable = true;
-        chess.enable = false;
       };
 
       default = {

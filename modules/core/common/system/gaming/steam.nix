@@ -8,7 +8,7 @@
 
   prg = config.modules.system.programs;
 in {
-  config = mkIf prg.gaming.enable {
+  config = mkIf prg.gaming.steam.enable {
     nixpkgs = {
       config = {
         allowUnfreePredicate = pkg:
@@ -65,10 +65,10 @@ in {
       # Enable steam
       enable = true;
 
-      # Open ports in the firewall for Steam Remote Play
-      remotePlay.openFirewall = true;
+      # Whether to open ports in the firewall for Steam Remote Play
+      remotePlay.openFirewall = false;
 
-      # Open ports in the firewall for Source Dedicated Server
+      # Whether to open ports in the firewall for Source Dedicated Server
       dedicatedServer.openFirewall = false;
 
       # Compatibility tools to install

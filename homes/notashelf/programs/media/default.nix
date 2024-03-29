@@ -5,6 +5,5 @@
 
     ./beets.nix
     ./packages.nix
-    ./rnnoise.nix
   ];
 }

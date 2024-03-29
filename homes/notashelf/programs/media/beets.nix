@@ -1,5 +1,16 @@
-{config, ...}: {
-  programs.beets = {
+{
+  osConfig,
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib.modules) mkIf;
+  inherit (osConfig) modules;
+
+  env = modules.usrEnv;
+  prg = env.programs;
+in {
+  programs.beets = mkIf prg.media.beets.enable {
     enable = true;
 
     settings = {

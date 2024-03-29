@@ -5,10 +5,13 @@
   lib,
   ...
 }: let
-  dev = osConfig.modules.device;
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  inherit (lib.modules) mkIf;
+  inherit (osConfig) modules;
+
+  env = modules.usrEnv;
+  srv = env.services;
 in {
-  config = lib.mkIf (builtins.elem dev.type acceptedTypes) {
+  config = mkIf srv.media.mpd.enable {
     home.packages = with pkgs; [
       playerctl # CLI interface for playerctld
       mpc_cli # CLI interface for mpd

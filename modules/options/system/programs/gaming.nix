@@ -3,16 +3,21 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption;
+  inherit (lib.options) mkEnableOption;
   inherit (config) modules;
 
   prg = modules.system.programs;
 in {
   options.modules.system.programs.gaming = {
-    enable = mkEnableOption "Enable packages required for the device to be gaming-ready";
-    emulation.enable = mkEnableOption "Enable programs required to emulate other platforms";
-    minecraft.enable = mkEnableOption "Minecraft launcher & JDKs";
-    chess.enable = mkEnableOption "Chess programs and engines" // {default = prg.gaming.enable;};
+    enable = mkEnableOption ''
+      packages, services and warappers required for the device to be gaming-ready.
+
+      Setting this option to true will also enable certain other options with
+      the option to disable them explicitly.
+    '';
+
+    steam.enable = mkEnableOption "Steam client" // {default = prg.gaming.enable;};
+    gamemode.enable = mkEnableOption "Feral-Interactive's Gamemode with userspace optimizations" // {default = prg.gaming.enable;};
     gamescope.enable = mkEnableOption "Gamescope compositing manager" // {default = prg.gaming.enable;};
     mangohud.enable = mkEnableOption "MangoHud overlay" // {default = prg.gaming.enable;};
   };

@@ -1,8 +1,8 @@
 {
-  config,
-  lib,
-  pkgs,
   inputs,
+  config,
+  pkgs,
+  lib,
   ...
 }: let
   inherit (lib) mkIf makeBinPath optionalString;
@@ -10,12 +10,14 @@
 
   env = modules.usrEnv;
   sys = modules.system;
+  prg = sys.programs;
 
   programs = makeBinPath (with pkgs; [
     inputs.hyprland.packages.${stdenv.system}.default
     coreutils
     power-profiles-daemon
     systemd
+    libnotify
   ]);
 
   startscript = pkgs.writeShellScript "gamemode-start" ''
@@ -25,8 +27,8 @@
       hyprctl --batch 'keyword decoration:blur 0 ; keyword animations:enabled 0 ; keyword misc:vfr 0'
     ''}
 
-      powerprofilesctl set performance
-      ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations activated'
+    powerprofilesctl set performance
+    notify-send -a 'Gamemode' 'Optimizations activated' -u 'low'
   '';
 
   endscript = pkgs.writeShellScript "gamemode-end" ''
@@ -36,13 +38,11 @@
       hyprctl --batch 'keyword decoration:blur 1 ; keyword animations:enabled 1 ; keyword misc:vfr 1'
     ''}
 
-      powerprofilesctl set balanced
-      ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
+    powerprofilesctl set balanced
+    notify-send -a 'Gamemode' 'Optimizations deactivated' -u 'low'
   '';
-
-  prg = config.modules.system.programs;
 in {
-  config = mkIf prg.gaming.enable {
+  config = mkIf prg.gaming.gamemode.enable {
     programs.gamemode = {
       enable = true;
       enableRenice = true;
