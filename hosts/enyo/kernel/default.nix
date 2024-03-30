@@ -1,6 +1,6 @@
 {
   imports = [
-    #./config # FIXME: hella broken right now
+    ./config
     ./package.nix
   ];
 }
