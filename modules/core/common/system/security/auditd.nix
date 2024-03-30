@@ -51,9 +51,6 @@ in {
           User = "root";
         };
       };
-
-      # TODO: remove this once nixpkgs#278090 hits nixos-unstable
-      services.auditd.conflicts = lib.mkForce ["shutdown.target"];
     };
   };
 }
