@@ -15,6 +15,9 @@
       "tile, title:Spotify"
       "tile, class:^(Spotify)$"
 
+      # steam settings window
+      "float, title:^(Steam Settings)$"
+
       # telegram media viewer
       "float, title:^(Media viewer)$"
 
