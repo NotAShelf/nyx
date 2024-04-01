@@ -12,7 +12,6 @@
     ./auditd.nix # auditd
     ./clamav.nix # clamav antivirus
     ./fprint.nix # fingerprint driver and login support
-    ./fs.nix # filesystem hardening
     ./kernel.nix # kernel hardening
     ./memalloc.nix # memory allocator hardening
     ./pam.nix # pam configuration
