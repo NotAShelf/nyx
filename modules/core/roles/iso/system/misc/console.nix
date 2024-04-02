@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  # console locale #
+  # console locale
   console = let
     variant = "u24n";
   in {
