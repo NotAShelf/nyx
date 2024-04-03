@@ -1,5 +1,9 @@
+h1 {
+	font-family: "Courier Prime", Roboto, Arial, serif;
+}
+
 header {
-	background-color: #333;
+	background-color: #17181c;
 	color: #dee2e6;
 	padding: 10px 7px;
 	display: flex;
@@ -26,7 +30,7 @@ nav ul li a {
 body {
 	font-size: 20px;
 	line-height: 1.2;
-	font-family: "Fira Sans", Roboto, Arial, sans-serif;
+	font-family: "Poppins", Roboto, Arial, sans-serif;
 	margin: 0;
 	padding: 0;
 	background-color: #17181c;
@@ -41,7 +45,7 @@ main {
 	color: #dee2e6;
 	padding: 10px 30px;
 	flex: 1;
-	margin: 0 300px;
+	margin: 0 450px;
 }
 
 main .content-box {
@@ -52,30 +56,41 @@ main .content-box {
 	border-radius: 20px;
 }
 
+main .content-box a:link,
+main .content-box a:visited,
+main .content-box a:hover,
+main .content-box a:active {
+	color: #0080ff;
+	text-decoration: none;
+}
+
 /* Buttons */
 .home-button {
-	background-color: #333;
+	font-weight: 800;
+	background-color: #17181c;
 	color: white;
 	cursor: pointer;
 	padding: 0px 30px;
-	margin: 0 295px;
+	margin-left: 445px;
 }
 
 /* Buttons */
 .secondary-buttons {
-	background-color: #333;
+	font-weight: 800;
+	background-color: #17181c;
 	color: white;
 	cursor: pointer;
 	padding: 0px 30px;
-	margin: 0 295px;
+	margin-right: 445px;
 }
 
 /* Dropdown Button */
 .dropbtn {
-	background-color: #333;
+	font-size: 20px;
+	font-weight: 800;
+	background-color: #17181c;
 	color: #dee2e6;
 	padding: 10px 16px;
-	font-size: 18px;
 	border: none;
 	cursor: pointer;
 }
@@ -91,7 +106,7 @@ main .content-box {
 	display: none;
 	position: absolute;
 	background-color: #17181c;
-	min-width: 160px;
+	min-width: 240px;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }
@@ -115,7 +130,7 @@ main .content-box {
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
+.dropdown:hover {
 	background-color: #4caf50;
 }
 
@@ -123,7 +138,7 @@ main .content-box {
 table {
 	border-collapse: collapse;
 	width: 100%;
-	margin: 20px 0px;
+	margin: 30px 0px;
 }
 
 th,

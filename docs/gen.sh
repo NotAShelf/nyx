@@ -25,12 +25,19 @@ generate_json() {
     filename=$(basename "$file")
     if [[ $filename != "*-todo.md" && $filename != "cheatsheet.md" && $filename != "README.md" ]]; then
       if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
+        # Extract date from filename
+        date=$(echo "$filename" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
+
+        # Sanitize title
+        sanitized_title=$(echo "$filename" | sed -E 's/^[0-9]{4}-[0-9]{2}-[0-9]{2}-//; s/\.md$//; s/-/ /g; s/\b\w/\u&/g')
         if [ "$first" = true ]; then
           first=false
         else
           json="$json,"
         fi
-        json="$json{\"title\":\"$filename\",\"url\":\"posts/$(basename "$file" .md).html\"}"
+
+        # Construct JSON object with title, url, date, and sanitized title
+        json="$json{\"name\":\"$filename\",\"url\":\"/posts/$(basename "$file" .md).html\",\"date\":\"$date\",\"title\":\"$sanitized_title\"}"
       fi
     fi
   done
@@ -40,8 +47,8 @@ generate_json() {
 
 generate_index_page() {
   echo "Generating index page..."
-  pandoc --standalone \
-    --from markdown --to html \
+  pandoc --from markdown --to html \
+    --embed-resources --standalone \
     --template "$1"/template.html \
     --css "$1"/style.css \
     --variable="index:true" \
@@ -55,12 +62,14 @@ generate_other_pages() {
     if [[ $filename != "*-todo.md" && $filename != "cheatsheet.md" && $filename != "README.md" ]]; then
       if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
         pandoc --from markdown --to html \
-          --standalone --template "$2"/template.html \
+          --embed-resources --standalone \
+          --template "$2"/template.html \
           --css "$2"/style.css \
           "$file" -o "$3/posts/$(basename "$file" .md).html"
       else
         pandoc --from markdown --to html \
-          --standalone --template "$2"/template.html \
+          --embed-resources --standalone \
+          --template "$2"/template.html \
           --css "$2"/style.css \
           "$file" -o "$3/$(basename "$file" .md).html"
       fi
