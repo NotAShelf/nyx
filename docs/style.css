@@ -70,21 +70,53 @@ main .content-box {
 	margin: 0 295px;
 }
 
-.dropdown-menu {
+/* Dropdown Button */
+.dropbtn {
+	background-color: #333;
+	color: #dee2e6;
+	padding: 10px 16px;
+	font-size: 18px;
+	border: none;
+	cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
 	display: none;
 	position: absolute;
-	background-color: #f9f9f9;
+	background-color: #17181c;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }
 
-.dropdown-menu.active {
+/* Links inside the dropdown */
+.dropdown-content a {
+	color: #dee2e6;
+	padding: 12px 16px;
+	text-decoration: none;
 	display: block;
 }
 
-.dropdown-toggle {
-	cursor: pointer;
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: #2b282d;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+	background-color: #4caf50;
 }
 
 /* Table Styles */
@@ -112,15 +144,25 @@ tr:nth-child(even) {
 
 /* Footer Styles */
 footer {
-	background-color: #333;
 	color: white;
 	padding: 7px 5px 7px 5px;
 	text-align: center;
 	margin-top: auto;
+	position: relative;
+}
+
+.footer-divider {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 20%;
+	height: 1px;
+	background-color: white;
 }
 
 .footer-icons {
-	margin-top: 20px;
+	margin: 15px 5px;
 }
 
 .footer-icons a {

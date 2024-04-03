@@ -32,24 +32,57 @@
 			</nav>
 			<nav class="secondary-buttons">
 				<ul>
-					<!-- TODO: actual pages and button -->
-					<!-- <li><a href="#">About</a></li> -->
+					<li>
+						<a href="#">About</a>
+						<div class="dropdown">
+							<button class="dropbtn">Posts</button>
+							<div
+								class="dropdown-content"
+								id="dropdown-content"
+							></div>
+						</div>
+					</li>
 				</ul>
 			</nav>
 		</header>
+
 		<main>$body$</main>
 		<footer>
+			<div class="footer-divider"></div>
 			<p>&copy; 2024 NotAShelf</p>
-
 			<div class="footer-icons">
-				<a href="feed.xml"><i class="lni lni-rss-feed"></i></a>
 				<a href="https://twitter.com"
 					><i class="lni lni-twitter-original"></i
 				></a>
 				<a href="https://github.com"
 					><i class="lni lni-github-original"></i
 				></a>
+				<a href="feed.xml"><i class="lni lni-rss-feed"></i></a>
 			</div>
 		</footer>
+
+		<script>
+			function fetchPosts() {
+				fetch("/posts/posts.json")
+					.then((response) => response.json())
+					.then((data) => {
+						const dropdownContent =
+							document.getElementById("dropdown-content");
+						// post links
+						data.posts.forEach((post) => {
+							const postLink = document.createElement("a");
+							postLink.href = post.url;
+							postLink.textContent = post.title;
+							dropdownContent.appendChild(postLink);
+						});
+					})
+					.catch((error) =>
+						console.error("Error fetching posts:", error),
+					);
+			}
+
+			// fetchPosts when DOM is loaded
+			document.addEventListener("DOMContentLoaded", fetchPosts);
+		</script>
 	</body>
 </html>
