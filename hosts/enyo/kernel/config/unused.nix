@@ -95,6 +95,10 @@ in {
 
         CONFIG_GENERIC_IRQ_DEBUGFS = no;
 
+        # Remove samba support
+        CONFIG_CIFS = no;
+        CONFIG_CIFS_ROOT = no;
+
         # Disable AMDGPU CIK support
         CONFIG_DRM_AMDGPU_CIK = no;
 
