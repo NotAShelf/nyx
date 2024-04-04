@@ -27,15 +27,15 @@
 		<header>
 			<nav class="home-button">
 				<ul>
-					<li><a href="/">Index</a></li>
+					<li><a class="nav-button" href="/">Index</a></li>
 				</ul>
 			</nav>
 			<nav class="secondary-buttons">
 				<ul>
 					<li>
-						<a href="#">About</a>
+						<a class="nav-button" href="#">About</a>
 						<div class="dropdown">
-							<button class="dropbtn">Posts</button>
+							<button class="nav-button">Posts</button>
 							<div
 								class="dropdown-content"
 								id="dropdown-content"
@@ -69,7 +69,7 @@
 							document.getElementById("dropdown-content");
 						data.posts.forEach((post) => {
 							const postLink = document.createElement("a");
-							postLink.href = post.url;
+							postLink.href = post.path; // we could use posts.url here, but it messes with local serving
 							postLink.textContent = post.title;
 							dropdownContent.appendChild(postLink);
 						});

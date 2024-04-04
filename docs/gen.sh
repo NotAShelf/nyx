@@ -2,12 +2,13 @@
 
 workingdir="$(pwd)"
 outdir="out"
+
 posts_dir="$outdir/posts"
 json_file="$outdir/posts.json"
 rss_file="$outdir/feed.xml"
 
 rss_title="NotAShelf/nyx"
-rss_link="https://notashelf.github.io/nyx/"
+rss_link="https://notashelf.github.io/nyx"
 rss_description="NotAShelf's notes on various topics"
 
 create_directory() {
@@ -15,6 +16,11 @@ create_directory() {
     echo "Creating directory: $1"
     mkdir -p "$1"
   fi
+}
+
+compile_stylesheet() {
+  echo "Compiling stylesheet..."
+  sassc --style=compressed "$1"/templates/style.scss "$1"/templates/style.css
 }
 
 generate_json() {
@@ -37,7 +43,7 @@ generate_json() {
         fi
 
         # Construct JSON object with title, url, date, and sanitized title
-        json="$json{\"name\":\"$filename\",\"url\":\"/posts/$(basename "$file" .md).html\",\"date\":\"$date\",\"title\":\"$sanitized_title\"}"
+        json="$json{\"name\":\"$filename\",\"url\":\"$rss_link/posts/$(basename "$file" .md).html\",\"date\":\"$date\",\"title\":\"$sanitized_title\",\"path\":\"/posts/$(basename "$file" .md).html\"}"
       fi
     fi
   done
@@ -45,13 +51,16 @@ generate_json() {
   echo "$json" >"$2"
 }
 
+# Index page refers to the "main" page generated
+# from the README.md, which I would like to see on the front
 generate_index_page() {
   echo "Generating index page..."
   pandoc --from markdown --to html \
     --embed-resources --standalone \
-    --template "$1"/template.html \
-    --css "$1"/style.css \
+    --template "$1"/templates/template.html \
+    --css "$1"/templates/style.css \
     --variable="index:true" \
+    --metadata title="$rss_title" \
     "$1/notes/README.md" -o "$2/index.html"
 }
 
@@ -59,18 +68,22 @@ generate_other_pages() {
   echo "Generating other pages..."
   for file in "$1"/notes/*.md; do
     filename=$(basename "$file")
-    if [[ $filename != "*-todo.md" && $filename != "cheatsheet.md" && $filename != "README.md" ]]; then
+    if [[ $filename != "README.md" ]]; then
       if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
         pandoc --from markdown --to html \
           --embed-resources --standalone \
-          --template "$2"/template.html \
-          --css "$2"/style.css \
+          --template "$2"/templates/template.html \
+          --css "$2"/templates/style.css \
+          --metadata title="$filename" \
+          --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/posts/$(basename "$file" .md).html"
       else
         pandoc --from markdown --to html \
           --embed-resources --standalone \
-          --template "$2"/template.html \
-          --css "$2"/style.css \
+          --template "$2"/templates/template.html \
+          --css "$2"/templates/style.css \
+          --metadata title="$filename" \
+          --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/$(basename "$file" .md).html"
       fi
     fi
@@ -95,6 +108,7 @@ generate_rss_feed() {
 create_directory "$outdir"
 create_directory "$posts_dir"
 generate_json "$workingdir" "$json_file"
+compile_stylesheet "$workingdir"
 generate_index_page "$workingdir" "$outdir"
 generate_other_pages "$workingdir" "$workingdir" "$outdir"
 generate_rss_feed "$rss_title" "$rss_link" "$rss_description" "$rss_file" "$json_file"

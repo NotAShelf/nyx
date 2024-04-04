@@ -24,9 +24,6 @@
         inputs.flake-parts.flakeModules.easyOverlay
         inputs.treefmt-nix.flakeModule
 
-        # static documentation exposed on the topmost level
-        ./docs
-
         # parts of the flake
         ./flake/modules # nixos and home-manager modules provided by this flake
         ./flake/pkgs # packages exposed by the flake
