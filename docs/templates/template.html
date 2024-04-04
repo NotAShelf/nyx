@@ -14,7 +14,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
 			rel="stylesheet"
 		/>
 		<!-- Lineicons -->
@@ -27,29 +27,75 @@
 		<header>
 			<nav class="home-button">
 				<ul>
-					<li><a href="./index.html">Index</a></li>
+					<li><a class="nav-button" href="/">Index</a></li>
 				</ul>
 			</nav>
 			<nav class="secondary-buttons">
 				<ul>
-					<!-- TODO: actual pages and button -->
-					<!-- <li><a href="#">About</a></li> -->
+					<li>
+						<a class="nav-button" href="/about.html">About</a>
+						<a class="nav-button" href="/privacy.html">Privacy</a>
+						<div class="dropdown">
+							<button class="nav-button">Posts</button>
+							<div
+								class="dropdown-content"
+								id="dropdown-content"
+							></div>
+						</div>
+					</li>
 				</ul>
 			</nav>
 		</header>
+
 		<main>$body$</main>
 		<footer>
+			<div class="footer-divider"></div>
 			<p>&copy; 2024 NotAShelf</p>
-
 			<div class="footer-icons">
-				<a href="feed.xml"><i class="lni lni-rss-feed"></i></a>
-				<a href="https://twitter.com"
+				<a href="https://twitter.com/notashelf"
 					><i class="lni lni-twitter-original"></i
 				></a>
-				<a href="https://github.com"
+				<a href="https://github.com/notashelf"
 					><i class="lni lni-github-original"></i
 				></a>
+				<a href="/feed.xml"><i class="lni lni-rss-feed"></i></a>
 			</div>
 		</footer>
+		<script>
+			function fetchPosts() {
+				fetch("/posts.json")
+					.then((response) => response.json())
+					.then((data) => {
+						const dropdownContent =
+							document.getElementById("dropdown-content");
+						data.posts.forEach((post) => {
+							const postLink = document.createElement("a");
+							postLink.href = post.path; // we could use posts.url here, but it messes with local serving
+							postLink.textContent = post.title;
+							dropdownContent.appendChild(postLink);
+						});
+					})
+					.catch((error) =>
+						console.error("Error fetching posts:", error),
+					);
+			}
+
+			function isInPostsDirectory() {
+				return window.location.pathname.startsWith("/posts/");
+			}
+
+			function isIndexPage() {
+				return (
+					window.location.pathname === "/" ||
+					window.location.pathname === "/index.html"
+				);
+			}
+
+			document.addEventListener("DOMContentLoaded", () => {
+				if (isIndexPage() || isInPostsDirectory()) {
+					fetchPosts();
+				}
+			});
+		</script>
 	</body>
 </html>

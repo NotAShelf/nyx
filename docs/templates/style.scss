@@ -1,0 +1,201 @@
+// Define variables for colors and fonts
+$primary: #17181c;
+$secondary: #dee2e6;
+$hover-color: #66b3ff;
+$font-family-primary: "Roboto Slab", Roboto, Arial, sans-serif;
+$font-family-secondary: "Courier Prime", Roboto, Arial, serif;
+
+// Base styles
+h1 {
+	font-family: $font-family-secondary;
+}
+
+body {
+	font-size: 20px;
+	line-height: 1.5;
+	font-family: $font-family-primary;
+	margin: 0;
+	padding: 0;
+	background-color: $primary;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+header {
+	background-color: $primary;
+	color: $secondary;
+	padding: 10px 7px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+nav {
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+
+		li {
+			margin-right: 20px;
+
+			a {
+				color: $secondary;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+main {
+	text-align: left;
+	color: $secondary;
+	padding: 10px 30px;
+	flex: 1;
+	margin: 0 450px;
+
+	a {
+		&:hover,
+		&:link,
+		&:visited,
+		&:active {
+			color: $hover-color;
+			text-decoration: none;
+		}
+	}
+}
+
+// Buttons
+.home-button,
+.secondary-buttons,
+.nav-button {
+	font-weight: 800;
+	background-color: $primary;
+	color: $secondary;
+	cursor: pointer;
+	padding: 0px 30px;
+	padding: 10px 30px;
+}
+
+.home-button {
+	padding: 0px 30px;
+	margin-left: 430px;
+}
+
+.secondary-buttons {
+	padding: 0px 30px;
+	margin-right: 430px;
+}
+
+.nav-button {
+	font-weight: 800;
+	background-color: $primary;
+	color: $secondary;
+	cursor: pointer;
+	font-weight: 800;
+	font-family: "Roboto Slab", Roboto, Arial, sans-serif;
+	font-size: 20px;
+	line-height: 1.5;
+	padding: 10px 16px;
+	border: none;
+}
+
+.nav-button:hover {
+	color: lighten($secondary, 5%);
+}
+
+// Dropdown Button
+.dropbtn:hover {
+	color: lighten($secondary, 5%);
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: $primary;
+		min-width: 240px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+
+		a {
+			color: $secondary;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+
+			&:hover {
+				background-color: #2b282d;
+			}
+		}
+	}
+
+	&:hover .dropdown-content {
+		display: block;
+	}
+}
+
+// Table Styles
+table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 30px 0px;
+
+	th,
+	td {
+		border: 1px solid #3b373d;
+		padding: 8px;
+		text-align: left;
+	}
+
+	th {
+		background-color: #141215;
+		color: white;
+	}
+
+	tr:nth-child(even) {
+		background-color: #2b282d;
+	}
+}
+
+// Source Code Styles
+div.sourceCode {
+	border: 1px solid #3b373d;
+	padding: 8px;
+	text-align: left;
+	background-color: lighten($primary, 5%);
+}
+
+// Footer Styles
+footer {
+	color: white;
+	padding: 7px 5px 7px 5px;
+	text-align: center;
+	margin-top: auto;
+	position: relative;
+
+	.footer-divider {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 20%;
+		height: 1px;
+		background-color: white;
+	}
+
+	.footer-icons {
+		margin: 15px 5px;
+
+		a {
+			color: white;
+			text-decoration: none;
+			margin-bottom: 5px;
+		}
+	}
+}
