@@ -20,7 +20,7 @@ create_directory() {
 
 compile_stylesheet() {
   echo "Compiling stylesheet..."
-  sassc --style=compressed "$1"/templates/style.scss "$1"/templates/style.css
+  sassc --style=compressed "$1"/templates/style.scss "$1"/out/style.css
 }
 
 generate_json() {
@@ -68,9 +68,9 @@ generate_json() {
 generate_index_page() {
   echo "Generating index page..."
   pandoc --from markdown --to html \
-    --embed-resources --standalone \
+    --standalone \
     --template "$1"/templates/template.html \
-    --css "$1"/templates/style.css \
+    --css "$2"/out/style.css \
     --variable="index:true" \
     --metadata title="$rss_title" \
     "$1/notes/README.md" -o "$2/index.html"
@@ -83,17 +83,17 @@ generate_other_pages() {
     if [[ $filename != "README.md" ]]; then
       if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
         pandoc --from markdown --to html \
-          --embed-resources --standalone \
+          --standalone \
           --template "$2"/templates/template.html \
-          --css "$2"/templates/style.css \
+          --css "$2"/out/style.css \
           --metadata title="$filename" \
           --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/posts/$(basename "$file" .md).html"
       else
         pandoc --from markdown --to html \
-          --embed-resources --standalone \
+          --standalone \
           --template "$2"/templates/template.html \
-          --css "$2"/templates/style.css \
+          --css "$2"/out/style.csss \
           --metadata title="$filename" \
           --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/$(basename "$file" .md).html"
@@ -104,7 +104,7 @@ generate_other_pages() {
 
 write_privacy_policy() {
   # write privacy.md as notes/privacy.md
-  cat >"$1/notes/privacy.md" <<-EOF
+  cat >"$1/notes/privacy.md" <<EOF
   # Privacy Policy
   - This site does not set or use cookies.
   - This site does not store data in the browser to be shared, sent, or sold to third-parties.
@@ -114,7 +114,7 @@ EOF
 
 write_about_page() {
   # write about.md as notes/about.md
-  cat >"$1/notes/privacy.md" <<-EOF
+  cat >"$1/notes/about.md" <<-EOF
   I work with Nix quite often, and share some of the stuff I learn while I do so. This website contains various notes
   on things that interested me, or things I thought was worth sharing. If you would like to contribute, or have any feedback
   you think would be useful, please feel free to reach out to me via email, available at my GitHub profile or on my website:
