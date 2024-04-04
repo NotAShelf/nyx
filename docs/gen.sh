@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 workingdir="$(pwd)"
 outdir="out"
@@ -8,7 +8,7 @@ json_file="$outdir/posts.json"
 rss_file="$outdir/feed.xml"
 
 rss_title="NotAShelf/nyx"
-rss_link="https://notashelf.github.io/nyx"
+rss_link="https://nyx.notashelf.dev"
 rss_description="NotAShelf's notes on various topics"
 
 create_directory() {
@@ -144,6 +144,8 @@ create_directory "$outdir"
 create_directory "$posts_dir"
 generate_json "$workingdir" "$json_file"
 compile_stylesheet "$workingdir"
+write_about_page "$workingdir"
+write_privacy_policy "$workingdir"
 generate_index_page "$workingdir" "$outdir"
 generate_other_pages "$workingdir" "$workingdir" "$outdir"
 generate_rss_feed "$rss_title" "$rss_link" "$rss_description" "$rss_file" "$json_file"

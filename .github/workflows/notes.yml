@@ -37,7 +37,7 @@ jobs:
           cd docs
 
           # Execute generation script
-          sh gen.sh
+          bash ./gen.sh
 
       - name: "Deploy to GitHub Pages"
         uses: JamesIves/github-pages-deploy-action@v4
