@@ -29,6 +29,9 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	max-width: 80ch;
+	width: 100%;
+	margin: 0 auto;
 }
 
 nav {
@@ -39,8 +42,6 @@ nav {
 		display: flex;
 
 		li {
-			margin-right: 20px;
-
 			a {
 				color: $secondary;
 				text-decoration: none;
@@ -54,7 +55,9 @@ main {
 	color: $secondary;
 	padding: 10px 30px;
 	flex: 1;
-	margin: 0 450px;
+	margin: 0 auto;
+	max-width: 80ch;
+	width: 100%;
 
 	a {
 		&:hover,
@@ -68,28 +71,16 @@ main {
 }
 
 // Buttons
-.home-button,
+/*
+.primary-buttons,
 .secondary-buttons,
+*/
+.dropbtn,
 .nav-button {
 	font-weight: 800;
 	background-color: $primary;
 	color: $secondary;
 	cursor: pointer;
-	padding: 0px 30px;
-	padding: 10px 30px;
-}
-
-.home-button {
-	padding: 0px 30px;
-	margin-left: 430px;
-}
-
-.secondary-buttons {
-	padding: 0px 30px;
-	margin-right: 430px;
-}
-
-.nav-button {
 	font-weight: 800;
 	background-color: $primary;
 	color: $secondary;
@@ -98,12 +89,13 @@ main {
 	font-family: "Roboto Slab", Roboto, Arial, sans-serif;
 	font-size: 20px;
 	line-height: 1.5;
-	padding: 10px 16px;
 	border: none;
-}
+	align-items: center;
+	margin: 0px 5px;
 
-.nav-button:hover {
-	color: lighten($secondary, 5%);
+	&:hover {
+		color: lighten($secondary, 5%);
+	}
 }
 
 // Dropdown Button

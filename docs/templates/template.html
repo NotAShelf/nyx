@@ -2,7 +2,23 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content="pandoc" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=yes"
+		/>
+		$for(author-meta)$
+		<meta name="author" content="$author-meta$" />
+		$endfor$ $if(date-meta)$
+		<meta name="dcterms.date" content="$date-meta$" />
+		$endif$ $if(keywords)$
+		<meta
+			name="keywords"
+			content="$for(keywords)$$keywords$$sep$, $endfor$"
+		/>
+		$endif$ $if(description-meta)$
+		<meta name="description" content="$description-meta$" />
+		$endif$
 		<title>$title$</title>
 		<style>
 			$styles.html()$
@@ -14,7 +30,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 			rel="stylesheet"
 		/>
 		<!-- Lineicons -->
@@ -26,7 +42,7 @@
 	</head>
 	<body>
 		<header>
-			<nav class="home-button">
+			<nav class="primary-buttons">
 				<ul>
 					<li><a class="nav-button" href="/">Index</a></li>
 				</ul>
@@ -34,8 +50,6 @@
 			<nav class="secondary-buttons">
 				<ul>
 					<li>
-						<a class="nav-button" href="/about.html">About</a>
-						<a class="nav-button" href="/privacy.html">Privacy</a>
 						<div class="dropdown">
 							<button class="nav-button">Posts</button>
 							<div
@@ -43,6 +57,8 @@
 								id="dropdown-content"
 							></div>
 						</div>
+						<a class="nav-button" href="/about.html">About</a>
+						<a class="nav-button" href="/privacy.html">Privacy</a>
 					</li>
 				</ul>
 			</nav>
@@ -62,6 +78,7 @@
 				<a href="/feed.xml"><i class="lni lni-rss-feed"></i></a>
 			</div>
 		</footer>
+		<!-- Dropdown post listing-->
 		<script>
 			function fetchPosts() {
 				fetch("/posts.json")
@@ -93,9 +110,7 @@
 			}
 
 			document.addEventListener("DOMContentLoaded", () => {
-				if (isIndexPage() || isInPostsDirectory()) {
-					fetchPosts();
-				}
+				fetchPosts();
 			});
 		</script>
 	</body>

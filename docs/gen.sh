@@ -20,7 +20,7 @@ create_directory() {
 
 compile_stylesheet() {
   echo "Compiling stylesheet..."
-  sassc --style=compressed "$1"/templates/style.scss "$1"/out/style.css
+  sassc --style=compressed "$1"/templates/scss/main.scss "$1"/out/style.css
 }
 
 generate_json() {
@@ -70,7 +70,7 @@ generate_index_page() {
   pandoc --from markdown --to html \
     --standalone \
     --template "$1"/templates/template.html \
-    --css "$2"/out/style.css \
+    --css /style.css \
     --variable="index:true" \
     --metadata title="$rss_title" \
     "$1/notes/README.md" -o "$2/index.html"
@@ -85,7 +85,7 @@ generate_other_pages() {
         pandoc --from markdown --to html \
           --standalone \
           --template "$2"/templates/template.html \
-          --css "$2"/out/style.css \
+          --css /style.css \
           --metadata title="$filename" \
           --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/posts/$(basename "$file" .md).html"
@@ -93,7 +93,7 @@ generate_other_pages() {
         pandoc --from markdown --to html \
           --standalone \
           --template "$2"/templates/template.html \
-          --css "$2"/out/style.csss \
+          --css /style.css \
           --metadata title="$filename" \
           --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/$(basename "$file" .md).html"
@@ -105,20 +105,23 @@ generate_other_pages() {
 write_privacy_policy() {
   # write privacy.md as notes/privacy.md
   cat >"$1/notes/privacy.md" <<EOF
-  # Privacy Policy
-  - This site does not set or use cookies.
-  - This site does not store data in the browser to be shared, sent, or sold to third-parties.
-  - No personal information is, in any shape or form, shared, sent, sold or otherwise shared with third-parties.
+# Privacy Policy
+
+- This site does not set or use cookies.
+- This site does not store data in the browser to be shared, sent, or sold to third-parties.
+- No personal information is, in any shape or form, shared, sent, sold or otherwise shared with third-parties.
 EOF
 }
 
 write_about_page() {
   # write about.md as notes/about.md
   cat >"$1/notes/about.md" <<-EOF
-  I work with Nix quite often, and share some of the stuff I learn while I do so. This website contains various notes
-  on things that interested me, or things I thought was worth sharing. If you would like to contribute, or have any feedback
-  you think would be useful, please feel free to reach out to me via email, available at my GitHub profile or on my website:
-  https://notashelf.dev
+# About
+
+I work with Nix quite often, and share some of the stuff I learn while I do so. This website contains various notes
+on things that interested me, or things I thought was worth sharing. If you would like to contribute, or have any feedback
+you think would be useful, please feel free to reach out to me via email, available at my GitHub profile or
+[on my website](https://notashelf.dev)
 EOF
 }
 
@@ -139,6 +142,9 @@ generate_rss_feed() {
   echo "</channel>
  </rss>" >>"$4"
 }
+
+# Copy javascript files to the page root
+cp -rv "$workingdir"/templates/js "$outdir/"
 
 create_directory "$outdir"
 create_directory "$posts_dir"
