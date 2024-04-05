@@ -64,7 +64,15 @@
 			</nav>
 		</header>
 
-		<main>$body$</main>
+		<main>
+			$if(toc)$
+			<nav id="$idprefix$TOC" role="doc-toc">
+				$if(toc-title)$
+				<h2 id="$idprefix$toc-title">$toc-title$</h2>
+				$endif$ $table-of-contents$
+			</nav>
+			$endif$ $body$ $for(include-after)$ $include-after$ $endfor$
+		</main>
 		<footer>
 			<div class="footer-divider"></div>
 			<p>&copy; 2024 NotAShelf</p>

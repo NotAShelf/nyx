@@ -1,0 +1,30 @@
+// Table Of Content element injected by Pandoc
+#TOC {
+	// better spacing
+	margin: 20px;
+	padding: 10px;
+
+	// TOC elements are considered links
+	// so the below styling applies to all items
+	a {
+		text-decoration: none;
+		color: $secondary;
+
+		&:hover {
+			color: lighten($secondary, 5%);
+		}
+	}
+
+	// make sure all items are properly aligned in separate lines
+	li,
+	ul {
+		list-style-type: square;
+		margin-left: 20px;
+		display: block;
+	}
+
+	// hide the TOC on mobile devices
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
+}

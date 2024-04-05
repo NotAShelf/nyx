@@ -67,7 +67,7 @@ generate_json() {
 # from the README.md, which I would like to see on the front
 generate_index_page() {
   echo "Generating index page..."
-  pandoc --from markdown --to html \
+  pandoc --from gfm --to html \
     --standalone \
     --template "$1"/templates/template.html \
     --css /style.css \
@@ -82,19 +82,21 @@ generate_other_pages() {
     filename=$(basename "$file")
     if [[ $filename != "README.md" ]]; then
       if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
-        pandoc --from markdown --to html \
+        pandoc --from gfm --to html \
           --standalone \
           --template "$2"/templates/template.html \
           --css /style.css \
           --metadata title="$filename" \
+          --table-of-contents \
           --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/posts/$(basename "$file" .md).html"
       else
-        pandoc --from markdown --to html \
+        pandoc --from gfm --to html \
           --standalone \
           --template "$2"/templates/template.html \
           --css /style.css \
           --metadata title="$filename" \
+          --table-of-contents \
           --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/$(basename "$file" .md).html"
       fi
@@ -107,9 +109,14 @@ write_privacy_policy() {
   cat >"$1/notes/privacy.md" <<EOF
 # Privacy Policy
 
-- This site does not set or use cookies.
-- This site does not store data in the browser to be shared, sent, or sold to third-parties.
-- No personal information is, in any shape or form, shared, sent, sold or otherwise shared with third-parties.
+This site is hosted on Github Pages, their privacy policies apply at any given time.
+
+The author of this site:
+- does not set or use cookies.
+- does not store data in the browser to be shared, sent, or sold to third-parties.
+- does not collect, sell, send or otherwise share your private information with any third parties.
+
+Effective as of April 5th, 2024.
 EOF
 }
 
