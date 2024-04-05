@@ -97,7 +97,7 @@
 		<script>
 			// Dropdown post listing
 			function fetchPosts() {
-				fetch("/posts.json")
+				fetch("/posts/posts.json")
 					.then((response) => response.json())
 					.then((data) => {
 						const dropdownContent =
