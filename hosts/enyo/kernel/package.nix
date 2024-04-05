@@ -2,19 +2,19 @@
   lib,
   fetchFromGitHub,
   linuxKernel,
-  ccacheStdenv,
   buildPackages,
+  hostname ? "",
   ...
 }: let
-  inherit (lib.kernel) yes no;
+  inherit (lib.kernel) yes no freeform;
   inherit (lib.attrsets) mapAttrs recursiveUpdate;
   inherit (lib.modules) mkForce;
 
-  version = "6.8.2";
+  version = "6.8.4";
   suffix = "xanmod1";
   modDirVersion = "${version}-${suffix}";
 
-  xanmod_custom = linuxKernel.kernels.linux_xanmod_latest.override {
+  xanmod_custom = linuxKernel.kernels.linux_xanmod_latest.override (prev: {
     inherit version suffix modDirVersion;
 
     # https://github.com/xanmod/linux
@@ -22,13 +22,14 @@
       owner = "xanmod";
       repo = "linux";
       rev = "refs/tags/${version}-xanmod1";
-      hash = "sha256-JddPg/EWJZq5EIemcaULM5c6yLGkfb2E6shxxq37N3M=";
+      hash = "sha256-NQeUz50aBRvbHqhoOGv5CFQKKlKeCUEkCA8uf9W0f0k=";
     };
 
     # poor attempt to make kernel builds use ccache
-    stdenv = ccacheStdenv;
+    # doesn't seem to work
+    stdenv = prev.ccacheStdenv;
     buildPackages = recursiveUpdate buildPackages {
-      stdenv = ccacheStdenv;
+      stdenv = prev.ccacheStdenv;
     };
 
     extraMakeFlags = ["KCFLAGS=-DAMD_PRIVATE_COLOR"];
@@ -44,8 +45,12 @@
 
       GCC_PLUGINS = yes;
       BUG_ON_DATA_CORRUPTION = yes;
+
+      CONFIG_LOCALVERSION = freeform "-${suffix}";
+      CONFIG_LOCALVERSION_AUTO = yes;
+      CONFIG_DEFAULT_HOSTNAME = freeform "${hostname}";
     };
-  };
+  });
 in {
   inherit xanmod_custom;
 }

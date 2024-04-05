@@ -1,5 +1,10 @@
-{pkgs, ...}: let
-  inherit (pkgs.callPackage ./package.nix {}) xanmod_custom;
+{
+  config,
+  pkgs,
+  ...
+}: let
+  inherit (config.networking) hostname;
+  inherit (pkgs.callPackage ./package.nix {inherit hostname;}) xanmod_custom;
 in {
   imports = [./config];
   config = {
