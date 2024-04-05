@@ -131,6 +131,17 @@ generate_other_pages() {
       fi
     fi
   done
+  for file in "$4"/*.md; do
+    filename=$(basename "$file")
+    pandoc --from gfm --to html \
+      --standalone \
+      --template "$2"/templates/template.html \
+      --css /style.css \
+      --metadata title="$filename" \
+      --metadata description="$site_description" \
+      --highlight-style="$2"/templates/custom.theme \
+      "$file" -o "$3/pages/$(basename "$file" .md).html"
+  done
 }
 
 write_privacy_policy() {
@@ -193,7 +204,7 @@ compile_scripts "$workingdir" "$outdir"
 write_about_page "$tmpdir"
 write_privacy_policy "$tmpdir"
 generate_index_page "$workingdir" "$outdir"
-generate_other_pages "$workingdir" "$workingdir" "$outdir"
+generate_other_pages "$workingdir" "$workingdir" "$outdir" "$tmpdir"
 generate_rss_feed "$title" "$site_url" "$site_description" "$rss_file" "$json_file"
 cleanup
 
