@@ -125,37 +125,6 @@ main {
 	}
 }
 
-// Table Styles
-table {
-	border-collapse: collapse;
-	width: 100%;
-	margin: 30px 0px;
-
-	th,
-	td {
-		border: 1px solid #3b373d;
-		padding: 8px;
-		text-align: left;
-	}
-
-	th {
-		background-color: #141215;
-		color: white;
-	}
-
-	tr:nth-child(even) {
-		background-color: #2b282d;
-	}
-}
-
-// Source Code Styles
-div.sourceCode {
-	border: 1px solid #3b373d;
-	padding: 8px;
-	text-align: left;
-	background-color: lighten($primary, 5%);
-}
-
 // Footer Styles
 footer {
 	color: white;

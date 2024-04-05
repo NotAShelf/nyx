@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 set -e
+set -u
+set -o pipefail
 
 # Site Meta
 title="NotAShelf/nyx"
@@ -36,7 +38,6 @@ compile_scripts() {
   # TODO: in the future, we may want to use typescript
   # which we then compile into javascript
   cp -r "$1"/templates/js "$2"
-
 }
 
 generate_json() {
@@ -125,7 +126,6 @@ generate_other_pages() {
             --css /style.css \
             --metadata title="$filename" \
             --metadata description="$site_description" \
-            --highlight-style="$2"/templates/custom.theme \
             "$file" -o "$3/pages/$(basename "$file" .md).html"
         fi
       fi
@@ -194,6 +194,8 @@ cleanup() {
   echo "Cleaning up..."
   rm -rf "$tmpdir"
 }
+
+trap cleanup EXIT
 
 create_directory "$outdir"
 create_directory "$posts_dir"
