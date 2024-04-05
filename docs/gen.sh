@@ -1,15 +1,23 @@
 #!/usr/bin/env bash
+set -e
 
+# Site Meta
+title="NotAShelf/nyx"
+site_url="https://nyx.notashelf.dev"
+site_description="NotAShelf's notes on various topics"
+
+# Directories
+tmpdir="$(mktemp -d)"
 workingdir="$(pwd)"
-outdir="out"
-
+outdir="$workingdir"/out
 posts_dir="$outdir/posts"
-json_file="$outdir/posts.json"
-rss_file="$outdir/feed.xml"
+pages_dir="$outdir/pages"
 
-rss_title="NotAShelf/nyx"
-rss_link="https://nyx.notashelf.dev"
-rss_description="NotAShelf's notes on various topics"
+# A list of posts
+json_file="$posts_dir/posts.json"
+
+# Feed files
+rss_file="$outdir/feed.xml"
 
 create_directory() {
   if [ ! -d "$1" ]; then
@@ -20,7 +28,15 @@ create_directory() {
 
 compile_stylesheet() {
   echo "Compiling stylesheet..."
-  sassc --style=compressed "$1"/templates/scss/main.scss "$1"/out/style.css
+  sassc --style=compressed "$1"/"$2" "$1"/out/style.css
+}
+
+compile_scripts() {
+  # Copy javascript files to the page root
+  # TODO: in the future, we may want to use typescript
+  # which we then compile into javascript
+  cp -r "$1"/templates/js "$2"
+
 }
 
 generate_json() {
@@ -29,7 +45,7 @@ generate_json() {
   first=true
   for file in "$1"/notes/*.md; do
     filename=$(basename "$file")
-    if [[ $filename != "*-todo.md" && $filename != "cheatsheet.md" && $filename != "README.md" ]]; then
+    if [[ $filename != "README.md" ]]; then
       if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
         # Extract date from filename
         date=$(echo "$filename" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
@@ -42,11 +58,13 @@ generate_json() {
           json="$json,"
         fi
 
-        # Construct JSON object with data we may want to use
-        # Note: Assuming rss_link is defined elsewhere
+        # JSON object with data we may want to use like a json feed file
+        # this doesn't, however, actually follow jsonfeed spec
+        # TODO: follow jsonfeed spec
+        # https://www.jsonfeed.org/
         json_object=$(jq -n \
           --arg name "$filename" \
-          --arg url "$rss_link/posts/$(basename "$file" .md).html" \
+          --arg url "$site_url/posts/$(basename "$file" .md).html" \
           --arg date "$date" \
           --arg title "$sanitized_title" \
           --arg path "/posts/$(basename "$file" .md).html" \
@@ -72,7 +90,8 @@ generate_index_page() {
     --template "$1"/templates/template.html \
     --css /style.css \
     --variable="index:true" \
-    --metadata title="$rss_title" \
+    --metadata title="$title" \
+    --metadata description="$site_description" \
     "$1/notes/README.md" -o "$2/index.html"
 }
 
@@ -82,23 +101,33 @@ generate_other_pages() {
     filename=$(basename "$file")
     if [[ $filename != "README.md" ]]; then
       if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
+        # Date in filename imples a blogpost
+        # convert it to markdown and place it in the posts directory
+        # since this is a post, it can contain a table of contents
+        echo "Converting $filename..."
         pandoc --from gfm --to html \
           --standalone \
           --template "$2"/templates/template.html \
           --css /style.css \
           --metadata title="$filename" \
+          --metadata description="$site_description" \
           --table-of-contents \
           --highlight-style="$2"/templates/custom.theme \
           "$file" -o "$3/posts/$(basename "$file" .md).html"
       else
-        pandoc --from gfm --to html \
-          --standalone \
-          --template "$2"/templates/template.html \
-          --css /style.css \
-          --metadata title="$filename" \
-          --table-of-contents \
-          --highlight-style="$2"/templates/custom.theme \
-          "$file" -o "$3/$(basename "$file" .md).html"
+        if [[ $filename != "*-md" ]]; then
+          echo "Converting $filename..."
+          # No date in filename, means this is a standalone page
+          # convert it to html and place it in the pages directory
+          pandoc --from gfm --to html \
+            --standalone \
+            --template "$2"/templates/template.html \
+            --css /style.css \
+            --metadata title="$filename" \
+            --metadata description="$site_description" \
+            --highlight-style="$2"/templates/custom.theme \
+            "$file" -o "$3/pages/$(basename "$file" .md).html"
+        fi
       fi
     fi
   done
@@ -106,7 +135,7 @@ generate_other_pages() {
 
 write_privacy_policy() {
   # write privacy.md as notes/privacy.md
-  cat >"$1/notes/privacy.md" <<EOF
+  cat >"$1/privacy.md" <<EOF
 # Privacy Policy
 
 This site is hosted on Github Pages, their privacy policies apply at any given time.
@@ -122,7 +151,7 @@ EOF
 
 write_about_page() {
   # write about.md as notes/about.md
-  cat >"$1/notes/about.md" <<-EOF
+  cat >"$1/about.md" <<-EOF
 # About
 
 I work with Nix quite often, and share some of the stuff I learn while I do so. This website contains various notes
@@ -150,17 +179,22 @@ generate_rss_feed() {
  </rss>" >>"$4"
 }
 
-# Copy javascript files to the page root
-cp -rv "$workingdir"/templates/js "$outdir/"
+cleanup() {
+  echo "Cleaning up..."
+  rm -rf "$tmpdir"
+}
 
 create_directory "$outdir"
 create_directory "$posts_dir"
+create_directory "$pages_dir"
 generate_json "$workingdir" "$json_file"
-compile_stylesheet "$workingdir"
-write_about_page "$workingdir"
-write_privacy_policy "$workingdir"
+compile_stylesheet "$workingdir" "templates/scss/main.scss"
+compile_scripts "$workingdir" "$outdir"
+write_about_page "$tmpdir"
+write_privacy_policy "$tmpdir"
 generate_index_page "$workingdir" "$outdir"
 generate_other_pages "$workingdir" "$workingdir" "$outdir"
-generate_rss_feed "$rss_title" "$rss_link" "$rss_description" "$rss_file" "$json_file"
+generate_rss_feed "$title" "$site_url" "$site_description" "$rss_file" "$json_file"
+cleanup
 
 echo "All tasks completed successfully."
