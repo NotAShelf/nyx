@@ -2216,11 +2216,11 @@
     "nixfmt": {
       "flake": false,
       "locked": {
-        "lastModified": 1712283945,
-        "narHash": "sha256-ANxxvDgL/sJu2QaoVoVcXCT7zb0+mak9v6vB/S4iOBo=",
+        "lastModified": 1712357216,
+        "narHash": "sha256-pWf+rNxSPUJjY8p6T6633Gg+lMm3MsRtJnj/TdtZa5k=",
         "owner": "nixos",
         "repo": "nixfmt",
-        "rev": "134290e5b9bc7efd26c870471eddec01a17e89a1",
+        "rev": "35b0186137d9cac7097a0374d96e3b9a687a30d7",
         "type": "github"
       },
       "original": {
@@ -2499,21 +2499,6 @@
       }
     },
     "nixpkgs_15": {
-      "locked": {
-        "lastModified": 1709703039,
-        "narHash": "sha256-6hqgQ8OK6gsMu1VtcGKBxKQInRLHtzulDo9Z5jxHEFY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9df3e30ce24fd28c7b3e2de0d986769db5d6225d",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-unstable",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_16": {
       "locked": {
         "lastModified": 1708475490,
         "narHash": "sha256-g1v0TsWBQPX97ziznfJdWhgMyMGtoBFs102xSYO4syU=",
@@ -3492,7 +3477,9 @@
       "inputs": {
         "blobs": "blobs",
         "flake-compat": "flake-compat_10",
-        "nixpkgs": "nixpkgs_15",
+        "nixpkgs": [
+          "nixpkgs-small"
+        ],
         "utils": "utils_4"
       },
       "locked": {
@@ -4234,7 +4221,7 @@
       "inputs": {
         "hyprland-protocols": "hyprland-protocols_2",
         "hyprlang": "hyprlang_4",
-        "nixpkgs": "nixpkgs_16",
+        "nixpkgs": "nixpkgs_15",
         "systems": "systems_16"
       },
       "locked": {
