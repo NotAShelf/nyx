@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#! nix-shell -i bash -p pandoc jq sassc
 set -e
 set -u
 set -o pipefail
@@ -18,9 +19,6 @@ pages_dir="$outdir/pages"
 # A list of posts
 json_file="$posts_dir/posts.json"
 
-# Feed files
-rss_file="$outdir/feed.xml"
-
 create_directory() {
   if [ ! -d "$1" ]; then
     echo "Creating directory: $1"
@@ -35,12 +33,10 @@ compile_stylesheet() {
 
 compile_scripts() {
   # Copy javascript files to the page root
-  # TODO: in the future, we may want to use typescript
-  # which we then compile into javascript
-  cp -r "$1"/templates/js "$2"
+  cp -rv "$1"/templates/js "$2"
 }
 
-generate_json() {
+generate_posts_json() {
   echo "Generating JSON..."
   json='{"posts":['
   first=true
@@ -61,8 +57,8 @@ generate_json() {
 
         # JSON object with data we may want to use like a json feed file
         # this doesn't, however, actually follow jsonfeed spec
-        # TODO: follow jsonfeed spec
-        # https://www.jsonfeed.org/
+        # that is done so by the generate_jsonfeed_spec function
+
         json_object=$(jq -n \
           --arg name "$filename" \
           --arg url "$site_url/posts/$(basename "$file" .md).html" \
@@ -77,6 +73,52 @@ generate_json() {
     fi
   done
   json="$json]}"
+  # Format JSON with jq
+  formatted_json=$(echo "$json" | jq .)
+  echo "$formatted_json" >"$2"
+}
+
+generate_jsonfeed_spec() {
+  echo "Generating JSON Feed..."
+  json=$(jq -n \
+    --arg version "https://jsonfeed.org/version/1" \
+    --arg title "$title" \
+    --arg home_page_url "$site_url" \
+    --arg feed_url "$site_url/feed.json" \
+    '{version: $version, title: $title, home_page_url: $home_page_url, feed_url: $feed_url, items: []}')
+
+  # Initialize the ID counter to 0
+  id_counter=0
+
+  for file in "$1"/notes/*.md; do
+    filename=$(basename "$file")
+    if [[ $filename != "README.md" ]]; then
+      if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
+        # Extract date from filename
+        date=$(echo "$filename" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
+
+        # Sanitize title
+        sanitized_title=$(echo "$filename" | sed -E 's/^[0-9]{4}-[0-9]{2}-[0-9]{2}-//; s/\.md$//; s/-/ /g; s/\b\w/\u&/g')
+
+        # Generate the URL for the post
+        url="$site_url/posts/$(basename "$file" .md).html"
+
+        # Generate the JSON object for the item
+        json_object=$(jq -n \
+          --arg id "$id_counter" \
+          --arg url "$url" \
+          --arg title "$sanitized_title" \
+          '{id: $id, url: $url, title: $title}')
+
+        # Append the JSON object to the items array
+        json=$(echo "$json" | jq --argjson item "$json_object" '.items += [$item]')
+
+        # Increment the ID counter
+        id_counter=$((id_counter + 1))
+      fi
+    fi
+  done
+
   # Format JSON with jq
   formatted_json=$(echo "$json" | jq .)
   echo "$formatted_json" >"$2"
@@ -172,24 +214,6 @@ you think would be useful, please feel free to reach out to me via email, availa
 EOF
 }
 
-generate_rss_feed() {
-  echo "Generating RSS feed..."
-  echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>
- <rss version=\"2.0\">
- <channel>
- <title>$1</title>
- <link>$2</link>
- <description>$3</description>" >"$4"
-
-  # Use jq to generate XML for each item
-  jq -r '.posts[] | select(.url != null) | "<item><title>\(.title)</title><link>\(.url)</link><description></description></item>"' "$5" | while read -r item; do
-    echo "$item" >>"$4"
-  done
-
-  echo "</channel>
- </rss>" >>"$4"
-}
-
 cleanup() {
   echo "Cleaning up..."
   rm -rf "$tmpdir"
@@ -200,14 +224,14 @@ trap cleanup EXIT
 create_directory "$outdir"
 create_directory "$posts_dir"
 create_directory "$pages_dir"
-generate_json "$workingdir" "$json_file"
+generate_posts_json "$workingdir" "$json_file"
+generate_jsonfeed_spec "$workingdir" "$outdir"/feed.json
 compile_stylesheet "$workingdir" "templates/scss/main.scss"
 compile_scripts "$workingdir" "$outdir"
 write_about_page "$tmpdir"
 write_privacy_policy "$tmpdir"
 generate_index_page "$workingdir" "$outdir"
 generate_other_pages "$workingdir" "$workingdir" "$outdir" "$tmpdir"
-generate_rss_feed "$title" "$site_url" "$site_description" "$rss_file" "$json_file"
 cleanup
 
 echo "All tasks completed successfully."
