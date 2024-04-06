@@ -21,9 +21,18 @@ in {
         port = 8085;
 
         settings = {
+          grpc_listen_addr = "127.0.0.1:50443";
+          grpc_allow_insecure = false;
+
           server_url = "https://hs.notashelf.dev";
           tls_cert_path = null;
           tls_key_path = null;
+
+          # default headscale prefix
+          ip_prefixes = [
+            "100.64.0.0/10"
+            "fd7a:115c:a1e0::/48"
+          ];
 
           dns_config = {
             override_local_dns = true;
@@ -45,24 +54,50 @@ in {
             */
           };
 
-          derp.server = {
-            enabled = true;
-            region_id = 999;
-            stun_listen_addr = "0.0.0.0:8086";
+          acl_policy_path = pkgs.writeText "headscale-acl" (builtins.toJSON {
+            acls = [
+              {
+                # Allow client --> server traffic
+                # but not the other way around.
+                # Servers face the internet, clients
+                # do so far less.
+                action = "accept";
+                proto = "tcp";
+                src = ["tag:client"];
+                dst = ["tag:server:*"];
+              }
+            ];
 
-            auto_update_enable = true;
+            # Allow all users to SSH into their own devices in check mode.
+            ssh = [
+              {
+                action = "check";
+                src = ["autogroup:member"];
+                dst = ["autogroup:self"];
+                users = ["autogroup:nonroot" "root"];
+              }
+            ];
+          });
+
+          derp = {
+            server = {
+              enabled = true;
+              region_id = 900;
+              region_code = "headscale";
+              region_name = "Headscale Embedded DERP";
+              stun_listen_addr = "0.0.0.0:8344";
+            };
+
+            urls = [];
+            paths = [];
+
+            auto_update_enabled = false;
             update_frequency = "24h";
           };
 
-          log = {
-            format = "text";
-            level = "info";
-          };
-
-          ip_prefixes = [
-            "100.64.0.0/10"
-            "fd7a:115c:a1e0::/48"
-          ];
+          disable_check_updates = true;
+          ephemeral_node_inactivity_timeout = "30m";
+          node_update_check_interval = "10s";
 
           /*
           db_type = "postgres";
@@ -73,10 +108,18 @@ in {
           */
 
           metrics_listen_addr = "127.0.0.1:8087";
+
+          log = {
+            format = "text";
+            level = "info";
+          };
+
           # TODO: logtail
           logtail = {
             enabled = false;
           };
+
+          randomize_client_port = false;
         };
       };
 

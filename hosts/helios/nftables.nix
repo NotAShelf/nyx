@@ -19,6 +19,13 @@ in {
         policy = "accept";
       };
 
+      headscale = entryBetween ["basic-icmp6" "basic-icmp" "ping6" "ping"] ["default"] {
+        protocol = "udp";
+        field = "dport";
+        value = [8344];
+        policy = "accept";
+      };
+
       # NOTE: snm has an option to enable firewall ports by default, but my nftables abstractions
       # do not allow for us to use that option, so we'll just open the ports manually
       # I could probably add an entry that propagates the tcpPorts option to the firewall

@@ -33,6 +33,7 @@
         };
       };
 
+      # wired interfaces e.g. ethernet
       "30-network-defaults-wired" = {
         # matchConfig.Name = "en* | eth* | usb*";
         matchConfig.Type = "ether";
@@ -59,6 +60,7 @@
         };
       };
 
+      # wireless interfaces e.g. network cards
       "30-network-defaults-wireless" = {
         # matchConfig.Name = "wl*";
         matchConfig.Type = "wlan";
@@ -81,10 +83,6 @@
           RouteMetric = 1500;
           UseDNS = true;
           DUIDType = "link-layer";
-          # routes = [
-          #   { routeConfig = { Gateway = "_dhcp4"; Metric = 1500; }; }
-          #   { routeConfig = { Gateway = "_ipv6ra"; Metric = 1500; }; }
-          # ];
           PrefixDelegationHint = "::64";
         };
       };

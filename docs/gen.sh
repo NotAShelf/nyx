@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#! nix-shell -i bash -p pandoc jq sassc
 set -e
 set -u
 set -o pipefail
@@ -29,11 +28,6 @@ create_directory() {
 compile_stylesheet() {
   echo "Compiling stylesheet..."
   sassc --style=compressed "$1"/"$2" "$1"/out/style.css
-}
-
-compile_scripts() {
-  # Copy javascript files to the page root
-  cp -rv "$1"/templates/js "$2"
 }
 
 generate_posts_json() {
@@ -224,14 +218,13 @@ trap cleanup EXIT
 create_directory "$outdir"
 create_directory "$posts_dir"
 create_directory "$pages_dir"
-generate_posts_json "$workingdir" "$json_file"
-generate_jsonfeed_spec "$workingdir" "$outdir"/feed.json
 compile_stylesheet "$workingdir" "templates/scss/main.scss"
-compile_scripts "$workingdir" "$outdir"
+generate_index_page "$workingdir" "$outdir"
 write_about_page "$tmpdir"
 write_privacy_policy "$tmpdir"
-generate_index_page "$workingdir" "$outdir"
 generate_other_pages "$workingdir" "$workingdir" "$outdir" "$tmpdir"
+generate_posts_json "$workingdir" "$json_file"
+generate_jsonfeed_spec "$workingdir" "$outdir"/feed.json
 cleanup
 
 echo "All tasks completed successfully."
