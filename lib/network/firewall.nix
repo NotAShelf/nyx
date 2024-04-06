@@ -3,19 +3,25 @@
   lib,
   ...
 }: let
-  inherit (lib) mkOption mkEnableOption optionalString concatMapStringsSep concatStringsSep filterAttrs types;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.strings) optionalString concatMapStringsSep concatStringsSep;
+  inherit (lib.attrsets) filterAttrs mapAttrsToList;
+  inherit (lib.lists) concatLists;
+  inherit (lib) types;
   inherit (dag) dagOf topoSort;
 
   mkTable = desc: body:
-    lib.mkOption {
+    mkOption {
       default = {};
+      description = "Containers for chains, sets, and other stateful objects.";
       type = types.submodule ({config, ...}: {
         options =
           {
             enable = mkEnableOption desc;
             objects = mkOption {
-              type = with lib.types; listOf str;
+              type = with types; listOf str;
               description = "Objects associated with this table.";
+              default = [];
             };
           }
           // body;
@@ -48,8 +54,9 @@
             in ''
               ${protocol} ${field} ${value} ${policy} comment ${name}
             '') ((topoSort chain).result or (throw "Cycle in DAG"));
+
           buildChain = chainType: chain:
-            lib.mapAttrsToList (chainName: chainDag: ''
+            mapAttrsToList (chainName: chainDag: ''
               chain ${chainName} {
                 type ${chainType} hook ${chainName} priority 0;
 
@@ -58,38 +65,38 @@
             '') (filterAttrs (_: g: builtins.length (builtins.attrNames g) > 0) chain);
         in {
           objects = let
-            chains =
+            chains = concatLists [
               (
                 if config ? filter
                 then buildChain "filter" config.filter
                 else []
               )
-              ++ (
+              (
                 if config ? nat
                 then buildChain "nat" config.nat
                 else []
               )
-              ++ (
+              (
                 if config ? route
                 then buildChain "route" config.route
                 else []
-              );
+              )
+            ];
           in
             chains;
         };
       });
-      description = "Containers for chains, sets, and other stateful objects.";
     };
 
-  mkChain = family: description:
+  mkChain = _: description:
     mkOption {
       inherit description;
       default = {};
       type = dagOf (types.submodule {
         options = {
           protocol = mkOption {
-            description = "Protocol to match.";
             default = null;
+            description = "Protocol to match.";
             type = with types;
               nullOr (either (enum [
                   "ether"
@@ -114,6 +121,7 @@
 
           field = mkOption {
             default = null;
+            description = "Field value to match.";
             type = with types;
               nullOr (enum [
                 "dport"
@@ -125,16 +133,15 @@
                 "iifname"
                 "pkttype"
               ]);
-            description = "Value to match.";
           };
 
           value = mkOption {
             default = null;
+            description = "Associated value.";
             type = with types; let
               valueType = oneOf [port str];
             in
-              nullOr (coercedTo valueType (v: [v]) (listOf valueType));
-            description = "Associated value.";
+              nullOr (coercedTo valueType (value: [value]) (listOf valueType));
           };
 
           policy = mkOption {
@@ -151,7 +158,7 @@
     };
 
   mkRuleset = ruleset:
-    concatStringsSep "\n" (lib.mapAttrsToList (name: table:
+    concatStringsSep "\n" (mapAttrsToList (name: table:
       optionalString (builtins.length table.objects > 0) ''
         table ${name} nixos {
           ${concatStringsSep "\n" table.objects}

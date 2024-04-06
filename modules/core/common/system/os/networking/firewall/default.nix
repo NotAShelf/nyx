@@ -9,8 +9,9 @@
   cfg = config.networking.nftables;
 in {
   imports = [
+    ./nftables
+
     ./fail2ban.nix
-    ./nftables.nix
     ./tarpit.nix
   ];
 
