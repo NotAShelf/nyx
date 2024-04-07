@@ -75,7 +75,7 @@ generate_posts_json() {
 generate_jsonfeed_spec() {
   echo "Generating JSON Feed..."
   json=$(jq -n \
-    --arg version "https://jsonfeed.org/version/1" \
+    --arg version "https://jsonfeed.org/version/1.1" \
     --arg title "$title" \
     --arg home_page_url "$site_url" \
     --arg feed_url "$site_url/feed.json" \
@@ -97,12 +97,16 @@ generate_jsonfeed_spec() {
         # Generate the URL for the post
         url="$site_url/posts/$(basename "$file" .md).html"
 
+        content_raw="$(cat notes/"$(basename "$file" .md)".html)"
+
         # Generate the JSON object for the item
         json_object=$(jq -n \
           --arg id "$id_counter" \
           --arg url "$url" \
           --arg title "$sanitized_title" \
-          '{id: $id, url: $url, title: $title}')
+          --arg date "$date" \
+          --arg content_html "$content_raw" \
+          '{id: $id, url: $url, title: $title, date_published: $date, content_html: $content_raw}')
 
         # Append the JSON object to the items array
         json=$(echo "$json" | jq --argjson item "$json_object" '.items += [$item]')
@@ -121,10 +125,12 @@ generate_jsonfeed_spec() {
 # Index page refers to the "main" page generated
 # from the README.md, which I would like to see on the front
 generate_index_page() {
+  local templates="$1"/templates
+
   echo "Generating index page..."
   pandoc --from gfm --to html \
     --standalone \
-    --template "$1"/templates/template.html \
+    --template "$templates"/html/page.html \
     --css /style.css \
     --variable="index:true" \
     --metadata title="$title" \
@@ -133,6 +139,8 @@ generate_index_page() {
 }
 
 generate_other_pages() {
+  local templates="$2"/templates
+
   echo "Generating other pages..."
   for file in "$1"/notes/*.md; do
     filename=$(basename "$file")
@@ -144,12 +152,12 @@ generate_other_pages() {
         echo "Converting $filename..."
         pandoc --from gfm --to html \
           --standalone \
-          --template "$2"/templates/template.html \
+          --template "$templates"/html/page.html \
           --css /style.css \
           --metadata title="$filename" \
           --metadata description="$site_description" \
           --table-of-contents \
-          --highlight-style="$2"/templates/custom.theme \
+          --highlight-style="$templates"/pandoc/custom.theme \
           "$file" -o "$3/posts/$(basename "$file" .md).html"
       else
         if [[ $filename != "*-md" ]]; then
@@ -158,7 +166,7 @@ generate_other_pages() {
           # convert it to html and place it in the pages directory
           pandoc --from gfm --to html \
             --standalone \
-            --template "$2"/templates/template.html \
+            --template "$templates"/html/page.html \
             --css /style.css \
             --metadata title="$filename" \
             --metadata description="$site_description" \
@@ -171,11 +179,11 @@ generate_other_pages() {
     filename=$(basename "$file")
     pandoc --from gfm --to html \
       --standalone \
-      --template "$2"/templates/template.html \
+      --template "$templates"/html/page.html \
       --css /style.css \
       --metadata title="$filename" \
       --metadata description="$site_description" \
-      --highlight-style="$2"/templates/custom.theme \
+      --highlight-style="$templates"/pandoc/custom.theme \
       "$file" -o "$3/pages/$(basename "$file" .md).html"
   done
 }
@@ -215,16 +223,27 @@ cleanup() {
 
 trap cleanup EXIT
 
+# Create directories
 create_directory "$outdir"
 create_directory "$posts_dir"
 create_directory "$pages_dir"
+
+# Compile stylesheet
 compile_stylesheet "$workingdir" "templates/scss/main.scss"
+
+# Index page
 generate_index_page "$workingdir" "$outdir"
+
+# Other Pages
 write_about_page "$tmpdir"
 write_privacy_policy "$tmpdir"
 generate_other_pages "$workingdir" "$workingdir" "$outdir" "$tmpdir"
+
+# Post list and feed file
 generate_posts_json "$workingdir" "$json_file"
 generate_jsonfeed_spec "$workingdir" "$outdir"/feed.json
+
+# Cleanup
 cleanup
 
 echo "All tasks completed successfully."

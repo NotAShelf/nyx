@@ -1,6 +1,13 @@
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
 // Base styles
 h1 {
 	font-family: $font-family-secondary;
+	line-height: 1.15;
 }
 
 body {
@@ -13,18 +20,27 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+
+	@media (max-width: $screen-tablet) {
+		font-size: 18px;
+	}
 }
 
 header {
 	background-color: $primary;
 	color: $secondary;
-	padding: 10px 7px;
+	padding: 10px 25px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	max-width: 80ch;
 	width: 100%;
 	margin: 0 auto;
+
+	@media (max-width: $screen-tablet) {
+		font-size: 14px;
+		padding: 8px 4px;
+	}
 }
 
 nav {
@@ -49,8 +65,7 @@ main {
 	padding: 10px 30px;
 	flex: 1;
 	margin: 0 auto;
-	max-width: 80ch;
-	width: 100%;
+	max-width: Min(80ch, 100%);
 
 	a {
 		&:hover,
@@ -60,6 +75,10 @@ main {
 			color: $hover-color;
 			text-decoration: none;
 		}
+	}
+
+	@media (max-width: $screen-tablet) {
+		padding: 12px;
 	}
 }
 
@@ -123,6 +142,10 @@ main {
 	&:hover .dropdown-content {
 		display: block;
 	}
+}
+
+main aside {
+	overflow: scroll;
 }
 
 // Footer Styles

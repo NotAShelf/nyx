@@ -35,6 +35,7 @@
 		/>
 		<!-- End Google Fonts import -->
 		<!-- Begin Lineicons import -->
+		<!--
 		<link
 			rel="stylesheet"
 			href="https://cdn.lineicons.com/4.0/lineicons.css"
@@ -84,13 +85,13 @@
 			<p>&copy; 2024 NotAShelf</p>
 			<div class="footer-icons">
 				<a href="https://twitter.com/notashelf">
-					<i class="lni lni-twitter-original" title="Twitter">></i>
+					<i class="lni lni-twitter-original" title="Twitter"></i>
 				</a>
 				<a href="https://github.com/notashelf">
 					<i class="lni lni-github-original" title="GitHub"></i>
 				</a>
 				<a href="/feed.json">
-					<i class="lni lni-rss-feed" title="RSS Feed">></i>
+					<i class="lni lni-rss-feed" title="RSS Feed"></i>
 				</a>
 			</div>
 		</footer>
@@ -107,7 +108,8 @@
 							postLink.textContent = post.title;
 							// we could use posts.url here, instead of posts.path
 							// but it messes with local serving, which prefers `/`
-							// to the actual URL, which would point to the live site
+							// to the actual URL, as it would point to the live site
+							// by path
 							postLink.href = post.path;
 							dropdownContent.appendChild(postLink);
 						});

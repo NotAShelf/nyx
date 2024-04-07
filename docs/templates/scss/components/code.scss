@@ -3,4 +3,7 @@ div.sourceCode {
 	padding: 8px;
 	text-align: left;
 	background-color: lighten($primary, 3%);
+	overflow: scroll;
+	max-width: 100%;
+	border-radius: 8px;
 }
