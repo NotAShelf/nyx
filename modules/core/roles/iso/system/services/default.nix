@@ -1,5 +1,5 @@
 {
   imports = [
-    ./opensh.nix
+    ./openssh.nix
   ];
 }
