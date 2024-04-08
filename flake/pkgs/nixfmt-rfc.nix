@@ -1,9 +1,9 @@
 {
   inputs,
-  nixfmt,
+  nixfmt-rfc-style,
   ...
 }:
-nixfmt.overrideAttrs (self: let
+nixfmt-rfc-style.overrideAttrs (self: let
   pname = "nixfmt-rfc";
   version = "${self.version}-${inputs.nixfmt.shortRev}";
 in {

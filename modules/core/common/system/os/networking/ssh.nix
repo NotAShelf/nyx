@@ -2,8 +2,12 @@
   config,
   lib,
   ...
-}: {
-  programs.ssh.startAgent = !config.modules.system.yubikeySupport.enable;
+}: let
+  inherit (lib.modules) mkForce mkDefault;
+  inherit (lib.strings) concatStringsSep;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.lists) elemAt;
+in {
   services.openssh = {
     # enable openssh
     enable = true;
@@ -12,7 +16,7 @@
     startWhenNeeded = true; # automatically start the ssh daemon when it's required
     settings = {
       # no root login
-      PermitRootLogin = "no";
+      PermitRootLogin = mkForce "no";
 
       # no password auth
       # force publickey authentication only
@@ -26,7 +30,7 @@
       # this will unbind gnupg sockets if they exists
       StreamLocalBindUnlink = "yes";
 
-      KbdInteractiveAuthentication = lib.mkDefault false; # still don't know what this does
+      KbdInteractiveAuthentication = mkDefault false;
       UseDns = false; # no
       X11Forwarding = false; # ew xorg
 
@@ -55,7 +59,7 @@
       MaxAuthTries = 3;
     };
 
-    hostKeys = lib.mkDefault [
+    hostKeys = mkDefault [
       {
         bits = 4096;
         path = "/etc/ssh/ssh_host_rsa_key";
@@ -69,36 +73,31 @@
     ];
   };
 
-  programs.ssh = {
-    extraConfig = ''
-      Host helios
-       HostName helios
-       Port 30
-       StrictHostKeyChecking=accept-new
+  programs.ssh = let
+    # a list of hosts that are connected over Tailscale
+    # it would be better to construct this list dynamically
+    # but we hardcode it because we cannot check if a host is
+    # authenticated - that needs manual intervention
+    hosts = ["helios" "enyo" "hermes"];
 
-      Host enyo
-       HostName enyo
-       Port 30
-       StrictHostKeyChecking=accept-new
-
-      Host hermes
-       HostName icarus
-       Port 30
-       StrictHostKeyChecking=accept-new
-
-      Host epimetheus
-       HostName epimetheus
-       Port 30
-       StrictHostKeyChecking=accept-new
-
-      Host icarus
-       HostName icarus
-       Port 30
+    # generate the ssh config for the hosts
+    mkHostConfig = hostname: ''
+      # Configuration for ${hostname}
+      Host ${hostname}
+       HostName ${hostname}
+      Port ${toString (elemAt config.services.openssh.ports 0)}
        StrictHostKeyChecking=accept-new
     '';
 
+    hostConfig = concatStringsSep "\n" (map mkHostConfig hosts);
+  in {
+    startAgent = !config.modules.system.yubikeySupport.enable;
+    extraConfig = ''
+      ${hostConfig}
+    '';
+
     # ship github/gitlab/sourcehut host keys to avoid MiM (man in the middle) attacks
-    knownHosts = {
+    knownHosts = mapAttrs (_: mkForce) {
       github-rsa = {
         hostNames = ["github.com"];
         publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==";

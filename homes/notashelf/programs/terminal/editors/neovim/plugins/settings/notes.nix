@@ -1,8 +1,8 @@
 {
   programs.neovim-flake.settings.vim = {
     notes = {
-      mind-nvim.enable = true;
       todo-comments.enable = true;
+      mind-nvim.enable = false;
       obsidian.enable = false;
     };
   };

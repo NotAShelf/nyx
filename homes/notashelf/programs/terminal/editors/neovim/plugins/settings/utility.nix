@@ -14,6 +14,16 @@
         hop.enable = true;
         leap.enable = false;
       };
+
+      preview = {
+        glow.enable = true;
+        markdownPreview = {
+          enable = true;
+          autoStart = true;
+          autoClose = true;
+          lazyRefresh = true;
+        };
+      };
     };
   };
 }

@@ -155,7 +155,6 @@ in {
         "nix-command" # experimental nix commands
         "recursive-nix" # let nix invoke itself
         "ca-derivations" # content addressed nix
-        "repl-flake" # allow passing installables to nix repl
         "auto-allocate-uids" # allow nix to automatically pick UIDs, rather than creating nixbld* user accounts
         "configurable-impure-env" # allow impure environments
         "cgroups" # allow nix to execute builds inside cgroups

@@ -1,4 +1,5 @@
 {
+  modulesPath,
   config,
   pkgs,
   lib,
@@ -21,10 +22,7 @@ in {
         apply-overlays-dtmerge.enable = true;
       };
 
-      deviceTree = {
-        enable = true;
-        filter = "*rpi-4-*.dtb";
-      };
+      deviceTree.enable = true;
 
       opengl = {
         # this only takes effect in 64 bit systems
@@ -34,16 +32,8 @@ in {
 
     boot = {
       kernelModules = lib.mkForce ["bridge" "macvlan" "tap" "tun" "loop" "atkbd" "ctr"];
-      supportedFilesystems = lib.mkForce ["btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" "ext4" "vfat"];
+      supportedFilesystems = lib.mkForce ["ext4" "vfat"];
       loader.grub.enable = mkForce false;
-    };
-
-    fileSystems = {
-      "/" = {
-        device = lib.mkForce "/dev/disk/by-label/NIXOS";
-        fsType = "ext4";
-        options = ["noatime"];
-      };
     };
 
     nixpkgs = {

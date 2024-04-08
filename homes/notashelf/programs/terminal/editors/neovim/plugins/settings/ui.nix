@@ -14,12 +14,14 @@
 
       smartcolumn = {
         enable = true;
-        columnAt.languages = {
-          markdown = [80];
-          nix = [150];
-          ruby = 110;
-          java = 120;
-          go = [130];
+        setupOpts = {
+          columnAt.languages = {
+            markdown = [80];
+            nix = [150];
+            ruby = 110;
+            java = 120;
+            go = [130];
+          };
         };
       };
 
