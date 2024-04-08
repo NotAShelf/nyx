@@ -17,12 +17,7 @@
 
       preview = {
         glow.enable = true;
-        markdownPreview = {
-          enable = true;
-          autoStart = true;
-          autoClose = true;
-          lazyRefresh = true;
-        };
+        markdownPreview.enable = true;
       };
     };
   };
