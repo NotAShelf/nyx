@@ -34,7 +34,10 @@ in {
         signByDefault = true;
       };
 
-      lfs.enable = true;
+      lfs = {
+        enable = true;
+        skipSmudge = true;
+      };
 
       extraConfig = {
         # I don't care about the usage of the term "master"
@@ -59,13 +62,6 @@ in {
             side-by-side = true;
             dark = true;
           };
-        };
-
-        difftastic = {
-          enable = true;
-          background = "dark";
-          color = "auto";
-          display = "side-by-side-show-both";
         };
 
         branch.autosetupmerge = "true";
