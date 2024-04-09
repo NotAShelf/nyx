@@ -1,9 +1,8 @@
 # Define a function to set Zsh options
-function set_zsh_options() {
+function __set_zsh_options() {
   local options=(
     "AUTO_CD"             # if not command, then directory
     "AUTO_LIST"           # list choices on ambiguous completion
-    "AUTO_MENU"           # use menu completion after the second consecutive request for completion
     "AUTO_PARAM_SLASH"    # if parameter is completed whose content is the name of a directory, then add trailing slash instead of space
     "AUTO_PUSHD"          # make cd push the old directory onto the directory stack
     "APPEND_HISTORY"      # append history list to the history file, rather than replace it
@@ -28,4 +27,4 @@ function set_zsh_options() {
   done
 }
 
-set_zsh_options
+__set_zsh_options

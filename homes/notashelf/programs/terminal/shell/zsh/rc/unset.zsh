@@ -1,5 +1,5 @@
 # Define a function to unset Zsh options
-function unset_zsh_options() {
+function __unset_zsh_options() {
   local options=(
     "CORRECT_ALL"         # try to correct the spelling of all arguments in a line.
     "HIST_BEEP"           # beep in ZLE when a widget attempts to access a history entry which isn’t there
@@ -11,4 +11,4 @@ function unset_zsh_options() {
   done
 }
 
-unset_zsh_options
+__unset_zsh_options
