@@ -19,4 +19,4 @@ jobs:
     secrets:
       GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     with:
-      command: nix flake check --accept-flake-config
+      command: nix flake check --accept-flake-config --print-build-logs
