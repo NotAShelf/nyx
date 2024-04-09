@@ -1,9 +1,13 @@
-# Completion
-# autoload -U compinit
-zstyle ':completion:*' menu select
+# Load compinit
+autoload -U compinit
 zmodload zsh/complist
-compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"-"$(date)"
 _comp_options+=(globdots)
+
+# Configure menu selection for completion options in all contexts
+# (indicated by the wildcard `*`)
+zstyle ':completion:*' menu select
 
 # Group matches and describe.
 zstyle ':completion:*' sort false
@@ -19,6 +23,7 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 # preview directory's content when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -lAhF --group-directories-first --show-control-chars --quoting-style=escape --color=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' popup-pad 20 0
@@ -43,12 +48,12 @@ zstyle ':completion:*' completer _oldlist _expand _complete _files _ignored
 zstyle ':completion:*' insert-tab false
 
 # allow one error for every three characters typed in approximate completer
-zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
+zstyle ':completion:*:approximate:' max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
 
 # start menu completion only if it could find no unambiguous initial string
-zstyle ':completion:*:correct:*'       insert-unambiguous true
-zstyle ':completion:*:corrections'     format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
-zstyle ':completion:*:correct:*'       original true
+zstyle ':completion:*:correct:*' insert-unambiguous true
+zstyle ':completion:*:corrections' format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
+zstyle ':completion:*:correct:*' original true
 
 # List directory completions first
 zstyle ':completion:*' list-dirs-first true
@@ -58,7 +63,6 @@ zstyle ':completion:*' original true
 zstyle ':completion:*' squeeze-slashes true
 
 # insert all expansions for expand completer
-# # ???????????????ßß
 zstyle ':completion:*:expand:*'        tag-order all-expansions
 
 # match uppercase from lowercase
