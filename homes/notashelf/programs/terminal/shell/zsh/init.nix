@@ -37,6 +37,16 @@ in {
     '';
 
     initExtra = ''
+      # avoid duplicated entries in PATH
+      typeset -U PATH
+
+      # try to correct the spelling of commands
+      setopt correct
+      # disable C-S/C-Q
+      setopt noflowcontrol
+      # disable "no matches found" check
+      unsetopt nomatch
+
       # my helper functions for setting zsh options that I normally use on my shell
       # a description of each option can be found in the Zsh manual
       # <https://zsh.sourceforge.io/Doc/Release/Options.html>
