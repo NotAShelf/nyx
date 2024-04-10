@@ -54,30 +54,76 @@ in {
             */
           };
 
-          acl_policy_path = pkgs.writeText "headscale-acl" (builtins.toJSON {
-            acls = [
-              {
-                # Allow client --> server traffic
-                # but not the other way around.
-                # Servers face the internet, clients
-                # do so far less.
-                action = "accept";
-                proto = "tcp";
-                src = ["tag:client"];
-                dst = ["tag:server:*"];
-              }
-            ];
+          acl_policy_path = pkgs.writeText "headscale-acl" (let
+            mkHost = list: map (name: "host:${name}") list;
+            mkGroup = list: map (name: "group:${name}") list;
+          in
+            builtins.toJSON {
+              hosts = {
+                helios = "100.64.0.1";
+                enyo = "100.64.0.2";
+                icarus = "100.64.0.3";
+                hermes = "100.64.0.4";
+              };
 
-            # Allow all users to SSH into their own devices in check mode.
-            ssh = [
-              {
-                action = "check";
-                src = ["autogroup:member"];
-                dst = ["autogroup:self"];
-                users = ["autogroup:nonroot" "root"];
-              }
-            ];
-          });
+              # sort hosts into groups based on their purpose
+              # helios is a server, the rest are clients
+              groups = {
+                "group:server" = mkHost ["helios"];
+                "group:client" = mkHost ["enyo" "icarus" "hermes"];
+              };
+
+              # apply tags based on groups
+              tagOwners = {
+                "tag:server" = (mkGroup ["server"]) ++ ["autogroup:admin"];
+                "tag:client" = (mkGroup ["client"]) ++ ["autogroup:admin"];
+              };
+
+              acls = [
+                # All members can access their own devices
+                {
+                  action = "accept";
+                  src = ["autogroup:members"];
+                  dst = ["autogroup:self:*"];
+                }
+
+                # allow nodes tagged as client to connect to nodes tagged as server
+                # on any port
+                {
+                  action = "accept";
+                  src = ["group:client"];
+                  dst = [
+                    "tag:server:*"
+                  ];
+                }
+
+                # allow nodes tagged as clients to connect to other nodes tagged as clients
+                {
+                  action = "accept";
+                  src = ["group:client"];
+                  dst = [
+                    "tag:client:*"
+                  ];
+                }
+
+                # Users of group "admin" can access everything
+                {
+                  action = "accept";
+                  src = ["autogroup:admin"];
+                  dst = ["*:*"];
+                }
+              ];
+
+              ssh = [
+                # Allow all users to SSH into their own devices in check mode.
+                {
+                  action = "check";
+                  src = ["autogroup:member"];
+                  dst = ["autogroup:self"];
+                  users = ["autogroup:nonroot" "root"];
+                }
+              ];
+            });
 
           derp = {
             server = {
@@ -134,18 +180,27 @@ in {
 
           # see <https://github.com/gurucomputing/headscale-ui/blob/master/SECURITY.md> before
           # possibly using the web frontend
-          "/web" = {
-            root = "${inputs'.nyxpkgs.packages.headscale-ui}/share";
-          };
+          #"/web" = {
+          #  root = "${inputs'.nyxpkgs.packages.headscale-ui}/share";
+          #};
         };
       };
     };
 
     systemd.services = {
-      # TODO: consider enabling postgresql storage
-      # postgresql is normally pretty neat, but unless you expect your setup to receive
-      # very frequent logins, sqlite (default) storage may be more performant
-      # headscale.requires = ["postgresql.service"];
+      headscale = {
+        environment = {
+          HEADSCALE_EXPERIMENTAL_FEATURE_SSH = "1";
+
+          HEADSCALE_DEBUG_TAILSQL_ENABLED = "1";
+          HEADSCALE_DEBUG_TAILSQL_STATE_DIR = "${config.users.users.headscale.home}/tailsql";
+        };
+
+        # TODO: consider enabling postgresql storage
+        # postgresql is normally pretty neat, but unless you expect your setup to receive
+        # very frequent logins, sqlite (default) storage may be more performant
+        # headscale.requires = ["postgresql.service"];
+      };
 
       create-headscale-user = {
         description = "Create a headscale user and preauth keys for this server";
