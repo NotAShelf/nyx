@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  imports = [inputs.pre-commit-hooks.flakeModule];
+  imports = [inputs.git-hooks.flakeModule];
 
   perSystem = {
     config,
@@ -33,6 +33,10 @@
           actionlint = mkHook "actionlint" {enable = true;};
           luacheck = mkHook "luacheck" {enable = true;};
           treefmt = mkHook "treefmt" {enable = true;};
+          typos = mkHook "typos" {
+            enable = true;
+            excludes = ["flake.nix"];
+          };
 
           editorconfig-checker = mkHook "editorconfig" {
             enable = false;
@@ -45,6 +49,16 @@
               binPath = "${pkgs.prettierd}/bin/prettierd";
               write = true;
             };
+          };
+
+          # Custom hooks
+          git-cliff = mkHook "git-cliff" {
+            enable = true;
+            excludes = ["flake.lock" "r'.+\.age$'" "r'.+\.sh$'"];
+            name = "Git Cliff";
+            entry = "${pkgs.git-cliff}/bin/git-cliff --output docs/CHANGELOG.md";
+            language = "system";
+            pass_filenames = false;
           };
         };
       };
