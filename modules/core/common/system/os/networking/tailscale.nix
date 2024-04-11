@@ -4,7 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkDefault optionals mkBefore;
+  inherit (lib.modules) mkIf mkDefault mkBefore;
+  inherit (lib.lists) optionals;
+  inherit (lib.strings) concatStringsSep;
   inherit (config.services) tailscale;
 
   sys = config.modules.system.networking;
@@ -15,9 +17,8 @@
     ++ ["--authkey file:${config.age.secrets.tailscale-client.path}"]
     ++ optionals cfg.isServer ["--advertise-exit-node"]
     ++ optionals (cfg.endpoint != null) ["--login-server ${cfg.endpoint}"]
-    # TODO: test if specifying an operator messes with the autologin service
-    # which, as you expect, does not run as the operator user
-    ++ optionals (cfg.operator != null) ["--operator" cfg.operator];
+    ++ optionals (cfg.operator != null) ["--operator" cfg.operator]
+    ++ optionals (cfg.tags != []) ["--advertise-tags" (concatStringsSep "," cfg.tags)];
 in {
   config = mkIf cfg.enable {
     # make the tailscale command usable to users
@@ -32,14 +33,12 @@ in {
       allowedUDPPorts = [tailscale.port];
     };
 
-    boot.kernel = {
-      sysctl = {
-        # # Enable IP forwarding
-        # required for Wireguard & Tailscale/Headscale subnet feature
-        # See <https://tailscale.com/kb/1019/subnets/?tab=linux#step-1-install-the-tailscale-client>
-        "net.ipv4.ip_forward" = true;
-        "net.ipv6.conf.all.forwarding" = true;
-      };
+    boot.kernel.sysctl = {
+      # Enable IP forwarding
+      # required for Wireguard & Tailscale/Headscale subnet feature
+      # See <https://tailscale.com/kb/1019/subnets/?tab=linux#step-1-install-the-tailscale-client>
+      "net.ipv4.ip_forward" = true;
+      "net.ipv6.conf.all.forwarding" = true;
     };
 
     # enable tailscale, inter-machine VPN service
@@ -53,6 +52,8 @@ in {
     };
 
     systemd = {
+      network.wait-online.ignoredInterfaces = ["${tailscale.interfaceName}"];
+
       services = {
         # lets not send our logs to log.tailscale.io
         # unless I get to know what they do with the logs
@@ -89,8 +90,6 @@ in {
           '';
         };
       };
-
-      network.wait-online.ignoredInterfaces = ["${tailscale.interfaceName}"];
     };
   };
 }

@@ -12,7 +12,7 @@
 in {
   config = mkIf cfg.networking.headscale.enable {
     environment.systemPackages = [config.services.headscale.package];
-    networking.firewall.allowedUDPPorts = [8086]; # DERP
+    networking.firewall.allowedUDPPorts = [3478 8086]; # DERP
 
     services = {
       headscale = {
@@ -105,13 +105,6 @@ in {
                     "tag:client:*"
                   ];
                 }
-
-                # Users of group "admin" can access everything
-                {
-                  action = "accept";
-                  src = ["autogroup:admin"];
-                  dst = ["*:*"];
-                }
               ];
 
               ssh = [
@@ -128,10 +121,12 @@ in {
           derp = {
             server = {
               enabled = true;
-              region_id = 900;
+              stun_listen_addr = "0.0.0.0:3478";
+
+              # Region code and name are displayed in the Tailscale UI to identify a DERP region
               region_code = "headscale";
               region_name = "Headscale Embedded DERP";
-              stun_listen_addr = "0.0.0.0:8344";
+              region_id = 999;
             };
 
             urls = [];
@@ -178,6 +173,10 @@ in {
             proxyWebsockets = true;
           };
 
+          "/metrics" = {
+            proxyPass = "http://${toString config.services.headscale.settings.metrics_listen_addr}/metrics";
+          };
+
           # see <https://github.com/gurucomputing/headscale-ui/blob/master/SECURITY.md> before
           # possibly using the web frontend
           #"/web" = {
@@ -189,6 +188,9 @@ in {
 
     systemd.services = {
       headscale = {
+        # reduce headscale stop timer duration
+        # so that restarting Headscale is a lot faster
+        serviceConfig.TimeoutStopSec = "30s";
         environment = {
           HEADSCALE_EXPERIMENTAL_FEATURE_SSH = "1";
 
