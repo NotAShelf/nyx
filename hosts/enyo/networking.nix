@@ -15,6 +15,7 @@
       extraArgs = ["--ipv4"];
     };
 
+    # https://wiki.archlinux.org/title/Systemd-networkd
     networks = {
       # leave the kernel dummy devies unmanagaed
       "10-dummy" = {
@@ -47,7 +48,7 @@
         dhcpV4Config = {
           ClientIdentifier = "duid"; # "mac"
           Use6RD = "yes";
-          RouteMetric = 512;
+          RouteMetric = 512; # should be higher than the wireless RouteMetric so that wireless is preferred
           UseDNS = false;
           DUIDType = "link-layer";
         };
@@ -73,14 +74,14 @@
 
         dhcpV4Config = {
           ClientIdentifier = "mac";
-          RouteMetric = 1500;
+          RouteMetric = 216;
           UseDNS = true;
           DUIDType = "link-layer";
           Use6RD = "yes";
         };
 
         dhcpV6Config = {
-          RouteMetric = 1500;
+          RouteMetric = 216;
           UseDNS = true;
           DUIDType = "link-layer";
           PrefixDelegationHint = "::64";
