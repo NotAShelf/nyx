@@ -13,20 +13,17 @@ in {
         (mkAcl "accept" ["tag:client"] ["tag:server:*"]) # client -> server
       ];
 
+      ssh = let
+        mkSshAcl = action: src: dst: users: {inherit action src dst users;};
+      in [
+        (mkSshAcl "accept" ["tag:client"] ["tag:server" "tag:client"] ["notashelf"]) # client -> client; client -> server
+      ];
+
       tagOwners = let
-        me = ["notashelf"];
+        users = ["notashelf"];
         tags = map (name: "tag:${name}") ["server" "client"];
       in
-        lib.genAttrs tags (_: me);
-
-      ssh = [
-        {
-          action = "accept";
-          src = ["enyo"];
-          dst = ["*"];
-          users = ["notashelf"];
-        }
-      ];
+        lib.genAttrs tags (_: users);
 
       tags = [
         "tag:client"
