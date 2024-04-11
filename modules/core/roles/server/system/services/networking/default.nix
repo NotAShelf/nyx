@@ -1,6 +1,6 @@
 {
   imports = [
+    ./headscale
     ./wireguard
-    ./headscale.nix
   ];
 }
