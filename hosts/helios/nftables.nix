@@ -22,7 +22,7 @@ in {
       headscale = entryBetween ["basic-icmp6" "basic-icmp" "ping6" "ping"] ["default"] {
         protocol = "udp";
         field = "dport";
-        value = [8344];
+        value = [3478];
         policy = "accept";
       };
 
