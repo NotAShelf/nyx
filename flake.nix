@@ -25,6 +25,8 @@
         inputs.treefmt-nix.flakeModule
 
         # parts of the flake
+        ./flake/apps # apps provided by the flake
+        ./flake/checks # checks that are performed on `nix flake check`
         ./flake/modules # nixos and home-manager modules provided by this flake
         ./flake/pkgs # packages exposed by the flake
         ./flake/templates # flake templates
