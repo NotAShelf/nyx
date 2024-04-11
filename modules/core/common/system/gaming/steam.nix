@@ -22,6 +22,7 @@ in {
       overlays = [
         (_: prev: {
           steam = prev.steam.override ({extraPkgs ? _: [], ...}: {
+            extraProfile = "export SDL_VIDEODRIVER=x11";
             extraPkgs = pkgs':
               (extraPkgs pkgs')
               # Add missing dependencies
