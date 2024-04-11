@@ -17,32 +17,34 @@ let
   mkSecrets = list: list ++ [notashelf];
 in {
   # core system secrets
-  "client-spotify.age".publicKeys = mkSecrets workstations;
-  "common-nix-builder.age".publicKeys = mkSecrets (workstations ++ servers);
-  "client-wg.age".publicKeys = mkSecrets (workstations ++ servers);
-  "client-tailscale.age".publicKeys = mkSecrets (workstations ++ servers);
-  "client-email.age".publicKeys = mkSecrets (workstations ++ servers);
+  "common/nix-builder.age".publicKeys = mkSecrets (workstations ++ servers);
+  "client/spotify.age".publicKeys = mkSecrets workstations;
+  "client/wg.age".publicKeys = mkSecrets (workstations ++ servers);
+  "client/tailscale.age".publicKeys = mkSecrets (workstations ++ servers);
+  "client/email.age".publicKeys = mkSecrets (workstations ++ servers);
 
   # service specific secrets
-  "service-matrix.age".publicKeys = mkSecrets servers;
-  "service-nextcloud.age".publicKeys = mkSecrets servers;
-  "service-mkm-web.age".publicKeys = mkSecrets servers;
-  "service-vaultwarden.age".publicKeys = mkSecrets servers;
-  "service-wg.age".publicKeys = mkSecrets servers;
-  "service-searx.age".publicKeys = mkSecrets servers;
-  "service-forgejo-runner-token.age".publicKeys = mkSecrets servers;
-  "service-forgejo-runner-config.age".publicKeys = mkSecrets servers;
-  "service-harmonia.age".publicKeys = mkSecrets servers;
-  "service-attic.age".publicKeys = mkSecrets servers;
+  "service/matrix.age".publicKeys = mkSecrets servers;
+  "service/nextcloud.age".publicKeys = mkSecrets servers;
+  "service/mkm-web.age".publicKeys = mkSecrets servers;
+  "service/vaultwarden.age".publicKeys = mkSecrets servers;
+  "service/wg.age".publicKeys = mkSecrets servers;
+  "service/searx.age".publicKeys = mkSecrets servers;
+  "service/forgejo-runner-token.age".publicKeys = mkSecrets servers;
+  "service/forgejo-runner-config.age".publicKeys = mkSecrets servers;
+  "service/harmonia.age".publicKeys = mkSecrets servers;
+  "service/attic.age".publicKeys = mkSecrets servers;
+  "service/headscale-noise.age".publicKeys = mkSecrets servers;
+  "service/headscale-derp.age".publicKeys = mkSecrets servers;
 
-  "db-mongodb.age".publicKeys = mkSecrets servers;
-  "db-garage.age".publicKeys = mkSecrets servers;
+  "db/mongodb.age".publicKeys = mkSecrets servers;
+  "db/garage.age".publicKeys = mkSecrets servers;
 
   # secrets for specific mailserver accounts
-  "mailserver-cloud.age".publicKeys = mkSecrets servers;
-  "mailserver-forgejo.age".publicKeys = mkSecrets servers;
-  "mailserver-matrix.age".publicKeys = mkSecrets servers;
-  "mailserver-noreply.age".publicKeys = mkSecrets servers;
-  "mailserver-postmaster.age".publicKeys = mkSecrets servers;
-  "mailserver-vaultwarden.age".publicKeys = mkSecrets servers;
+  "mailserver/cloud.age".publicKeys = mkSecrets servers;
+  "mailserver/forgejo.age".publicKeys = mkSecrets servers;
+  "mailserver/matrix.age".publicKeys = mkSecrets servers;
+  "mailserver/noreply.age".publicKeys = mkSecrets servers;
+  "mailserver/postmaster.age".publicKeys = mkSecrets servers;
+  "mailserver/vaultwarden.age".publicKeys = mkSecrets servers;
 }
