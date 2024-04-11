@@ -14,6 +14,7 @@ in {
   };
 
   # <https://www.kernel.org/doc/html/latest/admin-guide/sysctl/vm.html>
+  # <https://github.com/pop-os/default-settings/pull/163>
   boot.kernel.sysctl = mkIf config.zramSwap.enable {
     # zram is relatively cheap, prefer swap
     #  swappiness refers to the kernel's willingness prefer swap

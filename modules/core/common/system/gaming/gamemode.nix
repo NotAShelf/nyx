@@ -66,6 +66,8 @@ in {
       capabilities = "cap_sys_ptrace,cap_sys_nice+pie";
     };
 
+    # <https://www.phoronix.com/news/Fedora-39-VM-Max-Map-Count>
+    # <https://github.com/pop-os/default-settings/blob/master_jammy/etc/sysctl.d/10-pop-default-settings.conf>
     boot.kernel.sysctl = {
       # default on some gaming (SteamOS) and desktop (Fedora) distributions
       # might help with gaming performance
