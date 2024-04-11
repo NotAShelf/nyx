@@ -2,10 +2,12 @@
 # $ nix build .#images.erebus
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
-}: {
+}: let
+  inherit (lib.modules) mkForce;
+in {
   # Secure defaults
   nixpkgs.config = {allowBroken = false;}; # false breaks zfs kernel - but we don't care about zfs
 
@@ -27,9 +29,6 @@
 
   isoImage.isoBaseName = lib.mkForce config.networking.hostName;
 
-  # words cannot express how much I hate zfs
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
   environment = {
     # needed for i3blocks
     pathsToLink = ["/libexec"];
@@ -45,7 +44,7 @@
       decompressFonts = true;
     };
 
-    fontconfig.enable = true;
+    fontconfig.enable = mkForce true;
 
     packages = with pkgs; [
       noto-fonts
