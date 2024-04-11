@@ -100,7 +100,7 @@ in {
       headscale = {
         # reduce headscale stop timer duration
         # so that restarting Headscale is a lot faster
-        serviceConfig.TimeoutStopSec = "30s";
+        # serviceConfig.TimeoutStopSec = "30s";
         environment = {
           HEADSCALE_EXPERIMENTAL_FEATURE_SSH = "1";
 
