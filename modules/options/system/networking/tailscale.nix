@@ -3,19 +3,21 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) str listOf bool;
 
   sys = config.modules.system;
   cfg = sys.networking.tailscale;
 in {
   options.modules.system.networking.tailscale = {
-    enable = mkEnableOption "Tailscale VPN";
+    enable = mkEnableOption "Tailscale inter-machine VPN service";
     autoLogin = mkEnableOption ''
-      systemd-service for bootstrapping a Tailscale connection automatically
+      the tailscale-autologin systemd-service for bootstrapping a Tailscale
+      connection automatically
     '';
 
     endpoint = mkOption {
-      type = types.str;
+      type = str;
       default = "https://hs.notashelf.dev";
       description = ''
         The URL of the Tailscale control server to use. In case you
@@ -25,7 +27,7 @@ in {
     };
 
     operator = mkOption {
-      type = types.str;
+      type = str;
       default = sys.mainUser;
       description = ''
         The name of the Tailscale operator to use. This is used to
@@ -36,7 +38,7 @@ in {
 
     flags = {
       default = mkOption {
-        type = with types; listOf str;
+        type = listOf str;
         default = ["--ssh"];
         description = ''
           A list of command-line flags that will be passed to the Tailscale
@@ -49,26 +51,46 @@ in {
       };
     };
 
+    tags = mkOption {
+      type = listOf str;
+      default =
+        if cfg.isClient
+        then ["tag:client"]
+        else if cfg.isServer
+        then ["tag:server"]
+        else [];
+      defaultText = ''
+        If host advertises itself as a client, the default value will be
+        ["tag:client"], and if it advertises itself as a server, the default
+        value will be ["tag:server"].
+      '';
+      description = ''
+        A list of tags that will be assigned to the target host using
+        the "force advertise tags" feature of Tailscale. This will
+        be used by the Headscale control server to set up ACLs.
+      '';
+    };
+
     isClient = mkOption {
-      type = types.bool;
+      type = bool;
       default = cfg.enable;
       example = true;
       description = ''
         Whether the target host should utilize Tailscale client features";
 
-        This option is mutually exlusive with {option}`tailscale.isServer`
+        This option is mutually exclusive with {option}`tailscale.isServer`
         as they both configure Taiscale, but with different flags
       '';
     };
 
     isServer = mkOption {
-      type = types.bool;
+      type = bool;
       default = false;
       example = true;
       description = ''
         Whether the target host should utilize Tailscale server features.
 
-        This option is mutually exlusive with {option}`tailscale.isClient`
+        This option is mutually exclusive with {option}`tailscale.isClient`
         as they both configure Taiscale, but with different flags
       '';
     };
