@@ -13,7 +13,7 @@ in {
   disabledModules = ["programs/hyprland.nix"];
 
   config = mkIf (sys.video.enable && (env.desktop == "Hyprland" && env.isWayland)) {
-    services.xserver.displayManager.sessionPackages = [inputs'.hyprland.packages.default];
+    services.displayManager.sessionPackages = [inputs'.hyprland.packages.default];
 
     xdg.portal = {
       extraPortals = [

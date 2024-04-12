@@ -12,7 +12,7 @@
   sys = config.modules.system;
 
   # make desktop session paths available to greetd
-  sessionData = config.services.xserver.displayManager.sessionData.desktops;
+  sessionData = config.services.displayManager.sessionData.desktops;
   sessionPaths = concatStringsSep ":" [
     "${sessionData}/share/xsessions"
     "${sessionData}/share/wayland-sessions"
