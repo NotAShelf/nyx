@@ -1,7 +1,7 @@
 {
+  osConfig,
   pkgs,
   lib,
-  osConfig,
   ...
 }: let
   inherit (lib) mkIf;
@@ -9,22 +9,19 @@
 
   sys = modules.system;
   prg = sys.programs;
-
-  dev = modules.device;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf ((prg.gui.enable && sys.video.enable) && (builtins.elem dev.type acceptedTypes)) {
+  config = mkIf (prg.gui.enable && sys.video.enable) {
     home.packages = with pkgs; [
-      # zoom-us # may we never return to online education
       nextcloud-client
       easyeffects
-      librewolf
-      cinnamon.nemo
       qbittorrent
       hexchat
       netflix
-      bitwarden
       helvum
+
+      # Electron applications
+      # zoom-us # may we never return to online education
+      bitwarden
       (symlinkJoin {
         # wrap obsidian with pandoc for the pandoc plugin dependency
         name = "Obsidian";
@@ -51,7 +48,7 @@ in {
       # override gnome-control-center to trick it into thinking we're running gnome
       # <https://github.com/NixOS/nixpkgs/issues/230493>
       # <https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/736>
-      # get overriden idiot
+      # get overridden idiot
       /*
       (gnome.gnome-control-center.overrideAttrs
         (old: {

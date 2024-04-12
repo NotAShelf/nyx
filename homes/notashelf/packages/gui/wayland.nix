@@ -1,16 +1,16 @@
 {
   osConfig,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
+  inherit (osConfig) modules meta;
 
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
+  sys = modules.system;
   prg = sys.programs;
 in {
-  config = mkIf (prg.gui.enable && (sys.video.enable && env.isWayland)) {
+  config = mkIf (prg.gui.enable && (sys.video.enable && meta.isWayland)) {
     home.packages = with pkgs; [
       wlogout
       swappy
