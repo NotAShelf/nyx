@@ -1,11 +1,11 @@
 {
-  inputs,
   self,
   config,
   pkgs,
   lib,
   ...
 }: let
+  inherit (self) inputs;
   inherit (lib.trivial) pipe;
   inherit (lib.types) isType;
   inherit (lib.attrsets) mapAttrsToList optionalAttrs filterAttrs mapAttrs;
@@ -47,11 +47,7 @@ in {
       allowUnsupportedSystem = true;
 
       # default to none, add more as necessary
-      permittedInsecurePackages = [
-        "electron-24.8.6"
-        "electron-25.9.0"
-        "freeimage-unstable-2021-11-01"
-      ];
+      permittedInsecurePackages = [];
     };
   };
 
@@ -145,11 +141,14 @@ in {
       # continue building derivations if one fails
       keep-going = true;
 
+      # bail early on missing cache hits
+      connect-timeout = 5;
+
       # show more log lines for failed builds
       log-lines = 30;
 
       # enable new nix command and flakes
-      # and also "unintended" recursion as well as content addresssed nix
+      # and also "unintended" recursion as well as content addressed nix
       extra-experimental-features = [
         "flakes" # flakes
         "nix-command" # experimental nix commands
