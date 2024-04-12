@@ -29,13 +29,13 @@
         ./flake/checks # checks that are performed on `nix flake check`
         ./flake/modules # nixos and home-manager modules provided by this flake
         ./flake/pkgs # packages exposed by the flake
+        ./flake/pre-commit # pre-commit hooks, performed before each commit inside the devShell
         ./flake/templates # flake templates
 
         ./flake/args.nix # args that are passed to the flake, moved away from the main file
         ./flake/deployments.nix # deploy-rs configurations for active hosts
         ./flake/fmt.nix # various formatter configurations for this flake
         ./flake/iso-images.nix # local installation media
-        ./flake/pre-commit.nix # pre-commit hooks, performed before each commit inside the devShell
         ./flake/shell.nix # devShells exposed by the flake
       ];
 

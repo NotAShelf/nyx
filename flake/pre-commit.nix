@@ -1,11 +1,9 @@
 {inputs, ...}: {
   imports = [inputs.git-hooks.flakeModule];
 
-  perSystem = {
-    config,
-    pkgs,
-    ...
-  }: let
+  perSystem = {pkgs, ...}: let
+    toTOML = name: (pkgs.formats.toml {}).generate "${name}";
+
     # configure a general exclude list
     excludes = ["flake.lock" "r'.+\.age$'" "r'.+\.sh$'"];
 
@@ -36,32 +34,13 @@
           typos = mkHook "typos" {
             enable = true;
             excludes = ["flake.nix"];
+            settings.configPath = (toTOML "config.toml" {default.extend-words = {"ags" = "ags";};}).outPath;
           };
 
           editorconfig-checker = mkHook "editorconfig" {
             enable = false;
             always_run = true;
           };
-
-          prettier = mkHook "prettier" {
-            enable = true;
-            settings = {
-              binPath = "${pkgs.prettierd}/bin/prettierd";
-              write = true;
-            };
-          };
-
-          # Custom hooks
-          /*
-          git-cliff = mkHook "git-cliff" {
-            enable = true;
-            excludes = ["flake.lock" "r'.+\.age$'" "r'.+\.sh$'"];
-            name = "Git Cliff";
-            entry = "${pkgs.git-cliff}/bin/git-cliff --output CHANGELOG.md";
-            language = "system";
-            pass_filenames = false;
-          };
-          */
         };
       };
     };
