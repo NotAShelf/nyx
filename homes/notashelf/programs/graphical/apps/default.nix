@@ -3,6 +3,7 @@
     ./chromium
     ./discord
     ./element
+    ./librewolf
     ./obs
     ./office
     ./schizofox
