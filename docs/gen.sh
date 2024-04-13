@@ -72,93 +72,64 @@ generate_posts_json() {
   echo "$formatted_json" >"$2"
 }
 
-generate_jsonfeed_spec() {
-  echo "Generating JSON Feed..."
-  json=$(jq -n \
-    --arg version "https://jsonfeed.org/version/1.1" \
-    --arg title "$title" \
-    --arg home_page_url "$site_url" \
-    --arg feed_url "$site_url/feed.json" \
-    '{version: $version, title: $title, home_page_url: $home_page_url, feed_url: $feed_url, items: []}')
-
-  # Initialize the ID counter to 0
-  id_counter=0
-
-  for file in "$1"/notes/*.md; do
-    filename=$(basename "$file")
-    if [[ $filename != "README.md" ]]; then
-      if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
-        # Extract date from filename
-        date=$(echo "$filename" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
-
-        # Sanitize title
-        sanitized_title=$(echo "$filename" | sed -E 's/^[0-9]{4}-[0-9]{2}-[0-9]{2}-//; s/\.md$//; s/-/ /g; s/\b\w/\u&/g')
-
-        # Generate the URL for the post
-        url="$site_url/posts/$(basename "$file" .md).html"
-
-        content_raw="$(cat notes/"$(basename "$file" .md)".html)"
-
-        # Generate the JSON object for the item
-        json_object=$(jq -n \
-          --arg id "$id_counter" \
-          --arg url "$url" \
-          --arg title "$sanitized_title" \
-          --arg date "$date" \
-          --arg content_html "$content_raw" \
-          '{id: $id, url: $url, title: $title, date_published: $date, content_html: $content_raw}')
-
-        # Append the JSON object to the items array
-        json=$(echo "$json" | jq --argjson item "$json_object" '.items += [$item]')
-
-        # Increment the ID counter
-        id_counter=$((id_counter + 1))
-      fi
-    fi
-  done
-
-  # Format JSON with jq
-  formatted_json=$(echo "$json" | jq .)
-  echo "$formatted_json" >"$2"
-}
-
 # Index page refers to the "main" page generated
 # from the README.md, which I would like to see on the front
 generate_index_page() {
-  local templates="$1"/templates
+  local workingdir="$1"
+  local outdir="$2"
 
   echo "Generating index page..."
   pandoc --from gfm --to html \
     --standalone \
-    --template "$templates"/html/page.html \
+    --template "$workingdir"/templates/html/page.html \
     --css /style.css \
     --variable="index:true" \
     --metadata title="$title" \
     --metadata description="$site_description" \
-    "$1/notes/README.md" -o "$2/index.html"
+    "$workingdir"/notes/README.md -o "$outdir"/index.html
+}
+
+generate_404_page() {
+  local workingdir="$1"
+  local tmpdir="$2"
+  local outdir="$3"
+
+  echo "Generating 404 page..."
+  pandoc --from gfm --to html \
+    --standalone \
+    --template "$workingdir"/templates/html/404.html \
+    --css /style.css \
+    --metadata title="404 - Page Not Found" \
+    --metadata description="$site_description" \
+    "$tmpdir"/404.md -o "$outdir"/404.html
 }
 
 generate_other_pages() {
-  local templates="$2"/templates
+  local workingdir="$1"
+  local tmpdir="$2"
+  local outdir="$3"
 
   echo "Generating other pages..."
-  for file in "$1"/notes/*.md; do
+  for file in "$workingdir"/notes/*.md; do
     filename=$(basename "$file")
     if [[ $filename != "README.md" ]]; then
       if [[ $filename =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
+        # Sanitize post title by removing date from filename
+        sanitized_title=$(echo "$filename" | sed -E 's/^[0-9]{4}-[0-9]{2}-[0-9]{2}-//; s/\.md$//; s/-/ /g; s/\b\w/\u&/g')
+
         # Date in filename imples a blogpost
         # convert it to markdown and place it in the posts directory
         # since this is a post, it can contain a table of contents
         echo "Converting $filename..."
         pandoc --from gfm --to html \
           --standalone \
-          --template "$templates"/html/page.html \
+          --template "$workingdir"/templates/html/page.html \
           --css /style.css \
-          --metadata title="$filename" \
+          --metadata title="Posts - $sanitized_title" \
           --metadata description="$site_description" \
           --table-of-contents \
-          --highlight-style="$templates"/pandoc/custom.theme \
-          "$file" -o "$3/posts/$(basename "$file" .md).html"
+          --highlight-style="$workingdir"/templates/pandoc/custom.theme \
+          "$file" -o "$outdir"/posts/"$(basename "$file" .md)".html
       else
         if [[ $filename != "*-md" ]]; then
           echo "Converting $filename..."
@@ -166,25 +137,28 @@ generate_other_pages() {
           # convert it to html and place it in the pages directory
           pandoc --from gfm --to html \
             --standalone \
-            --template "$templates"/html/page.html \
+            --template "$workingdir"/templates/html/page.html \
             --css /style.css \
             --metadata title="$filename" \
             --metadata description="$site_description" \
-            "$file" -o "$3/pages/$(basename "$file" .md).html"
+            "$file" -o "$outdir"/pages/"$(basename "$file" .md)".html
         fi
       fi
     fi
   done
-  for file in "$4"/*.md; do
+
+  for file in "$tmpdir"/*.md; do
     filename=$(basename "$file")
-    pandoc --from gfm --to html \
-      --standalone \
-      --template "$templates"/html/page.html \
-      --css /style.css \
-      --metadata title="$filename" \
-      --metadata description="$site_description" \
-      --highlight-style="$templates"/pandoc/custom.theme \
-      "$file" -o "$3/pages/$(basename "$file" .md).html"
+    if [[ $filename != "404.md" ]]; then
+      pandoc --from gfm --to html \
+        --standalone \
+        --template "$workingdir"/templates/html/page.html \
+        --css /style.css \
+        --metadata title="$filename" \
+        --metadata description="$site_description" \
+        --highlight-style="$workingdir"/templates/pandoc/custom.theme \
+        "$file" -o "$outdir"/pages/"$(basename "$file" .md)".html
+    fi
   done
 }
 
@@ -212,7 +186,16 @@ write_about_page() {
 I work with Nix quite often, and share some of the stuff I learn while I do so. This website contains various notes
 on things that interested me, or things I thought was worth sharing. If you would like to contribute, or have any feedback
 you think would be useful, please feel free to reach out to me via email, available at my GitHub profile or
-[on my website](https://notashelf.dev)
+[on my website](https://notashelf.dev).
+EOF
+}
+
+write_404_page() {
+  # write 404.md as notes/404.md
+  cat >"$1/404.md" <<-EOF
+  # 404 - Page Not Found
+
+  Sorry, the page you were looking for does not exist.
 EOF
 }
 
@@ -231,17 +214,18 @@ create_directory "$pages_dir"
 # Compile stylesheet
 compile_stylesheet "$workingdir" "templates/scss/main.scss"
 
-# Index page
-generate_index_page "$workingdir" "$outdir"
-
-# Other Pages
+# Write markdown pages inside a tempdir
 write_about_page "$tmpdir"
 write_privacy_policy "$tmpdir"
-generate_other_pages "$workingdir" "$workingdir" "$outdir" "$tmpdir"
+write_404_page "$tmpdir"
 
-# Post list and feed file
+# Generate HTML pages from available markdown templates
+generate_index_page "$workingdir" "$outdir"
+generate_404_page "$workingdir" "$tmpdir" "$outdir"
+generate_other_pages "$workingdir" "$tmpdir" "$outdir"
+
+# Post data
 generate_posts_json "$workingdir" "$json_file"
-generate_jsonfeed_spec "$workingdir" "$outdir"/feed.json
 
 # Cleanup
 cleanup

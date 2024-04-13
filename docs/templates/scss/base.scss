@@ -4,16 +4,14 @@
 	box-sizing: border-box;
 }
 
-// Base styles
-h1 {
-	font-family: $font-family-secondary;
-	line-height: 1.15;
+pre {
+	font-family: "source code pro", "lucida console", monospace;
 }
 
+// Base styles
 body {
 	font-size: 20px;
 	line-height: 1.5;
-	font-family: $font-family-primary;
 	margin: 0;
 	padding: 0;
 	background-color: $primary;
@@ -83,24 +81,15 @@ main {
 }
 
 // Buttons
-/*
-.primary-buttons,
-.secondary-buttons,
-*/
 .dropbtn,
 .nav-button {
-	font-weight: 800;
-	background-color: $primary;
-	color: $secondary;
-	cursor: pointer;
-	font-weight: 800;
-	background-color: $primary;
-	color: $secondary;
-	cursor: pointer;
-	font-weight: 800;
-	font-family: "Roboto Slab", Roboto, Arial, sans-serif;
+	font-family: Lato, Helvetica, sans-serif;
 	font-size: 20px;
 	line-height: 1.5;
+	font-weight: 800;
+	background-color: $primary;
+	color: $secondary;
+	cursor: pointer;
 	border: none;
 	align-items: center;
 	margin: 0px 5px;
@@ -146,33 +135,4 @@ main {
 
 main aside {
 	overflow: scroll;
-}
-
-// Footer Styles
-footer {
-	color: white;
-	padding: 7px 5px 7px 5px;
-	text-align: center;
-	margin-top: auto;
-	position: relative;
-
-	.footer-divider {
-		position: absolute;
-		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 20%;
-		height: 1px;
-		background-color: white;
-	}
-
-	.footer-icons {
-		margin: 15px 5px;
-
-		a {
-			color: white;
-			text-decoration: none;
-			margin-bottom: 5px;
-		}
-	}
 }
