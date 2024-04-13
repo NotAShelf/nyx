@@ -88,6 +88,7 @@
     pre-commit.settings = {
       hooks.git-cliff = mkHook "git-cliff" {
         enable = true;
+        excludes = ["CHANGELOG.md"];
         language = "system";
         pass_filenames = false;
         entry = "${git-cliff-entry}/bin/git-cliff";

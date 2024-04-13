@@ -31,12 +31,6 @@
           actionlint = mkHook "actionlint" {enable = true;};
           luacheck = mkHook "luacheck" {enable = true;};
           treefmt = mkHook "treefmt" {enable = true;};
-          typos = mkHook "typos" {
-            enable = true;
-            excludes = ["flake.nix"];
-            settings.configPath = (toTOML "config.toml" {default.extend-words = {"ags" = "ags";};}).outPath;
-          };
-
           editorconfig-checker = mkHook "editorconfig" {
             enable = false;
             always_run = true;

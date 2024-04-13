@@ -11,7 +11,10 @@
   in {
     pre-commit.settings.hooks.typos = mkHook "typos" {
       enable = true;
-      settings.configPath = typosConfig.outPath;
+      excludes = ["CHANGELOG.md"];
+      settings = {
+        configPath = typosConfig.outPath;
+      };
     };
   };
 }
