@@ -78,6 +78,16 @@ in {
         });
       };
 
+      ".local/bin/git-peek" = {
+        # Quickly clone a git repo in a temporary place and open it in $EDITOR
+        # Inspired by https://github.com/Jarred-Sumner/git-peek
+        source = getExe (pkgs.writeShellApplication {
+          name = "git-peek";
+          runtimeInputs = with pkgs; [git];
+          text = readFile ./git-peek/git-peek.sh;
+        });
+      };
+
       ".local/bin/addr" = {
         # Get external IP address
         source = getExe (pkgs.writeShellApplication {

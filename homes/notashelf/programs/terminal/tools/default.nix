@@ -1,5 +1,6 @@
 {
   imports = [
+    ./bin
     ./fastfetch
     ./git
     ./neomutt

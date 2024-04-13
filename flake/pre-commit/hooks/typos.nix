@@ -6,6 +6,7 @@
       default.extend-words = {
         "ags" = "ags";
         "thumbnailers" = "thumbnailers";
+        "flate" = "flate";
       };
     };
   in {

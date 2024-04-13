@@ -4,6 +4,10 @@
 
 ### Changed
 
+- docs: init changelog
+
+- flake: exclude changelog in git-cliff
+
 - flake/pre-commit: don't uppercase git-cliff changelogs
 
 - flake/pre-commit: ignore valid spelling

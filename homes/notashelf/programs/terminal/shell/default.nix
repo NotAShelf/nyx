@@ -1,6 +1,5 @@
 {
   imports = [
-    ./bin
     ./zsh
 
     ./starship.nix
