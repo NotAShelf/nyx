@@ -54,8 +54,14 @@ in {
   # faster rebuilding
   documentation = {
     doc.enable = false;
-    nixos.enable = true;
     info.enable = false;
+
+    # <https://mastodon.online/@nomeata/109915786344697931>
+    # I need this enabled for the anyrun-nixos-options plugin
+    # but otherwise, it should be disabled to avoid unnecessary rebuilds
+    nixos.enable = true;
+
+    # manpages
     man = {
       enable = mkDefault true;
       generateCaches = mkDefault true;
