@@ -5,7 +5,7 @@
     pkgs,
     ...
   }: {
-    devShells.default = pkgs.mkShell {
+    devShells.default = pkgs.mkShellNoCC {
       name = "nyx";
       meta.description = "The default development shell for my NixOS configuration";
 
@@ -17,6 +17,7 @@
       DIRENV_LOG_FORMAT = "";
 
       # packages available in the dev shell
+      inputsFrom = [config.treefmt.build.devShell];
       packages = with pkgs; [
         inputs'.agenix.packages.default # provide agenix CLI within flake shell
         inputs'.deploy-rs.packages.default # provide deploy-rs CLI within flake shell
@@ -35,8 +36,6 @@
           '';
         })
       ];
-
-      inputsFrom = [config.treefmt.build.devShell];
     };
   };
 }

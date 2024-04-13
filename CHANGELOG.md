@@ -4,6 +4,10 @@
 
 ### Changed
 
+- flake: update inputs
+
+- system/nix: document `documentation.nixos.enable`
+
 - docs: use permalink for nix logo in README; fix typos
 
 - docs: restyle; add custom 404 page
