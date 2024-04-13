@@ -1,6 +1,6 @@
 # Notes for 22th of January, 2023
 
-Following a system upgrade two days ago, my HP Pavillion laptop has stopped
+Following a system upgrade two days ago, my HP Pavilion laptop has stopped
 registering the `intel_backlight` interface in `/sys/class/backlight`, which
 is most often used to control backlight by tools such as `brightnessctl.`
 Inspecting `dmesg` has given me nothing but aninsanely vague error message.

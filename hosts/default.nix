@@ -68,7 +68,7 @@ in {
     specialArgs = {inherit lib;};
   };
 
-  # HP Pavillion from 2016
+  # HP Pavilion from 2016
   # superseded by epimetheus
   prometheus = mkNixosSystem {
     inherit withSystem;
@@ -103,7 +103,7 @@ in {
     specialArgs = {inherit lib;};
   };
 
-  # HP Pavillion laptop from 2023
+  # HP Pavilion laptop from 2023
   # equipped a Ryzen 7 7730U
   # usually acts as my portable workstation
   # similar to epimetheus, has full disk
@@ -171,7 +171,7 @@ in {
         server
         headless
 
-        # get raspbery pi 4 modules from nixos-hardware
+        # get raspberry pi 4 modules from nixos-hardware
         hw.raspberry-pi-4
       ]
       ++ shared;

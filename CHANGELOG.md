@@ -4,6 +4,8 @@
 
 ### Changed
 
+- docs: restyle; add custom 404 page
+
 - docs: init changelog
 
 - flake: exclude changelog in git-cliff

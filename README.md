@@ -1,5 +1,6 @@
 <h1 id="header" align="center">
-  <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nix-snowflake.svg" width="96px" height="96px" />
+  <!-- Make sure that the image path is always valid, despite however stupid a repo restructure might be. -->
+  <img src="https://github.com/NixOS/nixos-artwork/blob/c68a508b95baa0fcd99117f2da2a0f66eb208bbf/logo/nix-snowflake-colours.svg" width="96px" height="96px" />
   <br>
   Nýx
 </h1>
@@ -124,9 +125,9 @@ code reference, suggestions, bug reports, or simply moral support._
 | `erebus`     | Air-gapped virtual machine/live-iso configuration for sensitive jobs                              |   ISO   |       -       |
 | `enyo`       | Day-to-day desktop workstation boasting a full AMD system.                                        | Desktop | x86_64-linux  |
 | `helios`     | Hetzner cloud VPS for non-critical infrastructure                                                 | Server  | x86_64-linux  |
-| `prometheus` | HP Pavillion with a a GTX 1050 and i7-7700hq                                                      | Laptop  | x86_64-linux  |
+| `prometheus` | HP Pavilion with a a GTX 1050 and i7-7700hq                                                      | Laptop  | x86_64-linux  |
 | `epimetheus` | Twin of prometheus, features full disk encryption in addition to everything prometheus provides   | Laptop  | x86_64-linux  |
-| `hermes`     | HP Pavillion with a Ryzen 7 7730U, and my main portable workstation. Used on-the-go               | Laptop  | x86_64-linux  |
+| `hermes`     | HP Pavilion with a Ryzen 7 7730U, and my main portable workstation. Used on-the-go               | Laptop  | x86_64-linux  |
 | `atlas`      | Proof of concept server host that is used by my Raspberry Pi 400                                  | Server  | aarch64-linux |
 | `icarus`     | My 2014 Lenovo Yoga Ideapad that acts as a portable server, used for testing hardware limitations | Laptop  | x86_64-linux  |
 | `artemis`    | VM host for testing basic NixOS concepts. Previously targeted aarch64-linux                       |   VM    | x86_64-linux  |
