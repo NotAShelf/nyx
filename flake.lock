@@ -1322,6 +1322,7 @@
         "plugin-tokyonight": "plugin-tokyonight",
         "plugin-trouble": "plugin-trouble",
         "plugin-vim-dirtytalk": "plugin-vim-dirtytalk",
+        "plugin-vim-fugitive": "plugin-vim-fugitive",
         "plugin-vim-illuminate": "plugin-vim-illuminate",
         "plugin-vim-markdown": "plugin-vim-markdown",
         "plugin-vim-repeat": "plugin-vim-repeat",
@@ -1334,11 +1335,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1713104474,
-        "narHash": "sha256-7JWLLEXB/WAiHRId3Rzg3CNyxEP/jHJhsnLEyX2tyoA=",
+        "lastModified": 1713111100,
+        "narHash": "sha256-RfSTjWd8xrU0T1FOQmmb9rH9uQ/xXS6jI7FHIbiELkk=",
         "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "165c3369aa632efcac5fa499ab72307ef0c8f53c",
+        "rev": "7cb47c71b3ca1edc7d92eeea5ddb2db8235f00c8",
         "type": "github"
       },
       "original": {
@@ -3366,6 +3367,22 @@
       "original": {
         "owner": "psliwka",
         "repo": "vim-dirtytalk",
+        "type": "github"
+      }
+    },
+    "plugin-vim-fugitive": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712554826,
+        "narHash": "sha256-pmY1EQbupKvsqok9O5omkOWi0BEZ8df7HL0F7ubdY9Q=",
+        "owner": "tpope",
+        "repo": "vim-fugitive",
+        "rev": "dac8e5c2d85926df92672bf2afb4fc48656d96c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-fugitive",
         "type": "github"
       }
     },
