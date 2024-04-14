@@ -4,6 +4,10 @@
 
 ### Changed
 
+- flake: update neovim-flake
+
+- flake/npins: update sources
+
 - flake: update inputs
 
 - flake/shell: use mkShellNoCC
