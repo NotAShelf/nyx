@@ -6,6 +6,10 @@
 
 - flake: update inputs
 
+- flake/shell: use mkShellNoCC
+
+- flake: update inputs
+
 - system/nix: document `documentation.nixos.enable`
 
 - docs: use permalink for nix logo in README; fix typos
