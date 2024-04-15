@@ -4,6 +4,10 @@
 
 ### Changed
 
+- flake: update neovim-flake
+
+- programs/graphical: use `foot` instead of `footclient`
+
 - hosts/enyo: bump xanmod kernel to 6.8.6
 
 - flake: update neovim-flake

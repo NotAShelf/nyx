@@ -16,16 +16,17 @@ in {
       enable = true;
       settings = {
         vim = {
-          package = pkgs.neovim-unwrapped;
+          package = inputs.neovim-nightly.packages.${pkgs.system}.neovim;
 
           viAlias = true;
           vimAlias = true;
 
-          enableEditorconfig = true;
           preventJunkFiles = true;
-          enableLuaLoader = true;
           useSystemClipboard = true;
           spellChecking.enable = false;
+
+          enableLuaLoader = true;
+          enableEditorconfig = true;
 
           debugMode = {
             enable = false;

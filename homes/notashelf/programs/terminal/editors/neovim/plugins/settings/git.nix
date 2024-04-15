@@ -4,7 +4,7 @@
       enable = true;
       gitsigns = {
         enable = true;
-        codeActions = false;
+        codeActions.enable = false;
       };
     };
   };
