@@ -7364,6 +7364,8 @@ This reverts commit fd44da6e4d5adea0a7153b0d6f7f0b7334ab0c61.
 
 ### New
 
+- flake/pre-commit: add npins sources to typos exludes
+
 - terminal/tools: add git-peek
 
 - networking/tailscale: add tagging options
