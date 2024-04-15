@@ -4,6 +4,8 @@
 
 ### Changed
 
+- hosts/enyo: bump xanmod kernel to 6.8.6
+
 - flake: update neovim-flake
 
 - flake/npins: update sources

@@ -6,7 +6,7 @@
 }: let
   terminal =
     if (defaults.terminal == "foot")
-    then "footclient"
+    then "foot"
     else "${defaults.terminal}";
 in {
   config = {

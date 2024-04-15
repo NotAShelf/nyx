@@ -15,7 +15,7 @@
 
   terminal =
     if (defaults.terminal == "foot")
-    then "footclient"
+    then "foot"
     else "${defaults.terminal}";
 
   locker = getExe env.programs.screenlock.package;

@@ -64,7 +64,7 @@ in {
             max_entries: 10,
             // The terminal used for running terminal based desktop entries, if left as `None` a static list of terminals is used
             // to determine what terminal to use.
-            terminal: Some("footclient"),
+            terminal: Some("foot"),
           )
         '';
 
