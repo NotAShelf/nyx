@@ -16,7 +16,10 @@ in {
       enable = true;
       settings = {
         vim = {
-          package = inputs.neovim-nightly.packages.${pkgs.system}.neovim;
+          # use neovim-unwrapped from nixpkgs
+          # alternative, neovim-nightly from the neovim-nightly overlay
+          # via inputs.neovim-nightly.packages.${pkgs.system}.neovim
+          package = pkgs.neovim-unwrapped;
 
           viAlias = true;
           vimAlias = true;

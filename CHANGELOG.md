@@ -4,6 +4,8 @@
 
 ### Changed
 
+- terminal/editors: use neovim-nightly
+
 - flake: update neovim-flake
 
 - programs/graphical: use `foot` instead of `footclient`
@@ -7369,6 +7371,8 @@ This reverts commit fd44da6e4d5adea0a7153b0d6f7f0b7334ab0c61.
 
 
 ### New
+
+- services/ags: fix excessive padding around battery widget
 
 - flake/pre-commit: add npins sources to typos exludes
 

@@ -1,32 +1,7 @@
 -- alias for vim.api.nvim_create_autocmd
 local create_autocmd = vim.api.nvim_create_autocmd
-
--- taken from https://github.com/sitiom/nvim-numbertoggle
--- I would much rather avoid fetching yet another plugin for something
--- that should be done locally - and not as a plugin
-local augroup = vim.api.nvim_create_augroup("numbertoggle", {})
-
-create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
-	pattern = "*",
-	group = augroup,
-	callback = function()
-		if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
-			vim.opt.relativenumber = true
-		end
-	end,
-})
-
-create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
-	pattern = "*",
-	group = augroup,
-	callback = function()
-		if vim.o.nu then
-			vim.opt.relativenumber = false
-			vim.cmd "redraw"
-		end
-	end,
-})
-
+-- alias for vim.api.nvim_create_augroup
+local create_augroup = vim.api.nvim_create_augroup
 
 -- enable spell checking & line wrapping
 -- for git commit messages
@@ -56,5 +31,63 @@ create_autocmd("TermClose", {
 				end
 			end, 50)
 		end
+	end,
+})
+
+
+-- Start insert mode automatically
+-- when editing a Git commit message
+create_augroup("AutoInsert", { clear = true })
+create_autocmd("FileType", {
+	group = "AutoInsert",
+	pattern = "gitcommit",
+	command = "startinsert",
+})
+
+
+-- Disable cursorline in insert mode
+create_augroup("CursorLine", { clear = true })
+create_autocmd({ "InsertLeave", "WinEnter" }, {
+	group = "CursorLine",
+	callback = function()
+		vim.wo.cursorline = true
+	end,
+})
+
+create_autocmd({ "InsertEnter", "WinLeave" }, {
+	group = "CursorLine",
+	callback = function()
+		vim.wo.cursorline = false
+	end,
+})
+
+
+-- Create the necessary directory structure for the file being saved.
+create_augroup("AutoMkdir", { clear = true })
+create_autocmd("BufWritePre", {
+	group = "AutoMkdir",
+	callback = function(event)
+		local file = vim.loop.fs_realpath(event.match) or event.match
+		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+	end,
+})
+
+-- Adjust the window size when the terminal is resized
+create_autocmd("VimResized", {
+	command = "wincmd =",
+})
+
+-- Allow closing certain windows with "q"
+-- and remove them from the buffer list
+create_augroup("close_with_q", { clear = true })
+create_autocmd("FileType", {
+	group = "close_with_q",
+	pattern = {
+		"help",
+		"lspinfo",
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
 	end,
 })
