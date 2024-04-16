@@ -1,10 +1,5 @@
 {
 	"$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-	"workspace": {
-		"library": ["runtime/lua"],
-		"checkThirdParty": "Disable"
-	},
-
 	"diagnostics": {
 		"groupFileStatus": {
 			"strict": "Opened",

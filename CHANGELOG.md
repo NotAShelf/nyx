@@ -4,6 +4,8 @@
 
 ### Changed
 
+- tools/ripgrep: init
+
 - flake: follow nixpkgs-small for faster nixpkgs hotfixes
 
 - editors/neovim: cleanup; switch to stable neovim
