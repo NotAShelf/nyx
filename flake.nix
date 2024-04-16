@@ -80,7 +80,7 @@
     # Nix wrapper for building and testing my system
     nh = {
       url = "github:viperML/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # multi-profile Nix-flake deploy
@@ -89,7 +89,7 @@
     # A tree-wide formatter
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     nixfmt = {
@@ -100,7 +100,7 @@
     # Project shells
     devshell = {
       url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # guess what this does
@@ -108,7 +108,7 @@
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-small";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -116,8 +116,10 @@
     # sandbox wrappers for programs
     nixpak = {
       url = "github:nixpak/nixpak";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-small";
+        flake-parts.follows = "flake-parts";
+      };
     };
 
     # This exists, I guess
@@ -146,7 +148,7 @@
     # nix-index database
     nix-index-db = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     atticd = {
@@ -158,8 +160,8 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
+        nixpkgs.follows = "nixpkgs-small";
         home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -167,7 +169,7 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-small";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -175,14 +177,16 @@
     # Nix Language server
     nil = {
       url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-small";
+        rust-overlay.follows = "rust-overlay";
+      };
     };
 
     # neovim nightly packages for nix
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # Personal package overlay
@@ -211,7 +215,7 @@
     };
 
     # anyrun program launcher
-    anyrun.url = "github:Kirottu/anyrun";
+    anyrun.url = "github:anyrun-org/anyrun";
     anyrun-nixos-options = {
       url = "github:n3oney/anyrun-nixos-options";
       inputs = {
@@ -245,17 +249,15 @@
     };
 
     # Hyprland & Hyprland Contrib repos
-    # broken: b0f98a3d3e9e5f5f7f89fa4e855dbeb860e7a0c4
-    # works: 2ed032a7fd140ee85483a891fa63c16668019577
+    # to be able to use the binary cache, we should avoid
+    # overriding the nixpkgs input - as the resulting hash would
+    # mismatch if packages are builst against different versions
+    # of the same depended packagaes
     hyprland.url = "github:hyprwm/Hyprland";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprpaper.url = "github:hyprwm/hyprpaper";
-
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs-small";
-    };
+    hyprland-contrib.url = "github:hyprwm/contrib";
 
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
