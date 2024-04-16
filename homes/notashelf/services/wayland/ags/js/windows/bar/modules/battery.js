@@ -7,7 +7,7 @@ import {
 const { Button, Box, Label, Revealer } = Widget;
 
 const BatIcon = () =>
-    Label({ className: "batIcon" })
+    Label({ className: "battery" })
         // NOTE: label needs to be used instead of icon here
         .bind("label", Battery, "percent", getBatteryIcon)
         .bind("tooltip-text", Battery, "percent", getBatteryTooltip);
@@ -26,7 +26,6 @@ export const BatteryWidget = () =>
                 !self.child.children[1].revealChild;
         },
         child: Box({
-            className: "battery",
             cursor: "pointer",
             vertical: true,
             children: [BatIcon(), BatStatus()],
