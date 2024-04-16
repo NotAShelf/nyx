@@ -21,6 +21,7 @@
     ./nix-init.nix
     ./nix-shell.nix
     ./ranger.nix
+    ./ripgrep.nix
     ./ssh.nix
     ./tealdeer.nix
     ./transient-services.nix

@@ -4,6 +4,8 @@
 
 ### Changed
 
+- flake: follow nixpkgs-small for faster nixpkgs hotfixes
+
 - editors/neovim: cleanup; switch to stable neovim
 
 - terminal/editors: use neovim-nightly
