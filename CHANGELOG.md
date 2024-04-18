@@ -4,6 +4,8 @@
 
 ### Changed
 
+- treewide: luals config
+
 - tools/ripgrep: init
 
 - flake: follow nixpkgs-small for faster nixpkgs hotfixes

@@ -3,13 +3,14 @@
     inputs.git-hooks.flakeModule
 
     ./hooks/alejandra.nix
+    ./hooks/exiftool.nix
     ./hooks/git-cliff.nix
     ./hooks/prettier.nix
     ./hooks/typos.nix
   ];
 
   perSystem = {pkgs, ...}: let
-    inherit (import ./lib.nix {inherit pkgs;}) excludes mkHook;
+    inherit (import ./utils.nix {inherit pkgs;}) excludes mkHook;
   in {
     pre-commit = {
       check.enable = true;

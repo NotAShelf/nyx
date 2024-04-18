@@ -1,6 +1,6 @@
 {
   perSystem = {pkgs, ...}: let
-    inherit (import ../lib.nix {inherit pkgs;}) mkHook;
+    inherit (import ../utils.nix {inherit pkgs;}) mkHook;
 
     git-cliff-config = pkgs.writeTextFile {
       name = "cliff.toml";

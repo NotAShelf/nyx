@@ -4,7 +4,7 @@
     pkgs,
     ...
   }: let
-    inherit (import ../lib.nix {inherit pkgs;}) mkHook;
+    inherit (import ../utils.nix {inherit pkgs;}) mkHook;
   in {
     pre-commit.settings = {
       hooks.alejandra = mkHook "Alejandra" {

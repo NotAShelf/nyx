@@ -1,6 +1,6 @@
 {
   perSystem = {pkgs, ...}: let
-    inherit (import ../lib.nix {inherit pkgs;}) toTOML mkHook;
+    inherit (import ../utils.nix {inherit pkgs;}) toTOML mkHook;
 
     typosConfig = toTOML "config.toml" {
       default.extend-words = {
