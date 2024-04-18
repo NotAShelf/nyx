@@ -4,6 +4,8 @@
 
 ### Changed
 
+- programs/nh: use the module in nixpkgs
+
 - flake: update inputs
 
 - treewide: luals config
