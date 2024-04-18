@@ -4,6 +4,8 @@
 
 ### Changed
 
+- flake: update inputs
+
 - treewide: luals config
 
 - tools/ripgrep: init
@@ -7379,6 +7381,8 @@ This reverts commit fd44da6e4d5adea0a7153b0d6f7f0b7334ab0c61.
 
 
 ### New
+
+- flake: add exiftools hook; rename lib.nix to utils.nix
 
 - services/ags: fix excessive padding around battery widget
 
