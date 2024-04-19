@@ -7,6 +7,7 @@
         "ags" = "ags";
         "thumbnailers" = "thumbnailers";
         "flate" = "flate";
+        "noice" = "noice";
       };
     };
   in {

@@ -4,6 +4,10 @@
 
 ### Changed
 
+- flake: update inputs
+
+- roles/headles: move MOTD to `user.motd`
+
 - programs/nh: use the module in nixpkgs
 
 - flake: update inputs
