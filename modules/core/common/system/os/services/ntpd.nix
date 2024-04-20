@@ -1,5 +1,12 @@
-{
-  networking.firewall.allowedUDPPorts = [123];
+{pkgs, ...}: {
+  environment.systemPackages = [pkgs.openntpd];
+
+  networking.timeServers = [
+    "0.nixos.pool.ntp.org"
+    "1.nixos.pool.ntp.org"
+    "2.nixos.pool.ntp.org"
+    "3.nixos.pool.ntp.org"
+  ];
 
   # free, easy-to-use implementation of the Network Time Protocol
   # available as a part of the OpenBSD projeect.
@@ -7,15 +14,9 @@
   # might provide better performance than the defaults
   services.openntpd = {
     enable = true;
-    servers = [
-      "0.tr.pool.ntp.org"
-      "1.tr.pool.ntp.org"
-      "2.tr.pool.ntp.org"
-      "3.tr.pool.ntp.org"
-    ];
-
     extraConfig = ''
-      listen on *
+      listen on 127.0.0.1
+      listen on ::1
     '';
   };
 }

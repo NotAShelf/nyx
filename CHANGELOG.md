@@ -4,6 +4,14 @@
 
 ### Changed
 
+- themes/qt: follow new platformTheme options
+
+- hosts/enyo: bump xanmod kernel to 6.8.7
+
+- flake: update inputs; lock nix-super
+
+- editors/neovim: let nvf handle spellchecking
+
 - editors/neovim: bring back neovide config
 
 - flake: update inputs
@@ -7389,6 +7397,8 @@ This reverts commit fd44da6e4d5adea0a7153b0d6f7f0b7334ab0c61.
 
 
 ### New
+
+- apps/schizofox: fix renamed `drmFix` option
 
 - editors/neovim: add custom spellfile
 
