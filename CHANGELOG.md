@@ -4,6 +4,8 @@
 
 ### Changed
 
+- editors/neovim: bring back neovide config
+
 - flake: update inputs
 
 - roles/headles: move MOTD to `user.motd`
