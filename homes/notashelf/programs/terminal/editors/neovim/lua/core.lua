@@ -1,6 +1,12 @@
 local options = {
 	-- disable the -- STATUS -- line
 	showmode = false,
+
+	-- spellchecking
+	-- spell = true,
+
+	-- spell langs
+	-- spelllang = { "en" },
 }
 
 

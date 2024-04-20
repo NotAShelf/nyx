@@ -17,7 +17,7 @@ in {
       settings = {
         vim = {
           # use neovim-unwrapped from nixpkgs
-          # alternative, neovim-nightly from the neovim-nightly overlay
+          # alternatively, neovim-nightly from the neovim-nightly overlay
           # via inputs.neovim-nightly.packages.${pkgs.system}.neovim
           package = pkgs.neovim-unwrapped;
 
@@ -26,7 +26,7 @@ in {
 
           preventJunkFiles = true;
           useSystemClipboard = true;
-          spellChecking.enable = false;
+          spellChecking.enable = true;
 
           enableLuaLoader = true;
           enableEditorconfig = true;
@@ -35,6 +35,10 @@ in {
             enable = false;
             logFile = "/tmp/nvim.log";
           };
+
+          additionalRuntimePaths = [
+            ./runtime
+          ];
 
           luaConfigRC = let
             inherit (nvf.lib.nvim.dag) entryAnywhere;

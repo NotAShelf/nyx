@@ -3,7 +3,18 @@ local create_autocmd = vim.api.nvim_create_autocmd
 -- alias for vim.api.nvim_create_augroup
 local create_augroup = vim.api.nvim_create_augroup
 
--- enable spell checking & line wrapping
+
+-- Disable line wrapping & spell checking
+-- for the terminal buffer
+create_autocmd({ "FileType" }, {
+	pattern = { "toggleterm" },
+	callback = function()
+		vim.opt_local.wrap = false
+		vim.opt_local.spell = false
+	end,
+})
+
+-- Enable spell checking & line wrapping
 -- for git commit messages
 create_autocmd({ "FileType" }, {
 	pattern = { "gitcommit" },
