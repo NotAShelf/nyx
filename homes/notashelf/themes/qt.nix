@@ -13,30 +13,12 @@
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
   config = mkIf (builtins.elem dev.type acceptedTypes && sys.video.enable) {
-    xdg.configFile = {
-      "kdeglobals".source = cfg.qt.kdeglobals.source;
-
-      "Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
-        General.theme = "catppuccin";
-        Applications.catppuccin = ''
-          qt5ct, org.kde.dolphin, org.kde.kalendar, org.qbittorrent.qBittorrent, hyprland-share-picker, dolphin-emu, Nextcloud, nextcloud, cantata, org.kde.kid3-qt
-        '';
-      };
-
-      "Kvantum/catppuccin/catppuccin.kvconfig".source = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.kvconfig";
-        sha256 = "1f8xicnc5696g0a7wak749hf85ynfq16jyf4jjg4dad56y4csm6s";
-      };
-
-      "Kvantum/catppuccin/catppuccin.svg".source = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.svg";
-        sha256 = "0vys09k1jj8hv4ra4qvnrhwxhn48c2gxbxmagb3dyg7kywh49wvg";
-      };
-    };
-
     qt = {
       enable = true;
-      platformTheme = mkIf cfg.forceGtk "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
+      platformTheme = {
+        name = mkIf cfg.forceGtk "gtk3"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
+      };
+
       style = mkIf (!cfg.forceGtk) {
         name = cfg.qt.theme.name;
         package = cfg.qt.theme.package;
@@ -71,6 +53,30 @@ in {
 
       # tell calibre to use the dark theme, because the light one hurts my eyes
       CALIBRE_USE_DARK_PALETTE = "1";
+    };
+
+    # write files required by KDE and kvantum
+    # those are not used if the user does not use KDE toolkits
+    # or kvantum respectively. we set those regardless
+    xdg.configFile = {
+      "kdeglobals".source = cfg.qt.kdeglobals.source;
+
+      "Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
+        General.theme = "catppuccin";
+        Applications.catppuccin = ''
+          qt5ct, org.kde.dolphin, org.kde.kalendar, org.qbittorrent.qBittorrent, hyprland-share-picker, dolphin-emu, Nextcloud, nextcloud, cantata, org.kde.kid3-qt
+        '';
+      };
+
+      "Kvantum/catppuccin/catppuccin.kvconfig".source = builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.kvconfig";
+        sha256 = "1f8xicnc5696g0a7wak749hf85ynfq16jyf4jjg4dad56y4csm6s";
+      };
+
+      "Kvantum/catppuccin/catppuccin.svg".source = builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.svg";
+        sha256 = "0vys09k1jj8hv4ra4qvnrhwxhn48c2gxbxmagb3dyg7kywh49wvg";
+      };
     };
   };
 }
