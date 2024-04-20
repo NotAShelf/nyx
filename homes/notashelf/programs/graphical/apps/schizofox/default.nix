@@ -48,7 +48,7 @@ in {
       };
 
       misc = {
-        drmFix = true;
+        drm.enable = true;
         disableWebgl = false;
         startPageURL = "file://${self'.packages.schizofox-startpage.outPath}/index.html";
         bookmarks = [
