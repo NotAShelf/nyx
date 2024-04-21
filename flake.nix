@@ -203,11 +203,6 @@
       };
     };
 
-    air-quality-monitor = {
-      url = "github:NotAShelf/air-quality-monitor";
-      inputs.nixpkgs.follows = "nixpkgs-small";
-    };
-
     # use my own wallpapers repository to provide various wallpapers as nix packages
     wallpkgs = {
       url = "github:NotAShelf/wallpkgs";

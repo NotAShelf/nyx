@@ -4,6 +4,8 @@
 
 ### Changed
 
+- services/ntpd: listen on loopback only
+
 - themes/qt: follow new platformTheme options
 
 - hosts/enyo: bump xanmod kernel to 6.8.7
