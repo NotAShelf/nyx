@@ -4,6 +4,10 @@
 
 ### Changed
 
+- flake: update inputs
+
+- themes/qt: clean up qt module; fix gtk compat
+
 - editors/neovim: enable neovim-flake manpages
 
 - flake: bump inputs
