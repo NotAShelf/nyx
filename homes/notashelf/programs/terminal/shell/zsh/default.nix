@@ -1,4 +1,9 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./aliases.nix
     ./init.nix
@@ -9,7 +14,8 @@
     programs.zsh = {
       enable = true;
       dotDir = ".config/zsh";
-      enableCompletion = true;
+      enableCompletion = true; # we handle this ourself
+      enableVteIntegration = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       sessionVariables = {LC_ALL = "en_US.UTF-8";};
@@ -48,6 +54,13 @@
         dev = "$HOME/Dev";
         dots = "$HOME/.config/nyx";
       };
+
+      # Disable /etc/{zshrc,zprofile} that contains the "sane-default" setup out of the box
+      # in order avoid issues with incorrect precedence to our own zshrc.
+      # See `/etc/zshrc` for more info.
+      envExtra = ''
+        setopt no_global_rcs
+      '';
     };
   };
 }

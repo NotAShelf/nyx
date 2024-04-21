@@ -9,17 +9,19 @@ in {
     }
     {
       name = "zsh-nix-shell";
-      src = pkgs.zsh-nix-shell;
-      file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
+      src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh";
     }
     {
       name = "zsh-vi-mode";
-      src = pkgs.zsh-vi-mode;
-      file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
     }
     {
       name = "fast-syntax-highlighting";
       src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
+    }
+    {
+      name = "zsh-autosuggestions";
+      src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh";
     }
     {
       name = "zsh-autopair";

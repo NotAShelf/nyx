@@ -4,6 +4,8 @@
 
 ### Changed
 
+- services/earlyoom: harden service
+
 - flake: update inputs
 
 - themes/qt: clean up qt module; fix gtk compat

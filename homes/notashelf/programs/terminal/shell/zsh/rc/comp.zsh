@@ -97,3 +97,29 @@ zstyle ':completion:*:man:*'      menu yes select
 
 # provide .. as a completion
 zstyle ':completion:*' special-dirs ..
+
+# Use caching so that commands like apt and dpkg complete are useable
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
+
+# Completing indicator.
+expand-or-complete-with-dots() {
+  print -Pn "%F{blue}...%f"
+  zle expand-or-complete
+  zle redisplay
+}
+
+zle -N expand-or-complete-with-dots
+bindkey '^I' expand-or-complete-with-dots
+
+# Load bash completion functions.
+autoload -U +X bashcompinit && bashcompinit
+
+# Don't try to expand multiple partial paths.
+zstyle ':completion:*' path-completion false
+
+# 1. Prefix completion.
+# 2. Substring completion.
+zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"

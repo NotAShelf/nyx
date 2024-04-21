@@ -23,6 +23,7 @@ function __set_zsh_options() {
 	"NOTIFY"			   # report the status of background jobs immediately
 	"PROMPT_SUBST"         # allow substitutions as part of prompt format string
     "SH_WORD_SPLIT"        # perform field splitting on unquoted parameter expansions
+	"MULTIOS"              # perform implicit tees or cats when multiple redirections are attempted
   )
 
   for option in "${options[@]}"; do

@@ -1,5 +1,6 @@
 {
   osConfig,
+  pkgs,
   lib,
   ...
 }: let
@@ -9,34 +10,10 @@
 in {
   programs.zsh = {
     completionInit = ''
-        ${readFile ./rc/comp.zsh}
-        ${readFile ./rc/fzf.zsh}
-
-        # configure fzf tab options
-        export FZF_DEFAULT_OPTS="
-         --color gutter:-1
-          --color bg:-1
-          --color bg+:-1
-          --color fg:#${colors.base04}
-          --color fg+:#${colors.base06}
-          --color hl:#${colors.base0D}
-          --color hl+:#${colors.base0D}
-          --color header:#${colors.base0D}
-          --color info:#${colors.base0A}
-          --color marker:#${colors.base0C}
-          --color pointer:#${colors.base0C}
-          --color prompt:#${colors.base0A}
-          --color spinner:#${colors.base0C}
-          --color preview-bg:#${colors.base01}
-          --color preview-fg:#${colors.base0D}
-          --prompt ' '
-          --pointer ''
-          --layout=reverse
-          -m --bind ctrl-space:toggle,pgup:preview-up,pgdn:preview-down
-      "
+      ${fileContents ./rc/comp.zsh}
     '';
 
-    initExtra = ''
+    initExtraFirst = ''
       # avoid duplicated entries in PATH
       typeset -U PATH
 
@@ -47,6 +24,21 @@ in {
       # disable "no matches found" check
       unsetopt nomatch
 
+      # autosuggests otherwise breaks these widgets.
+      # <https://github.com/zsh-users/zsh-autosuggestions/issues/619>
+      ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
+
+      # Do this early so fast-syntax-highlighting can wrap and override this
+      if autoload history-search-end; then
+        zle -N history-beginning-search-backward-end history-search-end
+        zle -N history-beginning-search-forward-end  history-search-end
+      fi
+
+      source <(${lib.getExe pkgs.fzf} --zsh)
+      source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
+    '';
+
+    initExtra = ''
       # my helper functions for setting zsh options that I normally use on my shell
       # a description of each option can be found in the Zsh manual
       # <https://zsh.sourceforge.io/Doc/Release/Options.html>
@@ -58,14 +50,26 @@ in {
       ${fileContents ./rc/binds.zsh}
       ${fileContents ./rc/modules.zsh}
       ${fileContents ./rc/misc.zsh}
-    '';
 
-    initExtraFirst = ''
-      # Do this early so fast-syntax-highlighting can wrap and override this
-      if autoload history-search-end; then
-        zle -N history-beginning-search-backward-end history-search-end
-        zle -N history-beginning-search-forward-end  history-search-end
-      fi
+      # Hyperoptimized time format for the time command
+      # the definition of the format is as follows:
+      # - "[%J]": The name of the job.
+      # - "%uU user": CPU seconds spent in user mode.
+      # - "%uS system": CPU seconds spent in kernel mode.
+      # - "%uE/%*E elapsed": Elapsed time in seconds
+      # - "%P CPU": The CPU percentage, computed as 100*(%U+%S)/%E.
+      # - "(%X avgtext + %D avgdata + %M maxresident)k": The average amount in (shared) text space used in kilobytes, the
+      # average amount in (unshared) data/stack space used in kilobytes, and the maximum memory
+      # the process had in use at any time in kilobytes.
+      # - "[%I inputs / %O outputs]": Number of input and output operations
+      # - "(%Fmajor + %Rminor) pagefaults": The number of major & minor page faults.
+      # - "%W swaps": The number of times the process was swapped.
+      TIMEFMT=$'\033[1m[%J]\033[0m: %uU user | %uS system | %uE/%*E elapsed | %P CPU\n> (%X avgtext + %D avgdata + %M maxresident)k used\n> [%I inputs / %O outputs] | (%Fmajor + %Rminor) pagefaults | %W swaps'
+
+      # Set LS_COLORS by parsing dircolors output
+      LS_COLORS="$(${pkgs.coreutils}/bin/dircolors --sh)"
+      LS_COLORS="''${''${LS_COLORS#*\'}%\'*}"
+      export LS_COLORS
     '';
   };
 }
