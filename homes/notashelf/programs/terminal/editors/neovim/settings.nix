@@ -14,6 +14,10 @@ in {
   config = {
     programs.neovim-flake = {
       enable = true;
+
+      defaultEditor = true;
+      enableManpages = true;
+
       settings = {
         vim = {
           # use neovim-unwrapped from nixpkgs

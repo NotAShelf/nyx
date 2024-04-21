@@ -4,6 +4,8 @@
 
 ### Changed
 
+- flake: bump inputs
+
 - services/ntpd: listen on loopback only
 
 - themes/qt: follow new platformTheme options
