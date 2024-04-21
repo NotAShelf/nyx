@@ -4,6 +4,8 @@
 
 ### Changed
 
+- shell/zsh: completion cleanup
+
 - services/earlyoom: harden service
 
 - flake: update inputs

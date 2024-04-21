@@ -8,12 +8,13 @@
         "thumbnailers" = "thumbnailers";
         "flate" = "flate";
         "noice" = "noice";
+        "Pn" = "Pn";
       };
     };
   in {
     pre-commit.settings.hooks.typos = mkHook "typos" {
       enable = true;
-      excludes = ["CHANGELOG.md" "source.json"];
+      excludes = ["CHANGELOG.md" "source.json" "r'.+\.zsh$'"];
       settings = {
         configPath = typosConfig.outPath;
       };
