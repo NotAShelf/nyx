@@ -4,6 +4,8 @@
 
 ### Changed
 
+- editors/neovim: enable neovim-flake manpages
+
 - flake: bump inputs
 
 - services/ntpd: listen on loopback only
