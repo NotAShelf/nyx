@@ -1,15 +1,29 @@
 {
-  osConfig,
   pkgs,
   lib,
   ...
 }: let
-  inherit (builtins) readFile;
   inherit (lib.strings) fileContents;
-  inherit (osConfig.modules.style.colorScheme) colors;
 in {
   programs.zsh = {
     completionInit = ''
+      # Load compinit
+      autoload -U compinit
+      zmodload zsh/complist
+
+      _comp_options+=(globdots)
+      zcompdump="$XDG_CACHE_HOME"/zsh/.zcompdump-"$ZSH_VERSION"-"$(date --iso-8601=minutes )"
+      compinit -d "$zcompdump"
+
+      # Recompile zcompdump if it is newer than zcompdump.zwc
+      # <https://htr3n.github.io/2018/07/faster-zsh/>
+      if [[ -s "$zcompdump" && (! -s "$zcompdump".zwc || "$zcompdump" -nt "$zcompdump".zwc) ]]; then
+        zcompile "$zcompdump"
+      fi
+
+      # Load bash completion functions.
+      autoload -U +X bashcompinit && bashcompinit
+
       ${fileContents ./rc/comp.zsh}
     '';
 
@@ -49,22 +63,8 @@ in {
       # binds, zsh modules and everything else
       ${fileContents ./rc/binds.zsh}
       ${fileContents ./rc/modules.zsh}
+      ${fileContents ./rc/fzf-tab.zsh}
       ${fileContents ./rc/misc.zsh}
-
-      # Hyperoptimized time format for the time command
-      # the definition of the format is as follows:
-      # - "[%J]": The name of the job.
-      # - "%uU user": CPU seconds spent in user mode.
-      # - "%uS system": CPU seconds spent in kernel mode.
-      # - "%uE/%*E elapsed": Elapsed time in seconds
-      # - "%P CPU": The CPU percentage, computed as 100*(%U+%S)/%E.
-      # - "(%X avgtext + %D avgdata + %M maxresident)k": The average amount in (shared) text space used in kilobytes, the
-      # average amount in (unshared) data/stack space used in kilobytes, and the maximum memory
-      # the process had in use at any time in kilobytes.
-      # - "[%I inputs / %O outputs]": Number of input and output operations
-      # - "(%Fmajor + %Rminor) pagefaults": The number of major & minor page faults.
-      # - "%W swaps": The number of times the process was swapped.
-      TIMEFMT=$'\033[1m[%J]\033[0m: %uU user | %uS system | %uE/%*E elapsed | %P CPU\n> (%X avgtext + %D avgdata + %M maxresident)k used\n> [%I inputs / %O outputs] | (%Fmajor + %Rminor) pagefaults | %W swaps'
 
       # Set LS_COLORS by parsing dircolors output
       LS_COLORS="$(${pkgs.coreutils}/bin/dircolors --sh)"

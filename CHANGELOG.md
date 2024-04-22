@@ -4,6 +4,8 @@
 
 ### Changed
 
+- flake/pre-commit: ignore valid spelling
+
 - shell/zsh: completion cleanup
 
 - services/earlyoom: harden service
