@@ -4,6 +4,8 @@
 
 ### Changed
 
+- system/fonts: explicitly enable fontconfig
+
 - modules/core: move `nix-output-monitor` overlay to `nh.nix`
 
 - tools/nix-index: disable zsh hook
