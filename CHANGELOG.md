@@ -4,6 +4,8 @@
 
 ### Changed
 
+- tools/nix-index: disable zsh hook
+
 - tools/gpg: cleanup
 
 - tools/fzf: init
