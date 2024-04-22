@@ -4,6 +4,8 @@
 
 ### Changed
 
+- editors/neovim: cleanup; enable vim-fugitive
+
 - flake: pin Hyprland
 
 build fails
