@@ -6,6 +6,10 @@
 
 - flake: pin Hyprland
 
+build fails
+
+- flake: pin Hyprland
+
 - environment/variables: set `LESS` and `SYSTEMD_LESS`
 
 - environment/packages: explain `defaultPackages` that are removed

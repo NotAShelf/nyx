@@ -6,10 +6,11 @@
 }: let
   inherit (builtins) filter map toString;
   inherit (lib.filesystem) listFilesRecursive;
-  inherit (lib.strings) hasSuffix fileContents removeSuffix;
+  inherit (lib.strings) hasSuffix fileContents;
   inherit (lib.attrsets) genAttrs;
 
   nvf = inputs.neovim-flake;
+  inherit (nvf.lib.nvim.dag) entryBefore entryAnywhere;
 in {
   config = {
     programs.neovim-flake = {
@@ -30,7 +31,10 @@ in {
 
           preventJunkFiles = true;
           useSystemClipboard = true;
-          spellChecking.enable = true;
+          spellcheck = {
+            enable = true;
+            languages = ["en"];
+          };
 
           enableLuaLoader = true;
           enableEditorconfig = true;
@@ -40,25 +44,24 @@ in {
             logFile = "/tmp/nvim.log";
           };
 
-          additionalRuntimePaths = [
-            ./runtime
-          ];
+          # while I should be doing this in luaConfigRC below
+          # I have come to realise that spellfile contents are
+          # actually **not** loaded
+          configRC.spellfile = entryAnywhere ''
+            set spellfile=${toString ./spell/en.utf-8.add}
+          '';
 
           luaConfigRC = let
-            inherit (nvf.lib.nvim.dag) entryAnywhere;
-
             # get the name of each lua file in the lua directory, where setting files reside
-            configPaths = map (f: removeSuffix ".lua" f) (filter (hasSuffix ".lua") (map toString (listFilesRecursive ./lua)));
-
-            # get the path of each file by removing the ./. prefix from each element in the list
-            configNames = map (p: removeSuffix "./" p) configPaths;
+            # and import tham recursively
+            configPaths = filter (hasSuffix ".lua") (map toString (listFilesRecursive ./lua));
 
             # generates a key-value pair that looks roughly as follows:
-            # "fileName" = entryAnywhere "<contents of ./lua/fileName.lua>"
+            #  `<filePath> = entryAnywhere ''<contents of filePath>''`
             # which is expected by neovim-flake's modified DAG library
-            luaConfig = genAttrs configNames (name:
-              entryAnywhere ''
-                ${fileContents "${name}.lua"}
+            luaConfig = genAttrs configPaths (file:
+              entryBefore ["luaScript"] ''
+                ${fileContents "${file}"}
               '');
           in
             luaConfig;
