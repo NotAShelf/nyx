@@ -4,6 +4,8 @@
 
 ### Changed
 
+- modules/core: move `nix-output-monitor` overlay to `nh.nix`
+
 - tools/nix-index: disable zsh hook
 
 - tools/gpg: cleanup

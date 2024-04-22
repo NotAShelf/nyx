@@ -1,37 +1,43 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.attrsets) mapAttrs;
+in {
   config = {
     fonts = {
       enableDefaultPackages = false;
 
       fontconfig = {
+        enable = true;
         defaultFonts = let
+          # fonts that should be in each font family
+          # if applicable
           common = [
             "Iosevka Nerd Font"
             "Symbols Nerd Font"
             "Noto Color Emoji"
           ];
-        in {
-          monospace =
-            [
+        in
+          mapAttrs (_: fonts: fonts ++ common) {
+            monospace = [
               "Source Code Pro Medium"
               "Source Han Mono"
-            ]
-            ++ common;
+            ];
 
-          sansSerif =
-            [
+            sansSerif = [
               "Lexend"
-            ]
-            ++ common;
+            ];
 
-          serif =
-            [
+            serif = [
               "Noto Serif"
-            ]
-            ++ common;
+            ];
 
-          emoji = ["Noto Color Emoji"] ++ common;
-        };
+            emoji = [
+              "Noto Color Emoji"
+            ];
+          };
       };
 
       fontDir = {
@@ -70,7 +76,7 @@
         dejavu_fonts
         freefont_ttf
         gyre-fonts
-        liberation_ttf
+        liberation_ttf # for PDFs, Roman
         unifont
 
         (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono" "NerdFontsSymbolsOnly"];})
