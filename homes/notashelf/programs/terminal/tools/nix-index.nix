@@ -18,10 +18,6 @@
 
         # link nix-inde database to ~/.cache/nix-index
         symlinkToCacheHome = true;
-
-        # disable hooks
-        enableBashIntegration = false;
-        enableZshIntegration = false;
       };
     };
   };
