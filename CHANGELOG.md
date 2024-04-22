@@ -4,6 +4,8 @@
 
 ### Changed
 
+- shell/zsh: compile completions daily
+
 - editors/neovim: cleanup; enable vim-fugitive
 
 - flake: pin Hyprland
