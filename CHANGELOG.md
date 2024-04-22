@@ -4,6 +4,8 @@
 
 ### Changed
 
+- environment/variables: set `LESS` and `SYSTEMD_LESS`
+
 - environment/packages: explain `defaultPackages` that are removed
 
 - roles/iso: pin nix registry; set nixPath
