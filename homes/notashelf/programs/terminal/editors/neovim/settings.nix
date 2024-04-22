@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) filter map toString;
-  inherit (lib.filesystem) listFilesRecursive;
+  inherit (lib.filesystem) listFilesRecursive pathIsDirectory;
   inherit (lib.strings) hasSuffix fileContents;
   inherit (lib.attrsets) genAttrs;
 
@@ -44,11 +44,21 @@ in {
             logFile = "/tmp/nvim.log";
           };
 
+          additionalRuntimePaths = let
+            runtimeDir = builtins.path {
+              path = ./runtime;
+              name = "nvim-additional-runtime";
+            };
+          in [
+            "${runtimeDir}/after"
+            "${runtimeDir}/spell"
+          ];
+
           # while I should be doing this in luaConfigRC below
           # I have come to realise that spellfile contents are
           # actually **not** loaded
           configRC.spellfile = entryAnywhere ''
-            set spellfile=${toString ./spell/en.utf-8.add}
+            set spellfile=${toString ./spell/runtime/en.utf-8.add}
           '';
 
           luaConfigRC = let
