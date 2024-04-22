@@ -4,6 +4,8 @@
 
 ### Changed
 
+- roles/iso: pin nix registry; set nixPath
+
 - system/fonts: explicitly enable fontconfig
 
 - modules/core: move `nix-output-monitor` overlay to `nh.nix`
