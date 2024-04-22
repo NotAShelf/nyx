@@ -248,7 +248,7 @@
     # overriding the nixpkgs input - as the resulting hash would
     # mismatch if packages are builst against different versions
     # of the same depended packagaes
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/ed69502ff6e79a6dad213333b0bc3a15e2247942";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprpaper.url = "github:hyprwm/hyprpaper";
