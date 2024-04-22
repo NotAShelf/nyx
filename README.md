@@ -89,7 +89,7 @@ code reference, suggestions, bug reports, or simply moral support._
 - [lib](./lib) Personal library of functions and utilities
 - [docs](./docs)The documentation for my flake repository
   - [notes](./docs/notes) Notes from tedious or/and under-documented processes I have gone through. More or less a blog
-  - [cheatsheet](./docs/cheatsheet.md) Useful tips that are hard to memorize, but easy to write down
+  - [cheatsheet](./docs/notes/cheatsheet.md) Useful tips that are hard to memorize, but easy to write down
 - [flake/](./flake) Individual parts of my flake, powered by flake-parts
   - [modules](./flake/modules) modules provided by my flake for both internal and public use
   - [pkgs](./flake/pkgs) packages exported by my flake
@@ -125,9 +125,9 @@ code reference, suggestions, bug reports, or simply moral support._
 | `erebus`     | Air-gapped virtual machine/live-iso configuration for sensitive jobs                              |   ISO   |       -       |
 | `enyo`       | Day-to-day desktop workstation boasting a full AMD system.                                        | Desktop | x86_64-linux  |
 | `helios`     | Hetzner cloud VPS for non-critical infrastructure                                                 | Server  | x86_64-linux  |
-| `prometheus` | HP Pavilion with a a GTX 1050 and i7-7700hq                                                      | Laptop  | x86_64-linux  |
+| `prometheus` | HP Pavilion with a a GTX 1050 and i7-7700hq                                                       | Laptop  | x86_64-linux  |
 | `epimetheus` | Twin of prometheus, features full disk encryption in addition to everything prometheus provides   | Laptop  | x86_64-linux  |
-| `hermes`     | HP Pavilion with a Ryzen 7 7730U, and my main portable workstation. Used on-the-go               | Laptop  | x86_64-linux  |
+| `hermes`     | HP Pavilion with a Ryzen 7 7730U, and my main portable workstation. Used on-the-go                | Laptop  | x86_64-linux  |
 | `atlas`      | Proof of concept server host that is used by my Raspberry Pi 400                                  | Server  | aarch64-linux |
 | `icarus`     | My 2014 Lenovo Yoga Ideapad that acts as a portable server, used for testing hardware limitations | Laptop  | x86_64-linux  |
 | `artemis`    | VM host for testing basic NixOS concepts. Previously targeted aarch64-linux                       |   VM    | x86_64-linux  |

@@ -4,6 +4,8 @@
 
 ### Changed
 
+- treewide: format luarc
+
 - shell/zsh: compile completions daily
 
 - shell/zsh: compile completions daily
