@@ -1,8 +1,16 @@
-_: {
+{lib, ...}: let
+  inherit (lib.strings) concatStringsSep;
+  pagerArgs = [
+    "--RAW-CONTROL-CHARS" # Only allow colors.
+    "--wheel-lines=5"
+    "--LONG-PROMPT"
+    "--no-vbell"
+    " --wordwrap" # Wrap lines at spaces.
+  ];
+in {
   # variables that I want to set globally on all systems
 
   environment.variables = {
-    FLAKE = "/home/notashelf/.config/nyx";
     SSH_AUTH_SOCK = "/run/user/\${UID}/keyring/ssh";
 
     # editors
@@ -11,8 +19,15 @@ _: {
     SUDO_EDITOR = "nvim";
 
     # pager stuff
+    MANPAGER = "nvim +Man!";
     SYSTEMD_PAGERSECURE = "true";
     PAGER = "less -FR";
-    MANPAGER = "nvim +Man!";
+    LESS = concatStringsSep " " pagerArgs;
+    SYSTEMD_LESS = concatStringsSep " " (pagerArgs
+      ++ [
+        "--quit-if-one-screen"
+        "--chop-long-lines"
+        "--no-init" # Keep content after quit.
+      ]);
   };
 }

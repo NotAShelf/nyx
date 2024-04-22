@@ -4,6 +4,8 @@
 
 ### Changed
 
+- environment/packages: explain `defaultPackages` that are removed
+
 - roles/iso: pin nix registry; set nixPath
 
 - system/fonts: explicitly enable fontconfig
