@@ -4,6 +4,8 @@
 
 ### Changed
 
+- tools/editorconfig: init
+
 - treewide: format luarc
 
 - shell/zsh: compile completions daily
