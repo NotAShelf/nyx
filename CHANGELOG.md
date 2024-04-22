@@ -7446,6 +7446,8 @@ This reverts commit fd44da6e4d5adea0a7153b0d6f7f0b7334ab0c61.
 
 ### New
 
+- editors/neovim: add `after/ftplugin for gitcommit, json and md`
+
 - apps/schizofox: fix renamed `drmFix` option
 
 - editors/neovim: add custom spellfile
