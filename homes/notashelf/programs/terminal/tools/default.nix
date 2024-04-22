@@ -13,6 +13,7 @@
     ./bat.nix
     ./bottom.nix
     ./dircolors.nix
+    ./editorconfig.nix
     ./eza.nix
     ./fzf.nix
     ./gh.nix
