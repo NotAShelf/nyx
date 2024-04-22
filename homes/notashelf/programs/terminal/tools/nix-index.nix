@@ -10,11 +10,18 @@
     programs = {
       nix-index-database.comma.enable = true;
 
+      # `command-not-found` relies on nix-channel.
+      # Enable and use `nix-index` instead.
+      command-not-found.enable = false;
       nix-index = {
         enable = true;
 
         # link nix-inde database to ~/.cache/nix-index
         symlinkToCacheHome = true;
+
+        # disable hooks
+        enableBashIntegration = false;
+        enableZshIntegration = false;
       };
     };
   };

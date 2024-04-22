@@ -4,6 +4,8 @@
 
 ### Changed
 
+- tools/gpg: cleanup
+
 - tools/fzf: init
 
 - shell/zsh: completion cleanup; move fzf-tab
