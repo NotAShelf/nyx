@@ -16,13 +16,15 @@ in {
     gpg-agent = {
       enable = true;
       pinentryPackage = pinentryPkg;
-      enableSshSupport = true;
       defaultCacheTtl = 1209600;
       defaultCacheTtlSsh = 1209600;
       maxCacheTtl = 1209600;
       maxCacheTtlSsh = 1209600;
       extraConfig = "allow-preset-passphrase";
       enableZshIntegration = true;
+
+      enableScDaemon = true;
+      enableSshSupport = true;
     };
   };
 
@@ -34,7 +36,7 @@ in {
       enable = true;
       homedir = "${config.xdg.dataHome}/gnupg";
       settings = {
-        keyserver = "keys.openpgp.org";
+        keyserver = "hkps://keys.openpgp.org";
         # https://github.com/drduh/config/blob/master/gpg.conf
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
@@ -62,7 +64,7 @@ in {
         no-emit-version = "";
         # Disable banner
         no-greeting = "";
-        # Long hexidecimal key format
+        # Long hexadecimal key format
         keyid-format = "0xlong";
         # Display UID validity
         list-options = "show-uid-validity";
@@ -75,6 +77,10 @@ in {
         no-symkey-cache = "";
         # Enable smartcard
         use-agent = "";
+      };
+
+      scdaemonSettings = {
+        deny-admin = true;
       };
     };
   };
