@@ -9,6 +9,7 @@
         "flate" = "flate";
         "noice" = "noice";
         "Pn" = "Pn";
+        "nitch" = "nitch";
       };
     };
   in {

@@ -4,9 +4,11 @@
 
     ./hooks/alejandra.nix
     ./hooks/exiftool.nix
-    ./hooks/git-cliff.nix
     ./hooks/prettier.nix
     ./hooks/typos.nix
+
+    # disabled hooks
+    # ./hooks/git-cliff.nix
   ];
 
   perSystem = {pkgs, ...}: let

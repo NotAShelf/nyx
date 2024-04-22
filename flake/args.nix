@@ -30,5 +30,10 @@
 
     # add `pins` to self so that the flake may refer it freely
     pins = import ./npins;
+
+    # add a collection of SSH keys to the keys so that
+    #  1. my public keys are more easily obtainable from outside
+    #  2. it's easy to share key names and values internally, for users and such
+    keys = import ./keys;
   };
 }
