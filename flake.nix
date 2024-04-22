@@ -162,6 +162,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         home-manager.follows = "home-manager";
+        darwin.follows = "";
       };
     };
 
