@@ -14,6 +14,7 @@
     ./bottom.nix
     ./dircolors.nix
     ./eza.nix
+    ./fzf.nix
     ./gh.nix
     ./gpg.nix
     ./man.nix

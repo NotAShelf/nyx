@@ -4,6 +4,8 @@
 
 ### Changed
 
+- shell/zsh: completion cleanup; move fzf-tab
+
 - flake/pre-commit: ignore valid spelling
 
 - shell/zsh: completion cleanup
