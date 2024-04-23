@@ -1,9 +1,8 @@
 {
-  osConfig,
-  lib,
-  config,
-  pkgs,
   inputs',
+  osConfig,
+  pkgs,
+  lib,
   ...
 }: let
   inherit (osConfig.modules.style.colorScheme) slug colors;
@@ -19,7 +18,7 @@ in {
     programs.foot = {
       enable = true;
       package = inputs'.nyxpkgs.packages.foot-transparent;
-      server.enable = true;
+      server.enable = false;
       settings = {
         main = {
           # window settings
