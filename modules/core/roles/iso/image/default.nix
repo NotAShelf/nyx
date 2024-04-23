@@ -1,21 +1,12 @@
 {
-  modulesPath,
   self,
   config,
   pkgs,
   lib,
   ...
 }: let
-  inherit (lib) mkImageMediaOverride;
+  inherit (lib) cleanSource mkImageMediaOverride;
 in {
-  imports = [
-    "${modulesPath}/installer/cd-dvd/iso-image.nix"
-
-    # make sure our installer can detect and interact with all hardware that is supported in Nixpkgs
-    # this loads basically every hardware related kernel module
-    "${modulesPath}/profiles/all-hardware.nix"
-  ];
-
   # the ISO image must be completely immutable in the sense that we do not
   # want the user to be able modify the ISO image after booting into it
   # the below option will disable rebuild switches (i.e nixos-rebuild switch)
@@ -57,15 +48,23 @@ in {
     # is this supposed to make the ISO image bootable from *CD* instead of USB?
     makeUsbBootable = true;
 
-    # my module system already contains an option to add memtest86+
-    # to the boot menu at will but in case our system is unbootable
-    # lets include memtest86+ in the ISO image
-    # so that we may test the memory of the system
-    # exclusively from the ISO image
     contents = [
       {
+        # my module system already contains an option to add memtest86+
+        # to the boot menu at will but in case our system is unbootable
+        # lets include memtest86+ in the ISO image
+        # so that we may test the memory of the system
+        # exclusively from the ISO image
         source = pkgs.memtest86plus + "/memtest.bin";
-        target = "boot/memtest.bin";
+        target = "/boot/memtest.bin";
+      }
+      {
+        # link this flake to /etc/nixos/flake so that the user can
+        # can initiate a rebuild without having to clone and wait
+        # useful if this installer is meant to be used on a system
+        # that cannot access github
+        source = cleanSource self;
+        target = "/root/nyx";
       }
     ];
   };
