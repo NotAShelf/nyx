@@ -3,21 +3,23 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkForce;
+  inherit (lib.modules) mkForce mkAfter mkImageMediaOverride;
 in {
   boot = {
-    # use the latest Linux kernel
+    # use the latest Linux kernel instead of the default LTS kernel
+    # this is useful for hardware support and bug fixes
     kernelPackages = pkgs.linuxPackages_latest;
 
+    # ground control to kernel
     # talk to me kernel
-    kernelParams = lib.mkAfter ["noquiet"];
+    kernelParams = mkAfter ["noquiet"];
 
     # no need for systemd in the initrd stage on an installation media
     # being put in to recovery mode, or having systemd in stage one is
-    # entirely pointless
+    # entirely pointless as this is a live recovery environment.
     initrd.systemd = {
-      enable = lib.mkImageMediaOverride false;
-      emergencyAccess = lib.mkImageMediaOverride true;
+      enable = mkImageMediaOverride false;
+      emergencyAccess = mkImageMediaOverride false;
     };
 
     # Needed for https://github.com/NixOS/nixpkgs/issues/58959
