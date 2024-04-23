@@ -1,24 +1,37 @@
 {
-  lib,
   inputs,
+  lib,
   ...
 }: let
   # inherit self from inputs
-  inherit (inputs) self;
+  inherit (inputs) self nixpkgs;
+  inherit (lib.lists) singleton concatLists;
+  inherit (lib.modules) mkDefault;
+  inherit (lib.attrsets) recursiveUpdate;
 
-  # just an alias to nixpkgs.lib.nixosSystem, lets me avoid adding
-  # nixpkgs to the scope in the file it is used in
+  # shorthand alias to `lib.nixosSystem`
+  # `lib.nixosSystem` is a shallow wrapper around `lib.evalModules` that passes
+  # a few specialArgs and modules to bootstrap a working NixOS system. This is
+  # done implicitly in the wrapper and normally we would like to avoid using it
+  # however using `evalModules` to evaluate a system closure breaks e.g. the
+  # `documentation.nixos.enable` option which evaluates the module tree internally
+  # in which case `baseModules` will be missing
   mkSystem = lib.nixosSystem;
 
-  # mkNixoSystem is a convenient wrapper that wraps lib.nixosSystem (aliased to mkSystem here) to
-  # provide us a convenient boostrapper for new systems with inputs' and self' (alongside other specialArgs)
-  # already passed to the nixosSystem attribute set without us having to re-define them everytime, instead
-  # defining specialArgs by default and lazily merging any additional arguments defined by the host in the builder
+  # global module path for nixos modules
+  # while using nixosSystem, this will be set as a specialArgs internally
+  modulesPath = "${nixpkgs}/nixos/modules";
+
+  # mkNixosSystem is a convenient wrapper around lib.nixosSystem (which itself is a wrapper around lib.evalModules)
+  # that allows us to abstract host creation and configuration with necessary modules and specialArgs pre-defined
+  # or properly overridden compared to their nixpkgs default. This allows us to swiftly bootstrap a new system
+  # when (not if) a new system is added to `hosts/default.nix` with minimum lines of code rewritten each time.
+  # Ultimately this defines specialArgs we need and lazily merges any args and modules the host may choose
+  # to pass to the builder.
   mkNixosSystem = {
-    modules,
+    withSystem,
     system,
     hostname,
-    withSystem,
     ...
   } @ args:
     withSystem system ({
@@ -27,18 +40,25 @@
       ...
     }:
       mkSystem {
-        inherit system;
-        specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
-        modules =
-          [
-            {
-              config = {
-                networking.hostName = args.hostname;
-                nixpkgs.hostPlatform = lib.mkDefault args.system;
-              };
-            }
-          ]
-          ++ args.modules or [];
+        # specialArgs
+        specialArgs = recursiveUpdate {
+          inherit lib modulesPath;
+          inherit inputs self inputs' self';
+        } (args.specialArgs or {});
+
+        # Modules
+        modules = concatLists [
+          (singleton {
+            networking.hostName = args.hostname;
+            nixpkgs = {
+              hostPlatform = mkDefault args.system;
+              flake.source = nixpkgs.outPath;
+            };
+          })
+
+          # if host needs additional modules, append them
+          (args.modules or [])
+        ];
       });
 
   # mkIso is should be a set that extends mkSystem with necessary modules
@@ -51,35 +71,59 @@
     ...
   } @ args:
     mkSystem {
-      inherit system;
       specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
-      modules =
+      modules = concatLists [
         [
-          # get an installer profile from nixpkgs to base the Isos off of
-          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+          # provides options for modifying the ISO image
+          "${nixpkgs}/nixos/installer/cd-dvd/iso-image.nix"
 
-          {config.networking.hostName = args.hostname;}
+          # bootstrap channels with the ISO image to avoid fetching them during installation
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+
+          # make sure our installer can detect and interact with all hardware that is supported in Nixpkgs
+          # this loads basically every hardware related kernel module
+          "${nixpkgs}/nixos/profiles/all-hardware.nix"
         ]
-        ++ args.modules or [];
+
+        (singleton {
+          networking.hostName = args.hostname;
+          nixpkgs = {
+            hostPlatform = mkDefault args.system;
+            flake.source = nixpkgs.outPath;
+          };
+        })
+
+        (args.modules or [])
+      ];
     };
 
-  mkSdImage = {
+  mkRaspi4Image = {
     modules,
     system,
     ...
   } @ args:
     mkSystem {
-      inherit system;
       specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
-      modules =
+      modules = concatLists [
+        # get an installer profile from nixpkgs to base the Isos off of
         [
-          # get an installer profile from nixpkgs to base the Isos off of
-          "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
           inputs.nixos-hardware.nixosModules.raspberry-pi-4
         ]
-        ++ args.modules or [];
+
+        (singleton {
+          networking.hostName = args.hostname;
+          nixpkgs = {
+            hostPlatform = mkDefault args.system;
+            flake.source = nixpkgs.outPath;
+          };
+        })
+
+        (args.modules or [])
+      ];
     };
 in {
-  inherit mkSystem mkNixosSystem mkNixosIso mkSdImage;
+  inherit mkSystem mkNixosSystem mkNixosIso;
+
+  mkSDImage = lib.warn "mkSDImage is deprecated, use mkRaspi4Image instead" mkRaspi4Image;
 }
