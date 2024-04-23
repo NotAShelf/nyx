@@ -28,8 +28,9 @@ in {
     hostname = config.networking.hostName or "nixos";
 
     # if the system is built from a git repository, we want to include the git revision
-    # in the ISO name. if the tree is dirty, we use the term "dirty" to make it explicit
-    rev = self.shortRev or "dirty";
+    # in the ISO name. If the tree is dirty, we use the term "dirty" to make it explicit
+    # and include the date in the ISO name.
+    rev = self.shortRev or "${builtins.substring 0 8 self.lastModifiedDate}-dirty";
 
     # the format of the iso will always be uniform:
     # $hostname-$release-$rev-$arch
@@ -51,7 +52,7 @@ in {
     makeEfiBootable = true;
 
     # ISO image should be bootable from USB
-    # FIXME: the module decription is as follows:
+    # FIXME: the module description is as follows:
     # "Whether the ISO image should be bootable from CD as well as USB."
     # is this supposed to make the ISO image bootable from *CD* instead of USB?
     makeUsbBootable = true;
