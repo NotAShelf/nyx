@@ -4,13 +4,13 @@
       nvimTree = {
         enable = true;
         openOnSetup = true;
-        disableNetrw = true;
 
         mappings = {
           toggle = "<C-w>";
         };
 
         setupOpts = {
+          disable_netrw = true;
           update_focused_file.enable = true;
 
           hijack_unnamed_buffer_when_opening = true;
