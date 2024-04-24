@@ -75,14 +75,14 @@
       modules = concatLists [
         [
           # provides options for modifying the ISO image
-          "${nixpkgs}/nixos/installer/cd-dvd/iso-image.nix"
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
 
           # bootstrap channels with the ISO image to avoid fetching them during installation
           "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
 
           # make sure our installer can detect and interact with all hardware that is supported in Nixpkgs
           # this loads basically every hardware related kernel module
-          "${nixpkgs}/nixos/profiles/all-hardware.nix"
+          "${nixpkgs}/nixos/modules/profiles/all-hardware.nix"
         ]
 
         (singleton {
