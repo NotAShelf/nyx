@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) filter map toString;
-  inherit (lib.filesystem) listFilesRecursive pathIsDirectory;
+  inherit (lib.filesystem) listFilesRecursive;
   inherit (lib.strings) hasSuffix fileContents;
   inherit (lib.attrsets) genAttrs;
 
@@ -28,6 +28,10 @@ in {
 
           viAlias = true;
           vimAlias = true;
+
+          withNodeJs = false;
+          withPython3 = false;
+          withRuby = false;
 
           preventJunkFiles = true;
           useSystemClipboard = true;
