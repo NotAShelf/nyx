@@ -2,7 +2,7 @@
   programs.neovim-flake.settings.vim = {
     treesitter = {
       fold = true;
-      context.enable = true;
+      context.enable = false; # FIXME: currently broken, I do not know why.
 
       # extra grammars that will be installed by Nix
       grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
