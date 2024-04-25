@@ -195,7 +195,7 @@
 
     # Personal neovim-flake
     neovim-flake = {
-      url = "github:NotAShelf/neovim-flake/v0.6";
+      url = "github:NotAShelf/neovim-flake/treesitter";
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         nil.follows = "nil";
