@@ -24,7 +24,7 @@ in {
       AuthenticationMethods = "publickey";
       PubkeyAuthentication = "yes";
       ChallengeResponseAuthentication = "no";
-      UsePAM = "no";
+      UsePAM = false;
 
       # remove sockets as they get stale
       # this will unbind gnupg sockets if they exists
