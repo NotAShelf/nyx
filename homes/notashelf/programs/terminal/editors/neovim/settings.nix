@@ -62,7 +62,7 @@ in {
           # I have come to realise that spellfile contents are
           # actually **not** loaded
           configRC.spellfile = entryAnywhere ''
-            set spellfile=${toString ./spell/runtime/en.utf-8.add}
+            set spellfile=${toString ./spell/runtime/en.utf-8.add} " toString sanitizes the path
           '';
 
           luaConfigRC = let
