@@ -5,13 +5,13 @@
   Nýx
 </h1>
 
-<p align="center">
+<div align="center">
    My overengineered NixOS flake: Desktops, laptops, servers and everything
    else that can run an OS.<br/>
-</p>
+</div>
 
 <div align="center">
-  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> |  <a href="#credits--special-thanks-to">Credits</a>
+  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> |  <a href="#credits--special-thanks-to">Credits</a> <a href="#license">License
   <br/><br/>
 </div>
 
@@ -69,8 +69,8 @@ code reference, suggestions, bug reports, or simply moral support._
     Everything theming is handled inside the flake.
   - **Tree-wide formatting** - Format files in any language with the help of devshells
     and treefmt-nix modules for flake-parts.
-- **Declarative nftables firewall** - Overengineered nftables chain builder for easy
-  firewall setups.
+- **Declarative nftables firewall** - Flexible and overengineered[^1] `nftables` table/chain
+  builder abstraction for easy firewall setups.
 - **Personal Installation Media** - Personalized ISO images for system installation
   and recovery.
 - **Secrets Management** - Manage secrets through Agenix.
@@ -121,14 +121,14 @@ code reference, suggestions, bug reports, or simply moral support._
 
 | Name         | Description                                                                                       |  Type   |     Arch      |
 | :----------- | :------------------------------------------------------------------------------------------------ | :-----: | :-----------: |
-| `gaea`       | Custom live media, used as an installer                                                           |   ISO   |       -       |
-| `erebus`     | Air-gapped virtual machine/live-iso configuration for sensitive jobs                              |   ISO   |       -       |
+| `gaea`       | Custom live media, used as an installer                                                           |   ISO   | x86_64-linux  |
+| `erebus`     | Air-gapped virtual machine/live-iso configuration for sensitive jobs                              |   ISO   | x86_64-linux  |
 | `enyo`       | Day-to-day desktop workstation boasting a full AMD system.                                        | Desktop | x86_64-linux  |
 | `helios`     | Hetzner cloud VPS for non-critical infrastructure                                                 | Server  | x86_64-linux  |
+| `atlas`      | Proof of concept server host that is used by my Raspberry Pi 400                                  | Server  | aarch64-linux |
 | `prometheus` | HP Pavilion with a a GTX 1050 and i7-7700hq                                                       | Laptop  | x86_64-linux  |
 | `epimetheus` | Twin of prometheus, features full disk encryption in addition to everything prometheus provides   | Laptop  | x86_64-linux  |
 | `hermes`     | HP Pavilion with a Ryzen 7 7730U, and my main portable workstation. Used on-the-go                | Laptop  | x86_64-linux  |
-| `atlas`      | Proof of concept server host that is used by my Raspberry Pi 400                                  | Server  | aarch64-linux |
 | `icarus`     | My 2014 Lenovo Yoga Ideapad that acts as a portable server, used for testing hardware limitations | Laptop  | x86_64-linux  |
 | `artemis`    | VM host for testing basic NixOS concepts. Previously targeted aarch64-linux                       |   VM    | x86_64-linux  |
 | `apollon`    | VM host for testing networked services, generally used on servers                                 |   VM    | x86_64-linux  |
@@ -204,25 +204,34 @@ Projects I have made to use in this repository, or otherwise cool software that 
 used in this repository that I would like to endorse.
 
 - [nyxpkgs](https://github.com/notashelf/nyxpkgs) - my personal package collection
-- [neovim-flake](https://github.com/notashelf/neovim-flake) - highly modular neovim module for NixOS & Home-manager
-- [docr](https://github.com/notashelf/docr) - my barebones static site generator, used to generate my blog
-- [schizofox](https://github.com/schizofox/schizofox) - hardened Firefox configuration for the delusional and the paranoid
+- [nvf](https://github.com/notashelf/nvf) - highly modular Neovim configuration
+  framework for Nix/NixOS
+- [schizofox](https://github.com/schizofox/schizofox) - hardened Firefox
+  configuration for the delusional and the paranoid
+- [ndg](https://github.com/feel-co/ndg) - a module documentation framework for
+  Nix projects.
 
-Additionally, take a look at my [notes/blog](./docs/notes) for my notes on specific processes on NixOS.
+Additionally, take a look at my [notes/blog](./docs/notes) for my notes on
+Linux, and specifically challenging or tedious processes on Nix and NixOS.
 
 ## License
 
-Unless explicitly stated otherwise, all code under this repository (except for [anything in docs directory](docs))
-is licensed under the [GPLv3](./LICENSE), or should you prefer, under any later version of the GPL released
-by the FSF.
+Unless explicitly stated otherwise, all code under this repository (except for
+[anything in docs directory](docs)) is licensed under the [GPLv3](./LICENSE),
+or should you prefer, under any later version of the GPL released by the FSF.
 
-The notes and documentation available in [docs directory](docs) is licensed under the [CC BY License](./docs/LICENSE).
+The notes and documentation available in [docs directory](docs) is licensed
+under the [CC BY License](./docs/LICENSE).
 
-All code here (excluding secrets) are available for your convenience and at my expense as I believe it is in NixOS
-configurations' spirit to share knowledge with and learn from other NixOS users. As such if you are directly
-copying a section of my configuration, please include a copyright notice at the top of the file you import the code.
+All code here (excluding secrets) are available for your convenience and _at
+my expense_ as I choose to keep my entire system configuration public. I
+believe it is in Nix and NixOS community spirit to learn from and share code
+with other NixOS users. As such if you are directly copying a section of
+my configuration, please include a copyright notice at the top of the file
+you import the code, or as a small comment above the section you have copied.
 
-It is not enforced, but your kindness and due diligence would be appreciated.
+It is not in any shape or form enforced, but your kindness and due diligence
+would be highly appreciated.
 
 ---
 
@@ -238,3 +247,9 @@ It is not enforced, but your kindness and due diligence would be appreciated.
 <div align="right">
   <a href="#readme">Back to the Top</a>
 </div>
+
+[^1]:
+    I speak of overengineering not as a flaw, but as a trait that can properly
+    describe the time and effort that this repository has taken. After 700+
+    recorded hours and 4000+ commits, that is the only word that can describe this
+    project.
