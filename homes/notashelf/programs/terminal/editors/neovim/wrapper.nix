@@ -3,20 +3,24 @@
   pkgs,
   lib,
   ...
-}: {
-  xdg.desktopEntries."Neovim" = lib.mkForce {
+}: let
+  inherit (builtins) fetchurl;
+  inherit (lib.modules) mkForce;
+  inherit (lib.meta) getExe;
+in {
+  xdg.desktopEntries."nvf" = mkForce {
     name = "Neovim";
     type = "Application";
     mimeType = ["text/plain"];
 
-    icon = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/NotAShelf/neovim-flake/main/assets/neovim-flake-logo-work.svg";
-      sha256 = "19n7n9xafyak35pkn4cww0s5db2cr97yz78w5ppbcp9jvxw6yyz3";
+    icon = fetchurl {
+      url = "https://github.com/NotAShelf/nvf/blob/f66a879dcea156fac682943551f5f574a787bb26/.github/assets/nvf-logo-work.svg";
+      sha256 = "0nn1vfca5azwdcmyzmwafqzk687gmvwl6mdgdx745r7y90315nq8";
     };
 
     exec = let
-      wezterm = lib.getExe config.programs.wezterm.package;
-      direnv = lib.getExe pkgs.direnv;
+      wezterm = getExe config.programs.wezterm.package;
+      direnv = getExe pkgs.direnv;
     in "${pkgs.writeShellScript "wezterm-neovim" ''
       # define target filename
       filename="$(readlink -f "$1")"
@@ -25,7 +29,7 @@
       dirname="$(dirname "$filename")"
 
       # launch a wezterm instance with direnv and nvim
-      ${wezterm} -e --cwd "$dirname" -- ${lib.getExe pkgs.zsh} -c "${direnv} exec . nvim '$filename'"
+      ${wezterm} -e --cwd "$dirname" -- ${getExe pkgs.zsh} -c "${direnv} exec . nvim '$filename'"
     ''} %f";
   };
 }
