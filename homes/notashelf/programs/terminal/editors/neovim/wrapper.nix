@@ -15,7 +15,7 @@ in {
 
     icon = fetchurl {
       url = "https://github.com/NotAShelf/nvf/blob/f66a879dcea156fac682943551f5f574a787bb26/.github/assets/nvf-logo-work.svg";
-      sha256 = "0nn1vfca5azwdcmyzmwafqzk687gmvwl6mdgdx745r7y90315nq8";
+      sha256 = "sha256:0nn1vfca5azwdcmyzmwafqzk687gmvwl6mdgdx745r7y90315nq8";
     };
 
     exec = let
