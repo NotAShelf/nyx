@@ -154,6 +154,7 @@ in {
           # %t refers to /run/user/<id>
           "%t/hypr"
           "%t/dconf/user"
+          "%t/pulse"
 
           # for thumbnail caching
           "%h/.cache/ags/media"
