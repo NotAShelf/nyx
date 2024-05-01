@@ -21,7 +21,7 @@
   #  1. my public keys are more easily obtainable from outside
   #  2. it's easy to share key names and values internally especially
   #  for setting them for users and such
-  publicKeys = import ./keys;
+  publicKeys = import ./keys.nix;
 in {
   perSystem = {
     config,

@@ -15,7 +15,7 @@
   in {
     pre-commit.settings.hooks.typos = mkHook "typos" {
       enable = true;
-      excludes = ["CHANGELOG.md" "source.json" "r'.+\.zsh$'"];
+      excludes = ["CHANGELOG.md" "source.json" "r'.+\.zsh$'" "r'.+\.age$'" "keys.nix"];
       settings = {
         configPath = typosConfig.outPath;
       };

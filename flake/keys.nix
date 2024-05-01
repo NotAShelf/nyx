@@ -1,4 +1,6 @@
 let
+  inherit (builtins) attrValues;
+
   utils = {
     # helpers
     mkGlobal = list: list ++ [users.notashelf];
@@ -19,8 +21,8 @@ let
   };
 
   # aliases
-  servers = builtins.attrValues {inherit (machines) helios icarus leto;};
-  workstations = builtins.attrValues {inherit (machines) enyo hermes icarus;};
+  servers = attrValues {inherit (machines) helios icarus leto;};
+  workstations = attrValues {inherit (machines) enyo hermes icarus;};
 in {
   inherit (utils) mkGlobal;
   inherit (users) notashelf;
