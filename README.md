@@ -11,16 +11,16 @@
 </div>
 
 <div align="center">
-  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> |  <a href="#credits--special-thanks-to">Credits</a> <a href="#license">License
-  <br/><br/>
+  <br/>
+  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a> | <a href="#license">License</a>
+  <br/>
 </div>
 
 <p id="preview" align="center">
-   <img src=".github/assets/desktop_preview_wide.png" alt="Desktop Preview" /> 
-</p>
-
-<p align="center">
-   Screenshot last updated <b>2024-03-19</b>
+  <br/>
+  <img src=".github/assets/desktop_preview_wide.png" alt="Desktop Preview" /> 
+  <br/>
+  Screenshot last updated <b>2024-03-19</b>
 </p>
 
 ## High Level Overview
