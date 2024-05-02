@@ -17,3 +17,7 @@ local options = {
 for key, value in pairs(options) do
 	opt[key] = value
 end
+
+if not vim.g.vscode then
+	opt.timeoutlen = 300 -- Time out on mappings
+end
