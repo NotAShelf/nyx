@@ -1,4 +1,4 @@
 -- luacheck: ignore
-vim.filetype.add {
-	filename = { [".envrc"] = "bash" },
-}
+vim.filetype.add({
+    filename = { ['.envrc'] = 'bash' },
+})

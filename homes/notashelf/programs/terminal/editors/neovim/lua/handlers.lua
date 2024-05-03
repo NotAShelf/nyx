@@ -1,3 +1,4 @@
+-- luacheck: ignore
 local float_options = {
 	border = 'single',
 	max_width = math.ceil(vim.api.nvim_win_get_width(0) * 0.6),
@@ -24,8 +25,7 @@ vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
 	if not result then
 		return
 	end
-	local markdown_lines =
-		vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+	local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
 	markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
 	if vim.tbl_isempty(markdown_lines) then
 		return
