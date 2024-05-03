@@ -54,6 +54,5 @@ jobs:
     with:
       command: |
         nix flake check \
-          --no-build \
           --accept-flake-config \
           --print-build-logs
