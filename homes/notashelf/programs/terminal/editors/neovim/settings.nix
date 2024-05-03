@@ -60,11 +60,17 @@ in {
 
           # while I should be doing this in luaConfigRC below
           # I have come to realise that spellfile contents are
-          # actually **not** loaded
+          # actually **not** loaded when luaConfigRC is used.
+          # as spellfile is a vim thing, this should be fine
           configRC.spellfile = entryAnywhere ''
             set spellfile=${toString ./spell/runtime/en.utf-8.add} " toString sanitizes the path
           '';
 
+          # additional lua configuration that I can append
+          # or, to be more precise, randomly inject into
+          # the lua configuration of my Neovim configuration
+          # wrapper. this is recursively read from the lua
+          # directory, so we do not need to use require
           luaConfigRC = let
             # get the name of each lua file in the lua directory, where setting files reside
             # and import tham recursively
