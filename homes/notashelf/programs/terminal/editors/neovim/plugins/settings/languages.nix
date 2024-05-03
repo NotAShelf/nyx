@@ -20,6 +20,7 @@
       go.enable = true;
       python.enable = true;
       bash.enable = true;
+      typst.enable = true;
       zig.enable = false;
       dart.enable = false;
       elixir.enable = false;
