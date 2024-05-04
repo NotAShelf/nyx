@@ -43,7 +43,7 @@ in {
     _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java";
     CARGO_HOME = "${XDG_DATA_HOME}/cargo";
     NODE_REPL_HISTORY = "${XDG_DATA_HOME}/node_repl_history";
-    NPM_CONFIG_CACE = "${XDG_CACHE_HOME}/npm";
+    NPM_CONFIG_CACHE = "${XDG_CACHE_HOME}/npm";
     NPM_CONFIG_TMP = "${XDG_RUNTIME_DIR}/npm";
     NPM_CONFIG_USERCONFIG = "${XDG_CONFIG_HOME}/npm/config";
     PYTHONSTARTUP =

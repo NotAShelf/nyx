@@ -1,25 +1,19 @@
 {
-  # https://github.com/notashelf/nyx
-  description = "My NixOS configuration with *very* questionable stability";
+  # https://github.com/NotAShelf/nyx
+  description = "My vastly overengineered monorepo for everything NixOS";
 
-  outputs = {
-    self,
-    flake-parts,
-    ...
-  } @ inputs:
+  outputs = {flake-parts, ...} @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, ...}: {
-      # systems for which the `perSystem` attributes will be built
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        # and more if they can be supported ...
-      ];
+      # systems for which the attributes of `perSystem` will be built
+      # and more if they can be supported...
+      #  - x86_64-linux: Desktops, laptops, servers
+      #  - aarch64-linux: ARM-based devices, PoC server and builders
+      systems = ["x86_64-linux" "aarch64-linux"];
 
+      # import parts of the flake, which allows me to build the final flake
+      # from various parts constructed in a way that makes sense to me
+      # the most
       imports = [
-        # add self back to inputs to use as `inputs.self`
-        # I depend on inputs.self *at least* once
-        {config._module.args._inputs = inputs // {inherit (inputs) self;};}
-
         # parts and modules from inputs
         inputs.flake-parts.flakeModules.easyOverlay
         inputs.treefmt-nix.flakeModule
@@ -27,6 +21,7 @@
         # parts of the flake
         ./flake/apps # apps provided by the flake
         ./flake/checks # checks that are performed on `nix flake check`
+        ./flake/lib # extended library on top of `nixpkgs.lib`
         ./flake/modules # nixos and home-manager modules provided by this flake
         ./flake/pkgs # packages exposed by the flake
         ./flake/pre-commit # pre-commit hooks, performed before each commit inside the devShell

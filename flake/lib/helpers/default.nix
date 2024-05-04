@@ -1,5 +1,5 @@
 {lib}: let
-  inherit (import ../core.nix {inherit lib;}) import';
+  inherit (import ../common.nix {inherit lib;}) import';
 
   systemd = import' ./systemd.nix;
   fs = import' ./fs.nix;

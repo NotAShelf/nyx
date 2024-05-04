@@ -25,6 +25,7 @@
         hooks = {
           actionlint = mkHook "actionlint" {enable = true;};
           luacheck = mkHook "luacheck" {enable = true;};
+          stylua = mkHook "stylua" {enable = true;};
           treefmt = mkHook "treefmt" {enable = true;};
           editorconfig-checker = mkHook "editorconfig" {
             enable = false;
