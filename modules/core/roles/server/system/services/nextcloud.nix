@@ -23,11 +23,11 @@ in {
     services = {
       nextcloud = {
         enable = true;
-        package = pkgs.nextcloud28;
+        package = pkgs.nextcloud29;
 
-        nginx.recommendedHttpHeaders = true;
         https = true;
         hostName = domain;
+        nginx.recommendedHttpHeaders = true;
 
         home = "/srv/storage/nextcloud";
         maxUploadSize = "4G";
