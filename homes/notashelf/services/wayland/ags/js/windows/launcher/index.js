@@ -107,7 +107,10 @@ export const AppLauncher = () =>
         layer: "overlay",
         transition: "slide_down",
         transitionDuration: 150,
-        popup: true,
         keymode: "on-demand",
         child: Launcher(),
+        setup: (self) =>
+            self.keybind("Escape", () => {
+                App.closeWindow(WINDOW_NAME);
+            }),
     });

@@ -9,20 +9,20 @@ import { Popups } from "./js/windows/popups/index.js";
 import { Notifs } from "./js/windows/notifications/index.js";
 import { Media } from "./js/windows/music/index.js";
 
-App.connect("config-parsed", () => print("config parsed"));
+App.connect("config-parsed", () => print("Config parsed!"));
 
 Notifications.popupTimeout = 5000;
 Notifications.forceTimeout = false;
 Notifications.cacheActions = true;
 
 // Main config
-export default {
+App.config({
     style: css,
     closeWindowDelay: {
         launcher: 300,
         music: 300,
     },
-};
+});
 
 /**
  * @param {any[]} windows
@@ -32,3 +32,5 @@ function addWindows(windows) {
 }
 
 addWindows([AppLauncher(), Bar(), Media(), Desktop(), Popups(), Notifs()]);
+
+export {};
