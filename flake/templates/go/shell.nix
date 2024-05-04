@@ -1,15 +1,17 @@
 {
   callPackage,
-  gopls,
   go,
+  gopls,
+  delve,
 }: let
   mainPkg = callPackage ./default.nix {};
 in
   mainPkg.overrideAttrs (oa: {
     nativeBuildInputs =
       [
-        gopls
+        delve
         go
+        gopls
       ]
       ++ (oa.nativeBuildInputs or []);
   })
