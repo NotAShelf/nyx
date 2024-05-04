@@ -23,7 +23,7 @@ in {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
 
-      # my credientals
+      # my credentials
       userName = "NotAShelf";
       userEmail = "raf@notashelf.dev";
 
@@ -44,10 +44,18 @@ in {
         # but main is easier to type, so that's that
         init.defaultBranch = "main";
 
-        # disable the horrendous GUI password prompt for Git when auth fails
-        core.askPass = "";
+        core = {
+          # set delta as the main pager
+          pager = "delta";
 
-        # prefer using libsecret for storing and retrieving credientals
+          # disable the horrendous GUI password prompt
+          # for Git when SSH authentication fails
+          askPass = "";
+
+          whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
+        };
+
+        # prefer using libsecret for storing and retrieving credentials
         credential.helper = "${pkgs.gitAndTools.gitFull}/bin/git-credential-libsecret";
 
         # delta is some kind of a syntax highlighting pager for git
@@ -66,6 +74,8 @@ in {
 
         branch.autosetupmerge = "true";
         pull.ff = "only";
+        color.ui = "auto";
+        repack.usedeltabaseoffset = "true";
 
         push = {
           default = "current";
@@ -74,14 +84,9 @@ in {
         };
 
         merge = {
-          stat = "true";
           conflictstyle = "diff3";
+          stat = "true";
         };
-
-        core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
-        color.ui = "auto";
-
-        repack.usedeltabaseoffset = "true";
 
         rebase = {
           autoSquash = true;
