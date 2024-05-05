@@ -8,6 +8,11 @@ local options = {
   matchtime = 1, -- duration of that flashing n deci-seconds
   signcolumn = 'yes:1', -- static width
   report = 9001, -- disable "x more/fewer lines" messages
+  diffopt = opt.diffopt:append('vertical'), -- diff mode: vertical splits
+  backspace = { 'indent', 'eol', 'start' }, -- backspace through everything in insert mode
+  -- If 0, move cursor line will not scroll window.
+  -- If 999, cursor line will always be in middle of window.
+  scrolloff = 0,
 }
 
 -- iterate over the options table and set the options

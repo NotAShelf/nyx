@@ -7,6 +7,7 @@ local no_top_text = {
   },
 }
 
+-- luacheck: ignore
 noice.setup({
   cmdline = {
     format = {
@@ -38,6 +39,18 @@ noice.setup({
       filter = {
         event = 'msg_show',
         kind = 'search_count',
+      },
+      opts = { skip = true },
+    },
+    {
+      -- skip progress messages from noisy servers
+      filter = {
+        event = 'lsp',
+        kind = 'progress',
+        cond = function(message)
+          local client = vim.tbl_get(message.opts, 'progress', 'client')
+          return client == 'ltex'
+        end,
       },
       opts = { skip = true },
     },

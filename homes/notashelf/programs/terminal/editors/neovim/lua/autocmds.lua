@@ -4,6 +4,13 @@ local create_autocmd = vim.api.nvim_create_autocmd
 -- alias for vim.api.nvim_create_augroup
 local create_augroup = vim.api.nvim_create_augroup
 
+create_autocmd('BufWritePre', {
+  pattern = { '/tmp/*', 'COMMIT_EDITMSG', 'MERGE_MSG', '*.tmp', '*.bak' },
+  callback = function()
+    vim.opt_local.undofile = false
+  end,
+})
+
 -- Disable line wrapping & spell checking
 -- for the terminal buffer
 create_autocmd({ 'FileType' }, {

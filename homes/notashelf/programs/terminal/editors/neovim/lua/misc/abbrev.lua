@@ -1,5 +1,6 @@
 local cmd = vim.cmd
 
+-- luacheck: ignore
 local abbreviations = {
   Wq = 'wq', -- keep making those typos
   WQ = 'wq',
