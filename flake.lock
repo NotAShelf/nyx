@@ -1335,17 +1335,17 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1714730217,
-        "narHash": "sha256-qZ1uzDQe3Bt/vjITwt0Hy3Kl/jk72dt2+Z5oyMdiWkQ=",
+        "lastModified": 1714866663,
+        "narHash": "sha256-lJqzQr6RHaSfadRBWMvC0Z7ojwYkudm6MYKRv6zDP34=",
         "owner": "NotAShelf",
-        "repo": "neovim-flake",
-        "rev": "5b982fafa07b449299ce9898f0f9a7a0f8b75bb4",
+        "repo": "nvf",
+        "rev": "ab2685579a918bb48c998ed57009436e7c9fd4e2",
         "type": "github"
       },
       "original": {
         "owner": "NotAShelf",
-        "ref": "main",
-        "repo": "neovim-flake",
+        "ref": "rename-module-opts",
+        "repo": "nvf",
         "type": "github"
       }
     },

@@ -190,7 +190,7 @@
 
     # Personal neovim-flake
     neovim-flake = {
-      url = "github:NotAShelf/neovim-flake/main";
+      url = "github:NotAShelf/nvf";
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         nil.follows = "nil";
