@@ -19,7 +19,7 @@ in {
     SUDO_EDITOR = "nvim";
 
     # pager stuff
-    MANPAGER = "nvim +Man!";
+    MANPAGER = "nvim -c 'set ft=man bt=nowrite noswapfile nobk shada=\\\"NONE\\\" ro noma' +Man! -o -";
     SYSTEMD_PAGERSECURE = "true";
     PAGER = "less -FR";
     LESS = concatStringsSep " " pagerArgs;

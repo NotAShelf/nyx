@@ -32,6 +32,14 @@ should be considered final. As such, it is **not recommended to be used as a tem
 you are welcome to browse the codebase to your liking, you may find bits that are interesting
 or/and useful to you.
 
+> [!WARNING]
+> Almost all of the configurations contained within this repository, in some
+> shape or form, contain age encrypted secrets - which, to you dear reader,
+> means that they **cannot** be built and replicated successfully, at least in
+> theory. I invite you to go through the modules and countless lines of Nix I
+> have written, but I would strongly advise against attempting to boot any of
+> those configurations unless you are not me.
+
 _Before you proceed, I would like to point you towards the [credits](#credits) section below
 where I pay tribute to the individuals who have contributed to this project, whether through
 code reference, suggestions, bug reports, or simply moral support._
