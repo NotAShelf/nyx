@@ -88,3 +88,4 @@ index 48b96d21..a2270c9a 100755
              read -rd '' ascii_data <<'EOF'
  ${c1}          ▗▄▄▄       ${c2}▗▄▄▄▄    ▄▄▄▖
 
+
