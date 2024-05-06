@@ -1,20 +1,26 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{config, ...}: {
   config = {
     services = {
       # enable GVfs, a userspace virtual filesystem.
       gvfs.enable = true;
 
       # storage daemon required for udiskie auto-mount
-      udisks2.enable = !config.boot.isContainer;
+      udisks2 = {
+        enable = !config.boot.isContainer;
+        settings = {
+          # general udisks2 configuration
+          "udisks2.conf" = {
+            defaults = {
+              encryption = "luks2"; # alternatively, luks1
+            };
 
-      # disable chrony in favor if systemd-timesyncd
-      timesyncd.enable = lib.mkDefault true;
-      chrony.enable = lib.mkDefault false;
+            udisks2 = {
+              modules = ["*"];
+              modules_load_preference = "ondemand";
+            };
+          };
+        };
+      };
     };
   };
 }

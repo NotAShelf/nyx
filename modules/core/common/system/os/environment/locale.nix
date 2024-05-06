@@ -3,13 +3,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkDefault;
+  inherit (lib.modules) mkDefault;
 in {
-  time = {
-    timeZone = "Europe/Istanbul";
-    hardwareClockInLocalTime = true;
-  };
-
   services.xserver.xkb = {
     layout = "tr";
     variant = "";

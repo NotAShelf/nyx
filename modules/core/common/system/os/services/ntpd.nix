@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  environment.systemPackages = [pkgs.openntpd];
+  time = {
+    timeZone = "Europe/Istanbul";
+    hardwareClockInLocalTime = false; # this somehow breaks if Impermanence is enabled
+  };
 
   networking.timeServers = [
     "0.nixos.pool.ntp.org"
@@ -12,6 +15,7 @@
   # available as a part of the OpenBSD projeect.
   # since BSDs are known for their superior networking stack, this
   # might provide better performance than the defaults
+  environment.systemPackages = [pkgs.openntpd];
   services.openntpd = {
     enable = true;
     extraConfig = ''
