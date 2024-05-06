@@ -4,13 +4,24 @@
   lib,
   ...
 }: let
-  inherit (builtins) filter map toString;
+  inherit (builtins) filter map toString path isPath throw;
   inherit (lib.filesystem) listFilesRecursive;
   inherit (lib.strings) hasSuffix fileContents;
   inherit (lib.attrsets) genAttrs;
 
   nvf = inputs.neovim-flake;
   inherit (nvf.lib.nvim.dag) entryBefore entryAnywhere;
+
+  mkRuntimeDir = name: let
+    finalPath = ./runtime + /${name};
+  in
+    path {
+      name = "nvim-runtime-${name}";
+      path =
+        if isPath finalPath
+        then toString finalPath
+        else throw "${finalPath} is not a path";
+    };
 in {
   config = {
     programs.neovim-flake = {
@@ -48,14 +59,9 @@ in {
             logFile = "/tmp/nvim.log";
           };
 
-          additionalRuntimePaths = let
-            runtimeDir = builtins.path {
-              path = ./runtime;
-              name = "nvim-additional-runtime";
-            };
-          in [
-            "${runtimeDir}/after"
-            "${runtimeDir}/spell"
+          additionalRuntimePaths = [
+            (mkRuntimeDir "after")
+            (mkRuntimeDir "spell")
           ];
 
           # while I should be doing this in luaConfigRC below
