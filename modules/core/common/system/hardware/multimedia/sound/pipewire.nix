@@ -37,7 +37,7 @@ in {
       pipewire = let
         quantum = 64;
         rate = 48000;
-        qr = "${toString quantum}/${toString rate}";
+        qr = "${toString quantum}/${toString rate}"; # 64/48000
       in {
         enable = true;
 
@@ -139,7 +139,17 @@ in {
               main."92-low-latency" = {
                 "monitor.alsa.rules" = [
                   {
-                    matches = [{"device.name" = "~alsa_card.*";}];
+                    matches = [
+                      {"device.name" = "~alsa_card.*";}
+                      {
+                        # Matches all sources.
+                        node.name = "~alsa_input.*";
+                      }
+                      {
+                        # Matches all sinks.
+                        node.name = "~alsa_output.*";
+                      }
+                    ];
                     actions = {
                       update-props = {
                         "audio.rate" = rate;
