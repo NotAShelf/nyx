@@ -10,6 +10,12 @@ local options = {
   report = 9001, -- disable "x more/fewer lines" messages
   diffopt = opt.diffopt:append('vertical'), -- diff mode: vertical splits
   backspace = { 'indent', 'eol', 'start' }, -- backspace through everything in insert mode
+  hidden = true, -- Enable background buffers
+  history = 100, -- Remember N lines in history
+  lazyredraw = false, -- Faster scrolling if enabled, breaks noice
+  synmaxcol = 240, -- Max column for syntax highlight
+  updatetime = 250, -- ms to wait for trigger an event
+
   -- If 0, move cursor line will not scroll window.
   -- If 999, cursor line will always be in middle of window.
   scrolloff = 0,
