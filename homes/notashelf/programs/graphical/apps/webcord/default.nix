@@ -35,13 +35,13 @@ in {
       enable = true;
       package = pkgs.arrpc.overrideAttrs (_: {
         pname = "arrpc";
-        version = "3.3.1";
+        version = "3.4.0";
 
         src = pkgs.fetchFromGitHub {
           owner = "OpenAsar";
           repo = "arrpc";
-          rev = "b4796fffe3bf1b1361cc4781024349f7a4f9400e";
-          hash = "sha256-iEfV85tRl2KyjodoaSxVHiqweBpLeiCAYWc8+afl/sA=";
+          rev = "59553e276716cde3c0afa8bff56aa8af3ab774cc";
+          hash = "sha256-kjpsPWjgoSNs569DfN8T3/lPB8MzUck7QqD/wfNL8To=";
         };
       });
     };
