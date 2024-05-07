@@ -199,6 +199,18 @@ write_404_page() {
 EOF
 }
 
+write_robots_txt() {
+  # write robots.txt
+  cat >"$1/robots.txt" <<-EOF
+  User-agent: GPTBot
+  Disallow: /
+
+  User-agent: *
+  Disallow:
+  Allow: /
+EOF
+}
+
 cleanup() {
   echo "Cleaning up..."
   rm -rf "$tmpdir"
@@ -218,6 +230,7 @@ compile_stylesheet "$workingdir" "templates/scss/main.scss"
 write_about_page "$tmpdir"
 write_privacy_policy "$tmpdir"
 write_404_page "$tmpdir"
+write_robots_txt "$outdir"
 
 # Generate HTML pages from available markdown templates
 generate_index_page "$workingdir" "$outdir"
