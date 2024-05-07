@@ -35,7 +35,7 @@
       ];
 
       flake = {
-        # entry-point for nixos configurations
+        # entry-point for NixOS configurations
         nixosConfigurations = import ./hosts {inherit inputs withSystem;};
       };
     });
@@ -244,7 +244,7 @@
     # overriding the nixpkgs input - as the resulting hash would
     # mismatch if packages are builst against different versions
     # of the same depended packagaes
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprpaper.url = "github:hyprwm/hyprpaper";
