@@ -17,6 +17,9 @@ jobs:
   health-check:
     runs-on: ubuntu-latest
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
       - name: "Set up QEMU support"
         run: |
           export DEBIAN_FRONTEND=noninteractive
