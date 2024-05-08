@@ -8,14 +8,14 @@
   inherit (lib.modules) mkForce;
   inherit (lib.meta) getExe;
 in {
-  xdg.desktopEntries."nvf" = mkForce {
+  xdg.desktopEntries."nvim" = mkForce {
     name = "Neovim";
     type = "Application";
     mimeType = ["text/plain"];
 
     icon = fetchurl {
-      url = "https://github.com/NotAShelf/nvf/blob/f66a879dcea156fac682943551f5f574a787bb26/.github/assets/nvf-logo-work.svg";
-      sha256 = "sha256:0nn1vfca5azwdcmyzmwafqzk687gmvwl6mdgdx745r7y90315nq8";
+      url = "https://raw.githubusercontent.com/NotAShelf/nvf/main/.github/assets/nvf-logo-work.svg";
+      sha256 = "sha256:19n7n9xafyak35pkn4cww0s5db2cr97yz78w5ppbcp9jvxw6yyz3";
     };
 
     exec = let
