@@ -1,6 +1,7 @@
 {
   inputs',
   osConfig,
+  config,
   pkgs,
   lib,
   ...
@@ -11,7 +12,7 @@
   inherit (lib.strings) hasSuffix;
   inherit (osConfig) modules;
 
-  inherit (import ./packages {inherit inputs' pkgs;}) grimblast hyprshot dbus-hyprland-env hyprpicker wrapper;
+  inherit (import ./packages {inherit inputs' pkgs;}) grimblast hyprshot dbus-hyprland-env hyprpicker;
 
   env = modules.usrEnv;
 in {
@@ -20,7 +21,6 @@ in {
   );
   config = mkIf env.desktops.hyprland.enable {
     home.packages = [
-      inputs'.hyprland.packages.hyprland
       hyprshot
       grimblast
       hyprpicker
@@ -29,7 +29,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = wrapper;
+      package = inputs'.hyprland.packages.hyprland;
       xwayland.enable = true;
       systemd = {
         enable = true;
