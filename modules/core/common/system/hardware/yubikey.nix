@@ -1,7 +1,7 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: {
   config = lib.mkIf config.modules.system.yubikeySupport.enable {
@@ -27,7 +27,7 @@
       yubikey-personalization # cli
       yubikey-personalization-gui # gui
       yubico-piv-tool # cli
-      #yubioath-flutter # gui
+      yubioath-flutter # gui
     ];
   };
 }
