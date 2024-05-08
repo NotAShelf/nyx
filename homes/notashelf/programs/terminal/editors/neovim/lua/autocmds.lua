@@ -1,3 +1,4 @@
+-- luacheck: ignore
 -- alias for vim.api.nvim_create_autocmd
 local create_autocmd = vim.api.nvim_create_autocmd
 -- alias for vim.api.nvim_create_augroup
@@ -25,7 +26,10 @@ create_autocmd({ "FileType" }, {
 })
 
 -- Highlight yank after yanking
+local highlight_group = create_augroup("YankHighlight", { clear = true })
 create_autocmd({ "TextYankPost" }, {
+	pattern = { "*" },
+	group = highlight_group,
 	callback = function()
 		vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
 	end,
@@ -96,6 +100,7 @@ create_autocmd("FileType", {
 	pattern = {
 		"help",
 		"lspinfo",
+		"TelescopePrompt"
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
