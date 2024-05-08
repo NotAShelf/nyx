@@ -13,8 +13,8 @@
 in {
   imports = [
     ./transcend # module that merges trees outside central nixpkgs with our system's
-    ./builders.nix # import builders config
-    ./overlays.nix
+    ./builders.nix # configuration for remote builders
+    ./nixpkgs.nix # global nixpkgs configurationnix
   ];
 
   system = {
@@ -24,31 +24,25 @@ in {
 
   environment = {
     etc = with inputs; {
-      # set channels (backwards compatibility)
-      "nix/flake-channels/system".source = self;
+      # link flake inputs to /etc as flake-channel for added backwards compatibility
+      # some of them can be used with special lookup paths (i.e. <nixpkgs>) if you
+      # really need to. but it should be noted that special lookup paths are discouraged
+      # and the only reason they are kept here is for backwards compatibility only.
       "nix/flake-channels/nixpkgs".source = nixpkgs;
       "nix/flake-channels/home-manager".source = home-manager;
+      "nix/flake-channels/nyxpkgs".source = nyxpkgs;
 
-      # preserve current flake in /etc
+      # preserve the current flake path (aptly referred to as self) in /etc/nixos/flake
+      # to ensure the latest version of the configuration is available in a human-readable
+      # location in case of breakage where the bootloader is completely busted
+      # happens more often than I wish to admit
       "nixos/flake".source = self;
     };
 
-    # we need git for flakes, don't we
-    systemPackages = [pkgs.git];
-  };
-
-  nixpkgs = {
-    # https://github.com/NixOS/nixpkgs/commit/eb8ce7930d14dafcc7eff56c2f9efca6a3b2f622
-    # pkgs = self.legacyPackages.${config.nixpkgs.system};
-
-    config = {
-      allowUnfree = true; # really a pain in the ass to deal with when disabled
-      allowBroken = false;
-      allowUnsupportedSystem = true;
-
-      # default to none, add more as necessary
-      permittedInsecurePackages = [];
-    };
+    # git is generally included in systemPackages
+    # but in case this file has somehow been isolated, then make sure git is there
+    # to ensure that flakes work as intended
+    systemPackages = [pkgs.gitMinimal];
   };
 
   # faster rebuilding
@@ -56,15 +50,29 @@ in {
     doc.enable = false;
     info.enable = false;
 
-    # <https://mastodon.online/@nomeata/109915786344697931>
-    # I need this enabled for the anyrun-nixos-options plugin
-    # but otherwise, it should be disabled to avoid unnecessary rebuilds
-    nixos.enable = true;
+    nixos = {
+      # <https://mastodon.online/@nomeata/109915786344697931>
+      # I need this enabled for the anyrun-nixos-options plugin
+      # but otherwise, it should be disabled to avoid unnecessary rebuilds.
+      # Includes:
+      # - man pages like configuration.nix(5) if documentation.man.enable is set.
+      # - the HTML manual and the nixos-help command if documentation.doc.enable is set.
+      enable = true;
 
-    # manpages
+      options = {
+        warningsAreErrors = true;
+        splitBuild = true;
+      };
+    };
+
     man = {
-      enable = mkDefault true;
-      generateCaches = mkDefault true;
+      # whether to install manual pages
+      # this means packages that provide a `man` output will have said output
+      # included in the final closure
+      enable = true;
+      generateCaches = true;
+
+      mandoc.enable = false; # my default manpage viewer is Neovim, so this isn't necessary
     };
   };
 
@@ -94,11 +102,11 @@ in {
     daemonIOSchedPriority = 7;
 
     # set up garbage collection to run weekly,
-    # removing unused packages that are older than 7 days
+    # removing unused packages that are older than 30 days
     gc = {
       automatic = true;
-      dates = "Mon *-*-* 03:00";
-      options = "--delete-older-than 7d";
+      dates = "Sat *-*-* 03:00";
+      options = "--delete-older-than 30d";
     };
 
     # automatically optimize nix store my removing hard links
