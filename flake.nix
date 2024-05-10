@@ -41,6 +41,9 @@
     });
 
   inputs = {
+    # global, so they can be `.follow`ed
+    systems.url = "github:nix-systems/default-linux";
+
     # Feature-rich and convenient fork of the Nix package manager
     nix-super.url = "github:privatevoid-net/nix-super";
 
@@ -67,7 +70,10 @@
 
     # Ever wanted nix error messages to be even more cryptic?
     # Try flake-utils today! (Devs I beg you please stop)
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
 
     # Repo for hardware-specific NixOS modules
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -105,6 +111,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
       };
     };
 
@@ -215,7 +222,10 @@
     };
 
     # aylur's gtk shell (ags)
-    ags.url = "github:Aylur/ags";
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # spicetify for theming spotify
     spicetify = {
@@ -247,28 +257,37 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprpicker.url = "github:hyprwm/hyprpicker";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-    hyprland-contrib.url = "github:hyprwm/contrib";
+
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs = {
+        hyprlang.follows = "hyprland/hyprlang";
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+      };
+    };
+
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
+    };
 
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
-      inputs = {
-        hyprland.follows = "hyprland";
-      };
+      inputs.hyprland.follows = "hyprland";
     };
   };
 
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"
-      "https://nix-gaming.cachix.org"
       "https://hyprland.cachix.org"
       "https://cache.privatevoid.net"
       "https://nyx.cachix.org"
     ];
+
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "cache.privatevoid.net:SErQ8bvNWANeAvtsOESUwVYr2VJynfuc9JRwlzTTkVg="
       "notashelf.cachix.org-1:VTTBFNQWbfyLuRzgm2I7AWSDJdqAa11ytLXHBhrprZk="
