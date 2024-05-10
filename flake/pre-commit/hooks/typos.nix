@@ -16,6 +16,7 @@
         "Pn" = "Pn";
         "nitch" = "nitch";
         "fo" = "fo";
+        "muh" = "muh";
       };
     };
   in {
