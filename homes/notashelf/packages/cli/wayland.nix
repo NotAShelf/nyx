@@ -21,10 +21,8 @@ in {
       wf-recorder
       (pkgs.writeShellApplication {
         name = "ocr";
-        runtimeInputs = with pkgs; [tesseract grim slurp];
+        runtimeInputs = with pkgs; [tesseract grim slurp coreutils];
         text = ''
-          set -x
-
           echo "Generating a random ID..."
           id=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 6 | head -n 1 || true)
           echo "Image ID: $id"

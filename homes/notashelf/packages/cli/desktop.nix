@@ -16,14 +16,12 @@ in {
       # CLI
       libnotify
       imagemagick
-      gcc
-      cmake
       bitwarden-cli
       trash-cli
       slides
       brightnessctl
-      tesseract5
       pamixer
+      nix-tree
     ];
   };
 }
