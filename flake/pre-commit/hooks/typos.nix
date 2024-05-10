@@ -1,5 +1,10 @@
 {
-  perSystem = {pkgs, ...}: let
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: let
+    inherit (lib.lists) concatLists;
     inherit (import ../utils.nix {inherit pkgs;}) toTOML mkHook;
 
     typosConfig = toTOML "config.toml" {
@@ -10,15 +15,31 @@
         "noice" = "noice";
         "Pn" = "Pn";
         "nitch" = "nitch";
+        "fo" = "fo";
       };
     };
   in {
-    pre-commit.settings.hooks.typos = mkHook "typos" {
-      enable = true;
-      excludes = ["CHANGELOG.md" "source.json" "r'.+\.zsh$'" "r'.+\.age$'" "keys.nix"];
-      settings = {
-        configPath = typosConfig.outPath;
+    pre-commit.settings.hooks.typos = let
+      ignoredFiles = [
+        "CHANGELOG.md"
+        "source.json"
+        "keys.nix"
+        "autocmds.lua"
+      ];
+
+      ignoredPatterns = [
+        "r'.+\.zsh$'"
+        "r'.+\.age$'"
+      ];
+
+      excludedFiles = concatLists [ignoredFiles ignoredPatterns];
+    in
+      mkHook "typos" {
+        enable = true;
+        excludes = excludedFiles;
+        settings = {
+          configPath = typosConfig.outPath;
+        };
       };
-    };
   };
 }
