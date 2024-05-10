@@ -86,40 +86,81 @@ in {
         #  pw-metadata -n settings 0 clock.force-quantum 128 # override quantum
         #  pw-metadata -n settings 0 clock.force-quantum 0   # disable override
         extraConfig = {
-          pipewire."92-low-latency" = {
-            "context.properties" = {
-              "default.clock.rate" = rate;
-              "default.clock.quantum" = quantum;
-              "default.clock.min-quantum" = quantum;
-              "default.clock.max-quantum" = quantum;
-              "default.clock.allowed-rates" = [rate];
+          pipewire = {
+            "92-low-latency" = {
+              "context.properties" = {
+                "default.clock.rate" = rate;
+                "default.clock.quantum" = quantum;
+                "default.clock.min-quantum" = 32;
+                "default.clock.max-quantum" = 128;
+                "default.clock.allowed-rates" = [rate];
+              };
+
+              "context.modules" = [
+                {
+                  name = "libpipewire-module-rtkit";
+                  flags = ["ifexists" "nofail"];
+                  args = {
+                    "nice.level" = -15;
+                    "rt.prio" = 88;
+                    "rt.time.soft" = 200000;
+                    "rt.time.hard" = 200000;
+                  };
+                }
+                {
+                  name = "libpipewire-module-protocol-pulse";
+                  args = {
+                    "server.address" = ["unix:native"];
+                    "pulse.min.quantum" = qr;
+                    "pulse.min.req" = qr;
+                    "pulse.min.frag" = qr;
+                  };
+                }
+              ];
+
+              "stream.properties" = {
+                "node.latency" = qr;
+                "resample.quality" = 1;
+              };
             };
 
-            "context.modules" = [
-              {
-                name = "libpipewire-module-rtkit";
-                flags = ["ifexists" "nofail"];
-                args = {
-                  "nice.level" = -15;
-                  "rt.prio" = 88;
-                  "rt.time.soft" = 200000;
-                  "rt.time.hard" = 200000;
-                };
-              }
-              {
-                name = "libpipewire-module-protocol-pulse";
-                args = {
-                  "server.address" = ["unix:native"];
-                  "pulse.min.quantum" = qr;
-                  "pulse.min.req" = qr;
-                  "pulse.min.frag" = qr;
-                };
-              }
-            ];
-
-            "stream.properties" = {
-              "node.latency" = qr;
-              "resample.quality" = 1;
+            # Noise Cancelling Source for microphone:
+            # <https://github.com/werman/noise-suppression-for-voice>
+            "60-microphone-rnnoise" = {
+              "context.modules" = [
+                {
+                  name = "libpipewire-module-filter-chain";
+                  args = {
+                    "node.description" = "Microphone (noise suppressed)";
+                    "media.name" = "Microphone (noise suppressed)";
+                    "filter.graph" = {
+                      nodes = [
+                        {
+                          type = "ladspa";
+                          name = "rnnoise";
+                          plugin = "${pkgs.rnnoise-plugin}/lib/ladspa/librnnoise_ladspa.so";
+                          label = "noise_suppressor_mono";
+                          control = {
+                            "VAD Threshold (%)" = 85.0;
+                            "VAD Grace Period (ms)" = 500;
+                            "Retroactive VAD Grace (ms)" = 0;
+                          };
+                        }
+                      ];
+                    };
+                    "audio.rate" = 48000;
+                    "audio.position" = ["FL"];
+                    "capture.props" = {
+                      "node.passive" = true;
+                      "node.name" = "rnnoise_input";
+                    };
+                    "playback.props" = {
+                      "media.class" = "Audio/Source";
+                      "node.name" = "rnnoise_output";
+                    };
+                  };
+                }
+              ];
             };
           };
 
@@ -149,10 +190,14 @@ in {
           extraConfig = mkMerge [
             {
               # Tell wireplumber to be more verbose
-              "log-level-debug" = {
-                "context.properties" = {
-                  "log.level" = "D"; # output debug logs
-                };
+              "10-log-level-debug" = {
+                "context.properties"."log.level" = "D"; # output debug logs
+              };
+
+              # Default volume is by default set to 0.4
+              # instead set it to 1.0
+              "60-defaults" = {
+                "wireplumber.settings"."device.routes.default-sink-volume" = 1.0;
               };
 
               # Configure each device/card/output to use the low latency configuration
