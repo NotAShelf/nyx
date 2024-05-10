@@ -3,8 +3,8 @@
 Howdy! Welcome to my collection of notes.
 
 This is where I store my notes on topics and processes that I find particularly
-difficult, obscure or otherwise interesting. Mostly on Linux and NixOS,
-perhaps on programming in the future.
+difficult, obscure or otherwise interesting. Mostly on Linux and NixOS, perhaps
+on programming in the future.
 
 If those notes helped you in any way, that is great! That means my time writing
 those notes were well spent. If you were already a Nix/NixOS expert who somehow
@@ -17,8 +17,8 @@ am not an expert in Nix or NixOS. My notes are limited by my own knowledge.
 However, I would be happy to try and answer your questions nevertheless; and we
 can try figuring out the answer together, should we both happen to be stuck.
 
-If you spot a mistake, please let me know and I would be happy to learn from you.
-Thanks!
+If you spot a mistake, please let me know and I would be happy to learn from
+you. Thanks!
 
 | Date       | Category   | Description                                                                                        |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------- |

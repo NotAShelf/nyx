@@ -1,16 +1,16 @@
 # Notes for 7th of June, 2023
 
 Those are my notes on extending nixpkgs with your own functions and
-abstractions. There may be other ways of doing it, but this is the one I find
-to be most ergonomic.
+abstractions. There may be other ways of doing it, but this is the one I find to
+be most ergonomic.
 
 ## What is `nixpkgs.lib`
 
-In the context of the Nix package manager and NixOS, `nixpkgs.lib` refers to
-a module within the Nixpkgs repository. The `nixpkgs.lib` module provides a
-set of utility functions and definitions that are commonly used across the
-Nixpkgs repository. It contains various helper functions and abstractions that
-make it easier to write Nix expressions and define packages. We often use those
+In the context of the Nix package manager and NixOS, `nixpkgs.lib` refers to a
+module within the Nixpkgs repository. The `nixpkgs.lib` module provides a set of
+utility functions and definitions that are commonly used across the Nixpkgs
+repository. It contains various helper functions and abstractions that make it
+easier to write Nix expressions and define packages. We often use those
 functions to simplify our configurations and the nix package build processes.
 
 ## Why would you need to extend `nixpkgs.lib`
@@ -21,8 +21,8 @@ existing function to complete a task. Normally we can handle the process of a
 function inside a simple `let in` and be well off, but there may be times you
 need to re-use the existing function across your configuration file.
 
-In such times, you might want to either write your own lib and inherit it at
-the source of your `flake.nix` to then inherit them across your configuration.
+In such times, you might want to either write your own lib and inherit it at the
+source of your `flake.nix` to then inherit them across your configuration.
 
 Today's notes document the process of doing exactly that.
 
@@ -61,9 +61,9 @@ in {
 
 In this example (see my `flake.nix` for the actual implementation) I import my
 extended lib from `lib/default.nix`, where I defined the overlay. I then pass
-the extended lib to my `nixosConfiguratiıns`, which is an entry-point for all
-of my NixOS configurations. As such, I am able to re-use my own utility
-functions across my system as I see fit.
+the extended lib to my `nixosConfiguratiıns`, which is an entry-point for all of
+my NixOS configurations. As such, I am able to re-use my own utility functions
+across my system as I see fit.
 
 The problem with this approach is that it may be confusing for other people
 reviewing your configuration. With this approach, `lib.customFunction` looks
@@ -99,5 +99,5 @@ where your `lib/default.nix` looks like
 }
 ```
 
-You can find a real life example of the alternative approach in
-my [neovim-flake's lib](https://github.com/NotAShelf/neovim-flake/blob/main/lib/stdlib-extended.nix).
+You can find a real life example of the alternative approach in my
+[neovim-flake's lib](https://github.com/NotAShelf/neovim-flake/blob/main/lib/stdlib-extended.nix).

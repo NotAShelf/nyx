@@ -12,8 +12,9 @@ nix-store --gc --print-roots | grep -v "<hostName>" | column -t | sort -k3 -k1
 nix-store -q --requisites /run/current-system | cut -d- -f2- | sort | uniq
 ```
 
-You can add a `wc -l` at the end of the above command, but that will not be an accurate representation of
-your package count, as the same package can be repeated with different versions.
+You can add a `wc -l` at the end of the above command, but that will not be an
+accurate representation of your package count, as the same package can be
+repeated with different versions.
 
 ## Find biggest packages
 
