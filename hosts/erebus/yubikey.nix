@@ -50,6 +50,7 @@
     if [ -z "$viewer" ]; then
       viewer="${pkgs.glow}/bin/glow -p"
     fi
+
     exec $viewer "${guide}"
   '';
 
@@ -75,34 +76,11 @@ in {
       echo "Creating \$GNUPGHOME…"
       install --verbose -m=0700 --directory="$GNUPGHOME"
     fi
+
     [ ! -f "$GNUPGHOME/gpg.conf" ] && cp --verbose ${gpg-conf} "$GNUPGHOME/gpg.conf"
     [ ! -f "$GNUPGHOME/gpg-agent.conf" ] && cp --verbose ${gpg-agent-conf} "$GNUPGHOME/gpg-agent.conf"
     echo "\$GNUPGHOME is \"$GNUPGHOME\""
   '';
-
-  # Yubikey Tooling
-  environment.systemPackages = with pkgs; [
-    yubikey-personalization
-    cryptsetup
-    pwgen
-    midori
-    paperkey
-    gnupg
-    ctmg
-  ];
-
-  services = {
-    udev.packages = with pkgs; [yubikey-personalization];
-    pcscd.enable = true;
-  };
-
-  programs = {
-    ssh.startAgent = false;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-  };
 
   services.xserver.displayManager.sessionCommands = ''
     ${lib.getExe pkgs.zathura} ${guide} &

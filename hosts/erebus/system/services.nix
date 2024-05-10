@@ -1,19 +1,11 @@
 {pkgs, ...}: {
-  security.sudo.wheelNeedsPassword = false;
-
-  users.users.yubikey = {
-    isNormalUser = true;
-    extraGroups = ["wheel"];
-    shell = pkgs.zsh;
-  };
-
-  programs.dconf.enable = true;
-
   services = {
     gvfs.enable = true;
 
-    autorandr.enable = true;
+    udev.packages = with pkgs; [yubikey-personalization];
+    pcscd.enable = true;
 
+    autorandr.enable = true;
     xserver = {
       enable = true;
       layout = "tr";
@@ -34,11 +26,9 @@
 
         extraPackages = with pkgs; [
           st # suckless terminal that sucks, pretty minimal though
-          rofi # alternative to dmenu, usually better
-          dmenu # application launcher most people use
-          i3status # gives you the default i3 status bar
+          dmenu # application launcher
+          i3status # i3 status bar
           i3lock # default i3 screen locker
-          i3blocks # if you are planning on using i3blocks over i3status
         ];
       };
     };
