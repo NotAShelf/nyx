@@ -4,6 +4,8 @@
   ...
 }: let
   inherit (osConfig) modules;
+
+  gitPackage = pkgs.gitAndTools.gitFull;
   cfg = modules.system.programs.git;
 in {
   imports = [
@@ -21,7 +23,7 @@ in {
 
     programs.git = {
       enable = true;
-      package = pkgs.gitAndTools.gitFull;
+      package = gitPackage;
 
       # my credentials
       userName = "NotAShelf";
@@ -56,7 +58,7 @@ in {
         };
 
         # prefer using libsecret for storing and retrieving credentials
-        credential.helper = "${pkgs.gitAndTools.gitFull}/bin/git-credential-libsecret";
+        credential.helper = "${gitPackage}/bin/git-credential-libsecret";
 
         # delta is some kind of a syntax highlighting pager for git
         # it looks nice but I'd like to consider difftastic at some point
