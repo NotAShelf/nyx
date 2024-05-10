@@ -62,7 +62,11 @@
 			</nav>
 		</header>
 
-		<main>$body$ $for(include-after)$ $include-after$ $endfor$</main>
+		<main>
+			$body$ $for(include-after)$ $include-after$ $endfor$
+			<a id="countdown"></a>
+		</main>
+
 		<footer>
 			<div class="footer-divider"></div>
 			<p>&copy; 2024 NotAShelf</p>
@@ -73,6 +77,26 @@
 			</div>
 		</footer>
 		<script>
+			// Countdown timer
+			let countdown = 10;
+			const countdownElement = document.getElementById("countdown");
+			const countdownInterval = setInterval(updateCountdown, 1000);
+			updateCountdown();
+
+			function updateCountdown() {
+				countdown--;
+				if (countdown <= 0) {
+					clearInterval(countdownInterval);
+					window.location.href = "/";
+				} else {
+					countdownElement.textContent =
+						"Redirecting in " +
+						countdown +
+						" second" +
+						(countdown !== 1 ? "s." : ".");
+				}
+			}
+
 			// Dropdown post listing
 			function fetchPosts() {
 				fetch("/posts/posts.json")
