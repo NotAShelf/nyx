@@ -33,7 +33,10 @@ such, it is **not recommended to be used as a template** but you are welcome to
 browse the codebase to your liking, you may find bits that are interesting
 or/and useful to you.
 
-> [!WARNING] Almost all of the configurations contained within this repository,
+<!-- deno-fmt-ignore -->
+
+> [!WARNING]
+> Almost all of the configurations contained within this repository,
 > in some shape or form, contain age encrypted secrets - which, to you dear
 > reader, means that they **cannot** be built and replicated successfully, at
 > least in theory. I invite you to go through the modules and countless lines of
@@ -279,6 +282,7 @@ would be highly appreciated.
   <a href="#readme">Back to the Top</a>
 </div>
 
-[^1]: I speak of overengineering not as a flaw, but as a trait that can properly
-describe the time and effort that this repository has taken. After 700+ recorded
-hours and 4000+ commits, that is the only word that can describe this project.
+[^1]:
+    I speak of overengineering not as a flaw, but as a trait that can properly
+    describe the time and effort that this repository has taken. After 700+ recorded
+    hours and 4000+ commits, that is the only word that can describe this project.
