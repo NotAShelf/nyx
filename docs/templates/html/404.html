@@ -69,7 +69,7 @@
 
 		<footer>
 			<div class="footer-divider"></div>
-			<p>&copy; 2024 NotAShelf</p>
+			<p>&copy; <span id="copyright"></span> NotAShelf</p>
 			<div class="footer-icons">
 				<a href="https://github.com/notashelf">
 					<i class="lni lni-github-original" title="GitHub"></i>
@@ -77,6 +77,13 @@
 			</div>
 		</footer>
 		<script>
+			// Update the copyright tex
+			const currentYear = new Date().getFullYear();
+			const copyrightYear =
+				currentYear !== 2024 ? "2024 - " + currentYear : "2024";
+
+			document.getElementById("copyright").textContent = copyrightYear;
+
 			// Countdown timer
 			let countdown = 10;
 			const countdownElement = document.getElementById("countdown");

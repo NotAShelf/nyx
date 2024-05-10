@@ -31,7 +31,7 @@ compile_stylesheet() {
 }
 
 generate_posts_json() {
-  echo "Generating JSON..."
+  echo "Generating posts index..."
   json='{"posts":['
   first=true
   for file in "$1"/notes/*.md; do
@@ -193,16 +193,27 @@ EOF
 write_404_page() {
   # write 404.md as notes/404.md
   cat >"$1/404.md" <<-EOF
-  # 404 - Page Not Found
-
-  Sorry, the page you were looking for does not exist.
+  ## 404 | This is not the page you are looking for.
 EOF
 }
 
 write_robots_txt() {
   # write robots.txt
+  # tell bots to fuck off
   cat >"$1/robots.txt" <<-EOF
   User-agent: GPTBot
+  Disallow: /
+
+  User-agent: ChatGPT-User
+  Disallow: /
+
+  User-agent: PerplexityBot
+  Disallow: /
+
+  User-agent: CCBot
+  Disallow: /
+
+  User-agent: Google-Extended
   Disallow: /
 
   User-agent: *
