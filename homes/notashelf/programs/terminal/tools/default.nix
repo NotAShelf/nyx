@@ -19,9 +19,9 @@
     ./gh.nix
     ./gpg.nix
     ./man.nix
+    ./nix-direnv.nix
     ./nix-index.nix
     ./nix-init.nix
-    ./nix-shell.nix
     ./ranger.nix
     ./ripgrep.nix
     ./ssh.nix
