@@ -1,7 +1,6 @@
 local opt = vim.opt
 
 -- luacheck: ignore
-opt.list = true
 -- When true, all the windows are automatically made the same size after splitting or closing a window.
 -- When false, splitting a window will reduce the size of the current window and leave the other windows the same.
 opt.equalalways = false
@@ -14,16 +13,17 @@ opt.winminwidth = 1 -- Minimum width for inactive windows
 opt.winheight = 1 -- Minimum height for active window
 opt.winminheight = 1 -- Minimum height for inactive window
 opt.pumheight = 10 -- Maximum number of items to show in the popup menu
-opt.winminwidth = 1 --  min width of inactive window
+opt.winminwidth = 1 -- min width of inactive window
 -- opt.pumblend = 100  -- Popup blend, 100 means transparent
 
 opt.cursorline = true
 opt.whichwrap:append('<,>,h,l,[,]')
 
+opt.list = true
 -- haracters to fill the statuslines, vertical separators and special
 -- lines in the window.opt.whichwrap:append('<,>,h,l,[,]')
-vim.opt.fillchars:append({
-  -- replace window borderss with slightly thicker characters
+opt.fillchars:append({
+  -- replace window border with slightly thicker characters
   -- although taking a bit of more space, it helps me better
   -- identify the window borders
   horiz = '━',
@@ -37,12 +37,12 @@ vim.opt.fillchars:append({
   eob = ' ', -- suppress end of buffer lines (~)
   diff = '╱', -- deleted lines of the 'diff' option
 
+  msgsep = '‾',
+
   -- replace fold chars
   fold = ' ',
   foldopen = '',
   foldclose = '',
-
-  msgsep = '‾',
 })
 
 -- List chars that would b shown on all modes
@@ -60,6 +60,7 @@ local insert_listchars = {
   eol = nil,
   lead = '·',
   space = '·',
+  multispace = '… ',
   tab = '→ ',
   nbsp = '¤',
 }

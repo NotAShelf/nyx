@@ -11,6 +11,24 @@ create_autocmd('BufWritePre', {
   end,
 })
 
+-- Remove whitespaces on save
+-- this is normally handled by the formatter
+-- but this should help when the formatter
+-- is not working or has timed out
+-- create_autocmd('BufWritePre', {
+--   pattern = '',
+--   command = ':%s/\\s\\+$//e',
+-- })
+
+-- Don't auto-comment new lines automatically
+-- that happens when you press enter at the end
+-- of a comment line, and comments the next line
+-- That's annoying and we don't want it!
+create_autocmd('BufEnter', {
+  pattern = '',
+  command = 'set fo-=c fo-=r fo-=o',
+})
+
 -- Disable line wrapping & spell checking
 -- for the terminal buffer
 create_autocmd({ 'FileType' }, {
