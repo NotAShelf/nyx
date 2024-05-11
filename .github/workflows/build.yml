@@ -73,6 +73,20 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
 
+      - name: Calculate Checksums
+        run: |
+          calculate_checksum() {
+            sha256sum "$1" | awk '{print $1}'
+          }
+
+          iso_files=$(find . -maxdepth 1 -type f -name "*.iso")
+
+          # write checksums
+          for file in $iso_files; do
+            checksum=$(calculate_checksum "$file")
+            echo "$file $checksum" >> checksums.txt
+          done
+
       - name: Get current date
         id: get-date
         # output format: 2023-12-30-234559
@@ -82,9 +96,11 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          name: "${{ steps.get-date.outputs.date }}"
-          tag_name: "${{ steps.get-date.outputs.date }}"
-          files: "*.iso"
+          name: "iso-${{ steps.get-date.outputs.date }}"
+          tag_name: "iso-${{ steps.get-date.outputs.date }}"
+          files: |
+            *.iso
+            checksums.txt
           body: |
             # Weekly Iso Releases
 
