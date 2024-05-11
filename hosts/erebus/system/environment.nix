@@ -5,7 +5,6 @@
       yubikey-personalization
       cryptsetup
       pwgen
-      midori
       paperkey
       gnupg
       ctmg
