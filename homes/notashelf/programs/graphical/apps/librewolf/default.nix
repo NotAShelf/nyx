@@ -1,5 +1,6 @@
 {
   osConfig,
+  pkgs,
   lib,
   ...
 }: let
@@ -13,6 +14,7 @@ in {
   config = mkIf true {
     programs.librewolf = {
       enable = true;
+      package = pkgs.librewolf.override {cfg.speechSynthesisSupport = false;};
       settings = {
         "sidebar.position_start" = false;
         "findbar.highlightAll" = true;
