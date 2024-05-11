@@ -5,12 +5,12 @@
   ...
 }: let
   inherit (lib) isx86Linux;
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.lists) optionals;
+  inherit (lib.modules) mkIf;
 
   cfg = config.modules.system.sound;
   dev = config.modules.device;
 in {
+  imports = [./low-latency.nix];
   config = mkIf (cfg.enable && dev.hasSound) {
     # if the device advertises sound enabled, and pipewire is disabled
     # for whatever reason, we may fall back to PulseAudio to ensure

@@ -3,12 +3,13 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf mkDefault;
+  inherit (lib.modules) mkIf;
   cfg = config.modules.system.sound;
   dev = config.modules.device;
 in {
   imports = [
-    ./pipewire.nix
+    ./pipewire
+
     ./realtime.nix
   ];
 
