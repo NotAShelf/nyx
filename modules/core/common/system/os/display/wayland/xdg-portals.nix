@@ -1,18 +1,21 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
+  inherit (lib.modules) mkIf mkForce;
+
   sys = config.modules.system;
   env = config.modules.usrEnv;
-  inherit (lib) mkForce mkIf;
 in {
   config = mkIf sys.video.enable {
     xdg.portal = {
       enable = true;
 
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
 
       config = {
         common = let
@@ -23,15 +26,12 @@ in {
             then "wlr"
             else "gtk"; # FIXME: does this actually implement what we need?
         in {
-          default = [
-            "hyprland"
-            "gtk"
-          ];
+          default = ["gtk"];
 
           # for flameshot to work
           # https://github.com/flameshot-org/flameshot/issues/3363#issuecomment-1753771427
-          "org.freedesktop.impl.portal.Screencast" = "${portal}";
-          "org.freedesktop.impl.portal.Screenshot" = "${portal}";
+          "org.freedesktop.impl.portal.Screencast" = ["${portal}"];
+          "org.freedesktop.impl.portal.Screenshot" = ["${portal}"];
         };
       };
 
@@ -42,7 +42,7 @@ in {
         enable = mkForce (env.isWayland && env.desktop != "Hyprland");
         settings = {
           screencast = {
-            max_fps = 60;
+            max_fps = 30;
             chooser_type = "simple";
             chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
           };
