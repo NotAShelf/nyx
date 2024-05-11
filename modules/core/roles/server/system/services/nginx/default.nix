@@ -108,6 +108,12 @@ in {
         '';
 
         virtualHosts = {
+          "_" = {
+            default = true;
+            forceSSL = true;
+            locations."/".return = "404";
+          };
+
           "${domain}" = {
             default = true;
             serverAliases = ["www.${domain}"];
