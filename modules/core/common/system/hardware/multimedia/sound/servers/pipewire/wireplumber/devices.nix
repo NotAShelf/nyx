@@ -82,7 +82,7 @@ in {
         "70-device-VP249" = {
           "monitor.alsa.rules" = singleton {
             matches = singleton {
-              "node.name" = "alsa_output.pci-0000_0b_00.1.hdmi-stereo-extra3";
+              "node.name" = "alsa_output.pci-0000_0b_00.1.hdmi-stereo-extra3.2";
             };
 
             actions.update-props = {
@@ -97,22 +97,20 @@ in {
 
       (mkIf dev.hasBluetooth {
         "10-bluez" = {
-          "monitor.bluez.rules" = [
-            {
-              matches = singleton {"device.name" = "~bluez_card.*";};
-              actions = {
-                update-props = {
-                  "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
-                  "bluez5.enable-msbc" = true;
-                  "bluez5.enable-sbc-xq" = true;
-                  "bluez5.enable-hw-volume" = true;
+          "monitor.bluez.rules" = singleton {
+            matches = singleton {"device.name" = "~bluez_card.*";};
+            actions = {
+              update-props = {
+                "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
+                "bluez5.enable-msbc" = true;
+                "bluez5.enable-sbc-xq" = true;
+                "bluez5.enable-hw-volume" = true;
 
-                  # Set quality to high quality instead of the default of auto
-                  "bluez5.a2dp.ldac.quality" = "hq";
-                };
+                # Set quality to high quality instead of the default of auto
+                "bluez5.a2dp.ldac.quality" = "hq";
               };
-            }
-          ];
+            };
+          };
         };
       })
     ];
