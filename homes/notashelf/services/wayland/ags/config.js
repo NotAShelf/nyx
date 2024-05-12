@@ -1,6 +1,18 @@
 import { App, Notifications } from "./js/imports.js";
 const css = App.configDir + "/style.css";
 
+/**
+ * Custom logger function. Behaves like console.log, allowing multiple arguments.
+ * Added in order to avoid using `console.log` or `print`, which are both
+ * ignored by my LSP for some reason.
+ *
+ * @param {...any} args The arguments to be logged.
+ */
+function log(...args) {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}]`, ...args);
+}
+
 // Windows
 import { AppLauncher } from "./js/windows/launcher/index.js";
 import { Bar } from "./js/windows/bar/index.js";
@@ -31,6 +43,11 @@ function addWindows(windows) {
     windows.forEach((win) => App.addWindow(win));
 }
 
-addWindows([AppLauncher(), Bar(), Media(), Desktop(), Popups(), Notifs()]);
+try {
+    addWindows([AppLauncher(), Bar(), Media(), Desktop(), Popups(), Notifs()]);
+} catch (e) {
+    log(e);
+    App.quit();
+}
 
 export {};
