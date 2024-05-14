@@ -17,8 +17,7 @@ in {
     home.packages = with pkgs; [
       gist # manage github gists
       act # local github actions
-      zsh-forgit # zsh plugin to load forgit via `git forgit`
-      gitflow
+      delta # pager
     ];
 
     programs.git = {
@@ -64,15 +63,38 @@ in {
         # it looks nice but I'd like to consider difftastic at some point
         delta = {
           enable = true;
-          line-numbers = true;
           features = "decorations side-by-side navigate";
+          whitespace-error-style = "22 reverse";
+          side-by-side = true;
+          true-color = "always";
+
           options = {
+            dark = true;
             navigate = true;
             line-numbers = true;
             side-by-side = true;
-            dark = true;
+            syntax-theme = "base16-256";
+          };
+
+          # line numbers are nice
+          line-numbers = true;
+          line-numbers-left-format = "";
+          line-numbers-right-format = "│ ";
+
+          # theming
+          plus-style = "syntax \"#003800\"";
+          minus-style = "syntax \"#3f0001\"";
+
+          # configure decorations
+          decorations = {
+            commit-decoration-style = "cyan bold box ul";
+            file-style = "cyan bold ul";
+            file-decoration-style = "cyan bold ul";
+            hunk-header-decoration-style = "cyan box ul";
           };
         };
+
+        interactive.diffFilter = "delta --color-only --features=interactive";
 
         branch.autosetupmerge = "true";
         pull.ff = "only";
