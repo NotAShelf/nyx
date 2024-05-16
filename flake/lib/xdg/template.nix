@@ -34,6 +34,7 @@ in {
 
     # programming languages/package managers/tools
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
+    ANDROID_USER_HOME = "${XDG_DATA_HOME}/android";
     DOCKER_CONFIG = "${XDG_CONFIG_HOME}/docker";
     GRADLE_USER_HOME = "${XDG_DATA_HOME}/gradle";
     IPYTHONDIR = "${XDG_CONFIG_HOME}/ipython";
