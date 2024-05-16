@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib.meta) getExe getExe';
-  inherit (pkgs) eza bat ripgrep du-dust procs yt-dlp python3 netcat-gnu;
+  inherit (pkgs) eza bat ripgrep dust procs yt-dlp python3 netcat-gnu;
 
   dig = getExe' pkgs.dnsutils "dig";
 in {
@@ -30,7 +30,7 @@ in {
     # quality of life aliases
     cat = "${getExe bat} --style=plain";
     grep = "${getExe ripgrep}";
-    du = "${getExe du-dust}";
+    du = "${getExe dust}";
     ps = "${getExe procs}";
     mp = "mkdir -p";
     fcd = "cd $(find -type d | fzf)";
