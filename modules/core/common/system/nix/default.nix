@@ -9,18 +9,14 @@
   inherit (lib.trivial) pipe;
   inherit (lib.types) isType;
   inherit (lib.attrsets) mapAttrsToList optionalAttrs filterAttrs mapAttrs;
-  inherit (lib.modules) mkDefault;
 in {
   imports = [
     ./transcend # module that merges trees outside central nixpkgs with our system's
     ./builders.nix # configuration for remote builders
-    ./nixpkgs.nix # global nixpkgs configurationnix
+    ./documentation.nix # nixos documentation
+    ./nixpkgs.nix # global nixpkgs configuration.nix
+    ./system.nix # nixos system configuration
   ];
-
-  system = {
-    autoUpgrade.enable = false;
-    stateVersion = mkDefault "23.05";
-  };
 
   environment = {
     etc = with inputs; {
@@ -43,37 +39,6 @@ in {
     # but in case this file has somehow been isolated, then make sure git is there
     # to ensure that flakes work as intended
     systemPackages = [pkgs.gitMinimal];
-  };
-
-  # faster rebuilding
-  documentation = {
-    doc.enable = false;
-    info.enable = false;
-
-    nixos = {
-      # <https://mastodon.online/@nomeata/109915786344697931>
-      # I need this enabled for the anyrun-nixos-options plugin
-      # but otherwise, it should be disabled to avoid unnecessary rebuilds.
-      # Includes:
-      # - man pages like configuration.nix(5) if documentation.man.enable is set.
-      # - the HTML manual and the nixos-help command if documentation.doc.enable is set.
-      enable = true;
-
-      options = {
-        warningsAreErrors = true;
-        splitBuild = true;
-      };
-    };
-
-    man = {
-      # whether to install manual pages
-      # this means packages that provide a `man` output will have said output
-      # included in the final closure
-      enable = true;
-      generateCaches = true;
-
-      mandoc.enable = false; # my default manpage viewer is Neovim, so this isn't necessary
-    };
   };
 
   nix = let
