@@ -8,7 +8,7 @@
       # and more if they can be supported...
       #  - x86_64-linux: Desktops, laptops, servers
       #  - aarch64-linux: ARM-based devices, PoC server and builders
-      systems = ["x86_64-linux" "aarch64-linux"];
+      systems = import inputs.systems;
 
       # import parts of the flake, which allows me to build the final flake
       # from various parts constructed in a way that makes sense to me
