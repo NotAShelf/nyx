@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -51,7 +52,7 @@ in {
       fi
 
       source <(${lib.getExe pkgs.fzf} --zsh)
-      source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
+      source ${config.programs.git.package}/share/git/contrib/completion/git-prompt.sh
     '';
 
     initExtra = ''
