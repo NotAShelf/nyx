@@ -1,7 +1,10 @@
-{
+{config, ...}: {
   programs.bash = {
     enable = false;
     enableCompletion = true;
+    historyControl = ["erasedups" "ignoredups" "ignorespace"];
+    historyFile = "${config.xdg.dataHome}/bash_history";
+    historyIgnore = ["rm *" "pkill *" "kill *" "killall *"];
     bashrcExtra = ''
       set -o vi
       bind -m vi-command 'Control-l: clear-screen'
