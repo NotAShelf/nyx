@@ -30,3 +30,13 @@ end
 if not vim.g.vscode then
   opt.timeoutlen = 300 -- Time out on mappings
 end
+
+-- Don't auto-comment new lines automatically
+-- that happens when you press enter at the end
+-- of a comment line, and comments the next line
+-- That's annoying and we don't want it!
+-- don't continue comments automagically
+-- https://neovim.io/doc/user/options.html#'formatoptions'
+opt.formatoptions:remove('c')
+opt.formatoptions:remove('r')
+opt.formatoptions:remove('o')
