@@ -20,15 +20,6 @@ create_autocmd('BufWritePre', {
 --   command = ':%s/\\s\\+$//e',
 -- })
 
--- Don't auto-comment new lines automatically
--- that happens when you press enter at the end
--- of a comment line, and comments the next line
--- That's annoying and we don't want it!
-create_autocmd('BufEnter', {
-  pattern = '',
-  command = 'set fo-=c fo-=r fo-=o',
-})
-
 -- Disable line wrapping & spell checking
 -- for the terminal buffer
 create_autocmd({ 'FileType' }, {
