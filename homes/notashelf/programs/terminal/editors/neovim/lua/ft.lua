@@ -5,6 +5,7 @@ local file_syntax_map = {
   { pattern = '*.rasi', syntax = 'scss' },
   { pattern = 'flake.lock', syntax = 'json' },
   { pattern = '*.ignore', syntax = 'gitignore' }, -- also ignore for fd/ripgrep
+  { pattern = '*.ojs', syntax = 'javascript' },
 }
 
 for _, elem in ipairs(file_syntax_map) do
