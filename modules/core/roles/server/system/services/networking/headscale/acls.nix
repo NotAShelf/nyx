@@ -4,18 +4,17 @@
   ...
 }: let
   mkAcl = action: src: dst: {inherit action src dst;};
+  mkSshAcl = action: src: dst: users: {inherit action src dst users;};
 in {
   services.headscale.settings.acl_policy_path = pkgs.writeTextFile {
     name = "headscale-acl.hujson";
     text = builtins.toJSON {
       acls = [
-        (mkAcl "accept" ["tag:client"] ["*:*"]) # client <-> client
+        (mkAcl "accept" ["tag:client"] ["tag:client:*"]) # client <-> client
         (mkAcl "accept" ["tag:client"] ["tag:server:*"]) # client -> server
       ];
 
-      ssh = let
-        mkSshAcl = action: src: dst: users: {inherit action src dst users;};
-      in [
+      ssh = [
         (mkSshAcl "accept" ["tag:client"] ["tag:server" "tag:client"] ["notashelf"]) # client -> client; client -> server
       ];
 
