@@ -1,4 +1,5 @@
 -- luacheck: ignore
+vim.opt.spelllang:append('cjk') -- disable spellchecking for asian characters (VIM algorithm does not support it)
 
 vim.opt.shortmess = {
   t = true, -- truncate file messages at start
@@ -65,5 +66,3 @@ end
 vim.opt.runtimepath:remove('/etc/xdg/nvim')
 vim.opt.runtimepath:remove('/etc/xdg/nvim/after')
 vim.opt.runtimepath:remove('/usr/share/vim/vimfiles')
-
--- disable_distribution_plugins()
