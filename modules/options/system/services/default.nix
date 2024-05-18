@@ -1,5 +1,6 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkModule;
+  inherit (lib) mkModule;
+  inherit (lib.options) mkEnableOption;
 in {
   imports = [
     ./bincache.nix
