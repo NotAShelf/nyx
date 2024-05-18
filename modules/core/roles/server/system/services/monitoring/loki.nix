@@ -3,13 +3,12 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 
   sys = config.modules.system;
   cfg = config.services.loki;
 in {
   config = mkIf sys.services.monitoring.loki.enable {
-    # https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
     services.loki = {
       enable = true;
       dataDir = "/srv/storage/loki";
@@ -17,27 +16,24 @@ in {
 
       configuration = {
         auth_enabled = false;
-
         server = {
           http_listen_port = 3030;
           log_level = "warn";
         };
 
         ingester = {
-          lifecycler = {
-            address = "127.0.0.1";
-            ring = {
-              kvstore = {
-                store = "inmemory";
-              };
-              replication_factor = 1;
-            };
-          };
           chunk_idle_period = "1h";
           max_chunk_age = "1h";
           chunk_target_size = 999999;
           chunk_retain_period = "30s";
-          max_transfer_retries = 0;
+          lifecycler = {
+            address = "127.0.0.1";
+            final_sleep = "0s";
+            ring = {
+              kvstore.store = "inmemory";
+              replication_factor = 1;
+            };
+          };
         };
 
         schema_config.configs = [
@@ -51,6 +47,16 @@ in {
               period = "168h";
             };
           }
+          {
+            from = "2023-11-08";
+            store = "boltdb-shipper";
+            object_store = "s3";
+            schema = "v11";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
         ];
 
         storage_config = {
@@ -61,7 +67,6 @@ in {
             active_index_directory = "/srv/storage/loki/boltdb-shipper-active";
             cache_location = "/srv/storage/loki/boltdb-shipper-cache";
             cache_ttl = "24h";
-            shared_store = "filesystem";
           };
         };
 
@@ -70,26 +75,16 @@ in {
           reject_old_samples_max_age = "168h";
         };
 
-        chunk_store_config = {
-          max_look_back_period = "0s";
-        };
-
         table_manager = {
           retention_deletes_enabled = false;
           retention_period = "0s";
         };
 
         compactor = {
-          shared_store = "filesystem";
           working_directory = "${cfg.dataDir}/compactor-work";
-          compactor_ring = {
-            kvstore = {
-              store = "inmemory";
-            };
-          };
+          compactor_ring.kvstore.store = "inmemory";
         };
       };
-      # user, group, dataDir, extraFlags, (configFile)
     };
   };
 }
