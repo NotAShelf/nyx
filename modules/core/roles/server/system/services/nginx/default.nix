@@ -108,11 +108,13 @@ in {
         '';
 
         virtualHosts = {
+          /*
+          # FIXME: this conflicts with the cache server
           "_" = {
             default = true;
-            forceSSL = true;
             locations."/".return = "404";
           };
+          */
 
           "${domain}" = {
             default = true;
