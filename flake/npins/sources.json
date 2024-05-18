@@ -9,6 +9,7 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
+      "release_prefix": null,
       "version": "v1.2.3",
       "revision": "ba1239972a1f56b94252d4f85a43e777ac419662",
       "url": "https://api.github.com/repos/calops/hmts.nvim/tarball/v1.2.3",
@@ -17,8 +18,8 @@
     "nixpkgs": {
       "type": "Channel",
       "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre610798.a0c9e3aee100/nixexprs.tar.xz",
-      "hash": "0wkmhs08g8rf4xhdyh5mm4i0zgbn9r7n0zmlc2c4p583zm5ni2qh"
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre628305.02923630b89a/nixexprs.tar.xz",
+      "hash": "016465x9c950sv8p4c0vaf4l0k59aibmhv7v1yzz0li91k6bgcsp"
     },
     "slides.nvim": {
       "type": "GitRelease",
@@ -29,6 +30,7 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
+      "release_prefix": null,
       "version": "v0.1.0",
       "revision": "768fde54ac9de657887b605ee93f11993b26c9c2",
       "url": "https://api.github.com/repos/notashelf/slides.nvim/tarball/v0.1.0",
@@ -43,10 +45,11 @@
       },
       "pre_releases": false,
       "version_upper_bound": null,
-      "version": "v1.3.3",
-      "revision": "f6fcb79527872e9330c554915af2ca511c388390",
-      "url": "https://api.github.com/repos/mrjones2014/smart-splits.nvim/tarball/v1.3.3",
-      "hash": "0js9l8siaf4hkfpzlzqj89a40xiv2h8wll3jlh4xndpnji6k2vy3"
+      "release_prefix": null,
+      "version": "v1.4.0",
+      "revision": "2179ec0d26aacd4f40c766c79f6ebc83b7001e48",
+      "url": "https://api.github.com/repos/mrjones2014/smart-splits.nvim/tarball/v1.4.0",
+      "hash": "15cbxzbc7jn5yy5vqg2x8yg6ac9zrjmla0njcyfm1cz0i8r2wbpj"
     }
   },
   "version": 3
