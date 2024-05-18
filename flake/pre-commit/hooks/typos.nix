@@ -17,6 +17,8 @@
         "nitch" = "nitch";
         "fo" = "fo";
         "muh" = "muh";
+        "HDA" = "HDA";
+        "CROS" = "CROS";
       };
     };
   in {
