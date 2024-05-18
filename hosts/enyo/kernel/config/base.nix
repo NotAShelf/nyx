@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.kernel) yes no module;
+  inherit (lib.kernel) yes no module freeform;
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.modules) mkForce;
 in {
@@ -25,6 +25,15 @@ in {
         KERNEL_ZSTD = yes;
         MODULE_COMPRESS_ZSTD = yes;
         MODULE_COMPRESS_XZ = no;
+      };
+    }
+    {
+      name = "fq_codel-packet-scheduling";
+      patch = null;
+      extraStructuredConfig = {
+        NET_SCH_DEFAULT = yes;
+        DEFAULT_FQ_CODEL = yes;
+        DEFAULT_NET_SCH = freeform "fq_codel";
       };
     }
   ];

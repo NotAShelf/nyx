@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib.kernel) no;
+  inherit (lib.kernel) no unset;
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.modules) mkForce;
 in {
@@ -8,6 +8,26 @@ in {
       name = "disable-unused-features";
       patch = null;
       extraStructuredConfig = mapAttrs (_: mkForce) {
+        ATALK = no;
+        BATMAN_ADV = no;
+        CAIF = no;
+        COMEDI = no;
+        DVB_CORE = no;
+        FB_TFT = no;
+        FIREWIRE = no;
+        IIO = no;
+        INPUT_TOUCHSCREEN = no;
+        NFC = no;
+        SND_FIREWIRE = unset;
+        SURFACE_AGGREGATOR = no;
+        USB_GSPCA = no;
+        USB_SERIAL = no;
+        USB_SERIAL_CONSOLE = unset;
+        USB_SERIAL_GENERIC = unset;
+        WATCHDOG = no;
+        WATCHDOG_SYSFS = unset;
+        XEN = no;
+
         CRYPTO_842 = no;
         DEBUG_MISC = no;
         DEBUG_PREEMPT = no;
@@ -233,6 +253,66 @@ in {
         SND_SOC_XILINX_AUDIO_FORMATTER = no;
         SND_SOC_XILINX_SPDIF = no;
         SND_XEN_FRONTEND = no;
+
+        INFINIBAND = no;
+        INFINIBAND_IPOIB = unset;
+        INFINIBAND_IPOIB_CM = unset;
+        NET_DSA = no;
+        NET_VENDOR_CISCO = no;
+        NET_VENDOR_HUAWEI = no;
+        NET_VENDOR_MARVELL = no;
+        NET_VENDOR_MELLANOX = no;
+        NET_VENDOR_RENESAS = no;
+        NET_VENDOR_STMICRO = no;
+        RT2800USB_RT53XX = unset;
+        RT2800USB_RT55XX = unset;
+        WLAN_VENDOR_MARVELL = no;
+        WLAN_VENDOR_MEDIATEK = no;
+        WLAN_VENDOR_RALINK = no;
+        X25 = no;
+
+        AFFS_FS = no;
+        AFS_FS = no;
+        BEFS_FS = no;
+        CODA_FS = no;
+        JFS_FS = no;
+        OCFS2_FS = no;
+        OMFS_FS = no;
+        ORANGEFS_FS = no;
+        SYSV_FS = no;
+
+        CHROME_PLATFORMS = no;
+        CHROMEOS_LAPTOP = unset;
+        CHROMEOS_PSTORE = unset;
+        CHROMEOS_TBMC = unset;
+        CROS_EC = unset;
+        CROS_EC_I2C = unset;
+        CROS_EC_ISHTP = unset;
+        CROS_EC_LPC = unset;
+        CROS_EC_SPI = unset;
+        CROS_KBD_LED_BACKLIGHT = unset;
+
+        SND_SOC = no;
+        SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = unset;
+        SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES = unset;
+        SND_SOC_SOF_ACPI = unset;
+        SND_SOC_SOF_APOLLOLAKE = unset;
+        SND_SOC_SOF_CANNONLAKE = unset;
+        SND_SOC_SOF_COFFEELAKE = unset;
+        SND_SOC_SOF_COMETLAKE = unset;
+        SND_SOC_SOF_ELKHARTLAKE = unset;
+        SND_SOC_SOF_GEMINILAKE = unset;
+        SND_SOC_SOF_HDA_AUDIO_CODEC = unset;
+        SND_SOC_SOF_HDA_LINK = unset;
+        SND_SOC_SOF_ICELAKE = unset;
+        SND_SOC_SOF_INTEL_TOPLEVEL = unset;
+        SND_SOC_SOF_JASPERLAKE = unset;
+        SND_SOC_SOF_MERRIFIELD = unset;
+        SND_SOC_SOF_PCI = unset;
+        SND_SOC_SOF_TIGERLAKE = unset;
+        SND_SOC_SOF_TOPLEVEL = unset;
+
+        HUAWEI_WMI = no;
       };
     }
   ];
