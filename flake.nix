@@ -110,7 +110,6 @@
       url = "github:cachix/git-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
-        flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
       };
     };
