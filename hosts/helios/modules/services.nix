@@ -24,7 +24,7 @@
     monitoring = {
       grafana.enable = true;
       prometheus.enable = true;
-      loki.enable = true;
+      loki.enable = false;
       uptime-kuma.enable = true;
     };
 
