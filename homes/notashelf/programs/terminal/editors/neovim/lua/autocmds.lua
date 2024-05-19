@@ -118,3 +118,17 @@ create_autocmd('FileType', {
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
   end,
 })
+
+-- Mark internally when nvim is focused
+-- and when it is not
+create_autocmd('FocusGained', {
+  callback = function()
+    vim.g.nvim_focused = true
+  end,
+})
+
+create_autocmd('FocusLost', {
+  callback = function()
+    vim.g.nvim_focused = false
+  end,
+})
