@@ -8,13 +8,13 @@
 in {
   imports = [
     ./firewall
+    ./tailscale
 
     ./blocker.nix
     ./network-manager.nix
     ./optimize.nix
     ./resolved.nix
     ./ssh.nix
-    ./tailscale.nix
     ./tcpcrypt.nix
     ./wireless.nix
   ];

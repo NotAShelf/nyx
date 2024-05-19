@@ -3,8 +3,10 @@
   lib,
   ...
 }: let
+  inherit (builtins) concatStringsSep;
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) str listOf bool;
+  inherit (lib.lists) optionals concatLists;
+  inherit (lib.types) str listOf bool nullOr;
 
   sys = config.modules.system;
   cfg = sys.networking.tailscale;
@@ -36,6 +38,23 @@ in {
       '';
     };
 
+    authkey = mkOption {
+      type = nullOr str;
+      default = config.age.secrets.tailscale-client.path;
+      description = ''
+        The path to the Tailscale authentication key file.
+
+        This is used to authenticate the target host with the
+        Tailscale coordination server.
+
+        ::: {.warning}
+        It *is* possible to use a single key for multiple hosts
+        but for security and auditing purposes, I would advise
+        against doing so.
+        :::
+      '';
+    };
+
     flags = {
       default = mkOption {
         type = listOf str;
@@ -49,6 +68,25 @@ in {
           appended to the list defined in this option.
         '';
       };
+
+      final = mkOption {
+        type = listOf str;
+        internal = true;
+        readOnly = true;
+        default = concatLists [
+          cfg.flags.default
+          (optionals (cfg.authkey != null) ["--authkey file:${config.age.secrets.tailscale-client.path}"])
+          (optionals (cfg.endpoint != null) ["--login-server" "${cfg.endpoint}"])
+          (optionals (cfg.operator != null) ["--operator ${cfg.operator}"])
+          (optionals (cfg.tags != []) ["--advertise-tags" (concatStringsSep "," cfg.tags)])
+          (optionals cfg.isServer ["--advertise-exit-node"])
+        ];
+
+        description = ''
+          The constructed command-line argument string that will be
+          passed to Tailscaled or the tailscale-autologin service.
+        '';
+      };
     };
 
     tags = mkOption {
@@ -59,11 +97,16 @@ in {
         else if cfg.isServer
         then ["tag:server"]
         else [];
+
       defaultText = ''
         If host advertises itself as a client, the default value will be
-        ["tag:client"], and if it advertises itself as a server, the default
-        value will be ["tag:server"].
+        `["tag:client"]`, and if it advertises itself as a server, the default
+        value will be `["tag:server"]`.
+
+        If neither `isClient` nor `isServer` is set, the default value will be
+        an empty list.
       '';
+
       description = ''
         A list of tags that will be assigned to the target host using
         the "force advertise tags" feature of Tailscale. This will
