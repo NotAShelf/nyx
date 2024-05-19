@@ -200,7 +200,8 @@ awesome and I appreciate them)
 [n3oney](https://github.com/n3oney) -
 [gerg-l (bald frog)](https://github.com/gerg-l) -
 [eclairevoyant](https://github.com/eclairevoyant/) -
-[FrothyMarrow](https://github.com/frothymarrow)
+[FrothyMarrow](https://github.com/frothymarrow) -
+[Raidenovich](https://github.com/raidenovich)
 
 ### Other Cool Resources
 
