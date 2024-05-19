@@ -1,32 +1,20 @@
 {
   osConfig,
-  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (builtins) toJSON;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
   config = mkIf prg.element.enable {
-    home.packages = [pkgs.element-desktop];
+    home.packages = [prg.element.package];
 
     xdg.configFile = {
-      "Element/config.json".text = builtins.toJSON {
-        default_server_config = {
-          "m.homeserver" = {
-            base_url = "https://notashelf.dev";
-            server_name = "notashelf.dev";
-          };
-
-          "m.identity_server" = {base_url = "";};
-        };
-
-        show_labs_settings = true;
-        default_theme = "dark";
-      };
+      "Element/config.json".text = toJSON prg.element.settings;
     };
   };
 }

@@ -1,15 +1,16 @@
 {
-  lib,
-  pkgs,
   osConfig,
+  pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf optionals concatStringsSep;
+  inherit (builtins) concatStringsSep;
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optionals;
   inherit (osConfig) modules;
 
   env = modules.usrEnv;
-  sys = modules.system;
-  prg = sys.programs;
+  prg = env.programs;
 in {
   config = mkIf prg.chromium.enable {
     programs.chromium = {
@@ -18,7 +19,6 @@ in {
         {id = "mnjggcdmjocbbbhaepdhchncahnbgone";} # sponsor block
         {id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";} # ublock
         {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden
-        {id = "iaiomicjabeggjcfkbimgmglanimpnae";} # tab manager
       ];
 
       package = pkgs.ungoogled-chromium.override {
@@ -35,15 +35,7 @@ in {
             "--show-avatar-button=incognito-and-guest"
 
             # Experimental features
-            "--enable-features=${
-              concatStringsSep "," [
-                "BackForwardCache:enable_same_site/true"
-                "CopyLinkToText"
-                "OverlayScrollbar"
-                "TabHoverCardImages"
-                "VaapiVideoDecoder"
-              ]
-            }"
+            "--enable-features=${concatStringsSep "," prg.chromium.enabledFeatures}"
 
             # Aesthetics
             "--force-dark-mode"
@@ -73,14 +65,13 @@ in {
           ]
           ++ optionals env.isWayland [
             # Wayland
+            "--ozone-platform=wayland"
+            "--enable-features=UseOzonePlatform"
 
             # Disabled because hardware acceleration doesn't work
             # when disabling --use-gl=egl, it's not gonna show any emoji
             # and it's gonna be slow as hell
             # "--use-gl=egl"
-
-            "--ozone-platform=wayland"
-            "--enable-features=UseOzonePlatform"
           ];
       };
     };

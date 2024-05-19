@@ -1,22 +1,17 @@
 {
   osConfig,
-  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
   config = mkIf prg.libreoffice.enable {
-    home.packages = with pkgs; [
-      libreoffice-qt
-      hyphen # text hyphenation library
-      hunspell
-      hunspellDicts.en_US-large
-      hunspellDicts.en_GB-large
+    home.packages = [
+      prg.libreoffice.wrappedPackage
     ];
   };
 }

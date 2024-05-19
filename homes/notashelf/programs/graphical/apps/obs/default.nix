@@ -1,10 +1,9 @@
 {
-  lib,
-  pkgs,
   osConfig,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
   sys = modules.system;
@@ -13,14 +12,8 @@ in {
   config = mkIf prg.obs.enable {
     programs.obs-studio = {
       enable = true;
-      plugins = with pkgs.obs-studio-plugins;
-        [
-          obs-gstreamer
-          obs-pipewire-audio-capture
-          obs-vkcapture
-        ]
-        ++ optional env.isWayland
-        pkgs.obs-studio-plugins.wlrobs;
+      package = prg.obs.package;
+      plugins = prg.obs.plugins;
     };
   };
 }
