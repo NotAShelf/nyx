@@ -1,7 +1,7 @@
 local opt = vim.opt
 local options = {
   showmode = false, -- disable the -- STATUS -- line
-  showtabline = 0,
+  showtabline = 0, -- never show the tabline
   startofline = true, -- motions like "G" also move to the first char
   virtualedit = 'block', -- visual-block mode can select beyond end of line
   showmatch = true, -- when closing a bracket, briefly flash the matching one
