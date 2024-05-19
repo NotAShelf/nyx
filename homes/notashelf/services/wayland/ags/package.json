@@ -1,18 +1,15 @@
 {
 	"name": "nyx-ags",
-	"version": "1.5.5",
 	"author": "NotAShelf",
-	"description": "The ags configuretion segment of my NixOS configurations.",
-	"main": "config.js",
-	"scripts": {
-		"lint": "eslint . --fix",
-		"stylelint": "stylelint ./scss --fix",
-		"all": "nix-shell -p nodejs --run \"npm install\" && npm run lint && npm run stylelint && rm -rf node_modules"
-	},
+	"kofi": "https://ko-fi.com/aylur",
+	"description": "The AGS configuration segment of my NixOS configurations.",
 	"devDependencies": {
 		"stylelint-config-standard-scss": "^10.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.33.0",
 		"@typescript-eslint/parser": "^5.33.0",
-		"eslint": "^8.44.0"
+		"eslint": "^8.44.0",
+		"eslint-plugin-import": "^2.29.1",
+		"eslint-plugin-n": "^16.6.2",
+		"eslint-plugin-promise": "^6.1.1"
 	}
 }

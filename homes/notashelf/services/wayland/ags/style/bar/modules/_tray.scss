@@ -1,15 +1,67 @@
 .tray {
 	margin: 0;
+
+	menu {
+		@include barModule;
+
+		background: $surface;
+
+		separator {
+			background-color: $onSurface;
+		}
+	}
+
+	menuitem {
+		border-radius: 0;
+		background: $surfaceVariant;
+		margin: 4px 2px;
+	}
 }
 
 .trayChevron {
 	font-family: $iconFont;
+
+	menu {
+		@include barModule;
+
+		background: $surface;
+
+		separator {
+			background-color: $onSurface;
+		}
+	}
+
+	menuitem {
+		border-radius: 0;
+		background: $surfaceVariant;
+		margin: 4px 2px;
+	}
 }
 
 .trayIcons {
 	margin: 3px 0 0;
+
+	&:hover {
+		background: lighten($surface, 5%);
+	}
 }
 
 .trayIcon {
 	margin: 0 0 3px;
+
+	menu {
+		@include barModule;
+
+		background: $surface;
+
+		separator {
+			background-color: $onSurface;
+		}
+	}
+
+	menuitem {
+		border-radius: 0;
+		background: $surfaceVariant;
+		margin: 4px 2px;
+	}
 }
