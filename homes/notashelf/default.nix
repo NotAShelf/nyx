@@ -1,14 +1,5 @@
 {
-  self,
-  lib,
-  ...
-}: let
-  inherit (lib) mkDefault;
-in {
   imports = [
-    # imported home-manager modules
-    self.homeManagerModules.gtklock # a home-manager module for gtklock, gotta upstream it eventually
-
     # home package sets
     ./packages
 
@@ -19,7 +10,7 @@ in {
     # declarative system and program themes (qt/gtk)
     ./themes
 
-    # things that don't fint anywhere else
+    # things that don't fit anywhere else
     ./misc
   ];
 
@@ -29,24 +20,28 @@ in {
       homeDirectory = "/home/notashelf";
       extraOutputsToInstall = ["doc" "devdoc"];
 
-      # <https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion>
+      # This is, and should remain, the version on which you have initiated
+      # the home-manager configuration. Similar to the `stateVersion` in the
+      # NixOS module system, you should not be changing it.
       # I will personally strangle every moron who just puts nothing but "DONT CHANGE" next
       # to this value
-      # NOTE: this is and should remain the version on which you have initiated your config
-      stateVersion = mkDefault "23.05";
+      stateVersion = "23.05";
     };
 
     manual = {
-      # the docs suck, so we disable them to save space
+      # Try to save some space by not installing variants of the home-manager
+      # manual, which I don't use at all. Unlike what the name implies, this
+      # section is for home-manager related manpages only, and does not affect
+      # whether or not manpages of actual packages will be installed.
+      manpages.enable = false;
       html.enable = false;
       json.enable = false;
-      manpages.enable = true;
     };
 
     # let HM manage itself when in standalone mode
     programs.home-manager.enable = true;
 
     # reload system units when changing configs
-    systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again
+    systemd.user.startServices = "sd-switch"; # or "legacy" if "sd-switch" breaks again
   };
 }

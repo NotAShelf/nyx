@@ -13,7 +13,7 @@ in {
   config = mkIf env.programs.screenlock.swaylock.enable {
     programs.swaylock = {
       enable = true;
-      package = with pkgs; swaylock-effects;
+      package = pkgs.swaylock-effects;
       settings = {
         clock = true;
         color = "${colors.base00}";
