@@ -36,10 +36,10 @@
     specs-nvim = buildVimPlugin {
       name = "specs.nvim";
       src = fetchFromGitHub {
-        owner = "edluffy";
+        owner = "notashelf";
         repo = "specs.nvim";
-        rev = "2743e412bbe21c9d73954c403d01e8de7377890d";
-        hash = "sha256-mYTzltCEKO8C7BJ3WrB/iFa1Qq1rgJlcjW6NYHPfmPk=";
+        rev = "0792aaebf8cbac0c8545c43ad648b98deb83af42";
+        hash = "sha256-doHE/3bRuC8lyYxMk927JmwLfiy7aR22+i+BNefEGJ4=";
       };
     };
 
