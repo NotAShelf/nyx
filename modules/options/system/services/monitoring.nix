@@ -11,10 +11,11 @@
   # mkEnableOption is the same as mkEnableOption but with the default value being equal to cfg.monitoring.enable
   mkEnableOption' = desc: mkEnableOption "${desc}" // {default = cfg.monitoring.enable;};
 in {
+  # Monitoring tools.
   options.modules.system.services = {
-    # monitoring tools
-    # TODO: how do I mkModule those? they feature multiple host-specific parts
-    # that need to be adressed
+    # TODO: How do I mkService those? They feature multiple host-specific parts
+    # that need to be addressed, so seems difficult to move over easily. Perhaps move
+    # over the mkEnableOption' usage to the module option root?
     monitoring = {
       enable = mkEnableOption "system monitoring stack";
       prometheus.enable = mkEnableOption' "Prometheus monitoring service";

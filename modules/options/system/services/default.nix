@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkModule;
+  inherit (lib) mkService;
   inherit (lib.options) mkEnableOption;
 in {
   imports = [
@@ -15,63 +15,63 @@ in {
       mailserver.enable = mkEnableOption "nixos-mailserver service";
       mkm.enable = mkEnableOption "mkm-ticketing service";
 
-      nextcloud = mkModule {
+      nextcloud = mkService {
         name = "Nextcloud";
         type = "cloud storage";
       };
 
-      nginx = mkModule {
+      nginx = mkService {
         name = "Nginx";
         type = "webserver";
       };
 
-      vaultwarden = mkModule {
+      vaultwarden = mkService {
         name = "Vaultwarden";
         type = "password manager";
         port = 8222;
         host = "127.0.0.1";
       };
 
-      forgejo = mkModule {
+      forgejo = mkService {
         name = "Forgejo";
         type = "forge";
         port = 7000;
       };
 
-      quassel = mkModule {
+      quassel = mkService {
         name = "Quassel";
         type = "IRC";
         port = 4242;
       };
 
-      jellyfin = mkModule {
+      jellyfin = mkService {
         name = "Jellyfin";
         type = "media";
         port = 8096;
       };
 
-      searxng = mkModule {
+      searxng = mkService {
         name = "Searxng";
         type = "meta search engine";
         port = 8888;
       };
 
-      miniflux = mkModule {
+      miniflux = mkService {
         name = "Miniflux";
         type = "RSS reader";
       };
 
-      reposilite = mkModule {
+      reposilite = mkService {
         name = "Reposilite";
         port = 8084;
       };
 
-      elasticsearch = mkModule {
+      elasticsearch = mkService {
         name = "Elasticsearch";
         port = 9200;
       };
 
-      kanidm = mkModule {
+      kanidm = mkService {
         name = "Kanidm";
         port = 8443;
       };

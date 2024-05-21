@@ -1,17 +1,17 @@
 {lib, ...}: let
-  inherit (lib) mkModule;
+  inherit (lib) mkService;
 in {
   options.modules.system.services = {
     # binary cache backends
     bincache = {
-      harmonia = mkModule {
+      harmonia = mkService {
         name = "Harmonia";
         type = "binary cache";
         host = "[::]";
         port = 5000;
       };
 
-      atticd = mkModule {
+      atticd = mkService {
         name = "Atticd";
         type = "binary cache";
         port = 8100;

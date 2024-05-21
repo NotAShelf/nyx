@@ -1,12 +1,12 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkModule;
+  inherit (lib) mkEnableOption mkService;
   inherit (lib.types) str;
 in {
   options.modules.system.services = {
     # networking
     networking = {
       wireguard.enable = mkEnableOption "Wireguard service";
-      headscale = mkModule {
+      headscale = mkService {
         name = "Headscale";
         type = "networking";
         port = 8085;

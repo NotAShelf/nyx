@@ -1,14 +1,14 @@
 {lib, ...}: let
-  inherit (lib) mkModule;
+  inherit (lib) mkService;
 in {
   options.modules.system.services = {
     # self-hosted/decentralized social networks
     social = {
-      mastodon = mkModule {
+      mastodon = mkService {
         name = "Mastodon";
         type = "social";
       };
-      matrix = mkModule {
+      matrix = mkService {
         name = "Matrix";
         type = "social";
         port = 8008;

@@ -25,7 +25,7 @@ in {
 
     homeManagerModules = {
       # now available in home-manager
-      # xplr = mkModule /modules/extra/shared/home-manager/xplr;
+      # xplr = mkService /modules/extra/shared/home-manager/xplr;
 
       # a home-baked module for gtklock
       # allows definning extra modules and the stylesheet
