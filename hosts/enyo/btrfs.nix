@@ -1,7 +1,7 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
   inherit (lib.modules) mkIf;
