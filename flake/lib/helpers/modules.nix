@@ -1,5 +1,5 @@
 {lib}: let
-  inherit (lib) mkEnableOption mkOption;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) str int;
 
   # The `mkModule` function takes a few arguments to generate
