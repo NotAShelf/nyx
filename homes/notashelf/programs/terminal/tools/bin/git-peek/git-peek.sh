@@ -17,8 +17,8 @@ Options:
     -s, --shell           Open a new shell in the clone instead of \$EDITOR
 
 Examples:
-    git peek https://github.com/torvalds/linux
-    git peek -s -b nixpkgs-unstable https://github.com/NixOS/nixpkgs"
+    git-peek https://github.com/torvalds/linux
+    git-peek -s -b nixpkgs-unstable https://github.com/NixOS/nixpkgs"
 }
 
 _clean() {
@@ -69,9 +69,10 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-if [ -z "$1" ]; then
+# If no arguments are passed, print usage
+if [ $# -eq 0 ] || [ -z "$1" ]; then
   usage
-  exit 0
+  exit 1
 fi
 
 # Set default values
