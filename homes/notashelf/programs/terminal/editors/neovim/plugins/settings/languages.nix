@@ -21,7 +21,7 @@
       python.enable = true;
       bash.enable = true;
       typst.enable = true;
-      zig.enable = false;
+      zig.enable = true;
       dart.enable = false;
       elixir.enable = false;
       svelte.enable = false;
