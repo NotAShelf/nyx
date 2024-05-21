@@ -68,9 +68,12 @@ in {
   config = {
     warnings = optionals (config.modules.system.fs == []) [
       ''
-        You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
+        You have not added any filesystems to be supported by your system! Without
+        any filesystems enabled, you may end up with an unbootable system! You should
+        consider {option}`config.modules.system.fs` in your configuration with one or
+        two filesysteems used by your booted disks.
 
-        Consider setting {option}`config.modules.system.fs` in your configuration
+        If this is an installation media, you may discard this warning.
       ''
     ];
   };
