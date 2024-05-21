@@ -1,27 +1,33 @@
 {inputs, ...}: let
   inherit (inputs.nixpkgs) lib;
-  inherit (lib) foldl recursiveUpdate;
+  inherit (lib.lists) foldl;
+  inherit (lib.attrsets) recursiveUpdate attrValues;
   inherit (import ./common.nix {inherit lib;}) import';
 
-  # helpful utility functions used around the system
-  builders = import' ./builders.nix {inherit inputs;}; # system builders
-  services = import' ./services.nix; # systemd-service generators
-  validators = import' ./validators.nix; # validate system conditions
-  helpers = import' ./helpers; # helper functions
-  hardware = import' ./hardware.nix; # hardware capability checks
-  xdg = import' ./xdg; # xdg user directories & templates
-
-  # abstractions over networking functions
-  # dag library is a modified version of the one found in
+  # DAG library is a modified version of the one found in
   # rycee's NUR repository
-  dag = import' ./network/dag.nix; # dag is in network because it's designed for network only use
-  firewall = import' ./network/firewall.nix {inherit dag;}; # build nftables tables and chains
-  namespacing = import' ./network/namespacing.nix; # TODO
+  dag = import' ./network/dag.nix;
+  libModules = {
+    inherit dag;
 
-  # aliases for commonly used strings or functions
-  aliases = import' ./aliases.nix;
+    # Various helpful utility functions that are used multiple times
+    # around the configuration, thus being absorbed into this library.
+    builders = import' ./builders.nix {inherit inputs;}; # System builders, abstractions over nixosSystem
+    services = import' ./services.nix; # Functions for working with systemd services.
+    validators = import' ./validators.nix; # Various assertions for verifying system features.
+    helpers = import' ./helpers; # Helpful functions that are needed by other utilities.
+    hardware = import' ./hardware.nix; # Hardware capability checks, similar to validators.
+    xdg = import' ./xdg; # XDG user directories and templates.
 
-  importedLibs = [builders services validators helpers hardware aliases firewall namespacing dag xdg];
+    # Functions around building
+    firewall = import' ./network/firewall.nix {inherit dag;}; # Chain and table helpers for nftables
+    namespacing = import' ./network/namespacing.nix; # TODO
+
+    # aliases for commonly used strings or functions
+    aliases = import' ./aliases.nix;
+  };
+
+  importedLibs = attrValues libModules;
   extendedLib = lib.extend (_: _: foldl recursiveUpdate {} importedLibs);
 in {
   perSystem = {
