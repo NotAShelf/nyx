@@ -1,7 +1,7 @@
 {
   config.modules.system = {
     mainUser = "notashelf";
-    fs = ["ext4" "vfat" "ntfs" "exfat"];
+    fs.enabledFilesystems = ["ext4" "vfat" "ntfs" "exfat"];
     autoLogin = false;
 
     boot = {
