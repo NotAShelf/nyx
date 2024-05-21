@@ -19,11 +19,16 @@
     hardware = import' ./hardware.nix; # Hardware capability checks, similar to validators.
     xdg = import' ./xdg; # XDG user directories and templates.
 
-    # Functions around building
+    # Functions designed around working with the network stack. Firewall contains utilities
+    # to be used with `nftables` (e.g. table and chain builders) where namespacing is a
+    # work-in-progress library to work with systemd's socket namespaces.
     firewall = import' ./network/firewall.nix {inherit dag;}; # Chain and table helpers for nftables
     namespacing = import' ./network/namespacing.nix; # TODO
 
-    # aliases for commonly used strings or functions
+    # Aliases, or rather, templates containing commonly used strings or sets
+    # across multiple parts of the configuration. One example for this is the nginx
+    # SSL template, which is used practically for every service that faces
+    # the internet.
     aliases = import' ./aliases.nix;
   };
 
@@ -31,14 +36,15 @@
   extendedLib = lib.extend (_: _: foldl recursiveUpdate {} importedLibs);
 in {
   perSystem = {
-    # set the `lib` arg of the flake as the extended lib. If I am right, this should
-    # override the previous argument (i.e. the original nixpkgs.lib) with my own
-    # which is the nixpkgs library, but with my own custom actions.
+    # Set the `lib` arg of the flake as the extended lib. If I am right, this should
+    # override the previous argument (i.e. the original nixpkgs.lib, provided by flake-parts
+    # as a reasonable default) with my own, which is the same nixpkgs library, but actually extended
+    # with my own custom functions.
     imports = [{_module.args.lib = extendedLib;}];
   };
 
   flake = {
-    # also set `lib` as a flake output, which allows for it to be referenced outside
+    # Also set `lib` as a flake output, which allows for it to be referenced outside
     # the scope of this flake. This is useful for when I want to refer to my extended
     # library from outside this flake, or if someone wants to access my functions
     # but that rarely happens, Ctrl+C and Ctrl+V is the developer way it seems.
