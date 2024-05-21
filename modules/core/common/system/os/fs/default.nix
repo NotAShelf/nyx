@@ -7,7 +7,7 @@
   inherit (lib.modules) mkIf mkDefault;
 
   sys = config.modules.system;
-  inherit (sys.fs) btrfs enabledFilesystems;
+  inherit (sys) fs;
 in {
   config = {
     # Add enabled filesystems to the kernel module list
@@ -15,9 +15,9 @@ in {
     # The former is only required of you plan to use systemd support
     # in stage one.
     boot = {
-      supportedFilesystems = enabledFilesystems;
+      supportedFilesystems = fs.enabledFilesystems;
       initrd = {
-        supportedFilesystems = enabledFilesystems;
+        supportedFilesystems = fs.enabledFilesystems;
       };
     };
 
@@ -34,8 +34,8 @@ in {
       # btrfs-scrub systemd service for periodically scrubbing listed
       # filesystems, which defaults to `/`. The service will be enabled
       # by default if btrfs support is advertised by the host.
-      btrfs.autoScrub = mkIf (elem "btrfs" enabledFilesystems) {
-        inherit (btrfs.scrub) enable interval fileSystems;
+      btrfs.autoScrub = mkIf (elem "btrfs" fs.enabledFilesystems) {
+        inherit (fs.btrfs.scrub) enable interval fileSystems;
       };
 
       # I don't use lvm, can be disabled

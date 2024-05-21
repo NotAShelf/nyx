@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.lists) optionals;
   inherit (lib.types) listOf str enum;
 
   # Filesystems supported by my module system. To make sure no
@@ -11,9 +12,6 @@
   # of the `boot` and `boot.initrd` module options, we define them
   # inside an enum that will be checked.
   supportedFilesystems = ["vfat" "ext4" "btrfs" "exfat" "ntfs"];
-
-  sys = config.modules.system;
-  cfg = sys.fs;
 in {
   options.modules.system.fs = {
     enabledFilesystems = mkOption {
@@ -25,6 +23,9 @@ in {
         Adding a valid filesystem to this list will automatically add
         said filesystem to the `supportedFilesystems` attribute of the
         `boot` and `boot.initrd` module options.
+
+        It would be a good idea to keep vfat and ext4 so you can mount
+        common external storage.
 
         ::: {.note}
         The default value contains vfat, as it is a common filesystem
@@ -62,5 +63,15 @@ in {
         };
       };
     };
+  };
+
+  config = {
+    warnings = optionals (config.modules.system.fs == []) [
+      ''
+        You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
+
+        Consider setting {option}`config.modules.system.fs` in your configuration
+      ''
+    ];
   };
 }
