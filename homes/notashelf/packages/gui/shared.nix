@@ -21,12 +21,16 @@ in {
       # zoom-us # may we never return to online education
       netflix
       bitwarden
+
+      # Obsidian has a pandoc plugin that allows us to render and export
+      # alternative image format, but as the name indicates the plugin
+      # requires `pandoc` binary to be accessiblee. Join pandoc derivation
+      # to Obsidian to make it available to satisfy the dependency.
       (symlinkJoin {
-        # wrap obsidian with pandoc for the pandoc plugin dependency
         name = "Obsidian";
         paths = with pkgs; [
           obsidian
-          pandoc # pandoc plugin uses pandoc to render alternative text formats
+          pandoc
         ];
       })
 
@@ -38,8 +42,9 @@ in {
       plasma5Packages.kimageformats
       plasma5Packages.kdegraphics-thumbnailers
 
+      # Okular needs ghostscript to import PostScript files as PDFs
+      # so we add ghostscript_headless as a dependency
       (symlinkJoin {
-        # wrap obsidian with pandoc for the pandoc plugin dependency
         name = "Okular";
         paths = with pkgs; [
           plasma5Packages.okular
