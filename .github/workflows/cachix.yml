@@ -31,7 +31,7 @@ jobs:
           logger: pretty
 
       - name: Cachix setup
-        uses: cachix/cachix-action@v14
+        uses: cachix/cachix-action@v15
         with:
           authToken: ${{ secrets.CACHIX_TOKEN }}
           name: notashelf
