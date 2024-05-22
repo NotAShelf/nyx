@@ -8,4 +8,6 @@
     ./users.nix
     ./xdg.nix
   ];
+
+  system.nixos.tags = ["headless"];
 }

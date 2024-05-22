@@ -2,6 +2,8 @@
   imports = [
     ./nix
     ./os
-    ./securiy
+    ./security
   ];
+
+  system.nixos.tags = ["microvm"];
 }

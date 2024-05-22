@@ -11,4 +11,6 @@
     ./security.nix
     ./users.nix
   ];
+
+  system.nixos.tags = ["iso-image"];
 }

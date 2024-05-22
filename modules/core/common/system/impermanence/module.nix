@@ -1,7 +1,7 @@
 {
+  inputs,
   config,
   lib,
-  inputs,
   ...
 }: let
   inherit (lib) optionalString mkIf mkForce;

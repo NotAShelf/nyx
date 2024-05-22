@@ -1,4 +1,4 @@
-_: {
+{
   # this imports all container directories unconditionally, regardless of whether or not
   # they are included in containers.enabledContainers option definition
   # however, as a safeguard, we are required to check if a container is actually meant to be enabled

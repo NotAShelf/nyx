@@ -1,4 +1,5 @@
 {
+  /*
   imports = [
     ./containers # hotpluggable systemd-nspawn containers
     ./emulation # emulation via binfmt for cross-building
@@ -11,4 +12,5 @@
     ./security # anything from kernel hardening to audit daemeons
     ./virtualization # hypervisor and virtualisation related options - docker, QEMU, waydroid etc.
   ];
+  */
 }

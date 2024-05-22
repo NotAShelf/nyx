@@ -34,7 +34,7 @@ in {
       # handle LUKS decryption before LVM
       preLVM = true;
 
-      # the device with the maching id will be searched for the key file
+      # the device with the matching id will be searched for the key file
       keyFile = mkIf (cfg.keyFile != null) "${cfg.keyFile}";
 
       # the size of the key file in bytes

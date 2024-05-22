@@ -4,4 +4,6 @@
 
     ./touchpad.nix
   ];
+
+  system.nixos.tags = ["laptop"];
 }

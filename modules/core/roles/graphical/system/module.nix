@@ -1,6 +1,9 @@
 {
   imports = [
-    ./system
+    ./security
+    ./services
+
+    ./environment.nix
   ];
 
   system.nixos.tags = ["graphical"];

@@ -1,8 +1,8 @@
 {
-  config,
-  lib,
-  pkgs,
   self',
+  config,
+  pkgs,
+  lib,
   ...
 }: let
   inherit (pkgs) plymouth;
