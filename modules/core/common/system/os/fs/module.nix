@@ -21,7 +21,7 @@ in {
       };
     };
 
-    # If  lvm is enabled, then tell it to issue discard. This is
+    # If lvm is enabled, then tell it to issue discard. This is
     # good for SSDs and has almost no downsides on HDDs, so
     # it's a good idea to enable it unconditionally.
     environment.etc."lvm/lvm.conf".text = mkIf config.services.lvm.enable ''

@@ -7,7 +7,8 @@
   # mkNixosIso and mkNixosSystem are my own builders for assembling a nixos system
   # provided by my local extended library
   inherit (inputs.self) lib;
-  inherit (lib) concatLists mkNixosIso mkNixosSystem;
+  inherit (lib) mkNixosIso mkNixosSystem mkModuleTree';
+  inherit (lib.lists) concatLists flatten singleton;
 
   ## flake inputs ##
   hw = inputs.nixos-hardware.nixosModules; # hardware compat for pi4 and other quirky devices
@@ -44,12 +45,24 @@
 
   # a list of shared modules that ALL systems need
   shared = [
-    common # the "sane" default shared across systems
+    #common # the "sane" default shared across systems
     options # provide options for defined modules across the system
     sharedModules # consume my flake's own nixosModules
     agenix # age encryption for secrets
-    profiles # profiles program overrides per-host
+    #profiles # profiles program overrides per-host
   ];
+
+  mkModulesFor = {
+    hostname,
+    moduleTrees ? [],
+    extraModules ? [],
+  } @ args:
+    concatLists [
+      (singleton ./${args.hostname})
+      (flatten (map (path: mkModuleTree' {inherit path;}) args.moduleTrees))
+      shared
+      homes
+    ];
 in {
   # My main desktop boasting a RX 6700XT and a Ryzen 5 3600x
   # fully free from nvidia
@@ -58,13 +71,10 @@ in {
     inherit withSystem;
     hostname = "enyo";
     system = "x86_64-linux";
-    modules =
-      [
-        ./enyo
-        graphical
-        workstation
-      ]
-      ++ concatLists [shared homes];
+    modules = mkModulesFor {
+      hostname = "enyo";
+      moduleTrees = [common graphical workstation profiles];
+    };
     specialArgs = {inherit lib;};
   };
 
@@ -74,14 +84,10 @@ in {
     inherit withSystem;
     hostname = "prometheus";
     system = "x86_64-linux";
-    modules =
-      [
-        ./prometheus
-        graphical
-        workstation
-        laptop
-      ]
-      ++ concatLists [shared homes];
+    modules = mkModulesFor {
+      hostname = "prometheus";
+      moduleTrees = [common profiles graphical workstation laptop];
+    };
     specialArgs = {inherit lib;};
   };
 
@@ -92,14 +98,10 @@ in {
     inherit withSystem;
     hostname = "epimetheus";
     system = "x86_64-linux";
-    modules =
-      [
-        ./epimetheus
-        graphical
-        workstation
-        laptop
-      ]
-      ++ concatLists [shared homes];
+    modules = mkModulesFor {
+      hostname = "epimetheus";
+      moduleTrees = [common profiles graphical workstation laptop];
+    };
     specialArgs = {inherit lib;};
   };
 
@@ -112,14 +114,10 @@ in {
     inherit withSystem;
     hostname = "hermes";
     system = "x86_64-linux";
-    modules =
-      [
-        ./hermes
-        graphical
-        workstation
-        laptop
-      ]
-      ++ concatLists [shared homes];
+    modules = mkModulesFor {
+      hostname = "hermes";
+      moduleTrees = [common profiles graphical workstation laptop];
+    };
     specialArgs = {inherit lib;};
   };
 
@@ -129,13 +127,10 @@ in {
     inherit withSystem;
     hostname = "helios";
     system = "x86_64-linux";
-    modules =
-      [
-        ./helios
-        server
-        headless
-      ]
-      ++ concatLists [shared homes];
+    modules = mkModulesFor {
+      hostname = "helios";
+      moduleTrees = [common profiles server headless];
+    };
     specialArgs = {inherit lib;};
   };
 
@@ -146,15 +141,10 @@ in {
     inherit withSystem;
     hostname = "icarus";
     system = "x86_64-linux";
-    modules =
-      [
-        ./icarus
-        graphical
-        workstation
-        laptop
-        server
-      ]
-      ++ concatLists [shared homes];
+    modules = mkModulesFor {
+      hostname = "icarus";
+      moduleTrees = [common profiles graphical workstation laptop server];
+    };
     specialArgs = {inherit lib;};
   };
 
