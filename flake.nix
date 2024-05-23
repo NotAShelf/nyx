@@ -4,21 +4,23 @@
 
   outputs = {flake-parts, ...} @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, ...}: {
-      # systems for which the attributes of `perSystem` will be built
-      # and more if they can be supported...
+      # Systems for which the attributes of `perSystem` will be built
+      # add more if they can be supported...
       #  - x86_64-linux: Desktops, laptops, servers
       #  - aarch64-linux: ARM-based devices, PoC server and builders
+      #  - ...
       systems = import inputs.systems;
 
-      # import parts of the flake, which allows me to build the final flake
-      # from various parts constructed in a way that makes sense to me
-      # the most
+      # Imports for constructing a final flake to be built.
       imports = [
-        # parts and modules from inputs
+        # Imported
         inputs.flake-parts.flakeModules.easyOverlay
         inputs.treefmt-nix.flakeModule
 
-        # parts of the flake
+        # Explicitly import parts of the flake, which allows me to build the
+        # "final flake" from various parts, arranged in a way that makes
+        # sense to me the most. By convention, things that would usually
+        # go to flake.nix should have its own file in the `flake/` directory.
         ./flake/apps # apps provided by the flake
         ./flake/checks # checks that are performed on `nix flake check`
         ./flake/lib # extended library on top of `nixpkgs.lib`
@@ -35,7 +37,7 @@
       ];
 
       flake = {
-        # entry-point for NixOS configurations
+        # Entry-point for NixOS configurations.
         nixosConfigurations = import ./hosts {inherit inputs withSystem;};
       };
     });
@@ -47,13 +49,13 @@
     # Feature-rich and convenient fork of the Nix package manager
     nix-super.url = "github:privatevoid-net/nix-super";
 
-    # We build against nixos unstable, because stable takes way too long to get things into
+    # We build against NixOS unstable, because stable takes way too long to get things into
     # more versions with or without pinned branches can be added if deemed necessary
-    # stable? never heard of her
+    # stable? Never heard of her.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # moves faster, has less packages
 
-    # sometimes nixpkgs breaks something I need, pin a working commit when that occurs
+    # Sometimes nixpkgs breaks something I need, pin a working commit when that occurs
     # nixpkgs-pinned.url = "github:NixOS/nixpkgs/b610c60e23e0583cdc1997c54badfd32592d3d3e";
 
     # Powered by
@@ -104,7 +106,7 @@
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
-    # guess what this does
+    # I *dare you* to guess what this does
     # come on, try
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -114,7 +116,7 @@
       };
     };
 
-    # sandbox wrappers for programs
+    # Sandbox wrappers for programs
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs = {
@@ -185,16 +187,19 @@
       };
     };
 
-    # neovim nightly packages for nix
+    # Nightly builds of Neovim, built from the latest
+    # revision. Usually breaks most plugins, but worth
+    # keeping for when it actually works.
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
-    # Personal package overlay
+    # Personal package collection for packages that are
+    # not in nixpkgs.
     nyxpkgs.url = "github:NotAShelf/nyxpkgs";
 
-    # Personal neovim-flake
+    # An extensiblee  neovim configuration wrapper.
     neovim-flake = {
       url = "github:NotAShelf/nvf";
       inputs = {
@@ -205,7 +210,10 @@
       };
     };
 
-    # use my own wallpapers repository to provide various wallpapers as nix packages
+    # Use my own wallpapers repository to provide various
+    # wallpapers as nix packages. This has storage usage
+    # implications as those wallpapers will be kept in the
+    # store even though they are not used.
     wallpkgs = {
       url = "github:NotAShelf/wallpkgs";
       inputs.nixpkgs.follows = "nixpkgs-small";
@@ -220,19 +228,19 @@
       };
     };
 
-    # aylur's gtk shell (ags)
+    # Aylur's gtk shell (ags)
     ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # spicetify for theming spotify
+    # Spicetify for theming spotify
     spicetify = {
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
-    # schizophrenic firefox configuration
+    # Schizophrenic Firefox configuration
     schizofox = {
       url = "github:schizofox/schizofox";
       inputs = {
@@ -242,7 +250,7 @@
       };
     };
 
-    # mailserver on nixos
+    # Mailserver on nixos
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
       inputs.nixpkgs.follows = "nixpkgs-small";
@@ -251,8 +259,8 @@
     # Hyprland & Hyprland Contrib repos
     # to be able to use the binary cache, we should avoid
     # overriding the nixpkgs input - as the resulting hash would
-    # mismatch if packages are builst against different versions
-    # of the same depended packagaes
+    # mismatch if packages are built against different versions
+    # of the same depended packages.
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprpicker.url = "github:hyprwm/hyprpicker";
