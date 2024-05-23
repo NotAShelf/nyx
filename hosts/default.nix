@@ -59,22 +59,25 @@
   # set, since it generates a *module list*, which is also expected by system
   # builders.
   mkModulesFor = hostname: {
-    moduleTrees ? [],
+    moduleTrees ? [options common profiles],
+    roles ? [],
     extraModules ? [],
   } @ args:
-    concatLists [
-      # Derive host specific module path from the first argument of the
-      # function. Should be a string, obviously.
-      (singleton ./${hostname})
+    flatten (
+      concatLists [
+        # Derive host specific module path from the first argument of the
+        # function. Should be a string, obviously.
+        (singleton ./${hostname})
 
-      # Recursively import files that contain a `module.nix` file and flatten
-      # the end result to return a single directory of all module paths.
-      (flatten (map (path: mkModuleTree' {inherit path;}) args.moduleTrees))
+        # Recursively import files that contain a `module.nix` file and flatten
+        # the end result to return a single directory of all module paths.
+        (map (path: mkModuleTree' {inherit path;}) (concatLists [moduleTrees roles]))
 
-      # And append any additional lists that don't don't conform to the moduleTree
-      # API, but still need to be imported somewhat commonly.
-      (flatten args.extraModules)
-    ];
+        # And append any additional lists that don't don't conform to the moduleTree
+        # API, but still need to be imported somewhat commonly.
+        (flatten args.extraModules)
+      ]
+    );
 in {
   # My main desktop boasting a RX 6700XT and a Ryzen 5 3600x
   # fully free from nvidia
@@ -85,7 +88,7 @@ in {
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
     modules = mkModulesFor "enyo" {
-      moduleTrees = [options common graphical workstation profiles];
+      roles = [graphical workstation];
       extraModules = [shared homes];
     };
   };
@@ -98,7 +101,7 @@ in {
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
     modules = mkModulesFor "prometheus" {
-      moduleTrees = [options common profiles graphical workstation laptop];
+      roles = [graphical workstation laptop];
       extraModules = [shared homes];
     };
   };
@@ -112,7 +115,7 @@ in {
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
     modules = mkModulesFor "epimetheus" {
-      moduleTrees = [common profiles graphical workstation laptop];
+      roles = [graphical workstation laptop];
       extraModules = [shared homes];
     };
   };
@@ -128,7 +131,7 @@ in {
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
     modules = mkModulesFor "hermes" {
-      moduleTrees = [common profiles graphical workstation laptop];
+      roles = [graphical workstation laptop];
       extraModules = [shared homes];
     };
   };
@@ -141,7 +144,7 @@ in {
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
     modules = mkModulesFor "helios" {
-      moduleTrees = [common profiles server headless];
+      roles = [server headless];
       extraModules = [shared homes];
     };
   };
@@ -155,7 +158,7 @@ in {
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
     modules = mkModulesFor "icarus" {
-      moduleTrees = [common profiles graphical workstation laptop server];
+      roles = [graphical workstation laptop server];
       extraModules = [shared homes];
     };
   };
@@ -168,16 +171,11 @@ in {
     hostname = "atlas";
     system = "aarch64-linux";
     specialArgs = {inherit lib;};
-    modules =
-      [
-        ./atlas
-        server
-        headless
-
-        # get raspberry pi 4 modules from nixos-hardware
-        hw.raspberry-pi-4
-      ]
-      ++ shared;
+    modules = mkModulesFor "atlas" {
+      moduleTrees = [];
+      roles = [server headless];
+      extraModules = [shared hw.raspberry-pi-4];
+    };
   };
 
   # Self-made live recovery environment that overrides or/and configures certain default programs
@@ -186,11 +184,11 @@ in {
     hostname = "gaea";
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
-    modules = [
-      ./gaea
-      iso
-      headless
-    ];
+    modules = mkModulesFor "gaea" {
+      moduleTrees = [];
+      roles = [iso headless];
+      extraModules = [shared];
+    };
   };
 
   # An air-gapped NixOS live media to deal with
