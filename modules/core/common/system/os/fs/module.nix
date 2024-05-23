@@ -45,12 +45,13 @@ in {
       # generally good for SSDs. This service is enabled by default, but
       # I am yet to test the performance impact on a system with no SSDs.
       fstrim = {
-        # we may enable this unconditionally across all systems because it's performance
+        # We may enable this unconditionally across all systems because it's performance
         # impact is negligible on systems without a SSD - which means it's a no-op with
-        # almost no downsides aside from the service firing once per week
+        # almost no downsides aside from the service firing once per week.
         enable = true;
 
-        # the default value, good enough for average-load systems
+        # The timer interval passed to the systemd service. The default is monthly
+        # but we prefer trimming weekly as the system receives a lot of writes.
         interval = "weekly";
       };
     };
