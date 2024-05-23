@@ -12,7 +12,8 @@
 
 <div align="center">
   <br/>
-  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a> | <a href="#license">License</a>
+  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a> | <a href="#license">License</a><br/>
+  <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">Installation</a>
   <br/>
 </div>
 
@@ -33,7 +34,7 @@ such, it is **not recommended to be used as a template** but you are welcome to
 browse the codebase to your liking, you may find bits that are interesting
 or/and useful to you.
 
-<!-- deno-fmt-ignore -->
+<!-- deno-fmt-ignore-start -->
 
 > [!WARNING]
 > Almost all of the configurations contained within this repository,
@@ -42,6 +43,8 @@ or/and useful to you.
 > least in theory. I invite you to go through the modules and countless lines of
 > Nix I have written, but I would strongly advise against attempting to boot any
 > of those configurations unless you are not me.
+
+<!-- deno-fmt-ignore-end -->
 
 _Before you proceed, I would like to point you towards the [credits](#credits)
 section below where I pay tribute to the individuals who have contributed to
