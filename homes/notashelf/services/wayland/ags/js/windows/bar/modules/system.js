@@ -1,65 +1,34 @@
 import { Variable, Widget } from "../../../imports.js";
+import { getCpuClass, getMemClass } from "../../../utils/system.js";
 const { Button, Revealer, Box, Label, CircularProgress } = Widget;
-
-const getMemClass = (v) => {
-    const val = v * 100;
-    const className = [
-        [100, "memCritical"],
-        [75, "memHigh"],
-        [35, "memMod"],
-        [5, "memLow"],
-        [0, "memIdle"],
-        [-1, "memRevealer"],
-    ].find(([threshold]) => threshold <= val)[1];
-
-    return className;
-};
-
-const getCpuClass = (v) => {
-    const val = v * 100;
-
-    const className = [
-        [100, "cpuCritical"],
-        [75, "cpuHigh"],
-        [35, "cpuMod"],
-        [5, "cpuLow"],
-        [0, "cpuIdle"],
-        [-1, "cpuRevealer"],
-    ].find(([threshold]) => threshold <= val)[1];
-
-    return className;
-};
 
 const divide = ([total, free]) => free / total;
 
 const cpu = Variable(0, {
     poll: [
-        2000,
+        3000,
         "top -b -n 1",
-        (out) =>
-            divide([
-                100,
-                out
-                    .split("\n")
-                    .find((line) => line.includes("Cpu(s)"))
-                    .split(/\s+/)[1]
-                    .replace(",", "."),
-            ]),
+        (out) => {
+            const match = out.match(/Cpu\(s\):\s*([\d.]+)\s*us/);
+            if (match) {
+                return divide([100, match[1]]);
+            }
+            return 0;
+        },
     ],
 });
 
 const mem = Variable(0, {
     poll: [
-        2000,
+        3000,
         "free",
-        (out) =>
-            divide(
-                out
-                    .split("\n")
-                    .find((line) => line.includes("Mem:"))
-                    .split(/\s+/)
-                    .splice(1, 2),
-            ),
+        (out) => {
+            const match = out.match(/Mem:\s+(\d+)\s+(\d+)/);
+            if (match) {
+                return divide([match[1], match[2]]);
+            }
+            return 0;
+        },
     ],
 });
 
@@ -71,15 +40,14 @@ const mem = Variable(0, {
  */
 const systemWidget = (name, process, extraChildren = [], onPrimary) =>
     Button({
-        className: name + "Button",
+        className: `${name}Button`,
         onPrimaryClick: onPrimary,
         child: Box({
             className: name,
             vertical: true,
             children: [
                 CircularProgress({
-                    className: name + "Progress",
-                    // binds: [["value", process]],
+                    className: `${name}Progress`,
                     rounded: true,
                     inverted: false,
                     startAt: 0.27,
@@ -102,8 +70,8 @@ const CPU = systemWidget(
         }),
     ],
     (self) => {
-        self.child.children[1].revealChild =
-            !self.child.children[1].revealChild;
+        const revealer = self.child.children[1];
+        revealer.revealChild = !revealer.revealChild;
     },
 );
 
@@ -115,13 +83,13 @@ const MEM = systemWidget(
             transition: "slide_down",
             child: Label()
                 .bind("label", mem, "value", (v) => `${Math.floor(v * 100)}%`)
-                .bind("className", cpu, "value", getMemClass),
+                .bind("className", mem, "value", getMemClass),
             transition_duration: 250,
         }),
     ],
     (self) => {
-        self.child.children[1].revealChild =
-            !self.child.children[1].revealChild;
+        const revealer = self.child.children[1];
+        revealer.revealChild = !revealer.revealChild;
     },
 );
 
