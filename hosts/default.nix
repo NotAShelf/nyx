@@ -69,8 +69,8 @@
         # function. Should be a string, obviously.
         (singleton ./${hostname})
 
-        # Recursively import files that contain a `module.nix` file and flatten
-        # the end result to return a single directory of all module paths.
+        # Recursively import all module trees (i.e. directories with a `module.nix`)
+        # for given moduleTree directories, and in addition, roles.
         (map (path: mkModuleTree' {inherit path;}) (concatLists [moduleTrees roles]))
 
         # And append any additional lists that don't don't conform to the moduleTree
@@ -86,7 +86,6 @@ in {
     inherit withSystem;
     hostname = "enyo";
     system = "x86_64-linux";
-    specialArgs = {inherit lib;};
     modules = mkModulesFor "enyo" {
       roles = [graphical workstation];
       extraModules = [shared homes];
@@ -99,7 +98,6 @@ in {
     inherit withSystem;
     hostname = "prometheus";
     system = "x86_64-linux";
-    specialArgs = {inherit lib;};
     modules = mkModulesFor "prometheus" {
       roles = [graphical workstation laptop];
       extraModules = [shared homes];
@@ -113,7 +111,6 @@ in {
     inherit withSystem;
     hostname = "epimetheus";
     system = "x86_64-linux";
-    specialArgs = {inherit lib;};
     modules = mkModulesFor "epimetheus" {
       roles = [graphical workstation laptop];
       extraModules = [shared homes];
@@ -129,7 +126,6 @@ in {
     inherit withSystem;
     hostname = "hermes";
     system = "x86_64-linux";
-    specialArgs = {inherit lib;};
     modules = mkModulesFor "hermes" {
       roles = [graphical workstation laptop];
       extraModules = [shared homes];
@@ -142,7 +138,6 @@ in {
     inherit withSystem;
     hostname = "helios";
     system = "x86_64-linux";
-    specialArgs = {inherit lib;};
     modules = mkModulesFor "helios" {
       roles = [server headless];
       extraModules = [shared homes];
@@ -156,7 +151,6 @@ in {
     inherit withSystem;
     hostname = "icarus";
     system = "x86_64-linux";
-    specialArgs = {inherit lib;};
     modules = mkModulesFor "icarus" {
       roles = [graphical workstation laptop server];
       extraModules = [shared homes];
@@ -170,7 +164,6 @@ in {
     inherit withSystem;
     hostname = "atlas";
     system = "aarch64-linux";
-    specialArgs = {inherit lib;};
     modules = mkModulesFor "atlas" {
       moduleTrees = [];
       roles = [server headless];
@@ -202,7 +195,6 @@ in {
       ./erebus
       iso
     ];
-    specialArgs = {inherit lib;};
   };
 
   # Pretty beefy VM running on my dedicated server
@@ -211,7 +203,6 @@ in {
     inherit withSystem;
     hostname = "leto";
     system = "x86_64-linux";
-    specialArgs = {inherit lib;};
     modules =
       [
         ./leto
@@ -227,7 +218,6 @@ in {
     inherit withSystem;
     hostname = "artemis";
     system = "x86_64-linux";
-    specialArgs = {inherit lib;};
     modules =
       [
         ./artemis
@@ -243,7 +233,6 @@ in {
     inherit withSystem;
     hostname = "apollon";
     system = "aarch64-linux";
-    specialArgs = {inherit lib;};
     modules =
       [
         ./apollon
