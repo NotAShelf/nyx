@@ -1,41 +1,9 @@
 .tray {
 	margin: 0;
-
-	menu {
-		@include barModule;
-
-		background: $surface;
-
-		separator {
-			background-color: $onSurface;
-		}
-	}
-
-	menuitem {
-		border-radius: 0;
-		background: $surfaceVariant;
-		margin: 4px 2px;
-	}
 }
 
 .trayChevron {
 	font-family: $iconFont;
-
-	menu {
-		@include barModule;
-
-		background: $surface;
-
-		separator {
-			background-color: $onSurface;
-		}
-	}
-
-	menuitem {
-		border-radius: 0;
-		background: $surfaceVariant;
-		margin: 4px 2px;
-	}
 }
 
 .trayIcons {
@@ -48,15 +16,18 @@
 
 .trayIcon {
 	margin: 0 0 3px;
+}
 
-	menu {
-		@include barModule;
+.trayMenu {
+	@include barModule;
 
-		background: $surface;
+	background: $surface;
+	border-radius: 12px;
+	margin: 6px 4px;
+	padding: 4px;
 
-		separator {
-			background-color: $onSurface;
-		}
+	separator {
+		background-color: $onSurfaceVariant;
 	}
 
 	menuitem {
