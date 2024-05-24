@@ -126,7 +126,9 @@
       ];
     };
 in {
-  inherit mkSystem mkNixosSystem mkNixosIso;
+  inherit mkSystem mkNixosSystem mkNixosIso mkRaspi4Image;
 
+  # mkSDImage was previously used explicitly for building Raspi4 images, but it's good
+  # to have a distinction. I will make mkSDImage its own function in the future.
   mkSDImage = lib.warn "mkSDImage is deprecated, use mkRaspi4Image instead" mkRaspi4Image;
 }
