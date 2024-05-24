@@ -48,7 +48,7 @@
       # Helpers for working with the firewall, which is currently nftables. The
       # below library contains helpers for building nftables chains and tables
       # from nix attribute sets.
-      firewall = callLibs ./firewall.nix {inherit (self.customLib) dag;};
+      firewall = callLibs ./firewall.nix {inherit (self.extendedLib) dag;};
 
       # Functions for working with filesystems. In its current state, fs library
       # contains only a single function, which is mkBtrfs, a helper for creating
