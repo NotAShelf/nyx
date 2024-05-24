@@ -5,7 +5,8 @@ export const requireCustom = async (/** @type {string} */ path) =>
     (await import(path)).default;
 
 export const App = await require("app");
-export const GLib = await requireCustom("gi://GLib");
+export const GLib = await requireCustom("gi://GLib?version=2.0");
+export const Gio = await requireCustom("gi://Gio");
 export const Gtk = await requireCustom("gi://Gtk?version=3.0");
 export const Service = await require("service");
 export const Utils = await import(resource("utils"));

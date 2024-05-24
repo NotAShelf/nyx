@@ -1,3 +1,8 @@
+import {
+    getWeatherData,
+    getCachedWeatherData,
+    formatWeatherData,
+} from "../variables/weather.js";
 import { Variable, App } from "../imports.js";
 
 export const WeatherValue = Variable(
@@ -5,8 +10,13 @@ export const WeatherValue = Variable(
     {
         poll: [
             36000,
-            ["sh", "-c", `python ${App.configDir}/bin/weather`],
-            (out) => JSON.parse(out),
+            async () => {
+                let data = await getWeatherData();
+                if (!data) {
+                    data = getCachedWeatherData();
+                }
+                return formatWeatherData(data);
+            },
         ],
     },
 );
