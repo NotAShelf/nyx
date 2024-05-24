@@ -25,7 +25,7 @@
       func = import path;
       args = functionArgs func;
       requiredArgs = filterAttrs (_: val: !val) args;
-      defaultArgs = recursiveUpdate ((mapAttrs (_: _: null) requiredArgs) {lib = self;});
+      defaultArgs = recursiveUpdate (mapAttrs (_: _: null) requiredArgs) {lib = self;};
       functor = {__functor = _: attrs: func (recursiveUpdate defaultArgs attrs);};
     in
       (func defaultArgs) // functor;
