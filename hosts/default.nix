@@ -75,7 +75,7 @@
 
         # And append any additional lists that don't don't conform to the moduleTree
         # API, but still need to be imported somewhat commonly.
-        (flatten args.extraModules)
+        args.extraModules
       ]
     );
 in {
