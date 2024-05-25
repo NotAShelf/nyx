@@ -192,7 +192,11 @@
     # keeping for when it actually works.
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-small";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-small";
+        flake-parts.follows = "flake-parts";
+        pre-commit-hooks.follows = "git-hooks";
+      };
     };
 
     # Personal package collection for packages that are
