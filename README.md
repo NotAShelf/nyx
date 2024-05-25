@@ -6,7 +6,7 @@
 </h1>
 
 <div align="center">
-   My overengineered NixOS flake: Desktops, laptops, servers and everything
+   My over-engineered NixOS flake: Desktops, laptops, servers and everything
    else that can run an OS.<br/>
 </div>
 
@@ -42,7 +42,8 @@ or/and useful to you.
 > reader, means that they **cannot** be built and replicated successfully, at
 > least in theory. I invite you to go through the modules and countless lines of
 > Nix I have written, but I would strongly advise against attempting to boot any
-> of those configurations unless you are not me.
+> of those configurations unless you are not me. You should also note that
+> this is **not** a community framework.
 
 <!-- deno-fmt-ignore-end -->
 
@@ -85,8 +86,8 @@ simply moral support._
     [wallpkgs]. Everything theming is handled inside the flake.
   - **Tree-wide formatting** - Format files in any language with the help of
     devshells and treefmt-nix modules for flake-parts.
-- **Declarative nftables firewall** - Flexible and overengineered[^1] `nftables`
-  table/chain builder abstraction for easy firewall setups.
+- **Declarative nftables firewall** - Flexible and over-engineered[^1]
+  `nftables` table/chain builder abstraction for easy firewall setups.
 - **Personal Installation Media** - Personalized ISO images for system
   installation and recovery.
 - **Secrets Management** - Manage secrets through Agenix.
@@ -301,6 +302,6 @@ would be highly appreciated.
 </div>
 
 [^1]:
-    I speak of overengineering not as a flaw, but as a trait that can properly
+    I speak of "over-engineering" not as a flaw, but as a trait that can properly
     describe the time and effort that this repository has taken. After 700+ recorded
     hours and 4000+ commits, that is the only word that can describe this project.
