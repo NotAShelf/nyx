@@ -1,42 +1,44 @@
 {
-  config,
+  keys,
   pkgs,
-  lib,
   ...
-}: let
-  keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIABG2T60uEoq4qTZtAZfSBPtlqWs2b4V4O+EptQ6S/ru notashelf@prometheus"
-  ];
-in {
-  boot.initrd.network.ssh.authorizedKeys = keys;
+}: {
+  # Add my SSH keys to initrd for remote unlocking. Backdoor?!
+  boot.initrd.network.ssh.authorizedKeys = [keys.notashelf];
 
   users.users.notashelf = {
     isNormalUser = true;
+
+    # Home directory
+    createHome = true;
+    home = "/home/notashelf";
+
     shell = pkgs.zsh;
-    initialPassword = "changeme";
-    openssh.authorizedKeys.keys = keys;
-    extraGroups =
-      [
-        "wheel"
-        "systemd-journal"
-        "audio"
-        "video"
-        "input"
-        "plugdev"
-        "lp"
-        "tss"
-        "power"
-        "nix"
-      ]
-      ++ lib.ifTheyExist config [
-        "network"
-        "networkmanager"
-        "wireshark"
-        "mysql"
-        "docker"
-        "podman"
-        "git"
-        "libvirtd"
-      ];
+
+    # Should be generated manually. See option documentation
+    # for tips on generating it. For security purposes, it's
+    # a good idea to use a non-default hash.
+    initialHashedPassword = "$2b$05$NI5/uV4JXUt/wq8hEN.NX.5rKCvCtj8JZih/seVcPIXNFIpw61v.y";
+    openssh.authorizedKeys.keys = [keys.notashelf];
+    extraGroups = [
+      "wheel"
+      "systemd-journal"
+      "audio"
+      "video"
+      "input"
+      "plugdev"
+      "lp"
+      "tss"
+      "power"
+      "nix"
+      "network"
+      "networkmanager"
+      "wireshark"
+      "mysql"
+      "docker"
+      "podman"
+      "git"
+      "libvirtd"
+    ];
   };
 }
