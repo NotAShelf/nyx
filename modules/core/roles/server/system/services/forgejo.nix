@@ -138,6 +138,25 @@ in {
           quic = true;
         }
         // lib.sslTemplate;
+
+      fail2ban.jails.forgejo = {
+        settings = {
+          filter = "forgejo";
+          action = "nftables-multiport";
+          mode = "aggressive";
+          maxretry = 3;
+          findtime = 3600;
+          bantime = 900;
+        };
+      };
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/forgejo.conf".text = ''
+        [Definition]
+        failregex = ^.*(Failed authentication attempt|invalid credentials|Attempted access of unknown user).* from <HOST>$
+        journalmatch = _SYSTEMD_UNIT=forgejo.service
+      '';
     };
   };
 }

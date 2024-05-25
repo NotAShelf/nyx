@@ -59,6 +59,48 @@ in {
           quic = true;
         }
         // lib.sslTemplate;
+
+      fail2ban.jails = {
+        vaultwarden-web = {
+          filter = {
+            INCLUDES.before = "common.conf";
+            Definition = {
+              failregex = "^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$";
+              ignoreregex = "";
+            };
+          };
+
+          settings = {
+            backend = "systemd";
+            port = "80,443";
+            filter = "vaultwarden-web[journalmatch='_SYSTEMD_UNIT=vaultwarden.service']";
+            banaction = "%(banaction_allports)s";
+            maxretry = 3;
+            bantime = 14400;
+            findtime = 14400;
+          };
+        };
+
+        vaultwarden-admin = {
+          filter = {
+            INCLUDES.before = "common.conf";
+            Definition = {
+              failregex = "^.*Invalid admin token\. IP: <ADDR>.*$";
+              ignoreregex = "";
+            };
+          };
+
+          settings = {
+            backend = "systemd";
+            port = "80,443";
+            filter = "vaultwarden-admin[journalmatch='_SYSTEMD_UNIT=vaultwarden.service']";
+            banaction = "%(banaction_allports)s";
+            maxretry = 3;
+            bantime = 14400;
+            findtime = 14400;
+          };
+        };
+      };
     };
   };
 }

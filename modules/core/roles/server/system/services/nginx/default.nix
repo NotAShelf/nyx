@@ -171,6 +171,21 @@ in {
         rotate = "4"; # 4 files of 50mb each
         compress = true;
       };
+
+      fail2ban.jails = {
+        nginx-bad-request.settings = {enabled = true;};
+        nginx-http-auth.settings = {
+          enabled = true;
+          filter = "nginx-http-auth";
+          action = ''nftables-multiport[name=NGINXAUTH, port="443", protocol=tcp]'';
+        };
+
+        nginx-botsearch.settings = {
+          enabled = true;
+          filter = "nginx-botsearch";
+          action = ''nftables-multiport[name=NGINXBOT, port="443", protocol=tcp]'';
+        };
+      };
     };
   };
 }
