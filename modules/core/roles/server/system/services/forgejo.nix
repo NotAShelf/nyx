@@ -26,27 +26,40 @@ in {
       config.services.forgejo.settings.server.SSH_PORT
     ];
 
-    users = {
-      users.git = {
-        isSystemUser = true;
-        createHome = false;
-        group = "git";
-      };
-
-      groups.git = {};
-    };
-
     services = {
       forgejo = {
         enable = true;
-        package = pkgs.forgejo;
+        package = pkgs.forgejo.override {pamSupport = false;};
         stateDir = "/srv/storage/forgejo/data";
 
         mailerPasswordFile = config.age.secrets.mailserver-forgejo-secret.path;
         lfs.enable = true;
 
+        # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
         settings = {
           default.APP_NAME = "The Secret Shelf";
+          badges.ENABLED = true;
+
+          ui = {
+            DEFAULT_THEME = "forgejo-dark";
+            EXPLORE_PAGING_NUM = 5;
+            SHOW_USER_EMAIL = false; # hide user email in the explore page
+          };
+
+          attachment.ALLOWED_TYPES = "*/*";
+          service.DISABLE_REGISTRATION = true;
+          packages.ENABLED = false;
+          log.LEVEL = "Debug";
+
+          repository = {
+            DISABLE_STARS = true;
+            PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
+          };
+
+          "repository.upload" = {
+            FILE_MAX_SIZE = 100;
+            MAX_FILES = 10;
+          };
 
           actions = {
             ENABLED = true;
@@ -63,18 +76,25 @@ in {
             SAME_SITE = "strict";
           };
 
+          security = {
+            INSTALL_LOCK = true;
+            PASSWORD_CHECK_PWN = true;
+            PASSWORD_COMPLEXITY = "lower,upper,digit,spec";
+          };
+
           server = {
             PROTOCOL = "http+unix";
             HTTP_PORT = port;
             ROOT_URL = "https://${domain}";
             DOMAIN = "${domain}";
             DISABLE_ROUTER_LOG = true;
-            SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
             LANDING_PAGE = "/explore";
 
             START_SSH_SERVER = true;
             SSH_PORT = 2222;
             SSH_LISTEN_PORT = 2222;
+            SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
+            BUILTIN_SSH_SERVER_USER = "git";
           };
 
           database = {
@@ -96,17 +116,6 @@ in {
             PROTOCOL = "smtps";
             SMTP_ADDR = "mail.notashelf.dev";
             USER = "git@notashelf.dev";
-          };
-
-          ui.DEFAULT_THEME = "arc-green";
-          attachment.ALLOWED_TYPES = "*/*";
-          service.DISABLE_REGISTRATION = true;
-          packages.ENABLED = false;
-          repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
-          log.LEVEL = "Debug";
-          "repository.upload" = {
-            FILE_MAX_SIZE = 100;
-            MAX_FILES = 10;
           };
         };
 
