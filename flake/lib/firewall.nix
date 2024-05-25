@@ -1,6 +1,6 @@
 {
-  dag,
   lib,
+  dag,
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;

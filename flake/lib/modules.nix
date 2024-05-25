@@ -1,4 +1,4 @@
-{lib}: let
+{lib, ...}: let
   inherit (builtins) filter map toString elem;
   inherit (lib.filesystem) listFilesRecursive;
   inherit (lib.strings) hasSuffix;

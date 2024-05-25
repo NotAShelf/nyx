@@ -25,7 +25,10 @@
       func = import path;
       args = functionArgs func;
       requiredArgs = filterAttrs (_: val: !val) args;
-      defaultArgs = recursiveUpdate (mapAttrs (_: _: null) requiredArgs) {lib = self;};
+      defaultArgs = recursiveUpdate (mapAttrs (_: _: null) requiredArgs) {
+        inherit inputs;
+        lib = self;
+      };
       functor = {__functor = _: attrs: func (recursiveUpdate defaultArgs attrs);};
     in
       (func defaultArgs) // functor;
@@ -39,7 +42,7 @@
 
       # System builders and similar functions. Generally, those are abstractions around functions
       # found in nixpkgs, such as nixosSystem or evalModules, that simplify host creation.
-      builders = callLibs ./builders.nix {inherit inputs;};
+      builders = callLibs ./builders.nix;
 
       # DAG library is a modified version of the one found in
       # rycee's NUR repository
