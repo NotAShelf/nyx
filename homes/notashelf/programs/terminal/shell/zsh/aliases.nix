@@ -45,11 +45,13 @@ in {
     jc = "sudo journalctl";
     scu = "systemctl --user ";
     jcu = "journalctl --user";
+    errors = "journalctl -p err..alert";
     la = "${getExe eza} -lah --tree";
     tree = "${getExe eza} --tree --icons=always";
     http = "${getExe python3} -m http.server";
     burn = "pkill -9";
     diff = "diff --color=auto";
+    cpu = ''watch -n.1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'';
     killall = "pkill";
     switch-yubikey = "gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
 
