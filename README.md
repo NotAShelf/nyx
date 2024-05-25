@@ -36,7 +36,7 @@ or/and useful to you.
 
 <!-- deno-fmt-ignore-start -->
 
-> [!WARNING]
+> [!CAUTION]
 > Almost all of the configurations contained within this repository,
 > in some shape or form, contain age encrypted secrets - which, to you dear
 > reader, means that they **cannot** be built and replicated successfully, at
@@ -101,56 +101,64 @@ simply moral support._
 [flake schemas]: https://determinate.systems/posts/flake-schemas
 [Home-Manager]: https://github.com/nix-community/home-manager
 
-- [flake.nix](./flake.nix) Ground zero of my system configuration. Declaring
+- [flake.nix](flake.nix) Ground zero of my system configuration. Declaring
   entrypoints
-- [lib](./lib) Personal library of functions and utilities
-- [docs](./docs)The documentation for my flake repository
-  - [notes](./docs/notes) Notes from tedious or/and under-documented processes I
+- [docs](docs)The documentation for my flake repository
+  - [notes](docs/notes) Notes from tedious or/and under-documented processes I
     have gone through. More or less a blog
-  - [cheatsheet](./docs/notes/cheatsheet.md) Useful tips that are hard to
+  - [cheatsheet](docs/notes/cheatsheet.md) Useful tips that are hard to
     memorize, but easy to write down
-- [flake/](./flake) Individual parts of my flake, powered by flake-parts
-  - [modules](./flake/modules) modules provided by my flake for both internal
-    and public use
-  - [pkgs](./flake/pkgs) packages exported by my flake
-  - [schemes](./flake/schemes) home-baked flake schemas for upcoming
-    [flake schemas]
-  - [templates](./flake/templates) templates for initializing flakes. Provides
+- [flake/](flake) Individual parts of my flake, powered by flake-parts
+- [lib](lib) Personal library of functions and utilities
+  - [apps](flake/apps) Basic executables for maintenance jobs
+  - [checks](flake/checks) Additional checks to build on `nix flake check`
+  - [lib](flake/lib) Personal library of functions and utilities
+  - [modules](flake/modules) Modules provided by my flake for both internal and
+    public use
+  - [npins](flake/npins) Additional pinned dependencies, managed via `npins`
+  - [pkgs](flake/pkgs) Packages exported by my flake
+  - [pre-commit](flake/pre-commit) pre-commit hooks via `git-hooks.nix`
+  - [templates](flake/templates) Templates for initializing new flakes. Provides
     some language-specific flakes
-  - [args.nix](./flake/args.nix) initiate and configure nixpkgs locally
-  - [deployments.nix](./flake/deployments.nix) host setup for deploy-rs,
+  - [args.nix](flake/args.nix) Args that will be shared across, or exposed by
+    the flake
+  - [deployments.nix](flake/deployments.nix) Host setups for deploy-rs,
     currently a work in progress
-  - [treefmt.nix](./flake/treefmt.nix) various language-specific configurations
-    for treefmt
-- [homes](./homes) my personalized [Home-Manager] configuration module
-- [hosts](./hosts) per-host configurations that contain machine specific
+  - [fmt.nix](flake/fmt.nix) Various formatting options for `nix fmt` and
+    friends
+  - [iso-images.nix](flake/iso-images.nix) Configurations for my home-built iso
+    images, to be exposed in the flake schema
+  - [keys.nix](flake/keys.nix) My public keys to be shared across the flake
+  - [shell.nix](flake/shell.nix) Local devShell configurations
+- [homes](homes) My personalized [Home-Manager] configurations.
+- [hosts](hosts) Per-host configurations that contain machine specific
   instructions and setups
-- [modules](./modules) modularized NixOS configurations
-  - [core](./modules/common) The core module that all systems depend on
-    - [common](./modules/common) Module configurations shared between all hosts
+- [modules](modules) Modularized NixOS configurations
+  - [core](modules/common) The core module that all systems depend on
+    - [common](modules/common) Module configurations shared between all hosts
       (except installers)
-    - [profiles](./modules/profiles) Internal module system overrides based on
-      host declarations
-    - [roles](./modules/roles) A profile-like system that work through imports
-      and ship predefined configurations
-  - [extra](./modules/extra) Extra modules that are rarely imported
-    - [shared](./modules/extra/shared) Modules that are both shared for outside
+    - [profiles](modules/profiles) Pluggable internal module system, for
+      providing overrides based on host declarations (e.g. purpose)
+    - [roles](modules/roles) A profile-like system that work through imports and
+      ship predefined configurations
+  - [extra](modules/extra) Extra modules that are rarely imported
+    - [shared](modules/extra/shared) Modules that are both shared for outside
       consumption, and imported by the flake itself
-    - [exported](./modules/extra/exported) Modules that are strictly for outside
+    - [exported](modules/extra/exported) Modules that are strictly for outside
       consumption and are not imported by the flake itself
-  - [options](./modules/options) Definitions of module options used by common
+  - [options](modules/options) Definitions of module options used by common
     modules
-    - [meta](./modules/options/meta) Internal, read-only module that defines
-      host capabilities based on other options
-    - [device](./modules/options/device) Hardware capabilities of the host
-    - [documentation](./modules/options/docs) Local module system documentation
-    - [system](./modules/options/system) OS-wide configurations for generic
+    - [meta](modules/options/meta) Internal, read-only module that defines host
+      capabilities based on other options
+    - [device](modules/options/device) Hardware capabilities of the host
+    - [documentation](modules/options/docs) Local module system documentation
+    - [system](modules/options/system) OS-wide configurations for generic
       software and firmware on system level
-    - [theme](./modules/options/theme) Active theme configurations ranging from
-      QT theme to shell colors
-    - [usrEnv](./modules/options/usrEnv) userspace exclusive configurations.
-      E.g. lockscreen or package sets
-- [secrets](./secrets) Agenix secrets
+    - [theme](modules/options/theme) Active theme configurations ranging from QT
+      theme to shell colors
+    - [usrEnv](modules/options/usrEnv) userspace exclusive configurations. E.g.
+      lockscreen or package sets
+- [secrets](secrets) Agenix secrets
 
 ## Host Specifications
 
@@ -186,8 +194,7 @@ foothold in the Nix world.
 I ~~shamelessly stole from~~ got inspired by those folks
 
 [sioodmy](https://github.com/sioodmy) - [fufexan](https://github.com/fufexan) -
-[rxyhn](https://github.com/rxyhn) - [NobbZ](https://github.com/NobbZ) -
-[ViperML](https://github.com/viperML) -
+[NobbZ](https://github.com/NobbZ) - [ViperML](https://github.com/viperML) -
 [spikespaz](https://github.com/spikespaz) -
 [hlissner](https://github.com/hlissner) -
 [fortuneteller2k](https://github.com/fortuneteller2k) -
@@ -214,6 +221,7 @@ strongly recommend that you read in no particular order.
 #### Readings
 
 - [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
+  - [Noogle](https://noogle.dev)
 - [Zero to Nix](https://zero-to-nix.com/)
 - [Nix Pills](https://nixos.org/guides/nix-pills/)
 - [Xe Iaso's blog](https://xeiaso.net/blog)
@@ -250,23 +258,29 @@ are used in this repository that I would like to endorse.
   Nix projects.
 
 Additionally, take a look at my [notes/blog](./docs/notes) for my notes on
-Linux, and specifically challenging or tedious processes on Nix and NixOS.
+Linux, and specifically challenging or tedious processes on Nix and NixOS. It is
+also available [as a webpage](https://nyx.notashelf.dev)
 
 ## License
 
 Unless explicitly stated otherwise, all code under this repository (except for
-[anything in docs directory](docs)) is licensed under the [GPLv3](./LICENSE), or
+[anything in docs directory](docs)) is licensed under the [GPLv3](LICENSE), or
 should you prefer, under any later version of the GPL released by the FSF.
 
 The notes and documentation available in [docs directory](docs) is licensed
-under the [CC BY License](./docs/LICENSE).
+under the [CC BY License](docs/LICENSE).
 
-All code here (excluding secrets) are available for your convenience and _at my
-expense_ as I choose to keep my entire system configuration public. I believe it
-is in Nix and NixOS community spirit to learn from and share code with other
-NixOS users. As such if you are directly copying a section of my configuration,
-please include a copyright notice at the top of the file you import the code, or
-as a small comment above the section you have copied.
+<!-- deno-fmt-ignore-start -->
+
+> [!NOTE]
+> All code here (excluding secrets) are available for your convenience
+> and _at my expense_ as I choose to keep my entire system configuration public.
+> I believe it is in Nix and NixOS community spirit to learn from and share code
+> with other NixOS users. As such if you are directly copying a section of my
+> configuration, please include a copyright notice at the top of the file you
+> import the code, or as a small comment above the section you have copied.
+
+<!-- deno-fmt-ignore-end -->
 
 It is not in any shape or form enforced, but your kindness and due diligence
 would be highly appreciated.
