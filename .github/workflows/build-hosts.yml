@@ -1,4 +1,4 @@
-name: Publish ISO Images
+name: Build & Publish ISO Images
 
 on:
   workflow_dispatch:

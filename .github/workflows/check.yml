@@ -56,7 +56,7 @@ jobs:
       GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     with:
       command: |
-        systemd-run --user --scope -p MemoryLimit=16000M -p CPUQuota=60% \
+        systemd-run --user --scope -p MemoryLimit=2000M -p CPUQuota=80% \
           nix flake check \
             --accept-flake-config \
             --print-build-logs
