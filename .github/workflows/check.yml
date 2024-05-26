@@ -51,12 +51,11 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@main
 
   flake-checks:
+    needs: health-check
     uses: ./.github/workflows/prelude.yml
     secrets:
       GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     with:
       command: |
-        systemd-run --user --scope -p MemoryLimit=2000M -p CPUQuota=80% \
-          nix flake check \
-            --accept-flake-config \
-            --print-build-logs
+        systemd-run --user --scope -p MemoryLimit=4000M -p CPUQuota=80% \
+          nix run .#build-all-hosts --print-build-logs -Lv
