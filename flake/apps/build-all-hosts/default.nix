@@ -25,6 +25,6 @@
       configurations = data.get("nixosConfigurations", {}).keys()
 
       for configuration in configurations:
-          subprocess.run(["nixos-rebuild", "build", "--flake", f".#{configuration}"])
+          subprocess.run(["${pkgs.nixos-rebuild}/bin/nixos-rebuild", "build", "--flake", f".#{configuration}"])
     '';
 }
