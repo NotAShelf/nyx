@@ -214,15 +214,27 @@ awesome and I appreciate them)
 [FrothyMarrow](https://github.com/frothymarrow) -
 [Raidenovich](https://github.com/raidenovich)
 
-### Other Cool Resources
+### Honorable Mentions
+
+Just people that I find cool :)
+
+[nuko](https://github.com/nu-nu-ko) - [lychee](https://github.com/itslychee)
+
+## Other Cool Resources
 
 Resource that helped shape and improve this configuration, or resources that I
 strongly recommend that you read in no particular order.
 
-#### Readings
+### Interactive Pages
 
 - [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
-  - [Noogle](https://noogle.dev)
+- [Noogle](https://noogle.dev)
+- [NixOS package search](https://search.nixos.org/packages)
+- [NixOS option search](https://search.nixos.org/options?)
+- [Tour of Nix](https://nixcloud.io/tour/?id=introduction/nix)
+
+### Readings
+
 - [Zero to Nix](https://zero-to-nix.com/)
 - [Nix Pills](https://nixos.org/guides/nix-pills/)
 - [Xe Iaso's blog](https://xeiaso.net/blog)
@@ -231,7 +243,7 @@ strongly recommend that you read in no particular order.
 - [Solène's Blog](https://dataswamp.org/~solene)
 - [...my own "blog"?](https://notashelf.github.io/nyx/)
 
-#### Software
+### Software
 
 Software that helped this configuration become what it is, or software I find
 interesting
