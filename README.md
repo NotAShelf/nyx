@@ -201,20 +201,22 @@ I ~~shamelessly stole from~~ got inspired by those folks
 [fortuneteller2k](https://github.com/fortuneteller2k) -
 [Max Headroom](https://github.com/max-privatevoid)
 
-... and surely there are more, but I tend to forget.
+... and surely there are more, but I tend to forget. Nevertheless, I extend my
+thanks to all of those people and any others that I might have forgotten.
 
 ### Anti-credits
 
 Pretend I haven't credited those people (but I will, because they are equally
 awesome and I appreciate them)
 
-[n3oney](https://github.com/n3oney) -
 [gerg-l (bald frog)](https://github.com/gerg-l) -
-[eclairevoyant (even balder)](https://github.com/eclairevoyant/) -
+[eclairevoyant](https://github.com/eclairevoyant/) -
 [FrothyMarrow](https://github.com/frothymarrow) -
-[Raidenovich](https://github.com/raidenovich) -
 [adamcstephens](https://github.com/adamcstephens) -
-[nrabulinski (wrote an insane function once)](https://github.com/nrabulinski)
+[nrabulinski](https://github.com/nrabulinski) -
+[n3oney](https://github.com/n3oney) -
+[Raidenovich](https://github.com/raidenovich) -
+[jacekpoz](https://github.com/jacekpoz)
 
 ### Honorable Mentions
 
@@ -222,7 +224,7 @@ Just people that I find cool :)
 
 [nuko](https://github.com/nu-nu-ko) - [lychee](https://github.com/itslychee)
 
-## Other Cool Resources
+## Cool Resources
 
 Resource that helped shape and improve this configuration, or resources that I
 strongly recommend that you read in no particular order.
@@ -257,6 +259,7 @@ interesting
 
 **Nix/NixOS**
 
+- [nix-super](https://github.com/privatevoid-net/nix-super)
 - [Agenix](https://github.com/ryantm/agenix)
 - [nh](https://github.com/viperML/nh)
 
