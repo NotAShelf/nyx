@@ -165,7 +165,6 @@ in {
     hostname = "atlas";
     system = "aarch64-linux";
     modules = mkModulesFor "atlas" {
-      moduleTrees = [];
       roles = [server headless];
       extraModules = [shared hw.raspberry-pi-4];
     };
@@ -178,7 +177,6 @@ in {
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
     modules = mkModulesFor "gaea" {
-      moduleTrees = [];
       roles = [iso headless];
       extraModules = [shared];
     };
@@ -191,10 +189,11 @@ in {
     inherit withSystem;
     hostname = "erebus";
     system = "x86_64-linux";
-    modules = [
-      ./erebus
-      iso
-    ];
+    modules = mkModulesFor "erebus" {
+      moduleTrees = [];
+      roles = [iso headless];
+      extraModules = [shared];
+    };
   };
 
   # Pretty beefy VM running on my dedicated server
@@ -203,13 +202,10 @@ in {
     inherit withSystem;
     hostname = "leto";
     system = "x86_64-linux";
-    modules =
-      [
-        ./leto
-        server
-        headless
-      ]
-      ++ concatLists [shared homes];
+    modules = mkModulesFor "leto" {
+      roles = [server headless];
+      extraModules = [shared homes];
+    };
   };
 
   # Twin virtual machine hosts
