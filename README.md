@@ -210,9 +210,11 @@ awesome and I appreciate them)
 
 [n3oney](https://github.com/n3oney) -
 [gerg-l (bald frog)](https://github.com/gerg-l) -
-[eclairevoyant](https://github.com/eclairevoyant/) -
+[eclairevoyant (even balder)](https://github.com/eclairevoyant/) -
 [FrothyMarrow](https://github.com/frothymarrow) -
-[Raidenovich](https://github.com/raidenovich)
+[Raidenovich](https://github.com/raidenovich) -
+[adamcstephens](https://github.com/adamcstephens) -
+[nrabulinski (wrote an insane function once)](https://github.com/nrabulinski)
 
 ### Honorable Mentions
 
