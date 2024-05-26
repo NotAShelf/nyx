@@ -6,14 +6,18 @@
     pcscd.enable = true;
 
     autorandr.enable = true;
+
+    # auto-login as the "yubikey" user
+    # in an i3-only session
+    displayManager = {
+      autoLogin.enable = true;
+      autoLogin.user = "yubikey";
+      defaultSession = "none+i3";
+    };
+
     xserver = {
       enable = true;
-      layout = "tr";
-      displayManager = {
-        autoLogin.enable = true;
-        autoLogin.user = "yubikey";
-        defaultSession = "none+i3";
-      };
+      xkb.layout = "tr";
 
       desktopManager = {
         xterm.enable = false;
