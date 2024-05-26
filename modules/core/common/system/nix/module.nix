@@ -6,9 +6,11 @@
   ...
 }: let
   inherit (self) inputs;
+  inherit (builtins) elem;
   inherit (lib.trivial) pipe;
   inherit (lib.types) isType;
-  inherit (lib.attrsets) mapAttrsToList optionalAttrs filterAttrs mapAttrs;
+  inherit (lib.attrsets) mapAttrsToList optionalAttrs filterAttrs mapAttrs mapAttrs';
+  inherit (lib.lists) mkMerge;
 in {
   imports = [
     ./transcend # module that merges trees outside central nixpkgs with our system's
@@ -18,31 +20,25 @@ in {
     ./system.nix # nixos system configuration
   ];
 
-  environment = {
-    etc = with inputs; {
-      # link flake inputs to /etc as flake-channel for added backwards compatibility
-      # some of them can be used with special lookup paths (i.e. <nixpkgs>) if you
-      # really need to. but it should be noted that special lookup paths are discouraged
-      # and the only reason they are kept here is for backwards compatibility only.
-      "nix/flake-channels/nixpkgs".source = nixpkgs;
-      "nix/flake-channels/home-manager".source = home-manager;
-      "nix/flake-channels/nyxpkgs".source = nyxpkgs;
-
-      # preserve the current flake path (aptly referred to as self) in /etc/nixos/flake
-      # to ensure the latest version of the configuration is available in a human-readable
-      # location in case of breakage where the bootloader is completely busted
-      # happens more often than I wish to admit
-      "nixos/flake".source = self;
-    };
-
-    # git is generally included in systemPackages
-    # but in case this file has somehow been isolated, then make sure git is there
-    # to ensure that flakes work as intended
-    systemPackages = [pkgs.gitMinimal];
-  };
+  # Link selected flake inputs to `/etc/nix/path` for added backwards compatibility.
+  # Some of them, as long as they are made compatible with flakes, can be used with
+  # nix's discouraged special lookup paths (e.g. <nixpkgs>) if you really need them
+  # to. Should be noted, however, that special lookup paths are discouraged and the
+  # only real reason they are here is backwards compatibility, and sometimes my own
+  # convenience. If you are using a flake, you should be using the flake's outputs.
+  environment.etc = let
+    inherit (config.nix) registry;
+    commonPaths = ["home-manager" "nixpkgs" "nyxpkgs" "self"];
+  in
+    pipe registry [
+      (filterAttrs (name: _: (elem name commonPaths)))
+      (mapAttrs' (name: value: {
+        name = "nix/path/${name}";
+        value.source = value.flake;
+      }))
+    ];
 
   nix = let
-    # mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
     mappedRegistry = pipe inputs [
       (filterAttrs (_: isType "flake"))
       (mapAttrs (_: flake: {inherit flake;}))
@@ -51,7 +47,7 @@ in {
   in {
     package = pkgs.nixSuper; # pkgs.nixVersions.unstable;
 
-    # pin the registry to avoid downloading and evaluating a new nixpkgs version every time
+    # Pin the registry to avoid downloading and evaluating a new nixpkgs version every time
     # this will add each flake input as a registry to make nix3 commands consistent with your flake
     # additionally we also set `registry.default`, which was added by nix-super
     registry = mappedRegistry // optionalAttrs (config.nix.package == pkgs.nixSuper) {default = mappedRegistry.nixpkgs;};
