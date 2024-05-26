@@ -5,10 +5,6 @@ in
   mkShell {
     buildInputs = with pkgs; [
       nodejs-slim
-      # python3 w/ requests is necessary for weather data fetch
-      # ags actually doesn't start without it since it's stored
-      # as a variable
-      (python3.withPackages (ps: [ps.requests]))
 
       # while developing locally, you need types and other eslint deps
       # so that our eslint config works properly

@@ -34,9 +34,6 @@
     ripgrep
     slurp
     sysstat
-
-    # for weather widget
-    (python3.withPackages (ps: [ps.requests]))
   ];
 
   # applications that are not necessarily required to compile ags
