@@ -177,6 +177,7 @@ in {
     system = "x86_64-linux";
     specialArgs = {inherit lib;};
     modules = mkModulesFor "gaea" {
+      moduleTrees = [];
       roles = [iso headless];
       extraModules = [shared];
     };
