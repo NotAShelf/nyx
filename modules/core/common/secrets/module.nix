@@ -1,28 +1,13 @@
 {
-  self,
-  lib,
   config,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf optionalString;
+  inherit (lib) mkAgenixSecret;
+  inherit (lib.strings) optionalString;
 
   sys = config.modules.system;
   cfg = sys.services;
-
-  # mkSecret is an abstraction over agenix secrets
-  # it allows for secrets to be written conditionally and with
-  # relatively secure defaults without having to set each one of them
-  # manually.
-  mkSecret = enableCondition: {
-    file,
-    owner ? "root",
-    group ? "root",
-    mode ? "400",
-  }:
-    mkIf enableCondition {
-      file = "${self}/secrets/${file}";
-      inherit group owner mode;
-    };
 in {
   age.identityPaths = [
     "${optionalString sys.impermanence.root.enable "/persist"}/etc/ssh/ssh_host_ed25519_key"
@@ -31,11 +16,11 @@ in {
 
   age.secrets = {
     # TODO: system option for declaring host as a potential builder
-    nix-builderKey = mkSecret true {
+    nix-builderKey = mkAgenixSecret true {
       file = "common/nix-builder.age";
     };
 
-    tailscale-client = mkSecret true {
+    tailscale-client = mkAgenixSecret true {
       file = "client/tailscale.age";
       owner = "notashelf";
       group = "users";
@@ -43,21 +28,21 @@ in {
     };
 
     # secrets needed for peers
-    spotify-secret = mkSecret config.modules.system.programs.spotify.enable {
+    spotify-secret = mkAgenixSecret sys.programs.spotify.enable {
       file = "client/spotify.age";
       owner = "notashelf";
       group = "users";
       mode = "400";
     };
 
-    wg-client = mkSecret true {
+    wg-client = mkAgenixSecret true {
       file = "client/wg.age";
       owner = "notashelf";
       group = "users";
       mode = "700";
     };
 
-    client-email = mkSecret true {
+    client-email = mkAgenixSecret true {
       file = "client/email.age";
       owner = "notashelf";
       group = "users";
@@ -65,11 +50,11 @@ in {
     };
 
     # database secrets
-    mongodb-secret = mkSecret cfg.database.mongodb.enable {
+    mongodb-secret = mkAgenixSecret cfg.database.mongodb.enable {
       file = "db/mongodb.age";
     };
 
-    garage-env = mkSecret cfg.database.garage.enable {
+    garage-env = mkAgenixSecret cfg.database.garage.enable {
       file = "db/garage.age";
       mode = "400";
       owner = "garage";
@@ -77,77 +62,77 @@ in {
     };
 
     # service secrets
-    wg-server = mkSecret cfg.networking.wireguard.enable {
+    wg-server = mkAgenixSecret cfg.networking.wireguard.enable {
       file = "service/wg.age";
     };
 
-    mkm-web = mkSecret cfg.mkm.enable {
+    mkm-web = mkAgenixSecret cfg.mkm.enable {
       file = "service/mkm-web.age";
       mode = "400";
     };
 
-    matrix-secret = mkSecret cfg.social.matrix.enable {
+    matrix-secret = mkAgenixSecret cfg.social.matrix.enable {
       file = "service/matrix.age";
       owner = "matrix-synapse";
       mode = "400";
     };
 
-    vaultwarden-env = mkSecret cfg.vaultwarden.enable {
+    vaultwarden-env = mkAgenixSecret cfg.vaultwarden.enable {
       file = "service/vaultwarden.age";
       owner = "vaultwarden";
       mode = "400";
     };
 
-    searx-secretkey = mkSecret cfg.searxng.enable {
+    searx-secretkey = mkAgenixSecret cfg.searxng.enable {
       file = "service/searx.age";
       mode = "400";
       owner = "searx";
       group = "searx";
     };
 
-    nextcloud-secret = mkSecret cfg.nextcloud.enable {
+    nextcloud-secret = mkAgenixSecret cfg.nextcloud.enable {
       file = "service/nextcloud.age";
       mode = "400";
       owner = "nextcloud";
       group = "nextcloud";
     };
 
-    attic-env = mkSecret cfg.bincache.atticd.enable {
+    attic-env = mkAgenixSecret cfg.bincache.atticd.enable {
       file = "service/attic.age";
       mode = "400";
       owner = "atticd";
       group = "atticd";
     };
 
-    harmonia-privateKey = mkSecret cfg.bincache.harmonia.enable {
+    harmonia-privateKey = mkAgenixSecret cfg.bincache.harmonia.enable {
       file = "service/harmonia.age";
       mode = "770";
       owner = "harmonia";
       group = "harmonia";
     };
 
-    forgejo-runner-token = mkSecret cfg.forgejo.enable {
+    forgejo-runner-token = mkAgenixSecret cfg.forgejo.enable {
       file = "service/forgejo-runner-token.age";
       mode = "400";
       owner = "gitea-runner";
       group = "gitea-runner";
     };
 
-    forgejo-runner-config = mkSecret cfg.forgejo.enable {
+    forgejo-runner-config = mkAgenixSecret cfg.forgejo.enable {
       file = "service/forgejo-runner-config.age";
       mode = "400";
       owner = "gitea-runner";
       group = "gitea-runner";
     };
 
-    headscale-derp = mkSecret cfg.networking.headscale.enable {
+    headscale-derp = mkAgenixSecret cfg.networking.headscale.enable {
       file = "service/headscale-derp.age";
       mode = "400";
       owner = "headscale";
       group = "headscale";
     };
 
-    headscale-noise = mkSecret cfg.networking.headscale.enable {
+    headscale-noise = mkAgenixSecret cfg.networking.headscale.enable {
       file = "service/headscale-noise.age";
       mode = "400";
       owner = "headscale";
@@ -155,37 +140,37 @@ in {
     };
 
     # mailserver secrets
-    mailserver-secret = mkSecret cfg.mailserver.enable {
+    mailserver-secret = mkAgenixSecret cfg.mailserver.enable {
       file = "mailserver/postmaster.age";
       mode = "400";
     };
 
-    mailserver-forgejo-secret = mkSecret cfg.forgejo.enable {
+    mailserver-forgejo-secret = mkAgenixSecret cfg.forgejo.enable {
       file = "mailserver/forgejo.age";
       owner = "forgejo";
       group = "forgejo";
       mode = "400";
     };
 
-    mailserver-vaultwarden-secret = mkSecret cfg.vaultwarden.enable {
+    mailserver-vaultwarden-secret = mkAgenixSecret cfg.vaultwarden.enable {
       file = "mailserver/vaultwarden.age";
       owner = "vaultwarden";
       mode = "400";
     };
 
-    mailserver-cloud-secret = mkSecret cfg.nextcloud.enable {
+    mailserver-cloud-secret = mkAgenixSecret cfg.nextcloud.enable {
       file = "mailserver/cloud.age";
       owner = "nextcloud";
       mode = "400";
     };
 
-    mailserver-matrix-secret = mkSecret cfg.social.matrix.enable {
+    mailserver-matrix-secret = mkAgenixSecret cfg.social.matrix.enable {
       file = "mailserver/matrix.age";
       owner = "matrix-synapse";
       mode = "400";
     };
 
-    mailserver-noreply-secret = mkSecret cfg.social.mastodon.enable {
+    mailserver-noreply-secret = mkAgenixSecret cfg.social.mastodon.enable {
       file = "mailserver/noreply.age";
       owner = "mastodon";
       mode = "400";
