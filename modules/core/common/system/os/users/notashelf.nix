@@ -3,9 +3,6 @@
   pkgs,
   ...
 }: {
-  # Add my SSH keys to initrd for remote unlocking. Backdoor?!
-  boot.initrd.network.ssh.authorizedKeys = [keys.notashelf];
-
   users.users.notashelf = {
     isNormalUser = true;
 

@@ -5,7 +5,7 @@ in {
   users = {
     groups.builder = {};
     users.builder = {
-      useDefaultShell = true;
+      useDefaultShell = false;
       isSystemUser = true;
       createHome = true;
       group = "builder";
