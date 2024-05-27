@@ -161,22 +161,57 @@ simply moral support._
       lockscreen or package sets
 - [secrets](secrets) Agenix secrets
 
+### Rules/Design Considerations
+
+Most of those rules, so to speak, are quite obvious. However they are noted down
+as a favor to potential contributors, and to potential observers who wish to
+make sense of certain decisions that are made.
+
+<!-- deno-fmt-ignore-start -->
+
+> [!NOTE] Host specific design considerations will be in
+> [`hosts/README.md`](hosts/README.md)
+
+<!-- deno-fmt-ignore-end -->
+
+- A commit should always be scoped. For example, while modifying a file in
+  `hosts/enyo`, the commit would begin with `hosts/enyo:` followed by the
+  description of the change.
+- **alejandra** is the only Nix formatter that shall be used within this
+  repository. nixfmt and nixpkgs-fmt both advertise ugly and confusing diffs,
+  which I dislike. Some of alejandra's quirks (e.g. lists) can be avoided with
+  minor additions to the code.
+- Backwards imports **should** be avoided wherever applicable.
+- The repository should remain modular, and enabled options must **never**
+  create inconsistencies or incompatibilities between hosts. In case of an
+  unavoidable incompatibility, the issue must be documented. If possible,
+  trigger conditions for incompatibilities must be avoided via assertions.
+- Host-exclusive condition must **always** be placed in the host's own
+  directory. Hosts **must** advertise their capabilities and features in
+  `hosts/<hostname>/modules`
+- `with lib;` **must** be avoided at all costs. Same goes for `with builtins;`
+  which follows the same confusing pattern as `with lib;`. In some cases, `with`
+  scopes may be accepted but only on the condition that the scope is narrow.
+  - While accessing standard library functions, the call to library must be
+    explicit. An example to this would be: `inherit (lib.modules) mkIf;` instead
+    of repeating `lib.mkIf` every time it is used.
+
 ## Host Specifications
 
 | Name         | Description                                                                                       |  Type   |     Arch      |
 | :----------- | :------------------------------------------------------------------------------------------------ | :-----: | :-----------: |
-| `gaea`       | Custom live media, used as an installer                                                           |   ISO   | x86_64-linux  |
-| `erebus`     | Air-gapped virtual machine/live-iso configuration for sensitive jobs                              |   ISO   | x86_64-linux  |
 | `enyo`       | Day-to-day desktop workstation boasting a full AMD system.                                        | Desktop | x86_64-linux  |
-| `helios`     | Hetzner cloud VPS for non-critical infrastructure                                                 | Server  | x86_64-linux  |
-| `atlas`      | Proof of concept server host that is used by my Raspberry Pi 400                                  | Server  | aarch64-linux |
 | `prometheus` | HP Pavilion with a a GTX 1050 and i7-7700hq                                                       | Laptop  | x86_64-linux  |
 | `epimetheus` | Twin of prometheus, features full disk encryption in addition to everything prometheus provides   | Laptop  | x86_64-linux  |
 | `hermes`     | HP Pavilion with a Ryzen 7 7730U, and my main portable workstation. Used on-the-go                | Laptop  | x86_64-linux  |
 | `icarus`     | My 2014 Lenovo Yoga Ideapad that acts as a portable server, used for testing hardware limitations | Laptop  | x86_64-linux  |
+| `helios`     | Hetzner cloud VPS for non-critical infrastructure                                                 | Server  | x86_64-linux  |
+| `atlas`      | Proof of concept server host that is used by my Raspberry Pi 400                                  | Server  | aarch64-linux |
 | `artemis`    | VM host for testing basic NixOS concepts. Previously targeted aarch64-linux                       |   VM    | x86_64-linux  |
 | `apollon`    | VM host for testing networked services, generally used on servers                                 |   VM    | x86_64-linux  |
 | `leto`       | VM host running medium-priority infrastructure inside a virtualized root server                   |   VM    | x86_64-linux  |
+| `gaea`       | Custom live media, used as an installer                                                           |   ISO   | x86_64-linux  |
+| `erebus`     | Air-gapped virtual machine/live-iso configuration for sensitive jobs                              |   ISO   | x86_64-linux  |
 
 ## Credits & Special Thanks to
 
