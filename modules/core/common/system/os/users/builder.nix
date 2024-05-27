@@ -1,4 +1,7 @@
-{keys, ...}: {
+{keys, ...}: let
+  sshOpts = ''command="nix-daemon --stdio",no-agent-forwarding,no-port-forwarding,no-pty,no-user-rc,no-X11-forwarding'';
+  mkBuilderKeys = keys: map (key: ''${sshOpts} ${key}'') keys;
+in {
   users = {
     groups.builder = {};
     users.builder = {
@@ -6,10 +9,8 @@
       isSystemUser = true;
       createHome = true;
       group = "builder";
-      home = "/var/tmp/builder";
-      openssh.authorizedKeys = {
-        keys = [keys.notashelf];
-      };
+      home = "/var/empty";
+      openssh.authorizedKeys.keys = mkBuilderKeys [keys.notashelf];
     };
   };
 }
