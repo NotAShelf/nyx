@@ -195,7 +195,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         flake-parts.follows = "flake-parts";
-        pre-commit-hooks.follows = "git-hooks";
+        git-hooks.follows = "git-hooks";
       };
     };
 
