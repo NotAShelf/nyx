@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# vim: syntax=bash
+
+notifySend="notify-send"
+
+getSwallowStatus() {
+    output=$(hyprctl getoption misc:enable_swallow)
+    if [[ $output == *"int: 1"* ]]; then
+        status=false
+    else
+        status=true
+    fi
+    echo "{\"status\": $status}"
+}
+
+switchSwallowStatus() {
+    enable=$1
+    if [ "$enable" = true ]; then
+        statusMsg="Turned on swallowing"
+        keyword="true"
+    else
+        statusMsg="Turned off swallowing"
+        keyword="false"
+    fi
+    hyprctl keyword misc:enable_swallow $keyword
+    $notifySend "Hyprland" "$statusMsg"
+}
+
+if [ $# -gt 0 ] && [ "${1}" = "query" ]; then
+    getSwallowStatus
+    exit 0
+fi
+
+output=$(hyprctl getoption misc:enable_swallow)
+
+if [[ $output == *"int: 1"* ]]; then
+    switchSwallowStatus false
+else
+    switchSwallowStatus true
+fi

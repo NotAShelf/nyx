@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# vim: syntax=bash
+
+move_window() {
+    local position="$1"
+    local size="$2"
+
+    if [[ -z "$position" || -z "$size" ]]; then
+        echo "Error: Both position and size are required." 1>&2
+        exit 1
+    fi
+
+    hyprctl --batch "dispatch moveactive exact ${position//,/ }; dispatch resizeactive exact ${size//x/ }"
+}
+
+if [[ $# -ne 2 ]]; then
+    echo "Usage: $0 <position> <size>"
+    exit 1
+fi
+
+move_window "$1" "$2"
