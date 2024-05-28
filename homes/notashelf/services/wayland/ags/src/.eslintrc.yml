@@ -1,0 +1,108 @@
+root: true
+env:
+  es2021: true
+extends:
+  - "eslint:recommended"
+  - "plugin:@typescript-eslint/recommended"
+parser: "@typescript-eslint/parser"
+parserOptions:
+  ecmaVersion: 2022
+  sourceType: "module"
+  project: "./tsconfig.json"
+  warnOnUnsupportedTypeScriptVersion: false
+ignorePatterns:
+  - types/
+  - node_modules/
+  - bin/
+  - result/
+  - style/
+plugins:
+  - "@typescript-eslint"
+rules:
+  "@typescript-eslint/ban-ts-comment":
+    - "off"
+  "@typescript-eslint/no-non-null-assertion":
+    - "off"
+  "@typescript-eslint/no-explicit-any":
+    - "off"
+  "@typescript-eslint/no-unused-vars":
+    - error
+    - varsIgnorePattern: (^unused|_$)
+      argsIgnorePattern: ^(unused|_)
+  "@typescript-eslint/no-empty-interface":
+    - "off"
+
+  comma-dangle:
+    - error
+    - always-multiline
+  comma-spacing:
+    - error
+    - before: false
+      after: true
+  comma-style:
+    - error
+    - last
+  curly:
+    - error
+    - multi-or-nest
+    - consistent
+  dot-location:
+    - error
+    - property
+  eol-last:
+    - error
+  indent:
+    - error
+    - 4
+    - SwitchCase: 1
+  keyword-spacing:
+    - error
+    - before: true
+  lines-between-class-members:
+    - error
+    - always
+    - exceptAfterSingleLine: true
+  padded-blocks:
+    - error
+    - never
+    - allowSingleLineBlocks: false
+  prefer-const:
+    - error
+  quotes:
+    - error
+    - double
+    - avoidEscape: true
+  semi:
+    - error
+    - always
+  nonblock-statement-body-position:
+    - error
+    - below
+  no-trailing-spaces:
+    - error
+  no-useless-escape:
+    - off
+  max-len:
+    - error
+    - code: 100
+  func-call-spacing:
+    - error
+  array-bracket-spacing:
+    - error
+  space-before-blocks:
+    - error
+  key-spacing:
+    - error
+  object-curly-spacing:
+    - error
+    - always
+
+globals:
+  globalThis: readonly
+  imports: readonly
+  Intl: readonly
+  log: readonly
+  logError: readonly
+  print: readonly
+  printerr: readonly
+  console: readonly
