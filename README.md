@@ -169,7 +169,8 @@ make sense of certain decisions that are made.
 
 <!-- deno-fmt-ignore-start -->
 
-> [!NOTE] Host specific design considerations will be in
+> [!NOTE]
+> Host specific design considerations will be in
 > [`hosts/README.md`](hosts/README.md)
 
 <!-- deno-fmt-ignore-end -->
