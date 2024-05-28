@@ -1,4 +1,4 @@
-import { Hyprland } from "../imports.js";
+import { Hyprland } from "../imports";
 
 export const getFocusedWorkspace = (self) =>
     self.children.forEach((btn) => {

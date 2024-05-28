@@ -1,4 +1,4 @@
-import { App, Widget, Utils } from "../imports.js";
+import { App, Widget, Utils } from "../imports";
 const { Box, Revealer, Window } = Widget;
 
 export default ({

@@ -1,4 +1,4 @@
-import { Battery } from "../imports.js";
+import { Battery } from "../imports";
 
 /**
  * toTime converts a given value to a human-readable

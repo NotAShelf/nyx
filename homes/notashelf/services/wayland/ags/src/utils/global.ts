@@ -1,4 +1,4 @@
-import { Applications, Utils } from "../imports.js";
+import { Applications, Utils } from "../imports";
 const { execAsync } = Utils;
 const { list, query } = Applications;
 
@@ -11,7 +11,7 @@ const { list, query } = Applications;
  * @param {string} appName - The name of the application to query.
  * @returns {Object} The queried application object. Returns null if the application is not found.
  */
-export function queryExact(appName) {
+export function queryExact(appName: string): object {
     return (
         list.filter(
             (app) => app.name.toLowerCase() === appName.toLowerCase(),

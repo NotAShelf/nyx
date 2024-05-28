@@ -1,4 +1,4 @@
-import { Audio, Widget } from "../imports.js";
+import { Audio, Widget } from "../imports";
 const { Slider, Label } = Widget;
 const { speaker } = Audio;
 

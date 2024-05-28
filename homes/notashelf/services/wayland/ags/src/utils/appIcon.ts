@@ -1,5 +1,5 @@
-import { Widget } from "../imports.js";
-import { queryExact } from "./global.js";
+import { Widget } from "../imports";
+import { queryExact } from "./global";
 const { Button, Icon } = Widget;
 
 export default ({

@@ -1,18 +1,22 @@
-import { App, Utils } from "../imports.js";
+import { App, Utils, Variable } from "../imports";
 const { exec, execAsync } = Utils;
 
-function genCommand(arg) {
+function genCommand(arg: string) {
     return ["sh", "-c", `${App.configDir}/bin/hyprctl_swallow ${arg}`];
 }
 
 const swallowQuery = genCommand("query");
 const swallowToggle = genCommand("toggle");
 
-export const getSwallowStatus = () => {
-    execAsync(swallowQuery);
-
-    let result = exec("hyprctl -j getoption misc:enable_swallow");
-    return JSON.parse(result).set;
+const getSwallowStatus = async () => {
+    try {
+        await execAsync(swallowQuery);
+        const result = exec("hyprctl -j getoption misc:enable_swallow");
+        return JSON.parse(result).set;
+    } catch (error) {
+        console.error("Error getting swallow status:", error);
+        throw error;
+    }
 };
 
 export const status = Variable(getSwallowStatus());

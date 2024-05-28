@@ -1,12 +1,12 @@
 // generalized function to get class name based on value and thresholds
-const getClass = (v, thresholds) => {
+export const getClass = (v: number, thresholds: any[]) => {
     const val = v * 100;
     const className = thresholds.find(([threshold]) => threshold <= val)[1];
     return className;
 };
 
 // thresholds and class names for memory
-const memThresholds = [
+export const memThresholds = [
     [100, "memCritical"],
     [75, "memHigh"],
     [35, "memMod"],
@@ -16,7 +16,7 @@ const memThresholds = [
 ];
 
 // thresholds and class names for CPU
-const cpuThresholds = [
+export const cpuThresholds = [
     [100, "cpuCritical"],
     [75, "cpuHigh"],
     [35, "cpuMod"],
@@ -26,5 +26,5 @@ const cpuThresholds = [
 ];
 
 // get class names for memory and CPU
-export const getMemClass = (v) => getClass(v, memThresholds);
-export const getCpuClass = (v) => getClass(v, cpuThresholds);
+export const getMemClass = (v: number) => getClass(v, memThresholds);
+export const getCpuClass = (v: number) => getClass(v, cpuThresholds);

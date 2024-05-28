@@ -1,5 +1,5 @@
-import { Widget } from "../imports.js";
-import { queryExact } from "./global.js";
+import { Widget } from "../imports";
+import { queryExact } from "./global";
 const { Box, Icon, Label, Button } = Widget;
 
 /**
@@ -13,7 +13,7 @@ const { Box, Icon, Label, Button } = Widget;
  * @param {string} label - The label of the desktop item.
  * @returns {Object} The desktop item widget.
  */
-export const buildDesktopItem = (name, label) => {
+export const buildDesktopItem = (name: string, label: string): object => {
     const app = queryExact(name);
     return Button({
         className: "desktopIcon",

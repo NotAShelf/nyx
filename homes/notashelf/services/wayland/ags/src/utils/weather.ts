@@ -1,9 +1,9 @@
+import { Variable } from "../imports";
 import {
     getWeatherData,
     getCachedWeatherData,
     formatWeatherData,
 } from "../variables/weather.js";
-import { Variable, App } from "../imports.js";
 
 export const WeatherValue = Variable(
     {},
@@ -21,5 +21,6 @@ export const WeatherValue = Variable(
     },
 );
 
-export const getWeatherIcon = (value) => value.text || "...";
-export const getWeatherTooltip = (value) => value.tooltip || "...";
+export const getWeatherIcon = (value: { text: any }) => value.text || "...";
+export const getWeatherTooltip = (value: { tooltip: any }) =>
+    value.tooltip || "...";
