@@ -1,7 +1,8 @@
-import { Utils, GLib, Gio } from "../imports.js";
+import { Utils, GLib, Gio } from "../imports";
+
 const { get_user_cache_dir, get_home_dir, build_filenamev } = GLib;
-const fs = Gio;
 const { fetch } = Utils;
+const fs = Gio;
 
 const CACHE_EXPIRATION = 60; // minutes
 const XDG_CACHE_HOME = get_user_cache_dir() || get_home_dir() + "/.cache";
@@ -16,7 +17,7 @@ const RAIN = "\ue318";
 const SNOW = "\ue31a";
 const THUNDERSTORM = "\ue31d";
 const PARTLY_CLOUDY = "\ue302";
-const CLEAR = "\ue30d";
+const CLEAR = "\udb81\udda8";
 
 const HOURS_AGO_THRESHOLD = 2;
 const TEMP_THRESHOLD_COLD = 10;
@@ -32,16 +33,25 @@ const ensureCacheDirectory = () => {
     }
 };
 
-export const getWeatherData = () => {
+export const getWeatherData = (): Promise<any> => {
     return new Promise((resolve, reject) => {
         fetch("http://wttr.in/?format=j1")
-            .then((res) => res.json())
-            .then(resolve)
+            .then((res: any) => res.text())
+            .then((text: string) => {
+                try {
+                    const data = JSON.parse(text);
+                    resolve(data);
+                } catch (error) {
+                    console.error(error);
+                    // provide dummy data to avoid errors
+                    resolve({ text: "Dummy data" });
+                }
+            })
             .catch(reject);
     });
 };
 
-export const cacheWeatherData = (data) => {
+export const cacheWeatherData = (data: any): void => {
     try {
         ensureCacheDirectory();
         const cachedData = {
@@ -62,7 +72,7 @@ export const cacheWeatherData = (data) => {
     }
 };
 
-export const getCachedWeatherData = () => {
+export const getCachedWeatherData = (): any | null => {
     try {
         if (CACHE_FILE.query_exists(null)) {
             const inputStream = CACHE_FILE.read(null);
@@ -80,12 +90,13 @@ export const getCachedWeatherData = () => {
     return null;
 };
 
-const formatTime = (time) => time.replace("00", "").padStart(2, "0");
+const formatTime = (time: string): string =>
+    time.replace("00", "").padStart(2, "0");
 
-const formatTemp = (temp) => ` ${temp}°`.padEnd(4, " ");
+const formatTemp = (temp: number): string => ` ${temp}°`.padEnd(4, " ");
 
-const getEmojiForCondition = (condition) => {
-    const emojiMap = {
+const getEmojiForCondition = (condition: string): string => {
+    const emojiMap: { [key: string]: string } = {
         Sunny: SUNNY,
         "Partly cloudy": PARTLY_CLOUDY,
         Overcast: CLOUDY,
@@ -109,8 +120,8 @@ const getEmojiForCondition = (condition) => {
     return emojiMap[condition] || "";
 };
 
-const formatConditions = (hour) => {
-    const conditionProbabilities = {
+const formatConditions = (hour: any): string => {
+    const conditionProbabilities: { [key: string]: string } = {
         chanceoffog: "Fog",
         chanceoffrost: "Frost",
         chanceofovercast: "Overcast",
@@ -123,7 +134,7 @@ const formatConditions = (hour) => {
     if (hour.chanceofpartlycloudy) {
         conditionProbabilities["chanceofpartlycloudy"] = "Partly Cloudy";
     }
-    const conditions = [];
+    const conditions: string[] = [];
     for (const [event, description] of Object.entries(conditionProbabilities)) {
         if (hour[event]) {
             const probability = parseInt(hour[event]);
@@ -136,20 +147,39 @@ const formatConditions = (hour) => {
     return conditions.join(", ");
 };
 
-export const formatWeatherData = (weatherData) => {
+export const formatWeatherData = (
+    weatherData: any,
+): { text: string; tooltip: string } => {
+    const formattedData = {
+        text: "",
+        tooltip: "",
+    };
+
+    if (!weatherData || !weatherData.current_condition) {
+        // weather data or current condition is missing, return default data
+        formattedData.text = " No Data";
+        formattedData.tooltip = "No weather data available";
+        return formattedData;
+    }
+
     const currentCondition = weatherData.current_condition[0];
     const temp = parseInt(currentCondition.FeelsLikeC);
     const tempSign =
         TEMP_THRESHOLD_HOT > temp && temp > TEMP_THRESHOLD_COLD ? "+" : "";
-    const formattedData = {
-        text: ` ${SUNNY} \n ${tempSign}${temp}°`,
-        tooltip:
-            `${currentCondition.weatherDesc[0].value} ${currentCondition.temp_C}°\n` +
-            `Feels like: ${currentCondition.FeelsLikeC}°\n` +
-            `Wind: ${currentCondition.windspeedKmph}Km/h\n` +
-            `Humidity: ${currentCondition.humidity}%\n`,
-    };
-    weatherData.weather.forEach((day, i) => {
+    formattedData.text = ` ${SUNNY} \n ${tempSign}${temp}°`;
+    formattedData.tooltip =
+        `${currentCondition.weatherDesc[0].value} ${currentCondition.temp_C}°\n` +
+        `Feels like: ${currentCondition.FeelsLikeC}°\n` +
+        `Wind: ${currentCondition.windspeedKmph}Km/h\n` +
+        `Humidity: ${currentCondition.humidity}%\n`;
+
+    if (!weatherData.weather || weatherData.weather.length === 0) {
+        // weather array is missing or empty, return default data
+        formattedData.tooltip += "No weather forecast available";
+        return formattedData;
+    }
+
+    weatherData.weather.forEach((day: any, i: number) => {
         formattedData.tooltip += "\n";
         if (i === 0) formattedData.tooltip += "Today, ";
         if (i === 1) formattedData.tooltip += "Tomorrow, ";
@@ -157,15 +187,23 @@ export const formatWeatherData = (weatherData) => {
         formattedData.tooltip += `⬆️ ${day.maxtempC}° ⬇️ ${day.mintempC}° `;
         formattedData.tooltip += `🌅 ${day.astronomy[0].sunrise} 🌇 ${day.astronomy[0].sunset}\n`;
         const now = new Date();
-        day.hourly.forEach((hour) => {
+        if (!day.hourly || day.hourly.length === 0) {
+            // hourly data is missing or empty, continue to the next day
+            formattedData.tooltip +=
+                "No hourly forecast available for this day\n";
+            return;
+        }
+        day.hourly.forEach((hour: any) => {
             const hourTime = formatTime(hour.time);
             if (
                 i === 0 &&
                 parseInt(hourTime) < now.getHours() - HOURS_AGO_THRESHOLD
-            )
+            ) {
                 return;
+            }
             formattedData.tooltip += `${hourTime} ${getEmojiForCondition(hour.weatherDesc[0].value)} ${formatTemp(hour.FeelsLikeC)} ${hour.weatherDesc[0].value}, ${formatConditions(hour)}\n`;
         });
     });
+
     return formattedData;
 };

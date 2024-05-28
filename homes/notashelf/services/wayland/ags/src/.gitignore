@@ -4,3 +4,6 @@ node_modules/
 # Type definitions for TypeScript and friends
 # it's handled by ags, but we may need to link it manually
 types/
+
+# Build configuration
+config.js

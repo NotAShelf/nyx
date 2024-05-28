@@ -1,8 +1,8 @@
-import { App, Utils, Variable } from "../imports";
+import { Utils, Variable } from "../imports";
 const { exec, execAsync } = Utils;
 
 function genCommand(arg: string) {
-    return ["sh", "-c", `${App.configDir}/bin/hyprctl_swallow ${arg}`];
+    return ["sh", "-c", `ags-hyprctl-swallow ${arg}`];
 }
 
 const swallowQuery = genCommand("query");
