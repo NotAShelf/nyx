@@ -3,7 +3,7 @@ root = true
 [*]
 charset = utf-8
 end_of_line = lf
-indent_style = tab
+indent_style = space
 indent_size = 4
 insert_final_newline = true
 tab_width = 4
@@ -14,16 +14,16 @@ indent_style = space
 indent_size = 2
 trim_trailing_whitespace = false
 
-[*.{sh,lua}]
+[*.lua]
 indent_style = space
 indent_size = 2
 
-[*.{nix,yml,yaml}]
+[*.{nix,sh,yml,yaml}]
 indent_style = space
 indent_size = 2
 tab_width = 2
 
-[*.{js,lock,diff,patch,age}]
+[*.{js,ts,lock,diff,patch,age}]
 indent_style = unset
 indent_size = unset
 insert_final_newline = unset
