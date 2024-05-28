@@ -245,6 +245,7 @@ thanks to all of those people and any others that I might have forgotten.
 Pretend I haven't credited those people (but I will, because they are equally
 awesome and I appreciate them)
 
+[vaxry](https://github.com/vaxerski) -
 [gerg-l (bald frog)](https://github.com/gerg-l) -
 [eclairevoyant](https://github.com/eclairevoyant/) -
 [FrothyMarrow](https://github.com/frothymarrow) -
@@ -252,7 +253,8 @@ awesome and I appreciate them)
 [nrabulinski](https://github.com/nrabulinski) -
 [n3oney](https://github.com/n3oney) -
 [Raidenovich](https://github.com/raidenovich) -
-[jacekpoz](https://github.com/jacekpoz)
+[jacekpoz](https://github.com/jacekpoz) -
+[Vagahbond](https://github.com/Vagahbond)
 
 ### Honorable Mentions
 
