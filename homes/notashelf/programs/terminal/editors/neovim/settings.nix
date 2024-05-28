@@ -17,10 +17,7 @@
   in
     path {
       name = "nvim-runtime-${name}";
-      path =
-        if isPath finalPath
-        then toString finalPath
-        else throw "${finalPath} is not a path";
+      path = toString finalPath;
     };
 in {
   config = {
