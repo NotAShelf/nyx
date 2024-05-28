@@ -13,6 +13,9 @@ export const WeatherValue = Variable(
             async () => {
                 let data = await getWeatherData();
                 if (!data) {
+                    console.error(
+                        "Failed to fetch weather data, using cached data",
+                    );
                     data = getCachedWeatherData();
                 }
                 return formatWeatherData(data);
