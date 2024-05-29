@@ -29,7 +29,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs'.hyprland.packages.hyprland;
+      package = env.desktops.hyprland.package;
       xwayland.enable = true;
       systemd = {
         enable = true;
