@@ -5,9 +5,10 @@
   ...
 }: let
   inherit (lib.modules) mkIf mkForce;
+  inherit (config) modules;
 
-  sys = config.modules.system;
-  env = config.modules.usrEnv;
+  sys = modules.system;
+  env = modules.usrEnv;
 in {
   config = mkIf sys.video.enable {
     xdg.portal = {

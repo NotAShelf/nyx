@@ -1,0 +1,1 @@
+{programs.xwayland.enable = true;}
