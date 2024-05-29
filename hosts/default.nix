@@ -144,6 +144,18 @@ in {
     };
   };
 
+  # Hetzner VPS to replace my previous server machines
+  # hosts some of my infrastructure
+  selene = mkNixosSystem {
+    inherit withSystem;
+    hostname = "helios";
+    system = "aarch64-linux";
+    modules = mkModulesFor "selene" {
+      roles = [server headless];
+      extraModules = [shared homes];
+    };
+  };
+
   # Lenovo Ideapad from 2014
   # Hybrid device
   # acts as a portable server and a "workstation"
