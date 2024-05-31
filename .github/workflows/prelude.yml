@@ -55,13 +55,6 @@ jobs:
       - name: "Nix Magic Cache"
         uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: "Optimize Space"
-        if: ${{ inputs.optimize-space }}
-        run: |
-          echo "optimize-space is ${{ inputs.optimize-space }}"
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-
       - name: "Maximize build space"
         if: ${{ inputs.optimize-space }}
         uses: easimon/maximize-build-space@v10
