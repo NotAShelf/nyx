@@ -11,10 +11,13 @@
 
   check-results =
     pkgs.runCommand "check-nft-ruleset" {
+      nativeBuildInputs = [pkgs.nftables];
       ruleset = pkgs.writeText "nft-ruleset" cfg.ruleset;
     } ''
       mkdir -p $out
-      ${pkgs.nftables}/bin/nft -c -f $ruleset 2>&1 > $out/message \
+
+      # Validate nftables ruleset
+      nft -c -f $ruleset 2>&1 > $out/message \
         && echo false > $out/assertion \
         || echo true > $out/assertion
     '';
@@ -43,7 +46,7 @@ in {
         };
       };
 
-      # our ruleset, built with our local ruleset builder from lib/network/firewall.nix
+      # Our ruleset, built with our local ruleset builder from lib/network/firewall.nix
       # I prefer using this to the nftables.tables.* and verbatim nftables.ruleset = ""
       # kinds of configs, as it allows me to programmatically approach to my ruleset
       # instead of structuring it inside a multiline string. nftables.rules, which is
@@ -61,10 +64,10 @@ in {
       }
     ];
 
-    # pin IFD as a system dependency
-    # this makes sure the IFD result is realised in time
-    # without making the IFD a part of the system
-    # unlike system.extraDependencies
+    # Pin IFD used in nftables assertion as a system dependency.
+    # Ideally this should use either system.checks or extraDependencies
+    # however, the former doesn't include the check in the system closure
+    # so it is preferable.
     system.checks = [check-results];
   };
 }
