@@ -13,6 +13,7 @@
 <div align="center">
   <br/>
   <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a> | <a href="#license">License</a><br/>
+  <!-- lmao. I should make this less obvious-->
   <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">Installation</a>
   <br/>
 </div>
@@ -26,13 +27,22 @@
 
 ## High Level Overview
 
-A high level overview of this monorepo, containing configurations for **all** of
-my machines that are running or have ran NixOS at some point in time. As I
-physically cannot stop tinkering with my configuration, nothing in this
+This is a high level overview of this monorepo, containing configurations for
+**all** of my machines that are running or have ran NixOS at some point in time.
+You will find below a list of my hosts and their specifications, accompanied by
+a somewhat maintained list of features of this configuration and my design
+considerations.
+
+### Disclaimer
+
+As I physically cannot stop tinkering with my configuration, nothing in this
 repository (including the overview sections) should be considered final. As
-such, it is **not recommended to be used as a template** but you are welcome to
-browse the codebase to your liking, you may find bits that are interesting
-or/and useful to you.
+such, it is **not recommended to be used as a template (nor is designed to be
+one)** but you are welcome to browse the codebase to your liking, you may find
+bits that are interesting or/and useful to you.
+
+Do keep in mind that I make no promise of stability or support. If something
+breaks, that will be your responsibility.
 
 <!-- deno-fmt-ignore-start -->
 
@@ -47,55 +57,10 @@ or/and useful to you.
 
 <!-- deno-fmt-ignore-end -->
 
-_Before you proceed, I would like to point you towards the [credits](#credits)
+Before you proceed, I would like to point you towards the [credits](#credits)
 section below where I pay tribute to the individuals who have contributed to
 this project, whether through code reference, suggestions, bug reports, or
-simply moral support._
-
-### Notable Features
-
-[module options]: ./modules/options/style
-[profiles]: ./modules/profiles
-[wallpkgs]: https://github.com/notashelf/wallpkgs
-[flake-parts]: https://flake.parts
-[impermanence]: https://github.com/nix-community/impermanence
-
-- **All-in-one** - Servers, desktops, laptops, virtual machines and anything you
-  can think of. Managed in one place.
-  - **Sane Defaults** - The modules attempt to bring the most sane defaults,
-    while providing per-host toggles for conflicting choices.
-  - **Flexible Modules** - Both Home-manager and NixOS modules allow users to
-    retrieve NixOS or home-manager configurations from anywhere.
-  - **Extensive Configuration** - Most desktop programs are configured out of
-    the box and shared across hosts, with override options for per-host
-    controls.
-  - **Custom extended library** - An extended library for functions that help
-    organize my system.
-- **Shared Configurations** - Reduces re-used boilerplate code by sharing
-  modules and profiles across hosts.
-- **Fully Modular** - Utilizes NixOS' module system to avoid hard-coding any of
-  the options.
-  - **Profiles & Roles** - Provide serialized configuration sets and pluggables
-    for easily changing large portions of configurations with less options and
-    minimal imports.
-  - **Detached Homes** - Home-manager configurations are able to be detached for
-    non-NixOS usage.
-  - **Modularized Flake Design** - With the help of [flake-parts], the flake is
-    fully modular: keeping my `flake.nix` cleaner than ever.
-  - **Declarative Themes** - Using my [module options], [profiles] and
-    [wallpkgs]. Everything theming is handled inside the flake.
-  - **Tree-wide formatting** - Format files in any language with the help of
-    devshells and treefmt-nix modules for flake-parts.
-- **Declarative nftables firewall** - Flexible and over-engineered[^1]
-  `nftables` table/chain builder abstraction for easy firewall setups.
-- **Personal Installation Media** - Personalized ISO images for system
-  installation and recovery.
-- **Secrets Management** - Manage secrets through Agenix.
-- **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and
-  [impermanence].
-- **Encryption Ready** - Supports and actively utilizes full disk encryption.
-- **Wayland First** - Leaves Xorg in the past where it belongs. Everything is
-  configured around Wayland, with Xorg only as a fallback.
+simply moral support. They have my most sincere thanks.
 
 ### Repo Structure
 
@@ -161,6 +126,51 @@ simply moral support._
       lockscreen or package sets
 - [secrets](secrets) Agenix secrets
 
+### Notable Features
+
+[module options]: modules/options/style
+[profiles]: modules/profiles
+[wallpkgs]: https://github.com/notashelf/wallpkgs
+[flake-parts]: https://flake.parts
+[impermanence]: https://github.com/nix-community/impermanence
+
+- **All-in-one** - Servers, desktops, laptops, virtual machines and anything you
+  can think of. Managed in one place.
+  - **Sane Defaults** - The modules attempt to bring the most sane defaults,
+    while providing per-host toggles for conflicting choices.
+  - **Flexible Modules** - Both Home-manager and NixOS modules allow users to
+    retrieve NixOS or home-manager configurations from anywhere.
+  - **Extensive Configuration** - Most desktop programs are configured out of
+    the box and shared across hosts, with override options for per-host
+    controls.
+  - **Custom extended library** - An extended library for functions that help
+    organize my system.
+- **Shared Configurations** - Reduces re-used boilerplate code by sharing
+  modules and profiles across hosts.
+- **Fully Modular** - Utilizes NixOS' module system to avoid hard-coding any of
+  the options.
+  - **Profiles & Roles** - Provide serialized configuration sets and pluggables
+    for easily changing large portions of configurations with less options and
+    minimal imports.
+  - **Detached Homes** - Home-manager configurations are able to be detached for
+    non-NixOS usage.
+  - **Modularized Flake Design** - With the help of [flake-parts], the flake is
+    fully modular: keeping my `flake.nix` cleaner than ever.
+  - **Declarative Themes** - Using my [module options], [profiles] and
+    [wallpkgs]. Everything theming is handled inside the flake.
+  - **Tree-wide formatting** - Format files in any language with the help of
+    devshells and treefmt-nix modules for flake-parts.
+- **Declarative nftables firewall** - Flexible and over-engineered[^1]
+  `nftables` table/chain builder abstraction for easy firewall setups.
+- **Personal Installation Media** - Personalized ISO images for system
+  installation and recovery.
+- **Secrets Management** - Manage secrets through Agenix.
+- **Opt-in Impermanence** - On-demand ephemeral root using BTRFS rollbacks and
+  [impermanence].
+- **Encryption Ready** - Supports and actively utilizes full disk encryption.
+- **Wayland First** - Leaves Xorg in the past where it belongs. Everything is
+  configured around Wayland, with Xorg only as a fallback.
+
 ### Rules/Design Considerations
 
 Most of those rules, so to speak, are quite obvious. However they are noted down
@@ -206,7 +216,8 @@ make sense of certain decisions that are made.
 | `epimetheus` | Twin of prometheus, features full disk encryption in addition to everything prometheus provides   | Laptop  | x86_64-linux  |
 | `hermes`     | HP Pavilion with a Ryzen 7 7730U, and my main portable workstation. Used on-the-go                | Laptop  | x86_64-linux  |
 | `icarus`     | My 2014 Lenovo Yoga Ideapad that acts as a portable server, used for testing hardware limitations | Laptop  | x86_64-linux  |
-| `helios`     | Hetzner cloud VPS for non-critical infrastructure                                                 | Server  | x86_64-linux  |
+| `helios`     | Hetzner Cloud VPS for non-critical infrastructure                                                 | Server  | x86_64-linux  |
+| `selene`     | Alternative Hetzner Cloud VPS to be used as an aarch64-linux builder                              | Server  | aarch64-linux |
 | `atlas`      | Proof of concept server host that is used by my Raspberry Pi 400                                  | Server  | aarch64-linux |
 | `artemis`    | VM host for testing basic NixOS concepts. Previously targeted aarch64-linux                       |   VM    | x86_64-linux  |
 | `apollon`    | VM host for testing networked services, generally used on servers                                 |   VM    | x86_64-linux  |
@@ -216,7 +227,7 @@ make sense of certain decisions that are made.
 
 ## Credits & Special Thanks to
 
-[atrocious abstractions]: ./lib/builders.nix
+[atrocious abstractions]: flake/lib/builders.nix
 
 My special thanks go to [fufexan](https://github.com/fufexan) for convincing me
 to use NixOS and sticking around to answer my most stupid and deranged
@@ -313,9 +324,9 @@ are used in this repository that I would like to endorse.
 - [ndg](https://github.com/feel-co/ndg) - a module documentation framework for
   Nix projects.
 
-Additionally, take a look at my [notes/blog](./docs/notes) for my notes on
-Linux, and specifically challenging or tedious processes on Nix and NixOS. It is
-also available [as a webpage](https://nyx.notashelf.dev)
+Additionally, take a look at my [notes/blog](docs/notes) for my notes on Linux,
+and specifically challenging or tedious processes on Nix and NixOS. It is also
+available [as a webpage](https://nyx.notashelf.dev)
 
 ## License
 
