@@ -1,5 +1,5 @@
 let
-  inherit (builtins) attrValues concatLists foldl';
+  inherit (builtins) attrValues concatLists foldl' map;
 
   # Users
   users = {
