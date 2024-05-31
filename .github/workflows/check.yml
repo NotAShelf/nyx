@@ -14,7 +14,7 @@ on:
       - ".github/workflows/check.yml"
 
 jobs:
-  health-check:
+  flake-check-health:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
@@ -50,12 +50,12 @@ jobs:
       - name: "Perform health checks"
         uses: DeterminateSystems/flake-checker-action@main
 
-  flake-checks:
-    needs: health-check
+  flake-check-outputs:
+    needs: flake-check-health
     uses: ./.github/workflows/prelude.yml
     secrets:
       GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     with:
       command: |
-        systemd-run --user --scope -p MemoryLimit=4000M -p CPUQuota=80% \
-          nix run .#build-all-hosts --print-build-logs -Lv
+        systemd-run --user --scope -p MemoryLimit=4000M -p CPUQuota=90% \
+          nix flake check --print-build-logs -Lv

@@ -10,6 +10,10 @@ on:
         default: "ubuntu"
         required: false
         type: string
+      optimize-space:
+        default: true
+        required: false
+        type: boolean
     secrets:
       GH_TOKEN:
         required: true
@@ -34,6 +38,7 @@ jobs:
         with:
           install_url: https://nixos.org/nix/install
           extra_nix_config: |
+            # Extra experimental features. fetch-tree is required internally
             experimental-features = nix-command flakes fetch-tree
             allow-import-from-derivation = false
             extra-platforms = aarch64-linux
@@ -49,6 +54,23 @@ jobs:
 
       - name: "Nix Magic Cache"
         uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: "Optimize Space"
+        if: ${{ inputs.optimize-space }}
+        run: |
+          echo "optimize-space is ${{ inputs.optimize-space }}"
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+
+      - name: "Maximize build space"
+        if: ${{ inputs.optimize-space }}
+        uses: easimon/maximize-build-space@v10
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+          remove-codeql: true
 
       - name: "Run Input: ${{ inputs.command }}"
         run: "${{ inputs.command }}"
