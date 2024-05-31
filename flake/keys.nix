@@ -1,5 +1,5 @@
 let
-  inherit (builtins) attrValues foldl';
+  inherit (builtins) attrValues concatLists foldl';
 
   # Users
   users = {
@@ -16,8 +16,9 @@ let
   };
 
   # Shorthand aliases for various collections of host keys
-  servers = attrValues {inherit (machines) helios icarus leto;};
-  workstations = attrValues {inherit (machines) enyo hermes icarus;};
+  servers = concatLists (map (host: machines.${host}) ["helios" "icarus" "leto"]);
+  workstations = concatLists (map (host: machines.${host}) ["enyo" "hermes" "icarus"]);
+
   all = foldl' (a: b: a ++ b) [users.notashelf] (attrValues machines);
 in {
   inherit (users) notashelf;
