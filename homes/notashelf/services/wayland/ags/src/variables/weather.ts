@@ -157,7 +157,6 @@ export const formatWeatherData = (
 
     if (!weatherData || !weatherData.current_condition) {
         // weather data or current condition is missing, return default data
-        formattedData.text = " No Data";
         formattedData.tooltip = "No weather data available";
         return formattedData;
     }
