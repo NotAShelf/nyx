@@ -7,8 +7,12 @@
 **/*.md linguist-detectable
 **/*.md linguist-language=Markdown
 
-# make .age files basically unreadable1
-secrets/*.age binary
+# Age encrypted secrets should be treated as binaries
+# as a layer of obscurity. Though, this is not at all
+# a guarantee of any security.
+**/*.age binary
+**/*.age linguist-detectable=false
+**/*.age linguist-documentation=false
 
 # luacheckrc is lua, lets treat it as such
 .luacheckrc linguist-detectable
