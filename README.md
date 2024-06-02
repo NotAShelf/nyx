@@ -75,7 +75,7 @@ simply moral support. They have my most sincere thanks.
   - [cheatsheet](docs/notes/cheatsheet.md) Useful tips that are hard to
     memorize, but easy to write down
 - [flake/](flake) Individual parts of my flake, powered by flake-parts
-- [lib](lib) Personal library of functions and utilities
+  - [lib](flake/lib) Personal library of functions and utilities
   - [apps](flake/apps) Basic executables for maintenance jobs
   - [checks](flake/checks) Additional checks to build on `nix flake check`
   - [lib](flake/lib) Personal library of functions and utilities
@@ -100,13 +100,13 @@ simply moral support. They have my most sincere thanks.
 - [hosts](hosts) Per-host configurations that contain machine specific
   instructions and setups
 - [modules](modules) Modularized NixOS configurations
-  - [core](modules/common) The core module that all systems depend on
-    - [common](modules/common) Module configurations shared between all hosts
-      (except installers)
-    - [profiles](modules/profiles) Pluggable internal module system, for
+  - [core](modules/core) The core module that all systems depend on
+    - [common](modules/core/common) Module configurations shared between all
+      hosts (except installers)
+    - [profiles](modules/core/profiles) Pluggable internal module system, for
       providing overrides based on host declarations (e.g. purpose)
-    - [roles](modules/roles) A profile-like system that work through imports and
-      ship predefined configurations
+    - [roles](modules/core/roles) A profile-like system that work through
+      imports and ship predefined configurations
   - [extra](modules/extra) Extra modules that are rarely imported
     - [shared](modules/extra/shared) Modules that are both shared for outside
       consumption, and imported by the flake itself
@@ -128,8 +128,8 @@ simply moral support. They have my most sincere thanks.
 
 ### Notable Features
 
-[module options]: modules/options/style
-[profiles]: modules/profiles
+[theme options]: modules/options/theme
+[profiles]: modules/core/profiles
 [wallpkgs]: https://github.com/notashelf/wallpkgs
 [flake-parts]: https://flake.parts
 [impermanence]: https://github.com/nix-community/impermanence
@@ -156,7 +156,7 @@ simply moral support. They have my most sincere thanks.
     non-NixOS usage.
   - **Modularized Flake Design** - With the help of [flake-parts], the flake is
     fully modular: keeping my `flake.nix` cleaner than ever.
-  - **Declarative Themes** - Using my [module options], [profiles] and
+  - **Declarative Themes** - Using my [theme options], [profiles] and
     [wallpkgs]. Everything theming is handled inside the flake.
   - **Tree-wide formatting** - Format files in any language with the help of
     devshells and treefmt-nix modules for flake-parts.
@@ -245,7 +245,6 @@ I ~~shamelessly stole from~~ got inspired by those folks
 [NobbZ](https://github.com/NobbZ) - [ViperML](https://github.com/viperML) -
 [spikespaz](https://github.com/spikespaz) -
 [hlissner](https://github.com/hlissner) -
-[fortuneteller2k](https://github.com/fortuneteller2k) -
 [Max Headroom](https://github.com/max-privatevoid)
 
 ... and surely there are more, but I tend to forget. Nevertheless, I extend my
