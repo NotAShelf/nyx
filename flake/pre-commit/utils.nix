@@ -1,7 +1,9 @@
 {pkgs, ...}: let
+  # common files to be ignored by all hooks
+  excludes = ["flake.lock" "r'.+\.age$'" "r'.+\.sh$'"];
+
   toTOML = name: (pkgs.formats.toml {}).generate "${name}";
 
-  excludes = ["flake.lock" "r'.+\.age$'" "r'.+\.sh$'"];
   mkHook = name: prev:
     {
       inherit excludes;
