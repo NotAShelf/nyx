@@ -1,12 +1,11 @@
 {
-  lib,
   osConfig,
   inputs,
-  self',
   pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
   sys = modules.system;
@@ -17,7 +16,7 @@ in {
   imports = [inputs.spicetify.homeManagerModule];
   config = mkIf prg.spotify.enable {
     programs.spicetify = {
-      spotifyPackage = self'.packages.spotify-wrapped;
+      spotifyPackage = pkgs.spotify;
       enable = true;
       injectCss = true;
       replaceColors = true;
