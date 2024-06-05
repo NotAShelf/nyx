@@ -36,8 +36,3 @@ ZSH_AUTOSUGGEST_HISTORY_IGNORE=$'*\n*'
 
 # Improve paste delay for nix store paths
 FAST_HIGHLIGHT[use_async]=1
-
-# open commands in $EDITOR
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^e" edit-command-line
