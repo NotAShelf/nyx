@@ -3,8 +3,9 @@
   lib,
   ...
 }: {
+  # https://nixpk.gs/pr-tracker.html?pr=316558
   programs.ccache = {
-    enable = true;
+    enable = false;
     cacheDir = "/var/cache/sccache";
   };
 
