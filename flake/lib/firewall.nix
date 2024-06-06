@@ -3,23 +3,24 @@
   dag,
   ...
 }: let
+  inherit (builtins) length head;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.strings) optionalString concatMapStringsSep concatStringsSep;
-  inherit (lib.attrsets) filterAttrs mapAttrsToList;
+  inherit (lib.attrsets) attrNames filterAttrs mapAttrsToList;
   inherit (lib.lists) concatLists;
-  inherit (lib) types;
+  inherit (lib.types) nullOr enum either oneOf coercedTo listOf str submodule port;
   inherit (dag) dagOf topoSort;
 
   mkTable = desc: body:
     mkOption {
       default = {};
       description = "Containers for chains, sets, and other stateful objects.";
-      type = types.submodule ({config, ...}: {
+      type = submodule ({config, ...}: {
         options =
           {
             enable = mkEnableOption desc;
             objects = mkOption {
-              type = with types; listOf str;
+              type = listOf str;
               description = "Objects associated with this table.";
               default = [];
             };
@@ -33,22 +34,22 @@
               data,
             }: let
               protocol =
-                if builtins.isNull data.protocol
+                if data.protocol == null
                 then ""
                 else data.protocol;
               field =
-                if builtins.isNull data.field
+                if data.field == null
                 then ""
                 else data.field;
               inherit (data) policy;
               values = map toString data.value;
               value =
-                if builtins.isNull data.value
+                if data.value == null
                 then ""
                 else
                   (
-                    if builtins.length data.value == 1
-                    then builtins.head values
+                    if length data.value == 1
+                    then head values
                     else "{ ${concatStringsSep ", " values} }"
                   );
             in ''
@@ -62,7 +63,7 @@
 
                 ${buildChainDag chainDag}
               }
-            '') (filterAttrs (_: g: builtins.length (builtins.attrNames g) > 0) chain);
+            '') (filterAttrs (_: g: length (attrNames g) > 0) chain);
         in {
           objects = let
             chains = concatLists [
@@ -92,53 +93,51 @@
     mkOption {
       inherit description;
       default = {};
-      type = dagOf (types.submodule {
+      type = dagOf (submodule {
         options = {
           protocol = mkOption {
             default = null;
             description = "Protocol to match.";
-            type = with types;
-              nullOr (either (enum [
-                  "ether"
-                  "vlan"
-                  "arp"
-                  "ip"
-                  "icmp"
-                  "igmp"
-                  "ip6"
-                  "icmpv6"
-                  "tcp"
-                  "udp"
-                  "udplite"
-                  "sctp"
-                  "dccp"
-                  "ah"
-                  "esp"
-                  "comp"
-                ])
-                str);
+            type = nullOr (either (enum [
+                "ether"
+                "vlan"
+                "arp"
+                "ip"
+                "icmp"
+                "igmp"
+                "ip6"
+                "icmpv6"
+                "tcp"
+                "udp"
+                "udplite"
+                "sctp"
+                "dccp"
+                "ah"
+                "esp"
+                "comp"
+              ])
+              str);
           };
 
           field = mkOption {
             default = null;
             description = "Field value to match.";
-            type = with types;
-              nullOr (enum [
-                "dport"
-                "sport"
-                "daddr"
-                "saddr"
-                "type"
-                "state"
-                "iifname"
-                "pkttype"
-              ]);
+            type = nullOr (enum [
+              "dport"
+              "sport"
+              "daddr"
+              "saddr"
+              "type"
+              "state"
+              "iifname"
+              "pkttype"
+            ]);
           };
 
           value = mkOption {
             default = null;
             description = "Associated value.";
-            type = with types; let
+            type = let
               valueType = oneOf [port str];
             in
               nullOr (coercedTo valueType (value: [value]) (listOf valueType));
@@ -146,7 +145,7 @@
 
           policy = mkOption {
             description = "What to do with matching packets.";
-            type = types.enum [
+            type = enum [
               "accept"
               "reject"
               "drop"
@@ -159,7 +158,7 @@
 
   mkRuleset = ruleset:
     concatStringsSep "\n" (mapAttrsToList (name: table:
-      optionalString (builtins.length table.objects > 0) ''
+      optionalString (length table.objects > 0) ''
         table ${name} nixos {
           ${concatStringsSep "\n" table.objects}
         }

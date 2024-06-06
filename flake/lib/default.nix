@@ -44,6 +44,10 @@
       # found in nixpkgs, such as nixosSystem or evalModules, that simplify host creation.
       builders = callLibs ./builders.nix;
 
+      # Helpers for converting data formats to and from other formats. This is a
+      # very broad category, so anything could go here in theory.
+      conversions = callLibs ./conversions.nix;
+
       # DAG library is a modified version of the one found in
       # rycee's NUR repository
       dag = callLibs ./dag.nix;
