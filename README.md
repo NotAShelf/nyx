@@ -205,7 +205,31 @@ make sense of certain decisions that are made.
   scopes may be accepted but only on the condition that the scope is narrow.
   - While accessing standard library functions, the call to library must be
     explicit. An example to this would be: `inherit (lib.modules) mkIf;` instead
-    of repeating `lib.mkIf` every time it is used.
+    of repeating `lib.mkIf` or `lib.modules.mkIf` every time it is used.
+
+### Goals/Non-goals
+
+#### Goals
+
+I have a bunch of goals that I wish to accomplish by, and while working on this
+repository. Those goals are:
+
+- Provide _everything_ - we would like to provide modules, packages, system and
+  home configurations all in one place
+- Modularity - we would like to _never_ compromise on modularity, and two hosts
+  of different purposes must _never_ conflict.
+- Purity - `--impure` flag is a no-go.
+- Documentation - anything that has been done should be documented. Best-effort
+  not guaranteed.
+
+#### Non-goals
+
+- Full reproducibility - we contain secrets, therefore the setup is not fully
+  reproducible.
+- Replicability - this configuration does not aim to, and will not serve as a
+  framework. I make no guarantees of replicability.
+- Support - take a wild guess.
+- Stability - see above.
 
 ## Host Specifications
 
@@ -270,7 +294,8 @@ awesome and I appreciate them)
 
 Just people that I find cool :)
 
-[nuko](https://github.com/nu-nu-ko) - [lychee](https://github.com/itslychee)
+[nuko](https://github.com/nu-nu-ko) - [lychee](https://github.com/itslychee) -
+[germanbread](https://github.com/GermanBread)
 
 ## Cool Resources
 
@@ -290,7 +315,7 @@ strongly recommend that you read in no particular order.
 - [Zero to Nix](https://zero-to-nix.com/)
 - [Nix Pills](https://nixos.org/guides/nix-pills/)
 - [Xe Iaso's blog](https://xeiaso.net/blog)
-- [Vinícius Müller's Blog](https://viniciusmuller.github.io/blog)
+- [Vinícius Müller's Blog](https://viniciusmuller.github.io) (no longer exists)
 - [Viper's Blog](https://ayats.org/)
 - [Solène's Blog](https://dataswamp.org/~solene)
 - [...my own "blog"?](https://notashelf.github.io/nyx/)
