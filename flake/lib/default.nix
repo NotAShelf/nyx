@@ -48,6 +48,10 @@
       # very broad category, so anything could go here in theory.
       conversions = callLibs ./conversions.nix;
 
+      # Utilities for working with GitHub or/and Forgejo workflows. So far, it
+      # is an adaptation of nix-github-actions to suit my needs.
+      ci = callLibs ./ci.nix;
+
       # DAG library is a modified version of the one found in
       # rycee's NUR repository
       dag = callLibs ./dag.nix;
