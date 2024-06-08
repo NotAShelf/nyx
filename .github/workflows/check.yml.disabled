@@ -29,7 +29,7 @@ jobs:
       - name: "Install nix"
         uses: cachix/install-nix-action@master
         with:
-          install_url: https://nixos.org/nix/install
+          install_url: "https://nixos.org/nix/install"
           extra_nix_config: |
             experimental-features = nix-command flakes fetch-tree
             allow-import-from-derivation = false
