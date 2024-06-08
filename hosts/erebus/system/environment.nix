@@ -10,7 +10,8 @@
       ctmg
 
       # GUI tools
-      konsole # KDE's terminal emulator, surprisingly good
+      alacritty # terminal emulator
+      zathura # PDF viewer
     ];
 
     # needed for i3blocks
