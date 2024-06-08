@@ -12,10 +12,8 @@
       # GUI tools
       alacritty # terminal emulator
       zathura # PDF viewer
+      imv # image viewer
     ];
-
-    # needed for i3blocks
-    pathsToLink = ["/libexec"];
 
     # fix an annoying warning
     etc."mdadm.conf".text = ''

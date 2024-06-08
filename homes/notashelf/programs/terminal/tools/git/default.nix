@@ -5,7 +5,7 @@
 }: let
   inherit (osConfig) modules;
 
-  gitPackage = pkgs.gitAndTools.gitFull;
+  gitPackage = pkgs.gitFull;
   cfg = modules.system.programs.git;
 in {
   imports = [

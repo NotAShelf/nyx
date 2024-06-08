@@ -9,14 +9,24 @@
       allowBroken = false;
       allowUnsupportedSystem = true;
 
-      # really a pain in the ass to deal with when disabled
+      # Really a pain in the ass to deal with when disabled. True means
+      # we are able to build unfree packages without explicitly allowing
+      # each unfree package.
       allowUnfree = true;
 
-      # default to none, add more as necessary
+      # Default to none, add more as necessary. This is usually where
+      # electron packages go when they reach EOL.
       permittedInsecurePackages = [];
 
-      # disable the usage of nixpkgs aliases in the configuration
-      allowAliases = true;
+      # Disable the usage of nixpkgs aliases in the configuration.
+      allowAliases = false;
+
+      # Enable parallel building by default.
+      enableParallelBuildingByDefault = true;
+
+      # List of derivation warnings to display while rebuilding.
+      # See: <https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/check-meta.nix>
+      showDerivationWarnings = ["maintainerless"];
     };
 
     overlays = [

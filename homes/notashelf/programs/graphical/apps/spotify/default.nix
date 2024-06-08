@@ -11,7 +11,7 @@
   sys = modules.system;
   prg = sys.programs;
 
-  spicePkgs = inputs.spicetify.packages.${pkgs.system}.default;
+  spicePkgs = inputs.spicetify.packages.${pkgs.stdenv.system}.default;
 in {
   imports = [inputs.spicetify.homeManagerModule];
   config = mkIf prg.spotify.enable {

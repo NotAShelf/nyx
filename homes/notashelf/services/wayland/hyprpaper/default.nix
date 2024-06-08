@@ -1,24 +1,30 @@
 {
+  inputs,
   osConfig,
   pkgs,
   lib,
-  inputs,
   ...
 }: let
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
+  inherit (builtins) map;
+  inherit (lib.modules) mkIf;
+  inherit (lib.meta) getExe;
+  inherit (lib.strings) concatStringsSep;
 
-  monitors = osConfig.modules.device.monitors;
+  inherit (osConfig) modules;
+  env = modules.usrEnv;
+  sys = modules.system;
 
-  hyprpaper = inputs.hyprpaper.packages.${pkgs.system}.default;
-  wallpkgs = inputs.wallpkgs.packages.${pkgs.system};
+  monitors = modules.device.monitors;
+
+  hyprpaper = inputs.hyprpaper.packages.${pkgs.stdenv.system}.default;
+  wallpkgs = inputs.wallpkgs.packages.${pkgs.stdenv.system};
 in {
-  config = lib.mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
+  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
     systemd.user.services.hyprpaper = lib.mkHyprlandService {
       Unit.Description = "Hyprland wallpaper daemon";
       Service = {
         Type = "simple";
-        ExecStart = "${lib.getExe hyprpaper}";
+        ExecStart = "${getExe hyprpaper}";
         Restart = "on-failure";
       };
     };
@@ -27,7 +33,7 @@ in {
         wallpaper = "${wallpkgs.catppuccin}/share/wallpapers/catppuccin/01.png";
       in ''
         preload=${wallpaper}
-        ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''wallpaper=${monitor},${wallpaper}'') monitors)}
+        ${concatStringsSep "\n" (map (monitor: ''wallpaper=${monitor},${wallpaper}'') monitors)}
         ipc=off
       '';
     };

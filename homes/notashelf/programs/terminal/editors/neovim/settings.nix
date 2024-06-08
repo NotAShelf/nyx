@@ -31,7 +31,7 @@ in {
         vim = {
           # use neovim-unwrapped from nixpkgs
           # alternatively, neovim-nightly from the neovim-nightly overlay
-          # via inputs.neovim-nightly.packages.${pkgs.system}.neovim
+          # via inputs.neovim-nightly.packages.${pkgs.stdenv.system}.neovim
           package = pkgs.neovim-unwrapped;
 
           viAlias = true;

@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  users.users.yubikey = {
+  users.users."notashelf" = {
     isNormalUser = true;
     extraGroups = ["wheel"];
     shell = pkgs.zsh;

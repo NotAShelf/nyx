@@ -12,7 +12,7 @@
 in {
   config = mkIf prg.gaming.chess.enable {
     home.packages = with pkgs; [
-      knights
+      kdePackages.knights
       fairymax
       gnome.gnome-chess
       stockfish

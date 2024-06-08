@@ -11,7 +11,7 @@
   inherit (osConfig.modules) device;
   inherit (import ./bin {inherit pkgs lib;}) ags-open-window ags-move-window ags-hyprctl-swallow;
 
-  agsPkg = inputs.ags.packages.${pkgs.system}.ags;
+  agsPkg = inputs.ags.packages.${pkgs.stdenv.system}.ags;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
@@ -22,8 +22,8 @@ in {
       # some of those dependencies are used internally for setting variables
       # or basic functionality where built-in services do not suffice
       coreDeps = with pkgs; [
-        inputs.hyprpicker.packages.${pkgs.system}.default
-        inputs.hyprland.packages.${pkgs.system}.default
+        inputs.hyprpicker.packages.${pkgs.stdenv.system}.default
+        inputs.hyprland.packages.${pkgs.stdenv.system}.default
         config.programs.foot.package
 
         # basic functionality

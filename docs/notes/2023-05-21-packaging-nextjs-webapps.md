@@ -93,7 +93,7 @@ one below
 
       paths = with pkgs; [
         # this package is called from a flake.nix alongside the derivation for the website
-        inputs.self.packages.${pkgs.system}.your-website
+        inputs.self.packages.${pkgs.stdenv.system}.your-website
         nodejs
         bash
       ];
@@ -125,7 +125,7 @@ virtualisation.oci-containers = {
       extraOptions = ["--network=host"];
 
       image = "your-website";
-      imageFile = inputs.website-flake.packages.${pkgs.system}.dockerImage;
+      imageFile = inputs.website-flake.packages.${pkgs.stdenv.system}.dockerImage;
     };
   };
 };
