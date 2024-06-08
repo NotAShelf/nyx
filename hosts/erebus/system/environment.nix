@@ -1,13 +1,16 @@
 {pkgs, ...}: {
   environment = {
-    # Yubikey tooling
     systemPackages = with pkgs; [
+      # Yubikey tooling
       yubikey-personalization
       cryptsetup
       pwgen
       paperkey
       gnupg
       ctmg
+
+      # GUI tools
+      konsole # KDE's terminal emulator, surprisingly good
     ];
 
     # needed for i3blocks

@@ -19,17 +19,12 @@
       enable = true;
       xkb.layout = "tr";
 
-      desktopManager = {
-        xterm.enable = false;
-      };
+      desktopManager.xterm.enable = false;
 
       # i3 for window management
       windowManager.i3 = {
         enable = true;
-        package = pkgs.i3-gaps;
-
         extraPackages = with pkgs; [
-          st # suckless terminal that sucks, pretty minimal though
           dmenu # application launcher
           i3status # i3 status bar
           i3lock # default i3 screen locker
