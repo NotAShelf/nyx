@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
   sys = modules.system;
@@ -20,7 +20,7 @@ in {
       # Electron applications
       # zoom-us # may we never return to online education
       netflix
-      bitwarden
+      bitwarden-desktop
 
       # Obsidian has a pandoc plugin that allows us to render and export
       # alternative image format, but as the name indicates the plugin
