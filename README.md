@@ -28,10 +28,10 @@
 ## High Level Overview
 
 This is a high level overview of this monorepo, containing configurations for
-**all** of my machines that are running or have ran NixOS at some point in time.
-You will find below a list of my hosts and their specifications, accompanied by
-a somewhat maintained list of features of this configuration and my design
-considerations.
+**all** of my machines that are running, or have ran, NixOS at some point in
+time. You will find below a list of my hosts and their specifications,
+accompanied by a somewhat maintained list of features of this configuration and
+my design considerations.
 
 ### Disclaimer
 
@@ -52,7 +52,7 @@ breaks, that will be your responsibility.
 > reader, means that they **cannot** be built and replicated successfully, at
 > least in theory. I invite you to go through the modules and countless lines of
 > Nix I have written, but I would strongly advise against attempting to boot any
-> of those configurations unless you are not me. You should also note that
+> of those configurations unless you are me. You should also note that
 > this is **not** a community framework.
 
 <!-- deno-fmt-ignore-end -->
