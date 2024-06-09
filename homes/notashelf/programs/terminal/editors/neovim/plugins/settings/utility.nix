@@ -7,7 +7,7 @@
 
       vim-wakatime = {
         enable = true;
-        cli-package = pkgs.wakatime;
+        cli-package = pkgs.wakatime-cli;
       };
 
       motion = {
