@@ -6,6 +6,10 @@
     # Configuration reference:
     # <https://nixos.org/manual/nixpkgs/unstable/#chap-packageconfig>
     config = {
+      # Allow broken packages to be built. Setting this to false means packages
+      # will refuse to evaluate sometimes, but only if they have been marked as
+      # broken for a specific reason. At that point we can either try to solve
+      # the breakage, or get rid of the package entirely.
       allowBroken = false;
       allowUnsupportedSystem = true;
 
@@ -18,14 +22,19 @@
       # electron packages go when they reach EOL.
       permittedInsecurePackages = [];
 
-      # Disable the usage of nixpkgs aliases in the configuration.
+      # Nixpkgs sets internal package aliases to ease migration from other
+      # distributions easier, or for convenience's sake. Even though the manual
+      # and the description for this option recommends this to be true, I prefer
+      # explicit naming conventions, i.e., no aliases.
       allowAliases = false;
 
-      # Enable parallel building by default.
-      enableParallelBuildingByDefault = true;
+      # Enable parallel building by default. This, in theory, should speed up building
+      # derivations, especially rust ones. However setting this to true causes a mass rebuild
+      # of the *entire* system closure, so it must be handled with proper care.
+      enableParallelBuildingByDefault = false;
 
       # List of derivation warnings to display while rebuilding.
-      # See: <https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/check-meta.nix>
+      #  See: <https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/check-meta.nix>
       showDerivationWarnings = ["maintainerless"];
     };
 
