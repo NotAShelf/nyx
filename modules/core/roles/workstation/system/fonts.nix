@@ -64,7 +64,7 @@ in {
       lexend
       dejavu_fonts
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
 
       # emojis
       noto-fonts-color-emoji
