@@ -19,7 +19,7 @@ in {
         # tools that help with media operations/management
         ffmpeg-full
         yt-dlp
-        mpc_cli
+        mpc-cli
         playerctl
         pavucontrol
         pulsemixer
