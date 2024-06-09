@@ -14,7 +14,7 @@
     owner = "catppuccin";
     repo = "discord";
     rev = "7d9808eaf663f9c61824fcd1be810dce0fe4a7af";
-    hash = "sha256-wIRr+LnOp9PW7v5xOqpdB6AjqINBlYFkoGRorYkRC2I=";
+    hash = "sha256-dJsMA8SiRMtptdsMpgdilP6U/i+Tp7a4mS1I3x2ayu0=";
   };
 
   openasar-git = pkgs.fetchFromGitHub {
