@@ -204,7 +204,7 @@ in {
     system = "x86_64-linux";
     modules = mkModulesFor "erebus" {
       moduleTrees = [];
-      roles = [iso headless];
+      roles = [iso];
       extraModules = [shared];
     };
   };
