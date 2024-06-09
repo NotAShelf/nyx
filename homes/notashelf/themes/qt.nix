@@ -52,7 +52,7 @@ in {
             # breeze-icons is added as a fallback
             libsForQt5.qt5ct
             kdePackages.qt6ct
-            breeze-icons
+            kdePackages.breeze-icons
           ]
 
           (mkIf cfg.forceGtk [
