@@ -9,7 +9,7 @@
       plasma5Packages.kirigami2
     ];
 
-    qtVersion = pkgs.qt515.qtbase.version;
+    qtVersion = pkgs.kdePackages.qtbase.version;
   in {
     "QML2_IMPORT_PATH" = "${lib.concatStringsSep ":" (builtins.map (p: "${p}/lib/qt-${qtVersion}/qml") qmlPackages)}";
   };
