@@ -45,7 +45,7 @@ in {
     };
 
     services.gitea-actions-runner = {
-      package = pkgs.forgejo-actions-runner;
+      package = pkgs.forgejo-runner;
       instances = {
         "runner-01" = mkRunner {
           name = "runner-01";
