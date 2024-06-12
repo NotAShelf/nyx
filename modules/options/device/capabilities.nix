@@ -3,8 +3,9 @@
   inherit (lib.types) bool;
 in {
   options.modules.device = {
-    # bluetooth is an insecure protocol if left unchedked, so while this defaults to true
-    # but the bluetooth.enable option does and should not.
+    # Bluetooth is an insecure protocol, especially if it has been left unchecked.
+    # While this defaults to true (as most devices *do* have bluetooth), bluetooth.enable
+    # should not default to true unless it's explicitly desired.
     hasBluetooth = mkOption {
       type = bool;
       default = true;

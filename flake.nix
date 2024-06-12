@@ -87,7 +87,23 @@
     };
 
     # multi-profile Nix-flake deploy
-    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-small";
+        utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
+    # Documentation generation for module options
+    ndg = {
+      url = "github:feel-co/ndg";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs-small";
+      };
+    };
 
     # A tree-wide formatter
     treefmt-nix = {
