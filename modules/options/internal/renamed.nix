@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkRenamedOptionModule;
+  inherit (lib.modules) mkRenamedOptionModule;
 in {
   imports = [
     # renamed modules for the device module

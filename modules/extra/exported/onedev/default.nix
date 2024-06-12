@@ -4,7 +4,9 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkEnableOption mkDefault mkOption types;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) raw package nullOr str;
   cfg = config.services.onedev;
 
   onedev-package = pkgs.fetchurl {
@@ -17,17 +19,17 @@ in {
       enable = mkEnableOption "Onedev server";
       package = mkOption {
         default = onedev-package;
-        type = types.raw;
+        type = raw;
       };
 
       javaPackage = mkOption {
         default = pkgs.jdk11_headless;
-        type = types.package;
+        type = package;
       };
 
       user = mkOption {
         default = "onedev";
-        type = with types; nullOr str;
+        type = nullOr str;
       };
     };
   };

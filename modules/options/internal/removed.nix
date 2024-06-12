@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkRemovedOptionModule;
+  inherit (lib.modules) mkRemovedOptionModule;
 in {
   imports = [
     (mkRemovedOptionModule ["modules" "services" "override"] ''

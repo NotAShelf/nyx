@@ -4,7 +4,8 @@
   config,
   ...
 }: let
-  inherit (lib) mkOption types mkEnableOption;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) package str;
   cfg = config.modules.style;
 in {
   options = {
@@ -15,7 +16,7 @@ in {
 
           theme = {
             package = mkOption {
-              type = types.package;
+              type = package;
               default = pkgs.catppuccin-kde.override {
                 flavour = ["mocha"];
                 accents = ["blue"];
@@ -25,14 +26,14 @@ in {
             };
 
             name = mkOption {
-              type = types.str;
+              type = str;
               default = "Catppuccin-Mocha-Dark";
               description = "The name for the QT theme package";
             };
           };
 
           kdeglobals.source = mkOption {
-            type = types.path;
+            type = str;
             default = "${cfg.qt.theme.package}/share/color-schemes/CatppuccinMochaBlue.colors";
             description = "The source file for the kdeglobals file. Usually provided by the qt theme package";
           };

@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib.types) package;
-  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.options) mkOption mkEnableOption;
 
   cfg = config.modules.usrEnv.programs.screenlock;
   pkg =

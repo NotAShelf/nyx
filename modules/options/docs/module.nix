@@ -5,9 +5,9 @@
   lib,
   ...
 }: let
-  inherit (lib.options) mkEnableOption mkOption literalExpression;
-  inherit (lib.types) nullOr path str package;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.strings) optionalString;
+  inherit (lib.types) nullOr path str package;
 
   cfg = config.modules.documentation;
 
@@ -24,7 +24,7 @@
     ${cfg.scssExecutable} -t expanded ${cfg.scss} > $out/sys-docs-style.css
   '';
 
-  docs-html = pkgs.runCommand "nyxos-docs" {nativeBuildInputs = [pkgs.pandoc];} (
+  docs-html = pkgs.runCommand "nyx-docs" {nativeBuildInputs = [pkgs.pandoc];} (
     ''
       # convert to pandoc markdown instead of using commonmark directly,
       # as the former automatically generates heading ids and TOC links.

@@ -5,11 +5,12 @@
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types literalExpression;
+  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.types) bool listOf package;
 in {
   options.modules.usrEnv.programs.media = {
     addDefaultPackages = mkOption {
-      type = types.bool;
+      type = bool;
       default = true;
       description = ''
         Whether to enable the default list of media-related packages ranging from audio taggers
@@ -18,7 +19,7 @@ in {
     };
 
     extraPackages = mkOption {
-      type = with types; listOf package;
+      type = listOf package;
       default = [];
       description = ''
         Additional packages that will be appended to media related packages.
@@ -40,7 +41,7 @@ in {
     mpv = {
       enable = mkEnableOption "mpv media player";
       scripts = mkOption {
-        type = with types; listOf package;
+        type = listOf package;
         description = "A list of MPV scripts that will be enabled";
         example = literalExpression ''[ pkgs.mpvScripts.cutter ]'';
         default = with pkgs.mpvScripts; [
@@ -52,10 +53,10 @@ in {
           sponsorblock # skip sponsored segments
           uosc # proximity UI
           quality-menu # ytdl-format quality menu
-          seekTo # seek to spefici pos.
+          seekTo # seek to specific pos.
 
           # from nyxpkgs
-          inputs'.nyxpkgs.packages.mpv-history # save a history of played files with timestamps
+          # inputs'.nyxpkgs.packages.mpv-history # save a history of played files with timestamps
         ];
       };
     };
