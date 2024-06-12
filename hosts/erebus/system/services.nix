@@ -12,6 +12,7 @@
       xkb.layout = "tr";
 
       desktopManager.xterm.enable = false;
+      displayManager.lightdm.enable = false;
     };
   };
 }
