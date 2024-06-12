@@ -11,6 +11,7 @@ site_description="NotAShelf's notes on various topics"
 # Directories
 tmpdir="$(mktemp -d)"
 workingdir="$(pwd)"
+templatedir="$workingdir/templates"
 outdir="$workingdir"/out
 posts_dir="$outdir/posts"
 pages_dir="$outdir/pages"
@@ -26,8 +27,11 @@ create_directory() {
 }
 
 compile_stylesheet() {
+  local stylesheetpath="$1"
+  local outpath="$2"
+
   echo "Compiling stylesheet..."
-  sassc --style=compressed "$1"/"$2" "$1"/out/style.css
+  sassc --style=compressed "$stylesheetpath"/main.scss "$outpath"/style.css
 }
 
 generate_posts_json() {
@@ -52,7 +56,6 @@ generate_posts_json() {
         # JSON object with data we may want to use like a json feed file
         # this doesn't, however, actually follow jsonfeed spec
         # that is done so by the generate_jsonfeed_spec function
-
         json_object=$(jq -n \
           --arg name "$filename" \
           --arg url "$site_url/posts/$(basename "$file" .md).html" \
@@ -81,33 +84,19 @@ generate_index_page() {
   echo "Generating index page..."
   pandoc --from gfm --to html \
     --standalone \
-    --template "$workingdir"/templates/html/page.html \
-    --css /style.css \
+    --template "$templatedir"/html/page.html \
+    --css "$templatedir"/style.css \
     --variable="index:true" \
     --metadata title="$title" \
     --metadata description="$site_description" \
     "$workingdir"/notes/README.md -o "$outdir"/index.html
 }
 
-generate_404_page() {
-  local workingdir="$1"
-  local tmpdir="$2"
-  local outdir="$3"
-
-  echo "Generating 404 page..."
-  pandoc --from gfm --to html \
-    --standalone \
-    --template "$workingdir"/templates/html/404.html \
-    --css /style.css \
-    --metadata title="404 - Page Not Found" \
-    --metadata description="$site_description" \
-    "$tmpdir"/404.md -o "$outdir"/404.html
-}
-
 generate_other_pages() {
   local workingdir="$1"
   local tmpdir="$2"
   local outdir="$3"
+  local templatedir="$4"
 
   echo "Generating other pages..."
   for file in "$workingdir"/notes/*.md; do
@@ -117,18 +106,20 @@ generate_other_pages() {
         # Sanitize post title by removing date from filename
         sanitized_title=$(echo "$filename" | sed -E 's/^[0-9]{4}-[0-9]{2}-[0-9]{2}-//; s/\.md$//; s/-/ /g; s/\b\w/\u&/g')
 
-        # Date in filename imples a blogpost
-        # convert it to markdown and place it in the posts directory
-        # since this is a post, it can contain a table of contents
+        # Date in the file name implies that the page we are converting
+        # is a blog post. Thus, we want to convert it to HTML and place it
+        # in the posts directory where "blog" posts are expected to be.
+        # Since it's supposed to have lots of content, it should be added
+        # a table of contents section as well.
         echo "Converting $filename..."
         pandoc --from gfm --to html \
           --standalone \
-          --template "$workingdir"/templates/html/page.html \
-          --css /style.css \
+          --template "$templatedir"/html/page.html \
+          --css "$templatedir"/style.css \
           --metadata title="Posts - $sanitized_title" \
           --metadata description="$site_description" \
           --table-of-contents \
-          --highlight-style="$workingdir"/templates/pandoc/custom.theme \
+          --highlight-style="$templatedir"/pandoc/custom.theme \
           "$file" -o "$outdir"/posts/"$(basename "$file" .md)".html
       else
         if [[ $filename != "*-md" ]]; then
@@ -137,8 +128,8 @@ generate_other_pages() {
           # convert it to html and place it in the pages directory
           pandoc --from gfm --to html \
             --standalone \
-            --template "$workingdir"/templates/html/page.html \
-            --css /style.css \
+            --template "$templatedir"/html/page.html \
+            --css "$templatedir"/style.css \
             --metadata title="$filename" \
             --metadata description="$site_description" \
             "$file" -o "$outdir"/pages/"$(basename "$file" .md)".html
@@ -147,79 +138,37 @@ generate_other_pages() {
     fi
   done
 
-  for file in "$tmpdir"/*.md; do
+  for file in "$templatedir"/pages/*.md; do
     filename=$(basename "$file")
-    if [[ $filename != "404.md" ]]; then
+    if [[ $filename != "404.md" && $filename != "pages.md" ]]; then
       pandoc --from gfm --to html \
         --standalone \
-        --template "$workingdir"/templates/html/page.html \
-        --css /style.css \
+        --template "$templatedir"/html/page.html \
+        --css "$templatedir"/style.css \
         --metadata title="$filename" \
         --metadata description="$site_description" \
-        --highlight-style="$workingdir"/templates/pandoc/custom.theme \
+        --highlight-style="$templatedir"/pandoc/custom.theme \
         "$file" -o "$outdir"/pages/"$(basename "$file" .md)".html
     fi
   done
-}
 
-write_privacy_policy() {
-  # write privacy.md as notes/privacy.md
-  cat >"$1/privacy.md" <<EOF
-# Privacy Policy
+  echo "Generating 404 page..."
+  pandoc --from gfm --to html \
+    --standalone \
+    --template "$templatedir"/html/404.html \
+    --css "$templatedir"/style.css \
+    --metadata title="404 - Page Not Found" \
+    --metadata description="$site_description" \
+    "$templatedir"/pages/404.md -o "$outdir"/404.html
 
-This site is hosted on Github Pages, their privacy policies apply at any given time.
-
-The author of this site:
-- does not set or use cookies.
-- does not store data in the browser to be shared, sent, or sold to third-parties.
-- does not collect, sell, send or otherwise share your private information with any third parties.
-
-Effective as of April 5th, 2024.
-EOF
-}
-
-write_about_page() {
-  # write about.md as notes/about.md
-  cat >"$1/about.md" <<-EOF
-# About
-
-I work with Nix quite often, and share some of the stuff I learn while I do so. This website contains various notes
-on things that interested me, or things I thought was worth sharing. If you would like to contribute, or have any feedback
-you think would be useful, please feel free to reach out to me via email, available at my GitHub profile or
-[on my website](https://notashelf.dev).
-EOF
-}
-
-write_404_page() {
-  # write 404.md as notes/404.md
-  cat >"$1/404.md" <<-EOF
-  ## 404 | This is not the page you are looking for.
-EOF
-}
-
-write_robots_txt() {
-  # write robots.txt
-  # tell bots to fuck off
-  cat >"$1/robots.txt" <<-EOF
-  User-agent: GPTBot
-  Disallow: /
-
-  User-agent: ChatGPT-User
-  Disallow: /
-
-  User-agent: PerplexityBot
-  Disallow: /
-
-  User-agent: CCBot
-  Disallow: /
-
-  User-agent: Google-Extended
-  Disallow: /
-
-  User-agent: *
-  Disallow:
-  Allow: /
-EOF
+  echo "Generating posts page..."
+  pandoc --from gfm --to html \
+    --standalone \
+    --template "$templatedir"/html/posts.html \
+    --css "$templatedir"/style.css \
+    --metadata title="Nyx | Available Posts" \
+    --metadata description="$site_description" \
+    "$templatedir"/pages/pages.md -o "$outdir"/pages.html
 }
 
 cleanup() {
@@ -235,18 +184,11 @@ create_directory "$posts_dir"
 create_directory "$pages_dir"
 
 # Compile stylesheet
-compile_stylesheet "$workingdir" "templates/scss/main.scss"
-
-# Write markdown pages inside a tempdir
-write_about_page "$tmpdir"
-write_privacy_policy "$tmpdir"
-write_404_page "$tmpdir"
-write_robots_txt "$outdir"
+compile_stylesheet "$templatedir"/scss "$outdir"
 
 # Generate HTML pages from available markdown templates
 generate_index_page "$workingdir" "$outdir"
-generate_404_page "$workingdir" "$tmpdir" "$outdir"
-generate_other_pages "$workingdir" "$tmpdir" "$outdir"
+generate_other_pages "$workingdir" "$tmpdir" "$outdir" "$templatedir"
 
 # Post data
 generate_posts_json "$workingdir" "$json_file"
