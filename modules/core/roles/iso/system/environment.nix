@@ -41,6 +41,15 @@ in {
       "mdadm.conf".text = ''
         MAILADDR root
       '';
+
+      # Prevent the kernel from unlinking the pstore files on boot. This
+      # is to avoid the installer attempting to create additional files on
+      # persistent storage.
+      # See: <https://www.man7.org/linux/man-pages/man5/pstore.conf.5.html>
+      "systemd/pstore.conf".text = ''
+        [PStore]
+        Unlink=no
+      '';
     };
   };
 }

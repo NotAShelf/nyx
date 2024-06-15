@@ -6,13 +6,16 @@
   inherit (lib.modules) mkForce mkAfter mkImageMediaOverride;
 in {
   boot = {
+    # Force systemd-boot to be disabled.
+    loader.systemd-boot.enable = mkForce false;
+
     # use the latest Linux kernel instead of the default LTS kernel
     # this is useful for hardware support and bug fixes
     kernelPackages = pkgs.linuxPackages_latest;
 
     # ground control to kernel
     # talk to me kernel
-    kernelParams = mkAfter ["noquiet"];
+    kernelParams = mkAfter ["noquiet" "toram"];
 
     # no need for systemd in the initrd stage on an installation media
     # being put in to recovery mode, or having systemd in stage one is

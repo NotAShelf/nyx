@@ -37,7 +37,7 @@ in {
     volumeID = mkImageMediaOverride "${name}";
 
     # maximum compression, in exchange for build speed
-    squashfsCompression = "zstd -Xcompression-level 10"; # default uses gzip
+    squashfsCompression = "zstd -Xcompression-level 19"; # default uses gzip
 
     # ISO image should be an EFI-bootable volume
     makeEfiBootable = true;
@@ -47,6 +47,9 @@ in {
     # "Whether the ISO image should be bootable from CD as well as USB."
     # is this supposed to make the ISO image bootable from *CD* instead of USB?
     makeUsbBootable = true;
+
+    # Get rid of "installer" suffix in boot menu
+    appendToMenuLabel = "";
 
     contents = [
       {
