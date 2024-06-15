@@ -99,6 +99,18 @@ in {
           '';
         });
       };
+
+      ".local/bin/rm-gpucache" = {
+        # Remove GPU cache
+        source = getExe (pkgs.writeShellApplication {
+          name = "rm-gpucache";
+          runtimeInputs = with pkgs; [coreutils];
+          text = ''
+            #!${pkgs.stdenv.shell}
+            exec rm -rf ~/.nv
+          '';
+        });
+      };
     };
   };
 }
