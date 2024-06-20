@@ -1,5 +1,17 @@
 {
   "pins": {
+    "discord": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "catppuccin",
+        "repo": "discord"
+      },
+      "branch": "main",
+      "revision": "01fcb7475ec30c323d602e5225a4296569eb1789",
+      "url": "https://github.com/catppuccin/discord/archive/01fcb7475ec30c323d602e5225a4296569eb1789.tar.gz",
+      "hash": "064jfr745yxmr28wwxpz48z9v8l1prhd7pldigyvlbjpgdb4iml4"
+    },
     "hmts.nvim": {
       "type": "GitRelease",
       "repository": {
