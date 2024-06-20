@@ -1,0 +1,38 @@
+name: Update pinned sources
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 1 * *" # 4AM on 1st of every month
+    - cron: "0 4 15 * *" # 4AM on the 15th of every month
+
+jobs:
+  update:
+    if: github.repository == 'notashelf/nyx'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Install nix
+        uses: cachix/install-nix-action@master
+        with:
+          install_url: https://nixos.org/nix/install
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            allow-import-from-derivation = false
+
+      - name: Update npins
+        run: nix run nixpkgs#npins update
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "[CI]: update npins"
+          push_options: "--force"
+          commit_user_name: GitHub Actions
