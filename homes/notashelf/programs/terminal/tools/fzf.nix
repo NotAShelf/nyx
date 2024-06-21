@@ -8,7 +8,8 @@
 in {
   programs.fzf = {
     enable = true;
-    defaultCommand = "${lib.getBin pkgs.fd}/bin/fd --type=f --hidden --exclude=.git";
+    defaultCommand = "${lib.getBin pkgs.fd}/bin/fd --type=d --hidden --exclude=.git";
+    fileWidgetCommand = "${pkgs.fd}/bin/fd --type f --hidden --exclude=.git";
     defaultOptions = [
       "--layout=reverse" # Top-first.
       "--exact" # Substring matching by default, `'`-quote for subsequence matching.
