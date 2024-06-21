@@ -32,7 +32,7 @@ in {
         package = pkgs.forgejo.override {pamSupport = false;};
         stateDir = "/srv/storage/forgejo/data";
 
-        mailerPasswordFile = config.age.secrets.mailserver-forgejo-secret.path;
+        secrets.mailer.PASSWD = config.age.secrets.mailserver-forgejo-secret.path;
         lfs.enable = true;
 
         # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
