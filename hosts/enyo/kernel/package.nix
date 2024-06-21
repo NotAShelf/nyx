@@ -9,7 +9,7 @@
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.modules) mkForce;
 
-  version = "6.9.3";
+  version = "6.9.5";
   suffix = "xanmod1";
   modDirVersion = "${version}-${suffix}";
 
@@ -21,7 +21,7 @@
       owner = "xanmod";
       repo = "linux";
       rev = "refs/tags/${version}-xanmod1";
-      hash = "sha256-LGq87dfiGQ0cgwTEKchrHXshjwbAXVh1ike2oBp+p1o=";
+      hash = "sha256-Yahc5bUbutwuhwvdbUm1JXa8WCWASNrMewXdSorKnfE=";
     };
 
     extraMakeFlags = ["KCFLAGS=-DAMD_PRIVATE_COLOR"];
