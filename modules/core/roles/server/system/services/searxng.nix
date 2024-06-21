@@ -47,7 +47,7 @@ in {
           };
 
           search = {
-            safe_search = 0; # 0 = None, 1 = Moderate, 2 = Strict
+            safe_search = 2; # 0 = None, 1 = Moderate, 2 = Strict
             formats = ["html" "json" "rss"];
             autocomplete = "google"; # "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
             default_lang = "en";
