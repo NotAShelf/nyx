@@ -4,12 +4,12 @@
 	"kofi": "https://ko-fi.com/aylur",
 	"description": "The AGS configuration segment of my NixOS configurations.",
 	"devDependencies": {
-		"stylelint-config-standard-scss": "^10.0.0",
-		"@typescript-eslint/eslint-plugin": "^5.33.0",
-		"@typescript-eslint/parser": "^5.33.0",
-		"eslint": "^8.44.0",
+		"@typescript-eslint/eslint-plugin": "^5.62.0",
+		"@typescript-eslint/parser": "^5.62.0",
+		"eslint": "^8.57.0",
 		"eslint-plugin-import": "^2.29.1",
 		"eslint-plugin-n": "^16.6.2",
-		"eslint-plugin-promise": "^6.1.1"
+		"eslint-plugin-promise": "^6.2.0",
+		"stylelint-config-standard-scss": "^10.0.0"
 	}
 }
