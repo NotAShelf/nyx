@@ -35,7 +35,11 @@
 
       # List of derivation warnings to display while rebuilding.
       #  See: <https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/check-meta.nix>
-      showDerivationWarnings = ["maintainerless"];
+      # NOTE: "maintainerless" can be added to emit warnings
+      # about packages without maintainers but it seems to me
+      # like there are more packages without maintainers than
+      # with maintainers, so it's disabled for the time being.
+      showDerivationWarnings = [];
     };
 
     overlays = [
