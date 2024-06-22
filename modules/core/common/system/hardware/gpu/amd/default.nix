@@ -21,7 +21,7 @@ in {
     environment.systemPackages = [pkgs.nvtopPackages.amd];
 
     # enables AMDVLK & OpenCL support
-    hardware.opengl = {
+    hardware.graphics = {
       extraPackages = with pkgs;
         [
           amdvlk

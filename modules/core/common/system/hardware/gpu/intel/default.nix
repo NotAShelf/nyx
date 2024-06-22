@@ -18,7 +18,7 @@ in {
     services.xserver.videoDrivers = ["modesetting"];
 
     # OpenCL support and VAAPI
-    hardware.opengl = {
+    hardware.graphics = {
       extraPackages = with pkgs; [
         intel-compute-runtime
         intel-media-driver
@@ -36,7 +36,7 @@ in {
       ];
     };
 
-    environment.variables = mkIf (config.hardware.opengl.enable && dev.gpu != "hybrid-nv") {
+    environment.variables = mkIf (config.hardware.graphics.enable && dev.gpu != "hybrid-nv") {
       VDPAU_DRIVER = "va_gl";
     };
   };
