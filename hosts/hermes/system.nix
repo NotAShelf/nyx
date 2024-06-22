@@ -5,9 +5,6 @@
       "i8042.nopnp" # Don't use ACPIPn<P / PnPBIOS to discover KBD/AUX controllers
     ];
 
-    system = {
-      stateVersion = "23.05";
-      configurationRevision = self.rev or "dirty";
-    };
+    system.stateVersion = "23.05";
   };
 }
