@@ -24,9 +24,9 @@ in {
 
       deviceTree.enable = true;
 
-      opengl = {
+      graphics = {
         # this only takes effect in 64 bit systems
-        driSupport32Bit = mkForce false;
+        enable32Bit = mkForce false;
       };
     };
 
