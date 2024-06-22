@@ -7,7 +7,7 @@
   ...
 }: let
   inherit (self) inputs;
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkForce;
   inherit (lib.attrsets) genAttrs;
   inherit (config) modules;
 
@@ -45,5 +45,14 @@ in {
     # the system expects user directories to be found in the present
     # directory, or will exit with directory not found errors
     users = genAttrs config.modules.system.users (name: ./${name});
+
+    # Configuration that should be set for any existing and future users
+    # declared in this module.
+    sharedModules = [
+      {
+        home.stateVersion = mkForce config.system.stateVersion;
+        nix.package = mkForce config.nix.package;
+      }
+    ];
   };
 }
