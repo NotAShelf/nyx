@@ -28,10 +28,10 @@
 ## High Level Overview
 
 This is a high level overview of this monorepo, containing configurations for
-**all** of my machines that are running, or have ran, NixOS at some point in
-time. You will find below a list of my hosts and their specifications,
-accompanied by a somewhat maintained list of features of this configuration and
-my design considerations.
+**all** of my machines that are currently running NixOS, or have ran NixOS at
+some point in time. You will find below a list of my hosts and their
+specifications, accompanied by a somewhat maintained list of features of this
+configuration and my design considerations.
 
 ### Disclaimer
 
@@ -42,7 +42,10 @@ one)** but you are welcome to browse the codebase to your liking, you may find
 bits that are interesting or/and useful to you.
 
 Do keep in mind that I make no promise of stability or support. If something
-breaks, that will be your responsibility.
+breaks, that will be your responsibility. Please do not allow yourself to be
+fooled by the sheer amount of documentation effort that has gone into this
+project. It is not a public framework, never will be. It will receive changes,
+on almost a daily basis and possibly in a half-broken state.
 
 <!-- deno-fmt-ignore-start -->
 
@@ -263,7 +266,7 @@ foothold in the Nix world.
 
 ### Awesome People
 
-I ~~shamelessly stole from~~ got inspired by those folks
+I got inspired by, and owe a lot to those folks
 
 [sioodmy](https://github.com/sioodmy) - [fufexan](https://github.com/fufexan) -
 [NobbZ](https://github.com/NobbZ) - [ViperML](https://github.com/viperML) -
@@ -292,9 +295,10 @@ awesome and I appreciate them)
 
 ### Honorable Mentions
 
-Just people that I find cool :)
+Some of the cool people I have interacted with in the past and believe deserve a
+shoutout for their support or companionship. I appreciate you all. :)
 
-[nuko](https://github.com/nu-nu-ko) - [lychee](https://github.com/itslychee) -
+[fsnkty](https://github.com/fsnkty) - [lychee](https://github.com/itslychee) -
 [germanbread](https://github.com/GermanBread)
 
 ## Cool Resources
@@ -374,7 +378,8 @@ under the [CC BY License](docs/LICENSE).
 <!-- deno-fmt-ignore-end -->
 
 It is not in any shape or form enforced, but your kindness and due diligence
-would be highly appreciated.
+would be highly appreciated. Please do not be one of the people who upstream my
+commits without any consideration to my time and efforts.
 
 ---
 
