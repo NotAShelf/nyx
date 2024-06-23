@@ -1,16 +1,15 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
-  environment.variables = let
-    qmlPackages = with pkgs; [
-      plasma5Packages.qqc2-desktop-style
-      plasma5Packages.kirigami2
-    ];
+{pkgs, ...}: let
+  inherit (builtins) concatStringsSep map;
 
-    qtVersion = pkgs.kdePackages.qtbase.version;
-  in {
-    "QML2_IMPORT_PATH" = "${lib.concatStringsSep ":" (builtins.map (p: "${p}/lib/qt-${qtVersion}/qml") qmlPackages)}";
+  inherit (pkgs.kdePackages) qqc2-desktop-style qtbase;
+  inherit (pkgs.libsForQt5) kirigami2;
+
+  qmlPackages = [
+    qqc2-desktop-style
+    kirigami2
+  ];
+in {
+  environment.variables = {
+    "QML2_IMPORT_PATH" = "${concatStringsSep ":" (map (pkg: "${pkg}/lib/qt-${qtbase.version}/qml") qmlPackages)}";
   };
 }

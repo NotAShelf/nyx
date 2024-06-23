@@ -35,19 +35,20 @@ in {
       })
 
       # plasma packages
-      plasma5Packages.dolphin
-      plasma5Packages.dolphin-plugins
-      plasma5Packages.kio
-      plasma5Packages.kio-extras
-      plasma5Packages.kimageformats
-      plasma5Packages.kdegraphics-thumbnailers
+      kdePackages.dolphin
+      kdePackages.dolphin-plugins
+      kdePackages.ark
+      kdePackages.kio
+      kdePackages.kio-extras
+      kdePackages.kimageformats
+      kdePackages.kdegraphics-thumbnailers
 
       # Okular needs ghostscript to import PostScript files as PDFs
       # so we add ghostscript_headless as a dependency
       (symlinkJoin {
         name = "Okular";
         paths = with pkgs; [
-          plasma5Packages.okular
+          kdePackages.okular
           ghostscript_headless
         ];
       })
