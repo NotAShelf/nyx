@@ -19,7 +19,7 @@
       # packages available in the dev shell
       inputsFrom = [config.treefmt.build.devShell];
       packages = with pkgs; [
-        (inputs'.agenix.packages.default.override {ageBin = "${pkgs.rage}/bin/rage";}) # provide agenix CLI within flake shell
+        inputs'.agenix.packages.default # provide agenix CLI within flake shell
         inputs'.deploy-rs.packages.default # provide deploy-rs CLI within flake shell
         config.treefmt.build.wrapper # treewide formatter
         nil # nix ls

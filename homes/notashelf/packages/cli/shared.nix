@@ -13,7 +13,7 @@ in {
   config = mkIf prg.cli.enable {
     home.packages = with pkgs; [
       # packages from inputs
-      (inputs'.agenix.packages.default.override {ageBin = "${pkgs.rage}/bin/rage";})
+      inputs'.agenix.packages.default
       inputs'.nyxpkgs.packages.cloneit
 
       # CLI packages from nixpkgs
