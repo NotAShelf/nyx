@@ -23,7 +23,7 @@ App.config({
     },
 });
 
-function addWindows(windows: Window[]): void {
+function addWindows(windows: (typeof Window)[]): void {
     windows.forEach((win) => App.addWindow(win));
 }
 
