@@ -3,7 +3,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkForce mkDefault;
+  inherit (lib.modules) mkDefault mkForce;
+  inherit (lib.meta) getExe';
 in {
   security = {
     # https://github.com/NixOS/nixpkgs/pull/256491
@@ -50,14 +51,6 @@ in {
             command = "hdparm";
           }
           {
-            package = nix;
-            command = "nix-collect-garbage";
-          }
-          {
-            package = nix;
-            command = "nix-store";
-          }
-          {
             package = nixos-rebuild;
             command = "nixos-rebuild";
           }
@@ -88,7 +81,7 @@ in {
         ];
 
         mkSudoRule = rule: {
-          command = "${rule.package}/bin/${rule.command}";
+          command = getExe' rule.package rule.command;
           options = ["NOPASSWD"];
         };
 
