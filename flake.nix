@@ -222,7 +222,7 @@
     neovim-flake = {
       url = "github:NotAShelf/nvf";
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         nil.follows = "nil";
         flake-utils.follows = "flake-utils";
         flake-parts.follows = "flake-parts";
