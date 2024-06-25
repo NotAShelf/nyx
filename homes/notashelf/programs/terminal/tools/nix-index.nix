@@ -1,4 +1,9 @@
-{inputs, ...}: {
+{
+  inputs,
+  osConfig,
+  pkgs,
+  ...
+}: {
   imports = [inputs.nix-index-db.hmModules.nix-index];
 
   config = {
@@ -15,6 +20,9 @@
       command-not-found.enable = false;
       nix-index = {
         enable = true;
+        package = pkgs.nix-index.override {
+          nix = osConfig.nix.package; # use system version of Nix
+        };
 
         # link nix-inde database to ~/.cache/nix-index
         symlinkToCacheHome = true;
