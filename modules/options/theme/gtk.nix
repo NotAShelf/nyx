@@ -1,32 +1,34 @@
 {
-  lib,
   pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkOption mkEnableOption types;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) str package int;
 in {
   options = {
     modules = {
       style = {
-        # gtk specific options
+        # Theming options for GTK programs. Will be passed verbatim to home-manager
+        # in some cases.
         gtk = {
-          enable = mkEnableOption "GTK theming optionss";
+          enable = mkEnableOption "GTK theming options";
           usePortal = mkEnableOption "native desktop portal use for filepickers";
 
           theme = {
             name = mkOption {
-              type = types.str;
-              default = "Catppuccin-Mocha-Standard-Blue-dark";
+              type = str;
+              default = "catppuccin-mocha-blue-standard+normal";
               description = "The name for the GTK theme package";
             };
 
             package = mkOption {
-              type = types.package;
+              type = package;
               description = "The theme package to be used for GTK programs";
               default = pkgs.catppuccin-gtk.override {
                 size = "standard";
-                accents = ["blue"];
                 variant = "mocha";
+                accents = ["blue"];
                 tweaks = ["normal"];
               };
             };
@@ -34,14 +36,13 @@ in {
 
           iconTheme = {
             name = mkOption {
-              type = types.str;
+              type = str;
               description = "The name for the icon theme that will be used for GTK programs";
-
               default = "Papirus-Dark";
             };
 
             package = mkOption {
-              type = types.package;
+              type = package;
               description = "The GTK icon theme to be used";
               default = pkgs.catppuccin-papirus-folders.override {
                 accent = "blue";
@@ -52,13 +53,13 @@ in {
 
           font = {
             name = mkOption {
-              type = types.str;
+              type = str;
               description = "The name of the font that will be used for GTK applications";
               default = "Lexend";
             };
 
             size = mkOption {
-              type = types.int;
+              type = int;
               description = "The size of the font";
               default = 14;
             };
