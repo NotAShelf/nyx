@@ -10,11 +10,16 @@
   sys = modules.system;
   prg = sys.programs;
 
-  catppuccin-mocha = pkgs.fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "discord";
-    rev = "fac2d63e39b17cec988cb143f09ba5d55d195275";
-    hash = "sha256-XgRVTXCKX+YXujGvqy1C0gNlUTMLgaVFakMplD67UVo=";
+  # Fetching mocha theme from catppuccin/discord actually just fetches
+  # a stylesheet that imports this url in typical Catppuccin nonsense.
+  # Instead of adding this overhead (and a stupid sheet with a web import)
+  # we can simply fetch the stylesheet that is being imported. In the future
+  # I hope the Catppuccin team can get their heads out of their asses and
+  # start publishing *actual releases* for once.
+  # P.S. why does your stupid theme depend on yarn build? It's a stylesheet.
+  catppuccin-mocha-css = pkgs.fetchurl {
+    url = "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
+    hash = "sha256-yyT7hxXNHd633wJ3vgwIstt6JGUfsp8pRkYNfz/sRQY=";
   };
 
   openasar-git = pkgs.fetchFromGitHub {
@@ -30,7 +35,7 @@ in {
     ];
 
     xdg.configFile = {
-      "WebCord/Themes/mocha".source = "${catppuccin-mocha}/themes/mocha.theme.css";
+      "WebCord/Themes/mocha".source = catppuccin-mocha-css;
     };
 
     # TODO: maybe this should be under services/global because technically it's not an app
