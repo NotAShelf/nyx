@@ -13,8 +13,8 @@
   catppuccin-mocha = pkgs.fetchFromGitHub {
     owner = "catppuccin";
     repo = "discord";
-    rev = "7d9808eaf663f9c61824fcd1be810dce0fe4a7af";
-    hash = "sha256-dJsMA8SiRMtptdsMpgdilP6U/i+Tp7a4mS1I3x2ayu0=";
+    rev = "fac2d63e39b17cec988cb143f09ba5d55d195275";
+    hash = "sha256-XgRVTXCKX+YXujGvqy1C0gNlUTMLgaVFakMplD67UVo=";
   };
 
   openasar-git = pkgs.fetchFromGitHub {
@@ -40,9 +40,17 @@ in {
       enable = true;
       package = pkgs.arrpc.overrideAttrs {
         pname = "arrpc";
-        version = "3.4.0";
-
+        version = "0-unstable-2024-04-24";
         src = openasar-git;
+
+        patches = [
+          # Improve game detection for Linux
+          # <https://github.com/OpenAsar/arrpc/pull/92>
+          (pkgs.fetchpatch {
+            url = "https://patch-diff.githubusercontent.com/raw/OpenAsar/arrpc/pull/92.patch";
+            hash = "sha256-AHa4FzXJn7bcZ+35DdmAHP/4X3g7//mwp/ggIKvalpw=";
+          })
+        ];
       };
     };
   };
