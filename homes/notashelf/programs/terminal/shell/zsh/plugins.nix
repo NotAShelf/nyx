@@ -29,8 +29,8 @@
     }
     {
       name = "zsh-autopair";
-      file = "zsh-autopair.plugin.zsh";
-      src = pkgs.zsh-autopair;
+      file = "autopair.zsh";
+      src = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
     }
   ];
 }
