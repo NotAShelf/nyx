@@ -53,10 +53,11 @@ in {
     security = {
       protectKernelImage = true; # disables hibernation
 
-      # Breaks virtd, wireguard and iptables by disallowing them from loading
-      # modules during runtime. You may enable this module if you wish, but do
-      # make sure that the necessary modules are loaded declaratively before
-      # doing so. Failing to add those modules may result in an unbootable system!
+      # Breaks virtd, wireguard, iptables and many more features by
+      # disallowing them from loading modules during runtime. You may
+      # enable this module if you wish, but do make sure that the
+      # necessary modules are loaded declaratively before doing so.
+      # Failing to add those modules may result in an unbootable system!
       lockKernelModules = false;
 
       # Force-enable the Page Table Isolation (PTI) Linux kernel feature
@@ -75,6 +76,7 @@ in {
 
     boot = {
       kernel = {
+        # https://docs.kernel.org/admin-guide/sysctl/vm.html
         sysctl = {
           # The Magic SysRq key is a key combo that allows users connected to the
           # system console of a Linux kernel to perform some low-level commands.
@@ -111,6 +113,10 @@ in {
           # Disable SUID binary dump
           "fs.suid_dumpable" = 0;
 
+          # Prevent unprivileged users from creating hard or symbolic links to files
+          "fs.protected_symlinks" = 1;
+          "fs.protected_hardlinks" = 1;
+
           # Disable late module loading
           # "kernel.modules_disabled" = 1;
 
@@ -118,7 +124,7 @@ in {
           "kernel.perf_event_paranoid" = 3;
 
           # Require CAP_BPF to use bpf
-          "kernel.unprivileged_bpf_disabled" = 1;
+          "kernel.unprivileged_bpf_disabled" = true;
 
           # Prevent boot console kernel log information leaks
           "kernel.printk" = "3 3 3 3";
@@ -126,13 +132,35 @@ in {
           # Restrict loading TTY line disciplines to the CAP_SYS_MODULE capability to
           # prevent unprivileged attackers from loading vulnerable line disciplines with
           # the TIOCSETD ioctl
-          "dev.tty.ldisc_autoload" = "0";
+          "dev.tty.ldisc_autoload" = 0;
+
+          # Kexec allows replacing the current running kernel. There may be an edge case where
+          # you wish to boot into a different kernel, but I do not require kexec. Disabling it
+          # patches a potential security hole in our system.
+          "kernel.kexec_load_disabled" = true;
+
+          # Borrowed by NixOS/nixpkgs. Since the security module does not explain what those
+          # options do, it is up you to educate yourself dear reader.
+          # See:
+          #  - <https://docs.kernel.org/admin-guide/sysctl/vm.html#mmap-rnd-bits>
+          #  - <https://docs.kernel.org/admin-guide/sysctl/vm.html#mmap-min-addr>
+          "vm.mmap_rnd_bits" = 32;
+          "vm.mmap_min_addr" = 65536;
         };
       };
 
       # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
       kernelParams =
         [
+          # I'm sure we break hibernation in at least 5 other sections of this config, so
+          # let's disable hibernation explicitly. Allowing hibernation makes it possible
+          # to replace the booted kernel with a malicious one, akin to kexec. This helps
+          # us prevent an attack called "Evil Maid" where an attacker with physical access
+          # to the device. P.S. I chose to mention "Evil Maid" specifically because it sounds
+          # funny. Do not think that is the only attack you are vulnerable to.
+          # See: <https://en.wikipedia.org/wiki/Evil_maid_attack>
+          "nohibernate"
+
           # make stack-based attacks on the kernel harder
           "randomize_kstack_offset=on"
 
@@ -172,6 +200,9 @@ in {
           #             are disabled
           #  confidentiality: kernel features that allow userland to extract confidential
           #             information from the kernel are also disabled
+          # ArchWiki recommends opting in for "integrity", however since we avoid modifying
+          # running kernel (by the virtue of using NixOS and locking module hot-loading) the
+          # confidentiality mode is a better solution.
           "lockdown=confidentiality"
 
           # enable buddy allocator free poisoning
@@ -214,7 +245,7 @@ in {
           "n-hdlc" # High-level Data Link Control
           "netrom" # NetRom
           "x25" # X.25
-          "ax25" # Amatuer X.25
+          "ax25" # Amateur X.25
           "rose" # ROSE
           "decnet" # DECnet
           "econet" # Econet
@@ -268,8 +299,8 @@ in {
           "firewire-core"
         ]
 
-        # you might possibly want your webcam to work
-        # we whitelsit the module if the system wants
+        # You might possibly want your webcam to work.
+        # We whitelist the module if the system wants
         # webcam to work
         (optionals (!sys.security.fixWebcam) [
           "uvcvideo" # this is why your webcam no worky
