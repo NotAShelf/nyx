@@ -1,68 +1,14 @@
 {
   config,
-  lib,
   pkgs,
   ...
-}: let
-  inherit (lib) mkIf mkDefault;
-
-  dev = config.modules.device;
-  acceptedTypes = ["laptop" "hybrid"];
-in {
-  imports = [./monitor.nix];
-
-  config = mkIf (builtins.elem dev.type acceptedTypes) {
-    hardware.acpilight.enable = true;
-
+}: {
+  imports = [./monitors/auto-cpufreq.nix];
+  config = {
     environment.systemPackages = with pkgs; [
       acpi
       powertop
     ];
-
-    services = {
-      # handle ACPI events
-      acpid.enable = true;
-
-      # allows changing system behavior based upon user-selected power profiles
-      power-profiles-daemon.enable = true;
-
-      # temperature target on battery
-      undervolt = {
-        tempBat = 65; # deg C
-        package = pkgs.undervolt;
-      };
-
-      # superior power management
-      auto-cpufreq = {
-        enable = true;
-        settings = let
-          MHz = x: x * 1000;
-        in {
-          battery = {
-            governor = "powersave";
-            scaling_min_freq = mkDefault (MHz 1200);
-            scaling_max_freq = mkDefault (MHz 1800);
-            turbo = "never";
-          };
-
-          charger = {
-            governor = "performance";
-            scaling_min_freq = mkDefault (MHz 1800);
-            scaling_max_freq = mkDefault (MHz 3800);
-            turbo = "auto";
-          };
-        };
-      };
-
-      # DBus service that provides power management support to applications.
-      upower = {
-        enable = true;
-        percentageLow = 15;
-        percentageCritical = 5;
-        percentageAction = 3;
-        criticalPowerAction = "Hibernate";
-      };
-    };
 
     boot = {
       kernelModules = ["acpi_call"];
@@ -70,6 +16,44 @@ in {
         acpi_call
         cpupower
       ];
+    };
+
+    # Brightness control via xbacklight from users in the video group. This is
+    # unnecessary on most systems as brightnessctl in combination with hardware keys
+    # will allow you to control the brightness without additional privileges.
+    hardware.acpilight.enable = false;
+
+    services = {
+      # DBus service that provides power management support to applications. In addition
+      # to providing a standard interface for applications to query the power state and
+      # request changes, it also provides a central place for applications to listen for
+      # power changes. Some services (such as AGS) will inherently depend on this being
+      # enabled, so we enable it unconditionally on laptops for power management.
+      upower = {
+        enable = true;
+        percentageLow = 15;
+        percentageCritical = 5;
+        percentageAction = 3;
+        criticalPowerAction = "Hibernate";
+      };
+
+      # Handle ACPI events via the ACPI daemon. Some functionality
+      # is already provided by logind.
+      acpid = {
+        enable = true;
+        logEvents = true;
+      };
+
+      # Undervolting service for Intel CPUs. Provides helpful functions
+      # such as temperature target on battery, implied by the below configuration.
+      undervolt = {
+        # TODO: this is for Intel CPUs only, lets make it CPU gated.
+        enable = false;
+
+        # Settings for the undervolting service.
+        tempBat = 65; # degrees Celsius
+        package = pkgs.undervolt;
+      };
     };
   };
 }
