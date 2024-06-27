@@ -7,17 +7,24 @@
   inherit (lib.modules) mkIf mkForce;
 
   sys = config.modules.system;
+  security = sys.security;
 in {
   config = mkIf sys.security.clamav.enable {
+    environment.systemPackages = [pkgs.clamav];
+
     services.clamav = {
-      daemon = {enable = true;} // sys.security.clamav.daemon;
-      updater = {enable = true;} // sys.security.clamav.updater;
+      daemon = {enable = true;} // security.clamav.daemon;
+      updater = {enable = true;} // security.clamav.updater;
     };
 
     systemd = {
-      tmpfiles.rules = [
-        "D /var/lib/clamav 755 clamav clamav"
-      ];
+      tmpfiles.settings."10-clamscan" = {
+        "/var/lib/clamav"."D" = {
+          group = "clamav";
+          user = "clamav";
+          mode = "755";
+        };
+      };
 
       services = {
         clamav-daemon = {
@@ -59,15 +66,15 @@ in {
             in ''
               ${pkgs.coreutils}/bin/echo -en ${message}
             '';
-            SuccessExitStatus = lib.mkForce [11 40 50 51 52 53 54 55 56 57 58 59 60 61 62];
+            SuccessExitStatus = mkForce [11 40 50 51 52 53 54 55 56 57 58 59 60 61 62];
           };
         };
       };
 
       timers.clamav-freshclam.timerConfig = {
-        # the default is to run the timer hourly but we do not want our entire infra to be overloaded
-        # trying to run clamscan at the same time. randomize the timer to something around an hour
-        # so that the window is consistent, but the load is not
+        # The default is to run the timer hourly, but we do not want our entire infra to be overloaded
+        # trying to run a ClamAV scan simultaneously. So randomize the timer to something around an hour
+        # so that the window is consistent, but the load is not.
         RandomizedDelaySec = "60m";
         FixedRandomDelay = true;
         Persistent = true;

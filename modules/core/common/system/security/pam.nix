@@ -19,9 +19,8 @@
         }
       ];
 
-      # allow screen lockers to also unlock the screen
-      # (e.g. swaylock, gtklock)
       services = {
+        # Allow screen lockers such as Swaylock or gtklock) to also unlock the screen.
         swaylock.text = "auth include login";
         gtklock.text = "auth include login";
       };
