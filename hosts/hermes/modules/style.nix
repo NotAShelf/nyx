@@ -1,7 +1,7 @@
 {
   config.modules.style = {
     forceGtk = true;
-    useKvantum = false;
+    useKvantum = true;
     gtk.usePortal = true;
   };
 }
