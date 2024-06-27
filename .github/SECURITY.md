@@ -23,5 +23,8 @@ helps resolve the issue or a pull request resolving it.
 
 That said, I appreciate anyone taking their time to simply report the issue.
 
-[^1]: The email address is slightly obfuscated to prevent web-scrapers from
-picking up my email address from the security file.
+[^1]:
+    The email address is slightly obfuscated to prevent web-scrapers from
+    picking up my email address from the security file. I am not sure if this helps
+    but it'll be foolish not to try after the sheer volume of AI startup related
+    e-mails.
