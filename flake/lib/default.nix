@@ -13,7 +13,7 @@
   # There are technically no limitations to this approach, but if you want to avoid using shorthand aliases
   # to provided function, you would need to do something like `lib.extendedLib.aliases.foo` instead of
   # `lib.aliases.foo`, which is kinda annoying.
-  extendedLib = lib.extend (self: super: let
+  extendedLib = lib.extend (self: _: let
     inherit (self.trivial) functionArgs;
     inherit (self.attrsets) filterAttrs mapAttrs recursiveUpdate;
 

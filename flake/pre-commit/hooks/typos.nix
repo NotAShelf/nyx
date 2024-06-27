@@ -5,7 +5,7 @@
     ...
   }: let
     inherit (lib.lists) concatLists;
-    inherit (import ../utils.nix {inherit pkgs;}) toTOML mkHook;
+    inherit (import ../utils.nix {inherit pkgs lib;}) toTOML mkHook;
 
     typosConfig = toTOML "config.toml" {
       default.extend-words = {

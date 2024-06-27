@@ -1,6 +1,10 @@
 {
-  perSystem = {pkgs, ...}: let
-    inherit (import ../utils.nix {inherit pkgs;}) mkHook;
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: let
+    inherit (import ../utils.nix {inherit pkgs lib;}) mkHook;
   in {
     pre-commit.settings = {
       hooks.exiftool = mkHook "exiftool" {
