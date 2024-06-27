@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf optionalString;
+  inherit (lib.modules) mkIf mkForce;
 
   sys = config.modules.system;
 in {
@@ -22,8 +22,8 @@ in {
       services = {
         clamav-daemon = {
           serviceConfig = {
-            PrivateTmp = lib.mkForce "no";
-            PrivateNetwork = lib.mkForce "no";
+            PrivateTmp = mkForce "no";
+            PrivateNetwork = mkForce "no";
             Restart = "always";
           };
 
