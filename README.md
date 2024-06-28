@@ -383,15 +383,6 @@ commits without any consideration to my time and efforts.
 
 ---
 
-<h2 align="center">Preview</h2>
-
-<p id="preview" align="center">
-   <img src=".github/assets/desktop_preview.png" width="640" alt="Desktop Preview" />
-</p>
-<p align="center">
-   Screenshot last updated <b>2023-12-09</b>
-</p>
-
 <div align="right">
   <a href="#readme">Back to the Top</a>
 </div>
