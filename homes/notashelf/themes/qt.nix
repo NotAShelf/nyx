@@ -15,11 +15,16 @@ in {
   config = mkIf (builtins.elem dev.type acceptedTypes && sys.video.enable) {
     qt = {
       enable = true;
-      platformTheme.name = mkIf cfg.forceGtk "gtk3"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
+      platformTheme = {
+        # Sets QT_QPA_PLATFORMTHEME, takes "gtk", "gtk3",  "adwaita", "kde" and a few others.
+        name = mkIf cfg.forceGtk "gtk3";
+        package = null; # libraries associated with the platformtheme, we add those manually
+      };
 
       style = {
-        name = cfg.qt.theme.name;
-        package = cfg.qt.theme.package;
+        # Sets QT_STYLE_OVERRIDE, takes "gtk2, "adwaita" (and variants), "breeze", "kvantum" and a few others."
+        name = mkIf cfg.useKvantum "kvantum";
+        package = null; # same as above
       };
     };
 
@@ -31,6 +36,7 @@ in {
             # that QT applications load witnout issues, e.g. missing libs.
             libsForQt5.qt5ct
             kdePackages.qt6ct
+
             # Some KDE applications such as Dolphin try to fall back to Breeze
             # theme icons. Lets make sure they're also found.
             kdePackages.breeze-icons
@@ -45,10 +51,10 @@ in {
           ])
 
           (mkIf cfg.useKvantum [
-            # kvantum as a library and a program to theme qt applications
-            # this added here, however, this will not have an effect
+            # Kvantum as a library and a program to theme qt applications
+            # is added here, however, this will not have an effect
             # until QT_QPA_PLATFORMTHEME has been set appropriately
-            # we still write the config files for kvantum below
+            # we still write the config files for Kvantum below
             # but again, it is a no-op until the env var is set
             libsForQt5.qtstyleplugin-kvantum
             qt6Packages.qtstyleplugin-kvantum
@@ -56,6 +62,10 @@ in {
         ];
 
       sessionVariables = {
+        # Style to use for Qt5/Qt6 applications. Unfortunately very few applications
+        # (e.g. Cantata) conform to this override, but we set it anyway.
+        QT_STYLE_OVERRIDE = mkIf cfg.useKvantum "kvantum";
+
         # scaling - 1 means no scaling
         QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 
