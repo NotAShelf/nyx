@@ -1,4 +1,4 @@
-# Notes for 11th of November, 2023
+# Headscale on NixOS, Tailscale anywhere
 
 Today's main attraction is the Headscale setup on my VPS running NixOS, which
 I've finally came around to self-host.

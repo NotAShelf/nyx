@@ -1,4 +1,4 @@
-# Notes for 10th of May, 2024
+# Signing Git commits with SSH keys
 
 ## Resources
 
@@ -121,8 +121,9 @@ And that is all! You may now switch Home-Manager generations with either
 `home-manager switch` (if you are using home-manager in standalone mode). Do
 make sure to adapt the example to your own setup.
 
-[^1]: To be fair, I have known about SSH signing for a while now, but the
-sunk-cost fallacy has prevented me from ever looking into it. I am still not
-convinced by it, but that is because I still use a Yubikey based GPG setup.
+[^1]:
+    To be fair, I have known about SSH signing for a while now, but the
+    sunk-cost fallacy has prevented me from ever looking into it. I am still not
+    convinced by it, but that is because I still use a Yubikey based GPG setup.
 
 [^2]: Please don't.

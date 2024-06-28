@@ -1,4 +1,4 @@
-# Notes for 21st of June, 2023
+# Packaging NextJS Webapps on Nix
 
 Recently I have had to go through the misfortune of hosting some websites
 written with _NextJS_ on my VPS running NixOS, this note entry shall document my

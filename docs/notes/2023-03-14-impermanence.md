@@ -1,4 +1,4 @@
-# Notes for 14th of March, 2023
+# Impermanence on NixOS
 
 Today was the day I finally got to setting up both "erase your darlings" and
 proper disk encryption. This general setup concept utilizes NixOS' ability to

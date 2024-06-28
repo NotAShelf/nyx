@@ -1,4 +1,4 @@
-# Notes for 7th of June, 2023
+# When, why and how to extend nixpkgs standard library
 
 Those are my notes on extending nixpkgs with your own functions and
 abstractions. There may be other ways of doing it, but this is the one I find to
