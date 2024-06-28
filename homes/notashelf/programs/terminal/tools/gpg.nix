@@ -10,7 +10,7 @@
 
   pinentryPkg =
     if sys.video.enable
-    then pkgs.pinentry-qt
+    then pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
     else pkgs.pinentry-curses;
 in {
   services = {
