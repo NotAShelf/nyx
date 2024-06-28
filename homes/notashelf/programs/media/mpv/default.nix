@@ -1,6 +1,6 @@
 {
-  self',
   osConfig,
+  pkgs,
   lib,
   ...
 }: let
@@ -10,8 +10,7 @@
   env = modules.usrEnv;
   prg = env.programs;
 
-  inherit (self'.packages) anime4k;
-  low1k = import ./low1k.nix {inherit anime4k;};
+  low1k = import ./low1k.nix {inherit pkgs;};
 in {
   config = mkIf prg.media.mpv.enable {
     programs.mpv = {

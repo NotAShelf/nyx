@@ -45,18 +45,23 @@ in {
       };
     };
 
-    # this allows libvirt to use pulseaudio socket
-    # which is useful for virt-manager
+    # This allows libvirt to use pulseaudio socket
+    # which is useful for virt-manager. May be just placebo, but I think
+    # I have been experiencing better latency under emulation.
     hardware.pulseaudio.extraConfig = ''
       load-module module-native-protocol-unix auth-group=qemu-libvirtd socket=/tmp/pulse-socket
     '';
 
-    # additional kernel modules that may be needed by libvirt
-    boot.kernelModules = [
-      "vfio-pci"
-    ];
+    # Additional kernel modules that may be needed by libvirt
+    boot.kernelModules = ["vfio-pci"];
 
-    # trust bridge network interface(s)
+    # Trust bridge network interface(s)
     networking.firewall.trustedInterfaces = ["virbr0" "br0"];
+
+    # For passthrough with VFI
+    services.udev.extraRules = ''
+      # Supporting VFIO
+      SUBSYSTEM=="vfio", OWNER="root", GROUP="kvm"
+    '';
   };
 }

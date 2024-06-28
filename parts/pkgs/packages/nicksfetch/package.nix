@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "sha256-9MoX6ykqvd2iB0VrZCfhSyhtztMpBTukeKejfAWYW1w=";
   };
 
-  patches = [./0001-nicksfetch.patch];
+  patches = [./patches/0001-nicksfetch.patch];
 
   outputs = ["out" "man"];
 
