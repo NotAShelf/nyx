@@ -10,10 +10,11 @@
   inherit (lib.trivial) pipe;
   inherit (lib.types) isType;
   inherit (lib.attrsets) mapAttrsToList optionalAttrs filterAttrs mapAttrs mapAttrs';
-  inherit (lib.lists) mkMerge;
 in {
   imports = [
+    ./overlays # tree-wide overrides for packages and such
     ./transcend # module that merges trees outside central nixpkgs with our system's
+
     ./builders.nix # configuration for remote builders
     ./documentation.nix # nixos documentation
     ./nixpkgs.nix # global nixpkgs configuration.nix

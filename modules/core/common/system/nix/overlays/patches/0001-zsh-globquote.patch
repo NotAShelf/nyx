@@ -1,0 +1,19 @@
+diff --git a/Src/utils.c b/Src/utils.c
+index edf5d3df7..2d1712227 100644
+--- a/Src/utils.c
++++ b/Src/utils.c
+@@ -6205,11 +6205,11 @@ quotestring(const char *s, int instring)
+ 		continue;
+ 	    }
+ 	    else if (ispecial(*u) &&
+-		     ((*u != '=' && *u != '~') ||
++		     ((*u != '=' && *u != '~' && *u != '#' && *u != '^') ||
+ 		      u == s ||
+ 		      (isset(MAGICEQUALSUBST) &&
+-		       (u[-1] == '=' || u[-1] == ':')) ||
++		       (u[-1] == '=' || u[-1] == ':'))
+-		      (*u == '~' && isset(EXTENDEDGLOB))) &&
++		     ) &&
+ 		     (instring == QT_BACKSLASH ||
+ 		      instring == QT_SINGLE_OPTIONAL ||
+ 		      (isset(BANGHIST) && *u == (char)bangchar &&

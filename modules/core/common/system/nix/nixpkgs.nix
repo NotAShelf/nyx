@@ -1,6 +1,7 @@
 {
   inputs',
   config,
+  pkgs,
   ...
 }: {
   # Global nixpkgs configuration. This is ignored if nixpkgs.pkgs is set
@@ -45,27 +46,5 @@
       # with maintainers, so it's disabled for the time being.
       showDerivationWarnings = [];
     };
-
-    # Overlays are by far the most obscure and annoying feature of Nix, and if you have
-    # interacted with me on a personal level before, you will find that I actively discourage
-    # using them. The below section contains my personal overlays, which are used to add
-    # packages to the system closure, or override existing packages. This is a last resort
-    # and should be used conservatively. If possible, use override or overrideAttrs whenever
-    # you are able to.
-    overlays = [
-      (_: _: {
-        nixSuper = inputs'.nix-super.packages.default;
-        nixSchemas = inputs'.nixSchemas.packages.default;
-      })
-
-      (final: prev: {
-        # nixos-rebuild provides its own nix package, which is not the same as the one
-        # we use in the system closure - which causes an extra Nix package to be added
-        # even if it's not the one we need want.
-        nixos-rebuild = prev.nixos-rebuild.override {
-          nix = config.nix.package;
-        };
-      })
-    ];
   };
 }
