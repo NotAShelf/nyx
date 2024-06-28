@@ -9,6 +9,7 @@ in {
     inet = {
       filter = {
         input = {
+          # Allow connections from loopback
           loopback = entryAnywhere {
             field = "iifname";
             value = "lo";
@@ -22,7 +23,14 @@ in {
             policy = "accept";
           };
 
-          basic-icmp6 = entryAfter ["loopback" "established-locally"] {
+          drop-invalid = entryAfter ["established-locally"] {
+            protocol = "ct";
+            field = "state";
+            value = ["invalid"];
+            policy = "drop";
+          };
+
+          basic-icmp6 = entryAfter ["drop-invalid"] {
             protocol = "ip6 nexthdr icmpv6 icmpv6";
             field = "type";
             value = [
