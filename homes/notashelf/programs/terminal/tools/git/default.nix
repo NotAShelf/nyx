@@ -59,6 +59,10 @@ in {
         # prefer using libsecret for storing and retrieving credentials
         credential.helper = "${gitPackage}/bin/git-credential-libsecret";
 
+        # Use readable prefixs such as (i)ndex, (w)ork tree, (c)ommit and (o)bject
+        # instead of a/b/c/d for the patches.
+        diff.mnemonicprefix = true;
+
         # delta is some kind of a syntax highlighting pager for git
         # it looks nice but I'd like to consider difftastic at some point
         delta = {
