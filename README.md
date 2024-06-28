@@ -70,64 +70,63 @@ simply moral support. They have my most sincere thanks.
 [flake schemas]: https://determinate.systems/posts/flake-schemas
 [Home-Manager]: https://github.com/nix-community/home-manager
 
-- [flake.nix](flake.nix) Ground zero of my system configuration. Declaring
+- [`flake.nix`](flake.nix) Ground zero of my system configuration. Declaring
   entrypoints
-- [docs](docs)The documentation for my flake repository
-  - [notes](docs/notes) Notes from tedious or/and under-documented processes I
-    have gone through. More or less a blog
-  - [cheatsheet](docs/notes/cheatsheet.md) Useful tips that are hard to
+- [`docs`](docs)The documentation for my flake repository
+  - [`notes`](docs/notes) Notes from tedious or/and under-documented processes I
+    have gone through. More or less a blog, hosted at https://nyx.notashelf.dev
+  - [`cheatsheet`](docs/notes/cheatsheet.md) Useful tips that are hard to
     memorize, but easy to write down
-- [flake/](flake) Individual parts of my flake, powered by flake-parts
-  - [lib](flake/lib) Personal library of functions and utilities
-  - [apps](flake/apps) Basic executables for maintenance jobs
-  - [checks](flake/checks) Additional checks to build on `nix flake check`
-  - [lib](flake/lib) Personal library of functions and utilities
-  - [modules](flake/modules) Modules provided by my flake for both internal and
-    public use
-  - [npins](flake/npins) Additional pinned dependencies, managed via `npins`
-  - [pkgs](flake/pkgs) Packages exported by my flake
-  - [pre-commit](flake/pre-commit) pre-commit hooks via `git-hooks.nix`
-  - [templates](flake/templates) Templates for initializing new flakes. Provides
-    some language-specific flakes
-  - [args.nix](flake/args.nix) Args that will be shared across, or exposed by
+- [`parts/`](parts) Individual parts of my flake, powered by flake-parts
+  - [`apps`](parts/apps) Basic executables for maintenance jobs
+  - [`checks`](parts/checks) Additional checks to build on `nix flake check`
+  - [`lib`](parts/lib) Personal library of functions and utilities
+  - [`modules`](parts/modules) NixOS/Home-manager modules provided by my flake
+    for both internal and public use
+  - [`npins`](parts/npins) Additional pinned dependencies, managed via `npins`
+  - [`pkgs`](parts/pkgs) Packages exported by my flake
+  - [`pre-commit`](parts/pre-commit) pre-commit hooks via `git-hooks.nix`
+  - [`templates`](parts/templates) Templates for initializing new flakes.
+    Provides some language-specific flakes
+  - [`args.nix`](parts/args.nix) Args that will be shared across, or exposed by
     the flake
-  - [deployments.nix](flake/deployments.nix) Host setups for deploy-rs,
+  - [`deployments.nix`](parts/deployments.nix) Host setups for deploy-rs,
     currently a work in progress
-  - [fmt.nix](flake/fmt.nix) Various formatting options for `nix fmt` and
+  - [`fmt.nix`](parts/fmt.nix) Various formatting options for `nix fmt` and
     friends
-  - [iso-images.nix](flake/iso-images.nix) Configurations for my home-built iso
-    images, to be exposed in the flake schema
-  - [keys.nix](flake/keys.nix) My public keys to be shared across the flake
-  - [shell.nix](flake/shell.nix) Local devShell configurations
-- [homes](homes) My personalized [Home-Manager] configurations.
-- [hosts](hosts) Per-host configurations that contain machine specific
+  - [`iso-images.nix`](parts/iso-images.nix) Configurations for my home-built
+    iso images, to be exposed in the flake schema
+  - [`keys.nix`](parts/keys.nix) My public keys to be shared across the flake
+  - [`shell.nix`](parts/shell.nix) Local devShell configurations
+- [`homes`](homes) My personalized [Home-Manager] configurations.
+- [`hosts`](hosts) Per-host configurations that contain machine specific
   instructions and setups
-- [modules](modules) Modularized NixOS configurations
-  - [core](modules/core) The core module that all systems depend on
-    - [common](modules/core/common) Module configurations shared between all
+- [`modules`](modules) Modularized NixOS configurations
+  - [`core`](modules/core) The core module that all systems depend on
+    - [`common`](modules/core/common) Module configurations shared between all
       hosts (except installers)
-    - [profiles](modules/core/profiles) Pluggable internal module system, for
+    - [`profiles`](modules/core/profiles) Pluggable internal module system, for
       providing overrides based on host declarations (e.g. purpose)
-    - [roles](modules/core/roles) A profile-like system that work through
+    - [`roles`](modules/core/roles) A profile-like system that work through
       imports and ship predefined configurations
-  - [extra](modules/extra) Extra modules that are rarely imported
-    - [shared](modules/extra/shared) Modules that are both shared for outside
+  - [`extra`](modules/extra) Extra modules that are rarely imported
+    - [`shared`](modules/extra/shared) Modules that are both shared for outside
       consumption, and imported by the flake itself
-    - [exported](modules/extra/exported) Modules that are strictly for outside
+    - [`exported`](modules/extra/exported) Modules that are strictly for outside
       consumption and are not imported by the flake itself
-  - [options](modules/options) Definitions of module options used by common
+  - [`options`](modules/options) Definitions of module options used by common
     modules
-    - [meta](modules/options/meta) Internal, read-only module that defines host
-      capabilities based on other options
-    - [device](modules/options/device) Hardware capabilities of the host
-    - [documentation](modules/options/docs) Local module system documentation
-    - [system](modules/options/system) OS-wide configurations for generic
+    - [`meta`](modules/options/meta) Internal, read-only module that defines
+      host capabilities based on other options
+    - [`device`](modules/options/device) Hardware capabilities of the host
+    - [`documentation`](modules/options/docs) Local module system documentation
+    - [`system`](modules/options/system) OS-wide configurations for generic
       software and firmware on system level
-    - [theme](modules/options/theme) Active theme configurations ranging from QT
-      theme to shell colors
-    - [usrEnv](modules/options/usrEnv) userspace exclusive configurations. E.g.
-      lockscreen or package sets
-- [secrets](secrets) Agenix secrets
+    - [`theme`](modules/options/theme) Active theme configurations ranging from
+      QT theme to shell colors
+    - [`usrEnv`](modules/options/usrEnv) userspace exclusive configurations.
+      E.g. lockscreen or package sets
+- [`secrets`](secrets) Agenix secrets
 
 ### Notable Features
 
@@ -254,7 +253,7 @@ repository. Those goals are:
 
 ## Credits & Special Thanks to
 
-[atrocious abstractions]: flake/lib/builders.nix
+[atrocious abstractions]: parts/lib/builders.nix
 
 My special thanks go to [fufexan](https://github.com/fufexan) for convincing me
 to use NixOS and sticking around to answer my most stupid and deranged
