@@ -1,18 +1,20 @@
 {
-  lib,
   osConfig,
   pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (builtins) elem;
+  inherit (lib) mkGraphicalService;
+  inherit (lib.modules) mkIf;
 
-  dev = osConfig.modules.device;
-  vid = osConfig.modules.system.video;
-  env = osConfig.modules.usrEnv;
+  inherit (osConfig) meta modules;
+  dev = modules.device;
+  sys = modules.system;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && (vid.enable && env.isWayland)) {
+  config = mkIf ((elem dev.type acceptedTypes) && (sys.video.enable && meta.isWayland)) {
     /*
     services = {
       nextcloud-client.enable = true;
@@ -21,7 +23,7 @@ in {
     */
 
     home.packages = [pkgs.nextcloud-client];
-    systemd.user.services.nextcloud = lib.mkGraphicalService {
+    systemd.user.services.nextcloud = mkGraphicalService {
       Unit.Description = "Nextcloud client service";
       Service = {
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloud --background";
