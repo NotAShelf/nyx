@@ -21,11 +21,15 @@ in {
       packages = [pkgs.glib]; # gsettings
 
       sessionVariables = {
-        # set GTK theme to the name specified by the gtk theme package
-        GTK_THEME = "${cfg.gtk.theme.name}";
+        # Set GTK_THEME variable to the name of the theme package
+        # in our theming module.
+        GTK_THEME = cfg.gtk.theme.name;
 
-        # gtk applications should use filepickers specified by xdg
-        GTK_USE_PORTAL = "${toString (lib.boolToNum cfg.gtk.usePortal)}";
+        # Tell GTK applications to use the file-pickers provided by
+        # xdg-desktop-portal-gtk. This gives us a somewhat consistent
+        # file picker, and fixes issues with some Flatpak apps that
+        # use GTK backend(s).
+        GTK_USE_PORTAL = toString (lib.boolToNum cfg.gtk.usePortal);
       };
     };
 
@@ -80,8 +84,10 @@ in {
       };
 
       gtk4.extraConfig = {
+        # Prefer dark theme.
         gtk-application-prefer-dark-theme = true;
 
+        # Decorations.
         gtk-decoration-layout = "appmenu:none";
 
         # Sounds, again.

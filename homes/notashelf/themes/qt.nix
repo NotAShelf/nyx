@@ -62,23 +62,19 @@ in {
         ];
 
       sessionVariables = {
-        # Style to use for Qt5/Qt6 applications. Unfortunately very few applications
-        # (e.g. Cantata) conform to this override, but we set it anyway.
-        QT_STYLE_OVERRIDE = mkIf cfg.useKvantum "kvantum";
-
-        # scaling - 1 means no scaling
+        # Scaling factor for QT applications. 1 means no scaling
         QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 
-        # use wayland as the default backend, fallback to xcb if wayland is not available
+        # Use Wayland as the default backend, fallback to XCB if Wayland is not available
         QT_QPA_PLATFORM = "wayland;xcb";
 
-        # disable window decorations everywhere
+        # Disable QT specific window decorations everywhere
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
-        # remain backwards compatible with qt5
+        # Do remain backwards compatible with QT5 if possible.
         DISABLE_QT5_COMPAT = "0";
 
-        # tell calibre to use the dark theme, because the light one hurts my eyes
+        # Tell Calibre to use the dark theme, because the light one hurts my eyes.
         CALIBRE_USE_DARK_PALETTE = "1";
       };
     };
