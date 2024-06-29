@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 in {
-  config.modules.system.programs = mkIf config.modules.profiles.workstation.enable {
+  config.modules.usrEnv.programs = mkIf config.modules.profiles.workstation.enable {
     webcord.enable = true;
     element.enable = true;
     libreoffice.enable = true;
