@@ -7,7 +7,7 @@
 with builtins; let
   cfg = config.programs.gtklock;
 
-  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD literalExpression optionals optionalString;
+  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOption literalExpression optionals optionalString;
   inherit (lib.generators) toINI;
 
   # the main config includes two very niche options: style (which takes a path) and modules, which takes a list of module paths
@@ -26,7 +26,7 @@ in {
   meta.maintainers = [maintainers.NotAShelf];
   options.programs.gtklock = {
     enable = mkEnableOption "GTK-based lockscreen for Wayland";
-    package = mkPackageOptionMD pkgs "gtklock" {};
+    package = mkPackageOption pkgs "gtklock" {};
 
     config = {
       gtk-theme = mkOption {

@@ -5,7 +5,7 @@
   ...
 }:
 with builtins; let
-  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD literalExpression;
+  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOption literalExpression;
 
   cfg = config.programs.vifm;
 in {
@@ -13,7 +13,7 @@ in {
   options.programs.vifm = {
     enable = mkEnableOption "vifm, file manager with curses interface, which provides Vim-like environment for managing objects within file systems";
 
-    package = mkPackageOptionMD pkgs "vifm" {};
+    package = mkPackageOption pkgs "vifm" {};
 
     config = mkOption {
       type = types.lines;

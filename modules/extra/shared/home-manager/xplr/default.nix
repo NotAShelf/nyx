@@ -5,7 +5,7 @@
   ...
 }:
 with builtins; let
-  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD literalExpression;
+  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOption literalExpression;
 
   cfg = config.programs.xplr;
   initialConfig = ''
@@ -23,7 +23,7 @@ in {
   options.programs.xplr = {
     enable = mkEnableOption "xplr, terminal UI based file explorer" // {default = true;};
 
-    package = mkPackageOptionMD pkgs "xplr" {};
+    package = mkPackageOption pkgs "xplr" {};
 
     plugins = mkOption {
       type = with types; nullOr (listOf (either package str));
