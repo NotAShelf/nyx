@@ -9,6 +9,7 @@ on:
 
 jobs:
   generate-nix-matrix:
+    name: "Generate CI from flake output"
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -27,6 +28,7 @@ jobs:
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
   nix-build-from-matrix:
+    name: "Build .#${{ matrix.attr }} via Nix"
     needs: generate-nix-matrix
     runs-on: ${{ matrix.os }}
     strategy:
