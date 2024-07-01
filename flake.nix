@@ -2,7 +2,7 @@
   # https://github.com/NotAShelf/nyx
   description = "My vastly overengineered monorepo for everything NixOS";
 
-  outputs = {flake-parts, ...} @ inputs:
+  outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         ./parts # Parts of the flake that are used to construct the final flake.

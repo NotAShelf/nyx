@@ -18,6 +18,7 @@
     ./templates # flake templates
 
     ./args.nix # args that are passed to the flake, moved away from the main file
+    ./ci.nix # GitHub actions matrices generated via Nix
     ./deployments.nix # deploy-rs configurations for active hosts
     ./fmt.nix # various formatter configurations for this flake
     ./iso-images.nix # local installation media
