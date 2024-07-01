@@ -25,6 +25,54 @@
   Screenshot last updated <b>2024-03-19</b>
 </p>
 
+## Preface
+
+Before you proceed, I would like to direct your attention to the
+[credits](#credits) section below, where I pay tribute to the individuals who
+have contributed to this project. Whether through code references, suggestions,
+bug reports, or simply moral support, they have my most sincere gratitude.
+
+### Disclaimer
+
+[resources section]: #cool-resources
+[nix blog]: https://nyx.notashelf.dev
+
+<!-- deno-fmt-ignore-start -->
+
+> [!CAUTION]
+> As I physically cannot stop tinkering and messing around with my configuration,
+> **nothing in this repository (including the README and the overview sections in
+> it) should be considered final**. This is my configuration, not a framework.
+> Do keep in mind that I make no promise of stability or support. If something
+> breaks, that will be your responsibility. Please do not allow yourself to be
+> fooled by the sheer amount of documentation effort that has gone into this
+> project. It is not a public framework, never will be. It will receive changes,
+> on almost a daily basis and possibly in a half-broken state. I should also
+> mention that almost all of the configurations contained within this repository,
+> in some shape or form, contain age encrypted secrets - which, to you dear
+> reader, means that they **cannot** be built and replicated successfully, at
+> least in theory (unless you know a way to revert age encryption, in which case
+> please let me know!)
+>
+> I invite you to go through the modules and countless lines of Nix I have
+> written, but I would strongly advise against attempting to boot any of those
+> configurations unless you are me.
+>
+> There exists a [resources section] that I strongly encourage you to check out,
+> which you can use to start building your own configuration. I also document some
+> of my experiences in my [nix blog] for your convenience.
+> Otherwise, please feel free to dissect this configuration and borrow bits that
+> may appear interesting to you - but please respect my [license](#license) while
+> doing so!
+>
+> To re-iterate: **this is not a public framework**. Please **do not** try
+> to run this configuration, or to rip off specific bits. It will cause much pain
+> and suffering in addition to robbing you the joys of learning something by
+> yourself. By doing so, you would have to learn my specific design choices _on
+> top of Nix/NixOS_ whereas you could create something that suits your own needs.
+
+<!-- deno-fmt-ignore-end -->
+
 ## High Level Overview
 
 This is a high level overview of this monorepo, containing configurations for
@@ -32,38 +80,6 @@ This is a high level overview of this monorepo, containing configurations for
 some point in time. You will find below a list of my hosts and their
 specifications, accompanied by a somewhat maintained list of features of this
 configuration and my design considerations.
-
-### Disclaimer
-
-As I physically cannot stop tinkering with my configuration, nothing in this
-repository (including the overview sections) should be considered final. As
-such, it is **not recommended to be used as a template (nor is designed to be
-one)** but you are welcome to browse the codebase to your liking, you may find
-bits that are interesting or/and useful to you.
-
-Do keep in mind that I make no promise of stability or support. If something
-breaks, that will be your responsibility. Please do not allow yourself to be
-fooled by the sheer amount of documentation effort that has gone into this
-project. It is not a public framework, never will be. It will receive changes,
-on almost a daily basis and possibly in a half-broken state.
-
-<!-- deno-fmt-ignore-start -->
-
-> [!CAUTION]
-> Almost all of the configurations contained within this repository,
-> in some shape or form, contain age encrypted secrets - which, to you dear
-> reader, means that they **cannot** be built and replicated successfully, at
-> least in theory. I invite you to go through the modules and countless lines of
-> Nix I have written, but I would strongly advise against attempting to boot any
-> of those configurations unless you are me. You should also note that
-> this is **not** a community framework.
-
-<!-- deno-fmt-ignore-end -->
-
-Before you proceed, I would like to point you towards the [credits](#credits)
-section below where I pay tribute to the individuals who have contributed to
-this project, whether through code reference, suggestions, bug reports, or
-simply moral support. They have my most sincere thanks.
 
 ### Repo Structure
 
@@ -74,7 +90,7 @@ simply moral support. They have my most sincere thanks.
   entrypoints
 - [`docs`](docs)The documentation for my flake repository
   - [`notes`](docs/notes) Notes from tedious or/and under-documented processes I
-    have gone through. More or less a blog, hosted at https://nyx.notashelf.dev
+    have gone through. More or less a blog, live at https://nyx.notashelf.dev
   - [`cheatsheet`](docs/notes/cheatsheet.md) Useful tips that are hard to
     memorize, but easy to write down
 - [`parts/`](parts) Individual parts of my flake, powered by flake-parts
@@ -136,6 +152,7 @@ simply moral support. They have my most sincere thanks.
 [flake-parts]: https://flake.parts
 [impermanence]: https://github.com/nix-community/impermanence
 
+- **Flakes enabled** - leans heavily into flake-exclusive features of Nix
 - **All-in-one** - Servers, desktops, laptops, virtual machines and anything you
   can think of. Managed in one place.
   - **Sane Defaults** - The modules attempt to bring the most sane defaults,
@@ -315,13 +332,21 @@ strongly recommend that you read in no particular order.
 
 ### Readings
 
-- [Zero to Nix](https://zero-to-nix.com/)
-- [Nix Pills](https://nixos.org/guides/nix-pills/)
+#### Blogs
+
+- [Astrid's blog](https://astrid.tech/t/nixos/)
+- [Jade Lovelace's blog](https://jade.fyi/)
 - [Xe Iaso's blog](https://xeiaso.net/blog)
-- [Vinícius Müller's Blog](https://viniciusmuller.github.io) (no longer exists)
 - [Viper's Blog](https://ayats.org/)
 - [Solène's Blog](https://dataswamp.org/~solene)
+- [Vinícius Müller's Blog](https://viniciusmuller.github.io) (`/blog` no longer
+  exists)
 - [...my own "blog"?](https://notashelf.github.io/nyx/)
+
+#### Guides & Other Resources
+
+- [Zero to Nix](https://zero-to-nix.com/)
+- [Nix Pills](https://nixos.org/guides/nix-pills/)
 
 ### Software
 
