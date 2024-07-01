@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib.options) mkOption;
-  inherit (lib.types) str bool;
+  inherit (lib.types) nullOr bool str strMatching;
 
   env = config.modules.usrEnv;
 in {
@@ -29,6 +29,19 @@ in {
       readOnly = true;
       description = ''
         The architecture of the machine.
+      '';
+    };
+
+    nodeAddress = mkOption {
+      type = nullOr (strMatching "^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$");
+      default = null;
+      readOnly = true;
+      description = ''
+        The node address of the host on an internal network.
+
+        This will be used to communicate between machines directly
+        by using the internal network address instead of hostnames
+        on, e.g., a Tailscale network.
       '';
     };
 
