@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  nix-matrix:
+  generate-nix-matrix:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -26,11 +26,11 @@ jobs:
           matrix="$(nix eval --json '.#githubActions.matrix')"
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
-  nix-build:
-    needs: nix-matrix
+  nix-build-from-matrix:
+    needs: generate-nix-matrix
     runs-on: ${{ matrix.os }}
     strategy:
-      matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
+      matrix: ${{fromJSON(needs.generate-nix-matrix.outputs.matrix)}}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -39,4 +39,5 @@ jobs:
         uses: cachix/install-nix-action@master
 
       - name: "Build packages from generated Matrix"
-        run: nix build -L ".#${{ matrix.attr }}"
+        run: |
+          nix build -L ".#${{ matrix.attr }}"
