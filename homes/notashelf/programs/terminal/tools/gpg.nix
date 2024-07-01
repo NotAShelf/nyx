@@ -12,20 +12,27 @@
     if sys.video.enable
     then pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
     else pkgs.pinentry-curses;
+
+  key = sys.programs.git.signingKey;
 in {
   services = {
     gpg-agent = {
       enable = true;
+      enableScDaemon = true;
+      enableSshSupport = true;
+      enableExtraSocket = true;
+      enableZshIntegration = true;
+
       pinentryPackage = pinentryPkg;
+
       defaultCacheTtl = 1209600;
       defaultCacheTtlSsh = 1209600;
       maxCacheTtl = 1209600;
       maxCacheTtlSsh = 1209600;
-      extraConfig = "allow-preset-passphrase";
-      enableZshIntegration = true;
 
-      enableScDaemon = true;
-      enableSshSupport = true;
+      extraConfig = ''
+        allow-preset-passphrase
+      '';
     };
   };
 
@@ -42,7 +49,12 @@ in {
       homedir = "${config.xdg.dataHome}/gnupg";
 
       settings = {
+        # Default/trusted key ID to use (helpful with throw-keyids)
+        default-key = key;
+        trusted-key = key;
+
         keyserver = "hkps://keys.openpgp.org";
+
         # https://github.com/drduh/config/blob/master/gpg.conf
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
