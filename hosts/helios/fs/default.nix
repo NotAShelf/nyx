@@ -1,9 +1,21 @@
 {
   imports = [./external.nix];
   config = {
-    fileSystems."/" = {
-      device = "/dev/disk/by-uuid/783e926f-acd7-4684-a7b3-f5b1ecefa11b";
-      fsType = "ext4";
+    fileSystems = {
+      "/" = {
+        device = "/dev/disk/by-uuid/783e926f-acd7-4684-a7b3-f5b1ecefa11b";
+        fsType = "ext4";
+      };
+
+      "/boot" = {
+        device = "/dev/disk/by-uuid/783e926f-acd7-4684-a7b3-f5b1ecefa11b";
+        fsType = "ext4";
+      };
+
+      "/var/log" = {
+        device = "/dev/disk/by-uuid/783e926f-acd7-4684-a7b3-f5b1ecefa11b";
+        fsType = "ext4";
+      };
     };
 
     swapDevices = [

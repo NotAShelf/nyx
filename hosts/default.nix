@@ -68,7 +68,7 @@
         concatLists [
           # Derive host specific module path from the first argument of the
           # function. Should be a string, obviously.
-          (singleton ./${hostname})
+          (singleton ./${hostname}/host.nix)
 
           # Recursively import all module trees (i.e. directories with a `module.nix`)
           # for given moduleTree directories, and in addition, roles.
