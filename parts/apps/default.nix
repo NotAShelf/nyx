@@ -1,11 +1,13 @@
 {
-  perSystem = {pkgs, ...}: {
+  perSystem = {pkgs, ...}: let
+    callApps = path: import (path + /app.nix) {inherit pkgs;};
+  in {
     apps = {
-      prefetch-url-sha256 = import ./prefetch-url-sha256 {inherit pkgs;};
-      build-all-hosts = import ./build-all-hosts {inherit pkgs;};
-      check-restart = import ./check-restart {inherit pkgs;};
-      mount-local-disks = import ./mount-local-disks {inherit pkgs;};
-      upgrade-postgresql = import ./upgrade-postgresql {inherit pkgs;};
+      prefetch-url-sha256 = callApps ./prefetch-url-sha256;
+      build-all-hosts = callApps ./build-all-hosts;
+      check-restart = callApps ./check-restart;
+      mount-local-disks = callApps ./mount-local-disks;
+      upgrade-postgresql = callApps ./upgrade-postgresql;
     };
   };
 }

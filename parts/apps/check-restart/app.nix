@@ -1,7 +1,7 @@
 {pkgs}: {
   type = "app";
   program = pkgs.writeShellApplication {
-    name = "nix-flake-check";
+    name = "check-kernel-variation";
     text = ''
       booted="$(readlink -f /run/booted-system/kernel)"
       current="$(readlink -f /run/current-system/kernel)"
@@ -11,11 +11,11 @@
 
       if [[ "$booted_kernel" != "$current_kernel" ]]; then
           echo "Restart required!"
-          echo "old: $booted_kernel"
-          echo "new: $current_kernel"
+          echo "Old: $booted_kernel"
+          echo "New: $current_kernel"
           exit 1
       else
-          echo "system is clean.."
+          echo "System is clean..."
       fi
     '';
   };

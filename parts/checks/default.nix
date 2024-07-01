@@ -1,12 +1,12 @@
 {
   perSystem = {pkgs, ...}: {
-    checks.default = pkgs.writeShellApplication {
+    checks.check-store-errors = pkgs.writeShellApplication {
       name = "check-store-errors";
       text = ''
-        while nix flake check --no-build |& grep "is not valid" >/tmp/invalid; do
-        	path=$(cat /tmp/invalid | awk -F\' '{print $2}')
+        while nix flake check --no-build |& grep "is not valid" > /tmp/invalid; do
+        	path=$(awk -F\' '{print $2}' < /tmp/invalid)
         	echo "Repairing $path"
-        	sudo nix-store --repair-path $path >/dev/null
+        	sudo nix-store --repair-path "$path" >/dev/null
         done
       '';
     };
