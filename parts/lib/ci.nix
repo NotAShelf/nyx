@@ -33,8 +33,8 @@
                 else singleton targetHost;
               attr = (
                 if attrPrefix != ""
-                then "${attrPrefix}.${system}.${attr}"
-                else "${system}.${attr}"
+                then "${attrPrefix}.${system}.\"${attr}\""
+                else "${system}.\"${attr}\""
               );
             })
             (attrNames pkgs)
