@@ -9,6 +9,7 @@
 
     exiftoolArgs = [
       "-all="
+      "-ext '!svg'"
       "--icc_profile:all"
       "-tagsfromfile"
       "@"
