@@ -55,9 +55,18 @@ in {
       extraUpFlags = cfg.flags.final;
     };
 
-    # Ignore the default Tailscale interface for network.wait-online
-    # this should generally mean faster boot, and the interface will
-    # be "activated" once the auto-connect service is triggered.
-    systemd.network.wait-online.ignoredInterfaces = ["${tailscale.interfaceName}"];
+    systemd = {
+      # Ignore the default Tailscale interface for network.wait-online
+      # this should generally mean faster boot, and the interface will
+      # be "activated" once the auto-connect service is triggered.
+      network.wait-online.ignoredInterfaces = ["${tailscale.interfaceName}"];
+
+      # Wait until network-online and systemd-resolved are up
+      # before starting tailscaled.
+      services.tailscaled = {
+        after = ["network-online.target" "systemd-resolved.service"];
+        wants = ["network-online.target" "systemd-resolved.service"];
+      };
+    };
   };
 }
