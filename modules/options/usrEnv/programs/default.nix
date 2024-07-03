@@ -21,10 +21,6 @@ in {
   ];
 
   options.modules.usrEnv.programs = {
-    gui.enable = mkEnableOption "GUI package sets" // {default = true;};
-    cli.enable = mkEnableOption "CLI package sets" // {default = true;};
-    dev.enable = mkEnableOption "development related package sets";
-
     spotify.enable = mkEnableOption "Spotify music player";
     thunderbird.enable = mkEnableOption "Thunderbird mail client";
     vscode.enable = mkEnableOption "Visual Studio Code";

@@ -7,8 +7,8 @@
   inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
   config = mkIf prg.zathura.enable {
     xdg = {

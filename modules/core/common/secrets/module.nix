@@ -7,7 +7,9 @@
   inherit (lib.strings) optionalString;
 
   sys = config.modules.system;
-  cfg = sys.services;
+  env = config.modules.usrEnv;
+
+  srv = sys.services;
 in {
   age.identityPaths = [
     "${optionalString sys.impermanence.root.enable "/persist"}/etc/ssh/ssh_host_ed25519_key"
@@ -28,7 +30,7 @@ in {
     };
 
     # secrets needed for peers
-    spotify-secret = mkAgenixSecret sys.programs.spotify.enable {
+    spotify-secret = mkAgenixSecret env.programs.spotify.enable {
       file = "client/spotify.age";
       owner = "notashelf";
       group = "users";
@@ -49,12 +51,12 @@ in {
       mode = "400";
     };
 
-    # database secrets
-    mongodb-secret = mkAgenixSecret cfg.database.mongodb.enable {
+    # database secrets(https://github.com/ArkieSoft/nixos/blob/main/modules/hyprland.nix#L9
+    mongodb-secret = mkAgenixSecret srv.database.mongodb.enable {
       file = "db/mongodb.age";
     };
 
-    garage-env = mkAgenixSecret cfg.database.garage.enable {
+    garage-env = mkAgenixSecret srv.database.garage.enable {
       file = "db/garage.age";
       mode = "400";
       owner = "garage";
@@ -62,84 +64,77 @@ in {
     };
 
     # service secrets
-    wg-server = mkAgenixSecret cfg.networking.wireguard.enable {
+    wg-server = mkAgenixSecret srv.networking.wireguard.enable {
       file = "service/wg.age";
     };
 
-    mkm-web = mkAgenixSecret cfg.mkm.enable {
+    mkm-web = mkAgenixSecret srv.mkm.enable {
       file = "service/mkm-web.age";
       mode = "400";
     };
 
-    matrix-secret = mkAgenixSecret cfg.social.matrix.enable {
+    matrix-secret = mkAgenixSecret srv.social.matrix.enable {
       file = "service/matrix.age";
       owner = "matrix-synapse";
       mode = "400";
     };
 
-    vaultwarden-env = mkAgenixSecret cfg.vaultwarden.enable {
+    vaultwarden-env = mkAgenixSecret srv.vaultwarden.enable {
       file = "service/vaultwarden.age";
       owner = "vaultwarden";
       mode = "400";
     };
 
-    searx-secretkey = mkAgenixSecret cfg.searxng.enable {
+    searx-secretkey = mkAgenixSecret srv.searxng.enable {
       file = "service/searx.age";
       mode = "400";
       owner = "searx";
       group = "searx";
     };
 
-    nextcloud-secret = mkAgenixSecret cfg.nextcloud.enable {
+    nextcloud-secret = mkAgenixSecret srv.nextcloud.enable {
       file = "service/nextcloud.age";
       mode = "400";
       owner = "nextcloud";
       group = "nextcloud";
     };
 
-    attic-env = mkAgenixSecret cfg.bincache.atticd.enable {
+    attic-env = mkAgenixSecret srv.bincache.atticd.enable {
       file = "service/attic.age";
       mode = "400";
       owner = "atticd";
       group = "atticd";
     };
 
-    harmonia-privateKey = mkAgenixSecret cfg.bincache.harmonia.enable {
+    harmonia-privateKey = mkAgenixSecret srv.bincache.harmonia.enable {
       file = "service/harmonia.age";
       mode = "770";
       owner = "harmonia";
       group = "harmonia";
     };
 
-    forgejo-mailer-password = mkAgenixSecret cfg.forgejo.enable {
-      file = "service/forgejo-mailer-password.age";
-      mode = "400";
-      owner = "gitea-runner";
-      group = "gitea-runner";
-    };
-
-    forgejo-runner-token = mkAgenixSecret cfg.forgejo.enable {
+    forgejo-runner-token = mkAgenixSecret srv.forgejo.enable {
       file = "service/forgejo-runner-token.age";
       mode = "400";
       owner = "gitea-runner";
       group = "gitea-runner";
     };
 
-    forgejo-runner-config = mkAgenixSecret cfg.forgejo.enable {
+    forgejo-runner-config = mkAgenixSecret srv.forgejo.enable {
       file = "service/forgejo-runner-config.age";
       mode = "400";
       owner = "gitea-runner";
       group = "gitea-runner";
     };
 
-    headscale-derp = mkAgenixSecret cfg.networking.headscale.enable {
+    headscale-derp = mkAgenixSecret srv.networking.headscale.enable {
       file = "service/headscale-derp.age";
       mode = "400";
       owner = "headscale";
       group = "headscale";
     };
 
-    headscale-noise = mkAgenixSecret cfg.networking.headscale.enable {
+    headscale-noise = mkAgenixSecret srv.networking.headscale.enable {
       file = "service/headscale-noise.age";
       mode = "400";
       owner = "headscale";
@@ -147,37 +142,37 @@ in {
     };
 
     # mailserver secrets
-    mailserver-secret = mkAgenixSecret cfg.mailserver.enable {
+    mailserver-secret = mkAgenixSecret srv.mailserver.enable {
       file = "mailserver/postmaster.age";
       mode = "400";
     };
 
-    mailserver-forgejo-secret = mkAgenixSecret cfg.forgejo.enable {
+    mailserver-forgejo-secret = mkAgenixSecret srv.forgejo.enable {
       file = "mailserver/forgejo.age";
       owner = "forgejo";
       group = "forgejo";
       mode = "400";
     };
 
-    mailserver-vaultwarden-secret = mkAgenixSecret cfg.vaultwarden.enable {
+    mailserver-vaultwarden-secret = mkAgenixSecret srv.vaultwarden.enable {
       file = "mailserver/vaultwarden.age";
       owner = "vaultwarden";
       mode = "400";
     };
 
-    mailserver-cloud-secret = mkAgenixSecret cfg.nextcloud.enable {
+    mailserver-cloud-secret = mkAgenixSecret srv.nextcloud.enable {
       file = "mailserver/cloud.age";
       owner = "nextcloud";
       mode = "400";
     };
 
-    mailserver-matrix-secret = mkAgenixSecret cfg.social.matrix.enable {
+    mailserver-matrix-secret = mkAgenixSecret srv.social.matrix.enable {
       file = "mailserver/matrix.age";
       owner = "matrix-synapse";
       mode = "400";
     };
 
-    mailserver-noreply-secret = mkAgenixSecret cfg.social.mastodon.enable {
+    mailserver-noreply-secret = mkAgenixSecret srv.social.mastodon.enable {
       file = "mailserver/noreply.age";
       owner = "mastodon";
       mode = "400";

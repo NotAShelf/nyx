@@ -50,22 +50,5 @@
       qemu.enable = true;
       podman.enable = false;
     };
-
-    programs = {
-      cli.enable = true;
-      gui.enable = true;
-
-      spotify.enable = true;
-
-      git.signingKey = "0xAF26552424E53993";
-
-      gaming = {
-        enable = true;
-      };
-
-      default = {
-        terminal = "foot";
-      };
-    };
   };
 }

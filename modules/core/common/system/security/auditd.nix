@@ -9,6 +9,7 @@
   auditEnabled = sys.security.auditd.enable;
 in {
   config = mkIf auditEnabled {
+    boot.kernelParams = ["audit=1"];
     security = {
       # system audit
       auditd.enable = true;

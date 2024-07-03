@@ -1,18 +1,20 @@
 {
+  osConfig,
   pkgs,
   lib,
-  osConfig,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (builtins) elem;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  prg = modules.system.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
+
   dev = modules.device;
+  acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf (prg.cli.enable && (builtins.elem dev.type ["server" "hybrid"])) {
-    home.packages = with pkgs; [
-      wireguard-tools
-    ];
+  config = mkIf ((elem dev.type acceptedTypes) && prg.cli.enable) {
+    home.packages = with pkgs; [wireguard-tools];
   };
 }

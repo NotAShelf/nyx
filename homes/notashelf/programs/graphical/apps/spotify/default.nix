@@ -8,8 +8,8 @@
   inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 
   spicePkgs = inputs.spicetify.legacyPackages.${pkgs.stdenv.system};
 in {
@@ -27,6 +27,7 @@ in {
         betterGenres
         fullScreen
       ];
+
       theme = spicePkgs.themes.catppuccin;
       colorScheme = "mocha";
     };

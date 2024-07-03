@@ -1,14 +1,15 @@
 {
-  osConfig,
-  lib,
-  pkgs,
   inputs',
+  osConfig,
+  pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  prg = modules.system.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
   config = mkIf prg.cli.enable {
     home.packages = with pkgs; [

@@ -8,8 +8,8 @@
   inherit (lib.meta) getExe';
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
   config = mkIf prg.thunderbird.enable {
     home.packages = with pkgs; [birdtray thunderbird];

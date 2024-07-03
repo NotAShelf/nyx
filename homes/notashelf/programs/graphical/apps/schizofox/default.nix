@@ -7,10 +7,10 @@
 }: let
   inherit (builtins) listToAttrs;
   inherit (lib.modules) mkIf;
-  inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  inherit (osConfig) modules;
+  env = modules.usrEnv;
+  prg = env.programs;
 in {
   imports = [inputs.schizofox.homeManagerModule];
   config = mkIf prg.firefox.enable {

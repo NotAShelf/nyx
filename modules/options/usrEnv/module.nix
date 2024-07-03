@@ -5,5 +5,6 @@
 
     ./brightness.nix
     ./desktop.nix
+    ./packages.nix
   ];
 }

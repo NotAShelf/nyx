@@ -12,8 +12,7 @@
   inherit (config) modules;
 
   env = modules.usrEnv;
-  sys = modules.system;
-  defaults = sys.programs.default;
+  defaults = env.programs.default;
 
   specialArgs = {inherit inputs self inputs' self' defaults;};
 in {

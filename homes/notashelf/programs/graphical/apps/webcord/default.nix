@@ -7,8 +7,8 @@
   inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
 
   # Fetching mocha theme from catppuccin/discord actually just fetches
   # a stylesheet that imports this url in typical Catppuccin nonsense.

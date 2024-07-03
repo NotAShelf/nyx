@@ -4,14 +4,17 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (builtins) elem;
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  prg = modules.system.programs;
+  env = modules.usrEnv;
+  prg = env.programs;
+
   dev = modules.device;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && prg.cli.enable) {
+  config = mkIf ((elem dev.type acceptedTypes) && prg.cli.enable) {
     home.packages = with pkgs; [
       # CLI
       libnotify

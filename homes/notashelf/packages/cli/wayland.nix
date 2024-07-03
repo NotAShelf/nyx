@@ -4,13 +4,14 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (builtins) elem;
+  inherit (lib.modules) mkIf;
+  inherit (osConfig) modules meta;
 
-  dev = osConfig.modules.device;
-  env = osConfig.modules.usrEnv;
+  dev = modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes) && env.isWayland) {
+  config = mkIf ((elem dev.type acceptedTypes) && meta.isWayland) {
     home.packages = with pkgs; [
       # CLI
       grim
