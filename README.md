@@ -36,40 +36,42 @@ bug reports, or simply moral support, they have my most sincere gratitude.
 
 [resources section]: #cool-resources
 [nix blog]: https://nyx.notashelf.dev
+[license]: #license
 
 <!-- deno-fmt-ignore-start -->
 
 > [!CAUTION]
-> As I physically cannot stop tinkering and messing around with my configuration,
-> **nothing in this repository (including the README and the overview sections in
-> it) should be considered final**. This is my configuration, not a framework.
-> Do keep in mind that I make no promise of stability or support. If something
-> breaks, that will be your responsibility. Please do not allow yourself to be
-> fooled by the sheer amount of documentation effort that has gone into this
-> project. It is not a public framework, never will be. It will receive changes,
-> on almost a daily basis and possibly in a half-broken state. I should also
-> mention that almost all of the configurations contained within this repository,
-> in some shape or form, contain age encrypted secrets - which, to you dear
-> reader, means that they **cannot** be built and replicated successfully, at
-> least in theory (unless you know a way to revert age encryption, in which case
-> please let me know!)
+> As I physically cannot stop tinkering and messing around with my
+> configuration, **nothing in this repository (including the README and the
+> overview sections in it) should be considered final**. This is my
+> configuration, not a framework. Do keep in mind that I make no promise of
+> stability or support. If something breaks, that will be your responsibility.
+> Please do not allow yourself to be fooled by the sheer amount of documentation
+> effort that has gone into this project. **This is not a public framework**,
+> and it never will be. It will receive changes, on almost a daily basis and
+> possibly in a half-broken state.
 >
-> I invite you to go through the modules and countless lines of Nix I have
-> written, but I would strongly advise against attempting to boot any of those
-> configurations unless you are me.
+> I should also mention that almost all of the configurations contained within
+> this repository, in some shape or form, contain age encrypted secrets - which,
+> to you dear reader, means that they **cannot** be built and replicated
+> successfully, at least in theory (unless you know a way to revert age
+> encryption, in which case please let me know!) I invite you to go through the
+> modules and countless lines of Nix I have written, but I would strongly advise
+> against attempting to boot any of those configurations unless you are me.
 >
-> There exists a [resources section] that I strongly encourage you to check out,
-> which you can use to start building your own configuration. I also document some
-> of my experiences in my [nix blog] for your convenience.
+> There exists a [resources section] that I _strongly_ encourage you to check
+> out, which you can use to start building your own configuration. I also
+> document some of my experiences in my [nix blog] for your convenience.
 > Otherwise, please feel free to dissect this configuration and borrow bits that
-> may appear interesting to you - but please respect my [license](#license) while
-> doing so!
+> may appear interesting to you - but _please_ respect my [license] while doing
+> so!
 >
-> To re-iterate: **this is not a public framework**. Please **do not** try
-> to run this configuration, or to rip off specific bits. It will cause much pain
+> To re-iterate: **this is not a public framework**. Please **do not** try to
+> run this configuration, or to rip off specific bits. It will cause much pain
 > and suffering in addition to robbing you the joys of learning something by
 > yourself. By doing so, you would have to learn my specific design choices _on
-> top of Nix/NixOS_ whereas you could create something that suits your own needs.
+> top of Nix/NixOS_ whereas you could create something that suits your own
+> needs.
 
 <!-- deno-fmt-ignore-end -->
 
@@ -189,6 +191,8 @@ configuration and my design considerations.
 - **Encryption Ready** - Supports and actively utilizes full disk encryption.
 - **Wayland First** - Leaves Xorg in the past where it belongs. Everything is
   configured around Wayland, with Xorg only as a fallback.
+- **Custom Xanmod Kernel** with a wide variety of patches to strip unneeded
+  modules.
 
 ### Rules/Design Considerations
 
@@ -209,7 +213,7 @@ make sense of certain decisions that are made.
   description of the change.
 - **alejandra** is the only Nix formatter that shall be used within this
   repository. nixfmt and nixpkgs-fmt both advertise ugly and confusing diffs,
-  which I dislike. Some of alejandra's quirks (e.g. lists) can be avoided with
+  which I dislike. Some of Alejandra's quirks (e.g. lists) can be avoided with
   minor additions to the code.
 - Backwards imports **should** be avoided wherever applicable.
 - The repository should remain modular, and enabled options must **never**
@@ -225,6 +229,10 @@ make sense of certain decisions that are made.
   - While accessing standard library functions, the call to library must be
     explicit. An example to this would be: `inherit (lib.modules) mkIf;` instead
     of repeating `lib.mkIf` or `lib.modules.mkIf` every time it is used.
+  - `with pkgs;` _is_ fine, however its scope must be kept small. The biggest
+    scope in which it shall be allowed is the smallest scope possible, e.g.,
+    `environment.systemPackages = with pkgs; [ ];`. Anything larger than that
+    should be avoided at all costs.
 
 ### Goals/Non-goals
 
@@ -252,6 +260,15 @@ repository. Those goals are:
 
 ## Host Specifications
 
+<!-- deno-fmt-ignore-start -->
+
+> [!WARNING]
+> This section may be out of date as I constantly add, remove or re-purpose my
+> hosts across a single network. Hostnames are assigned on a per-host basiis and
+> are permanent, type and arch on another hand are subject to change.
+
+<!-- deno-fmt-ignore-end -->
+
 | Name         | Description                                                                                       |  Type   |     Arch      |
 | :----------- | :------------------------------------------------------------------------------------------------ | :-----: | :-----------: |
 | `enyo`       | Day-to-day desktop workstation boasting a full AMD system.                                        | Desktop | x86_64-linux  |
@@ -268,17 +285,19 @@ repository. Those goals are:
 | `gaea`       | Custom live media, used as an installer                                                           |   ISO   | x86_64-linux  |
 | `erebus`     | Air-gapped virtual machine/live-iso configuration for sensitive jobs                              |   ISO   | x86_64-linux  |
 
-## Credits & Special Thanks to
+## Credits & Special Thanks
 
 [atrocious abstractions]: parts/lib/builders.nix
 
-My special thanks go to [fufexan](https://github.com/fufexan) for convincing me
-to use NixOS and sticking around to answer my most stupid and deranged
-questions, as well as my [atrocious abstractions].
+My most sincere thanks go to [fufexan](https://github.com/fufexan) for
+convincing me to use NixOS and sticking around to answer my most stupid and
+deranged questions, as well as my [atrocious abstractions]. Without his help, I
+would not be able to stand where I do.
 
-And to [sioodmy](https://github.com/sioodmy) which my configuration is initially
-based on. The simplicity of his configuration flake allowed me to take a
-foothold in the Nix world.
+I also wish to extend my thanks to [sioodmy](https://github.com/sioodmy) which
+my configuration was initially based on. Though layouts and files have since
+changed, the core principals and ideas remain. The simplicity of his
+configuration flake allowed me to take a foothold in the Nix world.
 
 ### Awesome People
 
@@ -298,7 +317,6 @@ thanks to all of those people and any others that I might have forgotten.
 Pretend I haven't credited those people (but I will, because they are equally
 awesome and I appreciate them)
 
-[vaxry](https://github.com/vaxerski) -
 [gerg-l (bald frog)](https://github.com/gerg-l) -
 [eclairevoyant](https://github.com/eclairevoyant/) -
 [FrothyMarrow](https://github.com/frothymarrow) -
@@ -307,7 +325,8 @@ awesome and I appreciate them)
 [n3oney](https://github.com/n3oney) -
 [Raidenovich](https://github.com/raidenovich) -
 [jacekpoz](https://github.com/jacekpoz) -
-[Vagahbond](https://github.com/Vagahbond)
+[Vagahbond](https://github.com/Vagahbond) -
+[vaxry](https://github.com/vaxerski) -
 
 ### Honorable Mentions
 
