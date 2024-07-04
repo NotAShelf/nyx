@@ -19,10 +19,30 @@
         }
       ];
 
-      services = {
+      services = let
+        ttyAudit = {
+          enable = true;
+          enablePattern = "*";
+        };
+      in {
         # Allow screen lockers such as Swaylock or gtklock) to also unlock the screen.
         swaylock.text = "auth include login";
         gtklock.text = "auth include login";
+
+        login = {
+          inherit ttyAudit;
+          setLoginUid = true;
+        };
+
+        sshd = {
+          inherit ttyAudit;
+          setLoginUid = true;
+        };
+
+        sudo = {
+          inherit ttyAudit;
+          setLoginUid = true;
+        };
       };
     };
   };
