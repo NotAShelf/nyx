@@ -21,7 +21,6 @@
       hooks.exiftool = mkHook "exiftool" {
         enable = true;
         types = ["image"];
-        exclude_types = ["svg"];
         entry = "${pkgs.exiftool}/bin/exiftool ${concatStringsSep " " exiftoolArgs}";
       };
     };
