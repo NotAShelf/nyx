@@ -4,10 +4,16 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf mkForce;
 
   cfg = config.modules.system.services;
   domain = "git.notashelf.dev";
+
+  dataDir = "/srv/storage/forgejo";
+  dumpDir = "/stv/storage/forgejo-dump";
+
+  user = config.users.users.forgejo.name;
+  group = config.users.groups.forgejo.name;
 
   inherit (cfg.forgejo.settings) port;
 in {
@@ -26,16 +32,35 @@ in {
       config.services.forgejo.settings.server.SSH_PORT
     ];
 
+    systemd.tmpfiles.settings = {
+      "10-forgejo" = {
+        "${dataDir}" = {
+          d = {
+            inherit user group;
+            mode = "0700";
+          };
+        };
+
+        "${dumpDir}" = {
+          d = {
+            inherit user group;
+            mode = mkForce "0750";
+            age = "7d";
+          };
+        };
+      };
+    };
+
     services = {
       forgejo = {
         enable = true;
         package = pkgs.forgejo.override {pamSupport = false;};
-        stateDir = "/srv/storage/forgejo/data";
+        stateDir = dataDir;
 
         secrets.mailer.PASSWD = config.age.secrets.mailserver-forgejo-secret.path;
         lfs.enable = true;
 
-        # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
+        # <https://forgejo.org/docs/latest/admin/config-cheat-sheet>
         settings = {
           default.APP_NAME = "The Secret Shelf";
           badges.ENABLED = true;
@@ -63,7 +88,7 @@ in {
 
           actions = {
             ENABLED = true;
-            DEFAULT_ACTIONS_URL = "https://git.notashelf.dev";
+            DEFAULT_ACTIONS_URL = "https://${domain}";
           };
 
           other = {
@@ -98,7 +123,7 @@ in {
           };
 
           database = {
-            DB_TYPE = lib.mkForce "postgres";
+            DB_TYPE = mkForce "postgres";
             HOST = "/run/postgresql";
             NAME = "forgejo";
             USER = "forgejo";
@@ -122,13 +147,13 @@ in {
         # backup
         dump = {
           enable = true;
-          backupDir = "/srv/storage/forgejo/dump";
+          backupDir = dumpDir;
           interval = "06:00";
           type = "tar.zst";
         };
       };
 
-      nginx.virtualHosts."git.notashelf.dev" =
+      nginx.virtualHosts."${domain}" =
         {
           locations."/" = {
             recommendedProxySettings = true;
