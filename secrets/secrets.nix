@@ -1,5 +1,5 @@
 let
-  keys = import ../flake/keys.nix;
+  keys = import ../parts/keys.nix;
   inherit (keys) servers workstations;
   inherit (keys) mkGlobal;
 in {
