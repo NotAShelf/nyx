@@ -4,8 +4,10 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkIf mkDefault;
+  inherit (builtins) readFile;
+  inherit (lib.modules) mkIf mkDefault mkForce;
   inherit (lib.strings) fileContents;
+  inherit (lib.attrsets) mapAttrs;
 
   sys = config.modules.system;
   cfg = sys.services;
@@ -151,7 +153,7 @@ in {
               "/" = mkStaticPage {
                 root = ./static/root.txt;
                 name = "root.txt";
-                header = builtins.readFile ./static/header.txt;
+                header = readFile ./static/header.txt;
                 footer = "> served by ${pkgs.nginx.outPath}";
               };
 
@@ -165,15 +167,8 @@ in {
         };
       };
 
-      logrotate.settings.nginx = {
-        enable = true;
-        minsize = "50M";
-        rotate = "4"; # 4 files of 50mb each
-        compress = true;
-      };
-
       fail2ban.jails = {
-        nginx-bad-request.settings = {enabled = true;};
+        nginx-bad-request.settings.enabled = true;
         nginx-http-auth.settings = {
           enabled = true;
           filter = "nginx-http-auth";
@@ -186,6 +181,33 @@ in {
           action = ''nftables-multiport[name=NGINXBOT, port="443", protocol=tcp]'';
         };
       };
+
+      # Periodically rotate the logs
+      logrotate.settings.nginx = {
+        enable = true;
+        minsize = "50M";
+        rotate = "4"; # 4 files of 50mb each
+        compress = true;
+      };
+    };
+
+    systemd.services.nginx.serviceConfig = mapAttrs (_: mkForce) {
+      SupplementaryGroups = ["shadow"];
+      NoNewPrivileges = false;
+      PrivateDevices = false;
+      ProtectHostname = false;
+      ProtectKernelTunables = false;
+      ProtectKernelModules = false;
+      RestrictAddressFamilies = [];
+      LockPersonality = false;
+      MemoryDenyWriteExecute = false;
+      RestrictRealtime = false;
+      RestrictSUIDSGID = false;
+      SystemCallArchitectures = "";
+      ProtectClock = false;
+      ProtectKernelLogs = false;
+      RestrictNamespaces = false;
+      SystemCallFilter = "";
     };
   };
 }
