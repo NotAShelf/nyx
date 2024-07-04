@@ -6,7 +6,7 @@
   inherit (lib.attrsets) recursiveUpdate;
 
   # Files to be ignored by all hooks.
-  excludes = ["LICENSE" "flake.lock" "r'.+\.age$'" "r'.+\.sh$'"];
+  excludes = ["LICENSE" "flake.lock" "\.svg$" "\.age$" "\.sh$"];
 
   # Helper function to generate TOML configuration for pre-commit hooks
   # that read TOML configurations.

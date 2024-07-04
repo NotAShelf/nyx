@@ -7,9 +7,9 @@
     inherit (import ../utils.nix {inherit pkgs lib;}) mkHook;
     inherit (lib.strings) concatStringsSep;
 
+    # https://jade.fyi/blog/pre-commit-exif-safety/
     exiftoolArgs = [
       "-all="
-      "-ext '!svg'"
       "--icc_profile:all"
       "-tagsfromfile"
       "@"
@@ -21,6 +21,7 @@
       hooks.exiftool = mkHook "exiftool" {
         enable = true;
         types = ["image"];
+        exclude_types = ["svg"];
         entry = "${pkgs.exiftool}/bin/exiftool ${concatStringsSep " " exiftoolArgs}";
       };
     };
