@@ -3,10 +3,16 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf mkForce;
 
   sys = config.modules.system;
   cfg = sys.services;
+
+  user = config.users.users.vaultwarden.name;
+  group = config.users.groups.vaultwarden.name;
+
+  dataDir = "/srv/storage/vaultwarden";
+  backupDir = "/srv/storage/bitwarden-backup";
 
   inherit (cfg.vaultwarden.settings) port host;
 in {
@@ -15,37 +21,74 @@ in {
       nginx.enable = true;
     };
 
-    # this forces the system to create backup folder
-    systemd.services.backup-vaultwarden.serviceConfig = {
-      User = "root";
-      Group = "root";
+    systemd.tmpfiles.settings = {
+      "10-vaultwarden" = {
+        "${dataDir}" = {
+          d = {
+            inherit user group;
+            mode = "0700";
+          };
+        };
+
+        "${backupDir}" = {
+          d = {
+            inherit user group;
+            mode = mkForce "0750";
+            age = "30d";
+          };
+        };
+      };
     };
 
     services = {
       vaultwarden = {
         enable = true;
+        inherit backupDir;
+
+        # Sensitive configuration options go here
         environmentFile = config.age.secrets.vaultwarden-env.path;
-        backupDir = "/srv/storage/vaultwarden/backup";
+
         config = {
+          DATA_FOLDER = dataDir;
+          ATTACHMENTS_FOLDER = "${dataDir}/attachments";
+          ICON_CACHE_FOLDER = "${dataDir}/icon_cache";
+
           DOMAIN = "https://vault.notashelf.dev";
-          SIGNUPS_ALLOWED = false;
+
+          # Rocket server configuration
           ROCKET_ADDRESS = host;
           ROCKET_PORT = port;
+          ROCKET_LIMITS = "{json=10485760}"; # 10MB limit for posted json in the body
+
+          # No password hint
+          SHOW_PASSWORD_HINT = false;
+
+          # Log to system journal
           extendedLogging = true;
-          invitationsAllowed = false;
-          useSyslog = true;
-          logLevel = "warn";
-          showPasswordHint = false;
-          signupsAllowed = false;
-          signupsDomainsWhitelist = "notashelf.dev";
-          signupsVerify = true;
+          EXTENDED_LOGGING = true;
+          USE_SYSLOG = true;
+          LOG_LEVEL = "warn";
+
+          # Only allow signups from my own domain
+          # or the admin panel.
+          INVITATIONS_ALLOWED = false;
+
+          SIGNUPS_ALLOWED = false;
+          SIGNUPS_VERIFY = true;
+          SIGNUPS_DOMAINS_WHITELIST = "notashelf.dev";
+
+          # Push notifications
+          PUSH_ENABLED = true;
+          PUSH_RELAY_URI = "https://api.bitwarden.eu";
+          PUSH_IDENTITY_URI = "https://identity.bitwarden.eu";
+
+          # SMTP Settings
           smtpAuthMechanism = "Login";
           smtpFrom = "vaultwarden@notashelf.dev";
           smtpFromName = "NotAShelf's Vaultwarden Service";
           smtpHost = "mail.notashelf.dev";
           smtpPort = 465;
           smtpSecurity = "force_tls";
-          dataDir = "/srv/storage/vaultwarden";
         };
       };
 
@@ -72,7 +115,7 @@ in {
 
           settings = {
             backend = "systemd";
-            port = "80,443";
+            port = "80,443,8222";
             filter = "vaultwarden-web[journalmatch='_SYSTEMD_UNIT=vaultwarden.service']";
             banaction = "%(banaction_allports)s";
             maxretry = 3;
@@ -92,13 +135,26 @@ in {
 
           settings = {
             backend = "systemd";
-            port = "80,443";
+            port = "80,443,8222";
             filter = "vaultwarden-admin[journalmatch='_SYSTEMD_UNIT=vaultwarden.service']";
             banaction = "%(banaction_allports)s";
             maxretry = 3;
             bantime = 14400;
             findtime = 14400;
           };
+        };
+      };
+    };
+
+    systemd.services = {
+      vaultwarden.serviceConfig = {
+        ReadWriteDirectories = dataDir;
+      };
+
+      backup-vaultwarden = {
+        environment.DATA_FOLDER = mkForce dataDir;
+        serviceConfig = {
+          ReadWriteDirectories = dataDir;
         };
       };
     };
