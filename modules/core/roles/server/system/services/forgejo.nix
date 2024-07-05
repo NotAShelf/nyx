@@ -12,9 +12,6 @@
   dataDir = "/srv/storage/forgejo";
   dumpDir = "/stv/storage/forgejo-dump";
 
-  user = config.users.users.forgejo.name;
-  group = config.users.groups.forgejo.name;
-
   inherit (cfg.forgejo.settings) port;
 in {
   config = mkIf cfg.forgejo.enable {
@@ -26,38 +23,27 @@ in {
       };
     };
 
-    networking.firewall.allowedTCPPorts = [
-      # make sure the service is reachable from outside
-      config.services.forgejo.settings.server.HTTP_PORT
-      config.services.forgejo.settings.server.SSH_PORT
+    networking.firewall.allowedTCPPorts = [2222];
+
+    systemd.tmpfiles.rules = let
+      # Disallow crawlers from indexing this site.
+      robots = pkgs.writeText "forgejo-robots-txt" ''
+        User-agent: *
+        Disallow: /
+      '';
+    in [
+      "L+ ${config.services.forgejo.customDir}/public/robots.txt - - - - ${robots.outPath}"
     ];
-
-    systemd.tmpfiles.settings = {
-      "10-forgejo" = {
-        "${dataDir}" = {
-          d = {
-            inherit user group;
-            mode = "0700";
-          };
-        };
-
-        "${dumpDir}" = {
-          d = {
-            inherit user group;
-            mode = mkForce "0750";
-            age = "7d";
-          };
-        };
-      };
-    };
 
     services = {
       forgejo = {
         enable = true;
         package = pkgs.forgejo.override {pamSupport = false;};
         stateDir = dataDir;
+        database.type = "postgres";
 
-        secrets.mailer.PASSWD = config.age.secrets.mailserver-forgejo-secret.path;
+        # This was mailerPasswordFile before 24.11
+        secrets.mailer.PASSWD = config.age.secrets.forgejo-mailer-password.path;
         lfs.enable = true;
 
         # <https://forgejo.org/docs/latest/admin/config-cheat-sheet>
@@ -65,10 +51,27 @@ in {
           default.APP_NAME = "The Secret Shelf";
           badges.ENABLED = true;
 
+          database = {
+            DB_TYPE = "postgres";
+
+            # If DB_TYPE is postgres
+            HOST = "/run/postgresql";
+            NAME = "forgejo";
+            USER = "forgejo";
+            PASSWD = "forgejo";
+          };
+
+          cache = {
+            ENABLED = true;
+            ADAPTER = "redis";
+            HOST = "redis://:forgejo@localhost:6371";
+          };
+
           ui = {
             DEFAULT_THEME = "forgejo-dark";
             EXPLORE_PAGING_NUM = 5;
             SHOW_USER_EMAIL = false; # hide user email in the explore page
+            GRAPH_MAX_COMMIT_NUM = 200;
           };
 
           attachment.ALLOWED_TYPES = "*/*";
@@ -79,6 +82,9 @@ in {
           repository = {
             DISABLE_STARS = true;
             PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
+            ENABLE_PUSH_CREATE_USER = true;
+            DEFAULT_PRIVATE = "public";
+            DEFAULT_PRIVATE_PUSH_CREATE = true;
           };
 
           "repository.upload" = {
@@ -88,7 +94,7 @@ in {
 
           actions = {
             ENABLED = true;
-            DEFAULT_ACTIONS_URL = "https://${domain}";
+            DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
           };
 
           other = {
@@ -105,42 +111,67 @@ in {
             INSTALL_LOCK = true;
             PASSWORD_CHECK_PWN = true;
             PASSWORD_COMPLEXITY = "lower,upper,digit,spec";
+            LOGIN_REMEMBER_DAYS = 7;
           };
 
           server = {
-            PROTOCOL = "http+unix";
+            PROTOCOL = "http+unix"; # unix socket is used by Nginx, deefault is "http"
             HTTP_PORT = port;
             ROOT_URL = "https://${domain}";
             DOMAIN = "${domain}";
             DISABLE_ROUTER_LOG = true;
             LANDING_PAGE = "/explore";
 
+            # Internal SSH server configuration
             START_SSH_SERVER = true;
             SSH_PORT = 2222;
             SSH_LISTEN_PORT = 2222;
-            SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
-            BUILTIN_SSH_SERVER_USER = "git";
           };
 
-          database = {
-            DB_TYPE = mkForce "postgres";
-            HOST = "/run/postgresql";
-            NAME = "forgejo";
-            USER = "forgejo";
-            PASSWD = "forgejo";
+          "repository.pull_request" = {
+            WORK_IN_PROGRESS_PREFIXES = "WIP:,[WIP],DRAFT,[DRAFT]";
+            ADD_CO_COMMITTERS_TRAILERS = true;
           };
 
-          cache = {
+          "git.timeout" = {
+            DEFAULT = 3600;
+            MIGRATE = 3600;
+            MIRROR = 3600;
+            CLONE = 3600;
+          };
+
+          "markup.asciidoc" = {
             ENABLED = true;
-            ADAPTER = "redis";
-            HOST = "redis://:forgejo@localhost:6371";
+            NEED_POSTPROCESS = true;
+            FILE_EXTENSIONS = ".adoc,.asciidoc";
+            RENDER_COMMAND = "${pkgs.asciidoctor}/bin/asciidoctor --embedded --out-file=- -";
+            IS_INPUT_FILE = false;
+          };
+
+          session = {
+            PROVIDER = "redis";
+            PROVIDER_CONFIG = "redis://:forgejo@localhost:6371";
           };
 
           mailer = mkIf config.modules.system.services.mailserver.enable {
             ENABLED = true;
             PROTOCOL = "smtps";
             SMTP_ADDR = "mail.notashelf.dev";
-            USER = "git@notashelf.dev";
+            SMTP_PORT = 465;
+            FROM = "Forgejo <forgejo@notashelf.dev>";
+            USER = "forgejo@notashelf.dev";
+            SEND_AS_PLAIN_TEXT = true;
+            SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
+          };
+
+          federation = {
+            ENABLED = true;
+          };
+
+          metrics = {
+            ENABLED = true;
+            ENABLED_ISSUE_BY_REPOSITORY = true;
+            ENABLED_ISSUE_BY_LABEL = true;
           };
         };
 

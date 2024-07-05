@@ -111,6 +111,13 @@ in {
       group = "harmonia";
     };
 
+    forgejo-mailer-password = mkAgenixSecret cfg.forgejo.enable {
+      file = "service/forgejo-mailer-password.age";
+      mode = "400";
+      owner = "gitea-runner";
+      group = "gitea-runner";
+    };
+
     forgejo-runner-token = mkAgenixSecret cfg.forgejo.enable {
       file = "service/forgejo-runner-token.age";
       mode = "400";

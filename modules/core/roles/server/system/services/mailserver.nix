@@ -21,70 +21,73 @@ in {
 
     mailserver = {
       enable = true;
+      fqdn = "mail.notashelf.dev";
+      certificateScheme = "acme-nginx";
+      domains = ["notashelf.dev"];
+
       mailDirectory = "/srv/storage/mail/vmail";
       dkimKeyDirectory = "/srv/storage/mail/dkim";
       sieveDirectory = "/srv/storage/mail/sieve";
-      openFirewall = true;
+
+      # Ports & Security
       enableImap = true;
       enableImapSsl = true;
       enablePop3 = false;
       enablePop3Ssl = false;
       enableSubmission = false;
       enableSubmissionSsl = true;
+
       hierarchySeparator = "/";
       localDnsResolver = false;
-      fqdn = "mail.notashelf.dev";
-      certificateScheme = "acme-nginx";
-      domains = ["notashelf.dev"];
+      lmtpSaveToDetailMailbox = "yes";
+      maxConnectionsPerUser = 25;
       loginAccounts = {
         "raf@notashelf.dev" = {
           hashedPasswordFile = secrets.mailserver-secret.path;
           aliases = [
-            "me"
-            "raf"
             "me@notashelf.dev"
-            "admin"
             "admin@notashelf.dev"
-            "root"
             "root@notashelf.dev"
-            "postmaster"
             "postmaster@notashelf.dev"
           ];
         };
 
         "noreply@notashelf.dev" = {
-          aliases = ["noreply"];
           hashedPasswordFile = secrets.mailserver-noreply-secret.path;
           sendOnly = true;
           sendOnlyRejectMessage = "";
+          quota = "1G";
         };
 
-        "git@notashelf.dev" = mkIf cfg.forgejo.enable {
-          aliases = ["git" "forgejo"];
+        "forgejo@notashelf.dev" = mkIf cfg.forgejo.enable {
+          aliases = ["git@notashelf.dev"];
           hashedPasswordFile = secrets.mailserver-forgejo-secret.path;
           sendOnly = true;
           sendOnlyRejectMessage = "";
+          quota = "1G";
         };
 
         "vaultwarden@notashelf.dev" = mkIf cfg.vaultwarden.enable {
-          aliases = ["vaultwarden" "vault"];
+          aliases = ["vault@notashelf.dev"];
           hashedPasswordFile = secrets.mailserver-vaultwarden-secret.path;
           sendOnly = true;
           sendOnlyRejectMessage = "";
+          quota = "1G";
         };
 
         "matrix@notashelf.dev" = mkIf cfg.social.matrix.enable {
-          aliases = ["matrix"];
           hashedPasswordFile = secrets.mailserver-matrix-secret.path;
           sendOnly = true;
           sendOnlyRejectMessage = "";
+          quota = "1G";
         };
 
         "cloud@notashelf.dev" = mkIf cfg.nextcloud.enable {
-          aliases = ["cloud" "nextcloud"];
+          aliases = ["nextcloud@notashelf.dev"];
           hashedPasswordFile = secrets.mailserver-cloud-secret.path;
           sendOnly = true;
           sendOnlyRejectMessage = "";
+          quota = "1G";
         };
       };
 
@@ -93,20 +96,24 @@ in {
           auto = "subscribe";
           specialUse = "Archive";
         };
+
         Drafts = {
           auto = "subscribe";
           specialUse = "Drafts";
         };
+
         Sent = {
           auto = "subscribe";
           specialUse = "Sent";
         };
+
         Junk = {
           auto = "subscribe";
           specialUse = "Junk";
         };
+
         Trash = {
-          auto = "subscribe";
+          auto = "no";
           specialUse = "Trash";
         };
       };
