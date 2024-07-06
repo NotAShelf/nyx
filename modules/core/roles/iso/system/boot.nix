@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkForce mkAfter mkImageMediaOverride;
+  inherit (lib.modules) mkDefault mkForce mkAfter mkImageMediaOverride;
 in {
   boot = {
     # Force systemd-boot to be disabled.
@@ -11,7 +11,7 @@ in {
 
     # use the latest Linux kernel instead of the default LTS kernel
     # this is useful for hardware support and bug fixes
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = mkDefault pkgs.linuxKernel.packages.linux_latest;
 
     # ground control to kernel
     # talk to me kernel
