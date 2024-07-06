@@ -54,8 +54,8 @@ in {
       })
 
       # gnome packages
-      gnome.gnome-tweaks
-      gnome.gnome-calendar
+      gnome-tweaks
+      gnome-calendar
       komikku
     ];
   };
