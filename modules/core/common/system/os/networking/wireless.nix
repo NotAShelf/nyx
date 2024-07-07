@@ -24,8 +24,10 @@ in {
           enable = wireless.backend == "iwd";
           settings = {
             #Rank.BandModifier5Ghz = 2.0;
-            #Scan.DisablePeriodicScan = true;
+            Scan.DisablePeriodicScan = false;
+            AutoConnect = true;
             Settings.AutoConnect = true;
+            IPv6.Enabled = true;
 
             General = {
               AddressRandomization = "network";
