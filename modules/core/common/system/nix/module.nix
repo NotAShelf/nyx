@@ -9,7 +9,7 @@
   inherit (builtins) elem;
   inherit (lib.trivial) pipe;
   inherit (lib.types) isType;
-  inherit (lib.attrsets) mapAttrsToList optionalAttrs filterAttrs mapAttrs mapAttrs';
+  inherit (lib.attrsets) recursiveUpdate mapAttrsToList filterAttrs mapAttrs mapAttrs';
 in {
   imports = [
     ./overlays # tree-wide overrides for packages and such
@@ -43,32 +43,35 @@ in {
     mappedRegistry = pipe inputs [
       (filterAttrs (_: isType "flake"))
       (mapAttrs (_: flake: {inherit flake;}))
-      (x: x // {nixpkgs.flake = inputs.nixpkgs;})
+      (flakes: flakes // {nixpkgs.flake = inputs.nixpkgs;})
     ];
   in {
-    package = pkgs.nixSuper; # pkgs.nixVersions.unstable;
+    # Lix, the higher performance Nix fork.
+    package = pkgs.lix;
 
     # Pin the registry to avoid downloading and evaluating a new nixpkgs version every time
     # this will add each flake input as a registry to make nix3 commands consistent with your flake
     # additionally we also set `registry.default`, which was added by nix-super
-    registry = mappedRegistry // optionalAttrs (config.nix.package == pkgs.nixSuper) {default = mappedRegistry.nixpkgs;};
+    registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well
     nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
-    # make builds run with low priority so my system stays responsive
-    # this is especially helpful if you have auto-upgrade on
-    daemonCPUSchedPolicy = "batch";
+    # Run the Nix daemon on lowest possible priority so that my system
+    # stays responsive during demanding tasks such as GC and builds.
+    # This is especially useful while auto-gc and auto-upgrade are enabled
+    # as they can be quite demanding on the CPU.
     daemonIOSchedClass = "idle";
+    daemonCPUSchedPolicy = "idle";
     daemonIOSchedPriority = 7;
 
-    # set up garbage collection to run weekly,
-    # removing unused packages that are older than 30 days
+    # Collect garbage
     gc = {
       automatic = true;
       dates = "Sat *-*-* 03:00";
       options = "--delete-older-than 30d";
+      persistent = false; # don't try to catch up on missed GC runs
     };
 
     # automatically optimize nix store my removing hard links
@@ -84,8 +87,11 @@ in {
       # manually, as Nix won't do it for us
       use-xdg-base-directories = true;
 
-      # specify the path to the nix registry
-      flake-registry = "/etc/nix/registry.json";
+      # Disallow internal flake registry by setting it to an empty JSON file
+      flake-registry = pkgs.writeText "flakes-empty.json" (builtins.toJSON {
+        flakes = [];
+        version = 2;
+      });
 
       # Free up to 10GiB whenever there is less than 5GB left.
       # this setting is in bytes, so we multiply with 1024 thrice
@@ -131,10 +137,11 @@ in {
         "recursive-nix" # let nix invoke itself
         "ca-derivations" # content addressed nix
         "auto-allocate-uids" # allow nix to automatically pick UIDs, rather than creating nixbld* user accounts
-        "configurable-impure-env" # allow impure environments
         "cgroups" # allow nix to execute builds inside cgroups
-        "git-hashing" # allow store objects which are hashed via Git's hashing algorithm
-        "verified-fetches" # enable verification of git commit signatures for fetchGit
+        # Those don't actually exist on Lix so they have to be disabled
+        # "configurable-impure-env" # allow impure environments
+        # "git-hashing" # allow store objects which are hashed via Git's hashing algorithm
+        # "verified-fetches" # enable verification of git commit signatures for fetchGit
       ];
 
       # don't warn me that my git tree is dirty, I know
@@ -159,14 +166,11 @@ in {
 
       # substituters to use
       substituters = [
-        "https://cache.ngi0.nixos.org" # content addressed nix cache (TODO)
         "https://cache.nixos.org" # funny binary cache
         "https://cache.privatevoid.net" # for nix-super
-        "https://nixpkgs-wayland.cachix.org" # automated builds of *some* wayland packages
         "https://nix-community.cachix.org" # nix-community cache
         "https://hyprland.cachix.org" # hyprland
         "https://nixpkgs-unfree.cachix.org" # unfree-package cache
-        "https://numtide.cachix.org" # another unfree package cache
         "https://anyrun.cachix.org" # anyrun program launcher
         "https://nyx.cachix.org" # cached stuff from my flake outputs
         "https://neovim-flake.cachix.org" # a cache for my neovim flake
@@ -177,13 +181,10 @@ in {
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
         "cache.privatevoid.net:SErQ8bvNWANeAvtsOESUwVYr2VJynfuc9JRwlzTTkVg="
-        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-        "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
         "notashelf.cachix.org-1:VTTBFNQWbfyLuRzgm2I7AWSDJdqAa11ytLXHBhrprZk="
         "neovim-flake.cachix.org-1:iyQ6lHFhnB5UkVpxhQqLJbneWBTzM8LBYOFPLNH4qZw="
