@@ -1,9 +1,11 @@
 {
   inputs',
   config,
-  pkgs,
+  lib,
   ...
-}: {
+}: let
+  inherit (lib.trivial) const;
+in {
   # Overlays are by far the most obscure and annoying feature of Nix, and if you have
   # interacted with me on a personal level before, you will find that I actively discourage
   # using them. The below section contains my personal overlays, which are used to add
@@ -16,7 +18,17 @@
       nixSchemas = inputs'.nixSchemas.packages.default;
     })
 
-    (final: prev: {
+    (const (prev: {
+      lix = prev.lix.overrideAttrs (old: {
+        patches = [./patches/0001-nix-default-flake.patch];
+
+        postInstall =
+          (old.postInstall or "")
+          + ''
+            ln -s $out/bin/nix $out/bin/lix
+          '';
+      });
+
       # nixos-rebuild provides its own nix package, which is not the same as the one
       # we use in the system closure - which causes an extra Nix package to be added
       # even if it's not the one we need want.
@@ -29,15 +41,16 @@
       zsh = prev.zsh.overrideAttrs (old: {
         patches = [
           ./patches/0001-zsh-globquote.patch
+          ./patches/0001-zsh-completion-remote-files.patch
         ];
 
-        configureFlags = old.configureFlags or [] ++ ["--disable-site-fndir" "--without-tcsetpgrp"];
+        configureFlags = (old.configureFlags or []) ++ ["--disable-site-fndir" "--without-tcsetpgrp"];
         postConfigure =
           (old.postConfigure or "")
           + ''
             sed -i -e '/^name=zsh\/newuser/d' config.modules
           '';
       });
-    })
+    }))
   ];
 }
