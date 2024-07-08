@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  inherit (pkgs) linuxPackagesFor linuxKernel;
+in {
   boot = {
     tmp.cleanOnBoot = true;
     kernel.sysctl = {"kernel.unprivileged_bpf_disabled" = 1;};
@@ -8,6 +10,6 @@
     kernelParams = ["copytoram"];
 
     # Use latest Linux kernel package
-    kernelPackages = pkgs.linuxKernel.kernels.linux_hardened;
+    kernelPackages = linuxPackagesFor linuxKernel.kernels.linux_hardened;
   };
 }
