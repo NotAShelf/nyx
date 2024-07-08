@@ -123,7 +123,7 @@ index 95e8841ca..3e43b859d 100644
  
 +struct InstallablesSettings : Config
 +{
-+    Setting<std::string> defaultFlake{this, "", "default-flake",
++    Setting<std::string> defaultFlake{this, "default-flake", "default-flake",
 +        "The default flake URL when using the command line interface"};
 +
 +    std::string getDefaultFlake(std::string_view url);

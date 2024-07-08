@@ -1,0 +1,388 @@
+From 0b80935c22f367b1deecffeddb97c90d7ed985e9 Mon Sep 17 00:00:00 2001
+From: Rebecca Turner <rbt@sent.as>
+Date: Thu, 7 Dec 2023 10:01:42 -0800
+Subject: [PATCH 1/2] Pass positions when evaluating
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This includes position information in more places, making debugging
+easier.
+
+Before:
+
+```
+$ nix-instantiate --show-trace --eval tests/functional/lang/eval-fail-using-set-as-attr-name.nix
+error:
+       … while evaluating an attribute name
+
+         at «none»:0: (source not available)
+
+       error: value is a set while a string was expected
+```
+
+After:
+
+```
+error:
+       … while evaluating an attribute name
+
+         at /pwd/lang/eval-fail-using-set-as-attr-name.nix:5:10:
+
+            4| in
+            5|   attr.${key}
+             |          ^
+            6|
+
+       error: value is a set while a string was expected
+```
+---
+ .../rl-next/source-positions-in-errors.md     | 45 +++++++++++++++++++
+ src/libexpr/eval-inline.hh                    | 12 ++---
+ src/libexpr/eval.cc                           | 18 ++++----
+ src/libexpr/nixexpr.hh                        |  1 +
+ .../lang/eval-fail-attr-name-type.err.exp     | 20 +++++++++
+ .../lang/eval-fail-attr-name-type.nix         |  7 +++
+ .../lang/eval-fail-call-primop.err.exp        | 12 +++++
+ .../functional/lang/eval-fail-call-primop.nix |  1 +
+ .../lang/eval-fail-not-throws.err.exp         | 18 ++++++++
+ .../functional/lang/eval-fail-not-throws.nix  |  1 +
+ .../eval-fail-using-set-as-attr-name.err.exp  | 11 +++++
+ .../lang/eval-fail-using-set-as-attr-name.nix |  5 +++
+ 12 files changed, 137 insertions(+), 14 deletions(-)
+ create mode 100644 doc/manual/rl-next/source-positions-in-errors.md
+ create mode 100644 tests/functional/lang/eval-fail-attr-name-type.err.exp
+ create mode 100644 tests/functional/lang/eval-fail-attr-name-type.nix
+ create mode 100644 tests/functional/lang/eval-fail-call-primop.err.exp
+ create mode 100644 tests/functional/lang/eval-fail-call-primop.nix
+ create mode 100644 tests/functional/lang/eval-fail-not-throws.err.exp
+ create mode 100644 tests/functional/lang/eval-fail-not-throws.nix
+ create mode 100644 tests/functional/lang/eval-fail-using-set-as-attr-name.err.exp
+ create mode 100644 tests/functional/lang/eval-fail-using-set-as-attr-name.nix
+
+diff --git a/doc/manual/rl-next/source-positions-in-errors.md b/doc/manual/rl-next/source-positions-in-errors.md
+new file mode 100644
+index 00000000000..00f0b27e8d7
+--- /dev/null
++++ b/doc/manual/rl-next/source-positions-in-errors.md
+@@ -0,0 +1,45 @@
++synopsis: Source locations are printed more consistently in errors
++issues: #561
++prs: #9555
++description: {
++
++Source location information is now included in error messages more
++consistently. Given this code:
++
++```nix
++let
++  attr = {foo = "bar";};
++  key = {};
++in
++  attr.${key}
++```
++
++Previously, Nix would show this unhelpful message when attempting to evaluate
++it:
++
++```
++error:
++       … while evaluating an attribute name
++
++         at «none»:0: (source not available)
++
++       error: value is a set while a string was expected
++```
++
++Now, the error message displays where the problematic value was found:
++
++```
++error:
++       … while evaluating an attribute name
++
++         at bad.nix:4:11:
++
++            3|   key = {};
++            4| in attr.${key}
++             |           ^
++            5|
++
++       error: value is a set while a string was expected
++```
++
++}
+diff --git a/src/libexpr/eval-inline.hh b/src/libexpr/eval-inline.hh
+index a988fa40ccf..c37b1d62bb1 100644
+--- a/src/libexpr/eval-inline.hh
++++ b/src/libexpr/eval-inline.hh
+@@ -103,8 +103,10 @@ void EvalState::forceValue(Value & v, Callable getPos)
+             throw;
+         }
+     }
+-    else if (v.isApp())
+-        callFunction(*v.app.left, *v.app.right, v, noPos);
++    else if (v.isApp()) {
++        PosIdx pos = getPos();
++        callFunction(*v.app.left, *v.app.right, v, pos);
++    }
+     else if (v.isBlackhole())
+         error("infinite recursion encountered").atPos(getPos()).template debugThrow<EvalError>();
+ }
+@@ -121,9 +123,9 @@ template <typename Callable>
+ [[gnu::always_inline]]
+ inline void EvalState::forceAttrs(Value & v, Callable getPos, std::string_view errorCtx)
+ {
+-    forceValue(v, noPos);
++    PosIdx pos = getPos();
++    forceValue(v, pos);
+     if (v.type() != nAttrs) {
+-        PosIdx pos = getPos();
+         error("value is %1% while a set was expected", showType(v)).withTrace(pos, errorCtx).debugThrow<TypeError>();
+     }
+ }
+@@ -132,7 +134,7 @@ inline void EvalState::forceAttrs(Value & v, Callable getPos, std::string_view e
+ [[gnu::always_inline]]
+ inline void EvalState::forceList(Value & v, const PosIdx pos, std::string_view errorCtx)
+ {
+-    forceValue(v, noPos);
++    forceValue(v, pos);
+     if (!v.isList()) {
+         error("value is %1% while a list was expected", showType(v)).withTrace(pos, errorCtx).debugThrow<TypeError>();
+     }
+diff --git a/src/libexpr/eval.cc b/src/libexpr/eval.cc
+index 7e68e6f9b74..8a6e07fb0c1 100644
+--- a/src/libexpr/eval.cc
++++ b/src/libexpr/eval.cc
+@@ -344,7 +344,7 @@ static Symbol getName(const AttrName & name, EvalState & state, Env & env)
+     } else {
+         Value nameValue;
+         name.expr->eval(state, env, nameValue);
+-        state.forceStringNoCtx(nameValue, noPos, "while evaluating an attribute name");
++        state.forceStringNoCtx(nameValue, name.expr->getPos(), "while evaluating an attribute name");
+         return state.symbols.create(nameValue.string_view());
+     }
+ }
+@@ -1514,7 +1514,7 @@ void ExprOpHasAttr::eval(EvalState & state, Env & env, Value & v)
+     e->eval(state, env, vTmp);
+ 
+     for (auto & i : attrPath) {
+-        state.forceValue(*vAttrs, noPos);
++        state.forceValue(*vAttrs, getPos());
+         Bindings::iterator j;
+         auto name = getName(i, state, env);
+         if (vAttrs->type() != nAttrs ||
+@@ -1683,7 +1683,7 @@ void EvalState::callFunction(Value & fun, size_t nrArgs, Value * * args, Value &
+                 if (countCalls) primOpCalls[name]++;
+ 
+                 try {
+-                    vCur.primOp->fun(*this, noPos, args, vCur);
++                    vCur.primOp->fun(*this, vCur.determinePos(noPos), args, vCur);
+                 } catch (Error & e) {
+                     addErrorTrace(e, pos, "while calling the '%1%' builtin", name);
+                     throw;
+@@ -1731,7 +1731,7 @@ void EvalState::callFunction(Value & fun, size_t nrArgs, Value * * args, Value &
+                     // 1. Unify this and above code. Heavily redundant.
+                     // 2. Create a fake env (arg1, arg2, etc.) and a fake expr (arg1: arg2: etc: builtins.name arg1 arg2 etc)
+                     //    so the debugger allows to inspect the wrong parameters passed to the builtin.
+-                    primOp->primOp->fun(*this, noPos, vArgs, vCur);
++                    primOp->primOp->fun(*this, vCur.determinePos(noPos), vArgs, vCur);
+                 } catch (Error & e) {
+                     addErrorTrace(e, pos, "while calling the '%1%' builtin", name);
+                     throw;
+@@ -1839,7 +1839,7 @@ values, or passed explicitly with '--arg' or '--argstr'. See
+         }
+     }
+ 
+-    callFunction(fun, allocValue()->mkAttrs(attrs), res, noPos);
++    callFunction(fun, allocValue()->mkAttrs(attrs), res, pos);
+ }
+ 
+ 
+@@ -1875,7 +1875,7 @@ void ExprAssert::eval(EvalState & state, Env & env, Value & v)
+ 
+ void ExprOpNot::eval(EvalState & state, Env & env, Value & v)
+ {
+-    v.mkBool(!state.evalBool(env, e, noPos, "in the argument of the not operator")); // XXX: FIXME: !
++    v.mkBool(!state.evalBool(env, e, getPos(), "in the argument of the not operator")); // XXX: FIXME: !
+ }
+ 
+ 
+@@ -2316,7 +2316,7 @@ BackedStringView EvalState::coerceToString(
+             std::string result;
+             for (auto [n, v2] : enumerate(v.listItems())) {
+                 try {
+-                    result += *coerceToString(noPos, *v2, context,
++                    result += *coerceToString(pos, *v2, context,
+                             "while evaluating one element of the list",
+                             coerceMore, copyToStore, canonicalizePath);
+                 } catch (Error & e) {
+@@ -2463,8 +2463,8 @@ SingleDerivedPath EvalState::coerceToSingleDerivedPath(const PosIdx pos, Value &
+ 
+ bool EvalState::eqValues(Value & v1, Value & v2, const PosIdx pos, std::string_view errorCtx)
+ {
+-    forceValue(v1, noPos);
+-    forceValue(v2, noPos);
++    forceValue(v1, pos);
++    forceValue(v2, pos);
+ 
+     /* !!! Hack to support some old broken code that relies on pointer
+        equality tests between sets.  (Specifically, builderDefs calls
+diff --git a/src/libexpr/nixexpr.hh b/src/libexpr/nixexpr.hh
+index 10099d49e9b..020286815d9 100644
+--- a/src/libexpr/nixexpr.hh
++++ b/src/libexpr/nixexpr.hh
+@@ -405,6 +405,7 @@ struct ExprOpNot : Expr
+ {
+     Expr * e;
+     ExprOpNot(Expr * e) : e(e) { };
++    PosIdx getPos() const override { return e->getPos(); }
+     COMMON_METHODS
+ };
+ 
+diff --git a/tests/functional/lang/eval-fail-attr-name-type.err.exp b/tests/functional/lang/eval-fail-attr-name-type.err.exp
+new file mode 100644
+index 00000000000..5f9a073dd81
+--- /dev/null
++++ b/tests/functional/lang/eval-fail-attr-name-type.err.exp
+@@ -0,0 +1,20 @@
++error:
++       … while evaluating the attribute 'puppy."${key}"'
++
++         at /pwd/lang/eval-fail-attr-name-type.nix:3:5:
++
++            2|   attrs = {
++            3|     puppy.doggy = {};
++             |     ^
++            4|   };
++
++       … while evaluating an attribute name
++
++         at /pwd/lang/eval-fail-attr-name-type.nix:7:17:
++
++            6| in
++            7|   attrs.puppy.${key}
++             |                 ^
++            8|
++
++       error: value is an integer while a string was expected
+diff --git a/tests/functional/lang/eval-fail-attr-name-type.nix b/tests/functional/lang/eval-fail-attr-name-type.nix
+new file mode 100644
+index 00000000000..a0e76004a39
+--- /dev/null
++++ b/tests/functional/lang/eval-fail-attr-name-type.nix
+@@ -0,0 +1,7 @@
++let
++  attrs = {
++    puppy.doggy = {};
++  };
++  key = 1;
++in
++  attrs.puppy.${key}
+diff --git a/tests/functional/lang/eval-fail-call-primop.err.exp b/tests/functional/lang/eval-fail-call-primop.err.exp
+new file mode 100644
+index 00000000000..19b407c4706
+--- /dev/null
++++ b/tests/functional/lang/eval-fail-call-primop.err.exp
+@@ -0,0 +1,12 @@
++error:
++       … while calling the 'length' builtin
++
++         at /pwd/lang/eval-fail-call-primop.nix:1:1:
++
++            1| builtins.length 1
++             | ^
++            2|
++
++       … while evaluating the first argument passed to builtins.length
++
++       error: value is an integer while a list was expected
+diff --git a/tests/functional/lang/eval-fail-call-primop.nix b/tests/functional/lang/eval-fail-call-primop.nix
+new file mode 100644
+index 00000000000..972eb72c769
+--- /dev/null
++++ b/tests/functional/lang/eval-fail-call-primop.nix
+@@ -0,0 +1 @@
++builtins.length 1
+diff --git a/tests/functional/lang/eval-fail-not-throws.err.exp b/tests/functional/lang/eval-fail-not-throws.err.exp
+new file mode 100644
+index 00000000000..b290afb0aaa
+--- /dev/null
++++ b/tests/functional/lang/eval-fail-not-throws.err.exp
+@@ -0,0 +1,18 @@
++error:
++       … in the argument of the not operator
++
++         at /pwd/lang/eval-fail-not-throws.nix:1:4:
++
++            1| ! (throw "uh oh!")
++             |    ^
++            2|
++
++       … while calling the 'throw' builtin
++
++         at /pwd/lang/eval-fail-not-throws.nix:1:4:
++
++            1| ! (throw "uh oh!")
++             |    ^
++            2|
++
++       error: uh oh!
+diff --git a/tests/functional/lang/eval-fail-not-throws.nix b/tests/functional/lang/eval-fail-not-throws.nix
+new file mode 100644
+index 00000000000..a74ce4ebeea
+--- /dev/null
++++ b/tests/functional/lang/eval-fail-not-throws.nix
+@@ -0,0 +1 @@
++! (throw "uh oh!")
+diff --git a/tests/functional/lang/eval-fail-using-set-as-attr-name.err.exp b/tests/functional/lang/eval-fail-using-set-as-attr-name.err.exp
+new file mode 100644
+index 00000000000..811d01b0378
+--- /dev/null
++++ b/tests/functional/lang/eval-fail-using-set-as-attr-name.err.exp
+@@ -0,0 +1,11 @@
++error:
++       … while evaluating an attribute name
++
++         at /pwd/lang/eval-fail-using-set-as-attr-name.nix:5:10:
++
++            4| in
++            5|   attr.${key}
++             |          ^
++            6|
++
++       error: value is a set while a string was expected
+diff --git a/tests/functional/lang/eval-fail-using-set-as-attr-name.nix b/tests/functional/lang/eval-fail-using-set-as-attr-name.nix
+new file mode 100644
+index 00000000000..48e071a41cf
+--- /dev/null
++++ b/tests/functional/lang/eval-fail-using-set-as-attr-name.nix
+@@ -0,0 +1,5 @@
++let
++  attr = {foo = "bar";};
++  key = {};
++in
++  attr.${key}
+
+From b9980b377ede0aca542b2baeeef9e4538dec20db Mon Sep 17 00:00:00 2001
+From: Robert Hensing <roberth@users.noreply.github.com>
+Date: Sat, 9 Dec 2023 02:36:33 +0100
+Subject: [PATCH 2/2] Update rl-next/source-positions-in-errors for Nix 2.19+
+
+---
+ doc/manual/rl-next/source-positions-in-errors.md | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/doc/manual/rl-next/source-positions-in-errors.md b/doc/manual/rl-next/source-positions-in-errors.md
+index 00f0b27e8d7..15df884ea7b 100644
+--- a/doc/manual/rl-next/source-positions-in-errors.md
++++ b/doc/manual/rl-next/source-positions-in-errors.md
+@@ -21,8 +21,6 @@ it:
+ error:
+        … while evaluating an attribute name
+ 
+-         at «none»:0: (source not available)
+-
+        error: value is a set while a string was expected
+ ```
+ 
+

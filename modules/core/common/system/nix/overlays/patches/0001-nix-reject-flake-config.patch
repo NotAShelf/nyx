@@ -1,0 +1,46 @@
+From 44a29dbd938947c244736fe22fa90ec57b074499 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=A9clairevoyant?=
+ <848000+eclairevoyant@users.noreply.github.com>
+Date: Wed, 14 Feb 2024 14:22:40 -0500
+Subject: [PATCH 1/2] feat: reject-flake-config
+
+---
+ src/libexpr/flake/config.cc       | 5 +++++
+ src/libfetchers/fetch-settings.hh | 4 ++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/src/libexpr/flake/config.cc b/src/libexpr/flake/config.cc
+index 3c7ed5d8a..05a29f2e0 100644
+--- a/src/libexpr/flake/config.cc
++++ b/src/libexpr/flake/config.cc
+@@ -51,6 +51,11 @@ void ConfigFile::apply()
+         else
+             assert(false);
+ 
++        if (nix::fetchSettings.rejectFlakeConfig) {
++            warn("ignoring untrusted flake configuration setting '%s' due to the '%s' setting.", name, "reject-flake-config");
++            continue;
++        }
++
+         if (!whitelist.count(baseName) && !nix::fetchSettings.acceptFlakeConfig) {
+             bool trusted = false;
+             auto trustedList = readTrustedList();
+diff --git a/src/libfetchers/fetch-settings.hh b/src/libfetchers/fetch-settings.hh
+index d085f0d82..9e87d0725 100644
+--- a/src/libfetchers/fetch-settings.hh
++++ b/src/libfetchers/fetch-settings.hh
+@@ -86,6 +86,10 @@ struct FetchSettings : public Config
+         "Whether to accept nix configuration from a flake without prompting.",
+         {}, true, Xp::Flakes};
+ 
++    Setting<bool> rejectFlakeConfig{this, false, "reject-flake-config",
++        "Whether to reject nix configuration (including whitelisted settings) from a flake without prompting.",
++        {}, true, Xp::Flakes};
++
+     Setting<std::string> commitLockFileSummary{
+         this, "", "commit-lockfile-summary",
+         R"(
+-- 
+2.44.0
+
+
