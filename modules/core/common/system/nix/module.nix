@@ -49,9 +49,10 @@ in {
     # Lix, the higher performance Nix fork.
     package = pkgs.lix;
 
-    # Pin the registry to avoid downloading and evaluating a new nixpkgs version every time
-    # this will add each flake input as a registry to make nix3 commands consistent with your flake
-    # additionally we also set `registry.default`, which was added by nix-super
+    # Pin the registry to avoid downloading and evaluating
+    # a new nixpkgs version on each command causing a re-eval.
+    # This will add each flake input as a registry and make
+    # nix3 commands consistent with your flake.
     registry = mappedRegistry // {default-flake = mappedRegistry.nixpkgs;};
 
     # This will additionally add your inputs to the system's legacy channels
@@ -62,8 +63,8 @@ in {
     # stays responsive during demanding tasks such as GC and builds.
     # This is especially useful while auto-gc and auto-upgrade are enabled
     # as they can be quite demanding on the CPU.
-    daemonIOSchedClass = "idle";
     daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
 
     # Collect garbage

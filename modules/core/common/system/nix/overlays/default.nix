@@ -52,11 +52,11 @@ in {
       # such as newuser install
       zsh = prev.zsh.overrideAttrs (old: {
         patches = [
-          ./patches/0001-zsh-globquote.patch
+          ./patches/0002-zsh-globquote.patch
 
           # From:
           #  <https://github.com/fugidev/nix-config>
-          ./patches/0001-zsh-completion-remote-files.patch
+          ./patches/0002-zsh-completion-remote-files.patch
         ];
 
         configureFlags = (old.configureFlags or []) ++ ["--disable-site-fndir" "--without-tcsetpgrp"];
@@ -100,7 +100,7 @@ in {
             patches =
               (old.patches or [])
               ++ [
-                ./patches/0002-nom-print-traces.patch
+                ./patches/0003-nom-print-traces.patch
               ];
 
             postPatch =
