@@ -9,7 +9,7 @@
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.modules) mkForce;
 
-  version = "6.9.5";
+  version = "6.9.8";
   suffix = "xanmod1";
   modDirVersion = "${version}-${suffix}";
 
@@ -21,7 +21,7 @@
       owner = "xanmod";
       repo = "linux";
       rev = "refs/tags/${version}-xanmod1";
-      hash = "sha256-Yahc5bUbutwuhwvdbUm1JXa8WCWASNrMewXdSorKnfE=";
+      hash = "sha256-rSwvVt+DW7rc//aY6Ho8mllUy/3MKuAs/71UG+p07Iw=";
     };
 
     extraMakeFlags = ["KCFLAGS=-DAMD_PRIVATE_COLOR"];
@@ -31,18 +31,16 @@
     # use zcat /proc/config.gz | grep -i "<value>"
     # to check if the kernel options are set correctly
     extraStructuredConfig = mapAttrs (_: mkForce) {
-      EXPERT = yes;
-      DEBUG_KERNEL = no;
-      WERROR = no;
-
-      LOCALVERSION = freeform "-shelf";
+      CONFIG_EXPERT = yes;
+      CONFIG_DEBUG_KERNEL = no;
+      CONFIG_WERROR = no;
 
       CONFIG_LOCALVERSION = freeform "-shelf";
       CONFIG_LOCALVERSION_AUTO = yes;
       CONFIG_DEFAULT_HOSTNAME = freeform "${hostname}";
 
-      GCC_PLUGINS = yes;
-      BUG_ON_DATA_CORRUPTION = yes;
+      CONFIG_GCC_PLUGINS = yes;
+      CONFIG_BUG_ON_DATA_CORRUPTION = yes;
     };
 
     argsOverride = {
