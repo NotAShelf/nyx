@@ -83,9 +83,9 @@ in {
     };
 
     settings = {
-      # tell nix to use the xdg spec for base directories
+      # Tell nix to use the xdg spec for base directories
       # while transitioning, any state must be carried over
-      # manually, as Nix won't do it for us
+      # manually, as Nix won't do it for us.
       use-xdg-base-directories = true;
 
       # Disallow internal flake registry by setting it to an empty JSON file
@@ -99,29 +99,31 @@ in {
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";
       max-free = "${toString (10 * 1024 * 1024 * 1024)}";
 
-      # automatically optimise symlinks
+      # Automatically optimise symlinks
       auto-optimise-store = true;
 
-      # allow sudo users to mark the following values as trusted
+      # Allow sudo users to mark the following values as trusted
       allowed-users = ["root" "@wheel" "nix-builder"];
 
-      # only allow sudo users to manage the nix store
+      # Only allow sudo users to manage the nix store
       trusted-users = ["root" "@wheel" "nix-builder"];
 
-      # let the system decide the number of max jobs
+      # Let the system decide the number of max jobs
+      # based on available system specs. Usually this is
+      # the same as the number of cores your CPU has.
       max-jobs = "auto";
 
-      # build inside sandboxed environments
+      # Always build inside sandboxed environments
       sandbox = true;
       sandbox-fallback = false;
 
-      # supported system features
+      # Supported system features
       system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
 
-      # extra architectures supported by my builders
+      # Extra architectures supported by my builders
       extra-platforms = config.boot.binfmt.emulatedSystems;
 
-      # continue building derivations if one fails
+      # Continue building derivations even if one fails
       keep-going = true;
 
       # bail early on missing cache hits
@@ -130,8 +132,10 @@ in {
       # show more log lines for failed builds
       log-lines = 30;
 
-      # enable new nix command and flakes
-      # and also "unintended" recursion as well as content addressed nix
+      # Extra features of Nix that are considered unstable
+      # and experimental. By default we should always include
+      # `flakes` and `nix-command`, while others are usually
+      # optional.
       extra-experimental-features = [
         "flakes" # flakes
         "nix-command" # experimental nix commands
@@ -139,16 +143,19 @@ in {
         "ca-derivations" # content addressed nix
         "auto-allocate-uids" # allow nix to automatically pick UIDs, rather than creating nixbld* user accounts
         "cgroups" # allow nix to execute builds inside cgroups
+
         # Those don't actually exist on Lix so they have to be disabled
         # "configurable-impure-env" # allow impure environments
         # "git-hashing" # allow store objects which are hashed via Git's hashing algorithm
         # "verified-fetches" # enable verification of git commit signatures for fetchGit
       ];
 
-      # don't warn me that my git tree is dirty, I know
+      # Don't warn me that my git tree is dirty, I know.
       warn-dirty = false;
 
-      # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
+      # Maximum number of parallel TCP connections
+      # used to fetch imports and binary caches.
+      # 0 means no limit, default is 25.
       http-connections = 50;
 
       # whether to accept nix configuration from a flake without prompting
@@ -161,11 +168,12 @@ in {
       keep-derivations = true;
       keep-outputs = true;
 
-      # use binary cache, this is not gentoo
+      # Use binary cache, this is not gentoo
       # external builders can also pick up those substituters
       builders-use-substitutes = true;
 
-      # substituters to use
+      # Substituters to pull from. While sigs are disabled, we must
+      # make sure the substituters listed here are trusted.
       substituters = [
         "https://cache.nixos.org" # funny binary cache
         "https://cache.privatevoid.net" # for nix-super
@@ -195,5 +203,15 @@ in {
         "ags.cachix.org-1:naAvMrz0CuYqeyGNyLgE010iUiuf/qx6kYrUv3NwAJ8="
       ];
     };
+  };
+
+  # By default nix-gc makes no effort to respect battery life by avoding
+  # GC runs on battery and fully commits a few cores to collecting garbage.
+  # This will drain the battery faster than you can say "Nix, what the hell?"
+  # and contribute heavily to you wanting to get a new desktop.
+  # For those curious (such as myself) desktops are always seen as "AC powered"
+  # so the system will not fail to fire if you are on a desktop system.
+  systemd.services.nix-gc = {
+    unitConfig.ConditionACPower = true;
   };
 }
