@@ -8,9 +8,9 @@
         "repo": "discord"
       },
       "branch": "main",
-      "revision": "01fcb7475ec30c323d602e5225a4296569eb1789",
-      "url": "https://github.com/catppuccin/discord/archive/01fcb7475ec30c323d602e5225a4296569eb1789.tar.gz",
-      "hash": "064jfr745yxmr28wwxpz48z9v8l1prhd7pldigyvlbjpgdb4iml4"
+      "revision": "c34b767d222ddba4345a858cfdb513fd44e3b0ec",
+      "url": "https://github.com/catppuccin/discord/archive/c34b767d222ddba4345a858cfdb513fd44e3b0ec.tar.gz",
+      "hash": "0j4fqyyq8ihqs8fxgg6wnankv8z1bh069c4qr2ybpcdxmcpds12r"
     },
     "hmts.nvim": {
       "type": "GitRelease",
@@ -30,8 +30,8 @@
     "nixpkgs": {
       "type": "Channel",
       "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre628305.02923630b89a/nixexprs.tar.xz",
-      "hash": "016465x9c950sv8p4c0vaf4l0k59aibmhv7v1yzz0li91k6bgcsp"
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.11pre650191.ab82a9612aa4/nixexprs.tar.xz",
+      "hash": "1kbf57mm8q9j41hh6nk7f61p8zvhj8bmhp08hqld5c51fbinsca0"
     },
     "slides.nvim": {
       "type": "GitRelease",
@@ -58,10 +58,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v1.4.0",
-      "revision": "2179ec0d26aacd4f40c766c79f6ebc83b7001e48",
-      "url": "https://api.github.com/repos/mrjones2014/smart-splits.nvim/tarball/v1.4.0",
-      "hash": "15cbxzbc7jn5yy5vqg2x8yg6ac9zrjmla0njcyfm1cz0i8r2wbpj"
+      "version": "v1.5.0",
+      "revision": "66fda3a601a5b4c679656f15eb6ddd613c8d3216",
+      "url": "https://api.github.com/repos/mrjones2014/smart-splits.nvim/tarball/v1.5.0",
+      "hash": "0cvprwag3wbzraai1yn424yan0y0awazxnh2kksa0v08c2rjdn4f"
     }
   },
   "version": 3
