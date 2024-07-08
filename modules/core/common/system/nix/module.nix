@@ -52,7 +52,7 @@ in {
     # Pin the registry to avoid downloading and evaluating a new nixpkgs version every time
     # this will add each flake input as a registry to make nix3 commands consistent with your flake
     # additionally we also set `registry.default`, which was added by nix-super
-    registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
+    registry = mappedRegistry // {default-flake = mappedRegistry.nixpkgs;};
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well
