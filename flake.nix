@@ -21,9 +21,6 @@
     # global, so they can be `.follow`ed
     systems.url = "github:nix-systems/default-linux";
 
-    # Feature-rich and convenient fork of the Nix package manager
-    nix-super.url = "github:privatevoid-net/nix-super";
-
     # We build against NixOS unstable, because stable takes way too long to get things into
     # more versions with or without pinned branches can be added if deemed necessary
     # stable? Never heard of her.
@@ -195,7 +192,7 @@
 
     # An extensiblee  neovim configuration wrapper.
     neovim-flake = {
-      url = "github:NotAShelf/nvf";
+      url = "github:NotAShelf/nvf/bald-frogs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nil.follows = "nil";
