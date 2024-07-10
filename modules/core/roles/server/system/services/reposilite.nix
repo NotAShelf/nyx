@@ -1,10 +1,11 @@
 {
   config,
+  pkgs,
   lib,
-  inputs',
   ...
 }: let
-  inherit (lib) mkIf sslTemplate;
+  inherit (lib) sslTemplate;
+  inherit (lib.modules) mkIf;
 
   sys = config.modules.system;
   cfg = sys.services;
@@ -18,7 +19,7 @@ in {
 
     services.reposilite = {
       enable = true;
-      package = inputs'.nyxpkgs.packages.reposilite-bin;
+      package = pkgs.reposilite;
       dataDir = "/srv/storage/reposilite";
 
       openFirewall = true;

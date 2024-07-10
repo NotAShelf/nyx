@@ -1,9 +1,10 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types mkIf getExe;
+  inherit (lib) mkOption mkEnableOption mkPackageOption types mkIf getExe;
 
   writeServiceConfig = config:
     lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name}: ${
@@ -20,11 +21,7 @@ in {
   options.services.reposilite = {
     enable = mkEnableOption "reposilite - maven repository manager";
 
-    package = mkOption {
-      type = with types; nullOr package;
-      default = null; # reposilite is not in nixpkgs
-      description = "Package to install";
-    };
+    package = mkPackageOption pkgs "reposilite" {};
 
     dataDir = mkOption {
       type = types.path;
