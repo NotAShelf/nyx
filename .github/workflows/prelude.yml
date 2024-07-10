@@ -40,7 +40,7 @@ jobs:
       - name: "Install nix"
         uses: cachix/install-nix-action@master
         with:
-          install_url: "https://nixos.org/nix/install"
+          install_url: "https://install.lix.systems/lix"
           extra_nix_config: |
             # Extra experimental features. fetch-tree is required internally
             experimental-features = nix-command flakes fetch-tree
