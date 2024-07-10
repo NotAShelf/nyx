@@ -22,6 +22,16 @@ jobs:
   nix:
     runs-on: "${{ inputs.platform }}-latest"
     steps:
+      - name: "Maximize build space"
+        if: ${{ inputs.optimize-space }}
+        uses: easimon/maximize-build-space@v10
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+          remove-codeql: true
+
       - name: "Checkout"
         uses: actions/checkout@v4
         with:
@@ -35,7 +45,7 @@ jobs:
       - name: "Install nix"
         uses: cachix/install-nix-action@master
         with:
-          install_url: https://nixos.org/nix/install
+          install_url: "https://nixos.org/nix/install"
           extra_nix_config: |
             # Extra experimental features. fetch-tree is required internally
             experimental-features = nix-command flakes fetch-tree
@@ -54,15 +64,8 @@ jobs:
       - name: "Nix Magic Cache"
         uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: "Maximize build space"
-        if: ${{ inputs.optimize-space }}
-        uses: easimon/maximize-build-space@v10
-        with:
-          overprovision-lvm: true
-          remove-android: true
-          remove-dotnet: true
-          remove-haskell: true
-          remove-codeql: true
+      - name: "Install nix-fast-build"
+        run: nix profile install nixpkgs#nix-fast-build
 
       - name: "Run Input: ${{ inputs.command }}"
         run: "${{ inputs.command }}"
