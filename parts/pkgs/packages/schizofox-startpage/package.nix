@@ -3,23 +3,26 @@
   stdenvNoCC,
 }: let
   name = "schizofox-startpage";
-  version = "2023-12-29-unstable";
+  version = "0-2024-07-10-unstable";
 in
   stdenvNoCC.mkDerivation {
     inherit name version;
-    src = ./src;
+    src = builtins.path {
+      path = ./src;
+      name = "${name}-${version}";
+    };
 
     dontBuild = true;
     installPhase = ''
       runHook preInstall
       mkdir -p $out
-      cp -rv $src/* $out
+      cp -rv ./* $out
       runHook postInstall
     '';
 
     meta = {
       description = "My personal startpage";
       license = lib.licenses.gpl3Only;
-      maintainers = with lib.maintainers; [NotAShelf];
+      maintainers = [lib.maintainers.NotAShelf];
     };
   }
