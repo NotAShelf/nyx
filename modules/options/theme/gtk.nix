@@ -1,10 +1,14 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
+  inherit (builtins) pathExists;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) str package int;
+
+  cfg = config.modules.style.gtk;
 in {
   # Theming options for GTK programs. Will be passed verbatim to home-manager
   # in some cases.
@@ -23,8 +27,8 @@ in {
         type = package;
         description = "The theme package to be used for GTK programs";
         default = pkgs.catppuccin-gtk.override {
-          size = "standard";
           variant = "mocha";
+          size = "standard";
           accents = ["blue"];
           tweaks = ["normal"];
         };
@@ -61,5 +65,16 @@ in {
         default = 14;
       };
     };
+  };
+
+  config = {
+    assertions = [
+      (let
+        themePath = cfg.theme.package + /share/themes + "/${cfg.theme.name}";
+      in {
+        assertion = cfg.enable -> !pathExists themePath;
+        message = "${themePath} set by the GTK module does not exist!";
+      })
+    ];
   };
 }

@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (builtins) elem concatStringsSep;
   inherit (lib.modules) mkIf mkMerge;
 
   dev = osConfig.modules.device;
@@ -12,12 +13,12 @@
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem dev.type acceptedTypes && sys.video.enable) {
+  config = mkIf (elem dev.type acceptedTypes && sys.video.enable) {
     qt = {
       enable = true;
       platformTheme = {
         # Sets QT_QPA_PLATFORMTHEME, takes "gtk", "gtk3",  "adwaita", "kde" and a few others.
-        name = mkIf cfg.forceGtk "gtk3";
+        name = mkIf cfg.forceGtk "gtk";
         package = null; # libraries associated with the platformtheme, we add those manually
       };
 
@@ -89,9 +90,9 @@ in {
       # Write kvantum configuration, and the theme files required by the Catppuccin theme.
       "Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
         General.theme = "Catppuccin";
-        Applications.Catppuccin = ''
-          qt5ct, org.kde.dolphin, org.kde.kalendar, org.qbittorrent.qBittorrent, hyprland-share-picker, dolphin-emu, Nextcloud, nextcloud, cantata, org.kde.kid3-qt
-        '';
+        Applications.Catppuccin =
+          concatStringsSep ", "
+          ["qt5ct" "org.kde.dolphin" "org.kde.kalendar" "org.qbittorrent.qBittorrent" "hyprland-share-picker" "dolphin-emu" "Nextcloud" "nextcloud" "cantata" "org.kde.kid3-qt"];
       };
 
       "Kvantum/Catppuccin/Catppuccin.kvconfig".source = cfg.qt.kvantum.kvconfig;

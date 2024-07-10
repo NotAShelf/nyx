@@ -21,15 +21,24 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Install nix
-        uses: cachix/install-nix-action@master
+      - name: Install Lix
+        uses: DeterminateSystems/nix-installer-action@v12
         with:
-          install_url: https://nixos.org/nix/install
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+          source-url: "https://install.lix.systems/lix/lix-installer-x86_64-linux"
+          diagnostic-endpoint: "" # so eelco can have more personalized self-merges? no thank you
+          backtrace: "true"
+          extra-conf: |
+            # Extra experimental features. fetch-tree is required internally
+            experimental-features = nix-command flakes fetch-tree
             allow-import-from-derivation = false
+            extra-platforms = aarch64-linux
+
+            # extra substituters
+            # my own package set
             extra-substituters = https://nyx.cachix.org
             extra-trusted-public-keys = nyx.cachix.org-1:xH6G0MO9PrpeGe7mHBtj1WbNzmnXr7jId2mCiq6hipE=
+
+            # nix-community
             extra-substituters = https://nix-community.cachix.org
             extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
       - name: "Nix Magic Cache"
@@ -38,12 +47,12 @@ jobs:
         run: nix profile install nixpkgs#nix-fast-build
       - name: "Build ISO Images"
         shell: bash
-        run: nix build .#images.${{ matrix.image }} -o ${{ matrix.image }} --print-build-logs
+        run: nix-fast-build --skip-cached --no-nom \
+          --flake .#images.${{ matrix.image }} --out-link ${{ matrix.image }}
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.image }}-iso-image
           path: ${{ matrix.image }}/iso/*.iso
-  # publish built images
   publish-images:
     name: "Build ISO Images"
     runs-on: ubuntu-latest
