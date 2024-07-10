@@ -11,9 +11,8 @@
     "lightningcalendartabs@jlx.84" = "12d48e41-412e-4d09-835a-fa6fb8c180eb";
   };
 in {
-  programs.thunderbird.profiles."notashelf".settings = {
+  programs.thunderbird.settings = {
     "calendar.timezone.useSystemTimezone" = true;
-    "datareporting.healthreport.uploadEnabled" = false;
     "extensions.ui.locale.hidden" = true;
     "extensions.webextensions.ExtensionStorageIDB.migrated.addon@darkreader.org" = true;
     "extensions.webextensions.uuids" = extensions;
@@ -30,20 +29,38 @@ in {
     "mail.spam.manualMark" = true;
     "mail.spam.version" = 1;
     "mail.startup.enabledMailCheckOnce" = true;
+    "mail.chat.play_sound" = false;
+    "mailnews.start_page.enabled" = false;
     "mailnews.mark_message_read.delay" = true;
     "mailnews.mark_message_read.delay.interval" = 3;
-    "mailnews.tags.$label1.color" = "#FF0000";
+    "mailnews.wraplength" = 80;
+
+    # Maillist sorting behaviour
+    "mailnews.default_sort_order" = 2; # descending, 1 for ascending
+    "mailnews.default_sort_type" = 18; # sort by date
+
+    # Label numbers & colors.
+    #  1 - Important
+    #  2 - Work
+    #  3 - Personal
+    #  4- To Do
+    #  5 - Later
     "mailnews.tags.$label1.tag" = "Important";
-    "mailnews.tags.$label2.color" = "#FF9900";
+    "mailnews.tags.$label1.color" = "#FF0000";
     "mailnews.tags.$label2.tag" = "Work";
-    "mailnews.tags.$label3.color" = "#009900";
+    "mailnews.tags.$label2.color" = "#FF9900";
     "mailnews.tags.$label3.tag" = "Personal";
-    "mailnews.tags.$label4.color" = "#3333FF";
+    "mailnews.tags.$label3.color" = "#009900";
     "mailnews.tags.$label4.tag" = "To Do";
-    "mailnews.tags.$label5.color" = "#993399";
+    "mailnews.tags.$label4.color" = "#3333FF";
     "mailnews.tags.$label5.tag" = "Later";
+    "mailnews.tags.$label5.color" = "#993399";
+
+    # Privacy & Security;
+    "network.cookie.cookieBehavior" = 2; # no cookies
     "pdfjs.enabledCache.state" = true;
     "privacy.donottrackheader.enabled" = true;
     "privacy.purge_trackers.date_in_cookie_database" = "0";
+    "datareporting.healthreport.uploadEnabled" = false;
   };
 }
