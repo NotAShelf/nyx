@@ -1,5 +1,4 @@
-name: Check Flake Formatting
-
+name: Check flake formatting
 on:
   workflow_dispatch:
   pull_request:
@@ -10,11 +9,12 @@ on:
     paths:
       - "**.nix"
       - ".github/workflows/check.yml"
-
 jobs:
-  check:
+  name: "Check flake formatting"
+  check-formatting:
     uses: ./.github/workflows/prelude.yml
     secrets:
       GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     with:
-      command: nix run nixpkgs#alejandra -- -c .
+      command: |
+        nix-fast-build -- --skip-cached --no-nom --flake .#checks."$(nix eval --raw --impure --expr builtins.currentSystem)".treefmt
