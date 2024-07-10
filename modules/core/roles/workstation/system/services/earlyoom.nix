@@ -5,9 +5,11 @@
 }: let
   inherit (lib.strings) concatStringsSep;
 in {
-  # https://dataswamp.org/~solene/2022-09-28-earlyoom.html
-  # avoid the linux kernel locking itself when we're putting too much strain on the memory
-  # this helps avoid having to shut down forcefully when we OOM
+  # Avoid the Linux kernel locking itself when we're putting too much
+  # strain on the memory. This helps avoid having to shut down
+  # forcefully when we OOM - which is preferable since we also disable SysRq.
+  # See:
+  #  <https://dataswamp.org/~solene/2022-09-28-earlyoom.html>
   services.earlyoom = {
     enable = true;
     enableNotifications = true; # annoying, but we want to know what's killed
@@ -21,10 +23,12 @@ in {
         "Hyprland" # avoid killing the graphical session
         "foot" # terminal, might have unsaved files
         "cryptsetup" # avoid killing the disk encryption manager
-        "dbus-daemon" # avoid killing the dbus daemon
-        "dbus-broker" # on newer, nixos versions broker is the default
+        "dbus-.*" # avoid killing the dbus daemon & the dbus broker
         "Xwayland" # avoid killing the X11 server
         "gpg-agent" # avoid killing the gpg agent
+        "systemd" # avoid killing systemd
+        "systemd-.*" # avoid killing systemd microservices
+        "ssh-agent" # avoid killing the ssh agent
       ];
 
       # apps that we would like killed first
@@ -33,11 +37,11 @@ in {
         # browsers
         "Web Content"
         "Isolated Web Co"
-        "chromium"
+        "chromium.*"
         # electron applications
         "electron" # I wish we could kill electron permanently
         ".*.exe"
-        "java"
+        "java.*"
         # added 2024-05-12: PipeWire locked down my system as it failed to acquire RT privileges
         "pipewire(.*)" # catch pipewire and pipewire-pulse
       ];
@@ -57,7 +61,8 @@ in {
   # Harden the earlyoom service based on some upstream defaults
   # and some other options that I prefer having set. Normally
   # I look at a stable distro, such as Fedora, before setting
-  # serviceConfig options but as far as I can tell, Fedora
+  # serviceConfig options but as far as I can tell, Fedora does
+  # not provide a serviceConfig for earlyOOM.
   systemd.services.earlyoom.serviceConfig = {
     # from upstream
     DynamicUser = true;
@@ -70,7 +75,7 @@ in {
     TasksMax = 10;
     MemoryMax = "50M";
 
-    # rotection rules. Mostly from the `systemd-oomd` service
+    # Protection rules. Mostly from the `systemd-oomd` service
     # with some of them already included upstream.
     CapabilityBoundingSet = "CAP_KILL CAP_IPC_LOCK";
     PrivateDevices = true;
