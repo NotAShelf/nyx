@@ -19,7 +19,7 @@
   # P.S. why does your stupid theme depend on yarn build? It's a stylesheet.
   catppuccin-mocha-css = pkgs.fetchurl {
     url = "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
-    hash = "sha256-yyT7hxXNHd633wJ3vgwIstt6JGUfsp8pRkYNfz/sRQY=";
+    hash = "sha256-bhHJOsHcZIZ6NzJzdrmeQ0aG6nbYV6Sa92EXdLzgf1s=";
   };
 
   openasar-git = pkgs.fetchFromGitHub {
