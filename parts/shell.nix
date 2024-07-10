@@ -7,31 +7,31 @@
   }: {
     devShells.default = pkgs.mkShellNoCC {
       name = "nyx";
-      meta.description = "The default development shell for my NixOS configuration";
+      meta.description = ''
+        The default development shell for my NixOS configuration
+      '';
 
+      # Set up pre-commit hooks when user enters the shell.
       shellHook = ''
         ${config.pre-commit.installationScript}
       '';
 
-      # tell direnv to shut up
+      # Tell Direnv to shut up.
       DIRENV_LOG_FORMAT = "";
 
-      # packages available in the dev shell
+      # Receive packages from treefmt's configured devShell.
       inputsFrom = [config.treefmt.build.devShell];
-      packages = with pkgs; [
-        inputs'.agenix.packages.default # provide agenix CLI within flake shell
-        inputs'.deploy-rs.packages.default # provide deploy-rs CLI within flake shell
-        config.treefmt.build.wrapper # treewide formatter
-        nil # nix ls
-        alejandra # nix formatter
-        git # flakes require git, and so do I
-        nodejs # for ags and eslint_d
-        (pkgs.writeShellApplication {
-          name = "update";
-          text = ''
-            nix flake update && git commit flake.lock -m "flake: bump inputs"
-          '';
-        })
+      packages = [
+        # Packages provided by flake inputs
+        inputs'.agenix.packages.default # agenix CLI for secrets management
+        inputs'.deploy-rs.packages.default # deploy-rs CLI for easy deployments
+
+        # Packages provided by flake-parts modules
+        config.treefmt.build.wrapper # Quick formatting tree-wide with `treefmt`
+
+        # Packages from nixpkgs, for Nix, Flakes or local tools.
+        pkgs.git # flakes require Git to be installed, since this repo is version controlled
+        pkgs.nodejs # building ags and configuring eslint_d will require nodejs
       ];
     };
   };
