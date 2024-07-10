@@ -13,7 +13,7 @@
   # There are technically no limitations to this approach, but if you want to avoid using shorthand aliases
   # to provided function, you would need to do something like `lib.extendedLib.aliases.foo` instead of
   # `lib.aliases.foo`, which is kinda annoying.
-  extendedLib = lib.extend (self: _: let
+  nyxLib = self: let
     inherit (self.trivial) functionArgs;
     inherit (self.attrsets) filterAttrs mapAttrs recursiveUpdate;
 
@@ -121,14 +121,25 @@
     inherit (self.extendedLib.systemd) hardenService mkGraphicalService mkHyprlandService;
     inherit (self.extendedLib.themes) serializeTheme compileSCSS;
     inherit (self.extendedLib.validators) ifTheyExist ifGroupsExist isAcceptedDevice isWayland ifOneEnabled;
-  });
+  };
+
+  # Merge layers of libraries into one as a subject of convenience
+  # and easy access. This is a bit of a hack, but it works as
+  # intended.
+  extensions = lib.composeManyExtensions [
+    (_: _: inputs.nixpkgs.lib)
+    (_: _: inputs.flake-parts.lib)
+  ];
+
+  # Extend default library
+  extendedLibrary = (lib.makeExtensible nyxLib).extend extensions;
 in {
   perSystem = {
     # Set the `lib` arg of the flake as the extended lib. If I am right, this should
     # override the previous argument (i.e. the original nixpkgs.lib, provided by flake-parts
     # as a reasonable default) with my own, which is the same nixpkgs library, but actually extended
     # with my own custom functions.
-    imports = [{_module.args.lib = extendedLib;}];
+    _module.args.lib = extendedLibrary;
   };
 
   flake = {
@@ -136,6 +147,6 @@ in {
     # the scope of this flake. This is useful for when I want to refer to my extended
     # library from outside this flake, or if someone wants to access my functions
     # but that rarely happens, Ctrl+C and Ctrl+V is the developer way it seems.
-    lib = extendedLib;
+    lib = extendedLibrary;
   };
 }
