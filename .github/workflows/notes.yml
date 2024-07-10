@@ -1,5 +1,4 @@
 name: Serve Static Notes
-
 on:
   workflow_dispatch:
   push:
@@ -8,30 +7,24 @@ on:
     paths:
       - "docs/**"
       - ".github/workflows/notes.yml"
-
 permissions:
   contents: write
-
 jobs:
   serve-notes:
     if: github.repository == 'notashelf/nyx'
     runs-on: ubuntu-latest
-
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
-
       - name: "Install Nix"
         uses: DeterminateSystems/nix-installer-action@main
         with:
           logger: pretty
-
       - name: "Install dependencies"
         run: |
           nix profile install nixpkgs#pandoc
           nix profile install nixpkgs#jq
           nix profile install nixpkgs#sassc
-
       - name: "Generate Static Webpage"
         run: |
           # Move to the docs directory
@@ -39,7 +32,6 @@ jobs:
 
           # Execute generation script
           bash ./gen.sh
-
       - name: "Deploy to GitHub Pages"
         uses: JamesIves/github-pages-deploy-action@v4
         with:

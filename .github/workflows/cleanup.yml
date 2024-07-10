@@ -1,11 +1,9 @@
 name: Cleanup
-
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 4 1 * *" # 4AM on 1st of every month
     - cron: "0 4 15 * *" # 4AM on the 15th of every month
-
 jobs:
   branches:
     name: Cleanup old branches
@@ -13,7 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Delete old branches
         uses: beatlabs/delete-old-branches-action@v0.0.10
         with:
