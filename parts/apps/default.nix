@@ -8,6 +8,7 @@
       check-restart = callApps ./check-restart;
       mount-local-disks = callApps ./mount-local-disks;
       upgrade-postgresql = callApps ./upgrade-postgresql;
+      check-store-errors = callApps ./check-store-errors;
     };
   };
 }
