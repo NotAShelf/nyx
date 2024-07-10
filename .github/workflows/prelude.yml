@@ -37,7 +37,6 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: arm64
-
       - name: Install Lix
         uses: DeterminateSystems/nix-installer-action@v12
         with:
