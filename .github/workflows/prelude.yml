@@ -37,11 +37,14 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: arm64
-      - name: "Install nix"
-        uses: cachix/install-nix-action@master
+
+      - name: Install Lix
+        uses: DeterminateSystems/nix-installer-action@v12
         with:
-          install_url: "https://install.lix.systems/lix"
-          extra_nix_config: |
+          source-url: "https://install.lix.systems/lix/lix-installer-x86_64-linux"
+          diagnostic-endpoint: "" # so eelco can have more personalized self-merges? no thank you
+          backtrace: "true"
+          extra-conf: |
             # Extra experimental features. fetch-tree is required internally
             experimental-features = nix-command flakes fetch-tree
             allow-import-from-derivation = false
