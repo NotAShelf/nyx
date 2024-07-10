@@ -23,7 +23,7 @@ body {
 #Title,
 #searchbox,
 #linkblock {
-    font-family: "Malgun Gothic", sans-serif;
+    font-family: "Malgun Gothic", "Roboto Slab", "Lato", sans-serif;
 }
 
 #Title {
