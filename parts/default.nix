@@ -1,10 +1,6 @@
-{inputs, ...}: {
+{
   # Imports for constructing a final flake to be built.
   imports = [
-    # Imported
-    inputs.flake-parts.flakeModules.easyOverlay
-    inputs.treefmt-nix.flakeModule
-
     # Explicitly import parts of the flake, which allows me to build the
     # "final flake" from various parts, arranged in a way that makes
     # sense to me the most. By convention, things that would usually

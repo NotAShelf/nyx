@@ -1,18 +1,34 @@
-{
+{inputs, ...}: {
+  imports = [inputs.treefmt-nix.flakeModule];
   perSystem = {
     inputs',
     config,
     pkgs,
     ...
   }: {
-    # provide the formatter for `nix fmt`
+    # Provide a formatter package for `nix fmt`. Setting this
+    # to `config.treefmt.build.wrapper` will use the treefmt
+    # package wrapped with my desired configuration.
     formatter = config.treefmt.build.wrapper;
 
-    # configure treefmt
     treefmt = {
       projectRootFile = "flake.nix";
+      enableDefaultExcludes = true;
 
+      settings = {
+        global.excludes = ["*.age" "*.envrc"];
+        formatter.yamlfmt = {
+          includes = [".github/workflows/*.{yaml,yml}"];
+          excludes = ["*/.eslintrc.yml" "*/pnpm-lock.yaml"];
+        };
+      };
+
+      # Most often than not, most of those checks will not run on baremetal. Which
+      # means that we can afford to be generous with what formatters we provide.
       programs = {
+        taplo.enable = true;
+        yamlfmt.enable = true;
+        rustfmt.enable = true;
         alejandra = {
           enable = true;
           package = inputs'.nyxpkgs.packages.alejandra-no-ads;
@@ -23,10 +39,7 @@
         prettier = {
           enable = true;
           package = pkgs.prettierd;
-          excludes = ["*.age"];
-          settings = {
-            editorconfig = true;
-          };
+          settings.editorconfig = true;
         };
 
         shfmt = {

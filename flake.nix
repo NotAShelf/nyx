@@ -4,17 +4,16 @@
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      # Systems for which attributes of perSystem will be built. As
+      # a rule of thumb, only systems provided by available hosts
+      # should go in this list. More systems will increase evaluation
+      # duration.
+      systems = import inputs.systems;
+
       imports = [
         ./parts # Parts of the flake that are used to construct the final flake.
         ./hosts # Entrypoint for host configurations of my systems.
       ];
-
-      # Systems for which the attributes of `perSystem` will be built
-      # add more if they can be supported...
-      #  - x86_64-linux: Desktops, laptops, servers
-      #  - aarch64-linux: ARM-based devices, PoC server and builders
-      #  - ...
-      systems = import inputs.systems;
     };
 
   inputs = {
@@ -192,7 +191,7 @@
 
     # An extensiblee  neovim configuration wrapper.
     neovim-flake = {
-      url = "github:NotAShelf/nvf/bald-frogs";
+      url = "github:NotAShelf/nvf";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nil.follows = "nil";
