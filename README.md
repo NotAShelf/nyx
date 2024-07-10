@@ -42,28 +42,16 @@ bug reports, or simply moral support, they have my most sincere gratitude.
 > [!CAUTION]
 > As I physically cannot stop tinkering and messing around with my
 > configuration, **nothing in this repository (including the README and the
-> overview sections in it) should be considered final**. This is my
-> configuration, not a framework. Do keep in mind that I make no promise of
-> stability or support. If something breaks, that will be your responsibility.
-> Please do not allow yourself to be fooled by the sheer amount of documentation
-> effort that has gone into this project. **This is not a public framework**,
-> and it never will be. It will receive changes, on almost a daily basis and
-> possibly in a half-broken state.
+> overview sections in it) should be considered final**. It will receive many
+> changes, on almost a daily basis and possibly in a half-broken state. This is
+> my configuration, not a framework: I will make no promise of stability or
+> support. If something breaks, that will be your responsibility.
 >
-> I should also mention that almost all of the configurations contained within
-> this repository, in some shape or form, contain age encrypted secrets - which,
-> to you dear reader, means that they **cannot** be built and replicated
-> successfully, at least in theory (unless you know a way to revert age
-> encryption, in which case please let me know!) I invite you to go through the
-> modules and countless lines of Nix I have written, but I would strongly advise
-> against attempting to boot any of those configurations unless you are me.
->
-> There exists a [resources section] that I _strongly_ encourage you to check
-> out, which you can use to start building your own configuration. I also
-> document some of my experiences in my [nix blog] for your convenience.
-> Otherwise, please feel free to dissect this configuration and borrow bits that
-> may appear interesting to you - but _please_ respect my [license] while doing
-> so!
+> It is also worth mentioning that almost all of the configurations contained
+> within this repository, in some shape or form, contain age encrypted secrets -
+> which, to you dear reader, means that they **cannot** be built and replicated
+> successfully, unless you know a way to revert age encryption, in which case
+> please let me know!
 >
 > To re-iterate: **this is not a public framework**. Please **do not** try to
 > run this configuration, or to rip off specific bits. It will cause much pain
@@ -71,6 +59,18 @@ bug reports, or simply moral support, they have my most sincere gratitude.
 > yourself. By doing so, you would have to learn my specific design choices _on
 > top of Nix/NixOS_ whereas you could create something that suits your own
 > needs.
+>
+> Please do not allow yourself to be fooled by the sheer amount of documentation
+> effort that has gone into this project. I invite you to go through the modules
+> and countless lines of Nix I have written, but I would strongly advise against
+> attempting to boot any of those configurations unless you are me.
+>
+> There exists a [resources section] that I _strongly_ encourage you to check
+> out, which you can use to start building your own configuration. I also
+> document some of my experiences in my [nix blog] for your convenience.
+> Otherwise, please feel free to dissect this configuration and borrow bits that
+> may appear interesting to you - but _please_ respect my [license] while doing
+> so!
 
 <!-- deno-fmt-ignore-end -->
 
@@ -201,14 +201,16 @@ make sense of certain decisions that are made.
 
 <!-- deno-fmt-ignore-start -->
 
-> [!NOTE]
-> Host specific design considerations will be in
-> [`hosts/README.md`](hosts/README.md)
+[hosts directory]: hosts/README.md
+
+> [!INFO]
+> Notes on host-specific design rules and considerations have been moved
+> to the [hosts directory].
 
 <!-- deno-fmt-ignore-end -->
 
-- A commit should always be scoped. For example, while modifying a file in
-  `hosts/enyo`, the commit would begin with `hosts/enyo:` followed by the
+- A commit should always be scoped/labeled. For example, while modifying a file
+  in `hosts/enyo`, the commit would begin with `hosts/enyo:` followed by the
   description of the change.
 - **alejandra** is the only Nix formatter that shall be used within this
   repository. nixfmt and nixpkgs-fmt both advertise ugly and confusing diffs,
@@ -379,11 +381,12 @@ interesting
 **Nix/NixOS**
 
 - [nix-super](https://github.com/privatevoid-net/nix-super)
+- [Lix](https://lix.systems/about)
 - [Agenix](https://github.com/ryantm/agenix)
 - [nh](https://github.com/viperML/nh)
 
 Projects I have made to use in this repository, or otherwise cool software that
-are used in this repository that I would like to endorse.
+are used in this repository that I have contribted to, or would like to endorse.
 
 - [nyxpkgs](https://github.com/notashelf/nyxpkgs) - my personal package
   collection
@@ -396,7 +399,7 @@ are used in this repository that I would like to endorse.
 
 Additionally, take a look at my [notes/blog](docs/notes) for my notes on Linux,
 and specifically challenging or tedious processes on Nix and NixOS. It is also
-available [as a webpage](https://nyx.notashelf.dev)
+available [as a webpage](https://nyx.notashelf.dev) for your convenience.
 
 ## License
 
@@ -421,7 +424,8 @@ under the [CC BY License](docs/LICENSE).
 
 It is not in any shape or form enforced, but your kindness and due diligence
 would be highly appreciated. Please do not be one of the people who upstream my
-commits without any consideration to my time and efforts.
+commits without any consideration to my time and efforts. It is very
+discouraging.
 
 ---
 
