@@ -40,37 +40,35 @@ bug reports, or simply moral support, they have my most sincere gratitude.
 <!-- deno-fmt-ignore-start -->
 
 > [!CAUTION]
-> As I physically cannot stop tinkering and messing around with my
-> configuration, **nothing in this repository (including the README and the
-> overview sections in it) should be considered final**. It will receive many
-> changes, on almost a daily basis and possibly in a half-broken state. This is
-> my configuration, not a framework: I will make no promise of stability or
-> support. If something breaks, that will be your responsibility.
+> As I constantly tinker and adjust my configuration, **nothing in
+> this repository (including the README and overview sections) should be
+> considered final**. Expect frequent changes, possibly on a daily basis, and
+> quite likely in a half-broken state. This is my personal configuration, not a
+> framework, so I make no promises of stability or support. If something breaks,
+> it will be your responsibility.
 >
-> It is also worth mentioning that almost all of the configurations contained
-> within this repository, in some shape or form, contain age encrypted secrets -
-> which, to you dear reader, means that they **cannot** be built and replicated
-> successfully, unless you know a way to revert age encryption, in which case
-> please let me know!
+> It is also worth noting that almost all configurations in this repository
+> contain age-encrypted secrets. This means they **cannot** be built or
+> replicated successfully unless you know how to revert age encryption. If you
+> do, please let me know!
 >
-> To re-iterate: **this is not a public framework**. Please **do not** try to
-> run this configuration, or to rip off specific bits. It will cause much pain
-> and suffering in addition to robbing you the joys of learning something by
-> yourself. By doing so, you would have to learn my specific design choices _on
-> top of Nix/NixOS_ whereas you could create something that suits your own
-> needs.
+> There is a [resources section] that I strongly encourage you to check out,
+> which you can use to start building your own configuration. I also document
+> some of my experiences in my [nix blog] for your convenience. Feel free to
+> dissect this configuration and borrow bits that interest you, but _please_
+> respect my [license] while doing so!
 >
-> Please do not allow yourself to be fooled by the sheer amount of documentation
-> effort that has gone into this project. I invite you to go through the modules
-> and countless lines of Nix I have written, but I would strongly advise against
-> attempting to boot any of those configurations unless you are me.
+> Do not be fooled by the extensive documentation effort that has gone into this
+> project. I invite you to explore the modules and countless lines of Nix I have
+> written, but I strongly advise against attempting to boot any of these
+> configurations unless you are me.
 >
-> There exists a [resources section] that I _strongly_ encourage you to check
-> out, which you can use to start building your own configuration. I also
-> document some of my experiences in my [nix blog] for your convenience.
-> Otherwise, please feel free to dissect this configuration and borrow bits that
-> may appear interesting to you - but _please_ respect my [license] while doing
-> so!
+> To reiterate: **this is not a public framework**, and **you should not try to
+> run this configuration**, or rip off specific bits. It will cause you much
+> pain and suffering, in addition to robbing you of the joys of learning
+> something by yourself. By copying me, you would have to learn my specific
+> design choices _on top of Nix/NixOS_, whereas you could create something that
+> suits your own needs in a shorter time span.
 
 <!-- deno-fmt-ignore-end -->
 
@@ -335,7 +333,8 @@ Some of the cool people I have interacted with in the past and believe deserve a
 shoutout for their support or companionship. I appreciate you all. :)
 
 [fsnkty](https://github.com/fsnkty) - [lychee](https://github.com/itslychee) -
-[germanbread](https://github.com/GermanBread)
+[germanbread](https://github.com/GermanBread) -
+[marshmallow](https://github.com/mrshmllow/)
 
 ## Cool Resources
 
