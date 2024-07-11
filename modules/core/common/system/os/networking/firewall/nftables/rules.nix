@@ -79,6 +79,13 @@ in {
             policy = "accept";
           };
 
+          # Stop portscanning me.
+          malicious = entryBefore ["default"] {
+            protocol = "ip saddr";
+            value = ["194.169.175.0/24"];
+            policy = "drop";
+          };
+
           default = entryAfter ["loopback" "established-locally" "basic-icmp6" "basic-icmp" "ping6" "ping"] {
             policy = lib.mkDefault "drop";
           };
