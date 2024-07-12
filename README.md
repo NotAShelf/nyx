@@ -11,6 +11,7 @@
 
 <div align="center">
   <br/>
+  <a href="#preface">Preface</a><br/>
   <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a> | <a href="#license">License</a><br/>
   <!-- lmao. I should make this less obvious-->
   <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">Installation</a>
