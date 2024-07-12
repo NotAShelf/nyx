@@ -298,7 +298,9 @@ my configuration was initially based on. Though layouts and files have since
 changed, the core principals and ideas remain. The simplicity of his
 configuration flake allowed me to take a foothold in the Nix world.
 
-In addition, I thank [NobbZ](https://github.com/NobbZ)
+Last but not least, I thank [NobbZ](https://github.com/NobbZ) for his endless
+patience and his willingness to show around the Nix ecosystem. Without his, this
+configuration would be in a much worse state. Thank you NobbZ.
 
 ### Awesome People
 
@@ -313,7 +315,7 @@ I got inspired by, and owe a lot to those folks
 ... and surely there are more, but I tend to forget. Nevertheless, I extend my
 thanks to all of those people and any others that I might have forgotten.
 
-### Anti-credits
+### Anti-creditsa
 
 Pretend I haven't credited those people (but I will, because they are equally
 awesome and I appreciate them)
@@ -350,31 +352,51 @@ shoutout for their support or companionship. I appreciate you all. :)
 Resource that helped shape and improve this configuration, or resources that I
 strongly recommend that you read in no particular order.
 
+### Official Manuals
+
+As silly as manuals split over three different pages may sound, I encourage
+everyone (including experts) to read those for comprehensive notes on
+**packaging**, **program specific quirks & overrides** and other "pro-tips" on
+Nix, Nixpkgs and NixOS.
+
+You are invited to read about the module system in the NixOS manual before you
+look into your own NixOS configuration.
+
+- [Nix Manual](https://nix.dev/manual/nix)
+- [NixOS Manual](https://nixos.org/manual/nixos/stable/)
+- [Nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable/)
+
 ### Interactive Pages
 
-- [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
+- [Tour of Nix](https://nixcloud.io/tour/?id=introduction/nix)
 - [Noogle](https://noogle.dev)
 - [NixOS package search](https://search.nixos.org/packages)
 - [NixOS option search](https://search.nixos.org/options?)
-- [Tour of Nix](https://nixcloud.io/tour/?id=introduction/nix)
+- [Home-Manager option search](https://home-manager-options.extranix.com/)
 
 ### Readings
 
 #### Blogs
 
+Likely opinionated blog resources on Nix or Nix-centric processes. Nix
+knowleedge is best transferred via blogs on personal experience.
+
 - [Astrid's blog](https://astrid.tech/t/nixos/)
 - [Jade Lovelace's blog](https://jade.fyi/)
 - [Xe Iaso's blog](https://xeiaso.net/blog)
-- [viper's Blog](https://ayats.org/)
-- [Solène's Blog](https://dataswamp.org/~solene)
-- [Vinícius Müller's Blog](https://viniciusmuller.github.io) (`/blog` no longer
-  exists)
-- [my own blog](https://blog.notashelf.dev)
+- [viper's blog](https://ayats.org/)
+- [Solène's blog](https://dataswamp.org/~solene)a
+- [Zimbatm's blog](https://zimbatm.com/notes)
+- [My own blog](https://blog.notashelf.dev)
 
 #### Guides & Other Resources
 
+Additional resources that you might want to check out before you begin your Nix
+journey properly.
+
 - [Zero to Nix](https://zero-to-nix.com/)
 - [Nix Pills](https://nixos.org/guides/nix-pills/)
+- [A list of Nix library functions and builtins](https://teu5us.github.io/nix-lib.html)
 
 ### Software
 
@@ -411,6 +433,8 @@ NixOS. Some of my notes have also been left in [the docs directory](docs/).
 
 ## License
 
+<!-- Nobody reads those, why do I even bother... -->
+
 Unless explicitly stated otherwise, all code and documentation found within in
 this repository is licensed under the [GPLv3](LICENSE), or should you prefer,
 under any later version of the GPL released by the FSF.
@@ -425,10 +449,14 @@ NixOS users. As such if you are directly copying a section of my configuration,
 please include a copyright notice at the top of the file you import the code, or
 as a small comment above the section you have copied.
 
-I cannot, in any shape or form enforce my license on you but your kindness and
-due diligence would be highly appreciated. Please do not be one of those people
-who copy my commits without proper credit, as it is the only thing I can ask for
-my efforts.
+I cannot, _in any shape or form_ enforce my license on you, but I would like you
+to know that I _really_ appreciate those who are kind enough to leave a link to
+my configuration and uphold my license properly. Please do not be one of those
+people who copy my commits without proper credit, as it is the only thing I can
+ask for my efforts.
+
+Those who were kind and diligent enough to follow my license, a very big thank
+you.
 
 <div align="right">
   <a href="#readme">Back to the Top</a>
@@ -437,4 +465,4 @@ my efforts.
 [^1]:
     I speak of "over-engineering" not as a flaw, but as a trait that can properly
     describe the time and effort that this repository has taken. After 700+ recorded
-    hours and 4000+ commits, that is the only word that can describe this project.
+    hours and 4500+ commits, that is the only word that can describe this project.
