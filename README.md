@@ -298,6 +298,8 @@ my configuration was initially based on. Though layouts and files have since
 changed, the core principals and ideas remain. The simplicity of his
 configuration flake allowed me to take a foothold in the Nix world.
 
+In addition, I thank [NobbZ](https://github.com/NobbZ)
+
 ### Awesome People
 
 I got inspired by, and owe a lot to those folks
@@ -321,23 +323,27 @@ awesome and I appreciate them)
 [FrothyMarrow](https://github.com/frothymarrow) -
 [adamcstephens](https://github.com/adamcstephens) -
 [nrabulinski](https://github.com/nrabulinski) -
-[n3oney](https://github.com/n3oney) -
-[Raidenovich](https://github.com/raidenovich) -
-[jacekpoz](https://github.com/jacekpoz) -
-[Vagahbond](https://github.com/Vagahbond) -
-[vaxry](https://github.com/vaxerski) -
 
 ### Honorable Mentions
 
 Some of the cool people I have interacted with in the past and believe deserve a
 shoutout for their support or companionship. I appreciate you all. :)
 
-**The [wires gang](https://github.com/wires-org)**
+### The [wires gang](https://github.com/wires-org)
 
 [fsnkty](https://github.com/fsnkty) - [lychee](https://github.com/itslychee) -
 [germanbread](https://github.com/GermanBread) -
 [marshmallow](https://github.com/mrshmllow/) -
-[Zacc](https://github.com/zedseven) - [Michaili](https://github.com/MichailiK)
+[Zacc](https://github.com/zedseven) - [Michaili](https://github.com/MichailiK) -
+[Sako](https://github.com/Sakooooo)
+
+### Hyprland Community
+
+[vaxry](https://github.com/vaxerski) -
+[Vagahbond](https://github.com/Vagahbond) -
+[jacekpoz](https://github.com/jacekpoz) -
+[Raidenovich](https://github.com/raidenovich) -
+[n3oney](https://github.com/n3oney) -
 
 ## Cool Resources
 
