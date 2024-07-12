@@ -310,7 +310,8 @@ I got inspired by, and owe a lot to those folks
 [NobbZ](https://github.com/NobbZ) - [ViperML](https://github.com/viperML) -
 [spikespaz](https://github.com/spikespaz) -
 [hlissner](https://github.com/hlissner) -
-[Max Headroom](https://github.com/max-privatevoid)
+[Max Headroom](https://github.com/max-privatevoid) -
+[Lily Foster](https://github.com/lilyinstarlight)
 
 ... and surely there are more, but I tend to forget. Nevertheless, I extend my
 thanks to all of those people and any others that I might have forgotten.
