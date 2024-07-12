@@ -34,7 +34,7 @@ bug reports, or simply moral support, they have my most sincere gratitude.
 ### Disclaimer
 
 [resources section]: #cool-resources
-[nix blog]: https://nyx.notashelf.dev
+[nix blog]: https://blog.notashelf.dev
 [license]: #license
 
 <!-- deno-fmt-ignore-start -->
@@ -189,7 +189,7 @@ configuration and my design considerations.
 - **Wayland First** - Leaves Xorg in the past where it belongs. Everything is
   configured around Wayland, with Xorg only as a fallback.
 - **Custom Xanmod Kernel** with a wide variety of patches to strip unneeded
-  modules.
+  modules, and to provide platform specific optimizations for my desktop.
 
 ### Rules/Design Considerations
 
@@ -356,11 +356,11 @@ strongly recommend that you read in no particular order.
 - [Astrid's blog](https://astrid.tech/t/nixos/)
 - [Jade Lovelace's blog](https://jade.fyi/)
 - [Xe Iaso's blog](https://xeiaso.net/blog)
-- [Viper's Blog](https://ayats.org/)
+- [viper's Blog](https://ayats.org/)
 - [Solène's Blog](https://dataswamp.org/~solene)
 - [Vinícius Müller's Blog](https://viniciusmuller.github.io) (`/blog` no longer
   exists)
-- [...my own "blog"?](https://notashelf.github.io/nyx/)
+- [my own blog](https://blog.notashelf.dev)
 
 #### Guides & Other Resources
 
@@ -396,37 +396,30 @@ are used in this repository that I have contribted to, or would like to endorse.
 - [ndg](https://github.com/feel-co/ndg) - a module documentation framework for
   Nix projects.
 
-Additionally, take a look at my [notes/blog](docs/notes) for my notes on Linux,
-and specifically challenging or tedious processes on Nix and NixOS. It is also
-available [as a webpage](https://nyx.notashelf.dev) for your convenience.
+Additionally, take a look at my [personal blog](https://blog.notashelf.dev) for
+my notes on Linux, and specifically challenging or tedious processes on Nix and
+NixOS. Some of my notes have also been left in [the docs directory](docs/).
 
 ## License
 
-Unless explicitly stated otherwise, all code under this repository (except for
-[anything in docs directory](docs)) is licensed under the [GPLv3](LICENSE), or
-should you prefer, under any later version of the GPL released by the FSF.
+Unless explicitly stated otherwise, all code and documentation found within in
+this repository is licensed under the [GPLv3](LICENSE), or should you prefer,
+under any later version of the GPL released by the FSF.
 
-The notes and documentation available in [docs directory](docs) is licensed
-under the [CC BY License](docs/LICENSE).
+The license entails that you must include a copyright notice inside your
+repository, and disclose changes where applicable.
 
-<!-- deno-fmt-ignore-start -->
+All code here (excluding secrets) are available for your convenience and _at my
+expense_ as I choose to keep my entire system configuration public. I believe it
+is in Nix and NixOS community spirit to learn from and share code with other
+NixOS users. As such if you are directly copying a section of my configuration,
+please include a copyright notice at the top of the file you import the code, or
+as a small comment above the section you have copied.
 
-> [!NOTE]
-> All code here (excluding secrets) are available for your convenience
-> and _at my expense_ as I choose to keep my entire system configuration public.
-> I believe it is in Nix and NixOS community spirit to learn from and share code
-> with other NixOS users. As such if you are directly copying a section of my
-> configuration, please include a copyright notice at the top of the file you
-> import the code, or as a small comment above the section you have copied.
-
-<!-- deno-fmt-ignore-end -->
-
-It is not in any shape or form enforced, but your kindness and due diligence
-would be highly appreciated. Please do not be one of the people who upstream my
-commits without any consideration to my time and efforts. It is very
-discouraging.
-
----
+I cannot, in any shape or form enforce my license on you but your kindness and
+due diligence would be highly appreciated. Please do not be one of those people
+who copy my commits without proper credit, as it is the only thing I can ask for
+my efforts.
 
 <div align="right">
   <a href="#readme">Back to the Top</a>
