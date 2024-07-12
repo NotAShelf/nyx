@@ -332,9 +332,12 @@ awesome and I appreciate them)
 Some of the cool people I have interacted with in the past and believe deserve a
 shoutout for their support or companionship. I appreciate you all. :)
 
+**The [wires gang](https://github.com/wires-org)**
+
 [fsnkty](https://github.com/fsnkty) - [lychee](https://github.com/itslychee) -
 [germanbread](https://github.com/GermanBread) -
-[marshmallow](https://github.com/mrshmllow/)
+[marshmallow](https://github.com/mrshmllow/) -
+[Zacc](https://github.com/zedseven) - [Michaili](https://github.com/MichailiK)
 
 ## Cool Resources
 
