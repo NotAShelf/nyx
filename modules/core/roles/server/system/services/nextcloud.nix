@@ -4,7 +4,8 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
+  inherit (lib.meta) getExe;
 
   domain = "cloud.notashelf.dev";
 
@@ -18,6 +19,11 @@ in {
         redis.enable = true;
         postgresql.enable = true;
       };
+    };
+
+    users.users.nextcloud = {
+      extraGroups = ["render"]; # access /dev/dri/renderD128
+      packages = [pkgs.ffmpeg-headless];
     };
 
     services = {
@@ -65,9 +71,16 @@ in {
         };
 
         settings = {
-          "memories.exiftool" = "${lib.getExe pkgs.exiftool}";
-          "memories.vod.ffmpeg" = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
+          "memories.exiftool" = getExe pkgs.exiftool;
+          "memories.vod.vaapi" = true;
+          "memories.vod.ffmpeg" = getExe pkgs.ffmpeg-headless;
           "memories.vod.ffprobe" = "${pkgs.ffmpeg-headless}/bin/ffprobe";
+
+          jpeg_quality = 60;
+          preview_max_filesize_image = 128; # MB
+          preview_max_memory = 512; # MB
+          preview_max_x = 2048; # px
+          preview_max_y = 2048; # px
 
           # be very specific about the preview providers
           enabledPreviewProviders = [
@@ -82,6 +95,12 @@ in {
             "OC\\Preview\\TXT"
             "OC\\Preview\\XBitmap"
             "OC\\Preview\\HEIC"
+
+            # <https://github.com/nextcloud/server/tree/master/lib/private/Preview>
+            ''OC\Preview\Font''
+            ''OC\Preview\PDF''
+            ''OC\Preview\SVG''
+            ''OC\Preview\WebP''
           ];
 
           # run maintenance jobs at low-load hours
@@ -107,10 +126,12 @@ in {
         phpOptions = {
           "opcache.enable" = "1";
           "opcache.enable_cli" = "1";
-          "opcache.jit" = "1255";
-          "opcache.jit_buffer_size" = "256M";
           "opcache.validate_timestamps" = "0";
           "opcache.save_comments" = "1";
+
+          # <https://docs.nextcloud.com/server/latest/admin_manual/installation/server_tuning.html>
+          "opcache.jit" = "1255";
+          "opcache.jit_buffer_size" = "256M";
 
           # fix the opcache "buffer is almost full" error in admin overview
           "opcache.interned_strings_buffer" = "16";
