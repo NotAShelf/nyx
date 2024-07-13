@@ -120,16 +120,21 @@ in {
       # Supported system features
       system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
 
-      # Extra architectures supported by my builders
+      # Extra architectures supported by my builders. Default list is
+      # picked from systems emulated by binfmt.
       extra-platforms = config.boot.binfmt.emulatedSystems;
 
       # Continue building derivations even if one fails
       keep-going = true;
 
-      # bail early on missing cache hits
+      # Fallback to local builds after remote builders are unavailable.
+      # Setting this too low on a slow network may cause remote builders
+      # to be discarded before a connection can be established.
       connect-timeout = 5;
 
-      # show more log lines for failed builds
+      # Show more logs when a build fails and decides to display
+      # a bunch of lines. `nix log` would normally provide more
+      # information, but this may save us some time and keystrokes.
       log-lines = 30;
 
       # Extra features of Nix that are considered unstable
@@ -156,12 +161,19 @@ in {
       # Maximum number of parallel TCP connections
       # used to fetch imports and binary caches.
       # 0 means no limit, default is 25.
-      http-connections = 50;
+      http-connections = 35; # lower values fare better on slow connections
 
-      # whether to accept nix configuration from a flake without prompting
+      # Whether to accept nix configuration from a flake
+      # without displaying a Y/N prompt. For those obtuse
+      # enough to keep this true, I wish the best of luck.
       accept-flake-config = false;
 
-      # execute builds inside cgroups
+      # Whether to execute builds inside cgroups. cgroups are
+      # "a Linux kernel feature that limits, accounts for, and
+      # isolates the resource usage (CPU, memory, disk I/O, etc.)
+      # of a collection of processes."
+      # See:
+      # <https://en.wikipedia.org/wiki/Cgroups>
       use-cgroups = true;
 
       # for direnv GC roots
