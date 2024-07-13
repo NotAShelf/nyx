@@ -86,6 +86,9 @@
       # Utilities for working with system secrets
       secrets = callLibs ./secrets.nix;
 
+      # Helpers for working with SSH or SSHD configurations.
+      ssh = callLibs ./ssh.nix;
+
       # Functions for working with systemd services. Includes an utility for passing
       # common hardening options, or creating services with well known targets, such
       # as graphical-session.target
@@ -117,6 +120,7 @@
     inherit (self.extendedLib.misc) filterNixFiles importNixFiles boolToNum fetchKeys containsStrings indexOf intListToStringList;
     inherit (self.extendedLib.modules) mkService mkModuleTree mkModuleTree';
     inherit (self.extendedLib.namespacing) makeSocketNsPhysical makeServiceNsPhysical unRestrictNamespaces;
+    inherit (self.extendedLib.ssh) mkPubkeyFor;
     inherit (self.extendedLib.secrets) mkAgenixSecret;
     inherit (self.extendedLib.systemd) hardenService mkGraphicalService mkHyprlandService;
     inherit (self.extendedLib.themes) serializeTheme compileSCSS;
