@@ -69,6 +69,10 @@ in {
           server_name = "notashelf.dev";
           public_baseurl = "https://notashelf.dev";
 
+          federation_client_minimum_tls_version = "1.2";
+          suppress_key_server_warning = true;
+          user_directory.prefer_local_users = true;
+
           withJemalloc = true;
           enable_registration = true;
           registration_requires_token = true;
