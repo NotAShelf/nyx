@@ -8,8 +8,7 @@
     " --wordwrap" # Wrap lines at spaces.
   ];
 in {
-  # variables that I want to set globally on all systems
-
+  # Variables that I want to set globally on all systems
   environment.variables = {
     SSH_AUTH_SOCK = "/run/user/\${UID}/keyring/ssh";
 
