@@ -352,7 +352,8 @@ shoutout for their support or companionship. I appreciate you all. :)
 ## Cool Resources
 
 Resource that helped shape and improve this configuration, or resources that I
-strongly recommend that you read in no particular order.
+strongly recommend that you read in no particular order. Note that reading _any_
+of those resources would be preferable to going through my config to learn.
 
 ### Official Manuals
 
