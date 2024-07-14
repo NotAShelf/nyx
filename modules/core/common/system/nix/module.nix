@@ -132,6 +132,9 @@ in {
       # to be discarded before a connection can be established.
       connect-timeout = 5;
 
+      # If we haven't received data for >= 20s, retry the download
+      stalled-download-timeout = 20;
+
       # Show more logs when a build fails and decides to display
       # a bunch of lines. `nix log` would normally provide more
       # information, but this may save us some time and keystrokes.
@@ -217,7 +220,7 @@ in {
     };
   };
 
-  # By default nix-gc makes no effort to respect battery life by avoding
+  # By default nix-gc makes no effort to respect battery life by avoiding
   # GC runs on battery and fully commits a few cores to collecting garbage.
   # This will drain the battery faster than you can say "Nix, what the hell?"
   # and contribute heavily to you wanting to get a new desktop.
