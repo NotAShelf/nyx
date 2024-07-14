@@ -18,7 +18,7 @@ in {
       enable = true;
       platformTheme = {
         # Sets QT_QPA_PLATFORMTHEME, takes "gtk", "gtk3",  "adwaita", "kde" and a few others.
-        name = mkIf cfg.forceGtk "gtk";
+        name = mkIf cfg.forceGtk "gtk3";
         package = null; # libraries associated with the platformtheme, we add those manually
       };
 
