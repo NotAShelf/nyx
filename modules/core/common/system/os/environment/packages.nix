@@ -9,7 +9,7 @@
     # added extra security and as an attempt to reduce my system closure size, I
     # remove the default packages from my system.
     # Defaults:
-    #  - perl # No thank you
+    #  - perl # No thank you (why is this here?)
     #  - rsync # Already in systemPackages
     #  - strace # Never needed it
     defaultPackages = lib.mkForce [];

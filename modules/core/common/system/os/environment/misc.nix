@@ -6,8 +6,8 @@
     # loading, this is exclusively a fallback for morons.
     stub-ld.enable = false;
 
-    # Enable system-wide wordlist. Some pandoc filters and other programs
-    # depend on worldlist available in system path, and shells do not work.
+    # Enable system-wide wordlist. Some Pandoc filters and other programs
+    # depend on wordlist available in system path, and shells do not work.
     # I don't like this, but it's a necessary evil.
     wordlist = {
       enable = true;
