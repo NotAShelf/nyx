@@ -5,6 +5,9 @@ on:
     branches:
       - master
       - main
+    paths:
+      - "parts/pkgs/packages"
+      - "parts/pkgs/default.nix"
 jobs:
   generate-nix-matrix:
     name: "Generate CI from flake output"
