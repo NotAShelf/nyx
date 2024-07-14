@@ -89,10 +89,8 @@ configuration and my design considerations.
 - [`flake.nix`](flake.nix) Ground zero of my system configuration. Declaring
   entrypoints
 - [`docs`](docs)The documentation for my flake repository
-  - [`notes`](docs/notes) Notes from tedious or/and under-documented processes I
-    have gone through. More or less a blog, live at https://nyx.notashelf.dev
-  - [`cheatsheet`](docs/notes/cheatsheet.md) Useful tips that are hard to
-    memorize, but easy to write down
+  - [`cheatsheet`](docs/cheatsheet.md) Useful tips that are hard to memorize,
+    but easy to write down
 - [`parts/`](parts) Individual parts of my flake, powered by flake-parts
   - [`apps`](parts/apps) Basic executables for maintenance jobs
   - [`checks`](parts/checks) Additional checks to build on `nix flake check`
@@ -442,27 +440,30 @@ Unless explicitly stated otherwise, all code and documentation found within in
 this repository is licensed under the [GPLv3](LICENSE), or should you prefer,
 under any later version of the GPL released by the FSF.
 
+<!-- deno-fmt-ignore-start -->
+
 The license entails that you must include a copyright notice inside your
 repository, and disclose changes where applicable.
 
-All code here (excluding secrets) are available for your convenience and _at my
-expense_ as I choose to keep my entire system configuration public. I believe it
-is in Nix and NixOS community spirit to learn from and share code with other
-NixOS users. As such if you are directly copying a section of my configuration,
-please include a copyright notice at the top of the file you import the code, or
-as a small comment above the section you have copied.
+<!-- deno-fmt-ignore-end -->
+
+All code here (excluding secrets) are available _for your convenience_ and _at
+my own expense_ as I choose to keep my entire system configuration public. I
+believe it is in Nix and NixOS community spirit to learn from and share code
+with other NixOS users. As such if you are directly copying a section of my
+configuration, please include a copyright notice at the top of the file you
+import the code, or as a small comment above the section you have copied.
 
 I cannot, _in any shape or form_ enforce my license on you, but I would like you
 to know that I _really_ appreciate those who are kind enough to leave a link to
 my configuration and uphold my license properly. Please do not be one of those
 people who copy my commits without proper credit, as it is the only thing I can
-ask for my efforts.
-
-Those who were kind and diligent enough to follow my license, a very big thank
-you.
+ask for my efforts. Those who were kind and diligent enough to follow my
+license, a _very_ big thank you.
 
 <div align="right">
   <a href="#readme">Back to the Top</a>
+  <br/>
 </div>
 
 [^1]:
