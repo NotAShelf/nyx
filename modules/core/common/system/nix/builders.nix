@@ -15,8 +15,9 @@
     protocol = "ssh-ng";
   };
 
-  # override generic config builder with the assumption that more
-  # resources and features are available to us
+  # Override generic builder config with extra configuration options
+  # and resources, assuming the machine marked as such can adapt to
+  # them.
   bigBuilder = recursiveUpdate builder {
     maxJobs = 16;
     speedFactor = 16;

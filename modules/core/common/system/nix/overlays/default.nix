@@ -1,5 +1,4 @@
 {
-  inputs',
   config,
   lib,
   ...
@@ -7,18 +6,34 @@
   inherit (lib.trivial) const;
   inherit (lib.lists) length zipListsWith;
   inherit (lib.strings) concatStringsSep escapeShellArg;
+
+  systemNix = config.nix.package;
 in {
   # Overlays are by far the most obscure and annoying feature of Nix, and if you have
   # interacted with me on a personal level before, you will find that I actively discourage
   # using them. The below section contains my personal overlays, which are used to add
   # packages to the system closure, or override existing packages. This is a last resort
-  # and should be used conservatively. If possible, use override or overrideAttrs whenever
+  # and should be used conservatively. If possible, use override or `overrideAttrs` whenever
   # you are able to.
   nixpkgs.overlays = [
-    (_: _: {
-      nixSuper = inputs'.nix-super.packages.default;
-      nixSchemas = inputs'.nixSchemas.packages.default;
-    })
+    # Some packages provide their own instances of Nix by adding `nix` to the argset
+    # of a derivation. While in most cases a simple `.override` will allow you to easily
+    # replace their instance of Nix, you might want to do it across the dependency tree
+    # in certain cases. For example if the package you are overriding is a dependency to
+    # or is called by other packages.
+    (const (prev: {
+      nixos-rebuild = prev.nixos-rebuild.override {
+        nix = systemNix;
+      };
+
+      nix-direnv = prev.nix-direnv.override {
+        nix = systemNix;
+      };
+
+      nix-index = prev.nix-index.override {
+        nix = systemNix;
+      };
+    }))
 
     (const (prev: {
       lix = prev.lix.overrideAttrs (old: {
@@ -40,13 +55,6 @@ in {
             ln -s $out/bin/nix $out/bin/lix
           '';
       });
-
-      # nixos-rebuild provides its own nix package, which is not the same as the one
-      # we use in the system closure - which causes an extra Nix package to be added
-      # even if it's not the one we need want.
-      nixos-rebuild = prev.nixos-rebuild.override {
-        nix = config.nix.package;
-      };
 
       # Patch the everliving shit out of ZSH to remove some of my personal annoyances
       # such as newuser install

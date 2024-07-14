@@ -1,30 +1,26 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.direnv = {
     enable = true;
 
-    # shut up. SHUT UP
+    # Shut up, direnv. SHUT. UP.
     silent = true;
 
-    # faster, persistent implementation of use_nix and use_flake
-    nix-direnv = {
-      enable = true;
-      package = pkgs.nix-direnv.override {
-        nix = config.nix.package;
-      };
-    };
+    # Faster, persistent implementation of use_nix and use_flake in
+    # direnv based shells.
+    nix-direnv.enable = true;
 
-    # enable loading direnv in nix-shell nix shell or nix develop
+    # Enable loading direnv in nix-shell, nix shell or nix develop
     loadInNixShell = true;
 
+    # From upstream:
+    # * `direnv_layour_dir` is called once for every {.direnvrc,.envrc} sourced
+    # * The indicator for a different direnv file being sourced is a different $PWD value
+    # This means we can hash $PWD to get a fully unique cache path for any given environment
+    # See: <https://github.com/direnv/direnv/wiki/Customizing-cache-location>
     direnvrcExtra = ''
       : ''${XDG_CACHE_HOME:=$HOME/.cache}
       declare -A direnv_layout_dirs
 
-      # https://github.com/direnv/direnv/wiki/Customizing-cache-location#hashed-directories
       direnv_layout_dir() {
         echo "''${direnv_layout_dirs[$PWD]:=$(
           echo -n "$XDG_CACHE_HOME"/direnv/layouts/
