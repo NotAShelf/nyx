@@ -10,9 +10,6 @@
 
       indentBlankline = {
         enable = true;
-        fillChar = null;
-        eolChar = null;
-        scope.enabled = true;
       };
 
       cursorline = {
