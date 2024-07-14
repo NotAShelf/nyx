@@ -18,13 +18,6 @@ in {
 
   config = mkIf prg.gaming.enable {
     home.packages = with pkgs; [
-      legendary-gl # epic games launcher
-      mangohud # fps counter & vulkan overlay
-      lutris # alternative game launcher
-
-      # emulators
-      # dolphin-emu # general console
-
       # runtime
       dotnet-runtime_6 # for running terraria manually, from binary
       mono # general dotnet apps
