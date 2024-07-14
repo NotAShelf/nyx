@@ -388,6 +388,7 @@ knowleedge is best transferred via blogs on personal experience.
 - [viper's blog](https://ayats.org/)
 - [Solène's blog](https://dataswamp.org/~solene)a
 - [Zimbatm's blog](https://zimbatm.com/notes)
+- [Farid Zakaria's Blog](https://fzakaria.com/)
 - [My own blog](https://blog.notashelf.dev)
 
 #### Guides & Other Resources
