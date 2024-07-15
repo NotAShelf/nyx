@@ -4,6 +4,7 @@
     inputs',
     config,
     pkgs,
+    lib,
     ...
   }: {
     # Provide a formatter package for `nix fmt`. Setting this
@@ -27,7 +28,26 @@
       # means that we can afford to be generous with what formatters we provide.
       programs = {
         taplo.enable = true;
-        yamlfmt.enable = true;
+        yamlfmt = {
+          enable = true;
+          package = let
+            # This is, from what I can tell, is the only way to be able to
+            # pass a config file to formatters in treefmt. Horrible, HORRIBLE
+            # design choice.
+            config = pkgs.writeText "yamlfmt-config.yaml" (builtins.toJSON {
+              line_ending = "lf"; # no windows compat, sorry
+              formatter = {
+                type = "basic";
+                retain_line_breaks = true;
+              };
+            });
+          in
+            # Write a script that calls for yamlfmt
+            pkgs.writeShellScriptBin "yamlfmt-custom-config" ''
+              ${lib.getExe pkgs.yamlfmt} -conf ${config.outPath}
+            '';
+        };
+
         alejandra = {
           enable = true;
           package = inputs'.nyxpkgs.packages.alejandra-no-ads;
