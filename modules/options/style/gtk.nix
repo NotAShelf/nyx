@@ -72,8 +72,14 @@ in {
       (let
         themePath = cfg.theme.package + /share/themes + "/${cfg.theme.name}";
       in {
-        assertion = cfg.enable -> !pathExists themePath;
-        message = "${themePath} set by the GTK module does not exist!";
+        assertion = cfg.enable -> pathExists themePath;
+        message = ''
+          ${toString themePath} set by the GTK module does not exist!
+
+          To suppress this message, make sure that
+          {option}`config.modules.style.gtk.theme.package contains
+          the path {path}`/${cfg.theme.name}`
+        '';
       })
     ];
   };
