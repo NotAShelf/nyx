@@ -16,7 +16,7 @@
       enableDefaultExcludes = true;
 
       settings = {
-        global.excludes = ["*.age" "*.envrc"];
+        global.excludes = ["*.age" "*.envrc" "parts/templates" "*/sources.json"];
         formatter.yamlfmt = {
           includes = [".github/workflows/*.{yaml,yml}"];
           excludes = ["*/.eslintrc.yml" "*/pnpm-lock.yaml"];
@@ -28,7 +28,6 @@
       programs = {
         taplo.enable = true;
         yamlfmt.enable = true;
-        rustfmt.enable = true;
         alejandra = {
           enable = true;
           package = inputs'.nyxpkgs.packages.alejandra-no-ads;
