@@ -18,11 +18,11 @@
       )
     );
 
-  nvf = inputs.neovim-flake;
+  inherit (inputs.nvf.homeManagerModules) nvf;
 in {
   imports = concatLists [
-    # neovim-flake home-manager module
-    [nvf.homeManagerModules.default]
+    # nvf home-manager module
+    [nvf]
 
     # construct this entire directory as a module
     # which means all default.nix files will be imported automatically

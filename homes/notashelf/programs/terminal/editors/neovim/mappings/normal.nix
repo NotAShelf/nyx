@@ -1,5 +1,5 @@
 {
-  programs.neovim-flake.settings.vim.maps = {
+  programs.nvf.settings.vim.maps = {
     normal = {
       # General
       "<leader>fd".action = ":lua vim.g.formatsave = not vim.g.formatsave<CR>";

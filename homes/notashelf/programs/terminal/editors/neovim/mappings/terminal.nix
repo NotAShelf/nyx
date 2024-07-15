@@ -1,5 +1,5 @@
 {
-  programs.neovim-flake.settings.vim.maps = {
+  programs.nvf.settings.vim.maps = {
     terminal = {
       "<M-x>".action = "<cmd>q<CR>";
     };

@@ -1,5 +1,5 @@
 {
-  programs.neovim-flake.settings.vim = {
+  programs.nvf.settings.vim = {
     git = {
       enable = true;
       vim-fugitive.enable = true;

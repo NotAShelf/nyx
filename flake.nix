@@ -190,7 +190,7 @@
     nyxpkgs.url = "github:NotAShelf/nyxpkgs";
 
     # An extensiblee  neovim configuration wrapper.
-    neovim-flake = {
+    nvf = {
       url = "github:NotAShelf/nvf";
       inputs = {
         nixpkgs.follows = "nixpkgs";

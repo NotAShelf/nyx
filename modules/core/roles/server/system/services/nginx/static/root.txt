@@ -73,10 +73,10 @@ List of stuff you might find interesting if you came here and are a human:
 - Matrix | https://matrix.to/#/@raf:notashelf.dev
 - Mastodon | https://social.notashelf.dev/
 - Github | https://github.com/notashelf
+  - https://github.com/notashelf/nvf
   - https://github.com/schizofox/schizofox
-  - https://github.com/hyprland-community/hyprkeys
   - https://github.com/notashelf/catApi
-  - https://github.com/notashelf/neovim-flake
+  - https://github.com/notashelf/goblin
 
 
 If you have found a vulnerability on this server, I'd be very grateful if you

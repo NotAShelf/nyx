@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  programs.neovim-flake.settings.vim = {
+  programs.nvf.settings.vim = {
     treesitter = {
       fold = true;
       context.enable = false; # FIXME: currently broken, I do not know why.

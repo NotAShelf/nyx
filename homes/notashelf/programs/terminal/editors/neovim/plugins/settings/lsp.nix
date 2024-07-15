@@ -1,5 +1,5 @@
 {
-  programs.neovim-flake.settings.vim = {
+  programs.nvf.settings.vim = {
     lsp = {
       formatOnSave = true;
       lspkind.enable = true;

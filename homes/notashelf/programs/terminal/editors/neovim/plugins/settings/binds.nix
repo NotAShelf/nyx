@@ -1,5 +1,5 @@
 {
-  programs.neovim-flake.settings.vim = {
+  programs.nvf.settings.vim = {
     binds = {
       whichKey.enable = true;
       cheatsheet.enable = false;

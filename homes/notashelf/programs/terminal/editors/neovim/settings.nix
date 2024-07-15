@@ -4,12 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) filter map toString path isPath throw;
+  inherit (builtins) filter map toString path;
   inherit (lib.filesystem) listFilesRecursive;
   inherit (lib.strings) hasSuffix fileContents;
   inherit (lib.attrsets) genAttrs;
 
-  nvf = inputs.neovim-flake;
+  nvf = inputs.nvf;
   inherit (nvf.lib.nvim.dag) entryBefore entryAnywhere;
 
   mkRuntimeDir = name: let
@@ -21,7 +21,7 @@
     };
 in {
   config = {
-    programs.neovim-flake = {
+    programs.nvf = {
       enable = true;
 
       defaultEditor = true;
@@ -81,7 +81,7 @@ in {
 
             # generates a key-value pair that looks roughly as follows:
             #  `<filePath> = entryAnywhere ''<contents of filePath>''`
-            # which is expected by neovim-flake's modified DAG library
+            # which is expected by nvf's modified DAG library
             luaConfig = genAttrs configPaths (file:
               entryBefore ["luaScript"] ''
                 ${fileContents "${file}"}

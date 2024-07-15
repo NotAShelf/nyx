@@ -1,5 +1,5 @@
 {
-  programs.neovim-flake.settings.vim = {
+  programs.nvf.settings.vim = {
     notes = {
       todo-comments.enable = true;
       mind-nvim.enable = false;

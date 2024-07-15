@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  programs.neovim-flake.settings.vim = {
+  programs.nvf.settings.vim = {
     utility = {
       ccc.enable = true;
       icon-picker.enable = true;

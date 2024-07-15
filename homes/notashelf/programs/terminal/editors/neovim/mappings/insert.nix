@@ -1,5 +1,5 @@
 {
-  programs.neovim-flake.settings.vim.maps = {
+  programs.nvf.settings.vim.maps = {
     insert = {
       # vsnip
       #"<C-jn>".action = "<Plug>(vsnip-jump-next)";

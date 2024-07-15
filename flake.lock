@@ -272,11 +272,11 @@
     "flake-compat_3": {
       "flake": false,
       "locked": {
-        "lastModified": 1673956053,
-        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
         "type": "github"
       },
       "original": {
@@ -288,11 +288,11 @@
     "flake-compat_4": {
       "flake": false,
       "locked": {
-        "lastModified": 1696426674,
-        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
         "type": "github"
       },
       "original": {
@@ -522,12 +522,15 @@
       }
     },
     "flake-utils_4": {
+      "inputs": {
+        "systems": "systems_5"
+      },
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
         "type": "github"
       },
       "original": {
@@ -537,15 +540,12 @@
       }
     },
     "flake-utils_5": {
-      "inputs": {
-        "systems": "systems_6"
-      },
       "locked": {
-        "lastModified": 1710146030,
-        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
         "type": "github"
       },
       "original": {
@@ -1125,7 +1125,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
-          "neovim-flake",
+          "nvf",
           "rnix-lsp",
           "nixpkgs"
         ]
@@ -1167,142 +1167,9 @@
         "type": "github"
       }
     },
-    "neovim-flake": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "mnw": "mnw",
-        "nil": [
-          "nil"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nmd": "nmd",
-        "plugin-alpha-nvim": "plugin-alpha-nvim",
-        "plugin-bufdelete-nvim": "plugin-bufdelete-nvim",
-        "plugin-catppuccin": "plugin-catppuccin",
-        "plugin-ccc": "plugin-ccc",
-        "plugin-cellular-automaton": "plugin-cellular-automaton",
-        "plugin-chatgpt": "plugin-chatgpt",
-        "plugin-cheatsheet-nvim": "plugin-cheatsheet-nvim",
-        "plugin-cinnamon-nvim": "plugin-cinnamon-nvim",
-        "plugin-cmp-buffer": "plugin-cmp-buffer",
-        "plugin-cmp-nvim-lsp": "plugin-cmp-nvim-lsp",
-        "plugin-cmp-path": "plugin-cmp-path",
-        "plugin-cmp-treesitter": "plugin-cmp-treesitter",
-        "plugin-cmp-vsnip": "plugin-cmp-vsnip",
-        "plugin-codewindow-nvim": "plugin-codewindow-nvim",
-        "plugin-comment-nvim": "plugin-comment-nvim",
-        "plugin-copilot-cmp": "plugin-copilot-cmp",
-        "plugin-copilot-lua": "plugin-copilot-lua",
-        "plugin-crates-nvim": "plugin-crates-nvim",
-        "plugin-dashboard-nvim": "plugin-dashboard-nvim",
-        "plugin-diffview-nvim": "plugin-diffview-nvim",
-        "plugin-dracula": "plugin-dracula",
-        "plugin-dressing-nvim": "plugin-dressing-nvim",
-        "plugin-elixir-tools": "plugin-elixir-tools",
-        "plugin-fidget-nvim": "plugin-fidget-nvim",
-        "plugin-flutter-tools": "plugin-flutter-tools",
-        "plugin-gesture-nvim": "plugin-gesture-nvim",
-        "plugin-gitsigns-nvim": "plugin-gitsigns-nvim",
-        "plugin-glow-nvim": "plugin-glow-nvim",
-        "plugin-gruvbox": "plugin-gruvbox",
-        "plugin-highlight-undo": "plugin-highlight-undo",
-        "plugin-hop-nvim": "plugin-hop-nvim",
-        "plugin-icon-picker-nvim": "plugin-icon-picker-nvim",
-        "plugin-image-nvim": "plugin-image-nvim",
-        "plugin-indent-blankline": "plugin-indent-blankline",
-        "plugin-leap-nvim": "plugin-leap-nvim",
-        "plugin-lsp-lines": "plugin-lsp-lines",
-        "plugin-lsp-signature": "plugin-lsp-signature",
-        "plugin-lspkind": "plugin-lspkind",
-        "plugin-lspsaga": "plugin-lspsaga",
-        "plugin-lualine": "plugin-lualine",
-        "plugin-mind-nvim": "plugin-mind-nvim",
-        "plugin-minimap-vim": "plugin-minimap-vim",
-        "plugin-modes-nvim": "plugin-modes-nvim",
-        "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",
-        "plugin-neocord": "plugin-neocord",
-        "plugin-neodev-nvim": "plugin-neodev-nvim",
-        "plugin-noice-nvim": "plugin-noice-nvim",
-        "plugin-none-ls": "plugin-none-ls",
-        "plugin-nui-nvim": "plugin-nui-nvim",
-        "plugin-nvim-autopairs": "plugin-nvim-autopairs",
-        "plugin-nvim-bufferline-lua": "plugin-nvim-bufferline-lua",
-        "plugin-nvim-cmp": "plugin-nvim-cmp",
-        "plugin-nvim-code-action-menu": "plugin-nvim-code-action-menu",
-        "plugin-nvim-colorizer-lua": "plugin-nvim-colorizer-lua",
-        "plugin-nvim-cursorline": "plugin-nvim-cursorline",
-        "plugin-nvim-dap": "plugin-nvim-dap",
-        "plugin-nvim-dap-go": "plugin-nvim-dap-go",
-        "plugin-nvim-dap-ui": "plugin-nvim-dap-ui",
-        "plugin-nvim-docs-view": "plugin-nvim-docs-view",
-        "plugin-nvim-lightbulb": "plugin-nvim-lightbulb",
-        "plugin-nvim-lspconfig": "plugin-nvim-lspconfig",
-        "plugin-nvim-navbuddy": "plugin-nvim-navbuddy",
-        "plugin-nvim-navic": "plugin-nvim-navic",
-        "plugin-nvim-neoclip": "plugin-nvim-neoclip",
-        "plugin-nvim-nio": "plugin-nvim-nio",
-        "plugin-nvim-notify": "plugin-nvim-notify",
-        "plugin-nvim-session-manager": "plugin-nvim-session-manager",
-        "plugin-nvim-surround": "plugin-nvim-surround",
-        "plugin-nvim-tree-lua": "plugin-nvim-tree-lua",
-        "plugin-nvim-treesitter-context": "plugin-nvim-treesitter-context",
-        "plugin-nvim-ts-autotag": "plugin-nvim-ts-autotag",
-        "plugin-nvim-web-devicons": "plugin-nvim-web-devicons",
-        "plugin-obsidian-nvim": "plugin-obsidian-nvim",
-        "plugin-onedark": "plugin-onedark",
-        "plugin-orgmode-nvim": "plugin-orgmode-nvim",
-        "plugin-oxocarbon": "plugin-oxocarbon",
-        "plugin-plenary-nvim": "plugin-plenary-nvim",
-        "plugin-project-nvim": "plugin-project-nvim",
-        "plugin-registers": "plugin-registers",
-        "plugin-rose-pine": "plugin-rose-pine",
-        "plugin-rust-tools": "plugin-rust-tools",
-        "plugin-scrollbar-nvim": "plugin-scrollbar-nvim",
-        "plugin-smartcolumn": "plugin-smartcolumn",
-        "plugin-sqls-nvim": "plugin-sqls-nvim",
-        "plugin-tabular": "plugin-tabular",
-        "plugin-telescope": "plugin-telescope",
-        "plugin-todo-comments": "plugin-todo-comments",
-        "plugin-toggleterm-nvim": "plugin-toggleterm-nvim",
-        "plugin-tokyonight": "plugin-tokyonight",
-        "plugin-trouble": "plugin-trouble",
-        "plugin-ts-error-translator": "plugin-ts-error-translator",
-        "plugin-vim-dirtytalk": "plugin-vim-dirtytalk",
-        "plugin-vim-fugitive": "plugin-vim-fugitive",
-        "plugin-vim-illuminate": "plugin-vim-illuminate",
-        "plugin-vim-markdown": "plugin-vim-markdown",
-        "plugin-vim-repeat": "plugin-vim-repeat",
-        "plugin-vim-startify": "plugin-vim-startify",
-        "plugin-vim-vsnip": "plugin-vim-vsnip",
-        "plugin-which-key": "plugin-which-key",
-        "rnix-lsp": "rnix-lsp",
-        "systems": "systems_5",
-        "zig": "zig"
-      },
-      "locked": {
-        "lastModified": 1720981812,
-        "narHash": "sha256-HaXeYREONzwa1IcaiVYKCketz+wH9EGUFUrgJOUwbDE=",
-        "owner": "NotAShelf",
-        "repo": "nvf",
-        "rev": "a4d35b441986f4747abc47e618810325de38d6ce",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NotAShelf",
-        "repo": "nvf",
-        "type": "github"
-      }
-    },
     "neovim-nightly": {
       "inputs": {
-        "flake-compat": "flake-compat_4",
+        "flake-compat": "flake-compat_3",
         "flake-parts": [
           "flake-parts"
         ],
@@ -1367,7 +1234,7 @@
     },
     "nil": {
       "inputs": {
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "nixpkgs-small"
         ],
@@ -1636,6 +1503,22 @@
     },
     "nixpkgs_5": {
       "locked": {
+        "lastModified": 1720768451,
+        "narHash": "sha256-EYekUHJE2gxeo2pM/zM9Wlqw1Uw2XTJXOSAO79ksc4Y=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7e7c39ea35c5cdd002cd4588b03a3fb9ece6fad9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_6": {
+      "locked": {
         "lastModified": 1656753965,
         "narHash": "sha256-BCrB3l0qpJokOnIVc3g2lHiGhnjUi0MoXiw6t1o8H1E=",
         "owner": "nixos",
@@ -1650,7 +1533,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1702350026,
         "narHash": "sha256-A+GNZFZdfl4JdDphYKBJ5Ef1HOiFsP18vQe9mqjmUis=",
@@ -1662,22 +1545,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-23.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_7": {
-      "locked": {
-        "lastModified": 1720768451,
-        "narHash": "sha256-EYekUHJE2gxeo2pM/zM9Wlqw1Uw2XTJXOSAO79ksc4Y=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "7e7c39ea35c5cdd002cd4588b03a3fb9ece6fad9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1728,6 +1595,139 @@
         "owner": "~rycee",
         "repo": "nmd",
         "type": "sourcehut"
+      }
+    },
+    "nvf": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "mnw": "mnw",
+        "nil": [
+          "nil"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nmd": "nmd",
+        "plugin-alpha-nvim": "plugin-alpha-nvim",
+        "plugin-bufdelete-nvim": "plugin-bufdelete-nvim",
+        "plugin-catppuccin": "plugin-catppuccin",
+        "plugin-ccc": "plugin-ccc",
+        "plugin-cellular-automaton": "plugin-cellular-automaton",
+        "plugin-chatgpt": "plugin-chatgpt",
+        "plugin-cheatsheet-nvim": "plugin-cheatsheet-nvim",
+        "plugin-cinnamon-nvim": "plugin-cinnamon-nvim",
+        "plugin-cmp-buffer": "plugin-cmp-buffer",
+        "plugin-cmp-nvim-lsp": "plugin-cmp-nvim-lsp",
+        "plugin-cmp-path": "plugin-cmp-path",
+        "plugin-cmp-treesitter": "plugin-cmp-treesitter",
+        "plugin-cmp-vsnip": "plugin-cmp-vsnip",
+        "plugin-codewindow-nvim": "plugin-codewindow-nvim",
+        "plugin-comment-nvim": "plugin-comment-nvim",
+        "plugin-copilot-cmp": "plugin-copilot-cmp",
+        "plugin-copilot-lua": "plugin-copilot-lua",
+        "plugin-crates-nvim": "plugin-crates-nvim",
+        "plugin-dashboard-nvim": "plugin-dashboard-nvim",
+        "plugin-diffview-nvim": "plugin-diffview-nvim",
+        "plugin-dracula": "plugin-dracula",
+        "plugin-dressing-nvim": "plugin-dressing-nvim",
+        "plugin-elixir-tools": "plugin-elixir-tools",
+        "plugin-fidget-nvim": "plugin-fidget-nvim",
+        "plugin-flutter-tools": "plugin-flutter-tools",
+        "plugin-gesture-nvim": "plugin-gesture-nvim",
+        "plugin-gitsigns-nvim": "plugin-gitsigns-nvim",
+        "plugin-glow-nvim": "plugin-glow-nvim",
+        "plugin-gruvbox": "plugin-gruvbox",
+        "plugin-highlight-undo": "plugin-highlight-undo",
+        "plugin-hop-nvim": "plugin-hop-nvim",
+        "plugin-icon-picker-nvim": "plugin-icon-picker-nvim",
+        "plugin-image-nvim": "plugin-image-nvim",
+        "plugin-indent-blankline": "plugin-indent-blankline",
+        "plugin-leap-nvim": "plugin-leap-nvim",
+        "plugin-lsp-lines": "plugin-lsp-lines",
+        "plugin-lsp-signature": "plugin-lsp-signature",
+        "plugin-lspkind": "plugin-lspkind",
+        "plugin-lspsaga": "plugin-lspsaga",
+        "plugin-lualine": "plugin-lualine",
+        "plugin-mind-nvim": "plugin-mind-nvim",
+        "plugin-minimap-vim": "plugin-minimap-vim",
+        "plugin-modes-nvim": "plugin-modes-nvim",
+        "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",
+        "plugin-neocord": "plugin-neocord",
+        "plugin-neodev-nvim": "plugin-neodev-nvim",
+        "plugin-noice-nvim": "plugin-noice-nvim",
+        "plugin-none-ls": "plugin-none-ls",
+        "plugin-nui-nvim": "plugin-nui-nvim",
+        "plugin-nvim-autopairs": "plugin-nvim-autopairs",
+        "plugin-nvim-bufferline-lua": "plugin-nvim-bufferline-lua",
+        "plugin-nvim-cmp": "plugin-nvim-cmp",
+        "plugin-nvim-code-action-menu": "plugin-nvim-code-action-menu",
+        "plugin-nvim-colorizer-lua": "plugin-nvim-colorizer-lua",
+        "plugin-nvim-cursorline": "plugin-nvim-cursorline",
+        "plugin-nvim-dap": "plugin-nvim-dap",
+        "plugin-nvim-dap-go": "plugin-nvim-dap-go",
+        "plugin-nvim-dap-ui": "plugin-nvim-dap-ui",
+        "plugin-nvim-docs-view": "plugin-nvim-docs-view",
+        "plugin-nvim-lightbulb": "plugin-nvim-lightbulb",
+        "plugin-nvim-lspconfig": "plugin-nvim-lspconfig",
+        "plugin-nvim-navbuddy": "plugin-nvim-navbuddy",
+        "plugin-nvim-navic": "plugin-nvim-navic",
+        "plugin-nvim-neoclip": "plugin-nvim-neoclip",
+        "plugin-nvim-nio": "plugin-nvim-nio",
+        "plugin-nvim-notify": "plugin-nvim-notify",
+        "plugin-nvim-session-manager": "plugin-nvim-session-manager",
+        "plugin-nvim-surround": "plugin-nvim-surround",
+        "plugin-nvim-tree-lua": "plugin-nvim-tree-lua",
+        "plugin-nvim-treesitter-context": "plugin-nvim-treesitter-context",
+        "plugin-nvim-ts-autotag": "plugin-nvim-ts-autotag",
+        "plugin-nvim-web-devicons": "plugin-nvim-web-devicons",
+        "plugin-obsidian-nvim": "plugin-obsidian-nvim",
+        "plugin-onedark": "plugin-onedark",
+        "plugin-orgmode-nvim": "plugin-orgmode-nvim",
+        "plugin-oxocarbon": "plugin-oxocarbon",
+        "plugin-plenary-nvim": "plugin-plenary-nvim",
+        "plugin-project-nvim": "plugin-project-nvim",
+        "plugin-registers": "plugin-registers",
+        "plugin-rose-pine": "plugin-rose-pine",
+        "plugin-rust-tools": "plugin-rust-tools",
+        "plugin-scrollbar-nvim": "plugin-scrollbar-nvim",
+        "plugin-smartcolumn": "plugin-smartcolumn",
+        "plugin-sqls-nvim": "plugin-sqls-nvim",
+        "plugin-tabular": "plugin-tabular",
+        "plugin-telescope": "plugin-telescope",
+        "plugin-todo-comments": "plugin-todo-comments",
+        "plugin-toggleterm-nvim": "plugin-toggleterm-nvim",
+        "plugin-tokyonight": "plugin-tokyonight",
+        "plugin-trouble": "plugin-trouble",
+        "plugin-ts-error-translator": "plugin-ts-error-translator",
+        "plugin-vim-dirtytalk": "plugin-vim-dirtytalk",
+        "plugin-vim-fugitive": "plugin-vim-fugitive",
+        "plugin-vim-illuminate": "plugin-vim-illuminate",
+        "plugin-vim-markdown": "plugin-vim-markdown",
+        "plugin-vim-repeat": "plugin-vim-repeat",
+        "plugin-vim-startify": "plugin-vim-startify",
+        "plugin-vim-vsnip": "plugin-vim-vsnip",
+        "plugin-which-key": "plugin-which-key",
+        "rnix-lsp": "rnix-lsp",
+        "systems": "systems_6",
+        "zig": "zig"
+      },
+      "locked": {
+        "lastModified": 1720981812,
+        "narHash": "sha256-HaXeYREONzwa1IcaiVYKCketz+wH9EGUFUrgJOUwbDE=",
+        "owner": "NotAShelf",
+        "repo": "nvf",
+        "rev": "a4d35b441986f4747abc47e618810325de38d6ce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NotAShelf",
+        "repo": "nvf",
+        "type": "github"
       }
     },
     "nyxpkgs": {
@@ -3365,7 +3365,7 @@
     "rnix-lsp": {
       "inputs": {
         "naersk": "naersk",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "utils": "utils"
       },
       "locked": {
@@ -3404,7 +3404,6 @@
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
         "ndg": "ndg",
-        "neovim-flake": "neovim-flake",
         "neovim-nightly": "neovim-nightly",
         "nh": "nh",
         "nil": "nil",
@@ -3412,8 +3411,9 @@
         "nixfmt": "nixfmt",
         "nixos-hardware": "nixos-hardware",
         "nixpak": "nixpak",
-        "nixpkgs": "nixpkgs_7",
+        "nixpkgs": "nixpkgs_5",
         "nixpkgs-small": "nixpkgs-small",
+        "nvf": "nvf",
         "nyxpkgs": "nyxpkgs",
         "rust-overlay": "rust-overlay_2",
         "schizofox": "schizofox",
@@ -3841,9 +3841,9 @@
     },
     "zig": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
-        "flake-utils": "flake-utils_4",
-        "nixpkgs": "nixpkgs_6"
+        "flake-compat": "flake-compat_4",
+        "flake-utils": "flake-utils_5",
+        "nixpkgs": "nixpkgs_7"
       },
       "locked": {
         "lastModified": 1716725305,

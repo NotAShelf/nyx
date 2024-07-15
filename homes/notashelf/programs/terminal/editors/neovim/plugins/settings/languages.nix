@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  programs.neovim-flake.settings.vim = {
+  programs.nvf.settings.vim = {
     languages = {
       enableLSP = true;
       enableFormat = true;

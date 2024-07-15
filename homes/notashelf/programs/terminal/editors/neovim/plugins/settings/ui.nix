@@ -1,5 +1,5 @@
 {
-  programs.neovim-flake.settings.vim = {
+  programs.nvf.settings.vim = {
     ui = {
       noice.enable = true;
       colorizer.enable = true;
