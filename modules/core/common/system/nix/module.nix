@@ -9,7 +9,7 @@
   inherit (builtins) elem;
   inherit (lib.trivial) pipe;
   inherit (lib.types) isType;
-  inherit (lib.attrsets) recursiveUpdate mapAttrsToList filterAttrs mapAttrs mapAttrs';
+  inherit (lib.attrsets) mapAttrsToList filterAttrs mapAttrs mapAttrs';
 in {
   imports = [
     ./overlays # tree-wide overrides for packages and such
