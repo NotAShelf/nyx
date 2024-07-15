@@ -136,15 +136,15 @@ configuration and my design considerations.
     - [`documentation`](modules/options/docs) Local module system documentation
     - [`system`](modules/options/system) OS-wide configurations for generic
       software and firmware on system level
-    - [`theme`](modules/options/theme) Active theme configurations ranging from
-      QT theme to shell colors
+    - [`style`](modules/options/style) Active style configurations ranging from
+      QT theme to shell colors or icons
     - [`usrEnv`](modules/options/usrEnv) userspace exclusive configurations.
       E.g. lockscreen or package sets
 - [`secrets`](secrets) Agenix secrets
 
 ### Notable Features
 
-[theme options]: modules/options/theme
+[theme options]: modules/options/style
 [profiles]: modules/core/profiles
 [wallpkgs]: https://github.com/notashelf/wallpkgs
 [flake-parts]: https://flake.parts
@@ -418,7 +418,8 @@ interesting
 - [nh](https://github.com/viperML/nh)
 
 Projects I have made to use in this repository, or otherwise cool software that
-are used in this repository that I have contribted to, or would like to endorse.
+are used in this repository that I have contributed to, or would like to
+endorse.
 
 - [nyxpkgs](https://github.com/notashelf/nyxpkgs) - my personal package
   collection
