@@ -133,6 +133,7 @@
   extensions = lib.composeManyExtensions [
     (_: _: inputs.nixpkgs.lib)
     (_: _: inputs.flake-parts.lib)
+    (_: _: inputs.nvf.lib)
   ];
 
   # Extend default library
