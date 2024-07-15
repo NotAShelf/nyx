@@ -18,7 +18,7 @@
     };
 
     virtualization = {
-      enable = true;
+      enable = false;
       qemu.enable = true;
       docker.enable = true;
     };
