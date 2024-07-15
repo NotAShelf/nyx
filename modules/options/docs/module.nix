@@ -8,8 +8,8 @@ in {
     '';
 
     warningsAreErrors = mkEnableOption ''
-      enforcing build failure on missing option descriptions. While disabled, warnings will be
-      displayed, but will not cause the build to fail.
+      automatically failing documentation builds on missing option descriptions. While
+      disabled, warnings will be displayed, but will not cause the build to fail.
     '';
   };
 }
