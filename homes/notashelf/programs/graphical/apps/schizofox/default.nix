@@ -5,8 +5,10 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (builtins) foldl';
+  inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
+
   sys = modules.system;
   prg = sys.programs;
 in {
@@ -53,10 +55,9 @@ in {
         startPageURL = "file://${self'.packages.schizofox-startpage.outPath}/index.html";
         bookmarks = [
           {
-            Title = "Nyx";
-            URL = "https://github.com/NotAShelf/nyx";
+            Title = "Noogle";
+            URL = "https://noogle.dev";
             Placement = "toolbar";
-            Folder = "Github";
           }
         ];
       };
@@ -64,6 +65,9 @@ in {
       extensions = {
         simplefox.enable = true;
         darkreader.enable = true;
+
+        enableDefaultExtensions = true;
+        enableExtraExtensions = true;
         extraExtensions = let
           mkUrl = name: "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi";
           extensions = [
@@ -87,10 +91,33 @@ in {
               id = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
               name = "bitwarden-password-manager";
             }
+            {
+              id = "{74145f27-f039-47ce-a470-a662b129930a}";
+              name = "clearurls";
+            }
+            {
+              id = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
+              name = "localcdn-fork-of-decentraleyes";
+            }
+            {
+              id = "smart-referer@meh.paranoid.pk";
+              name = "smart-referer";
+            }
+            {
+              id = "skipredirect@sblask";
+              name = "skip-redirect";
+            }
+            {
+              id = "7esoorv3@alefvanoon.anonaddy.me";
+              name = "libredirect";
+            }
+            {
+              id = "DontFuckWithPaste@raim.ist";
+              name = "dont-fuck-with-paste";
+            }
           ];
-          extraExtensions = builtins.foldl' (acc: ext: acc // {ext.id = {install_url = mkUrl ext.name;};}) {} extensions;
         in
-          extraExtensions;
+          foldl' (acc: ext: acc // {ext.id = {install_url = mkUrl ext.name;};}) {} extensions;
       };
     };
   };
