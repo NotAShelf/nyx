@@ -445,11 +445,13 @@ NixOS. Some of my notes have also been left in [the docs directory](docs/).
 
 Unless explicitly stated otherwise, all code and documentation found within in
 this repository is licensed under the [GPLv3](LICENSE), or should you prefer,
-under any later version of the GPL released by the FSF.
+under any later version of the GPL released by the FSF. Documentation and any
+"creative" writing found in Markdown pages remain under the
+[CC BY License](docs/LICENSE).
 
 <!-- deno-fmt-ignore-start -->
 
-The license entails that you must include a copyright notice inside your
+The licenses entail that you must include a copyright notice inside your
 repository, and disclose changes where applicable.
 
 <!-- deno-fmt-ignore-end -->
