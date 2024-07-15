@@ -51,7 +51,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.image }}-iso-image
-          path: ${{ matrix.image }}/iso/*.iso
+          path: ${{ matrix.image }}-/iso/*.iso # nix-fast-build appends - to the out-link name
   publish-images:
     name: "Build ISO Images"
     runs-on: ubuntu-latest
@@ -65,8 +65,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           merge-multiple: true
-      - name: Display structure of downloaded files
-        run: ls -R
+      - name: Get current date
+        id: get-date
+        # output format: 2023-12-30-234559
+        run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> "${GITHUB_OUTPUT}"
       - name: Calculate Checksums
         run: |
           calculate_checksum() {
@@ -76,14 +78,11 @@ jobs:
           iso_files=$(find . -maxdepth 1 -type f -name "*.iso")
 
           # write checksums
+          touch checksums.txt
           for file in $iso_files; do
             checksum=$(calculate_checksum "$file")
             echo "$file $checksum" >> checksums.txt
           done
-      - name: Get current date
-        id: get-date
-        # output format: 2023-12-30-234559
-        run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> "${GITHUB_OUTPUT}"
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
