@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   ...
@@ -9,8 +8,7 @@
   inherit (lib.strings) hasSuffix fileContents;
   inherit (lib.attrsets) genAttrs;
 
-  nvf = inputs.nvf;
-  inherit (nvf.lib.nvim.dag) entryBefore entryAnywhere;
+  inherit (lib.nvim.dag) entryBefore entryAnywhere;
 
   mkRuntimeDir = name: let
     finalPath = ./runtime + /${name};
