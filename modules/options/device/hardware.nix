@@ -31,7 +31,11 @@ in {
         description = ''
           The manifaturer/type of the primary system CPU.
 
-          Determines which ucode services will be enabled and provides additional kernel packages
+          Determines which ucode services will be enabled
+          and provides additional kernel packages based on
+          the type passed. In case of some vendors, this
+          option may also enable additional daemons to
+          assist with device health or safety.
         '';
       };
 
@@ -87,9 +91,10 @@ in {
 
   config.assertions = [
     {
-      assertion = config.modules.device.type != "";
+      assertion = config.modules.device.type != null;
       message = ''
-        ${config.meta.hostname} is missing a device type. Please define it!
+        ${config.meta.hostname} is missing a device type. Please define it
+        in the appropriate host configuration!
       '';
     }
   ];
