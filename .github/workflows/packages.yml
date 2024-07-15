@@ -17,8 +17,10 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
+
       - name: "Install Nix"
         uses: cachix/install-nix-action@master
+
       - name: "Generate Nix Matrix"
         id: set-matrix
         run: |
@@ -34,8 +36,10 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
+
       - name: "Install Nix"
         uses: cachix/install-nix-action@master
+
       - name: "Build packages from generated Matrix"
         run: |
           nix build -L ".#${{ matrix.attr }}"

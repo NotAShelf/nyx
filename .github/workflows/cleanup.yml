@@ -9,9 +9,10 @@ jobs:
     name: Cleanup old branches
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: "Checkout"
         uses: actions/checkout@v4
-      - name: Delete old branches
+
+      - name: "Delete old branches"
         uses: beatlabs/delete-old-branches-action@v0.0.10
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"

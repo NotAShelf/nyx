@@ -21,7 +21,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Install Lix
+
+      - name: "Install Lix"
         uses: DeterminateSystems/nix-installer-action@v12
         with:
           source-url: "https://install.lix.systems/lix/lix-installer-x86_64-linux"
@@ -41,17 +42,25 @@ jobs:
             # nix-community
             extra-substituters = https://nix-community.cachix.org
             extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
       - name: "Nix Magic Cache"
         uses: DeterminateSystems/magic-nix-cache-action@main
+
       - name: "Install nix-fast-build"
         run: nix profile install nixpkgs#nix-fast-build
+
       - name: "Build ISO Images"
         shell: bash
-        run: nix-fast-build --skip-cached --no-nom --flake .#images.${{ matrix.image }} --out-link ${{ matrix.image }}
+        run: |
+          nix-fast-build --skip-cached --no-nom \
+            --flake .#images.${{ matrix.image }} \
+            --out-link ${{ matrix.image }}
+
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.image }}-iso-image
           path: ${{ matrix.image }}-/iso/*.iso # nix-fast-build appends - to the out-link name
+
   publish-images:
     name: "Build ISO Images"
     runs-on: ubuntu-latest
@@ -61,15 +70,17 @@ jobs:
     env:
       GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     steps:
-      - name: Download ISO Artifacts
+      - name: "Download ISO Artifacts"
         uses: actions/download-artifact@v4
         with:
           merge-multiple: true
-      - name: Get current date
+
+      - name: "Get current date"
         id: get-date
         # output format: 2023-12-30-234559
         run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> "${GITHUB_OUTPUT}"
-      - name: Calculate Checksums
+
+      - name: "Calculate Checksums"
         run: |
           calculate_checksum() {
             sha256sum "$1" | awk '{print $1}'
@@ -83,7 +94,8 @@ jobs:
             checksum=$(calculate_checksum "$file")
             echo "$file $checksum" >> checksums.txt
           done
-      - name: Create Release
+
+      - name: "Create Release"
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
@@ -93,9 +105,7 @@ jobs:
             *.iso
             checksums.txt
           body: |
-            # Weekly Iso Releases
-
-            > ${{ steps.get-date.outputs.date }}
+            # Weekly Iso Releases (${{ steps.get-date.outputs.date }})
 
             Weekly automated ISO image releases for my NixOS configurations. Their definitions are as follows
 
@@ -104,14 +114,14 @@ jobs:
 
             Both ISO images can be installed simultaneously using the following oneliner
 
-            ```console
+            ```bash
             REPO="notashelf/nyx"; curl -s "https://api.github.com/repos/$REPO/releases/latest" | jq \
               -r '.assets[] | select(.content_type=="application/octet-stream") | .browser_download_url' | head \
               -n 2 | xargs \
               -n 1 wget
             ```
 
-            or you may pick a ISO and download from the section below.
+            or, alternatively, you may pick a ISO and download from the section below.
 
             ## Warning
 

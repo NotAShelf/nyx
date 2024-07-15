@@ -29,15 +29,18 @@ jobs:
           remove-dotnet: true
           remove-haskell: true
           remove-codeql: true
+
       - name: "Checkout"
         uses: actions/checkout@v4
         with:
           token: "${{ secrets.GH_TOKEN }}"
-      - name: Set up QEMU support
+
+      - name: "Set up QEMU support"
         uses: docker/setup-qemu-action@v3
         with:
           platforms: arm64
-      - name: Install Lix
+
+      - name: "Install Lix"
         uses: DeterminateSystems/nix-installer-action@v12
         with:
           source-url: "https://install.lix.systems/lix/lix-installer-x86_64-linux"
@@ -57,9 +60,12 @@ jobs:
             # nix-community
             extra-substituters = https://nix-community.cachix.org
             extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
       - name: "Nix Magic Cache"
         uses: DeterminateSystems/magic-nix-cache-action@main
+
       - name: "Install nix-fast-build"
         run: nix profile install nixpkgs#nix-fast-build
+
       - name: "Run Input: ${{ inputs.command }}"
         run: "${{ inputs.command }}"
