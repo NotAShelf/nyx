@@ -48,7 +48,7 @@ in {
 
         # <https://forgejo.org/docs/latest/admin/config-cheat-sheet>
         settings = {
-          default.APP_NAME = "The Secret Shelf";
+          DEFAULT.APP_NAME = "The Secret Shelf";
           badges.ENABLED = true;
 
           database = {
@@ -74,17 +74,28 @@ in {
             GRAPH_MAX_COMMIT_NUM = 200;
           };
 
+          "ui.meta" = {
+            AUTHOR = "NotAShelf's Private Git Instance";
+            DESCRIPTION = ''
+              NotAShelf's private Git instance for software that sucks more.
+            '';
+          };
+
           attachment.ALLOWED_TYPES = "*/*";
           service.DISABLE_REGISTRATION = true;
           packages.ENABLED = false;
           log.LEVEL = "Debug";
 
           repository = {
-            DISABLE_STARS = true;
+            DISABLE_STARS = true; # I'm alone on here...
+
             PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
             ENABLE_PUSH_CREATE_USER = true;
+
             DEFAULT_PRIVATE = "public";
             DEFAULT_PRIVATE_PUSH_CREATE = true;
+            DEFAULT_MERGE_STYLE = "rebase-merge";
+            DEFAULT_REPO_UNITS = "repo.code, repo.issues, repo.pulls, repo.actions";
           };
 
           "repository.upload" = {
