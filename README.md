@@ -12,9 +12,9 @@
 <div align="center">
   <br/>
   <a href="#preface">Preface</a><br/>
-  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a> | <a href="#license">License</a><br/>
-  <!-- lmao. I should make this less obvious-->
-  <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">Installation</a>
+  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a><br/>
+  <a href="docs/installing.md">Installation</a> | <a href="#cool-resources">Helpful Resources</a><br/>
+  <a href="#license">License</a>
   <br/>
 </div>
 
@@ -91,6 +91,7 @@ configuration and my design considerations.
 - [`docs`](docs)The documentation for my flake repository
   - [`cheatsheet`](docs/cheatsheet.md) Useful tips that are hard to memorize,
     but easy to write down
+  - [`installing`](docs/installing.md) Non-exhaustive Nix/NixOS tips
 - [`parts/`](parts) Individual parts of my flake, powered by flake-parts
   - [`apps`](parts/apps) Basic executables for maintenance jobs
   - [`checks`](parts/checks) Additional checks to build on `nix flake check`
@@ -251,6 +252,8 @@ repository. Those goals are:
 
 - Full reproducibility - we contain secrets, therefore the setup is not fully
   reproducible.
+- Compatibility - I do not intend to provide any kind of backwards compatibility
+  for older Nix versions, or varying Nix forks.
 - Replicability - this configuration does not aim to, and will not serve as a
   framework. I make no guarantees of replicability.
 - Support - take a wild guess.
@@ -287,19 +290,21 @@ repository. Those goals are:
 
 [atrocious abstractions]: parts/lib/builders.nix
 
-My most sincere thanks go to [fufexan](https://github.com/fufexan) for
+My most sincere thanks go to [@fufexan](https://github.com/fufexan) for
 convincing me to use NixOS and sticking around to answer my most stupid and
 deranged questions, as well as my [atrocious abstractions]. Without his help, I
 would not be able to stand where I do.
 
-I also wish to extend my thanks to [sioodmy](https://github.com/sioodmy) which
+I also wish to extend my thanks to [@sioodmy](https://github.com/sioodmy) which
 my configuration was initially based on. Though layouts and files have since
 changed, the core principals and ideas remain. The simplicity of his
 configuration flake allowed me to take a foothold in the Nix world.
 
-Last but not least, I thank [NobbZ](https://github.com/NobbZ) for his endless
-patience and his willingness to show around the Nix ecosystem. Without his, this
-configuration would be in a much worse state. Thank you NobbZ.
+Last but not least, I thank [@NobbZ](https://github.com/NobbZ) and
+[@tejing1](https://github.com/tejing1) for their endless patience, critique and
+willingness to show around the Nix ecosystem when I needed it the most. Many
+pitfalls were avoided with their help, and many steps were taken forward with
+their assistance.
 
 ### Awesome People
 
@@ -315,7 +320,7 @@ I got inspired by, and owe a lot to those folks
 ... and surely there are more, but I tend to forget. Nevertheless, I extend my
 thanks to all of those people and any others that I might have forgotten.
 
-### Anti-creditsa
+### Anti-credits
 
 Pretend I haven't credited those people (but I will, because they are equally
 awesome and I appreciate them)
@@ -379,14 +384,14 @@ look into your own NixOS configuration.
 
 #### Blogs
 
-Likely opinionated blog resources on Nix or Nix-centric processes. Nix
-knowleedge is best transferred via blogs on personal experience.
+Likely opinionated blog resources on Nix or Nix-centric processes. Nix knowledge
+is best transferred via blogs on personal experience.
 
 - [Astrid's blog](https://astrid.tech/t/nixos/)
 - [Jade Lovelace's blog](https://jade.fyi/)
 - [Xe Iaso's blog](https://xeiaso.net/blog)
 - [viper's blog](https://ayats.org/)
-- [Solène's blog](https://dataswamp.org/~solene)a
+- [Solène's blog](https://dataswamp.org/~solene)
 - [Zimbatm's blog](https://zimbatm.com/notes)
 - [Farid Zakaria's Blog](https://fzakaria.com/)
 - [My own blog](https://blog.notashelf.dev)
