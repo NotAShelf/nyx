@@ -1226,6 +1226,7 @@
         "plugin-mind-nvim": "plugin-mind-nvim",
         "plugin-minimap-vim": "plugin-minimap-vim",
         "plugin-modes-nvim": "plugin-modes-nvim",
+        "plugin-neo-tree-nvim": "plugin-neo-tree-nvim",
         "plugin-neocord": "plugin-neocord",
         "plugin-neodev-nvim": "plugin-neodev-nvim",
         "plugin-noice-nvim": "plugin-noice-nvim",
@@ -1286,11 +1287,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1720928841,
-        "narHash": "sha256-D7Lqf6CZi4atQZ75qhVAtxOTgf7lwEP0qBaTJS/lQPU=",
+        "lastModified": 1720981812,
+        "narHash": "sha256-HaXeYREONzwa1IcaiVYKCketz+wH9EGUFUrgJOUwbDE=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "1426c83ce6951e0edca9d1c630eb522e1078c7b5",
+        "rev": "a4d35b441986f4747abc47e618810325de38d6ce",
         "type": "github"
       },
       "original": {
@@ -1526,11 +1527,11 @@
     },
     "nixpkgs-small": {
       "locked": {
-        "lastModified": 1720890539,
-        "narHash": "sha256-1K32XHPcQBo8XdLDQNybfLQc9I8hqSZdjA/Ur3zW/io=",
+        "lastModified": 1720977633,
+        "narHash": "sha256-if0qaFmAe8X01NsVRK5e9Asg9mEWVkHrA9WuqM5jB70=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "19116ccf234e32acf133863d430506da68008550",
+        "rev": "0af9d835c27984b3265145f8e3cbc6c153479196",
         "type": "github"
       },
       "original": {
@@ -1736,11 +1737,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1720921032,
-        "narHash": "sha256-xgZP8OzFUM7bN/efVcCdraC/8liml+zTOFdJX05g1MM=",
+        "lastModified": 1721006769,
+        "narHash": "sha256-q1g6a2ae2TktbwEqgciyvm45Bi40mbKaXx/8L3E9syo=",
         "owner": "NotAShelf",
         "repo": "nyxpkgs",
-        "rev": "d25f57f9a8495f076bc0d5522b46ad0e706d88c7",
+        "rev": "a6e2066df04fe3ab9bfe13eaa56c3af8130f00d3",
         "type": "github"
       },
       "original": {
@@ -2434,6 +2435,22 @@
       "original": {
         "owner": "mvllow",
         "repo": "modes.nvim",
+        "type": "github"
+      }
+    },
+    "plugin-neo-tree-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713050882,
+        "narHash": "sha256-cZwOVpdMT0NCtp6Ha592QA2RzKVS6LhXXcjfDBCQ+0k=",
+        "owner": "nvim-neo-tree",
+        "repo": "neo-tree.nvim",
+        "rev": "22e566aeb075c94f670f34077e05ba95190dfb4a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neo-tree",
+        "repo": "neo-tree.nvim",
         "type": "github"
       }
     },
@@ -3440,11 +3457,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720923816,
-        "narHash": "sha256-GrDL1nFYZrB/+Ah1hNoaNFfduB1agpfqL9QyEl12UOU=",
+        "lastModified": 1721010111,
+        "narHash": "sha256-GuPw2xhJZ+eszIJFu7z7AtqUmirSWPHpxuCpG6dSOic=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "fb8c8be0313f0e6385b3d70151a04ea1d71e4b68",
+        "rev": "3ef018b6d0f62eb59580a8e9fe141e37bf1d972d",
         "type": "github"
       },
       "original": {
