@@ -26,8 +26,14 @@ in {
 
     # https://docs.hetzner.com/cloud/networks/faq/#are-any-ip-addresses-reserved
     networking = {
-      defaultGateway.address = "172.31.1.1";
-      defaultGateway6.address = "fe80::1";
+      defaultGateway = {
+        interface = "ens3";
+        address = "172.31.1.1";
+      };
+      defaultGateway6 = {
+        interface = "ens3";
+        address = "fe80::1";
+      };
     };
   };
 }
