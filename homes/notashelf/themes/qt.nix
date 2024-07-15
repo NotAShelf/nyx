@@ -4,16 +4,12 @@
   lib,
   ...
 }: let
-  inherit (builtins) elem concatStringsSep;
+  inherit (builtins) concatStringsSep;
   inherit (lib.modules) mkIf mkMerge;
 
-  dev = osConfig.modules.device;
-  sys = osConfig.modules.system;
   cfg = osConfig.modules.style;
-
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (elem dev.type acceptedTypes && sys.video.enable) {
+  config = mkIf cfg.qt.enable {
     qt = {
       enable = true;
       platformTheme = {
@@ -40,6 +36,7 @@ in {
 
             # Some KDE applications such as Dolphin try to fall back to Breeze
             # theme icons. Lets make sure they're also found.
+            libsForQt5.breeze-qt5
             kdePackages.breeze-icons
           ]
 
