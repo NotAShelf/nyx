@@ -77,8 +77,8 @@ in {
           ${toString themePath} set by the GTK module does not exist!
 
           To suppress this message, make sure that
-          {option}`config.modules.style.gtk.theme.package contains
-          the path {path}`/${cfg.theme.name}`
+          `config.modules.style.gtk.theme.package` contains
+          the path `${cfg.theme.name}`
         '';
       })
     ];
