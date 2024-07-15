@@ -17,23 +17,26 @@ in {
       description = ''
         The canonical hostname of the machine.
 
-        Is usually used to identify - i.e name machines internally
+        Is usually used to identify, i.e., name machines internally
         or on the same Headscale network. This option must be declared
-        in `hosts.nix` alongside host system.
+        in {file}`hosts.nix` alongside host system.
       '';
     };
 
     system = mkOption {
       type = str;
-      default = pkgs.stdenv.hostPlatform;
+      default = pkgs.stdenv.system;
       readOnly = true;
       description = ''
         The architecture of the machine.
+
+        By default, this is is an alias for {option}`pkgs.stdenv.system` and
+        {option}`nixpkgs.hostPlatform` in a top-level configuration.
       '';
     };
 
     nodeAddress = mkOption {
-      type = nullOr (strMatching "^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$");
+      type = nullOr (strMatching "^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$"); # :D?
       default = null;
       readOnly = true;
       description = ''
@@ -49,6 +52,7 @@ in {
       type = bool;
       # TODO: there must be a better way to do this
       default = with env.desktops; (sway.enable || hyprland.enable);
+      defaultText = "This will default to true if a Wayland compositor has been enabled";
       description = ''
         Whether to enable Wayland exclusive modules, this contains a wariety
         of packages, modules, overlays, XDG portals and so on.
