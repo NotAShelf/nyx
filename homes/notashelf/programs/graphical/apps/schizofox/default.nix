@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  inherit (builtins) foldl';
+  inherit (builtins) listToAttrs;
   inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
@@ -59,6 +59,11 @@ in {
             URL = "https://noogle.dev";
             Placement = "toolbar";
           }
+          {
+            Title = "Nixpkgs Manual";
+            URL = "https://nixos.org/manual/nixpkgs/stable";
+            Placement = "toolbar";
+          }
         ];
       };
 
@@ -69,7 +74,6 @@ in {
         enableDefaultExtensions = true;
         enableExtraExtensions = true;
         extraExtensions = let
-          mkUrl = name: "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi";
           extensions = [
             {
               id = "1018e4d6-728f-4b20-ad56-37578a4de76";
@@ -116,8 +120,18 @@ in {
               name = "dont-fuck-with-paste";
             }
           ];
+
+          mappedExtensions =
+            map (extension: {
+              name = extension.id;
+              value = {
+                # installation_mode = "force_installed";
+                install_url = "https://addons.mozilla.org/firefox/downloads/latest/${extension.name}/latest.xpi";
+              };
+            })
+            extensions;
         in
-          foldl' (acc: ext: acc // {ext.id = {install_url = mkUrl ext.name;};}) {} extensions;
+          listToAttrs mappedExtensions;
       };
     };
   };
