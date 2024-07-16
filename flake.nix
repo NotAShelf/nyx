@@ -224,9 +224,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Spicetify for theming spotify
+    # Nix flake for easy Spicetify configuration.
+    # Includes themes, apps and more.
     spicetify = {
-      url = "github:the-argus/spicetify-nix";
+      url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
