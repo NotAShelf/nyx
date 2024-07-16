@@ -14,7 +14,7 @@ will recommend, however, a bunch of helpful [resources] to begin with.
 > [!TIP]
 > The [NixOS manual] should be your holy book at all times. [Nixpkgs manual]
 > will answer your questions on concepts you will become familiar down the line.
-> Additionally, [viperMl's blog] can shed some light on workflows with Nix and
+> Additionally, [@viperML's blog] can shed some light on workflows with Nix and
 > [interactive pages] will allow you to search obscure library functions,
 > options or packages.
 
