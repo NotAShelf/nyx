@@ -83,6 +83,9 @@
       # This is kinda WIP, and is not used anywhere yet. Could be omitted if desired.
       namespacing = callLibs ./namespacing.nix;
 
+      # Helpers for networking operations.
+      networking = callLibs ./networking.nix;
+
       # Utilities for working with system secrets
       secrets = callLibs ./secrets.nix;
 
@@ -120,6 +123,7 @@
     inherit (self.extendedLib.misc) filterNixFiles importNixFiles boolToNum fetchKeys containsStrings indexOf intListToStringList;
     inherit (self.extendedLib.modules) mkService mkModuleTree mkModuleTree';
     inherit (self.extendedLib.namespacing) makeSocketNsPhysical makeServiceNsPhysical unRestrictNamespaces;
+    inherit (self.extendedLib.networking) isValidIPv4;
     inherit (self.extendedLib.ssh) mkPubkeyFor;
     inherit (self.extendedLib.secrets) mkAgenixSecret;
     inherit (self.extendedLib.systemd) hardenService mkGraphicalService mkHyprlandService;
@@ -128,8 +132,7 @@
   };
 
   # Merge layers of libraries into one as a subject of convenience
-  # and easy access. This is a bit of a hack, but it works as
-  # intended.
+  # and easy access.
   extensions = lib.composeManyExtensions [
     (_: _: inputs.nixpkgs.lib)
     (_: _: inputs.flake-parts.lib)
