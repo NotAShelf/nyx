@@ -1,20 +1,27 @@
-# always use LF line endings so that if a repo is accessed
-# in Unix via a file share from Windows, the scripts will work
-**/*.sh text eol=lf
+# Always use LF line endings so that if a repo is accessed
+# in Unix via a file share from Windows, the scripts will
+# work as expected.
+*.sh text eol=lf
 
-# try to get markdown files to be treated as markdown
-# by linguist - ** prefix is for all subdirectories
-**/*.md linguist-detectable
-**/*.md linguist-language=Markdown
+# Don't diff churn.
+*.envrc
+*.git-blame-ignore-revs
+*.lock -diff
+*LICENSE -diff
+
+# Try to get markdown files to be treated as markdown
+# by linguist - ** prefix is for all subdirectories.
+*.md linguist-detectable
+*.md linguist-language=Markdown
 
 # Age encrypted secrets should be treated as binaries
 # as a layer of obscurity. Though, this is not at all
 # a guarantee of any security.
-**/*.age binary
-**/*.age linguist-detectable=false
-**/*.age linguist-documentation=false
+*.age binary
+*.age linguist-detectable=false
+*.age linguist-documentation=false
 
-# luacheckrc is lua, lets treat it as such
+# luacheckrc is lua, tell Git to treat it as such.
 .luacheckrc linguist-detectable
 .luacheckrc linguist-language=Lua
 
