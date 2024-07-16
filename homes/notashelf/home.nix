@@ -28,19 +28,6 @@
       stateVersion = "23.05";
     };
 
-    manual = {
-      # Try to save some space by not installing variants of the home-manager
-      # manual, which I don't use at all. Unlike what the name implies, this
-      # section is for home-manager related manpages only, and does not affect
-      # whether or not manpages of actual packages will be installed.
-      manpages.enable = false;
-      html.enable = false;
-      json.enable = false;
-    };
-
-    # let HM manage itself when in standalone mode
-    programs.home-manager.enable = true;
-
     # reload system units when changing configs
     systemd.user.startServices = "sd-switch"; # or "legacy" if "sd-switch" breaks again
   };
