@@ -7,20 +7,22 @@
   kernelPatches,
   # Args to be passed to the kernel builder
   hostname ? "",
-  suffix ? "shelf",
+  customSuffix ? "shelf",
   ...
 }: let
   inherit (lib.modules) mkForce mkOverride;
   inherit (lib.kernel) yes no freeform;
   inherit (lib.versions) pad;
 
-  version = "6.9.9";
-  modDirVersion = pad 3 "${version}-${suffix}";
+  version = "6.10.0";
+  suffix = "xanmod1";
+
+  pname = "linux-xanmod";
+  modDirVersion = pad 3 "${version}-${customSuffix}";
 
   xanmod_custom =
     (buildLinux {
-      pname = "linux-xanmod";
-      inherit version suffix modDirVersion;
+      inherit pname version modDirVersion;
 
       stdenv = gccStdenv;
 
@@ -28,7 +30,7 @@
         owner = "xanmod";
         repo = "linux";
         rev = "refs/tags/${version}-${suffix}";
-        hash = "sha256-ZEU1RIgJ0ckyITFWZndEzXYwnTF39OviLxL9S5dEea4=";
+        hash = "sha256-zsBSG8YFxW4kKWRVtdG6M87FHJJ/8qlmq/qWAGYeieg=";
       };
 
       # Kernel derivations in Nixpkgs apply a set of patches to the kernel
@@ -44,12 +46,18 @@
 
       ignoreConfigErrors = true;
 
+      # This is true by default. I need to figure out what this
+      # *really* entails and then un-set it to disable unnecessary
+      # preset configurations.
+      enableCommonConfig = true;
+
       # after booting to the new kernel
       # use zcat /proc/config.gz | grep -i "<value>"
       # to check if the kernel options are set correctly
       # Do note that values set in config/*.nix will override
       # those values in most cases.
       structuredExtraConfig = {
+        ### Xanmod Options
         # CPUFreq governor Performance
         CPU_FREQ_DEFAULT_GOV_PERFORMANCE = mkOverride 60 yes;
         CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = mkOverride 60 no;
@@ -71,14 +79,15 @@
         RCU_BOOST_DELAY = freeform "0";
         RCU_EXP_KTHREAD = yes;
 
+        ### Custom Options
+        DEFAULT_HOSTNAME = freeform "${hostname}";
+
         GCC_PLUGINS = yes;
         BUG_ON_DATA_CORRUPTION = yes;
 
         EXPERT = yes;
         DEBUG_KERNEL = mkForce no;
         WERROR = no;
-
-        DEFAULT_HOSTNAME = freeform "${hostname}";
       };
 
       extraMeta.broken = stdenv.isAarch64;
@@ -90,9 +99,9 @@
         # Without this override, buildLinux forces me to use the value set in
         # localversion which, as you can tell, is xanmod1. Replace it with my
         # own custom suffix to indicate this is a custom build.
-        # And for extra rep.
+        # ...and for bragging rights.
         substituteInPlace localversion \
-          --replace-fail "xanmod1" "${suffix}"
+          --replace-fail "xanmod1" "${customSuffix}"
 
         runHook postPatch
       '';
