@@ -4,15 +4,17 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}: let
+  inherit (lib.modules) mkForce mkOverride;
+in {
   imports = [
     (modulesPath + "/virtualisation/qemu-vm.nix")
   ];
 
   config = {
     modules.device.type = "vm";
-    zramSwap.enable = lib.mkForce false;
-    services.thermald.enable = lib.mkForce false;
+    zramSwap.enable = mkForce false;
+    services.thermald.enable = mkForce false;
 
     boot = {
       initrd = {
@@ -20,7 +22,7 @@
         availableKernelModules = ["bcache"];
       };
 
-      kernelPackages = lib.mkOverride 0 pkgs.linuxPackages_testing;
+      kernelPackages = mkOverride 0 pkgs.linuxPackages_testing;
     };
 
     environment = {
@@ -31,7 +33,7 @@
 
     programs.zsh = {
       enable = true;
-      enableCompletion = true;
+      enableCompletion = mkForce true;
       promptInit = ''
         eval "$(${lib.getExe pkgs.starship} init zsh)"
       '';
