@@ -1,11 +1,14 @@
 {
   config,
   pkgs,
+  lib,
   ...
-}: {
+}: let
+  inherit (lib.modules) mkDefault;
+in {
   nix = {
     package = pkgs.nixVersions.latest;
-    channel.enable = false;
+    channel.enable = false; # locks us out of lookup paths such as <nixpkgs>
     nixPath = ["nixpkgs=${config.nix.registry.nixpkgs.to.path}"];
 
     settings = {
@@ -18,8 +21,16 @@
       accept-flake-config = false;
       auto-optimise-store = false;
 
+      # Never run out of disk space. Though the installer is generally
+      # designed to be in-memory only, so is this necessary?
+      max-free = mkDefault (3000 * 1024 * 1024);
+      min-free = mkDefault (512 * 1024 * 1024);
+
       # Disable built-in registry
       flake-registry = "";
+
+      # Fallback quickly if substituters are not available.
+      nix.settings.connect-timeout = 5;
 
       # Make building installed systems faster
       substituters = [
