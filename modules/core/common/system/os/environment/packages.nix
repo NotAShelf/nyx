@@ -18,13 +18,12 @@
     # this should generally include tools used for debugging
     # or system administration
     systemPackages = with pkgs; [
-      git
       curl
       wget
-      pciutils
-      lshw
       rsync
-      bind.dnsutils
+      lshw
+      pciutils
+      dnsutils
     ];
   };
 }
