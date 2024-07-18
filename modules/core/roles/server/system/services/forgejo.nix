@@ -10,7 +10,7 @@
   domain = "git.notashelf.dev";
 
   dataDir = "/srv/storage/forgejo";
-  dumpDir = "/stv/storage/forgejo-dump";
+  dumpDir = "/srv/storage/forgejo-dump";
 
   inherit (cfg.forgejo.settings) port;
 in {
