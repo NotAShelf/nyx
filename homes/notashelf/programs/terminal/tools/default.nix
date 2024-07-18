@@ -28,7 +28,6 @@
     ./tealdeer.nix
     ./thefuck.nix
     ./transient-services.nix
-    ./xdg.nix
     ./zoxide.nix
   ];
 }

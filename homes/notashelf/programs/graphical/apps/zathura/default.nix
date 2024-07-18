@@ -11,9 +11,21 @@
   prg = sys.programs;
 in {
   config = mkIf prg.zathura.enable {
-    xdg.configFile."zathura/catppuccin-mocha".source = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha";
-      hash = "sha256-/HXecio3My2eXTpY7JoYiN9mnXsps4PAThDPs4OCsAk=";
+    xdg = {
+      desktopEntries.zathura = {
+        name = "zathura";
+        type = "Application";
+        comment = "A minimalistic PDF viewer";
+        categories = ["Office" "Viewer"];
+        exec = "zathura --fork %f";
+        terminal = false;
+        mimeType = ["application/pdf"];
+      };
+
+      configFile."zathura/catppuccin-mocha".source = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha";
+        hash = "sha256-/HXecio3My2eXTpY7JoYiN9mnXsps4PAThDPs4OCsAk=";
+      };
     };
 
     programs.zathura = {
