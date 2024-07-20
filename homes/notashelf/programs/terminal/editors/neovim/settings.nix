@@ -65,6 +65,11 @@ in {
           # wrapper. this is recursively read from the lua
           # directory, so we do not need to use require
           luaConfigRC = let
+            spellFile = path {
+              name = "nvf-en.utf-8.add";
+              path = ./runtime/spell/en.utf-8.add;
+            };
+
             # get the name of each lua file in the lua directory, where setting files reside
             # and import tham recursively
             configPaths = filter (hasSuffix ".lua") (map toString (listFilesRecursive ./lua));
@@ -77,7 +82,7 @@ in {
                 ${fileContents file}
               '');
           in
-            luaConfig // {spell = "vim.o.spellfile = ${toString ./spell/runtime/en.utf-8.add}";};
+            luaConfig // {spell = "vim.o.spellfile = \"${spellFile}\"";};
         };
       };
     };
