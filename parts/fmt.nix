@@ -42,7 +42,8 @@
               };
             });
           in
-            # Write a script that calls for yamlfmt
+            # Write a script that calls for yamlfmt with the custom config
+            # written to the file in store.
             pkgs.writeShellScriptBin "yamlfmt-custom-config" ''
               ${lib.getExe pkgs.yamlfmt} -conf ${config.outPath}
             '';
