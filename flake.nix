@@ -87,12 +87,6 @@
       flake = false;
     };
 
-    # Project shells
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs-small";
-    };
-
     # I *dare you* to guess what this does
     # come on, try
     git-hooks = {
