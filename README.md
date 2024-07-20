@@ -201,7 +201,7 @@ make sense of certain decisions that are made.
 
 [hosts directory]: hosts/README.md
 
-> [!INFO]
+> [!NOTE]
 > Notes on host-specific design rules and considerations have been moved
 > to the [hosts directory].
 
