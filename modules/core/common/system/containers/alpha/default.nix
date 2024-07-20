@@ -4,11 +4,10 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
-
-  hostConfig = config;
+  inherit (builtins) elem;
+  inherit (lib.modules) mkIf;
 in {
-  config = mkIf (builtins.elem "alpha" config.modules.system.containers.enabledContainers) {
+  config = mkIf (elem "alpha" config.modules.system.containers.enabledContainers) {
     systemd = {
       services."container@alpha".after = ["container@firewall.service"];
       tmpfiles.rules = [

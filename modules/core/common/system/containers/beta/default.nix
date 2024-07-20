@@ -1,12 +1,13 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (builtins) elem;
+  inherit (lib.modules) mkIf;
 in {
-  config = mkIf (builtins.elem "beta" config.modules.system.containers.enabledContainers) {
+  config = mkIf (elem "beta" config.modules.system.containers.enabledContainers) {
     containers."beta" = {
       autoStart = false;
       enableTun = true;
