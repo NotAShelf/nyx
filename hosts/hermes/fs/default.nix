@@ -5,7 +5,7 @@
     "/" = {
       device = "/dev/disk/by-uuid/c9527aaf-947d-4dc0-88ab-3af438e3f5b1";
       fsType = "btrfs";
-      options = ["subvol=root" "compress=zstd" "noatime"];
+      options = ["subvol=root" "compress=zstd" "noatime" "x-systemd.device-timeout=0"];
     };
 
     "/boot" = {
