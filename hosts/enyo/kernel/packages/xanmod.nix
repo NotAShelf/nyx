@@ -92,20 +92,22 @@
 
       extraMeta.broken = stdenv.isAarch64;
     })
-    .overrideAttrs {
-      patchPhase = ''
-        runHook prePatch
+    .overrideAttrs (oa: {
+      patchPhase =
+        (oa.patchPhase or "")
+        + ''
+          runHook prePatch
 
-        # Without this override, buildLinux forces me to use the value set in
-        # localversion which, as you can tell, is xanmod1. Replace it with my
-        # own custom suffix to indicate this is a custom build.
-        # ...and for bragging rights.
-        substituteInPlace localversion \
-          --replace-fail "xanmod1" "${customSuffix}"
+          # Without this override, buildLinux forces me to use the value set in
+          # localversion which, as you can tell, is xanmod1. Replace it with my
+          # own custom suffix to indicate this is a custom build.
+          # ...and for bragging rights.
+          substituteInPlace localversion \
+            --replace-fail "xanmod1" "${customSuffix}"
 
-        runHook postPatch
-      '';
-    };
+          runHook postPatch
+        '';
+    });
 in {
   inherit xanmod_custom;
 }
