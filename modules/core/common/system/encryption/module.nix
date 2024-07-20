@@ -3,23 +3,27 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 
   cfg = config.modules.system.encryption;
 in {
   config = mkIf cfg.enable {
     boot = {
-      # mildly improves performance for the disk encryption
+      # Mildly improves performance for the disk encryption
       initrd.availableKernelModules = [
         "aesni_intel"
         "cryptd"
         "usb_storage"
       ];
 
+      # <https://wiki.archlinux.org/title/Dm-crypt/System_configuration#Timeout>
       kernelParams = [
         # Disable password timeout
         "luks.options=timeout=0"
         "rd.luks.options=timeout=0"
+
+        # Assume root device is already there, do not wait
+        # for it to appear.
         "rootflags=x-systemd.device-timeout=0"
       ];
     };
