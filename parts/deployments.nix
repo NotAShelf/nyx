@@ -20,8 +20,8 @@
     # currently only a single profile system
     profilesOrder = ["system"];
     profiles.system = {
-      sshUser = "root";
-      user = "root";
+      sshUser = "notashelf";
+      user = "notashelf";
       path = deployLib.activate.nixos cfg;
     };
   };
