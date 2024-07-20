@@ -8,7 +8,7 @@
   inherit (lib.strings) hasSuffix fileContents;
   inherit (lib.attrsets) genAttrs;
 
-  inherit (lib.nvim.dag) entryBefore entryAnywhere;
+  inherit (lib.nvim.dag) entryBefore;
 
   mkRuntimeDir = name: let
     finalPath = ./runtime + /${name};
@@ -59,14 +59,6 @@ in {
             (mkRuntimeDir "spell")
           ];
 
-          # while I should be doing this in luaConfigRC below
-          # I have come to realise that spellfile contents are
-          # actually **not** loaded when luaConfigRC is used.
-          # as spellfile is a vim thing, this should be fine
-          configRC.spellfile = entryAnywhere ''
-            set spellfile=${toString ./spell/runtime/en.utf-8.add} " toString sanitizes the path
-          '';
-
           # additional lua configuration that I can append
           # or, to be more precise, randomly inject into
           # the lua configuration of my Neovim configuration
@@ -82,10 +74,10 @@ in {
             # which is expected by nvf's modified DAG library
             luaConfig = genAttrs configPaths (file:
               entryBefore ["luaScript"] ''
-                ${fileContents "${file}"}
+                ${fileContents file}
               '');
           in
-            luaConfig;
+            luaConfig // {spell = "vim.o.spellfile = ${toString ./spell/runtime/en.utf-8.add}";};
         };
       };
     };
