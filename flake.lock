@@ -762,11 +762,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1721584968,
-        "narHash": "sha256-7AyJgc8lS4O9PLNZdSs3+QdLPNznnu6ePk482GCNrzU=",
+        "lastModified": 1721598736,
+        "narHash": "sha256-mNqXUKZA8WrCcFAUp+EgHJFmRi9ZYevW6Jeczuq0DUs=",
         "ref": "refs/heads/main",
-        "rev": "cbaac6deafb857662d630efbca8b0ebac0f11b44",
-        "revCount": 4946,
+        "rev": "672bf1f8670b200da57e2f6de4e9ed7efd8c98fc",
+        "revCount": 4949,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -1157,9 +1157,6 @@
           "flake-compat"
         ],
         "flake-parts": "flake-parts_3",
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -1167,11 +1164,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1721501207,
-        "narHash": "sha256-umzgs8hXYUyQe6wJm7AnJ3kx8M/h0/WXR2OemAZs3Qs=",
+        "lastModified": 1721581642,
+        "narHash": "sha256-Bd9ujkwkxwAYCnYKEKeY1fjsvD4vyiFjFS20Lxr/FD4=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "60e4578feca3d894f1474a9b08780c9a5433ad08",
+        "rev": "f3b4ade14392861388265e949b7007a8b62e21dc",
         "type": "github"
       },
       "original": {
@@ -1467,11 +1464,11 @@
     },
     "nixpkgs-small": {
       "locked": {
-        "lastModified": 1721524691,
-        "narHash": "sha256-aE4vMfHfpX6KP9VWqVdXtoDUlvFR34wEIjqsqnKrVdY=",
+        "lastModified": 1721571961,
+        "narHash": "sha256-jfF4gpRUpTBY2OxDB0FRySsgNGOiuDckEtu7YDQom3Y=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c9ed026def59fe978203a2b28eccdbaa7e5fadc9",
+        "rev": "4cc8b29327bed3d52b40041f810f49734298af46",
         "type": "github"
       },
       "original": {
@@ -1813,11 +1810,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721598025,
-        "narHash": "sha256-E2HiZ5uTBD6Bvz8UbxCCjXV6kmv5vEN9LQf3yaCtLO4=",
+        "lastModified": 1721599596,
+        "narHash": "sha256-BloQi7znFga8xuYWGJ5NoXdvByvJ83cl0lntGgQkx58=",
         "owner": "NotAShelf",
         "repo": "nyxexprs",
-        "rev": "0e360fa999e682780b7c13d004262e4a2fe20f28",
+        "rev": "c8caa4bb87826fb42f00b26a9adbf8f6530ee380",
         "type": "github"
       },
       "original": {
