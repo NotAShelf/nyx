@@ -31,6 +31,7 @@ in {
     nextcloud.enable = mkEnableOption "Nextcloud cloud storage client";
     rnnoise.enable = mkEnableOption "RNNoise noise suppression plugin";
     noisetorch.enable = mkEnableOption "NoiseTorch noise suppression plugin";
+    dolphin.enable = mkEnableOption "Dolphin file manager";
 
     libreoffice = {
       enable = mkEnableOption "LibreOffice suite";

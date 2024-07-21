@@ -35,8 +35,6 @@ in {
       })
 
       # plasma packages
-      kdePackages.dolphin
-      kdePackages.dolphin-plugins
       kdePackages.ark
       kdePackages.kio
       kdePackages.kio-extras

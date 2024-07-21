@@ -5,6 +5,7 @@
     useHomeManager = true;
 
     programs = {
+      dolphin.enable = true;
       media.mpv.enable = true;
 
       launchers = {

@@ -1,0 +1,20 @@
+MenuBar=Disabled
+
+[General]
+BrowseThroughArchives=true
+OpenExternallyCalledFolderInNewTab=false
+RememberOpenedTabs=false
+ShowFullPath=true
+ShowSelectionToggle=false
+ShowSpaceInfo=false
+ShowToolTips=true
+ShowZoomSlider=false
+Version=202
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
