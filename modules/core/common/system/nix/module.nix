@@ -168,7 +168,7 @@ in {
       # Ensures that the result of Nix expressions is fully determined by
       # explicitly declared inputs, and not influenced by external state.
       # In other words, fully stateless evaluation by Nix at all times.
-      pure-eval = true;
+      pure-eval = false; # pain
 
       # Don't warn me that my git tree is dirty, I know.
       warn-dirty = false;
