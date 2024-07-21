@@ -13,15 +13,15 @@ in {
     qt = {
       enable = true;
       platformTheme = {
-        # Sets QT_QPA_PLATFORMTHEME, takes "gtk", "gtk3",  "adwaita", "kde" and a few others.
+        # Sets QT_QPA_PLATFORMTHEME, takes "gtk", "gtk3", "adwaita", "kde" and a few others.
         name = mkIf cfg.forceGtk "gtk3";
-        package = null; # libraries associated with the platformtheme, we add those manually
+        package = []; # libraries associated with the platformtheme, we add those manually
       };
 
       style = {
         # Sets QT_STYLE_OVERRIDE, takes "gtk2, "adwaita" (and variants), "breeze", "kvantum" and a few others."
         name = mkIf cfg.useKvantum "kvantum";
-        package = null; # same as above
+        package = []; # same as above
       };
     };
 
@@ -30,7 +30,13 @@ in {
         mkMerge [
           [
             # Libraries and programs to ensure
-            # that QT applications load witnout issues, e.g. missing libs.
+            # that QT applications load without issues, e.g. missing libs.
+            libsForQt5.qt5.qtwayland # qt5
+            kdePackages.qtwayland # qt6
+            qt6.qtwayland
+            kdePackages.qqc2-desktop-style
+
+            # qt5ct/qt6ct for configuring QT apps imperatively
             libsForQt5.qt5ct
             kdePackages.qt6ct
 
@@ -38,6 +44,7 @@ in {
             # theme icons. Lets make sure they're also found.
             libsForQt5.breeze-qt5
             kdePackages.breeze-icons
+            qt6.qtsvg # needed to load breeze icons
           ]
 
           (mkIf cfg.forceGtk [
@@ -72,25 +79,28 @@ in {
         # Do remain backwards compatible with QT5 if possible.
         DISABLE_QT5_COMPAT = "0";
 
-        # Tell Calibre to use the dark theme, because the light one hurts my eyes.
+        # Tell Calibre to use the dark theme, because the
+        # default light theme hurts my eyes.
         CALIBRE_USE_DARK_PALETTE = "1";
       };
     };
 
     # Write configuration and theme packages required KDE and Kvantum respectively.
     # Those tools aren't always used, but they are useful when the app looks for one
-    # of those engines before GTK, depsite our attempts to override.
+    # of those engines before GTK, despite our attempts to override.
     xdg.configFile = {
       # Write ~/.config/kdeglobals based on the kdeglobals file the user has specified.
       "kdeglobals".source = cfg.qt.kdeglobals.colors;
 
       # Write kvantum configuration, and the theme files required by the Catppuccin theme.
-      "Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
-        General.theme = "Catppuccin";
-        Applications.Catppuccin =
-          concatStringsSep ", "
-          ["qt5ct" "org.kde.dolphin" "org.kde.kalendar" "org.qbittorrent.qBittorrent" "hyprland-share-picker" "dolphin-emu" "Nextcloud" "nextcloud" "cantata" "org.kde.kid3-qt"];
-      };
+      "Kvantum/kvantum.kvconfig".source = let
+        themeName = "Catppuccin";
+        themedApps = ["qt5ct" "org.kde.dolphin" "org.kde.kalendar" "org.qbittorrent.qBittorrent" "hyprland-share-picker" "dolphin-emu" "Nextcloud" "nextcloud" "cantata" "org.kde.kid3-qt"];
+      in
+        (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
+          General.theme = themeName;
+          Applications."${themeName}" = concatStringsSep ", " themedApps;
+        };
 
       "Kvantum/Catppuccin/Catppuccin.kvconfig".source = cfg.qt.kvantum.kvconfig;
       "Kvantum/Catppuccin/Catppuccin.svg".source = cfg.qt.kvantum.svg;
