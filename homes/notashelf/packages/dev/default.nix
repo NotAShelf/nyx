@@ -8,9 +8,9 @@
   inherit (osConfig) modules;
 
   env = modules.usrEnv;
-  prg = env.programs;
+  pkg = env.packages;
 in {
-  config = mkIf prg.dev.enable {
+  config = mkIf pkg.dev.enable {
     home.packages = [
       (pkgs.writeShellApplication {
         name = "pdflatexmk";

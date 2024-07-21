@@ -1,17 +1,16 @@
 {
   osConfig,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
-  inherit (builtins) elem;
   inherit (lib.modules) mkIf;
-  inherit (osConfig) modules meta;
+  inherit (osConfig) modules;
 
-  dev = modules.device;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  env = modules.usrEnv;
+  pkg = env.packages;
 in {
-  config = mkIf ((elem dev.type acceptedTypes) && meta.isWayland) {
+  config = mkIf (pkg.cli.enable && pkg.cli.wayland.enable) {
     home.packages = with pkgs; [
       # CLI
       grim

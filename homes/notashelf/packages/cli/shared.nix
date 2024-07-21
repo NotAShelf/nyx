@@ -5,13 +5,16 @@
   lib,
   ...
 }: let
+  inherit (lib) isAcceptedDevice;
   inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
   env = modules.usrEnv;
-  prg = env.programs;
+  pkg = env.packages;
+
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf prg.cli.enable {
+  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && pkg.cli.enable) {
     home.packages = with pkgs; [
       # packages from inputs
       inputs'.agenix.packages.default

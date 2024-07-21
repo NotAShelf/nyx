@@ -6,7 +6,7 @@
   inherit (osConfig) modules;
 
   gitPackage = pkgs.gitFull;
-  cfg = modules.system.programs.git;
+  cfg = modules.usrEnv.programs.git;
 in {
   imports = [
     ./aliases.nix

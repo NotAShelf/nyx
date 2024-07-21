@@ -5,12 +5,12 @@
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (osConfig) modules meta;
+  inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  pkg = env.packages;
 in {
-  config = mkIf (prg.gui.enable && (sys.video.enable && meta.isWayland)) {
+  config = mkIf (pkg.gui.enable && pkg.cli.wayland.enable) {
     home.packages = with pkgs; [
       wlogout
       swappy

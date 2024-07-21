@@ -6,14 +6,17 @@
   ...
 }: let
   inherit (lib.modules) mkForce;
-  sys = osConfig.modules.system;
+  inherit (osConfig) modules;
+
+  env = modules.usrEnv;
+  sys = modules.system;
 
   pinentryPkg =
     if sys.video.enable
     then pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
     else pkgs.pinentry-curses;
 
-  key = sys.programs.git.signingKey;
+  key = env.programs.git.signingKey;
 in {
   services = {
     gpg-agent = {

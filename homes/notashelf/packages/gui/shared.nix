@@ -7,10 +7,10 @@
   inherit (lib.modules) mkIf;
   inherit (osConfig) modules;
 
-  sys = modules.system;
-  prg = sys.programs;
+  env = modules.usrEnv;
+  pkg = env.packages;
 in {
-  config = mkIf (prg.gui.enable && sys.video.enable) {
+  config = mkIf pkg.gui.enable {
     home.packages = with pkgs; [
       nextcloud-client
       easyeffects
@@ -24,7 +24,7 @@ in {
 
       # Obsidian has a pandoc plugin that allows us to render and export
       # alternative image format, but as the name indicates the plugin
-      # requires `pandoc` binary to be accessiblee. Join pandoc derivation
+      # requires `pandoc` binary to be accessible. Join pandoc derivation
       # to Obsidian to make it available to satisfy the dependency.
       (symlinkJoin {
         name = "Obsidian";

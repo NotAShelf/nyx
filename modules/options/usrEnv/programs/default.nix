@@ -5,8 +5,7 @@
   ...
 }: let
   inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.attrsets) attrsOf;
-  inherit (lib.types) attrs bool str enum listOf package;
+  inherit (lib.types) attrs attrsOf bool str enum listOf package;
 
   inherit (config) modules;
   prg = modules.usrEnv.programs;
