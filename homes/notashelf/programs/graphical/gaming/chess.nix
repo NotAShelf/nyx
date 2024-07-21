@@ -14,10 +14,8 @@ in {
     home.packages = with pkgs; [
       kdePackages.knights
       fairymax
-      gnome.gnome-chess
       stockfish
       fishnet
-      uchess
     ];
   };
 }
