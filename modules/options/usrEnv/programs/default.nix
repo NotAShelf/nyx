@@ -231,7 +231,7 @@ in {
     default = {
       terminal = mkOption {
         type = enum ["foot" "kitty" "wezterm"];
-        default = "kitty";
+        default = "foot";
       };
 
       fileManager = mkOption {
@@ -250,7 +250,7 @@ in {
       };
 
       launcher = mkOption {
-        type = enum ["rofi" "wofi" "anyrun"];
+        type = enum ["rofi" "wofi" "tofi" "anyrun"];
         default = "rofi";
       };
     };
