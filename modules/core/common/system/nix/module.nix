@@ -29,7 +29,7 @@ in {
   # convenience. If you are using a flake, you should be using the flake's outputs.
   environment.etc = let
     inherit (config.nix) registry;
-    commonPaths = ["home-manager" "nixpkgs" "nyxpkgs" "self"];
+    commonPaths = ["home-manager" "nixpkgs" "nyxpkgs"];
   in
     pipe registry [
       (filterAttrs (name: _: (elem name commonPaths)))
@@ -75,8 +75,8 @@ in {
       persistent = false; # don't try to catch up on missed GC runs
     };
 
-    # automatically optimize nix store my removing hard links
-    # do it after the gc
+    # Automatically optimize nix store my removing hard links
+    # do it after the gc.
     optimise = {
       automatic = true;
       dates = ["04:00"];
@@ -88,7 +88,11 @@ in {
       # manually, as Nix won't do it for us.
       use-xdg-base-directories = true;
 
-      # Disallow internal flake registry by setting it to an empty JSON file
+      # Allow usage of registry lookups (e.g. flake:*) but
+      # disallow internal flake registry by setting it to
+      # to a minimal JSON file with no flakes and a version
+      # identifier.
+      use-registries = true;
       flake-registry = pkgs.writeText "flakes-empty.json" (builtins.toJSON {
         flakes = [];
         version = 2;
@@ -151,12 +155,20 @@ in {
         "ca-derivations" # content addressed nix
         "auto-allocate-uids" # allow nix to automatically pick UIDs, rather than creating nixbld* user accounts
         "cgroups" # allow nix to execute builds inside cgroups
+        "repl-flake" # allow passing installables to nix repl
+        "no-url-literals" # disallow deprecated url-literals, i.e., URLs without quotation
+        "dynamic-derivations" # allow "text hashing" derivation outputs, so we can build .drv files.
 
         # Those don't actually exist on Lix so they have to be disabled
-        # "configurable-impure-env" # allow impure environments
+        # configurable-impure-env" # allow impure environments
         # "git-hashing" # allow store objects which are hashed via Git's hashing algorithm
         # "verified-fetches" # enable verification of git commit signatures for fetchGit
       ];
+
+      # Ensures that the result of Nix expressions is fully determined by
+      # explicitly declared inputs, and not influenced by external state.
+      # In other words, fully stateless evaluation by Nix at all times.
+      pure-eval = true;
 
       # Don't warn me that my git tree is dirty, I know.
       warn-dirty = false;
@@ -169,6 +181,7 @@ in {
       # Whether to accept nix configuration from a flake
       # without displaying a Y/N prompt. For those obtuse
       # enough to keep this true, I wish the best of luck.
+      # tl;dr: this is a security vulnerability.
       accept-flake-config = false;
 
       # Whether to execute builds inside cgroups. cgroups are
@@ -177,13 +190,13 @@ in {
       # of a collection of processes."
       # See:
       # <https://en.wikipedia.org/wiki/Cgroups>
-      use-cgroups = true;
+      use-cgroups = pkgs.stdenv.isLinux; # only supported on Linux
 
       # for direnv GC roots
       keep-derivations = true;
       keep-outputs = true;
 
-      # Use binary cache, this is not gentoo
+      # Use binary cache, this is not Gentoo
       # external builders can also pick up those substituters
       builders-use-substitutes = true;
 
