@@ -30,7 +30,7 @@ in {
       flake-registry = "";
 
       # Fallback quickly if substituters are not available.
-      nix.settings.connect-timeout = 5;
+      connect-timeout = 5;
 
       # Make building installed systems faster
       substituters = [
