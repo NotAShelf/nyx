@@ -29,7 +29,7 @@ in {
   # convenience. If you are using a flake, you should be using the flake's outputs.
   environment.etc = let
     inherit (config.nix) registry;
-    commonPaths = ["home-manager" "nixpkgs" "nyxpkgs"];
+    commonPaths = ["home-manager" "nixpkgs" "nyxexprs"];
   in
     pipe registry [
       (filterAttrs (name: _: (elem name commonPaths)))

@@ -21,7 +21,7 @@ in {
     services = {
       mastodon = {
         enable = true;
-        package = inputs'.nyxpkgs.packages.mastodon-bird-ui;
+        package = inputs'.nyxexprs.packages.mastodon-bird-ui;
 
         user = "mastodon";
 

@@ -426,7 +426,7 @@ Projects I have made to use in this repository, or otherwise cool software that
 are used in this repository that I have contributed to, or would like to
 endorse.
 
-- [nyxpkgs](https://github.com/notashelf/nyxpkgs) - my personal package
+- [nyxexprs](https://github.com/notashelf/nyxexprs) - my personal package
   collection
 - [nvf](https://github.com/notashelf/nvf) - highly modular Neovim configuration
   framework for Nix/NixOS

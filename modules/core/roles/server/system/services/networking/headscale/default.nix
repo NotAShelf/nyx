@@ -85,7 +85,7 @@ in {
           # see <https://github.com/gurucomputing/headscale-ui/blob/master/SECURITY.md> before
           # possibly using the web frontend
           "/web" = {
-            root = "${inputs'.nyxpkgs.packages.headscale-ui}/share";
+            root = "${inputs'.nyxexprs.packages.headscale-ui}/share";
           };
         };
 

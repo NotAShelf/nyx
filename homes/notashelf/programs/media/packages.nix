@@ -29,10 +29,9 @@ in {
         kid3
         musikcube
 
-        # get ani-cli and mov-cli from my own derivations
-        # I don't want to wait for nixpkgs
-        inputs'.nyxpkgs.packages.mov-cli
-        inputs'.nyxpkgs.packages.ani-cli
+        # get ani-cli  from my own package collection
+        # I usually don't want to wait for nixpkgs
+        inputs'.nyxexprs.packages.ani-cli
       ]
       ++ cfg.extraPackages;
   };

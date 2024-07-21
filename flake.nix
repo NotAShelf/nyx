@@ -179,11 +179,14 @@
       };
     };
 
-    # Personal package collection for packages that are
-    # not in nixpkgs.
-    nyxpkgs.url = "github:NotAShelf/nyxpkgs";
+    # Personal collection of packages and modules
+    # that are too unstable or too personal for nyxexprs.
+    nyxexprs = {
+      url = "github:NotAShelf/nyxexprs";
+      inputs.systems.follows = "systems";
+    };
 
-    # An extensiblee  neovim configuration wrapper.
+    # An extensible Neovim configuration wrapper.
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs = {

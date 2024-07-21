@@ -14,7 +14,7 @@ in {
     home.packages = with pkgs; [
       # packages from inputs
       inputs'.agenix.packages.default
-      inputs'.nyxpkgs.packages.cloneit
+      inputs'.nyxexprs.packages.cloneit
 
       # CLI packages from nixpkgs
       catimg

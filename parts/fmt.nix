@@ -51,7 +51,7 @@
 
         alejandra = {
           enable = true;
-          package = inputs'.nyxpkgs.packages.alejandra-no-ads;
+          package = inputs'.nyxexprs.packages.alejandra-custom;
         };
 
         shellcheck.enable = true; # cannot be configured, errors on basic bash convention

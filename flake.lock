@@ -1803,23 +1803,26 @@
         "type": "github"
       }
     },
-    "nyxpkgs": {
+    "nyxexprs": {
       "inputs": {
         "flake-compat": "flake-compat_5",
         "flake-parts": "flake-parts_5",
-        "nixpkgs": "nixpkgs_8"
+        "nixpkgs": "nixpkgs_8",
+        "systems": [
+          "systems"
+        ]
       },
       "locked": {
-        "lastModified": 1721525777,
-        "narHash": "sha256-/JtWl4wfRJgUNfyxNhLPkVo6Jbl052PUmKh+F/LC5AQ=",
+        "lastModified": 1721598025,
+        "narHash": "sha256-E2HiZ5uTBD6Bvz8UbxCCjXV6kmv5vEN9LQf3yaCtLO4=",
         "owner": "NotAShelf",
-        "repo": "nyxpkgs",
-        "rev": "50b7f5277529b7f2ac180696d36288aede527cfd",
+        "repo": "nyxexprs",
+        "rev": "0e360fa999e682780b7c13d004262e4a2fe20f28",
         "type": "github"
       },
       "original": {
         "owner": "NotAShelf",
-        "repo": "nyxpkgs",
+        "repo": "nyxexprs",
         "type": "github"
       }
     },
@@ -3486,7 +3489,7 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-small": "nixpkgs-small",
         "nvf": "nvf",
-        "nyxpkgs": "nyxpkgs",
+        "nyxexprs": "nyxexprs",
         "rust-overlay": "rust-overlay_2",
         "schizofox": "schizofox",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
