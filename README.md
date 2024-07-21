@@ -12,9 +12,9 @@
 <div align="center">
   <br/>
   <a href="#preface">Preface</a><br/>
-  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a><br/>
-  <a href="docs/installing.md">Installation</a> | <a href="#cool-resources">Helpful Resources</a><br/>
-  <a href="#license">License</a>
+  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="docs/installing.md">Installation</a> <br/>
+  <a href="#credits--special-thanks-to">Credits</a> | <a href="#license">License</a> <br/>
+  <a href="#cool-resources">Helpful Resources</a>
   <br/>
 </div>
 
