@@ -104,15 +104,6 @@ in {
         default = [];
         description = "A list of extra drivers to enable for printing";
       };
-
-      "3d" = {
-        enable = mkEnableOption "3D printing suite";
-        extraPrograms = mkOption {
-          type = listOf package;
-          default = [];
-          description = "A list of extra programs to enable for 3D printing";
-        };
-      };
     };
   };
 }
