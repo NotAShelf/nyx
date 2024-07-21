@@ -12,10 +12,10 @@
 }: let
   inherit (lib.modules) mkForce mkOverride;
   inherit (lib.kernel) yes no freeform;
-  inherit (lib.versions) pad;
+  inherit (lib.versions) pad majorMinor;
 
   version = "6.10.0";
-  suffix = "xanmod1";
+  vendorSuffix = "xanmod1";
 
   pname = "linux-xanmod";
   modDirVersion = pad 3 "${version}-${customSuffix}";
@@ -29,7 +29,7 @@
       src = fetchFromGitHub {
         owner = "xanmod";
         repo = "linux";
-        rev = "refs/tags/${version}-${suffix}";
+        rev = "refs/tags/${version}-${vendorSuffix}";
         hash = "sha256-zsBSG8YFxW4kKWRVtdG6M87FHJJ/8qlmq/qWAGYeieg=";
       };
 
@@ -90,22 +90,26 @@
         WERROR = no;
       };
 
-      extraMeta.broken = stdenv.isAarch64;
+      extraMeta = {
+        broken = stdenv.isAarch64;
+        branch = majorMinor version;
+        description = ''
+          Custom build of the Xanmod kernel with patches focusing on performance
+          and security.
+        '';
+      };
     })
     .overrideAttrs (oa: {
-      patchPhase =
-        (oa.patchPhase or "")
+      prePatch =
+        (oa.prePatch or "")
         + ''
-          runHook prePatch
-
           # Without this override, buildLinux forces me to use the value set in
           # localversion which, as you can tell, is xanmod1. Replace it with my
           # own custom suffix to indicate this is a custom build.
           # ...and for bragging rights.
+          echo "Replacing localversion with custom suffix"
           substituteInPlace localversion \
             --replace-fail "xanmod1" "${customSuffix}"
-
-          runHook postPatch
         '';
     });
 in {
