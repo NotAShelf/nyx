@@ -12,8 +12,6 @@ in {
   imports = [
     ./fs
     ./modules
-
-    ./system.nix
   ];
 
   config = {
