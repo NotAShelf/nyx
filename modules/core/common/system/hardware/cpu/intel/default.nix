@@ -1,20 +1,21 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (builtins) elem;
+  inherit (lib.modules) mkIf;
 
   dev = config.modules.device;
 in {
-  config = mkIf (builtins.elem dev.cpu.type ["intel" "vm-intel"]) {
+  config = mkIf (elem dev.cpu.type ["intel" "vm-intel"]) {
     hardware.cpu.intel.updateMicrocode = true;
     boot = {
       kernelModules = ["kvm-intel"];
       kernelParams = ["i915.fastboot=1" "enable_gvt=1"];
     };
 
-    environment.systemPackages = with pkgs; [intel-gpu-tools];
+    environment.systemPackages = [pkgs.intel-gpu-tools];
   };
 }
