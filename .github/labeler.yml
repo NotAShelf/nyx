@@ -1,0 +1,21 @@
+module-system:
+  - changed-files:
+      - any-glob-to-any-file: modules/**/*
+docs:
+  - changed-files:
+      - any-glob-to-any-file: docs/*
+flake-packages:
+  - changed-files:
+      - any-glob-to-any-file: parts/pkgs/**/*
+secrets:
+  - changed-files:
+      - any-glob-to-any-file: secrets/**/*
+hosts:
+  - changed-files:
+      - any-glob-to-any-file: hosts/**/*
+treewide:
+  - changed-files:
+      - any-glob-to-any-file: "*"
+CI:
+  - changed-files:
+      - any-glob-to-any-file: .github/workflows/*
