@@ -21,6 +21,10 @@
       # telegram media viewer
       "float, title:^(Media viewer)$"
 
+      # NetworkManager Connection Editor
+      "float, class:nm-connection-editor"
+      "size 700 500,class:nm-connection-editor"
+
       # bitwarden
       "float,class:Bitwarden"
       "size 800 600,class:Bitwarden"
