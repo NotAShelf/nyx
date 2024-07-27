@@ -2,7 +2,7 @@
 
 ## Imports
 
-> Guidelines for importing files within the `hosts` directory
+Guidelines for importing files within the `hosts` directory
 
 - Only importing downwards. This means **no**
   `imports = [ ../../foo/bar/some-module.nix ];` - this is a classic pattern in
@@ -15,8 +15,8 @@
 
 ## Module System
 
-> Guidelines for using the local module system for enabling or disabling
-> services and programs
+Guidelines for using the local module system for enabling or disabling services
+and programs
 
 - Hosts should properly define their type and equipment. This means adequately
   defined `device.type`, `device.cpu` and `device.gpu` at the very least
@@ -26,13 +26,16 @@
     `config.modules.{device,system,usrEnv,theme}` where applicable
   - `default.nix` may not contain anything other than an `imports = [ ... ]`
     importing rest of the files
-- Additional host-specific configurations may either go into `system.nix` (e.g.
+- Additional host-specific configurations may either go into `hosts.nix` (e.g.
   kernel configuration) or have their own file (i.e Wireguard or hardware mount
   configurations) with their own file (i.e `mounts.nix`)
+  - Names of per-host files are arbitrary, but they should remain consistent.
+    For example, two hosts may not have two identical files with different
+    names. (E.g `fs.nix` & `filesystem.nix`)
 
 ## Per-host hardware
 
-> Guidelines for using `hardware-configuration.nix`
+Guidelines for using `hardware-configuration.nix`
 
 Previously I have required `hardware-configuration.nix` to be available (under
 the name `hardware.nix`) for each host. This is no longer a requirement as

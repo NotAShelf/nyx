@@ -3,15 +3,17 @@
   inherit (lib.attrsets) mapAttrs;
 in {
   systemd = let
-    extraConfig = ''
-      DefaultTimeoutStartSec=15s
-      DefaultTimeoutStopSec=15s
-      DefaultTimeoutAbortSec=15s
-      DefaultDeviceTimeoutSec=15s
+    timeoutConfig = ''
+      DefaultTimeoutStartSec=10s
+      DefaultTimeoutStopSec=10s
+      DefaultTimeoutAbortSec=10s
+      DefaultDeviceTimeoutSec=10s
     '';
   in {
-    inherit extraConfig;
-    user = {inherit extraConfig;};
+    # Set the default timeout for starting, stopping, and aborting services to
+    # avoid hanging the system for too long on boot or shutdown.
+    extraConfig = timeoutConfig;
+    user.extraConfig = timeoutConfig;
 
     # Disable all virtual terminals. I usually don't need to switch between
     # TTYs, however, I may get locked out of my desktop session and this

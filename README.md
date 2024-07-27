@@ -12,9 +12,9 @@
 <div align="center">
   <br/>
   <a href="#preface">Preface</a><br/>
-  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="#credits--special-thanks-to">Credits</a><br/>
-  <a href="docs/installing.md">Installation</a> | <a href="#cool-resources">Helpful Resources</a><br/>
-  <a href="#license">License</a>
+  <a href="#high-level-overview">Overview</a> | <a href="#host-specifications">Hosts</a> | <a href="docs/installing.md">Installation</a> <br/>
+  <a href="#credits--special-thanks-to">Credits</a> | <a href="#license">License</a> <br/>
+  <a href="#cool-resources">Helpful Resources</a>
   <br/>
 </div>
 
@@ -426,7 +426,7 @@ Projects I have made to use in this repository, or otherwise cool software that
 are used in this repository that I have contributed to, or would like to
 endorse.
 
-- [nyxpkgs](https://github.com/notashelf/nyxpkgs) - my personal package
+- [nyxexprs](https://github.com/notashelf/nyxexprs) - my personal package
   collection
 - [nvf](https://github.com/notashelf/nvf) - highly modular Neovim configuration
   framework for Nix/NixOS

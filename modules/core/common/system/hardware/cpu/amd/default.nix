@@ -45,8 +45,9 @@ in {
         kernelParams = ["amd_pstate=passive"];
       })
 
-      # for older kernels
-      # see <https://github.com/NixOS/nixos-hardware/blob/c256df331235ce369fdd49c00989fdaa95942934/common/cpu/amd/pstate.nix>
+      # For older kernels.
+      # See:
+      #  <https://github.com/NixOS/nixos-hardware/blob/c256df331235ce369fdd49c00989fdaa95942934/common/cpu/amd/pstate.nix>
       (mkIf (pstate.enable && (versionAtLeast kver "6.3")) {
         kernelParams = ["amd_pstate=active"];
       })

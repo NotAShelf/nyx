@@ -62,7 +62,7 @@ new every day :)
      pros and cons of the system. An immutable, declarative, "infrastructure as
      code" system may sound cool but it could also be truly redundant if you are
      not planning to make use of its blessings. What good are atomic rollbacks
-     for if you get everything from flatpak repositoris?
+     for if you get everything from Flatpak repositories?
 
 2. **Use the minimal installer**. Calamares in nixpkgs contains nasty hacks and
    limitations that can severely cripple your installation, or create obscure
@@ -115,14 +115,18 @@ new every day :)
 
    - If reading Nix code and derivations still sound difficult, consider that
      Nix _might not_ be for you. There is lots of reading and so little
-     hand-holding involved - you will need to adapt. <h6>also see #1</h6>
+     hand-holding involved - you will need to adapt.
 
 5. **Use the module system**. I really cannot emphasize this enough: you should
    master the module system. It is your greatest ally while setting up NixOS.
 
    - First learn to _read_ the module system, then learn to _write_ for it.
      Every option you see in NixOS configurations are provided by the module
-     system. For example `programs.firefox.enable` or ``
+     system. For example, `programs.firefox.enable` or
+     `services.miniflux.enable` are program and service setups provided by
+     Nixpkgs' module system. Generally both of those options handle adding the
+     package for the program in question to your package list _in addition_ to
+     providing an interface for configuring the program.
 
    - Sometimes programs will require additional setup, setup that you would not
      get automatically by simply adding the package to

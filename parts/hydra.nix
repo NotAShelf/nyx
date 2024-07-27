@@ -23,6 +23,7 @@ in {
     packages = toHydraJob self.packages;
     checks = toHydraJob self.checks;
 
-    inherit configJobs;
+    # FIXME: opensnitch uses an IFD, which is disallowed in hydraJobs.
+    # inherit configJobs;
   };
 }

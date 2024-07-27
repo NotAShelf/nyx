@@ -55,8 +55,8 @@ in {
           quality-menu # ytdl-format quality menu
           seekTo # seek to specific pos.
 
-          # from nyxpkgs
-          # inputs'.nyxpkgs.packages.mpv-history # save a history of played files with timestamps
+          # from nyxexprs
+          # inputs'.nyxexprs.packages.mpv-history # save a history of played files with timestamps
         ];
       };
     };

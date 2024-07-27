@@ -32,7 +32,7 @@
 
           alejandra = mkHook "Alejandra" {
             enable = true;
-            package = inputs'.nyxpkgs.packages.alejandra-no-ads;
+            package = inputs'.nyxexprs.packages.alejandra-custom;
           };
 
           actionlint = mkHook "actionlint" {
