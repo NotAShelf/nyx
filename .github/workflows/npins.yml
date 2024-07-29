@@ -17,7 +17,7 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: "Install Lix"
-        uses: DeterminateSystems/nix-installer-action@v12
+        uses: DeterminateSystems/nix-installer-action@v13
         with:
           source-url: "https://install.lix.systems/lix/lix-installer-x86_64-linux"
           diagnostic-endpoint: "" # so eelco can have more personalized self-merges? no thank you
