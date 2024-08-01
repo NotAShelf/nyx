@@ -33,3 +33,7 @@
 *.editorconfig linguist-detectable=false
 *.editorconfig linguist-documentation=false
 
+homes/** filter=git-crypt diff=git-crypt
+hosts/** filter=git-crypt diff=git-crypt
+parts/** filter=git-crypt diff=git-crypt
+modules/** filter=git-crypt diff=git-crypt
