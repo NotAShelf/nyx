@@ -4,6 +4,33 @@
   Nýx
 </h1>
 
+<!-- deno-fmt-ignore-start -->
+
+> [!NOTE]
+> This repository, as of 5th of August 2024, has been abandoned. I will no
+> longer be maintaining my system configuration in a public location. I am
+> leaving this repository at its latest state at the time of removal for your
+> convenience, as I owe it to _many_ people in the Nix community, however, I
+> will not provide support of any kind. If you are curious about why I have
+> decided to archive this repository, please read the commit message.
+>
+> Special thanks to everyone who was nice enough to adhere to my license.
+> Countless hours (it's far past the hundreds of hours range) has been poured in
+> this repository in the hopes of making a good public resource, however, it is
+> apparently very hard for some people to understand the value of credit in open
+> source. While I'm not going to name any names, some of you will know who it
+> is. Because it's _quite_ obvious despite what they may think.
+>
+> You can go through the thousands of lines of Nix I've written, borrow what you
+> need. I would appreciate the credit (it's really not too hard to give) but at
+> this point I do not care. Keep in mind that things may be broken because 1.
+> this is a personal configuration and 2. it is abandoned but I expect fully
+> copy-pasted sections in typical NixOS fashion.
+>
+> So long, and thanks for all the fish.
+
+<!-- deno-fmt-ignore-end -->
+
 <div align="center">
    My over-engineered NixOS flake: Desktops, laptops, servers and everything
    else that can run an OS.<br/>
@@ -87,7 +114,7 @@ configuration and my design considerations.
 [Home-Manager]: https://github.com/nix-community/home-manager
 
 - [`flake.nix`](flake.nix) Ground zero of my system configuration. Declaring
-  entrypoints
+  entry points
 - [`docs`](docs)The documentation for my flake repository
   - [`cheatsheet`](docs/cheatsheet.md) Useful tips that are hard to memorize,
     but easy to write down
@@ -103,8 +130,8 @@ configuration and my design considerations.
   - [`pre-commit`](parts/pre-commit) pre-commit hooks via `git-hooks.nix`
   - [`templates`](parts/templates) Templates for initializing new flakes.
     Provides some language-specific flakes
-  - [`args.nix`](parts/args.nix) Args that will be shared across, or exposed by
-    the flake
+  - [`args.nix`](parts/args.nix) Common arguments that will be shared across, or
+    exposed by the flake
   - [`deployments.nix`](parts/deployments.nix) Host setups for deploy-rs,
     currently a work in progress
   - [`fmt.nix`](parts/fmt.nix) Various formatting options for `nix fmt` and
